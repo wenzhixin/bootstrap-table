@@ -170,7 +170,7 @@ export function setCaretPosition (elem, caretPos) {
 
         range.move('character', caretPos)
         range.select()
-      } else {
+      } else if (elem.setSelectionRange) {
         elem.setSelectionRange(caretPos, caretPos)
       }
     }
@@ -641,7 +641,7 @@ const filterDataMethods = {
 
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
-      addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+      addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected)
     }
 
     if (that.options.sortSelectOptions) {
