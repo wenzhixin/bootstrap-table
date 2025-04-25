@@ -121,6 +121,9 @@ BootstrapTable.prototype.initSort = function (...args) {
 
 BootstrapTable.prototype.initBody = function (...args) {
   initBodyCaller = true
+
+  this.initSort();
+  
   _initBody.apply(this, Array.prototype.slice.apply(args))
 
   if (this.options.groupBy && this.options.groupByField !== '') {
