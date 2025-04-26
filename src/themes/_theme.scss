@@ -1,7 +1,29 @@
 @use "variables";
 
+/**
+ * Same as Bootstrap 5's "Large" breakpoint.
+ * @todo Refactor if other frameworks have different breakpoints
+ * @todo Is it safe to use bootstrap 5 equivalents?
+ */
+@media(min-width: "992px") {
+  .fixed-table-toolbar {
+    align-items: flex-end;
+  }
+  .bs-bars {
+    margin-right: auto;
+  }
+}
+
+@media(max-width: "991px") {
+  .fixed-table-toolbar {
+    flex-direction: column;
+  }
+}
+
 .bootstrap-table {
   .fixed-table-toolbar {
+    display: flex;
+
     &::after {
       content: "";
       display: block;
