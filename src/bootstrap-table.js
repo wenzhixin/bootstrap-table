@@ -621,7 +621,7 @@ class BootstrapTable {
     this.$toolbar.html('')
 
     if (typeof opts.toolbar === 'string' || typeof opts.toolbar === 'object') {
-      $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, opts.toolbarAlign))
+      $('<div class="bs-bars"></div>')
         .appendTo(this.$toolbar)
         .append($(opts.toolbar))
     }
