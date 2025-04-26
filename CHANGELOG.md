@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### Next
+
+#### Breaking changes in 1.25.x
+
+- Remove `toolbarAlign` in favour of flexbox. To migrate, simply add CSS. IE if you previously specified left; the same effect is possible via `.bs-bars { margin-right: auto }`
+
 ### 1.24.1
 
 #### Core
