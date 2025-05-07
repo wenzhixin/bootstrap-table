@@ -34,7 +34,7 @@
     "glob": "^11.0.0",
     "globals": "^16.0.0",
     "headr": "^0.0.4",
-    "npm-run-all2": "^7.0.2",
+    "npm-run-all2": "^8.0.1",
     "rimraf": "^6.0.1",
     "rollup": "^4.29.1",
     "rollup-plugin-copy": "^3.5.0",
