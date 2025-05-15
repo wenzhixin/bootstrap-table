@@ -513,7 +513,7 @@ class BootstrapTable {
           }
           groupedData[groupKey].push(item)
         })
-        const sortedGroups = Object.keys(groupedData).map(groupKey => {
+        const sortedGroups = Object.keys(groupedData).sort().map(groupKey => {
           const group = groupedData[groupKey]
 
           Utils.sort(name, order, index, group, this.header, this.options)
