@@ -502,7 +502,7 @@ class BootstrapTable {
           this.options.sortOrder,
           this.data
         ])
-      } else if (this.options.groupBy === true && this.options.groupByField !== '') {
+      } else if (this.options.groupBy && this.options.groupByField !== '') {
         const groupedData = {}
 
         this.data.forEach(item => {
