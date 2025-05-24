@@ -198,7 +198,7 @@ class BootstrapTable {
           title: $th.html(),
           class: $th.attr('class'),
           titleTooltip: $th.attr('title'),
-          scope: $th.attr('scope'),
+          scope: $th.attr('scope') ? $th.attr('scope') : undefined,
           rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
           colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined
         }, $th.data()))
