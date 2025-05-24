@@ -198,6 +198,7 @@ class BootstrapTable {
           title: $th.html(),
           class: $th.attr('class'),
           titleTooltip: $th.attr('title'),
+          scope: $th.attr('scope'),
           rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
           colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined
         }, $th.data()))
@@ -371,6 +372,7 @@ class BootstrapTable {
           Utils.sprintf(' rowspan="%s"', column.rowspan),
           Utils.sprintf(' colspan="%s"', column.colspan),
           Utils.sprintf(' data-field="%s"', column.field),
+          Utils.sprintf(' scope="%s"', column.scope),
           // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
           j === 0 && i > 0 ? ' data-not-first-th' : '',
           data_.length > 0 ? data_.join(' ') : '',
