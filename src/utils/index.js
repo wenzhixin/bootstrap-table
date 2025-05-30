@@ -515,9 +515,10 @@ export default {
   },
 
   sort (name, order, index, data, header, options) {
+    const sortName = header.sortNames[index];
     data.sort((a, b) => {
-      if (header.sortNames[index]) {
-        name = header.sortNames[index]
+      if (sortName) {
+        name = sortName;
       }
 
       let aa = this.getItemField(a, name, options.escape)
