@@ -2902,9 +2902,9 @@ csstype@^3.1.3:
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
 cypress@^14.4.0:
-  version "14.4.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-14.4.0.tgz#db7d108400c9481a161f047f1cc34b43b05c48f3"
-  integrity sha512-/I59Fqxo7fqdiDi3IM2QKA65gZ7+PVejXg404/I8ZSq+NOnrmw+2pnMUJzpoNyg7KABcEBmgpkfAqhV98p7wJA==
+  version "14.5.1"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-14.5.1.tgz#0af3f2ce7beb82f8d88a8a3cb7d8e40326114ce2"
+  integrity sha512-vYBeZKW3UAtxwv5mFuSlOBCYhyO0H86TeDKRJ7TgARyHiREIaiDjeHtqjzrXRFrdz9KnNavqlm+z+hklC7v8XQ==
   dependencies:
     "@cypress/request" "^3.0.8"
     "@cypress/xvfb" "^1.2.4"
@@ -2932,6 +2932,7 @@ cypress@^14.4.0:
     figures "^3.2.0"
     fs-extra "^9.1.0"
     getos "^3.2.1"
+    hasha "5.2.2"
     is-installed-globally "~0.4.0"
     lazy-ass "^1.6.0"
     listr2 "^3.8.3"
@@ -3990,6 +3991,14 @@ has-tostringtag@^1.0.0, has-tostringtag@^1.0.2:
   integrity sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==
   dependencies:
     has-symbols "^1.0.3"
+
+hasha@5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/hasha/-/hasha-5.2.2.tgz#a48477989b3b327aea3c04f53096d816d97522a1"
+  integrity sha512-Hrp5vIK/xr5SkeN2onO32H0MgNZ0f17HRNH39WfL0SYUNOTZ5Lz1TJ8Pajo/87dYGEFlLMm7mIc/k/s6Bvz9HQ==
+  dependencies:
+    is-stream "^2.0.0"
+    type-fest "^0.8.0"
 
 hasown@^2.0.0, hasown@^2.0.1, hasown@^2.0.2:
   version "2.0.2"
@@ -5965,6 +5974,11 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha1-0mCiSwGYQ24TP6JqUkptZfo7Ljc=
+
+type-fest@^0.8.0:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
+  integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
 typed-array-buffer@^1.0.3:
   version "1.0.3"
