@@ -4,18 +4,146 @@
  */
 
 $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Закрыть'
+  },
+
+  formatAdvancedSearch () {
+    return 'Расширенный поиск'
+  },
+
+  formatAllRows () {
+    return 'Все'
+  },
+
+  formatAutoRefresh () {
+    return 'Автоматическое обновление'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Очистить фильтры'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Колонки'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Выбрать все'
+  },
+
   formatCopyRows () {
     return 'Скопировать строки'
   },
-  formatPrint () {
-    return 'Печать'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Загружено ${totalRows} строк`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Экспортировать данные'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Скрыть/Показать панель инструментов'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Скрыть панель инструментов'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Показать панель инструментов'
+  },
+
+  formatFullscreen () {
+    return 'Полноэкранный режим'
+  },
+
+  formatJumpTo () {
+    return 'Стр.'
+  },
+
   formatLoadingMessage () {
     return 'Пожалуйста, подождите, идёт загрузка'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Ничего не найдено'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Скрыть/Показать постраничную навигацию'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Показать постраничную навигацию'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Скрыть постраничную навигацию'
+  },
+
+  formatPrint () {
+    return 'Печать'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} записей на страницу`
   },
+
+  formatRefresh () {
+    return 'Обновить'
+  },
+
+  formatSRPaginationNextText () {
+    return 'следующая страница'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `перейти к странице ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'предыдущая страница'
+  },
+
+  formatSearch () {
+    return 'Поиск'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (отфильтровано, всего на сервере ${totalNotFiltered} записей)`
@@ -23,80 +151,40 @@ $.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
 
     return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'предыдущая страница'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `перейти к странице ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'следующая страница'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Загружено ${totalRows} строк`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Очистить фильтры'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Поиск'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Ничего не найдено'
-  },
-  formatPaginationSwitch () {
-    return 'Скрыть/Показать постраничную навигацию'
-  },
-  formatPaginationSwitchDown () {
-    return 'Показать постраничную навигацию'
-  },
-  formatPaginationSwitchUp () {
-    return 'Скрыть постраничную навигацию'
-  },
-  formatRefresh () {
-    return 'Обновить'
-  },
-  formatToggleOn () {
-    return 'Показать записи в виде карточек'
-  },
+
   formatToggleOff () {
     return 'Табличный режим просмотра'
   },
-  formatColumns () {
-    return 'Колонки'
-  },
-  formatColumnsToggleAll () {
-    return 'Выбрать все'
-  },
-  formatFullscreen () {
-    return 'Полноэкранный режим'
-  },
-  formatAllRows () {
-    return 'Все'
-  },
-  formatAutoRefresh () {
-    return 'Автоматическое обновление'
-  },
-  formatExport () {
-    return 'Экспортировать данные'
-  },
-  formatJumpTo () {
-    return 'Стр.'
-  },
-  formatAdvancedSearch () {
-    return 'Расширенный поиск'
-  },
-  formatAdvancedCloseButton () {
-    return 'Закрыть'
-  },
-  formatFilterControlSwitch () {
-    return 'Скрыть/Показать панель инструментов'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Скрыть панель инструментов'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Показать панель инструментов'
+
+  formatToggleOn () {
+    return 'Показать записи в виде карточек'
   }
 }
 

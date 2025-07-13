@@ -4,18 +4,146 @@
  */
 
 $.fn.bootstrapTable.locales['sk-SK'] = $.fn.bootstrapTable.locales['sk'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Zatvoriť'
+  },
+
+  formatAdvancedSearch () {
+    return 'Pokročilé vyhľadávanie'
+  },
+
+  formatAllRows () {
+    return 'Všetky'
+  },
+
+  formatAutoRefresh () {
+    return 'Automatické obnovenie'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Odstráň filtre'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Stĺpce'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Prepnúť všetky'
+  },
+
   formatCopyRows () {
     return 'Skopírovať riadky'
   },
-  formatPrint () {
-    return 'Vytlačiť'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Zobrazuje sa ${totalRows} riadkov`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Exportuj dáta'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Zobraziť/Skryť tlačidlá'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Skryť tlačidlá'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Zobraziť tlačidlá'
+  },
+
+  formatFullscreen () {
+    return 'Celá obrazovka'
+  },
+
+  formatJumpTo () {
+    return 'Ísť'
+  },
+
   formatLoadingMessage () {
     return 'Prosím čakajte'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Nenájdená žiadna vyhovujúca položka'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Skry/Zobraz stránkovanie'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Zobraziť stránkovanie'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Skryť stránkovanie'
+  },
+
+  formatPrint () {
+    return 'Vytlačiť'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} záznamov na stranu`
   },
+
+  formatRefresh () {
+    return 'Obnoviť'
+  },
+
+  formatSRPaginationNextText () {
+    return 'Nasledujúca strana'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `na stranu ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'Predchádzajúca strana'
+  },
+
+  formatSearch () {
+    return 'Vyhľadávanie'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Zobrazená ${pageFrom}. - ${pageTo}. položka z celkových ${totalRows} (filtered from ${totalNotFiltered} total rows)`
@@ -23,80 +151,40 @@ $.fn.bootstrapTable.locales['sk-SK'] = $.fn.bootstrapTable.locales['sk'] = {
 
     return `Zobrazená ${pageFrom}. - ${pageTo}. položka z celkových ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'Predchádzajúca strana'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `na stranu ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'Nasledujúca strana'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Zobrazuje sa ${totalRows} riadkov`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Odstráň filtre'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'Vyhľadávanie'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'Nenájdená žiadna vyhovujúca položka'
-  },
-  formatPaginationSwitch () {
-    return 'Skry/Zobraz stránkovanie'
-  },
-  formatPaginationSwitchDown () {
-    return 'Zobraziť stránkovanie'
-  },
-  formatPaginationSwitchUp () {
-    return 'Skryť stránkovanie'
-  },
-  formatRefresh () {
-    return 'Obnoviť'
-  },
-  formatToggleOn () {
-    return 'Zobraziť kartové zobrazenie'
-  },
+
   formatToggleOff () {
     return 'skryť kartové zobrazenie'
   },
-  formatColumns () {
-    return 'Stĺpce'
-  },
-  formatColumnsToggleAll () {
-    return 'Prepnúť všetky'
-  },
-  formatFullscreen () {
-    return 'Celá obrazovka'
-  },
-  formatAllRows () {
-    return 'Všetky'
-  },
-  formatAutoRefresh () {
-    return 'Automatické obnovenie'
-  },
-  formatExport () {
-    return 'Exportuj dáta'
-  },
-  formatJumpTo () {
-    return 'Ísť'
-  },
-  formatAdvancedSearch () {
-    return 'Pokročilé vyhľadávanie'
-  },
-  formatAdvancedCloseButton () {
-    return 'Zatvoriť'
-  },
-  formatFilterControlSwitch () {
-    return 'Zobraziť/Skryť tlačidlá'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Skryť tlačidlá'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Zobraziť tlačidlá'
+
+  formatToggleOn () {
+    return 'Zobraziť kartové zobrazenie'
   }
 }
 
