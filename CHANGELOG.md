@@ -1,6 +1,18 @@
 ChangeLog
 ---------
 
+### Next
+
+#### Breaking changes in 1.25.x
+
+- Remove `toolbarAlign` in favour of flexbox. To migrate, simply override CSS. IE if you previously specified right alignment, using Bootstrap:
+```
+@media(min-width: "992px") {
+  .bs-bars {
+    margin-right: none; /** Instead of margin-right: auto */
+  }
+}
+```
 ### 1.24.1
 
 #### Core

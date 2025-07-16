@@ -291,7 +291,6 @@ const DEFAULTS = {
   strictSearch: false,
   theadClasses: '',
   toolbar: undefined,
-  toolbarAlign: 'left',
   totalField: 'total',
   totalNotFiltered: 0,
   totalNotFilteredField: 'totalNotFiltered',

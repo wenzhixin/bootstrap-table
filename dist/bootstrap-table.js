@@ -8558,7 +8558,7 @@
         }
         this.$toolbar.html('');
         if (typeof opts.toolbar === 'string' || _typeof(opts.toolbar) === 'object') {
-          $(Utils.sprintf('<div class="bs-bars %s-%s"></div>', this.constants.classes.pull, opts.toolbarAlign)).appendTo(this.$toolbar).append($(opts.toolbar));
+          $('<div class="bs-bars"></div>').appendTo(this.$toolbar).append($(opts.toolbar));
         }
 
         // showColumns, showToggle, showRefresh

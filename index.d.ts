@@ -213,7 +213,6 @@ export interface BootstrapTableOptions {
   searchOnEnterKey?: boolean;
   searchText?: string;
   responseHandler?: (res: any) => any;
-  toolbarAlign?: string;
   paginationParts?: string[];
   cardView?: boolean;
   showSearchButton?: boolean;

@@ -1825,20 +1825,6 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Example:** [Custom Toolbar](https://examples.bootstrap-table.com/#options/custom-toolbar.html)
 
-## toolbarAlign
-
-- **Attribute:** `data-toolbar-align`
-
-- **Type:** `String`
-
-- **Detail:**
-
-  Indicate how to align the custom toolbar. `'left'`, `'right'` can be used.
-
-- **Default:** `'left'`
-
-- **Example:** [Toolbar Align](https://examples.bootstrap-table.com/#options/toolbar-align.html)
-
 ## totalField
 
 - **Attribute:** `data-total-field`
