@@ -1,15 +1,30 @@
 ChangeLog
 ---------
 
+### 1.24.2
+
+#### Core
+
+- **Update:** Added `scope` attribute support for table headers.
+- **Update:** Fixed bug where `updateCellByUniqueId` throws an error during search.
+- **Update:** Fixed "&" not escaped correctly in `unescapeHTML`.
+- **Update:** Updated `locales` and `check-locale` tool.
+
+#### Extensions
+
+- **Update(export):** Fixed bug where data was removed when `exportDataType` was set to `selected`.
+- **Update(filter-control):** Fixed bug where filters all data out when table cells contain HTML.
+- **Update(reorder-columns):** Fixed the catch error when the table calls `dragtable.destroy`.
+
 ### 1.24.1
 
 #### Core
 
-- **New:** Add `lt-LT` locale.
+- **New:** Added `lt-LT` locale.
 - **Update:** Fixed `filterBy` not working bug after using `filterAlgorithm` option.
 - **Update:** Fixed cookie extension throws js error bug.
 - **Update:** Fixed icons prefix bugs in extensions.
-- **Update:** Fix bug where totalRows is not integer in formatter.
+- **Update:** Fixed bug where totalRows is not integer in formatter.
 - **Update:** Fixed bug of table is not destroyed after vue component is unmounted.
 - **Update:** Fixed high severity vulnerability issue using `npm-run-all2` instead.
 
