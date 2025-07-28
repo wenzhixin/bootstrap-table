@@ -8,6 +8,8 @@ group :development, :test do
   gem 'wdm', '~> 0.1.1', :install_if => Gem.win_platform?
   gem "webrick"
   gem "kramdown-parser-gfm"
+  gem 'base64'
+  gem "bigdecimal"
 end
 
 group :jekyll_plugins do
