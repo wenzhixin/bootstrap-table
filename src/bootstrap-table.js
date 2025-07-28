@@ -485,7 +485,7 @@ class BootstrapTable {
   }
 
   initSort () {
-    let name = this.options.sortName
+    const name = this.options.sortName
     const order = this.options.sortOrder === 'desc' ? -1 : 1
     const index = this.header.fields.indexOf(this.options.sortName)
     let timeoutId = 0
@@ -498,31 +498,33 @@ class BootstrapTable {
           }
         })
       }
-
       if (this.options.customSort) {
         Utils.calculateObjectValue(this.options, this.options.customSort, [
           this.options.sortName,
           this.options.sortOrder,
           this.data
         ])
-      } else {
-        this.data.sort((a, b) => {
-          if (this.header.sortNames[index]) {
-            name = this.header.sortNames[index]
-          }
-          const aa = Utils.getItemField(a, name, this.options.escape)
-          const bb = Utils.getItemField(b, name, this.options.escape)
-          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
+      } else if (this.options.groupBy && this.options.groupByField !== '') {
+        const groupedData = {}
 
-          if (value !== undefined) {
-            if (this.options.sortStable && value === 0) {
-              return order * (a._position - b._position)
-            }
-            return order * value
-          }
+        this.data.forEach(item => {
+          const groupKey = Utils.getItemField(item, this.options.groupByField, this.options.escape)
 
-          return Utils.sort(aa, bb, order, this.options, a._position, b._position)
+          if (!groupedData[groupKey]) {
+            groupedData[groupKey] = []
+          }
+          groupedData[groupKey].push(item)
         })
+        const sortedGroups = Object.keys(groupedData).sort().map(groupKey => {
+          const group = groupedData[groupKey]
+
+          Utils.sort(name, order, index, group, this.header, this.options)
+          return group
+        })
+
+        this.data = [].concat(...sortedGroups)
+      } else {
+        Utils.sort(name, order, index, this.data, this.header, this.options)
       }
 
       if (this.options.sortClass !== undefined) {
