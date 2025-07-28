@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1939,72 +1941,14 @@
 	 */
 
 	$.fn.bootstrapTable.locales['es-ES'] = $.fn.bootstrapTable.locales['es'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copiar filas';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Agregar nivel';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Imprimir';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Cerrar';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Cargando, por favor espere';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " resultados por p\xE1gina");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    var plural = totalRows > 1 ? 's' : '';
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Mostrando desde ".concat(pageFrom, " hasta ").concat(pageTo, " - En total ").concat(totalRows, " resultado").concat(plural, " (filtrado de un total de ").concat(totalNotFiltered, " fila").concat(plural, ")");
-	    }
-	    return "Mostrando desde ".concat(pageFrom, " hasta ").concat(pageTo, " - En total ").concat(totalRows, " resultado").concat(plural);
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'página anterior';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "a la p\xE1gina ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'siguiente página';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Mostrando ".concat(totalRows, " fila").concat(totalRows > 1 ? 's' : '');
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Limpiar búsqueda';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Buscar';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'No se encontraron resultados coincidentes';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Ocultar/Mostrar paginación';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Mostrar paginación';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Ocultar paginación';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Recargar';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Mostrar vista de carta';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Ocultar vista de carta';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Columnas';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Cambiar todo';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Pantalla completa';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Búsqueda avanzada';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Todos';
@@ -2012,17 +1956,38 @@
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Auto Recargar';
 	  },
+	  formatCancel: function formatCancel() {
+	    return 'Cancelar';
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Limpiar búsqueda';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Columna';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Columnas';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Cambiar todo';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copiar filas';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Eliminar nivel';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Mostrando ".concat(totalRows, " fila").concat(totalRows > 1 ? 's' : '');
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Por favor, elimine o modifique las columnas duplicadas';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return '¡Se encontraron entradas duplicadas!';
+	  },
 	  formatExport: function formatExport() {
 	    return 'Exportar los datos';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'IR';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Búsqueda avanzada';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Cerrar';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
 	    return 'Ocultar/Exibir controles';
@@ -2033,29 +1998,60 @@
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
 	    return 'Mostrar controles';
 	  },
-	  formatAddLevel: function formatAddLevel() {
-	    return 'Agregar nivel';
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Pantalla completa';
 	  },
-	  formatCancel: function formatCancel() {
-	    return 'Cancelar';
+	  formatJumpTo: function formatJumpTo() {
+	    return 'IR';
 	  },
-	  formatColumn: function formatColumn() {
-	    return 'Columna';
-	  },
-	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Eliminar nivel';
-	  },
-	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return '¡Se encontraron entradas duplicadas!';
-	  },
-	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Por favor, elimine o modifique las columnas duplicadas';
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Cargando, por favor espere';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
 	    return 'Ordenación múltiple';
 	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'No se encontraron resultados coincidentes';
+	  },
 	  formatOrder: function formatOrder() {
 	    return 'Orden';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Ocultar/Mostrar paginación';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Mostrar paginación';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Ocultar paginación';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Imprimir';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " resultados por p\xE1gina");
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Recargar';
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'siguiente página';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "a la p\xE1gina ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'página anterior';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Buscar';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    var plural = totalRows > 1 ? 's' : '';
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Mostrando desde ".concat(pageFrom, " hasta ").concat(pageTo, " - En total ").concat(totalRows, " resultado").concat(plural, " (filtrado de un total de ").concat(totalNotFiltered, " fila").concat(plural, ")");
+	    }
+	    return "Mostrando desde ".concat(pageFrom, " hasta ").concat(pageTo, " - En total ").concat(totalRows, " resultado").concat(plural);
 	  },
 	  formatSort: function formatSort() {
 	    return 'Ordenar';
@@ -2063,14 +2059,26 @@
 	  formatSortBy: function formatSortBy() {
 	    return 'Ordenar por';
 	  },
-	  formatThenBy: function formatThenBy() {
-	    return 'a continuación';
-	  },
 	  formatSortOrders: function formatSortOrders() {
 	    return {
 	      asc: 'Ascendente',
 	      desc: 'Descendente'
 	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'a continuación';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Ocultar vista de carta';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Mostrar vista de carta';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-ES']);

@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,44 +1940,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['sl-SI'] = $.fn.bootstrapTable.locales['sl'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Kopiraj vrstice';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Natisni';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Zapri';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Prosim počakajte...';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Napredno iskanje';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " vrstic na stran");
+	  formatAllRows: function formatAllRows() {
+	    return 'Vse';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Prikaz ".concat(pageFrom, " do ").concat(pageTo, " od ").concat(totalRows, " vrstic (filtrirano od skupno ").concat(totalNotFiltered, " vrstic)");
-	    }
-	    return "Prikaz ".concat(pageFrom, " do ").concat(pageTo, " od ").concat(totalRows, " vrstic");
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Samodejna osvežitev';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'prejšnja stran';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "na stran ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'na slednja stran';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Prikaz ".concat(totalRows, " vrstic");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Počisti';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'Iskanje';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Stolpci';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Preklopi vse';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Kopiraj vrstice';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Prikaz ".concat(totalRows, " vrstic");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Izvoz podatkov';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Skrij/Pokaži kontrole';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Skrij kontrole';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Pokaži kontrole';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Celozaslonski prikaz';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Prosim počakajte...';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'Ni najdenih rezultatov';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'Skrij/Pokaži oštevilčevanje strani';
@@ -1986,50 +2024,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'Skrij oštevilčevanje strani';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'Natisni';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " vrstic na stran");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Osveži';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Prikaži kartični pogled';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'na slednja stran';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "na stran ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'prejšnja stran';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Iskanje';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Prikaz ".concat(pageFrom, " do ").concat(pageTo, " od ").concat(totalRows, " vrstic (filtrirano od skupno ").concat(totalNotFiltered, " vrstic)");
+	    }
+	    return "Prikaz ".concat(pageFrom, " do ").concat(pageTo, " od ").concat(totalRows, " vrstic");
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Skrij kartični pogled';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'Stolpci';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Preklopi vse';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Celozaslonski prikaz';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Vse';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Samodejna osvežitev';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Izvoz podatkov';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Napredno iskanje';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Zapri';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Skrij/Pokaži kontrole';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Skrij kontrole';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Pokaži kontrole';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Prikaži kartični pogled';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sl-SI']);

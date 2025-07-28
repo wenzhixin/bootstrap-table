@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,44 +1940,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['lt-LT'] = $.fn.bootstrapTable.locales['lt'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Kopijuoti eilutes';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Spausdinti';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Uždaryti';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Įkeliama, palaukite';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Išplėstinė paieška';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " eilu\u010Di\u0173 puslapyje");
+	  formatAllRows: function formatAllRows() {
+	    return 'Viskas';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Rodomos eilut\u0117s nuo ".concat(pageFrom, " iki ").concat(pageTo, " i\u0161 ").concat(totalRows, " eilu\u010Di\u0173 (atrinktos i\u0161 vis\u0173 ").concat(totalNotFiltered, " eilu\u010Di\u0173)");
-	    }
-	    return "Rodomos eilut\u0117s nuo ".concat(pageFrom, " iki ").concat(pageTo, " i\u0161 ").concat(totalRows, " eilu\u010Di\u0173");
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Automatinis atnaujinimas';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'ankstesnis puslapis';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "\u012F puslap\u012F ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'sekantis puslapis';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Rodomos ".concat(totalRows, " eilut\u0117s (-\u010Di\u0173)");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Išvalyti paiešką';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'Ieškoti';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Stulpeliai';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Perjungti viską';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Kopijuoti eilutes';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Rodomos ".concat(totalRows, " eilut\u0117s (-\u010Di\u0173)");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Eksportuoti duomenis';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Slėpti/rodyti valdiklius';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Slėpti valdiklius';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Rodyti valdiklius';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Visame ekrane';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Eiti';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Įkeliama, palaukite';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'Atitinkančių įrašų nerasta';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'Slėpti/rodyti puslapių rūšiavimą';
@@ -1986,50 +2024,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'Slėpti puslapių rūšiavimą';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'Spausdinti';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " eilu\u010Di\u0173 puslapyje");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Atnaujinti';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Rodyti kortelių rodinį';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'sekantis puslapis';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "\u012F puslap\u012F ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'ankstesnis puslapis';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Ieškoti';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Rodomos eilut\u0117s nuo ".concat(pageFrom, " iki ").concat(pageTo, " i\u0161 ").concat(totalRows, " eilu\u010Di\u0173 (atrinktos i\u0161 vis\u0173 ").concat(totalNotFiltered, " eilu\u010Di\u0173)");
+	    }
+	    return "Rodomos eilut\u0117s nuo ".concat(pageFrom, " iki ").concat(pageTo, " i\u0161 ").concat(totalRows, " eilu\u010Di\u0173");
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Slėpti kortelių rodinį';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'Stulpeliai';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Perjungti viską';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Visame ekrane';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Viskas';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Automatinis atnaujinimas';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Eksportuoti duomenis';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Eiti';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Išplėstinė paieška';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Uždaryti';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Slėpti/rodyti valdiklius';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Slėpti valdiklius';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Rodyti valdiklius';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Rodyti kortelių rodinį';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['lt-LT']);

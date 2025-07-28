@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,44 +1940,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['ka-GE'] = $.fn.bootstrapTable.locales['ka'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Close';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'იტვირთება, გთხოვთ მოიცადოთ';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Advanced search';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10D7\u10D8\u10D7\u10DD \u10D2\u10D5\u10D4\u10E0\u10D3\u10D6\u10D4");
+	  formatAllRows: function formatAllRows() {
+	    return 'All';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "\u10DC\u10D0\u10E9\u10D5\u10D4\u10DC\u10D4\u10D1\u10D8\u10D0 ".concat(pageFrom, "-\u10D3\u10D0\u10DC ").concat(pageTo, "-\u10DB\u10D3\u10D4 \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10EF\u10D0\u10DB\u10E3\u10E0\u10D8 ").concat(totalRows, "-\u10D3\u10D0\u10DC (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "\u10DC\u10D0\u10E9\u10D5\u10D4\u10DC\u10D4\u10D1\u10D8\u10D0 ".concat(pageFrom, "-\u10D3\u10D0\u10DC ").concat(pageTo, "-\u10DB\u10D3\u10D4 \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10EF\u10D0\u10DB\u10E3\u10E0\u10D8 ").concat(totalRows, "-\u10D3\u10D0\u10DC");
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Auto Refresh';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Clear Search';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'ძებნა';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'სვეტები';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Toggle all';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Showing ".concat(totalRows, " rows");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Export data';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Hide/Show controls';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Hide controls';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Show controls';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Fullscreen';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GO';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'იტვირთება, გთხოვთ მოიცადოთ';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'მონაცემები არ არის';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'გვერდების გადამრთველის დამალვა/გამოჩენა';
@@ -1986,50 +2024,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'Hide pagination';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10D7\u10D8\u10D7\u10DD \u10D2\u10D5\u10D4\u10E0\u10D3\u10D6\u10D4");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'განახლება';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'next page';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "to page ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'previous page';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'ძებნა';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "\u10DC\u10D0\u10E9\u10D5\u10D4\u10DC\u10D4\u10D1\u10D8\u10D0 ".concat(pageFrom, "-\u10D3\u10D0\u10DC ").concat(pageTo, "-\u10DB\u10D3\u10D4 \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10EF\u10D0\u10DB\u10E3\u10E0\u10D8 ").concat(totalRows, "-\u10D3\u10D0\u10DC (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "\u10DC\u10D0\u10E9\u10D5\u10D4\u10DC\u10D4\u10D1\u10D8\u10D0 ".concat(pageFrom, "-\u10D3\u10D0\u10DC ").concat(pageTo, "-\u10DB\u10D3\u10D4 \u10E9\u10D0\u10DC\u10D0\u10EC\u10D4\u10E0\u10D8 \u10EF\u10D0\u10DB\u10E3\u10E0\u10D8 ").concat(totalRows, "-\u10D3\u10D0\u10DC");
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Hide card view';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'სვეტები';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'All';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Export data';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ka-GE']);

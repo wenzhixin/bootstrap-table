@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1939,72 +1941,14 @@
 	 */
 
 	$.fn.bootstrapTable.locales['pt-PT'] = $.fn.bootstrapTable.locales['pt'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copiar Linhas';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Adicionar nível';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Imprimir';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Fechar';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'A carregar, por favor aguarde';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " registos por p\xE1gina");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    var plural = totalRows > 1 ? 's' : '';
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "A mostrar ".concat(pageFrom, " at&eacute; ").concat(pageTo, " de ").concat(totalRows, " linha").concat(plural, " (filtrado de um total de ").concat(totalNotFiltered, " linha").concat(plural, ")");
-	    }
-	    return "A mostrar ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linha").concat(plural);
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'página anterior';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "ir para p\xE1gina ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'próxima página';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Mostrando ".concat(totalRows, " linha").concat(totalRows > 1 ? 's' : '');
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Limpar Pesquisa';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Pesquisa';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Nenhum registo encontrado';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Esconder/Mostrar paginação';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Mostrar página';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Esconder página';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Actualizar';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Mostrar vista em forma de cartão';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Esconder vista em forma de cartão';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Colunas';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Activar tudo';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Ecrã completo';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Pesquisa avançada';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Tudo';
@@ -2012,17 +1956,38 @@
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Actualização autmática';
 	  },
+	  formatCancel: function formatCancel() {
+	    return 'Cancelar';
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Limpar Pesquisa';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Coluna';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Colunas';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Activar tudo';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copiar Linhas';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Remover nível';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Mostrando ".concat(totalRows, " linha").concat(totalRows > 1 ? 's' : '');
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Por favor, remova ou altere as colunas duplicadas';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Foram encontradas entradas duplicadas!';
+	  },
 	  formatExport: function formatExport() {
 	    return 'Exportar dados';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Avançar';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Pesquisa avançada';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fechar';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
 	    return 'Ocultar/Exibir controles';
@@ -2033,29 +1998,60 @@
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
 	    return 'Exibir controlos';
 	  },
-	  formatAddLevel: function formatAddLevel() {
-	    return 'Adicionar nível';
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Ecrã completo';
 	  },
-	  formatCancel: function formatCancel() {
-	    return 'Cancelar';
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Avançar';
 	  },
-	  formatColumn: function formatColumn() {
-	    return 'Coluna';
-	  },
-	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Remover nível';
-	  },
-	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Foram encontradas entradas duplicadas!';
-	  },
-	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Por favor, remova ou altere as colunas duplicadas';
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'A carregar, por favor aguarde';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
 	    return 'Ordenação múltipla';
 	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Nenhum registo encontrado';
+	  },
 	  formatOrder: function formatOrder() {
 	    return 'Ordem';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Esconder/Mostrar paginação';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Mostrar página';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Esconder página';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Imprimir';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " registos por p\xE1gina");
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Actualizar';
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'próxima página';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "ir para p\xE1gina ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'página anterior';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Pesquisa';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    var plural = totalRows > 1 ? 's' : '';
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "A mostrar ".concat(pageFrom, " at&eacute; ").concat(pageTo, " de ").concat(totalRows, " linha").concat(plural, " (filtrado de um total de ").concat(totalNotFiltered, " linha").concat(plural, ")");
+	    }
+	    return "A mostrar ".concat(pageFrom, " at\xE9 ").concat(pageTo, " de ").concat(totalRows, " linha").concat(plural);
 	  },
 	  formatSort: function formatSort() {
 	    return 'Ordenar';
@@ -2063,14 +2059,26 @@
 	  formatSortBy: function formatSortBy() {
 	    return 'Ordenar por';
 	  },
-	  formatThenBy: function formatThenBy() {
-	    return 'em seguida';
-	  },
 	  formatSortOrders: function formatSortOrders() {
 	    return {
 	      asc: 'Ascendente',
 	      desc: 'Descendente'
 	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'em seguida';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Esconder vista em forma de cartão';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Mostrar vista em forma de cartão';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-PT']);

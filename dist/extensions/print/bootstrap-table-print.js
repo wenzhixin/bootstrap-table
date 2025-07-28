@@ -22,12 +22,12 @@
   function _defineProperties(e, r) {
     for (var t = 0; t < r.length; t++) {
       var o = r[t];
-      o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+      o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
     }
   }
   function _createClass(e, r, t) {
-    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
-      writable: !1
+    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+      writable: false
     }), e;
   }
   function _createForOfIteratorHelper(r, e) {
@@ -41,9 +41,9 @@
           s: F,
           n: function () {
             return n >= r.length ? {
-              done: !0
+              done: true
             } : {
-              done: !1,
+              done: false,
               value: r[n++]
             };
           },
@@ -56,8 +56,8 @@
       throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
     var o,
-      a = !0,
-      u = !1;
+      a = true,
+      u = false;
     return {
       s: function () {
         t = t.call(r);
@@ -67,7 +67,7 @@
         return a = r.done, r;
       },
       e: function (r) {
-        u = !0, o = r;
+        u = true, o = r;
       },
       f: function () {
         try {
@@ -97,11 +97,11 @@
     t.prototype = Object.create(e && e.prototype, {
       constructor: {
         value: t,
-        writable: !0,
-        configurable: !0
+        writable: true,
+        configurable: true
       }
     }), Object.defineProperty(t, "prototype", {
-      writable: !1
+      writable: false
     }), e && _setPrototypeOf(t, e);
   }
   function _isNativeReflectConstruct() {
@@ -242,7 +242,7 @@
   	var NATIVE_BIND = requireFunctionBindNative();
 
   	var call = Function.prototype.call;
-
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	functionCall = NATIVE_BIND ? call.bind(call) : function () {
   	  return call.apply(call, arguments);
   	};
@@ -299,6 +299,7 @@
 
   	var FunctionPrototype = Function.prototype;
   	var call = FunctionPrototype.call;
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
   	functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -704,10 +705,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.39.0',
+  	  version: '3.44.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -775,7 +776,7 @@
 
   	var id = 0;
   	var postfix = Math.random();
-  	var toString = uncurryThis(1.0.toString);
+  	var toString = uncurryThis(1.1.toString);
 
   	uid = function (key) {
   	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -2355,7 +2356,7 @@
   	var bind = requireFunctionBindContext();
 
   	// `FlattenIntoArray` abstract operation
-  	// https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
+  	// https://tc39.es/ecma262/#sec-flattenintoarray
   	var flattenIntoArray = function (target, original, source, sourceLen, start, depth, mapper, thisArg) {
   	  var targetIndex = start;
   	  var sourceIndex = 0;
@@ -2929,6 +2930,7 @@
   	  var symbol = Symbol('assign detection');
   	  var alphabet = 'abcdefghijklmnopqrst';
   	  A[symbol] = 7;
+  	  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
   	  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
   	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -3272,7 +3274,7 @@
   	var apply = FunctionPrototype.apply;
   	var call = FunctionPrototype.call;
 
-  	// eslint-disable-next-line es/no-reflect -- safe
+  	// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
   	functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
   	  return call.apply(apply, arguments);
   	});
@@ -3478,6 +3480,85 @@
   	return getSubstitution;
   }
 
+  var regexpFlagsDetection;
+  var hasRequiredRegexpFlagsDetection;
+
+  function requireRegexpFlagsDetection () {
+  	if (hasRequiredRegexpFlagsDetection) return regexpFlagsDetection;
+  	hasRequiredRegexpFlagsDetection = 1;
+  	var globalThis = requireGlobalThis();
+  	var fails = requireFails();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
+  	var RegExp = globalThis.RegExp;
+
+  	var FLAGS_GETTER_IS_CORRECT = !fails(function () {
+  	  var INDICES_SUPPORT = true;
+  	  try {
+  	    RegExp('.', 'd');
+  	  } catch (error) {
+  	    INDICES_SUPPORT = false;
+  	  }
+
+  	  var O = {};
+  	  // modern V8 bug
+  	  var calls = '';
+  	  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
+
+  	  var addGetter = function (key, chr) {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty(O, key, { get: function () {
+  	      calls += chr;
+  	      return true;
+  	    } });
+  	  };
+
+  	  var pairs = {
+  	    dotAll: 's',
+  	    global: 'g',
+  	    ignoreCase: 'i',
+  	    multiline: 'm',
+  	    sticky: 'y'
+  	  };
+
+  	  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
+
+  	  for (var key in pairs) addGetter(key, pairs[key]);
+
+  	  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
+
+  	  return result !== expected || calls !== expected;
+  	});
+
+  	regexpFlagsDetection = { correct: FLAGS_GETTER_IS_CORRECT };
+  	return regexpFlagsDetection;
+  }
+
+  var regexpGetFlags;
+  var hasRequiredRegexpGetFlags;
+
+  function requireRegexpGetFlags () {
+  	if (hasRequiredRegexpGetFlags) return regexpGetFlags;
+  	hasRequiredRegexpGetFlags = 1;
+  	var call = requireFunctionCall();
+  	var hasOwn = requireHasOwnProperty();
+  	var isPrototypeOf = requireObjectIsPrototypeOf();
+  	var regExpFlagsDetection = requireRegexpFlagsDetection();
+  	var regExpFlagsGetterImplementation = requireRegexpFlags();
+
+  	var RegExpPrototype = RegExp.prototype;
+
+  	regexpGetFlags = regExpFlagsDetection.correct ? function (it) {
+  	  return it.flags;
+  	} : function (it) {
+  	  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
+  	    ? call(regExpFlagsGetterImplementation, it)
+  	    : it.flags;
+  	};
+  	return regexpGetFlags;
+  }
+
   var regexpExecAbstract;
   var hasRequiredRegexpExecAbstract;
 
@@ -3519,7 +3600,7 @@
   	var fails = requireFails();
   	var anObject = requireAnObject();
   	var isCallable = requireIsCallable();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var toIntegerOrInfinity = requireToIntegerOrInfinity();
   	var toLength = requireToLength();
   	var toString = requireToString();
@@ -3527,6 +3608,7 @@
   	var advanceStringIndex = requireAdvanceStringIndex();
   	var getMethod = requireGetMethod();
   	var getSubstitution = requireGetSubstitution();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
   	var wellKnownSymbol = requireWellKnownSymbol();
 
@@ -3577,7 +3659,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.replace
   	    function replace(searchValue, replaceValue) {
   	      var O = requireObjectCoercible(this);
-  	      var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
+  	      var replacer = isObject(searchValue) ? getMethod(searchValue, REPLACE) : undefined;
   	      return replacer
   	        ? call(replacer, searchValue, O, replaceValue)
   	        : call(nativeReplace, toString(O), searchValue, replaceValue);
@@ -3600,10 +3682,11 @@
   	      var functionalReplace = isCallable(replaceValue);
   	      if (!functionalReplace) replaceValue = toString(replaceValue);
 
-  	      var global = rx.global;
+  	      var flags = toString(getRegExpFlags(rx));
+  	      var global = stringIndexOf(flags, 'g') !== -1;
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = rx.unicode;
+  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
   	        rx.lastIndex = 0;
   	      }
 

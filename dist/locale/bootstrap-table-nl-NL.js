@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1939,71 +1941,14 @@
 	 */
 
 	$.fn.bootstrapTable.locales['nl-NL'] = $.fn.bootstrapTable.locales['nl'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Niveau toevoegen';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Print';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Sluiten';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Laden, even geduld';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " records per pagina");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (gefilterd van ").concat(totalNotFiltered, " records in totaal)");
-	    }
-	    return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'vorige pagina';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "tot pagina ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'volgende pagina';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Toon ".concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Verwijder filters';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Zoeken';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Geen resultaten gevonden';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Verberg/Toon paginering';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Toon paginering';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Verberg paginering';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Vernieuwen';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Toon kaartweergave';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Verberg kaartweergave';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Kolommen';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Allen omschakelen';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Volledig scherm';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Geavanceerd zoeken';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Alle';
@@ -2011,17 +1956,38 @@
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Automatisch vernieuwen';
 	  },
+	  formatCancel: function formatCancel() {
+	    return 'Annuleren';
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Verwijder filters';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Kolom';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolommen';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Allen omschakelen';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copy Rows';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Niveau verwijderen';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Toon ".concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Gelieve dubbele kolommen te verwijderen of wijzigen';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicaten gevonden!';
+	  },
 	  formatExport: function formatExport() {
 	    return 'Exporteer gegevens';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'GA';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Geavanceerd zoeken';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Sluiten';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
 	    return 'Verberg/Toon controls';
@@ -2032,29 +1998,59 @@
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
 	    return 'Toon controls';
 	  },
-	  formatAddLevel: function formatAddLevel() {
-	    return 'Niveau toevoegen';
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Volledig scherm';
 	  },
-	  formatCancel: function formatCancel() {
-	    return 'Annuleren';
+	  formatJumpTo: function formatJumpTo() {
+	    return 'GA';
 	  },
-	  formatColumn: function formatColumn() {
-	    return 'Kolom';
-	  },
-	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Niveau verwijderen';
-	  },
-	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Duplicaten gevonden!';
-	  },
-	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Gelieve dubbele kolommen te verwijderen of wijzigen';
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Laden, even geduld';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
 	    return 'Meervoudige sortering';
 	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Geen resultaten gevonden';
+	  },
 	  formatOrder: function formatOrder() {
 	    return 'Volgorde';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Verberg/Toon paginering';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Toon paginering';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Verberg paginering';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Print';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " records per pagina");
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Vernieuwen';
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'volgende pagina';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "tot pagina ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'vorige pagina';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Zoeken';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '', " (gefilterd van ").concat(totalNotFiltered, " records in totaal)");
+	    }
+	    return "Toon ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " record").concat(totalRows > 1 ? 's' : '');
 	  },
 	  formatSort: function formatSort() {
 	    return 'Sorteren';
@@ -2062,14 +2058,26 @@
 	  formatSortBy: function formatSortBy() {
 	    return 'Sorteren op';
 	  },
-	  formatThenBy: function formatThenBy() {
-	    return 'vervolgens';
-	  },
 	  formatSortOrders: function formatSortOrders() {
 	    return {
 	      asc: 'Oplopend',
 	      desc: 'Aflopend'
 	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'vervolgens';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Verberg kaartweergave';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Toon kaartweergave';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-NL']);

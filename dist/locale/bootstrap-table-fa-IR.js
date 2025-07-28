@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,44 +1940,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'کپی ردیف ها';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'پرینت';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'بستن';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'در حال بارگذاری, لطفا صبر کنید';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'جستجوی پیشرفته';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " \u0631\u06A9\u0648\u0631\u062F \u062F\u0631 \u0635\u0641\u062D\u0647");
+	  formatAllRows: function formatAllRows() {
+	    return 'همه';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "\u0646\u0645\u0627\u06CC\u0634 ".concat(pageFrom, " \u062A\u0627 ").concat(pageTo, " \u0627\u0632 ").concat(totalRows, " \u0631\u062F\u06CC\u0641 (filtered from ").concat(totalNotFiltered, " total rows)");
-	    }
-	    return "\u0646\u0645\u0627\u06CC\u0634 ".concat(pageFrom, " \u062A\u0627 ").concat(pageTo, " \u0627\u0632 ").concat(totalRows, " \u0631\u062F\u06CC\u0641");
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'رفرش اتوماتیک';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'صفحه قبلی';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "\u0628\u0647 \u0635\u0641\u062D\u0647 ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'صفحه بعدی';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "\u0646\u0645\u0627\u06CC\u0634 ".concat(totalRows, " \u0633\u0637\u0631\u0647\u0627");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'پاک کردن جستجو';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'جستجو';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'سطر ها';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'تغییر وضعیت همه';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'کپی ردیف ها';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "\u0646\u0645\u0627\u06CC\u0634 ".concat(totalRows, " \u0633\u0637\u0631\u0647\u0627");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'خروجی دیتا';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'پنهان/نمایش دادن کنترل ها';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'پنهان کردن کنترل ها';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'نمایش کنترل ها';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'تمام صفحه';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'برو';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'در حال بارگذاری, لطفا صبر کنید';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'رکوردی یافت نشد.';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'نمایش/مخفی صفحه بندی';
@@ -1986,50 +2024,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'پنهان کردن صفحه بندی';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'پرینت';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " \u0631\u06A9\u0648\u0631\u062F \u062F\u0631 \u0635\u0641\u062D\u0647");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'به روز رسانی';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'صفحه بعدی';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "\u0628\u0647 \u0635\u0641\u062D\u0647 ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'صفحه قبلی';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'جستجو';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "\u0646\u0645\u0627\u06CC\u0634 ".concat(pageFrom, " \u062A\u0627 ").concat(pageTo, " \u0627\u0632 ").concat(totalRows, " \u0631\u062F\u06CC\u0641 (filtered from ").concat(totalNotFiltered, " total rows)");
+	    }
+	    return "\u0646\u0645\u0627\u06CC\u0634 ".concat(pageFrom, " \u062A\u0627 ").concat(pageTo, " \u0627\u0632 ").concat(totalRows, " \u0631\u062F\u06CC\u0641");
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Hide card view';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'سطر ها';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'تغییر وضعیت همه';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'تمام صفحه';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'همه';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'رفرش اتوماتیک';
-	  },
-	  formatExport: function formatExport() {
-	    return 'خروجی دیتا';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'برو';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'جستجوی پیشرفته';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'بستن';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'پنهان/نمایش دادن کنترل ها';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'پنهان کردن کنترل ها';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'نمایش کنترل ها';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Show card view';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR']);

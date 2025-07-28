@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,71 +1940,14 @@
 	*/
 
 	$.fn.bootstrapTable.locales['fr-CH'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Copier les lignes';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Ajouter un niveau';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Imprimer';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Fermer';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Chargement en cours';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " lignes par page");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Affichage de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9es \xE0 partir de ").concat(totalNotFiltered, " lignes)");
-	    }
-	    return "Affichage de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'page précédente';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "vers la page ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'page suivante';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Affichage de ".concat(totalRows, " lignes");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Effacer la recherche';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Rechercher';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Aucun résultat';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Masquer/Afficher la pagination';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Afficher la pagination';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Masquer la pagination';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Actualiser';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Afficher la vue en cartes';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Cacher la vue en cartes';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Colonnes';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Tout afficher';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Plein écran';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Recherche avancée';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Tout';
@@ -2010,17 +1955,38 @@
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Actualiser automatiquement';
 	  },
+	  formatCancel: function formatCancel() {
+	    return 'Annuler';
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Effacer la recherche';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Colonne';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Colonnes';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Tout afficher';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Copier les lignes';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Supprimer un niveau';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Affichage de ".concat(totalRows, " lignes");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Veuillez supprimer ou modifier les entrées en double';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Des entrées en double ont été trouvées !';
+	  },
 	  formatExport: function formatExport() {
 	    return 'Exporter';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Aller à';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Recherche avancée';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Fermer';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
 	    return 'Masquer/Afficher les contrôles';
@@ -2031,38 +1997,59 @@
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
 	    return 'Afficher les contrôles';
 	  },
-	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
-	    return 'Afficher la vue personnalisée';
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Plein écran';
 	  },
-	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
-	    return 'Cacher la vue personnalisée';
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Aller à';
 	  },
-	  formatClearFilters: function formatClearFilters() {
-	    return 'Retirer les filtres';
-	  },
-	  formatAddLevel: function formatAddLevel() {
-	    return 'Ajouter un niveau';
-	  },
-	  formatCancel: function formatCancel() {
-	    return 'Annuler';
-	  },
-	  formatColumn: function formatColumn() {
-	    return 'Colonne';
-	  },
-	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Supprimer un niveau';
-	  },
-	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Des entrées en double ont été trouvées !';
-	  },
-	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Veuillez supprimer ou modifier les entrées en double';
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Chargement en cours';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
 	    return 'Tri multiple';
 	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Aucun résultat';
+	  },
 	  formatOrder: function formatOrder() {
 	    return 'Ordre';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Masquer/Afficher la pagination';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Afficher la pagination';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Masquer la pagination';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Imprimer';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " lignes par page");
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Actualiser';
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'page suivante';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "vers la page ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'page précédente';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Rechercher';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Affichage de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes (filtr\xE9es \xE0 partir de ").concat(totalNotFiltered, " lignes)");
+	    }
+	    return "Affichage de ".concat(pageFrom, " \xE0 ").concat(pageTo, " sur ").concat(totalRows, " lignes");
 	  },
 	  formatSort: function formatSort() {
 	    return 'Trier';
@@ -2078,6 +2065,18 @@
 	  },
 	  formatThenBy: function formatThenBy() {
 	    return 'Puis par';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Cacher la vue personnalisée';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Afficher la vue personnalisée';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Cacher la vue en cartes';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Afficher la vue en cartes';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-CH']);

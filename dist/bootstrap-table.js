@@ -21,12 +21,12 @@
   function _defineProperties(e, r) {
     for (var t = 0; t < r.length; t++) {
       var o = r[t];
-      o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+      o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
     }
   }
   function _createClass(e, r, t) {
     return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
-      writable: !1
+      writable: false
     }), e;
   }
   function _createForOfIteratorHelper(r, e) {
@@ -40,9 +40,9 @@
           s: F,
           n: function () {
             return n >= r.length ? {
-              done: !0
+              done: true
             } : {
-              done: !1,
+              done: false,
               value: r[n++]
             };
           },
@@ -55,8 +55,8 @@
       throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
     var o,
-      a = !0,
-      u = !1;
+      a = true,
+      u = false;
     return {
       s: function () {
         t = t.call(r);
@@ -66,7 +66,7 @@
         return a = r.done, r;
       },
       e: function (r) {
-        u = !0, o = r;
+        u = true, o = r;
       },
       f: function () {
         try {
@@ -80,9 +80,9 @@
   function _defineProperty(e, r, t) {
     return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
       value: t,
-      enumerable: !0,
-      configurable: !0,
-      writable: !0
+      enumerable: true,
+      configurable: true,
+      writable: true
     }) : e[r] = t, e;
   }
   function _iterableToArray(r) {
@@ -96,12 +96,12 @@
         i,
         u,
         a = [],
-        f = !0,
-        o = !1;
+        f = true,
+        o = false;
       try {
         if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
       } catch (r) {
-        o = !0, n = r;
+        o = true, n = r;
       } finally {
         try {
           if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
@@ -131,7 +131,7 @@
   function _objectSpread2(e) {
     for (var r = 1; r < arguments.length; r++) {
       var t = null != arguments[r] ? arguments[r] : {};
-      r % 2 ? ownKeys$1(Object(t), !0).forEach(function (r) {
+      r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) {
         _defineProperty(e, r, t[r]);
       }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) {
         Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
@@ -264,7 +264,7 @@
   	var NATIVE_BIND = requireFunctionBindNative();
 
   	var call = Function.prototype.call;
-
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	functionCall = NATIVE_BIND ? call.bind(call) : function () {
   	  return call.apply(call, arguments);
   	};
@@ -321,6 +321,7 @@
 
   	var FunctionPrototype = Function.prototype;
   	var call = FunctionPrototype.call;
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
   	functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -726,10 +727,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.39.0',
+  	  version: '3.44.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -797,7 +798,7 @@
 
   	var id = 0;
   	var postfix = Math.random();
-  	var toString = uncurryThis(1.0.toString);
+  	var toString = uncurryThis(1.1.toString);
 
   	uid = function (key) {
   	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -3517,7 +3518,7 @@
 
   	// `thisNumberValue` abstract operation
   	// https://tc39.es/ecma262/#sec-thisnumbervalue
-  	thisNumberValue = uncurryThis(1.0.valueOf);
+  	thisNumberValue = uncurryThis(1.1.valueOf);
   	return thisNumberValue;
   }
 
@@ -3740,6 +3741,7 @@
   	  var symbol = Symbol('assign detection');
   	  var alphabet = 'abcdefghijklmnopqrst';
   	  A[symbol] = 7;
+  	  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
   	  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
   	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -4050,6 +4052,61 @@
   	return isRegexp;
   }
 
+  var regexpFlagsDetection;
+  var hasRequiredRegexpFlagsDetection;
+
+  function requireRegexpFlagsDetection () {
+  	if (hasRequiredRegexpFlagsDetection) return regexpFlagsDetection;
+  	hasRequiredRegexpFlagsDetection = 1;
+  	var globalThis = requireGlobalThis();
+  	var fails = requireFails();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
+  	var RegExp = globalThis.RegExp;
+
+  	var FLAGS_GETTER_IS_CORRECT = !fails(function () {
+  	  var INDICES_SUPPORT = true;
+  	  try {
+  	    RegExp('.', 'd');
+  	  } catch (error) {
+  	    INDICES_SUPPORT = false;
+  	  }
+
+  	  var O = {};
+  	  // modern V8 bug
+  	  var calls = '';
+  	  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
+
+  	  var addGetter = function (key, chr) {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty(O, key, { get: function () {
+  	      calls += chr;
+  	      return true;
+  	    } });
+  	  };
+
+  	  var pairs = {
+  	    dotAll: 's',
+  	    global: 'g',
+  	    ignoreCase: 'i',
+  	    multiline: 'm',
+  	    sticky: 'y'
+  	  };
+
+  	  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
+
+  	  for (var key in pairs) addGetter(key, pairs[key]);
+
+  	  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
+
+  	  return result !== expected || calls !== expected;
+  	});
+
+  	regexpFlagsDetection = { correct: FLAGS_GETTER_IS_CORRECT };
+  	return regexpFlagsDetection;
+  }
+
   var regexpFlags;
   var hasRequiredRegexpFlags;
 
@@ -4085,14 +4142,17 @@
   	var call = requireFunctionCall();
   	var hasOwn = requireHasOwnProperty();
   	var isPrototypeOf = requireObjectIsPrototypeOf();
-  	var regExpFlags = requireRegexpFlags();
+  	var regExpFlagsDetection = requireRegexpFlagsDetection();
+  	var regExpFlagsGetterImplementation = requireRegexpFlags();
 
   	var RegExpPrototype = RegExp.prototype;
 
-  	regexpGetFlags = function (R) {
-  	  var flags = R.flags;
-  	  return flags === undefined && !('flags' in RegExpPrototype) && !hasOwn(R, 'flags') && isPrototypeOf(RegExpPrototype, R)
-  	    ? call(regExpFlags, R) : flags;
+  	regexpGetFlags = regExpFlagsDetection.correct ? function (it) {
+  	  return it.flags;
+  	} : function (it) {
+  	  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
+  	    ? call(regExpFlagsGetterImplementation, it)
+  	    : it.flags;
   	};
   	return regexpGetFlags;
   }
@@ -4712,7 +4772,7 @@
   	var apply = FunctionPrototype.apply;
   	var call = FunctionPrototype.call;
 
-  	// eslint-disable-next-line es/no-reflect -- safe
+  	// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
   	functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
   	  return call.apply(apply, arguments);
   	});
@@ -4959,7 +5019,7 @@
   	var fails = requireFails();
   	var anObject = requireAnObject();
   	var isCallable = requireIsCallable();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var toIntegerOrInfinity = requireToIntegerOrInfinity();
   	var toLength = requireToLength();
   	var toString = requireToString();
@@ -4967,6 +5027,7 @@
   	var advanceStringIndex = requireAdvanceStringIndex();
   	var getMethod = requireGetMethod();
   	var getSubstitution = requireGetSubstitution();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
   	var wellKnownSymbol = requireWellKnownSymbol();
 
@@ -5017,7 +5078,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.replace
   	    function replace(searchValue, replaceValue) {
   	      var O = requireObjectCoercible(this);
-  	      var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
+  	      var replacer = isObject(searchValue) ? getMethod(searchValue, REPLACE) : undefined;
   	      return replacer
   	        ? call(replacer, searchValue, O, replaceValue)
   	        : call(nativeReplace, toString(O), searchValue, replaceValue);
@@ -5040,10 +5101,11 @@
   	      var functionalReplace = isCallable(replaceValue);
   	      if (!functionalReplace) replaceValue = toString(replaceValue);
 
-  	      var global = rx.global;
+  	      var flags = toString(getRegExpFlags(rx));
+  	      var global = stringIndexOf(flags, 'g') !== -1;
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = rx.unicode;
+  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
   	        rx.lastIndex = 0;
   	      }
 
@@ -5124,7 +5186,7 @@
   	var call = requireFunctionCall();
   	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
   	var anObject = requireAnObject();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var requireObjectCoercible = requireRequireObjectCoercible();
   	var sameValue = requireSameValue();
   	var toString = requireToString();
@@ -5138,7 +5200,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.search
   	    function search(regexp) {
   	      var O = requireObjectCoercible(this);
-  	      var searcher = isNullOrUndefined(regexp) ? undefined : getMethod(regexp, SEARCH);
+  	      var searcher = isObject(regexp) ? getMethod(regexp, SEARCH) : undefined;
   	      return searcher ? call(searcher, regexp, O) : new RegExp(regexp)[SEARCH](toString(O));
   	    },
   	    // `RegExp.prototype[@@search]` method
@@ -5216,7 +5278,7 @@
   	var uncurryThis = requireFunctionUncurryThis();
   	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
   	var anObject = requireAnObject();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var requireObjectCoercible = requireRequireObjectCoercible();
   	var speciesConstructor = requireSpeciesConstructor();
   	var advanceStringIndex = requireAdvanceStringIndex();
@@ -5264,7 +5326,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.split
   	    function split(separator, limit) {
   	      var O = requireObjectCoercible(this);
-  	      var splitter = isNullOrUndefined(separator) ? undefined : getMethod(separator, SPLIT);
+  	      var splitter = isObject(separator) ? getMethod(separator, SPLIT) : undefined;
   	      return splitter
   	        ? call(splitter, separator, O, limit)
   	        : call(internalSplit, toString(O), separator, limit);
@@ -5658,15 +5720,19 @@
   	if (hasRequiredEs_string_match) return es_string_match;
   	hasRequiredEs_string_match = 1;
   	var call = requireFunctionCall();
+  	var uncurryThis = requireFunctionUncurryThis();
   	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
   	var anObject = requireAnObject();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var toLength = requireToLength();
   	var toString = requireToString();
   	var requireObjectCoercible = requireRequireObjectCoercible();
   	var getMethod = requireGetMethod();
   	var advanceStringIndex = requireAdvanceStringIndex();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
+
+  	var stringIndexOf = uncurryThis(''.indexOf);
 
   	// @@match logic
   	fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNative) {
@@ -5675,7 +5741,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.match
   	    function match(regexp) {
   	      var O = requireObjectCoercible(this);
-  	      var matcher = isNullOrUndefined(regexp) ? undefined : getMethod(regexp, MATCH);
+  	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
   	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
   	    },
   	    // `RegExp.prototype[@@match]` method
@@ -5687,9 +5753,11 @@
 
   	      if (res.done) return res.value;
 
-  	      if (!rx.global) return regExpExec(rx, S);
+  	      var flags = toString(getRegExpFlags(rx));
 
-  	      var fullUnicode = rx.unicode;
+  	      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
+
+  	      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
   	      rx.lastIndex = 0;
   	      var A = [];
   	      var n = 0;
@@ -6911,7 +6979,7 @@
       if (typeof text !== 'string' || !text) {
         return text;
       }
-      return text.toString().replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'');
+      return text.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'').replace(/&amp;/g, '&');
     },
     removeHTML: function removeHTML(text) {
       if (!text) {
@@ -6962,19 +7030,19 @@
       return navigator.userAgent.includes('MSIE ') || /Trident.*rv:11\./.test(navigator.userAgent);
     },
     findIndex: function findIndex(items, item) {
-      var _iterator10 = _createForOfIteratorHelper(items),
-        _step10;
+      var _iterator0 = _createForOfIteratorHelper(items),
+        _step0;
       try {
-        for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-          var it = _step10.value;
+        for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
+          var it = _step0.value;
           if (JSON.stringify(it) === JSON.stringify(item)) {
             return items.indexOf(it);
           }
         }
       } catch (err) {
-        _iterator10.e(err);
+        _iterator0.e(err);
       } finally {
-        _iterator10.f();
+        _iterator0.f();
       }
       return -1;
     },
@@ -7085,11 +7153,11 @@
       return this.hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0;
     },
     checkAutoMergeCells: function checkAutoMergeCells(data) {
-      var _iterator11 = _createForOfIteratorHelper(data),
-        _step11;
+      var _iterator1 = _createForOfIteratorHelper(data),
+        _step1;
       try {
-        for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
-          var row = _step11.value;
+        for (_iterator1.s(); !(_step1 = _iterator1.n()).done;) {
+          var row = _step1.value;
           for (var _i5 = 0, _Object$keys2 = Object.keys(row); _i5 < _Object$keys2.length; _i5++) {
             var key = _Object$keys2[_i5];
             if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
@@ -7098,9 +7166,9 @@
           }
         }
       } catch (err) {
-        _iterator11.e(err);
+        _iterator1.e(err);
       } finally {
-        _iterator11.f();
+        _iterator1.f();
       }
       return false;
     },
@@ -7157,17 +7225,17 @@
           if (child.nodeType === document.TEXT_NODE) {
             var elements = replaceTextWithDom(child.data, regExp);
             if (elements) {
-              var _iterator12 = _createForOfIteratorHelper(elements),
-                _step12;
+              var _iterator10 = _createForOfIteratorHelper(elements),
+                _step10;
               try {
-                for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
-                  var el = _step12.value;
+                for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+                  var el = _step10.value;
                   node.insertBefore(el, child);
                 }
               } catch (err) {
-                _iterator12.e(err);
+                _iterator10.e(err);
               } finally {
-                _iterator12.f();
+                _iterator10.f();
               }
               node.removeChild(child);
               i += elements.length - 1;
@@ -7222,17 +7290,17 @@
           }
         });
       } else if (Array.isArray(style)) {
-        var _iterator13 = _createForOfIteratorHelper(style),
-          _step13;
+        var _iterator11 = _createForOfIteratorHelper(style),
+          _step11;
         try {
-          for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
-            var item = _step13.value;
+          for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+            var item = _step11.value;
             this.parseStyle(dom, item);
           }
         } catch (err) {
-          _iterator13.e(err);
+          _iterator11.e(err);
         } finally {
-          _iterator13.f();
+          _iterator11.f();
         }
       } else if (_typeof(style) === 'object') {
         for (var _i6 = 0, _Object$entries2 = Object.entries(style); _i6 < _Object$entries2.length; _i6++) {
@@ -7322,7 +7390,7 @@
     }
   };
 
-  var VERSION = '1.24.1';
+  var VERSION = '1.24.2';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -7744,35 +7812,26 @@
     }
   };
   var EN = {
-    formatLoadingMessage: function formatLoadingMessage() {
-      return 'Loading, please wait';
+    formatAllRows: function formatAllRows() {
+      return 'All';
     },
-    formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-      return "".concat(pageNumber, " rows per page");
+    formatClearSearch: function formatClearSearch() {
+      return 'Clear Search';
     },
-    formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-        return "Showing ".concat(pageFrom, " to ").concat(pageTo, " of ").concat(totalRows, " rows (filtered from ").concat(totalNotFiltered, " total rows)");
-      }
-      return "Showing ".concat(pageFrom, " to ").concat(pageTo, " of ").concat(totalRows, " rows");
+    formatColumns: function formatColumns() {
+      return 'Columns';
     },
-    formatSRPaginationPreText: function formatSRPaginationPreText() {
-      return 'previous page';
-    },
-    formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-      return "to page ".concat(page);
-    },
-    formatSRPaginationNextText: function formatSRPaginationNextText() {
-      return 'next page';
+    formatColumnsToggleAll: function formatColumnsToggleAll() {
+      return 'Toggle all';
     },
     formatDetailPagination: function formatDetailPagination(totalRows) {
       return "Showing ".concat(totalRows, " rows");
     },
-    formatSearch: function formatSearch() {
-      return 'Search';
+    formatFullscreen: function formatFullscreen() {
+      return 'Fullscreen';
     },
-    formatClearSearch: function formatClearSearch() {
-      return 'Clear Search';
+    formatLoadingMessage: function formatLoadingMessage() {
+      return 'Loading, please wait';
     },
     formatNoMatches: function formatNoMatches() {
       return 'No matching records found';
@@ -7786,26 +7845,35 @@
     formatPaginationSwitchUp: function formatPaginationSwitchUp() {
       return 'Hide pagination';
     },
+    formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+      return "".concat(pageNumber, " rows per page");
+    },
     formatRefresh: function formatRefresh() {
       return 'Refresh';
     },
-    formatToggleOn: function formatToggleOn() {
-      return 'Show card view';
+    formatSearch: function formatSearch() {
+      return 'Search';
+    },
+    formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+        return "Showing ".concat(pageFrom, " to ").concat(pageTo, " of ").concat(totalRows, " rows (filtered from ").concat(totalNotFiltered, " total rows)");
+      }
+      return "Showing ".concat(pageFrom, " to ").concat(pageTo, " of ").concat(totalRows, " rows");
+    },
+    formatSRPaginationNextText: function formatSRPaginationNextText() {
+      return 'next page';
+    },
+    formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+      return "to page ".concat(page);
+    },
+    formatSRPaginationPreText: function formatSRPaginationPreText() {
+      return 'previous page';
     },
     formatToggleOff: function formatToggleOff() {
       return 'Hide card view';
     },
-    formatColumns: function formatColumns() {
-      return 'Columns';
-    },
-    formatColumnsToggleAll: function formatColumnsToggleAll() {
-      return 'Toggle all';
-    },
-    formatFullscreen: function formatFullscreen() {
-      return 'Fullscreen';
-    },
-    formatAllRows: function formatAllRows() {
-      return 'All';
+    formatToggleOn: function formatToggleOn() {
+      return 'Show card view';
     }
   };
   var COLUMN_DEFAULTS = {
@@ -8201,7 +8269,8 @@
               class: $th.attr('class'),
               titleTooltip: $th.attr('title'),
               rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
-              colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined
+              colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined,
+              scope: $th.attr('scope') ? $th.attr('scope') : undefined
             }, $th.data()));
           });
           columns.push(column);
@@ -8338,7 +8407,7 @@
                 data_.push("data-".concat(k, "='").concat(_typeof(v) === 'object' ? JSON.stringify(v) : v, "'"));
               }
             }
-            html.push("<th".concat(Utils.sprintf(' title="%s"', column.titleTooltip)), column.checkbox || column.radio ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : classes || class_, Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined), Utils.sprintf(' rowspan="%s"', column.rowspan), Utils.sprintf(' colspan="%s"', column.colspan), Utils.sprintf(' data-field="%s"', column.field),
+            html.push("<th".concat(Utils.sprintf(' title="%s"', column.titleTooltip)), column.checkbox || column.radio ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : classes || class_, Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined), Utils.sprintf(' rowspan="%s"', column.rowspan), Utils.sprintf(' colspan="%s"', column.colspan), Utils.sprintf(' scope="%s"', column.scope), Utils.sprintf(' data-field="%s"', column.field),
             // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
             j === 0 && i > 0 ? ' data-not-first-th' : '', data_.length > 0 ? data_.join(' ') : '', '>');
             html.push(Utils.sprintf('<div class="th-inner %s">', _this2.options.sortable && column.sortable ? "sortable".concat(columnHalign === 'center' ? ' sortable-center' : '', " both") : ''));
@@ -9364,8 +9433,8 @@
           }
 
           // handle class, style, id, rowspan, colspan and title of td
-          for (var _i10 = 0, _arr = ['class', 'style', 'id', 'rowspan', 'colspan', 'title']; _i10 < _arr.length; _i10++) {
-            var attr = _arr[_i10];
+          for (var _i0 = 0, _arr = ['class', 'style', 'id', 'rowspan', 'colspan', 'title']; _i0 < _arr.length; _i0++) {
+            var attr = _arr[_i0];
             var _value = item["_".concat(field, "_").concat(attr)];
             if (!_value) {
               continue;
@@ -9400,8 +9469,8 @@
             value = Utils.calculateObjectValue(column, column.searchHighlightFormatter, [value, _this7.searchText], defValue);
           }
           if (item["_".concat(field, "_data")] && !Utils.isEmptyObject(item["_".concat(field, "_data")])) {
-            for (var _i11 = 0, _Object$entries9 = Object.entries(item["_".concat(field, "_data")]); _i11 < _Object$entries9.length; _i11++) {
-              var _Object$entries9$_i = _slicedToArray(_Object$entries9[_i11], 2),
+            for (var _i1 = 0, _Object$entries9 = Object.entries(item["_".concat(field, "_data")]); _i1 < _Object$entries9.length; _i1++) {
+              var _Object$entries9$_i = _slicedToArray(_Object$entries9[_i1], 2),
                 _k = _Object$entries9$_i[0],
                 _v = _Object$entries9$_i[1];
               // ignore data-index
@@ -9646,7 +9715,7 @@
     }, {
       key: "initServer",
       value: function initServer(silent, query) {
-        var _this10 = this;
+        var _this0 = this;
         var data = {};
         var index = this.header.fields.indexOf(this.options.sortName);
         var params = {
@@ -9718,35 +9787,35 @@
           contentType: this.options.contentType,
           dataType: this.options.dataType,
           success: function success(_res, textStatus, jqXHR) {
-            var res = Utils.calculateObjectValue(_this10.options, _this10.options.responseHandler, [_res, jqXHR], _res);
-            if (_this10.options.sidePagination === 'client' && _this10.options.paginationLoadMore) {
-              _this10._paginationLoaded = _this10.data.length === res.length;
+            var res = Utils.calculateObjectValue(_this0.options, _this0.options.responseHandler, [_res, jqXHR], _res);
+            if (_this0.options.sidePagination === 'client' && _this0.options.paginationLoadMore) {
+              _this0._paginationLoaded = _this0.data.length === res.length;
             }
-            _this10.load(res);
-            _this10.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR);
+            _this0.load(res);
+            _this0.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR);
             if (!silent) {
-              _this10.hideLoading();
+              _this0.hideLoading();
             }
-            if (_this10.options.sidePagination === 'server' && _this10.options.pageNumber > 1 && res[_this10.options.totalField] > 0 && !res[_this10.options.dataField].length) {
-              _this10.updatePagination();
+            if (_this0.options.sidePagination === 'server' && _this0.options.pageNumber > 1 && res[_this0.options.totalField] > 0 && !res[_this0.options.dataField].length) {
+              _this0.updatePagination();
             }
           },
           error: function error(jqXHR) {
             // abort ajax by multiple request
-            if (jqXHR && jqXHR.status === 0 && _this10._xhrAbort) {
-              _this10._xhrAbort = false;
+            if (jqXHR && jqXHR.status === 0 && _this0._xhrAbort) {
+              _this0._xhrAbort = false;
               return;
             }
             var data = [];
-            if (_this10.options.sidePagination === 'server') {
+            if (_this0.options.sidePagination === 'server') {
               data = {};
-              data[_this10.options.totalField] = 0;
-              data[_this10.options.dataField] = [];
+              data[_this0.options.totalField] = 0;
+              data[_this0.options.dataField] = [];
             }
-            _this10.load(data);
-            _this10.trigger('load-error', jqXHR && jqXHR.status, jqXHR);
+            _this0.load(data);
+            _this0.trigger('load-error', jqXHR && jqXHR.status, jqXHR);
             if (!silent) {
-              _this10.hideLoading();
+              _this0.hideLoading();
             }
           }
         });
@@ -9779,9 +9848,9 @@
     }, {
       key: "getCaret",
       value: function getCaret() {
-        var _this11 = this;
+        var _this1 = this;
         this.$header.find('th').each(function (i, th) {
-          $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === _this11.options.sortName ? _this11.options.sortOrder : 'both');
+          $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === _this1.options.sortName ? _this1.options.sortOrder : 'both');
         });
       }
     }, {
@@ -9796,9 +9865,9 @@
     }, {
       key: "updateRows",
       value: function updateRows() {
-        var _this12 = this;
+        var _this10 = this;
         this.$selectItem.each(function (i, el) {
-          _this12.data[$(el).data('index')][_this12.header.stateField] = $(el).prop('checked');
+          _this10.data[$(el).data('index')][_this10.header.stateField] = $(el).prop('checked');
         });
       }
     }, {
@@ -9842,21 +9911,21 @@
     }, {
       key: "resetHeader",
       value: function resetHeader() {
-        var _this13 = this;
+        var _this11 = this;
         // fix #61: the hidden table reset header bug.
         // fix bug: get $el.css('width') error sometime (height = 500)
         clearTimeout(this.timeoutId_);
         this.timeoutId_ = setTimeout(function () {
-          return _this13.fitHeader();
+          return _this11.fitHeader();
         }, this.$el.is(':hidden') ? 100 : 0);
       }
     }, {
       key: "fitHeader",
       value: function fitHeader() {
-        var _this14 = this;
+        var _this12 = this;
         if (this.$el.is(':hidden')) {
           this.timeoutId_ = setTimeout(function () {
-            return _this14.fitHeader();
+            return _this12.fitHeader();
           }, 100);
           return;
         }
@@ -9888,7 +9957,7 @@
 
         // fix bug: $.data() is not working as expected after $.append()
         this.$header.find('th[data-field]').each(function (i, el) {
-          _this14.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data());
+          _this12.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data());
         });
         var visibleFields = this.getVisibleFields();
         var $ths = this.$header_.find('th');
@@ -9899,16 +9968,16 @@
         var trLength = $tr.find('> *').length;
         $tr.find('> *').each(function (i, el) {
           var $this = $(el);
-          if (Utils.hasDetailViewIcon(_this14.options)) {
-            if (i === 0 && _this14.options.detailViewAlign !== 'right' || i === trLength - 1 && _this14.options.detailViewAlign === 'right') {
+          if (Utils.hasDetailViewIcon(_this12.options)) {
+            if (i === 0 && _this12.options.detailViewAlign !== 'right' || i === trLength - 1 && _this12.options.detailViewAlign === 'right') {
               var $thDetail = $ths.filter('.detail');
               var _zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width();
               $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth);
               return;
             }
           }
-          var index = i - Utils.getDetailViewIndexOffset(_this14.options);
-          var $th = _this14.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
+          var index = i - Utils.getDetailViewIndexOffset(_this12.options);
+          var $th = _this12.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
           if ($th.length > 1) {
             $th = $($ths[$this[0].cellIndex]);
           }
@@ -9991,10 +10060,10 @@
     }, {
       key: "fitFooter",
       value: function fitFooter() {
-        var _this15 = this;
+        var _this13 = this;
         if (this.$el.is(':hidden')) {
           setTimeout(function () {
-            return _this15.fitFooter();
+            return _this13.fitFooter();
           }, 100);
           return;
         }
@@ -10010,8 +10079,8 @@
         var trLength = $tr.find('> *').length;
         $tr.find('> *').each(function (i, el) {
           var $this = $(el);
-          if (Utils.hasDetailViewIcon(_this15.options)) {
-            if (i === 0 && _this15.options.detailViewAlign === 'left' || i === trLength - 1 && _this15.options.detailViewAlign === 'right') {
+          if (Utils.hasDetailViewIcon(_this13.options)) {
+            if (i === 0 && _this13.options.detailViewAlign === 'left' || i === trLength - 1 && _this13.options.detailViewAlign === 'right') {
               var $thDetail = $ths.filter('.detail');
               var _zoomWidth2 = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width();
               $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth2);
@@ -10027,18 +10096,18 @@
     }, {
       key: "horizontalScroll",
       value: function horizontalScroll() {
-        var _this16 = this;
+        var _this14 = this;
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
         this.$tableBody.off('scroll').on('scroll', function () {
-          var scrollLeft = _this16.$tableBody.scrollLeft();
-          if (_this16.options.showHeader && _this16.options.height) {
-            _this16.$tableHeader.scrollLeft(scrollLeft);
+          var scrollLeft = _this14.$tableBody.scrollLeft();
+          if (_this14.options.showHeader && _this14.options.height) {
+            _this14.$tableHeader.scrollLeft(scrollLeft);
           }
-          if (_this16.options.showFooter && !_this16.options.cardView) {
-            _this16.$tableFooter.scrollLeft(scrollLeft);
+          if (_this14.options.showFooter && !_this14.options.cardView) {
+            _this14.$tableFooter.scrollLeft(scrollLeft);
           }
-          _this16.trigger('scroll-body', _this16.$tableBody);
+          _this14.trigger('scroll-body', _this14.$tableBody);
         });
       }
     }, {
@@ -10095,7 +10164,7 @@
     }, {
       key: "getData",
       value: function getData(params) {
-        var _this17 = this;
+        var _this15 = this;
         var data = this.options.data;
         if ((this.searchText || this.options.customSearch || this.options.sortName !== undefined || this.enableCustomSort ||
         // Fix #4616: this.enableCustomSort is for extensions
@@ -10114,15 +10183,15 @@
         if (params && params.formatted) {
           return data.map(function (row) {
             var formattedColumns = {};
-            for (var _i12 = 0, _Object$entries10 = Object.entries(row); _i12 < _Object$entries10.length; _i12++) {
-              var _Object$entries10$_i = _slicedToArray(_Object$entries10[_i12], 2),
-                key = _Object$entries10$_i[0],
-                value = _Object$entries10$_i[1];
-              var column = _this17.columns[_this17.fieldsColumnsIndex[key]];
+            for (var _i10 = 0, _Object$entries0 = Object.entries(row); _i10 < _Object$entries0.length; _i10++) {
+              var _Object$entries0$_i = _slicedToArray(_Object$entries0[_i10], 2),
+                key = _Object$entries0$_i[0],
+                value = _Object$entries0$_i[1];
+              var column = _this15.columns[_this15.fieldsColumnsIndex[key]];
               if (!column) {
                 continue;
               }
-              formattedColumns[key] = Utils.calculateObjectValue(column, _this17.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value);
+              formattedColumns[key] = Utils.calculateObjectValue(column, _this15.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value);
             }
             return formattedColumns;
           });
@@ -10138,9 +10207,9 @@
     }, {
       key: "getSelections",
       value: function getSelections() {
-        var _this18 = this;
+        var _this16 = this;
         return (this.options.maintainMetaData ? this.options.data : this.data).filter(function (row) {
-          return row[_this18.header.stateField] === true;
+          return row[_this16.header.stateField] === true;
         });
       }
     }, {
@@ -10356,6 +10425,9 @@
     }, {
       key: "_updateCellOnly",
       value: function _updateCellOnly(field, index) {
+        if (index === -1) {
+          return;
+        }
         var rowHtml = this.initRow(this.data[index], index);
         var fieldIndex = this.getVisibleFields().indexOf(field);
         if (fieldIndex === -1) {
@@ -10388,20 +10460,23 @@
     }, {
       key: "updateCellByUniqueId",
       value: function updateCellByUniqueId(params) {
-        var _this19 = this;
+        var _this17 = this;
         var allParams = Array.isArray(params) ? params : [params];
         allParams.forEach(function (_ref6) {
           var id = _ref6.id,
             field = _ref6.field,
             value = _ref6.value;
-          var index = _this19.options.data.indexOf(_this19.getRowByUniqueId(id));
-          if (index === -1) {
+          var row = _this17.getRowByUniqueId(id);
+          var index = _this17.data.indexOf(row);
+          var originalIndex = _this17.options.data.indexOf(row);
+          if (!row || index === -1) {
             return;
           }
-          _this19.options.data[index][field] = value;
+          _this17.data[index][field] = value;
+          _this17.options.data[originalIndex][field] = value;
         });
         if (params.reinit === false) {
-          this._updateCellOnly(params.field, this.options.data.indexOf(this.getRowByUniqueId(params.id)));
+          this._updateCellOnly(params.field, this.data.indexOf(this.getRowByUniqueId(params.id)));
           return;
         }
         this.initSort();
@@ -10469,19 +10544,19 @@
     }, {
       key: "showColumn",
       value: function showColumn(field) {
-        var _this20 = this;
+        var _this18 = this;
         var fields = Array.isArray(field) ? field : [field];
         fields.forEach(function (field) {
-          _this20._toggleColumn(_this20.fieldsColumnsIndex[field], true, true);
+          _this18._toggleColumn(_this18.fieldsColumnsIndex[field], true, true);
         });
       }
     }, {
       key: "hideColumn",
       value: function hideColumn(field) {
-        var _this21 = this;
+        var _this19 = this;
         var fields = Array.isArray(field) ? field : [field];
         fields.forEach(function (field) {
-          _this21._toggleColumn(_this21.fieldsColumnsIndex[field], false, true);
+          _this19._toggleColumn(_this19.fieldsColumnsIndex[field], false, true);
         });
       }
     }, {
@@ -10508,9 +10583,9 @@
     }, {
       key: "getVisibleColumns",
       value: function getVisibleColumns() {
-        var _this22 = this;
+        var _this20 = this;
         return this.columns.filter(function (column) {
-          return column.visible && !_this22.isSelectionColumn(column);
+          return column.visible && !_this20.isSelectionColumn(column);
         });
       }
     }, {
@@ -10539,7 +10614,7 @@
     }, {
       key: "_toggleAllColumns",
       value: function _toggleAllColumns(visible) {
-        var _this23 = this;
+        var _this21 = this;
         var _iterator9 = _createForOfIteratorHelper(this.columns.slice().reverse()),
           _step9;
         try {
@@ -10569,7 +10644,7 @@
             $items.prop('checked', visible);
           } else {
             $items.get().reverse().forEach(function (item) {
-              if ($items.filter(':checked').length > _this23.options.minimumCountColumns) {
+              if ($items.filter(':checked').length > _this21.options.minimumCountColumns) {
                 $(item).prop('checked', visible);
               }
             });
@@ -10656,17 +10731,17 @@
         var $el = this.$selectItem.filter("[data-index=\"".concat(index, "\"]"));
         var row = this.data[index];
         if ($el.is(':radio') || this.options.singleSelect || this.options.multipleSelectRow && !this.multipleSelectRowCtrlKey && !this.multipleSelectRowShiftKey) {
-          var _iterator10 = _createForOfIteratorHelper(this.options.data),
-            _step10;
+          var _iterator0 = _createForOfIteratorHelper(this.options.data),
+            _step0;
           try {
-            for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-              var r = _step10.value;
+            for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
+              var r = _step0.value;
               r[this.header.stateField] = false;
             }
           } catch (err) {
-            _iterator10.e(err);
+            _iterator0.e(err);
           } finally {
-            _iterator10.f();
+            _iterator0.f();
           }
           this.$selectItem.filter(':checked').not($el).prop('checked', false);
         }
@@ -10703,7 +10778,7 @@
     }, {
       key: "_toggleCheckBy",
       value: function _toggleCheckBy(checked, obj) {
-        var _this24 = this;
+        var _this22 = this;
         if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
           return;
         }
@@ -10713,16 +10788,16 @@
             return false;
           }
           if (obj.values.includes(row[obj.field])) {
-            var $el = _this24.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
+            var $el = _this22.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
             var onlyCurrentPage = obj.hasOwnProperty('onlyCurrentPage') ? obj.onlyCurrentPage : false;
             $el = checked ? $el.not(':checked') : $el.filter(':checked');
             if (!$el.length && onlyCurrentPage) {
               return;
             }
             $el.prop('checked', checked);
-            row[_this24.header.stateField] = checked;
+            row[_this22.header.stateField] = checked;
             rows.push(row);
-            _this24.trigger(checked ? 'check' : 'uncheck', row, $el);
+            _this22.trigger(checked ? 'check' : 'uncheck', row, $el);
           }
         });
         this.updateSelected();

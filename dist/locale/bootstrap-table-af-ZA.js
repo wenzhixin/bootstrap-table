@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,71 +1940,14 @@
 	 */
 
 	$.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Kopieer lyne';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Voeg \'n vlak by';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Druk uit';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Maak';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Laai tans';
-	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " re\xEBls per bladsy");
-	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Wys ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " lyne (gefiltreer vanaf ").concat(totalNotFiltered, " lyne)");
-	    }
-	    return "Wys ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " lyne");
-	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'vorige bladsy';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "na bladsy ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'volgende bladsy';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "".concat(totalRows, "-re\xEBl vertoon");
-	  },
-	  formatClearSearch: function formatClearSearch() {
-	    return 'Duidelike soektog';
-	  },
-	  formatSearch: function formatSearch() {
-	    return 'Navorsing';
-	  },
-	  formatNoMatches: function formatNoMatches() {
-	    return 'Geen resultate nie';
-	  },
-	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Versteek/Wys paginasie';
-	  },
-	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Wys paginasie';
-	  },
-	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Versteek paginasie';
-	  },
-	  formatRefresh: function formatRefresh() {
-	    return 'Verfris';
-	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Wys kaartaansig';
-	  },
-	  formatToggleOff: function formatToggleOff() {
-	    return 'Versteek kaartaansig';
-	  },
-	  formatColumns: function formatColumns() {
-	    return 'Kolomme';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Wys alles';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Volskerm';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Gevorderde soektog';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Alles';
@@ -2010,17 +1955,38 @@
 	  formatAutoRefresh: function formatAutoRefresh() {
 	    return 'Verfris outomaties';
 	  },
+	  formatCancel: function formatCancel() {
+	    return 'Kanselleer';
+	  },
+	  formatClearSearch: function formatClearSearch() {
+	    return 'Duidelike soektog';
+	  },
+	  formatColumn: function formatColumn() {
+	    return 'Kolom';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolomme';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Wys alles';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Kopieer lyne';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Vee \'n vlak uit';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "".concat(totalRows, "-re\xEBl vertoon");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Verwyder of wysig asseblief duplikaatinskrywings';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplikaatinskrywings is gevind!';
+	  },
 	  formatExport: function formatExport() {
 	    return 'Voer data uit';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Gaan na';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Gevorderde soektog';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Maak';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
 	    return 'Versteek/Wys kontroles';
@@ -2031,38 +1997,59 @@
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
 	    return 'Wys kontroles';
 	  },
-	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
-	    return 'Wys pasgemaakte aansig';
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Volskerm';
 	  },
-	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
-	    return 'Versteek pasgemaakte aansig';
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Gaan na';
 	  },
-	  formatClearFilters: function formatClearFilters() {
-	    return 'Verwyder filters';
-	  },
-	  formatAddLevel: function formatAddLevel() {
-	    return 'Voeg \'n vlak by';
-	  },
-	  formatCancel: function formatCancel() {
-	    return 'Kanselleer';
-	  },
-	  formatColumn: function formatColumn() {
-	    return 'Kolom';
-	  },
-	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Vee \'n vlak uit';
-	  },
-	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Duplikaatinskrywings is gevind!';
-	  },
-	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Verwyder of wysig asseblief duplikaatinskrywings';
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Laai tans';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
 	    return 'Multi-sorteer';
 	  },
+	  formatNoMatches: function formatNoMatches() {
+	    return 'Geen resultate nie';
+	  },
 	  formatOrder: function formatOrder() {
 	    return 'Bestelling';
+	  },
+	  formatPaginationSwitch: function formatPaginationSwitch() {
+	    return 'Versteek/Wys paginasie';
+	  },
+	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
+	    return 'Wys paginasie';
+	  },
+	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
+	    return 'Versteek paginasie';
+	  },
+	  formatPrint: function formatPrint() {
+	    return 'Druk uit';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " re\xEBls per bladsy");
+	  },
+	  formatRefresh: function formatRefresh() {
+	    return 'Verfris';
+	  },
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'volgende bladsy';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "na bladsy ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'vorige bladsy';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Navorsing';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Wys ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " lyne (gefiltreer vanaf ").concat(totalNotFiltered, " lyne)");
+	    }
+	    return "Wys ".concat(pageFrom, " tot ").concat(pageTo, " van ").concat(totalRows, " lyne");
 	  },
 	  formatSort: function formatSort() {
 	    return 'Rangskik';
@@ -2078,6 +2065,18 @@
 	  },
 	  formatThenBy: function formatThenBy() {
 	    return 'Dan deur';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Versteek pasgemaakte aansig';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Wys pasgemaakte aansig';
+	  },
+	  formatToggleOff: function formatToggleOff() {
+	    return 'Versteek kaartaansig';
+	  },
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Wys kaartaansig';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['af-ZA']);

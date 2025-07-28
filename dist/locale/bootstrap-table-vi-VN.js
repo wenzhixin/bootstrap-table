@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1939,44 +1941,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['vi-VN'] = $.fn.bootstrapTable.locales['vi'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Sao chép hàng';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'In';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Đóng';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Đang tải';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Tìm kiếm nâng cao';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " b\u1EA3n ghi m\u1ED7i trang");
+	  formatAllRows: function formatAllRows() {
+	    return 'Tất cả';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Hi\u1EC3n th\u1ECB t\u1EEB trang ".concat(pageFrom, " \u0111\u1EBFn ").concat(pageTo, " c\u1EE7a ").concat(totalRows, " b\u1EA3n ghi (\u0111\u01B0\u1EE3c l\u1ECDc t\u1EEB t\u1ED5ng ").concat(totalNotFiltered, " h\xE0ng)");
-	    }
-	    return "Hi\u1EC3n th\u1ECB t\u1EEB trang ".concat(pageFrom, " \u0111\u1EBFn ").concat(pageTo, " c\u1EE7a ").concat(totalRows, " b\u1EA3n ghi");
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Tự động làm mới';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'trang trước';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "\u0111\u1EBFn trang ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'trang sau';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "\u0110ang hi\u1EC7n ".concat(totalRows, " h\xE0ng");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Xoá tìm kiếm';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'Tìm kiếm';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Cột';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Hiện tất cả';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Sao chép hàng';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "\u0110ang hi\u1EC7n ".concat(totalRows, " h\xE0ng");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Xuất dữ liệu';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Ẩn/Hiện điều khiển';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Ẩn điều khiển';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Hiện điều khiển';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Toàn màn hình';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Đến';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Đang tải';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'Không có dữ liệu';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'Ẩn/Hiện phân trang';
@@ -1987,50 +2025,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'Ẩn phân trang';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'In';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " b\u1EA3n ghi m\u1ED7i trang");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Làm mới';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Hiển thị các thẻ';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'trang sau';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "\u0111\u1EBFn trang ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'trang trước';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Tìm kiếm';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Hi\u1EC3n th\u1ECB t\u1EEB trang ".concat(pageFrom, " \u0111\u1EBFn ").concat(pageTo, " c\u1EE7a ").concat(totalRows, " b\u1EA3n ghi (\u0111\u01B0\u1EE3c l\u1ECDc t\u1EEB t\u1ED5ng ").concat(totalNotFiltered, " h\xE0ng)");
+	    }
+	    return "Hi\u1EC3n th\u1ECB t\u1EEB trang ".concat(pageFrom, " \u0111\u1EBFn ").concat(pageTo, " c\u1EE7a ").concat(totalRows, " b\u1EA3n ghi");
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Ẩn các thẻ';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'Cột';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Hiện tất cả';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Toàn màn hình';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Tất cả';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Tự động làm mới';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Xuất dữ liệu';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Đến';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Tìm kiếm nâng cao';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Đóng';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Ẩn/Hiện điều khiển';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Ẩn điều khiển';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Hiện điều khiển';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Hiển thị các thẻ';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['vi-VN']);

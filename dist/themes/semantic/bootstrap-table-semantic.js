@@ -17,12 +17,12 @@
   function _defineProperties(e, r) {
     for (var t = 0; t < r.length; t++) {
       var o = r[t];
-      o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+      o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
     }
   }
   function _createClass(e, r, t) {
-    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
-      writable: !1
+    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+      writable: false
     }), e;
   }
   function _get() {
@@ -44,11 +44,11 @@
     t.prototype = Object.create(e && e.prototype, {
       constructor: {
         value: t,
-        writable: !0,
-        configurable: !0
+        writable: true,
+        configurable: true
       }
     }), Object.defineProperty(t, "prototype", {
-      writable: !1
+      writable: false
     }), e && _setPrototypeOf(t, e);
   }
   function _isNativeReflectConstruct() {
@@ -182,7 +182,7 @@
   	var NATIVE_BIND = requireFunctionBindNative();
 
   	var call = Function.prototype.call;
-
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	functionCall = NATIVE_BIND ? call.bind(call) : function () {
   	  return call.apply(call, arguments);
   	};
@@ -239,6 +239,7 @@
 
   	var FunctionPrototype = Function.prototype;
   	var call = FunctionPrototype.call;
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
   	functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -644,10 +645,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.39.0',
+  	  version: '3.44.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -715,7 +716,7 @@
 
   	var id = 0;
   	var postfix = Math.random();
-  	var toString = uncurryThis(1.0.toString);
+  	var toString = uncurryThis(1.1.toString);
 
   	uid = function (key) {
   	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);

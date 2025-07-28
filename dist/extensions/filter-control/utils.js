@@ -102,7 +102,7 @@
   	var NATIVE_BIND = requireFunctionBindNative();
 
   	var call = Function.prototype.call;
-
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	functionCall = NATIVE_BIND ? call.bind(call) : function () {
   	  return call.apply(call, arguments);
   	};
@@ -159,6 +159,7 @@
 
   	var FunctionPrototype = Function.prototype;
   	var call = FunctionPrototype.call;
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
   	functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -564,10 +565,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.39.0',
+  	  version: '3.44.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -635,7 +636,7 @@
 
   	var id = 0;
   	var postfix = Math.random();
-  	var toString = uncurryThis(1.0.toString);
+  	var toString = uncurryThis(1.1.toString);
 
   	uid = function (key) {
   	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -2883,6 +2884,61 @@
 
   var es_regexp_toString = {};
 
+  var regexpFlagsDetection;
+  var hasRequiredRegexpFlagsDetection;
+
+  function requireRegexpFlagsDetection () {
+  	if (hasRequiredRegexpFlagsDetection) return regexpFlagsDetection;
+  	hasRequiredRegexpFlagsDetection = 1;
+  	var globalThis = requireGlobalThis();
+  	var fails = requireFails();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
+  	var RegExp = globalThis.RegExp;
+
+  	var FLAGS_GETTER_IS_CORRECT = !fails(function () {
+  	  var INDICES_SUPPORT = true;
+  	  try {
+  	    RegExp('.', 'd');
+  	  } catch (error) {
+  	    INDICES_SUPPORT = false;
+  	  }
+
+  	  var O = {};
+  	  // modern V8 bug
+  	  var calls = '';
+  	  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
+
+  	  var addGetter = function (key, chr) {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty(O, key, { get: function () {
+  	      calls += chr;
+  	      return true;
+  	    } });
+  	  };
+
+  	  var pairs = {
+  	    dotAll: 's',
+  	    global: 'g',
+  	    ignoreCase: 'i',
+  	    multiline: 'm',
+  	    sticky: 'y'
+  	  };
+
+  	  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
+
+  	  for (var key in pairs) addGetter(key, pairs[key]);
+
+  	  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
+
+  	  return result !== expected || calls !== expected;
+  	});
+
+  	regexpFlagsDetection = { correct: FLAGS_GETTER_IS_CORRECT };
+  	return regexpFlagsDetection;
+  }
+
   var regexpGetFlags;
   var hasRequiredRegexpGetFlags;
 
@@ -2892,14 +2948,17 @@
   	var call = requireFunctionCall();
   	var hasOwn = requireHasOwnProperty();
   	var isPrototypeOf = requireObjectIsPrototypeOf();
-  	var regExpFlags = requireRegexpFlags();
+  	var regExpFlagsDetection = requireRegexpFlagsDetection();
+  	var regExpFlagsGetterImplementation = requireRegexpFlags();
 
   	var RegExpPrototype = RegExp.prototype;
 
-  	regexpGetFlags = function (R) {
-  	  var flags = R.flags;
-  	  return flags === undefined && !('flags' in RegExpPrototype) && !hasOwn(R, 'flags') && isPrototypeOf(RegExpPrototype, R)
-  	    ? call(regExpFlags, R) : flags;
+  	regexpGetFlags = regExpFlagsDetection.correct ? function (it) {
+  	  return it.flags;
+  	} : function (it) {
+  	  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
+  	    ? call(regExpFlagsGetterImplementation, it)
+  	    : it.flags;
   	};
   	return regexpGetFlags;
   }
@@ -3121,15 +3180,19 @@
   	if (hasRequiredEs_string_match) return es_string_match;
   	hasRequiredEs_string_match = 1;
   	var call = requireFunctionCall();
+  	var uncurryThis = requireFunctionUncurryThis();
   	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
   	var anObject = requireAnObject();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var toLength = requireToLength();
   	var toString = requireToString();
   	var requireObjectCoercible = requireRequireObjectCoercible();
   	var getMethod = requireGetMethod();
   	var advanceStringIndex = requireAdvanceStringIndex();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
+
+  	var stringIndexOf = uncurryThis(''.indexOf);
 
   	// @@match logic
   	fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNative) {
@@ -3138,7 +3201,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.match
   	    function match(regexp) {
   	      var O = requireObjectCoercible(this);
-  	      var matcher = isNullOrUndefined(regexp) ? undefined : getMethod(regexp, MATCH);
+  	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
   	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
   	    },
   	    // `RegExp.prototype[@@match]` method
@@ -3150,9 +3213,11 @@
 
   	      if (res.done) return res.value;
 
-  	      if (!rx.global) return regExpExec(rx, S);
+  	      var flags = toString(getRegExpFlags(rx));
 
-  	      var fullUnicode = rx.unicode;
+  	      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
+
+  	      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
   	      rx.lastIndex = 0;
   	      var A = [];
   	      var n = 0;
@@ -3186,7 +3251,7 @@
   	var apply = FunctionPrototype.apply;
   	var call = FunctionPrototype.call;
 
-  	// eslint-disable-next-line es/no-reflect -- safe
+  	// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
   	functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
   	  return call.apply(apply, arguments);
   	});
@@ -3259,7 +3324,7 @@
   	var fails = requireFails();
   	var anObject = requireAnObject();
   	var isCallable = requireIsCallable();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var toIntegerOrInfinity = requireToIntegerOrInfinity();
   	var toLength = requireToLength();
   	var toString = requireToString();
@@ -3267,6 +3332,7 @@
   	var advanceStringIndex = requireAdvanceStringIndex();
   	var getMethod = requireGetMethod();
   	var getSubstitution = requireGetSubstitution();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
   	var wellKnownSymbol = requireWellKnownSymbol();
 
@@ -3317,7 +3383,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.replace
   	    function replace(searchValue, replaceValue) {
   	      var O = requireObjectCoercible(this);
-  	      var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
+  	      var replacer = isObject(searchValue) ? getMethod(searchValue, REPLACE) : undefined;
   	      return replacer
   	        ? call(replacer, searchValue, O, replaceValue)
   	        : call(nativeReplace, toString(O), searchValue, replaceValue);
@@ -3340,10 +3406,11 @@
   	      var functionalReplace = isCallable(replaceValue);
   	      if (!functionalReplace) replaceValue = toString(replaceValue);
 
-  	      var global = rx.global;
+  	      var flags = toString(getRegExpFlags(rx));
+  	      var global = stringIndexOf(flags, 'g') !== -1;
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = rx.unicode;
+  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
   	        rx.lastIndex = 0;
   	      }
 
@@ -3853,7 +3920,7 @@
           var range = elem.createTextRange();
           range.move('character', caretPos);
           range.select();
-        } else {
+        } else if (elem.setSelectionRange) {
           elem.setSelectionRange(caretPos, caretPos);
         }
       }
@@ -4259,7 +4326,7 @@
 
       // eslint-disable-next-line guard-for-in
       for (var key in variableValues) {
-        addOptionToSelectControl(selectControl, key, variableValues[key], selected);
+        addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected);
       }
       if (that.options.sortSelectOptions) {
         sortSelectControl(selectControl, filterOrderBy, that.options);

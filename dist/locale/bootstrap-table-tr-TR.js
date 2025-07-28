@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1940,44 +1942,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Satırları Kopyala';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Yazdır';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Kapat';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Yükleniyor, lütfen bekleyin';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Gelişmiş Arama';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "Sayfa ba\u015F\u0131na ".concat(pageNumber, " kay\u0131t.");
+	  formatAllRows: function formatAllRows() {
+	    return 'Tüm Satırlar';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor (").concat(totalNotFiltered, " toplam sat\u0131r filtrelendi).");
-	    }
-	    return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor.");
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Otomatik Yenileme';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'önceki sayfa';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "sayfa ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'sonraki sayfa';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "".concat(totalRows, " sat\u0131r g\xF6steriliyor");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Aramayı Temizle';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'Ara';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Sütunlar';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'Tümünü Kapat';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Satırları Kopyala';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "".concat(totalRows, " sat\u0131r g\xF6steriliyor");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Verileri Dışa Aktar';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Kontrolleri Gizle/Göster';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Kontrolleri Gizle';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Kontrolleri Göster';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Tam Ekran';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Git';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Yükleniyor, lütfen bekleyin';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'Eşleşen kayıt bulunamadı.';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'Sayfalamayı Gizle/Göster';
@@ -1988,50 +2026,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'Sayfalamayı Gizle';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'Yazdır';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "Sayfa ba\u015F\u0131na ".concat(pageNumber, " kay\u0131t.");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Yenile';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Kart Görünümünü Göster';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'sonraki sayfa';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "sayfa ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'önceki sayfa';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Ara';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor (").concat(totalNotFiltered, " toplam sat\u0131r filtrelendi).");
+	    }
+	    return "".concat(totalRows, " kay\u0131ttan ").concat(pageFrom, "-").concat(pageTo, " aras\u0131 g\xF6steriliyor.");
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Kart Görünümünü Gizle';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'Sütunlar';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Tümünü Kapat';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Tam Ekran';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'Tüm Satırlar';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Otomatik Yenileme';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Verileri Dışa Aktar';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Git';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Gelişmiş Arama';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Kapat';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Kontrolleri Gizle/Göster';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Kontrolleri Gizle';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Kontrolleri Göster';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Kart Görünümünü Göster';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR']);

@@ -25,12 +25,12 @@
   function _defineProperties(e, r) {
     for (var t = 0; t < r.length; t++) {
       var o = r[t];
-      o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+      o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
     }
   }
   function _createClass(e, r, t) {
-    return _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
-      writable: !1
+    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+      writable: false
     }), e;
   }
   function _createForOfIteratorHelper(r, e) {
@@ -44,9 +44,9 @@
           s: F,
           n: function () {
             return n >= r.length ? {
-              done: !0
+              done: true
             } : {
-              done: !1,
+              done: false,
               value: r[n++]
             };
           },
@@ -59,8 +59,8 @@
       throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
     var o,
-      a = !0,
-      u = !1;
+      a = true,
+      u = false;
     return {
       s: function () {
         t = t.call(r);
@@ -70,7 +70,7 @@
         return a = r.done, r;
       },
       e: function (r) {
-        u = !0, o = r;
+        u = true, o = r;
       },
       f: function () {
         try {
@@ -100,11 +100,11 @@
     t.prototype = Object.create(e && e.prototype, {
       constructor: {
         value: t,
-        writable: !0,
-        configurable: !0
+        writable: true,
+        configurable: true
       }
     }), Object.defineProperty(t, "prototype", {
-      writable: !1
+      writable: false
     }), e && _setPrototypeOf(t, e);
   }
   function _isNativeReflectConstruct() {
@@ -123,12 +123,12 @@
         i,
         u,
         a = [],
-        f = !0,
-        o = !1;
+        f = true,
+        o = false;
       try {
         if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
       } catch (r) {
-        o = !0, n = r;
+        o = true, n = r;
       } finally {
         try {
           if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
@@ -275,7 +275,7 @@
   	var NATIVE_BIND = requireFunctionBindNative();
 
   	var call = Function.prototype.call;
-
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	functionCall = NATIVE_BIND ? call.bind(call) : function () {
   	  return call.apply(call, arguments);
   	};
@@ -332,6 +332,7 @@
 
   	var FunctionPrototype = Function.prototype;
   	var call = FunctionPrototype.call;
+  	// eslint-disable-next-line es/no-function-prototype-bind -- safe
   	var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
   	functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -737,10 +738,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.39.0',
+  	  version: '3.44.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -808,7 +809,7 @@
 
   	var id = 0;
   	var postfix = Math.random();
-  	var toString = uncurryThis(1.0.toString);
+  	var toString = uncurryThis(1.1.toString);
 
   	uid = function (key) {
   	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -2557,6 +2558,7 @@
   	  var symbol = Symbol('assign detection');
   	  var alphabet = 'abcdefghijklmnopqrst';
   	  A[symbol] = 7;
+  	  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
   	  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
   	  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
   	}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -3057,6 +3059,61 @@
 
   var es_regexp_toString = {};
 
+  var regexpFlagsDetection;
+  var hasRequiredRegexpFlagsDetection;
+
+  function requireRegexpFlagsDetection () {
+  	if (hasRequiredRegexpFlagsDetection) return regexpFlagsDetection;
+  	hasRequiredRegexpFlagsDetection = 1;
+  	var globalThis = requireGlobalThis();
+  	var fails = requireFails();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
+  	var RegExp = globalThis.RegExp;
+
+  	var FLAGS_GETTER_IS_CORRECT = !fails(function () {
+  	  var INDICES_SUPPORT = true;
+  	  try {
+  	    RegExp('.', 'd');
+  	  } catch (error) {
+  	    INDICES_SUPPORT = false;
+  	  }
+
+  	  var O = {};
+  	  // modern V8 bug
+  	  var calls = '';
+  	  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
+
+  	  var addGetter = function (key, chr) {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty(O, key, { get: function () {
+  	      calls += chr;
+  	      return true;
+  	    } });
+  	  };
+
+  	  var pairs = {
+  	    dotAll: 's',
+  	    global: 'g',
+  	    ignoreCase: 'i',
+  	    multiline: 'm',
+  	    sticky: 'y'
+  	  };
+
+  	  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
+
+  	  for (var key in pairs) addGetter(key, pairs[key]);
+
+  	  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
+
+  	  return result !== expected || calls !== expected;
+  	});
+
+  	regexpFlagsDetection = { correct: FLAGS_GETTER_IS_CORRECT };
+  	return regexpFlagsDetection;
+  }
+
   var regexpGetFlags;
   var hasRequiredRegexpGetFlags;
 
@@ -3066,14 +3123,17 @@
   	var call = requireFunctionCall();
   	var hasOwn = requireHasOwnProperty();
   	var isPrototypeOf = requireObjectIsPrototypeOf();
-  	var regExpFlags = requireRegexpFlags();
+  	var regExpFlagsDetection = requireRegexpFlagsDetection();
+  	var regExpFlagsGetterImplementation = requireRegexpFlags();
 
   	var RegExpPrototype = RegExp.prototype;
 
-  	regexpGetFlags = function (R) {
-  	  var flags = R.flags;
-  	  return flags === undefined && !('flags' in RegExpPrototype) && !hasOwn(R, 'flags') && isPrototypeOf(RegExpPrototype, R)
-  	    ? call(regExpFlags, R) : flags;
+  	regexpGetFlags = regExpFlagsDetection.correct ? function (it) {
+  	  return it.flags;
+  	} : function (it) {
+  	  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
+  	    ? call(regExpFlagsGetterImplementation, it)
+  	    : it.flags;
   	};
   	return regexpGetFlags;
   }
@@ -3222,7 +3282,7 @@
   	var apply = FunctionPrototype.apply;
   	var call = FunctionPrototype.call;
 
-  	// eslint-disable-next-line es/no-reflect -- safe
+  	// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
   	functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
   	  return call.apply(apply, arguments);
   	});
@@ -3469,7 +3529,7 @@
   	var fails = requireFails();
   	var anObject = requireAnObject();
   	var isCallable = requireIsCallable();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var toIntegerOrInfinity = requireToIntegerOrInfinity();
   	var toLength = requireToLength();
   	var toString = requireToString();
@@ -3477,6 +3537,7 @@
   	var advanceStringIndex = requireAdvanceStringIndex();
   	var getMethod = requireGetMethod();
   	var getSubstitution = requireGetSubstitution();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
   	var wellKnownSymbol = requireWellKnownSymbol();
 
@@ -3527,7 +3588,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.replace
   	    function replace(searchValue, replaceValue) {
   	      var O = requireObjectCoercible(this);
-  	      var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
+  	      var replacer = isObject(searchValue) ? getMethod(searchValue, REPLACE) : undefined;
   	      return replacer
   	        ? call(replacer, searchValue, O, replaceValue)
   	        : call(nativeReplace, toString(O), searchValue, replaceValue);
@@ -3550,10 +3611,11 @@
   	      var functionalReplace = isCallable(replaceValue);
   	      if (!functionalReplace) replaceValue = toString(replaceValue);
 
-  	      var global = rx.global;
+  	      var flags = toString(getRegExpFlags(rx));
+  	      var global = stringIndexOf(flags, 'g') !== -1;
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = rx.unicode;
+  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
   	        rx.lastIndex = 0;
   	      }
 
@@ -3634,7 +3696,7 @@
   	var call = requireFunctionCall();
   	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
   	var anObject = requireAnObject();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var isObject = requireIsObject();
   	var requireObjectCoercible = requireRequireObjectCoercible();
   	var sameValue = requireSameValue();
   	var toString = requireToString();
@@ -3648,7 +3710,7 @@
   	    // https://tc39.es/ecma262/#sec-string.prototype.search
   	    function search(regexp) {
   	      var O = requireObjectCoercible(this);
-  	      var searcher = isNullOrUndefined(regexp) ? undefined : getMethod(regexp, SEARCH);
+  	      var searcher = isObject(regexp) ? getMethod(regexp, SEARCH) : undefined;
   	      return searcher ? call(searcher, regexp, O) : new RegExp(regexp)[SEARCH](toString(O));
   	    },
   	    // `RegExp.prototype[@@search]` method
@@ -4156,8 +4218,8 @@
     }, {
       key: "_toggleAllColumns",
       value: function _toggleAllColumns() {
-        for (var _len10 = arguments.length, args = new Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {
-          args[_key10] = arguments[_key10];
+        for (var _len0 = arguments.length, args = new Array(_len0), _key0 = 0; _key0 < _len0; _key0++) {
+          args[_key0] = arguments[_key0];
         }
         _superPropGet(_class, "_toggleAllColumns", this)(args);
         if (!this.options.cookie) {
@@ -4209,8 +4271,8 @@
         if (this.options.reorderableColumns && this.options.cookie) {
           this.columnsSortOrder = JSON.parse(UtilsCookie.getCookie(this, UtilsCookie.cookieIds.reorderColumns));
         }
-        for (var _len11 = arguments.length, args = new Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {
-          args[_key11] = arguments[_key11];
+        for (var _len1 = arguments.length, args = new Array(_len1), _key1 = 0; _key1 < _len1; _key1++) {
+          args[_key1] = arguments[_key1];
         }
         _superPropGet(_class, "initHeader", this)(args);
       }
@@ -4222,8 +4284,8 @@
     }, {
       key: "filterBy",
       value: function filterBy() {
-        for (var _len12 = arguments.length, args = new Array(_len12), _key12 = 0; _key12 < _len12; _key12++) {
-          args[_key12] = arguments[_key12];
+        for (var _len10 = arguments.length, args = new Array(_len10), _key10 = 0; _key10 < _len10; _key10++) {
+          args[_key10] = arguments[_key10];
         }
         _superPropGet(_class, "filterBy", this)(args);
         if (!this.options.cookie) {

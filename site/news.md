@@ -4,6 +4,23 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.24.2
+
+<span class="post-date">28 Jul 2025</span>
+
+#### Core
+
+- **Update:** Added `scope` attribute support for table headers.
+- **Update:** Fixed bug where `updateCellByUniqueId` throws an error during search.
+- **Update:** Fixed "&" not escaped correctly in `unescapeHTML`.
+- **Update:** Updated `locales` and `check-locale` tool.
+
+#### Extensions
+
+- **Update(export):** Fixed bug where data was removed when `exportDataType` was set to `selected`.
+- **Update(filter-control):** Fixed bug where filters all data out when table cells contain HTML.
+- **Update(reorder-columns):** Fixed the catch error when the table calls `dragtable.destroy`.
+
 ## Bootstrap Table 1.24.1
 
 <span class="post-date">2 Mar 2025</span>

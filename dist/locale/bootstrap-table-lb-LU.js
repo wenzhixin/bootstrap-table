@@ -92,7 +92,7 @@
 		var NATIVE_BIND = requireFunctionBindNative();
 
 		var call = Function.prototype.call;
-
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		functionCall = NATIVE_BIND ? call.bind(call) : function () {
 		  return call.apply(call, arguments);
 		};
@@ -149,6 +149,7 @@
 
 		var FunctionPrototype = Function.prototype;
 		var call = FunctionPrototype.call;
+		// eslint-disable-next-line es/no-function-prototype-bind -- safe
 		var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
 
 		functionUncurryThis = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
@@ -554,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.39.0',
+		  version: '3.44.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.39.0/LICENSE',
+		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -625,7 +626,7 @@
 
 		var id = 0;
 		var postfix = Math.random();
-		var toString = uncurryThis(1.0.toString);
+		var toString = uncurryThis(1.1.toString);
 
 		uid = function (key) {
 		  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
@@ -1890,6 +1891,7 @@
 		  var symbol = Symbol('assign detection');
 		  var alphabet = 'abcdefghijklmnopqrst';
 		  A[symbol] = 7;
+		  // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 		  alphabet.split('').forEach(function (chr) { B[chr] = chr; });
 		  return $assign({}, A)[symbol] !== 7 || objectKeys($assign({}, B)).join('') !== alphabet;
 		}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
@@ -1938,44 +1940,80 @@
 	 */
 
 	$.fn.bootstrapTable.locales['lb-LU'] = $.fn.bootstrapTable.locales['lb'] = {
-	  formatCopyRows: function formatCopyRows() {
-	    return 'Zeilen kopéieren';
+	  formatAddLevel: function formatAddLevel() {
+	    return 'Add Level';
 	  },
-	  formatPrint: function formatPrint() {
-	    return 'Drécken';
+	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
+	    return 'Zoumaachen';
 	  },
-	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment';
+	  formatAdvancedSearch: function formatAdvancedSearch() {
+	    return 'Erweidert Sich';
 	  },
-	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " Zeilen per S\xE4it");
+	  formatAllRows: function formatAllRows() {
+	    return 'All';
 	  },
-	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
-	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '', " (gefiltert vun insgesamt ").concat(totalNotFiltered, " Zeil").concat(totalRows > 1 ? 'en' : '', ")");
-	    }
-	    return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '');
+	  formatAutoRefresh: function formatAutoRefresh() {
+	    return 'Automatescht neilueden';
 	  },
-	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'viregt Säit';
-	  },
-	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "op S\xE4it ".concat(page);
-	  },
-	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'nächst Säit';
-	  },
-	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Weist ".concat(totalRows, " Zeilen");
+	  formatCancel: function formatCancel() {
+	    return 'Cancel';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Sich réckgängeg maachen';
 	  },
-	  formatSearch: function formatSearch() {
-	    return 'Sich';
+	  formatColumn: function formatColumn() {
+	    return 'Column';
+	  },
+	  formatColumns: function formatColumns() {
+	    return 'Kolonnen';
+	  },
+	  formatColumnsToggleAll: function formatColumnsToggleAll() {
+	    return 'All ëmschalten';
+	  },
+	  formatCopyRows: function formatCopyRows() {
+	    return 'Zeilen kopéieren';
+	  },
+	  formatDeleteLevel: function formatDeleteLevel() {
+	    return 'Delete Level';
+	  },
+	  formatDetailPagination: function formatDetailPagination(totalRows) {
+	    return "Weist ".concat(totalRows, " Zeilen");
+	  },
+	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
+	    return 'Please remove or change any duplicate column.';
+	  },
+	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
+	    return 'Duplicate(s) detected!';
+	  },
+	  formatExport: function formatExport() {
+	    return 'Daten exportéieren';
+	  },
+	  formatFilterControlSwitch: function formatFilterControlSwitch() {
+	    return 'Schaltelementer uweisen/verstoppen';
+	  },
+	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
+	    return 'Schaltelementer verstoppen';
+	  },
+	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
+	    return 'Schaltelementer uweisen';
+	  },
+	  formatFullscreen: function formatFullscreen() {
+	    return 'Vollbild';
+	  },
+	  formatJumpTo: function formatJumpTo() {
+	    return 'Sprangen';
+	  },
+	  formatLoadingMessage: function formatLoadingMessage() {
+	    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment';
+	  },
+	  formatMultipleSort: function formatMultipleSort() {
+	    return 'Multiple Sort';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'Keng passend Anträg fonnt';
+	  },
+	  formatOrder: function formatOrder() {
+	    return 'Order';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'Paginatioun uweisen/verstoppen';
@@ -1986,50 +2024,59 @@
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
 	    return 'Paginatioun verstoppen';
 	  },
+	  formatPrint: function formatPrint() {
+	    return 'Drécken';
+	  },
+	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
+	    return "".concat(pageNumber, " Zeilen per S\xE4it");
+	  },
 	  formatRefresh: function formatRefresh() {
 	    return 'Nei lueden';
 	  },
-	  formatToggleOn: function formatToggleOn() {
-	    return 'Kaartenusiicht uweisen';
+	  formatSRPaginationNextText: function formatSRPaginationNextText() {
+	    return 'nächst Säit';
+	  },
+	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
+	    return "op S\xE4it ".concat(page);
+	  },
+	  formatSRPaginationPreText: function formatSRPaginationPreText() {
+	    return 'viregt Säit';
+	  },
+	  formatSearch: function formatSearch() {
+	    return 'Sich';
+	  },
+	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+	      return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '', " (gefiltert vun insgesamt ").concat(totalNotFiltered, " Zeil").concat(totalRows > 1 ? 'en' : '', ")");
+	    }
+	    return "Weist Zeil ".concat(pageFrom, " bis ").concat(pageTo, " vun ").concat(totalRows, " Zeil").concat(totalRows > 1 ? 'en' : '');
+	  },
+	  formatSort: function formatSort() {
+	    return 'Sort';
+	  },
+	  formatSortBy: function formatSortBy() {
+	    return 'Sort by';
+	  },
+	  formatSortOrders: function formatSortOrders() {
+	    return {
+	      asc: 'Ascending',
+	      desc: 'Descending'
+	    };
+	  },
+	  formatThenBy: function formatThenBy() {
+	    return 'Then by';
+	  },
+	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
+	    return 'Hide custom view';
+	  },
+	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
+	    return 'Show custom view';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Kaartenusiicht verstoppen';
 	  },
-	  formatColumns: function formatColumns() {
-	    return 'Kolonnen';
-	  },
-	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'All ëmschalten';
-	  },
-	  formatFullscreen: function formatFullscreen() {
-	    return 'Vollbild';
-	  },
-	  formatAllRows: function formatAllRows() {
-	    return 'All';
-	  },
-	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Automatescht neilueden';
-	  },
-	  formatExport: function formatExport() {
-	    return 'Daten exportéieren';
-	  },
-	  formatJumpTo: function formatJumpTo() {
-	    return 'Sprangen';
-	  },
-	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Erweidert Sich';
-	  },
-	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Zoumaachen';
-	  },
-	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Schaltelementer uweisen/verstoppen';
-	  },
-	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Schaltelementer verstoppen';
-	  },
-	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Schaltelementer uweisen';
+	  formatToggleOn: function formatToggleOn() {
+	    return 'Kaartenusiicht uweisen';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['lb-LU']);
