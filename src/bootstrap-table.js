@@ -2211,7 +2211,7 @@ class BootstrapTable {
       .html('').attr('class', this.$el.attr('class'))
 
     if ($caption.length > 0) {
-      $fixedHeaderTable.append($caption.clone())
+      $fixedHeaderTable.append($caption.clone(true, true))
     }
 
     $fixedHeaderTable.append(this.$header_)
