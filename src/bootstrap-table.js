@@ -2203,19 +2203,17 @@ class BootstrapTable {
 
     this.$header_ = this.$header.clone(true, true)
     this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
-    
-    // Preserve caption from original table
+
     const $caption = this.$el.find('caption')
     const $fixedHeaderTable = this.$tableHeader
       .css('margin-right', scrollWidth)
       .find('table').css('width', this.$el.outerWidth())
       .html('').attr('class', this.$el.attr('class'))
-    
-    // Add caption to fixed header table if it exists
+
     if ($caption.length > 0) {
       $fixedHeaderTable.append($caption.clone())
     }
-    
+
     $fixedHeaderTable.append(this.$header_)
 
     this.$tableLoading.css('width', this.$el.outerWidth())
