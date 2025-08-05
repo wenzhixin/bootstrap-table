@@ -2213,7 +2213,7 @@ class BootstrapTable {
     
     // Add caption to fixed header table if it exists
     if ($caption.length > 0) {
-      $fixedHeaderTable.append($caption.clone())
+      $fixedHeaderTable.append($caption.clone(true, true))
     }
     
     $fixedHeaderTable.append(this.$header_)
