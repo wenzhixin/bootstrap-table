@@ -20,6 +20,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.constants.classes.buttonsGroup = 'ui buttons'
     this.constants.classes.buttonsDropdown = 'ui button dropdown'
+    this.constants.classes.input = ''
+    this.constants.classes.select = 'ui dropdown selection'
     this.constants.classes.inputGroup = 'ui input'
     this.constants.classes.paginationDropdown = 'ui dropdown'
 
