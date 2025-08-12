@@ -221,15 +221,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const rawFilterValue = filterPartial[key] || ''
-          let filterValue = rawFilterValue.toLowerCase()
+          let filterValue = Array.isArray(rawFilterValue) ? rawFilterValue : rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
-          if (this.options.searchAccentNeutralise) {
+          if (this.options.searchAccentNeutralise && !Array.isArray(filterValue)) {
             filterValue = Utils.normalizeAccent(filterValue)
           }
 
-          let filterValues = [filterValue]
+          let filterValues = []
 
           // Handle multiple select values (arrays)
           if (Array.isArray(rawFilterValue)) {
@@ -244,6 +244,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
             this.options.filterControlMultipleSearch
           ) {
             filterValues = filterValue.split(this.options.filterControlMultipleSearchDelimiter)
+          } else {
+            filterValues = [filterValue]
           }
 
           filterValues.forEach(filterValue => {
@@ -542,12 +544,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
     controls.forEach(element => {
       const $element = $(element)
       const elementValue = $element.val()
-      const text = elementValue ? elementValue.trim() : ''
+      let text = ''
+      
+      // Handle multiple select (array) vs single select (string)
+      if (Array.isArray(elementValue)) {
+        text = elementValue // Keep as array for multiple select
+      } else {
+        text = elementValue ? elementValue.trim() : ''
+      }
+      
       const $field = $element.closest('[data-field]').data('field')
 
       this.trigger('column-search', $field, text)
 
-      if (text) {
+      // Check if we have a valid filter value (string with content or non-empty array)
+      const hasValue = Array.isArray(text) ? text.length > 0 : (text && text.length > 0)
+      
+      if (hasValue) {
         this.filterColumnsPartial[$field] = text
       } else {
         delete this.filterColumnsPartial[$field]
