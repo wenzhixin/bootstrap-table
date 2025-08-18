@@ -226,24 +226,27 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
 
           let filterValues = [filterValue]
+          let excludeValues = []
 
           if (
             this.options.filterControlMultipleSearch
           ) {
             filterValues = filterValue.split(this.options.filterControlMultipleSearchDelimiter)
+            // Separate include and exclude values
+            excludeValues = filterValues.filter(fv => fv.startsWith('[!]')).map(fv => fv.slice(3).trim())
+            filterValues = filterValues.filter(fv => !fv.startsWith('[!]')).map(fv => fv.trim())
+          } else if (filterValue.startsWith('[!]')) {
+            excludeValues = [filterValue.slice(3).trim()]
+            filterValues = []
           }
 
-          filterValues.forEach(filterValue => {
-            if (tmpItemIsExpected === true) {
-              return
-            }
+          // Handle exclusion first: if any exclude term matches, item is not expected
+          let isExcluded = false
 
-            filterValue = filterValue.trim()
+          if (excludeValues.length > 0) {
+            isExcluded = excludeValues.some(excludeValue => {
+              if (excludeValue === '') return false
 
-            if (filterValue === '') {
-              tmpItemIsExpected = true
-            } else {
-              // Fix #142: search use formatted data
               if (thisColumn) {
                 if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
                   value = $.fn.bootstrapTable.utils.calculateObjectValue(
@@ -257,31 +260,77 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
               if ($.inArray(key, that.header.fields) !== -1) {
                 if (value === undefined || value === null) {
-                  tmpItemIsExpected = false
-                } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
-                  itemIsExpected.push(that.isValueExpected(rawFilterValue, value, thisColumn, key))
-                } else if (typeof value === 'object' && Array.isArray(value)) {
-                  value.forEach(objectValue => {
-                    if (tmpItemIsExpected) {
-                      return
-                    }
-
-                    tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                  })
-                } else if (typeof value === 'object' && !Array.isArray(value)) {
-                  Object.values(value).forEach(objectValue => {
-                    if (tmpItemIsExpected) {
-                      return
-                    }
-
-                    tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                  })
-                } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-                  tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
+                  return false
+                }
+                if (typeof value === 'object' && thisColumn.filterCustomSearch) {
+                  return that.isValueExpected(excludeValue, value, thisColumn, key)
+                }
+                if (typeof value === 'object' && Array.isArray(value)) {
+                  return value.some(objectValue => that.isValueExpected(excludeValue, objectValue, thisColumn, key))
+                }
+                if (typeof value === 'object' && !Array.isArray(value)) {
+                  return Object.values(value).some(objectValue => that.isValueExpected(excludeValue, objectValue, thisColumn, key))
+                }
+                if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+                  return that.isValueExpected(excludeValue, value, thisColumn, key)
                 }
               }
-            }
-          })
+              return false
+            })
+          }
+
+          if (isExcluded) {
+            tmpItemIsExpected = false
+          } else {
+            // Proceed with inclusion logic
+            tmpItemIsExpected = filterValues.length === 0 // If no include filters, assume true unless excluded
+            filterValues.forEach(filterValue => {
+              if (tmpItemIsExpected === true && filterValues.length > 0) {
+                return
+              }
+
+              filterValue = filterValue.trim()
+
+              if (filterValue === '') {
+                tmpItemIsExpected = true
+              } else {
+                if (thisColumn) {
+                  if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
+                    value = $.fn.bootstrapTable.utils.calculateObjectValue(
+                      thisColumn,
+                      that.header.formatters[$.inArray(key, that.header.fields)],
+                      [value, item, i],
+                      value
+                    )
+                  }
+                }
+
+                if ($.inArray(key, that.header.fields) !== -1) {
+                  if (value === undefined || value === null) {
+                    tmpItemIsExpected = false
+                  } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
+                    tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
+                  } else if (typeof value === 'object' && Array.isArray(value)) {
+                    value.forEach(objectValue => {
+                      if (tmpItemIsExpected) {
+                        return
+                      }
+                      tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                    })
+                  } else if (typeof value === 'object' && !Array.isArray(value)) {
+                    Object.values(value).forEach(objectValue => {
+                      if (tmpItemIsExpected) {
+                        return
+                      }
+                      tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
+                    })
+                  } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+                    tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
+                  }
+                }
+              }
+            })
+          }
 
           itemIsExpected.push(tmpItemIsExpected)
         })
