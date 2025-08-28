@@ -235,9 +235,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
             // Separate include and exclude values
             excludeValues = filterValues.filter(fv => fv.startsWith('[!]')).map(fv => fv.slice(3).trim())
             filterValues = filterValues.filter(fv => !fv.startsWith('[!]')).map(fv => fv.trim())
+            // Filter out empty values after trimming
+            excludeValues = excludeValues.filter(ev => ev !== '')
+            filterValues = filterValues.filter(fv => fv !== '')
           } else if (filterValue.startsWith('[!]')) {
             excludeValues = [filterValue.slice(3).trim()]
             filterValues = []
+            // Filter out empty
+            excludeValues = excludeValues.filter(ev => ev !== '')
           }
 
           // Handle exclusion first: if any exclude term matches, item is not expected
@@ -245,7 +250,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
           if (excludeValues.length > 0) {
             isExcluded = excludeValues.some(excludeValue => {
-              if (excludeValue === '') return false
+              // Removed: if (excludeValue === '') return false (handled by filter above)
 
               if (thisColumn) {
                 if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
@@ -282,18 +287,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (isExcluded) {
             tmpItemIsExpected = false
           } else {
-            // Proceed with inclusion logic
-            tmpItemIsExpected = filterValues.length === 0 // If no include filters, assume true unless excluded
-            filterValues.forEach(filterValue => {
-              if (tmpItemIsExpected === true && filterValues.length > 0) {
-                return
-              }
+            // Proceed with inclusion logic (fixed to AND)
+            tmpItemIsExpected = filterValues.length === 0
+            if (filterValues.length > 0) {
+              tmpItemIsExpected = filterValues.every(filterValue => {
+                value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
 
-              filterValue = filterValue.trim()
-
-              if (filterValue === '') {
-                tmpItemIsExpected = true
-              } else {
                 if (thisColumn) {
                   if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
                     value = $.fn.bootstrapTable.utils.calculateObjectValue(
@@ -305,31 +304,33 @@ $.BootstrapTable = class extends $.BootstrapTable {
                   }
                 }
 
-                if ($.inArray(key, that.header.fields) !== -1) {
-                  if (value === undefined || value === null) {
-                    tmpItemIsExpected = false
-                  } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
-                    tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
-                  } else if (typeof value === 'object' && Array.isArray(value)) {
-                    value.forEach(objectValue => {
-                      if (tmpItemIsExpected) {
-                        return
-                      }
-                      tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                    })
-                  } else if (typeof value === 'object' && !Array.isArray(value)) {
-                    Object.values(value).forEach(objectValue => {
-                      if (tmpItemIsExpected) {
-                        return
-                      }
-                      tmpItemIsExpected = that.isValueExpected(filterValue, objectValue, thisColumn, key)
-                    })
-                  } else if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-                    tmpItemIsExpected = that.isValueExpected(filterValue, value, thisColumn, key)
-                  }
+                if ($.inArray(key, that.header.fields) === -1) {
+                  return false
                 }
-              }
-            })
+
+                if (value === undefined || value === null) {
+                  return false
+                }
+
+                if (typeof value === 'object' && thisColumn.filterCustomSearch) {
+                  return that.isValueExpected(filterValue, value, thisColumn, key)
+                }
+
+                if (typeof value === 'object' && Array.isArray(value)) {
+                  return value.some(objectValue => that.isValueExpected(filterValue, objectValue, thisColumn, key))
+                }
+
+                if (typeof value === 'object' && !Array.isArray(value)) {
+                  return Object.values(value).some(objectValue => that.isValueExpected(filterValue, objectValue, thisColumn, key))
+                }
+
+                if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+                  return that.isValueExpected(filterValue, value, thisColumn, key)
+                }
+
+                return false // Default for unexpected types
+              })
+            }
           }
 
           itemIsExpected.push(tmpItemIsExpected)
