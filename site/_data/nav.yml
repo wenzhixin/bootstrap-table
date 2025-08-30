@@ -49,9 +49,9 @@
     - title: Webpack
     - title: Component
 
-- title: Online Editor
-
 - title: FAQ
+  pages:
+    - title: FAQ
 
 - title: About
   pages:

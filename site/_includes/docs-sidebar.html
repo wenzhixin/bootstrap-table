@@ -1,4 +1,4 @@
-<form class="bd-search d-flex align-items-center">
+<form class="d-flex align-items-center">
   <input type="search" class="form-control"
     id="search-input" placeholder="Search..."
     aria-label="Search for..." autocomplete="off">
@@ -10,7 +10,7 @@
   </button>
 </form>
 
-<nav class="collapse bd-links" id="bd-docs-nav">
+<ul class="bd-links-nav list-unstyled mt-3 mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
   {%- assign page_slug = page.url | split: '/' | last -%}
   {%- for group in site.data.nav -%}
   {%- assign link = group.pages | first -%}
@@ -22,12 +22,12 @@
     {%- assign active = 'active' -%}
   {%- endif -%}
 
-  <div class="bd-toc-item{% unless active == nil %} {{ active }}{% endunless %}">
-    <a class="bd-toc-link" href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ link_slug }}{% if link_slug %}/{% endif %}">
+  <li class="bd-links-group py-2{% unless active == nil %} {{ active }}{% endunless %}">
+    <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
       {{ group.title }}
-    </a>
+    </strong>
 
-    <ul class="nav bd-sidenav">
+    <ul class="list-unstyled fw-normal pb-2 small">
       {%- for doc in group.pages -%}
         {%- assign doc_slug = doc.title | slugify -%}
         {%- assign active = nil -%}
@@ -36,13 +36,16 @@
           {%- assign active = 'active bd-sidenav-active' -%}
         {%- endif -%}
 
-        <li{% unless active == nil %} class="{{ active }}"{% endunless %}>
-          <a href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ doc_slug }}/">
+        <li>
+          <a
+            class="bd-links-link d-inline-block rounded{% unless active == nil %} {{ active }}{% endunless %}"
+            href="{{ site.baseurl }}/docs/{{ group_slug }}/{{ doc_slug }}/"
+          >
             {{ doc.title }}
           </a>
         </li>
       {%- endfor -%}
     </ul>
-  </div>
+  </li>
   {%- endfor -%}
 </nav>
