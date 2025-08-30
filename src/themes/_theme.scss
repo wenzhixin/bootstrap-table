@@ -1,5 +1,17 @@
 @use "variables";
 
+html {
+  --bt-table-border-color: #{variables.$border-color};
+  --bt-table-loading-bg: #{variables.$background};
+  --bt-table-loading-color: #{variables.$color};
+}
+
+html[data-bs-theme="dark"] {
+  --bt-table-border-color: #{variables.$dark-border-color};
+  --bt-table-loading-bg: #{variables.$color};
+  --bt-table-loading-color: #{variables.$background};
+}
+
 .bootstrap-table {
   .fixed-table-toolbar {
     &::after {
@@ -177,22 +189,22 @@
 
     &.fixed-height {
       &:not(.has-footer) {
-        border-bottom: 1px solid variables.$border-color;
+        border-bottom: 1px solid var(--bt-table-border-color);
       }
 
       &.has-card-view {
-        border-top: 1px solid variables.$border-color;
-        border-bottom: 1px solid variables.$border-color;
+        border-top: 1px solid var(--bt-table-border-color);
+        border-bottom: 1px solid var(--bt-table-border-color);
       }
 
       .fixed-table-border {
-        border-left: 1px solid variables.$border-color;
-        border-right: 1px solid variables.$border-color;
+        border-left: 1px solid var(--bt-table-border-color);
+        border-right: 1px solid var(--bt-table-border-color);
       }
 
       .table {
         thead th {
-          border-bottom: 1px solid variables.$border-color;
+          border-bottom: 1px solid var(--bt-table-border-color);
         }
       }
 
@@ -213,7 +225,7 @@
 
       .fixed-table-loading {
         align-items: center;
-        background: variables.$background;
+        background: var(--bt-table-loading-bg);
         display: flex;
         justify-content: center;
         position: absolute;
@@ -252,7 +264,7 @@
             animation-duration: 1.5s;
             animation-iteration-count: infinite;
             animation-name: loading;
-            background: variables.$color;
+            background: var(--bt-table-loading-color);
             border-radius: 50%;
             display: block;
             height: 5px;
@@ -271,12 +283,12 @@
         }
 
         &.table-dark {
-          background: variables.$color;
+          background: var(--bt-table-loading-color);
 
           .animation-dot,
           .animation-wrap::after,
           .animation-wrap::before {
-            background: variables.$background;
+            background: var(--bt-table-loading-bg);
           }
         }
       }
