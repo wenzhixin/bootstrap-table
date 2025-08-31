@@ -1,0 +1,94 @@
+---
+const { categories, current } = Astro.props
+---
+
+<ul class="categories-list">
+  {Object.entries(categories).map(([key, value]) =>
+    <li class={current === key ? 'active' : ''}>
+      <a href={`#${key}`} data-category={key}>
+        <span>{value}</span>
+      </a>
+    </li>
+  )}
+  <div class="clearfix"></div>
+</ul>
+
+<style>
+  ul.categories-list {
+    list-style-type: none;
+    margin-top: 3rem;
+    z-index: 9999;
+    padding: 20px 15px;
+    position: relative;
+    border: 0;
+    z-index: 1;
+    background-color: #5d4a8e;
+    border-radius: 8px;
+    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+    width: 100%;
+  }
+
+  ul.categories-list > li {
+    float: left;
+    display: block;
+    padding: 3px 0;
+  }
+
+  ul.categories-list > li > a {
+    display: block;
+    text-align: center;
+    padding: 12px 12px;
+    font-weight: 600;
+    border-radius: 30px;
+    font-size: 12px;
+    margin-left: 0px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    transition: background .2s;
+  }
+
+  ul.categories-list > li > a:hover,
+  ul.categories-list > li.active > a {
+    color: #6d4eba;
+    background: white;
+  }
+
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryLinks = document.querySelectorAll('.categories-list [data-category]')
+    const themeSections = document.querySelectorAll('.theme-section')
+
+    categoryLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault()
+        const category = link.getAttribute('data-category')
+
+        categoryLinks.forEach(l => {
+          const parent = l.parentElement
+
+          if (parent) parent.classList.remove('active')
+        })
+        const linkParent = link.parentElement
+
+        if (linkParent) linkParent.classList.add('active')
+
+        themeSections.forEach(section => {
+          if (category === 'all' || section.getAttribute('data-category') === category) {
+            section.style.display = 'flex'
+          } else {
+            section.style.display = 'none'
+          }
+        })
+      })
+    })
+  })
+</script>

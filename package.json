@@ -55,8 +55,6 @@
     "docs:check:api": "cd tools && node check-api.js",
     "docs:check:locale": "cd tools && node check-locale.js",
     "docs:check": "run-s docs:check:*",
-    "docs:serve": "bundle exec jekyll serve",
-    "docs": "bundle exec jekyll build",
     "js:build:base": "rollup -c",
     "js:build:min": "cross-env NODE_ENV=production rollup -c",
     "js:build:banner": "foreach -g \"dist/**/*.min.js\" -x \"headr #{path} -o #{path} --version --homepage --author --license\"",

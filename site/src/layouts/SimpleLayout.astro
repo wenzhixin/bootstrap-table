@@ -1,0 +1,31 @@
+---
+import Header from '@/components/Header.astro'
+import Navbar from '@/components/Navbar.astro'
+import Footer from '@/components/Footer.astro'
+import Scripts from '@/components/Scripts.astro'
+import Ads from '@/components/Ads.astro'
+
+const { frontmatter } = Astro.props
+const layout = frontmatter.page || 'simple'
+---
+
+<!doctype html>
+<html lang="en">
+  <Header />
+  <body>
+    <Navbar layout={layout} />
+
+    <main class="bd-content p-5" id="content" role="main">
+      <header class="d-flex flex-column flex-md-row align-items-md-center p-5 bg-light {frontmatter.group}">
+        <div class="pt-md-3 pb-md-4">
+          <h1 class="bd-title mt-0">{frontmatter.title}</h1>
+          <p class="bd-lead">{frontmatter.description}</p>
+        </div>
+        <Ads />
+      </header>
+      <slot />
+    </main>
+    <Footer />
+    <Scripts layout={layout} />
+  </body>
+</html>

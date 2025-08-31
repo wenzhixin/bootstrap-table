@@ -19,7 +19,7 @@
   ],
   "ignorePaths": [
     "src/locale/**",
-    "site/_themes/node_modules/**",
+    "site/node_modules/**",
     "tools/**",
     "DONATORS.md"
   ]

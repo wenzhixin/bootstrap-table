@@ -1,0 +1,128 @@
+---
+const nav = [
+  {
+    title: 'Getting started',
+    pages: [
+      { title: 'Introduction' },
+      { title: 'Download' },
+      { title: 'Contents' },
+      { title: 'Usage' },
+      { title: 'Browsers & devices' }
+    ]
+  },
+  {
+    title: 'API',
+    pages: [
+      { title: 'Table Options' },
+      { title: 'Column Options' },
+      { title: 'Events' },
+      { title: 'Methods' },
+      { title: 'Localizations' }
+    ]
+  },
+  {
+    title: 'Extensions',
+    pages: [
+      { title: 'Addrbar' },
+      { title: 'Auto Refresh' },
+      { title: 'Cookie' },
+      { title: 'Copy Rows' },
+      { title: 'Custom View' },
+      { title: 'Defer URL' },
+      { title: 'Editable' },
+      { title: 'Export' },
+      { title: 'Filter Control' },
+      { title: 'Fixed Columns' },
+      { title: 'Group By v2' },
+      { title: 'i18n Enhance' },
+      { title: 'Key Events' },
+      { title: 'Mobile' },
+      { title: 'Multiple Sort' },
+      { title: 'Page Jump To' },
+      { title: 'Pipeline' },
+      { title: 'Print' },
+      { title: 'Reorder Columns' },
+      { title: 'Reorder Rows' },
+      { title: 'Resizable' },
+      { title: 'Sticky Header' },
+      { title: 'Toolbar' },
+      { title: 'Treegrid' }
+    ]
+  },
+  {
+    title: 'VueJS',
+    pages: [
+      { title: 'Introduction' },
+      { title: 'Browser' },
+      { title: 'Webpack' },
+      { title: 'Component' }
+    ]
+  },
+  {
+    title: 'FAQ',
+    pages: [
+      { title: 'FAQ' }
+    ]
+  },
+  {
+    title: 'About',
+    pages: [
+      { title: 'Overview' },
+      { title: 'License' }
+    ]
+  }
+]
+
+// Utility function: convert title to slug
+function slugify (text) {
+  return text.toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+// Get current page information (adjust according to actual routing logic)
+const currentPath = Astro.url.pathname
+const pathSegments = currentPath.split('/').filter(Boolean)
+const currentGroup = pathSegments[1] || ''
+const currentPage = pathSegments[2] || ''
+---
+
+<form class="d-flex align-items-center">
+  <input type="search" class="form-control"
+    id="search-input" placeholder="Search..."
+    aria-label="Search for..." autocomplete="off">
+</form>
+
+<ul class="bd-links-nav list-unstyled mt-3 mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
+  {nav.map(group => {
+    const groupSlug = slugify(group.title)
+    const isGroupActive = currentGroup === groupSlug
+
+    return (
+      <li class={`bd-links-group py-2${isGroupActive ? ' active' : ''}`}>
+        <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
+          {group.title}
+        </strong>
+
+        <ul class="list-unstyled fw-normal pb-2 small">
+          {group.pages.map(doc => {
+            const docSlug = slugify(doc.title)
+            const isActive = isGroupActive && currentPage === docSlug
+
+            return (
+              <li>
+                <a
+                  class={`bd-links-link d-inline-block rounded${isActive ? ' active bd-sidenav-active' : ''}`}
+                  href={`/docs/${groupSlug}/${docSlug}/`}
+                >
+                  {doc.title}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </li>
+    )
+  })}
+</ul>

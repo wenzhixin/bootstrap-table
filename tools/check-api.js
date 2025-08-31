@@ -1,18 +1,23 @@
 import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import chalk from 'chalk'
 import Constants from '../src/constants/index.js'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 let errorSum = 0
-const exampleFilesFolder = './bootstrap-table-examples/'
+const exampleFilesFolder = path.join(__dirname, 'bootstrap-table-examples')
 const exampleFilesFound = fs.existsSync(exampleFilesFolder)
 let exampleFiles = []
 
 if (exampleFilesFound) {
   exampleFiles = [
-    ...fs.readdirSync(exampleFilesFolder + 'welcomes'),
-    ...fs.readdirSync(exampleFilesFolder + 'options'),
-    ...fs.readdirSync(exampleFilesFolder + 'column-options'),
-    ...fs.readdirSync(exampleFilesFolder + 'methods')
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'welcomes')),
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'options')),
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'column-options')),
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'methods'))
   ]
 } else {
   console.log((chalk.yellow(chalk.bold('Warning: ') + 'Cant check if example files are correct formatted and have a valid url.')))
@@ -31,7 +36,7 @@ class API {
   }
 
   check () {
-    const file = `../site/docs/api/${this.file}`
+    const file = path.join(__dirname, '..', 'site', 'src', 'pages', 'docs', 'api', this.file)
     const md = {}
     const content = fs.readFileSync(file).toString()
     const lines = content.split('## ')
@@ -114,7 +119,7 @@ class API {
 
 class TableOptions extends API {
   init () {
-    this.file = 'table-options.md'
+    this.file = 'table-options.mdx'
     this.options = Object.keys(Constants.DEFAULTS).filter(it => {
       return !/^(on|format)[A-Z]/.test(it)
     })
@@ -130,7 +135,7 @@ class TableOptions extends API {
 
 class ColumnOptions extends API {
   init () {
-    this.file = 'column-options.md'
+    this.file = 'column-options.mdx'
     this.options = Object.keys(Constants.COLUMN_DEFAULTS)
     this.attributes = ['Attribute', 'Type', 'Detail', 'Default', 'Example']
   }
@@ -138,7 +143,7 @@ class ColumnOptions extends API {
 
 class Methods extends API {
   init () {
-    this.file = 'methods.md'
+    this.file = 'methods.mdx'
     this.options = Constants.METHODS
     this.attributes = ['Parameter', 'Detail', 'Example']
   }
@@ -146,7 +151,7 @@ class Methods extends API {
 
 class Events extends API {
   init () {
-    this.file = 'events.md'
+    this.file = 'events.mdx'
     this.options = Object.values(Constants.EVENTS)
     this.attributes = ['jQuery Event', 'Parameter', 'Detail']
   }
@@ -154,7 +159,7 @@ class Events extends API {
 
 class Localizations extends API {
   init () {
-    this.file = 'localizations.md'
+    this.file = 'localizations.mdx'
     this.options = Object.keys(Constants.LOCALES.en)
     this.attributes = ['Parameter', 'Default']
   }

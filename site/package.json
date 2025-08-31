@@ -1,0 +1,25 @@
+{
+  "name": "bootstrap-table-docs",
+  "type": "module",
+  "version": "1.24.2",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.4",
+    "@astrojs/prism": "^3.3.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.13.5",
+    "prismjs": "^1.30.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-astro": "^1.3.1"
+  }
+}

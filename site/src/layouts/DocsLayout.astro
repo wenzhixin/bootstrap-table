@@ -1,0 +1,74 @@
+---
+import Header from '@/components/Header.astro'
+import Navbar from '@/components/Navbar.astro'
+import Sidebar from '@/components/Sidebar.astro'
+import Ads from '@/components/Ads.astro'
+import TOC from '@/components/TOC.astro'
+import Scripts from '@/components/Scripts.astro'
+import Config from '@/config.js'
+import path from 'path'
+
+const layout = 'docs'
+const { file, frontmatter } = Astro.props
+const filename = path.basename(file)
+const bodyProps = {}
+
+if (frontmatter.toc) {
+  bodyProps['data-bs-spy'] = 'scroll'
+  bodyProps['data-bs-target'] = '#TableOfContents'
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <Header />
+  <body {...bodyProps}>
+    <Navbar layout={layout} />
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap h-100">
+        <aside class="bd-sidebar bd-sidebar col-12 col-md-3 col-xl-2 ps-3 pt-3 ">
+          <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+            <div class="offcanvas-header border-bottom">
+              <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+                data-bs-target="#bdSidebar"></button>
+            </div>
+
+            <div class="offcanvas-body d-flex flex-column">
+              <Sidebar />
+            </div>
+          </div>
+        </aside>
+
+        <main class={`col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 bd-content overflow-y-auto ${frontmatter.group || ''}`} role="main">
+          <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
+            <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0"
+              href={frontmatter.group === 'faq' || frontmatter.group === 'online-editor' ?
+                `${Config.repo}/blob/develop/site/pages/docs/${filename}` :
+                `${Config.repo}/blob/develop/site/pages/docs/${frontmatter.group}/${filename}`
+              }
+              title="View and edit this file on GitHub" target="_blank" rel="noopener">
+              View on GitHub
+            </a>
+            <h1 class="bd-title" id="content">
+              {frontmatter.title}
+            </h1>
+          </div>
+          <p class="bd-lead">{frontmatter.description}</p>
+          <Ads />
+
+          {frontmatter.toc && <TOC />}
+
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <Scripts layout={layout} />
+  </body>
+</html>

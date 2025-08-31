@@ -1,0 +1,240 @@
+---
+import Config from '@/config.js'
+
+const layout = Astro.props.layout
+const mainNav = [
+  {
+    title: 'Home',
+    href: `${Config.baseurl}/`,
+    isActive: layout === 'home'
+  },
+  {
+    title: 'Docs',
+    href: `${Config.baseurl}/docs/getting-started/introduction/`,
+    isActive: layout === 'docs'
+  },
+  {
+    title: 'Themes',
+    href: `${Config.baseurl}/themes`,
+    isActive: layout === 'themes'
+  },
+  {
+    title: 'Examples',
+    href: 'https://examples.bootstrap-table.com',
+    isExternal: true
+  },
+  {
+    title: 'Online Editor',
+    href: 'https://live.bootstrap-table.com',
+    isExternal: true
+  },
+  {
+    title: 'News',
+    href: `${Config.baseurl}/news`,
+    isActive: layout === 'news'
+  },
+  {
+    title: 'Blog',
+    href: 'https://blog.bootstrap-table.com',
+    isExternal: true
+  }
+]
+const versionMenu = [
+  {
+    title: `Latest (v${Config.currentVersion})`,
+    href: `${Config.baseurl}/`,
+    isActive: true
+  },
+  ...Config.versions.map(version => ({
+    title: `v${version}`,
+    href: `http://bootstrap-table.com/versions/${version}/`,
+    isExternal: true
+  }))
+]
+const socialLinks = [
+  {
+    title: 'GitHub',
+    href: Config.repo,
+    icon: 'bi-github'
+  },
+  {
+    title: 'Twitter',
+    href: `https://twitter.com/${Config.twitter}`,
+    icon: 'bi-twitter'
+  },
+  {
+    title: 'Open Collective',
+    href: `https://opencollective.com/${Config.opencollective}`,
+    icon: 'bi-heart-fill'
+  }
+]
+const themeConfig = {
+  themes: [
+    {
+      name: 'light',
+      icon: 'bi-sun-fill',
+      label: 'Light'
+    },
+    {
+      name: 'dark',
+      icon: 'bi-moon-stars-fill',
+      label: 'Dark'
+    },
+    {
+      name: 'auto',
+      icon: 'bi-circle-half',
+      label: 'Auto'
+    }
+  ]
+}
+---
+
+<header class="navbar navbar-expand-lg bd-navbar sticky-top">
+  <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3" aria-label="Main navigation">
+    {
+      layout === 'docs' &&
+        <div class="bd-navbar-toggle">
+          <button
+            class="navbar-toggler p-2"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#bdSidebar"
+            aria-controls="bdSidebar"
+            aria-label="Toggle docs navigation"
+          >
+            <i class="bi bi-list"></i>
+            <span class="d-none fs-6 pe-1">Browse</span>
+          </button>
+        </div>
+    }
+    {layout !== 'docs' && <div class="d-lg-none" style="width: 4.25rem;" />}
+
+    <a
+      class="navbar-brand p-0 me-0 me-lg-2"
+      href={`${Config.baseurl}/`}
+      aria-label="Bootstrap Table"
+    >
+      <img src={`${Config.baseurl}/favicon.png`} width="32" height="32" alt="Bootstrap Table">
+    </a>
+
+    <div class="d-flex">
+      <button
+        class="navbar-toggler d-flex d-lg-none order-3 p-2"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#bdNavbar"
+        aria-controls="bdNavbar"
+        aria-label="Toggle navigation"
+      >
+        <i class="bi bi-three-dots"></i>
+      </button>
+    </div>
+
+    <div
+      class="offcanvas-lg offcanvas-end flex-grow-1"
+      tabindex="-1"
+      id="bdNavbar"
+      aria-labelledby="bdNavbarOffcanvasLabel"
+    >
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap Table</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          data-bs-target="#bdNavbar"></button>
+      </div>
+
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none" />
+        <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
+          {mainNav.map(item =>
+            <li class="nav-item col-6 col-lg-auto">
+              <a
+                class={`nav-link ${item.isActive ? 'active' : ''}`}
+                href={item.href}
+                {...(item.isExternal && { target: '_blank', rel: 'noopener' })}
+              >
+                {item.title}
+              </a>
+            </li>
+          )}
+        </ul>
+
+        <hr class="d-lg-none" />
+
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+          {socialLinks.map(item =>
+            <li class="nav-item col-6 col-lg-auto">
+              <a
+                class="nav-link py-2 px-0 px-lg-2"
+                href={item.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={item.title}
+              >
+                <i class={`bi ${item.icon}`}></i>
+                <small class="d-lg-none ms-2">{item.title}</small>
+              </a>
+            </li>
+          )}
+
+          <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div>
+            <hr class="d-lg-none my-2" />
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-md-2"
+              href="#"
+              id="bd-versions"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              v{Config.currentVersion}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-versions">
+              {versionMenu.map(item =>
+                <li>
+                  <a
+                    class={`dropdown-item ${item.isActive ? 'active' : ''}`}
+                    href={item.href}
+                    {...(item.isExternal && { target: '_blank' })}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              )}
+            </ul>
+          </li>
+
+          <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div>
+            <hr class="d-lg-none my-2" />
+          </li>
+
+          <li class="nav-item dropdown" id="theme-switcher" data-theme-config={JSON.stringify(themeConfig)}>
+            <a
+              class="nav-link dropdown-toggle me-md-2"
+              href="#"
+              id="bd-bootstrap-theme"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span id="theme-icon">
+                <i class="bi bi-sun-fill"></i>
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu">
+              <!-- Theme options will be generated by JavaScript -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
