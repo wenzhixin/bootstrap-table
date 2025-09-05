@@ -1527,9 +1527,9 @@
   integrity sha512-LOm5OVt7D4qiKCqoiPbA7LWmI+tbw1VbTUowBcUMgQSuM6poJufkFkYDcQpo5KfgD39TnNySV26QjOh7VFpSyw==
 
 "@eslint/js@^9.31.0":
-  version "9.34.0"
-  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.34.0.tgz#fc423168b9d10e08dea9088d083788ec6442996b"
-  integrity sha512-EoyvqQnBNsV1CWaEJ559rxXL4c8V92gxirbawSmVUOWXlsRxxQXl6LmCpdUblgxgSkDIqKnhzba2SjRTI/A5Rw==
+  version "9.35.0"
+  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.35.0.tgz#ffbc7e13cf1204db18552e9cd9d4a8e17c692d07"
+  integrity sha512-30iXE9whjlILfWobBkNerJo+TXYsgVM5ERQwMcMKCHckHflCmf7wXDAHlARoWnh0s1U72WqlbeyE7iAcCzuCPw==
 
 "@eslint/object-schema@^2.1.6":
   version "2.1.6"
