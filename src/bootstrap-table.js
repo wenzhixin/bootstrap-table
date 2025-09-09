@@ -2143,10 +2143,12 @@ class BootstrapTable {
   }
 
   resetRows () {
-    for (const row of this.data) {
+    if (this.data.length) {
       this.$selectAll.prop('checked', false)
       this.$selectItem.prop('checked', false)
-      if (this.header.stateField) {
+    }
+    if (this.header.stateField) {
+      for (const row of this.data) {
         row[this.header.stateField] = false
       }
     }
