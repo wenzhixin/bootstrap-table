@@ -2998,9 +2998,9 @@ csstype@^3.1.3:
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
 cypress@^15.0.0:
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-15.1.0.tgz#594311611e054738e61f445d5f65e7143934793b"
-  integrity sha512-jS4EfyOa2W5KXCN02WBdmy4bpBBmLGe+INhZeCvzRksfJuzBSYp3rNg2G+hfOwPzM+wwMwOYCo/kEnH+5RsSjA==
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-15.2.0.tgz#a1b48c8ef00f520fbaea60261ed244c8382dd3bc"
+  integrity sha512-J4ehSzOSb58SkXyldCe9y/oZ8ep8Bl6+q9kDUjnkqNqc2ZKzDq5KSbhIc2lHFAFR5Jtj10oNqr9JRAZbr8DA8A==
   dependencies:
     "@cypress/request" "^3.0.9"
     "@cypress/xvfb" "^1.2.4"
