@@ -1814,10 +1814,10 @@
     estree-walker "^2.0.2"
     magic-string "^0.30.3"
 
-"@rollup/plugin-multi-entry@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-6.0.1.tgz#0f969706ea705dc76c4566ee1318251247832549"
-  integrity sha512-AXm6toPyTSfbYZWghQGbom1Uh7dHXlrGa+HoiYNhQtDUE3Q7LqoUYdVQx9E1579QWS1uOiu+cZRSE4okO7ySgw==
+"@rollup/plugin-multi-entry@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-7.0.0.tgz#d931ffebee5c3744a298bc268d8065a7aa0e7564"
+  integrity sha512-xdTVtLbdrDYIZYs+fjIoC2DFagt7sYyFcmCLan2dtIyAFlPCfDDee8Oeq7L4GRfZ5gNpvnuFXX5w74gWAgN9dQ==
   dependencies:
     "@rollup/plugin-virtual" "^3.0.0"
     matched "^5.0.1"
