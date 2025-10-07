@@ -2460,7 +2460,6 @@ class BootstrapTable {
     if (
       (
         this.searchText ||
-        this.options.groupBy ||
         this.options.customSearch ||
         this.options.sortName !== undefined ||
         this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
