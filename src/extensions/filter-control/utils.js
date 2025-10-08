@@ -567,7 +567,56 @@ export function createControls (that, header) {
     header.find('.filter-control, .no-filter-control').hide()
   }
 
+  // Initialize multiple select controls if needed
+  initMultipleSelectControls(that, header)
+  
   that.trigger('created-controls')
+}
+
+export function initMultipleSelectControls (that, header) {
+  $.each(that.columns, (_, column) => {
+    if (column.filterControlMultipleSelect && column.filterControl === 'select') {
+      const selectControl = header.find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
+      
+      if (selectControl.length > 0 && typeof $.fn.multipleSelect === 'function') {
+        // Set flag that we're using multiple select
+        that._usingMultipleSelect = true
+        
+        // Initialize multiple-select plugin with options
+        const multipleSelectOptions = Object.assign({
+          placeholder: column.filterControlPlaceholder || 'Choose...',
+          selectAll: true,
+          selectAllText: 'Select All',
+          allSelected: 'All selected',
+          countSelected: '# of % selected',
+          noMatchesFound: 'No matches found'
+        }, column.filterControlMultipleSelectOptions || {})
+        
+        selectControl.multipleSelect(multipleSelectOptions)
+        
+        // Handle multiple select change events
+        selectControl.on('change', function () {
+          const $this = $(this)
+          const selectedValues = $this.val() || []
+          
+          // Store the values for later use
+          that._valuesFilterControl = that._valuesFilterControl || []
+          const existingIndex = that._valuesFilterControl.findIndex(item => item.field === column.field)
+          
+          if (existingIndex >= 0) {
+            that._valuesFilterControl[existingIndex].value = selectedValues
+          } else {
+            that._valuesFilterControl.push({
+              field: column.field,
+              value: selectedValues,
+              position: 0,
+              hasFocus: false
+            })
+          }
+        })
+      }
+    }
+  })
 }
 
 export function getDirectionOfSelectOptions (_alignment) {

@@ -32,12 +32,16 @@ Object.assign($.fn.bootstrapTable.defaults, {
     },
 
     select (that, column) {
+      const isMultiple = column.filterControlMultipleSelect
+      const multipleAttr = isMultiple ? 'multiple' : ''
+      const multipleClass = isMultiple ? 'multiple-select' : ''
+      
       return Utils.sprintf(
         '<select class="%s bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
         UtilsFilterControl.getInputClass(that, true),
         column.field,
-        '',
-        '',
+        multipleClass,
+        multipleAttr,
         UtilsFilterControl.getDirectionOfSelectOptions(
           that.options.alignmentSelectControlOptions
         )
@@ -217,20 +221,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const rawFilterValue = filterPartial[key] || ''
-          let filterValue = rawFilterValue.toLowerCase()
+          let filterValue = Array.isArray(rawFilterValue) ? rawFilterValue : rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
 
-          if (this.options.searchAccentNeutralise) {
+          if (this.options.searchAccentNeutralise && !Array.isArray(filterValue)) {
             filterValue = Utils.normalizeAccent(filterValue)
           }
 
-          let filterValues = [filterValue]
+          let filterValues = []
 
-          if (
+          // Handle multiple select values (arrays)
+          if (Array.isArray(rawFilterValue)) {
+            filterValues = rawFilterValue.map(val => {
+              let processedVal = val.toLowerCase()
+              if (this.options.searchAccentNeutralise) {
+                processedVal = Utils.normalizeAccent(processedVal)
+              }
+              return processedVal
+            })
+          } else if (
             this.options.filterControlMultipleSearch
           ) {
             filterValues = filterValue.split(this.options.filterControlMultipleSearchDelimiter)
+          } else {
+            filterValues = [filterValue]
           }
 
           filterValues.forEach(filterValue => {
@@ -304,23 +319,47 @@ $.BootstrapTable = class extends $.BootstrapTable {
       value = Utils.normalizeAccent(value)
     }
 
-    if (
-      column.filterStrictSearch ||
-      column.filterControl === 'select' && column.passed.filterStrictSearch !== false
-    ) {
-      tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
-    } else if (column.filterStartsWithSearch) {
-      tmpItemIsExpected = `${value}`.toLowerCase().indexOf(searchValue) === 0
-    } else if (column.filterControl === 'datepicker') {
-      tmpItemIsExpected = new Date(value).getTime() === new Date(searchValue).getTime()
-    } else if (this.options.regexSearch) {
-      tmpItemIsExpected = Utils.regexCompare(value, searchValue)
+    // Handle multiple select values (when searchValue is an array)
+    if (Array.isArray(searchValue)) {
+      // For multiple select, use OR logic - match if value equals ANY selected option
+      tmpItemIsExpected = searchValue.some(singleSearchValue => {
+        if (
+          column.filterStrictSearch ||
+          column.filterControl === 'select' && column.passed.filterStrictSearch !== false
+        ) {
+          return value.toString().toLowerCase() === singleSearchValue.toString().toLowerCase()
+        } else if (column.filterStartsWithSearch) {
+          return `${value}`.toLowerCase().indexOf(singleSearchValue) === 0
+        } else if (column.filterControl === 'datepicker') {
+          return new Date(value).getTime() === new Date(singleSearchValue).getTime()
+        } else if (this.options.regexSearch) {
+          return Utils.regexCompare(value, singleSearchValue)
+        } else {
+          return `${value}`.toLowerCase().includes(singleSearchValue)
+        }
+      })
     } else {
-      tmpItemIsExpected = `${value}`.toLowerCase().includes(searchValue)
+      // Single value logic (existing behavior)
+      if (
+        column.filterStrictSearch ||
+        column.filterControl === 'select' && column.passed.filterStrictSearch !== false
+      ) {
+        tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
+      } else if (column.filterStartsWithSearch) {
+        tmpItemIsExpected = `${value}`.toLowerCase().indexOf(searchValue) === 0
+      } else if (column.filterControl === 'datepicker') {
+        tmpItemIsExpected = new Date(value).getTime() === new Date(searchValue).getTime()
+      } else if (this.options.regexSearch) {
+        tmpItemIsExpected = Utils.regexCompare(value, searchValue)
+      } else {
+        tmpItemIsExpected = `${value}`.toLowerCase().includes(searchValue)
+      }
     }
 
-    const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
-    const matches = largerSmallerEqualsRegex.exec(searchValue)
+    // Handle numeric comparison operators (only for single values, not arrays)
+    if (!Array.isArray(searchValue)) {
+      const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
+      const matches = largerSmallerEqualsRegex.exec(searchValue)
 
     if (matches) {
       const operator = matches[1] || `${matches[5]}l`
@@ -352,6 +391,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         default:
           break
       }
+    }
     }
 
     if (column.filterCustomSearch) {
@@ -504,12 +544,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
     controls.forEach(element => {
       const $element = $(element)
       const elementValue = $element.val()
-      const text = elementValue ? elementValue.trim() : ''
+      let text = ''
+      
+      // Handle multiple select (array) vs single select (string)
+      if (Array.isArray(elementValue)) {
+        text = elementValue // Keep as array for multiple select
+      } else {
+        text = elementValue ? elementValue.trim() : ''
+      }
+      
       const $field = $element.closest('[data-field]').data('field')
 
       this.trigger('column-search', $field, text)
 
-      if (text) {
+      // Check if we have a valid filter value (string with content or non-empty array)
+      const hasValue = Array.isArray(text) ? text.length > 0 : (text && text.length > 0)
+      
+      if (hasValue) {
         this.filterColumnsPartial[$field] = text
       } else {
         delete this.filterColumnsPartial[$field]

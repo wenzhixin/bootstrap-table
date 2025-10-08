@@ -217,6 +217,36 @@ toc: true
 
 - **Default:** `undefined`
 
+### filterControlMultipleSelect
+
+- **Attribute:** `data-filter-control-multiple-select`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set to `true` to enable multiple selection in select filter controls. When enabled, users can select multiple filter options simultaneously. This option only works with `filterControl: 'select'` and requires the [multiple-select.js](https://github.com/wenzhixin/multiple-select) plugin to be loaded for enhanced styling and functionality.
+
+- **Default:** `false`
+
+### filterControlMultipleSelectOptions
+
+- **Attribute:** `data-filter-control-multiple-select-options`
+
+- **type:** `Object`
+
+- **Detail:**
+
+  Configuration options passed to the multiple-select.js plugin when `filterControlMultipleSelect` is enabled. Common options include:
+  - `placeholder`: Text to show when no options are selected
+  - `selectAll`: Whether to show a "Select All" option
+  - `selectAllText`: Text for the "Select All" option
+  - `countSelected`: Format string for showing selected count
+  
+  Example: `data-filter-control-multiple-select-options='{"placeholder": "Choose categories...", "selectAll": true}'`
+
+- **Default:** `{}`
+
 ### filterDatepickerOptions
 
 - **Attribute:** `data-filter-datepicker-options`
