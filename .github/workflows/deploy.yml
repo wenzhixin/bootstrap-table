@@ -13,25 +13,14 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
 
-      - name: Build theme with node
+      - name: Build page with Astro
         run: |
-          cd ${{ github.workspace }}/site/_themes
+          cd ${{ github.workspace }}/site
           yarn install --frozen-lockfile
           yarn build
-          rm -rf ../assets/js/themes
-          mv dist/themes.html ../_includes/themes.html
-          mv dist ../assets/js/themes
-
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6
-          bundler-cache: true
-
-      - name: Build page with Jekyll
-        run: bundle exec jekyll build
 
       - name: Checkout gh-pages branch
         uses: actions/checkout@v3
@@ -39,13 +28,13 @@ jobs:
           ref: 'gh-pages'
           path: './gh-pages'
 
-      - name: Move versions to _gh_pages
+      - name: Move versions to target folder
         run: |
-          mv gh-pages/versions _gh_pages
+          mv gh-pages/versions site/dist
           rm -rf gh-pages
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages
-          folder: _gh_pages
+          folder: site/dist

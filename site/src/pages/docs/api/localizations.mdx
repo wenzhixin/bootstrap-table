@@ -1,0 +1,176 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Localizations
+description: The Localizations API of Bootstrap Table.
+group: api
+toc: true
+---
+
+We can import [all locale files](https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale) what you need:
+
+```html
+<script src="bootstrap-table-en-US.js"></script>
+<script src="bootstrap-table-zh-CN.js"></script>
+...
+```
+
+And then use JavaScript to switch locale:
+
+```javascript
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US'])
+// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN'])
+// ...
+```
+
+Or use data attributes to set locale for table:
+
+```html
+<table data-toggle="table" data-locale="en-US">
+</table>
+```
+
+Or use JavaScript to set locale for table:
+
+```javascript
+$('#table').bootstrapTable({
+  locale: 'en-US'
+})
+```
+
+You can use short code for the locale:
+```javascript
+$('#table').bootstrapTable({
+  locale: 'en'
+})
+```
+
+List of all existing translations with their short codes is on [Github](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/locale)
+
+You can custom the format localizations, the calling syntax:
+
+```javascript
+$('#table').bootstrapTable({
+  formatName: function () {
+    return 'Format message'
+  }
+})
+```
+
+## formatAllRows
+
+- **Parameter:** `undefined`
+
+- **Default:** `'All'`
+## formatClearSearch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Clear Search'`
+
+## formatColumns
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Columns'`
+
+## formatColumnsToggleAll
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Toggle all'`
+
+## formatDetailPagination
+
+- **Parameter:** `totalRows`
+
+- **Default:** `'Showing %s rows'`
+
+## formatFullscreen
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Fullscreen'`
+
+## formatLoadingMessage
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Loading, please wait…'`
+
+## formatNoMatches
+
+- **Parameter:** `undefined`
+
+- **Default:** `'No matching records found'`
+
+## formatPaginationSwitch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide/Show pagination'`
+
+## formatPaginationSwitchDown
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Show pagination'`
+
+## formatPaginationSwitchUp
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide pagination'`
+
+## formatRecordsPerPage
+
+- **Parameter:** `pageNumber`
+
+- **Default:** `'%s records per page'`
+
+## formatRefresh
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Refresh'`
+
+## formatSearch
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Search'`
+
+## formatShowingRows
+
+- **Parameter:** `pageFrom, pageTo, totalRows`
+
+- **Default:** `'Showing %s to %s of %s rows'`
+
+## formatSRPaginationNextText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'next page'`
+
+## formatSRPaginationPageText
+
+- **Parameter:** `page`
+
+- **Default:** `'to page %s`
+
+## formatSRPaginationPreText
+
+- **Parameter:** `undefined`
+
+- **Default:** `'previous page'`
+
+## formatToggleOff
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Hide card view'`
+
+## formatToggleOn
+
+- **Parameter:** `undefined`
+
+- **Default:** `'Show card view'`

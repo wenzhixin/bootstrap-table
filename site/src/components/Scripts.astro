@@ -1,0 +1,60 @@
+---
+import Config from '@/config.js'
+
+const layout = Astro.props.layout
+---
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script is:inline async defer src="https://buttons.github.io/buttons.js"></script>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script is:inline src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script>
+
+{layout === 'home' &&
+  <>
+    <script is:inline async src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+    <script>
+      (function () {
+        {
+          window.fnames = []
+          window.ftypes = []
+          window.fnames[0] = 'EMAIL'
+          window.ftypes[0] = 'email'
+          window.fnames[1] = 'FNAME'
+          window.ftypes[1] = 'text'
+          window.fnames[2] = 'LNAME'
+          window.ftypes[2] = 'text'
+          window.fnames[3] = 'ADDRESS'
+          window.ftypes[3] = 'address'
+          window.fnames[4] = 'PHONE'
+          window.ftypes[4] = 'phone'
+          window.fnames[5] = 'BIRTHDAY'
+          window.ftypes[5] = 'birthday'
+        }
+      }(jQuery))
+    </script>
+  </>
+}
+
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
+<script>
+window.dataLayer = window.dataLayer || []
+function gtag () {
+  {
+    window.dataLayer.push(arguments)
+  }
+}
+gtag('js', new Date())
+gtag('config', 'UA-132747866-1')
+</script>
+
+<script define:vars={{ baseurl: Config.baseurl }}>
+  const script = document.createElement('script')
+
+  // eslint-disable-next-line
+  script.src = `${baseurl}/assets/js/docs.js?v=1.0.0`
+  document.head.appendChild(script)
+</script>

@@ -1,0 +1,46 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Build tools
+description: Learn how to use Bootstrap Table's included npm scripts to build our documentation, compile source code, and more.
+group: getting-started
+toc: true
+---
+
+## Tooling setup
+
+Bootstrap Table uses [NPM scripts](https://docs.npmjs.com/misc/scripts) for its build system. Our [package.json]([[config:repo]]/blob/[[config:currentVersion]]/package.json) includes convenient methods for working with the framework, including linting code, compiling code, and more.
+
+To use our build system and run our documentation locally, you'll need a copy of Bootstrap Table's source files and Node. Follow these steps, and you should be ready to rock:
+
+1. [Download and install Node.js](https://nodejs.org/en/download/), which we use to manage our dependencies.
+2. Navigate to the root `/bootstrap-table` directory and run `npm install` to install our local dependencies listed in [package.json]([[config:repo]]/blob/[[config:currentVersion]]/package.json).
+3. **(Documentation site only)** If you want to set up the documentation site, navigate to the `/site` directory and run `npm install` to install Astro and other dependencies for the documentation site.
+
+When completed, you'll be able to run the various commands provided from the command line.
+
+
+## Using NPM scripts
+
+Our [package.json]([[config:repo]]/blob/[[config:currentVersion]]/package.json) includes the following commands and tasks:
+
+| Task | Description |
+| --- | --- |
+| `npm run build` | `npm run build` creates the `/dist` directory with compiled files. |
+| `npm run lint` | Lints CSS and JavaScript for `/src` directory. |
+| `npm run docs` | Builds and lints CSS and JavaScript for docs. You can then run the documentation locally via `cd site && npm run dev`. |
+
+Run `npm run` to see all the npm scripts.
+
+## Local documentation
+
+Running our documentation locally requires the use of Astro, a modern static site generator that provides us: component-based architecture, Markdown-based files, templates, and more. Here's how to get it started:
+
+1. Run through the [tooling setup](#tooling-setup) above to install Astro and other dependencies.
+2. Navigate to the `/site` directory and run `npm run dev` in the command line.
+3. Open `http://localhost:4321` in your browser to view the local documentation site.
+
+Learn more about using Astro by reading its [documentation](https://docs.astro.build/).
+
+## Troubleshooting
+
+If you encounter installing dependencies, uninstall all previous dependency versions (global and local). Then, rerun `npm install`.
