@@ -88,13 +88,7 @@ const currentGroup = pathSegments[1] || ''
 const currentPage = pathSegments[2] || ''
 ---
 
-<form class="d-flex align-items-center">
-  <input type="search" class="form-control"
-    id="search-input" placeholder="Search..."
-    aria-label="Search for..." autocomplete="off">
-</form>
-
-<ul class="bd-links-nav list-unstyled mt-3 mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
+<ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
   {nav.map(group => {
     const groupSlug = slugify(group.title)
     const isGroupActive = currentGroup === groupSlug

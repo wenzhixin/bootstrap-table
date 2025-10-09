@@ -22,6 +22,15 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
 
+      - name: Upload to Algolia
+        run: |
+          cd ${{ github.workspace }}/site
+          yarn install --frozen-lockfile
+          ALGOLIA_APP_ID="${{ secrets.ALGOLIA_APP_ID || 'FXDJ517Z8G' }}" \
+          ALGOLIA_API_KEY="${{ secrets.ALGOLIA_API_KEY }}" \
+          ALGOLIA_INDEX_NAME="${{ secrets.ALGOLIA_INDEX_NAME || 'bootstrap-table' }}" \
+          yarn algolia
+
       - name: Checkout gh-pages branch
         uses: actions/checkout@v3
         with:
