@@ -1577,7 +1577,7 @@ class BootstrapTable {
     }
 
     const tds = this.header.fields.map((field, j) => {
-      const column = this.columns[j]
+      const column = this.options.columns[0][j]
       const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
       let value = ''
       const attrs = {
