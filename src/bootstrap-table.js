@@ -2205,11 +2205,18 @@ class BootstrapTable {
 
     this.$header_ = this.$header.clone(true, true)
     this.$selectAll_ = this.$header_.find('[name="btSelectAll"]')
-    this.$tableHeader
+
+    const $caption = this.$el.find('caption')
+    const $fixedHeaderTable = this.$tableHeader
       .css('margin-right', scrollWidth)
       .find('table').css('width', this.$el.outerWidth())
       .html('').attr('class', this.$el.attr('class'))
-      .append(this.$header_)
+
+    if ($caption.length > 0) {
+      $fixedHeaderTable.append($caption.clone(true, true))
+    }
+
+    $fixedHeaderTable.append(this.$header_)
 
     this.$tableLoading.css('width', this.$el.outerWidth())
 
