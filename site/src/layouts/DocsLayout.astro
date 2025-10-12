@@ -27,7 +27,7 @@ if (frontmatter.toc) {
 
     <div class="container-fluid">
       <div class="row flex-xl-nowrap h-100">
-        <aside class="bd-sidebar bd-sidebar col-12 col-md-3 col-xl-2 ps-3">
+        <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3">
           <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
             <div class="offcanvas-header border-bottom">
               <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
@@ -45,7 +45,7 @@ if (frontmatter.toc) {
           </div>
         </aside>
 
-        <main class={`col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 bd-content overflow-y-auto ${frontmatter.group || ''}`} role="main">
+        <main class={`col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 mt-3 bd-content overflow-y-auto ${frontmatter.group || ''}`} role="main">
           <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
             <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0"
               href={frontmatter.group === 'faq' || frontmatter.group === 'online-editor' ?
