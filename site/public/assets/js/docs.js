@@ -202,12 +202,29 @@ function initHighlight () {
   }
 }
 
+function initDocSearch () {
+  window.docsearch({
+    container: '.bd-search',
+    appId: window.ALGOLIA_CONFIG.appId,
+    apiKey: window.ALGOLIA_CONFIG.apiKey,
+    indexName: window.ALGOLIA_CONFIG.indexName,
+    transformItems: items => items.map(item => {
+      // Replace the production domain with the current origin
+      if (item.url && item.url.startsWith('https://bootstrap-table.com')) {
+        item.url = item.url.replace('https://bootstrap-table.com', window.location.origin)
+      }
+      return item
+    })
+  })
+}
+
 function init () {
   new ThemeSwitcher()
   updateSidenav()
   generateTOC()
   initTOC()
   initHighlight()
+  initDocSearch()
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -21,11 +21,7 @@ export default defineConfig({
   ],
   redirects: {
     // Home page redirects
-    '/zh-cn/': '/',
-    '/es/': '/',
     '/home/': '/',
-    '/zh-cn/home/': '/',
-    '/es/home/': '/',
 
     // Getting started redirects
     '/docs/': '/docs/getting-started/introduction/',
@@ -35,21 +31,15 @@ export default defineConfig({
     // API documentation redirects
     '/docs/api/': '/docs/api/table-options/',
     '/documentation/': '/docs/api/table-options/',
-    '/zh-cn/documentation/': '/docs/api/table-options/',
-    '/es/documentation/': '/docs/api/table-options/',
 
     // Vue.js redirects
     '/vuejs/': '/docs/vuejs/introduction/',
 
     // Online editor redirects
     '/online-editor/': '/docs/online-editor/',
-    '/zh-cn/online-editor/': '/docs/online-editor/',
-    '/es/online-editor/': '/docs/online-editor/',
 
     // FAQ redirects
     '/faq/': '/docs/faq/faq/',
-    '/zh-cn/faq/': '/docs/faq/faq/',
-    '/es/faq/': '/docs/faq/faq/',
 
     // About redirects
     '/docs/about/': '/docs/about/overview/'

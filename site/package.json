@@ -7,13 +7,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "algolia": "node scripts/algolia-index.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.4",
     "@astrojs/prism": "^3.3.0",
     "@astrojs/sitemap": "^3.6.0",
+    "algoliasearch": "^5.15.0",
     "astro": "^5.13.5",
+    "jsdom": "^25.0.1",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {

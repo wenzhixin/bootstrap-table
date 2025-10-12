@@ -18,6 +18,12 @@ export default {
   opencollective: 'bootstrap-table',
   masterZip: 'https://github.com/wenzhixin/bootstrap-table/archive/master.zip',
 
+  algolia: {
+    appId: process.env.ALGOLIA_APP_ID || 'FXDJ517Z8G',
+    apiKey: process.env.ALGOLIA_API_KEY || '9b89c4a7048370f4809b0bc77b2564ac',
+    indexName: process.env.ALGOLIA_INDEX_NAME || 'bootstrap-table-test'
+  },
+
   versions: [
     '1.21.4',
     '1.20.2',

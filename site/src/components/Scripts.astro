@@ -6,7 +6,7 @@ const layout = Astro.props.layout
 
 <script is:inline src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script is:inline src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script is:inline async defer src="https://buttons.github.io/buttons.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/@docsearch/js@4"></script>
 
 <script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script>
 <script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script>
@@ -51,10 +51,18 @@ gtag('js', new Date())
 gtag('config', 'UA-132747866-1')
 </script>
 
-<script define:vars={{ baseurl: Config.baseurl }}>
+<script define:vars={{
+  baseurl: Config.baseurl,
+  algolia: Config.algolia,
+  version: Config.currentVersion
+}}>
+  /* eslint-disable no-undef */
   const script = document.createElement('script')
 
-  // eslint-disable-next-line
-  script.src = `${baseurl}/assets/js/docs.js?v=1.0.0`
+  script.src = `${baseurl}/assets/js/docs.js?v=${version}`
   document.head.appendChild(script)
+
+  // Set Algolia configuration as global variables
+  window.ALGOLIA_CONFIG = algolia
+  /* eslint-enable no-undef */
 </script>
