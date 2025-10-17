@@ -2117,10 +2117,17 @@ class BootstrapTable {
   }
 
   getCaret () {
+    const { sortName, sortOrder } = this.options
+    const ariaSort = sortOrder === 'asc' ? 'ascending' : 'descending'
+
     this.$header.find('th').each((i, th) => {
-      $(th).find('.sortable').removeClass('desc asc')
-        .addClass($(th).data('field') === this.options.sortName ?
-          this.options.sortOrder : 'both')
+      const isActive = $(th).data('field') === sortName
+
+      $(th)
+        .attr('aria-sort', isActive ? ariaSort : null)
+        .find('.sortable')
+        .removeClass('desc asc')
+        .addClass(isActive ? sortOrder : 'both')
     })
   }
 
