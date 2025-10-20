@@ -6,14 +6,14 @@ ChangeLog
 #### Core
 
 - **Update:** Fixed loading style display error in Bootstrap dark mode.
-- **Update:** Fixed performance issues of the `resetRows` method in the big data case.
-- **Update:** Fixed the table `height` option, which causes a duplicate headers bug with the caption.
+- **Update:** Fixed performance issues in the `resetRows` method when handling large datasets.
+- **Update:** Fixed bug where the table `height` option caused duplicate headers when a caption was present.
 - **Update:** Migrated site from Jekyll to Astro Framework.
 
 #### Extensions
 
-- **Update(group-by-v2):** Fixed the bug that does not group rows correctly when another column sorts.
-- **Update(group-by-v2):** Modernized extension with ES6+ features.
+- **Update(group-by-v2):** Fixed a bug where rows were not grouped correctly when another column was sorted.
+- **Update(group-by-v2):** Modernized the extension with ES6+ features.
 
 ### 1.24.2
 
