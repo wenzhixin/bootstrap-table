@@ -5,6 +5,7 @@ ChangeLog
 
 #### Core
 
+- **Update:** Added `aria-sort` attribute on sortable headers.
 - **Update:** Fixed loading style display error in Bootstrap dark mode.
 - **Update:** Fixed performance issues in the `resetRows` method when handling large datasets.
 - **Update:** Fixed bug where the table `height` option caused duplicate headers when a caption was present.
