@@ -9,6 +9,7 @@ ChangeLog
 - **Update:** Fixed loading style display error in Bootstrap dark mode.
 - **Update:** Fixed performance issues in the `resetRows` method when handling large datasets.
 - **Update:** Fixed bug where the table `height` option caused duplicate headers when a caption was present.
+- **Update:** Fixed bug where CSS `!important` is ignored.
 - **Update:** Migrated site from Jekyll to Astro Framework.
 
 #### Extensions
@@ -23,7 +24,6 @@ ChangeLog
 - **Update:** Added `scope` attribute support for table headers.
 - **Update:** Fixed bug where `updateCellByUniqueId` throws an error during search.
 - **Update:** Fixed "&" not escaped correctly in `unescapeHTML`.
-- **Update:** Fixed bug where CSS `!important` is ignored.
 - **Update:** Updated `locales` and `check-locale` tool.
 
 #### Extensions
