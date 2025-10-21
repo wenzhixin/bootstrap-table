@@ -22,6 +22,7 @@ ChangeLog
 - **Update:** Added `scope` attribute support for table headers.
 - **Update:** Fixed bug where `updateCellByUniqueId` throws an error during search.
 - **Update:** Fixed "&" not escaped correctly in `unescapeHTML`.
+- **Update:** Fixed bug where CSS `!important` is ignored.
 - **Update:** Updated `locales` and `check-locale` tool.
 
 #### Extensions

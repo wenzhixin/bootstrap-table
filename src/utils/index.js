@@ -693,6 +693,19 @@ export default {
     if (!style) {
       return dom
     }
+
+    // Helper function to handle !important priority
+    const IMPORTANT_PRIORITY_REGEX = /\s*!important\s*$/i
+    const parsePriority = value => {
+      if (typeof value === 'string' && IMPORTANT_PRIORITY_REGEX.test(value)) {
+        return {
+          value: value.replace(IMPORTANT_PRIORITY_REGEX, ''),
+          priority: 'important'
+        }
+      }
+      return { value, priority: '' }
+    }
+
     if (typeof style === 'string') {
       style.split(';').forEach(i => {
         const index = i.indexOf(':')
@@ -700,8 +713,9 @@ export default {
         if (index > 0) {
           const k = i.substring(0, index).trim()
           const v = i.substring(index + 1).trim()
+          const { value, priority } = parsePriority(v)
 
-          dom.style.setProperty(k, v)
+          dom.style.setProperty(k, value, priority)
         }
       })
     } else if (Array.isArray(style)) {
@@ -710,7 +724,9 @@ export default {
       }
     } else if (typeof style === 'object') {
       for (const [k, v] of Object.entries(style)) {
-        dom.style.setProperty(k, v)
+        const { value, priority } = parsePriority(v)
+
+        dom.style.setProperty(k, value, priority)
       }
     }
     return dom
