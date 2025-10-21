@@ -1837,12 +1837,12 @@
     magic-string "^0.30.3"
 
 "@rollup/plugin-multi-entry@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-7.0.0.tgz#d931ffebee5c3744a298bc268d8065a7aa0e7564"
-  integrity sha512-xdTVtLbdrDYIZYs+fjIoC2DFagt7sYyFcmCLan2dtIyAFlPCfDDee8Oeq7L4GRfZ5gNpvnuFXX5w74gWAgN9dQ==
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-multi-entry/-/plugin-multi-entry-7.1.0.tgz#2de3625cea5b81eb235024f7e3a65a304162f7f1"
+  integrity sha512-dLp8gf+Kb/JvGQOreC6pg2gCFWPNmKaZFUzBRN1KgiOjHMN7ZfVM11dJS0BjmcIpeA6KPbWq2tFB9OwTb2N5Cw==
   dependencies:
     "@rollup/plugin-virtual" "^3.0.0"
-    matched "^5.0.1"
+    tinyglobby "^0.2.14"
 
 "@rollup/plugin-node-resolve@^16.0.1":
   version "16.0.3"
@@ -4941,14 +4941,6 @@ magic-string@^0.30.19, magic-string@^0.30.3:
   integrity sha512-2N21sPY9Ws53PZvsEpVtNuSW+ScYbQdp4b9qUaL+9QkHUrGFKo56Lg9Emg5s9V/qrtNBmiR01sYhUOwu3H+VOw==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.5.5"
-
-matched@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/matched/-/matched-5.0.1.tgz#620606d9dac6b7f4e955354b82e02ef4e3a62dc3"
-  integrity sha1-YgYG2drGt/TpVTVLguAu9OOmLcM=
-  dependencies:
-    glob "^7.1.6"
-    picomatch "^2.2.1"
 
 math-intrinsics@^1.0.0, math-intrinsics@^1.1.0:
   version "1.1.0"
