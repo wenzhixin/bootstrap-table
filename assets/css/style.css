@@ -1,6 +1,5 @@
-.btn-bd-light {
-  color: #6c757d;
-  border-color: #dee2e6;
+.bd-navbar .dropdown-menu .active .bi {
+  display: inline-block !important;
 }
 
 .api h2 {
@@ -26,93 +25,11 @@
   width: 96px;
 }
 
-#share-buttons {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#share-buttons>a {
-  position: relative;
-  text-align: left;
-  height: 36px;
-  width: 32px;
-  float: left;
-  text-align: center;
-  color: silver;
-}
-
-#share-buttons>a {
-  position: relative;
-  text-align: left;
-  height: 36px;
-  width: 32px;
-  float: left;
-  text-align: center;
-  color: silver;
-}
-
-#share-buttons>a>svg {
-  height: 18px;
-  fill: #d5d5d5;
-  margin-top: 9px;
-}
-
-#share-buttons>.github:hover,
-#share-buttons>.github:hover svg {
-  color: #000;
-  fill: #000;
-}
-
-#share-buttons>.twitter:hover,
-#share-buttons>.twitter:hover svg {
-  color: #55acee;
-  fill: #55acee;
-}
-
-#share-buttons>.facebook:hover,
-#share-buttons>.facebook:hover svg {
-  color: #3b5998;
-  fill: #3b5998;
-}
-
-#share-buttons>.linkedin:hover,
-#share-buttons>.linkedin:hover svg {
-  color: #0077b5;
-  fill: #0077b5;
-}
-
-#share-buttons>.mail:hover,
-#share-buttons>.mail:hover svg {
-  color: #7d7d7d;
-  fill: #7d7d7d;
-}
-
-.share-desc {
-  font-size: 12px;
-  color: #777;
-  text-align: left;
-}
-
 .post-date {
   display: block;
   margin-top: -.5rem;
   margin-bottom: 1rem;
   color: #767676;
-}
-
-.btn-brand {
-  background: #7952B3;
-  color: #ffffff;
-}
-
-.btn-brand:hover {
-  background: #614092;
-  color: #ffffff;
-}
-
-.fa-link {
-  font-size: 20px;
-  color: #333;
 }
 
 header.themes .bd-lead {
@@ -176,4 +93,66 @@ header.themes .bd-lead {
 
 .online-editor img {
   max-width: 100%;
+}
+
+/* Custom code highlighting styles */
+.bd-content pre {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.bd-content pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Prism.js theme override */
+[data-bs-theme="light"] .bd-content pre {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .bd-content pre {
+  background-color: #212529;
+  border-color: #495057;
+}
+
+/* Code block language label */
+.bd-content pre::before {
+  content: attr(data-language);
+  display: block;
+  background-color: #6c757d;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 0.375rem 0.375rem 0 0;
+  margin: -1rem -1rem 1rem -1rem;
+}
+
+/* Inline code styles */
+.bd-content code:not(pre code) {
+  background-color: rgba(108, 117, 125, 0.1);
+  color: #d63384;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+[data-bs-theme="dark"] .bd-content code:not(pre code) {
+  background-color: rgba(108, 117, 125, 0.3);
+  color: #e685b5;
+}
+
+code[class*=language-],
+pre[class*=language-] {
+  text-shadow: none !important;
 }

@@ -3,4 +3,6 @@
 # Allow crawling of all content
 User-agent: *
 Disallow:
-Sitemap: https://bootstrap-table.com/sitemap.xml
+
+# Sitemap location
+Sitemap: https://bootstrap-table.com/sitemap-index.xml

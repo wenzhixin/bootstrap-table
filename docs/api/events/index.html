@@ -1,1099 +1,552 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="The Events API of Bootstrap Table.">
-<meta name="author" content="Zhixin Wen, and Bootstrap Table contributors">
-<meta name="generator" content="Jekyll v3.10.0">
-<meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation">
-
-<meta name="docsearch:language" content="en">
-
-<title>Events · Bootstrap Table</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><!-- Documentation extras -->
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
-
-
-<link rel="stylesheet" href="/assets/css/docs.min.css">
-<link rel="stylesheet" href="/assets/css/style.css?m=9">
-
-<!-- Favicons -->
-<link rel="icon" href="/favicon.png">
-
-
-<script type="text/javascript">
-  if (window !== top) // 判断当前的 window 对象是否是 top 对象
-    top.location.href = window.location.href // 如果不是，将 top 对象的网址自动导向被嵌入网页的网址
-</script>
-
-  </head>
-  <body>
-    <a class="skippy sr-only sr-only-focusable" href="#content">
-  <span class="skippy-text">Skip to main content</span>
-</a>
-
-
-    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-  <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
-    <img src="/favicon.png" width="36" height="36">
-  </a>
-
-  <div class="navbar-nav-scroll">
-    <ul class="navbar-nav bd-navbar-nav flex-row">
-      <li class="nav-item">
-        <a class="nav-link "
-          href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active"
-          href="/docs/getting-started/introduction/">
-          Documentation
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="/themes">
-          Themes
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link "
-          href="https://examples.bootstrap-table.com">
-          Examples
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"
-          href="https://live.bootstrap-table.com"
-          target="_blank">
-          Online Editor
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="/news">
-          News
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"
-          href="https://blog.bootstrap-table.com"
-          target="_blank">
-          Blog
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-    <li class="nav-item dropdown">
-      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v1.24.2
-      </a>
-      <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/">Latest (1.24.2)</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.21.4/" target="_blank">v1.21.4</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.20.2/" target="_blank">v1.20.2</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.19.1/" target="_blank">v1.19.1</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.18.3/" target="_blank">v1.18.3</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.17.1/" target="_blank">v1.17.1</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.16.0/" target="_blank">v1.16.0</a>
-        
-        <a class="dropdown-item" href="http://bootstrap-table.com/versions/1.15.5/" target="_blank">v1.15.5</a>
-        
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 499.36" focusable="false" role="img"><path d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z" fill="currentColor" fill-rule="evenodd"/></svg>
-</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 416.32" focusable="false" role="img"><path d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92" fill="currentColor"/></svg>
-</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"><svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 40 41" focusable="false" role="img" fill="currentColor" fill-rule="evenodd"><title>Open Collective</title><path d="M32.8 21c0 2.4-.8 4.9-2 6.9l5.1 5.1c2.5-3.4 4.1-7.6 4.1-12 0-4.6-1.6-8.8-4-12.2L30.7 14c1.2 2 2 4.3 2 7z" fill-opacity=".4"/><path d="M20 33.7a12.8 12.8 0 0 1 0-25.6c2.6 0 5 .7 7 2.1L32 5a20 20 0 1 0 .1 31.9l-5-5.2a13 13 0 0 1-7 2z"/></svg>
-</a>
-    </li>
-  </ul>
-
-  <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
-    href="/docs/getting-started/download/">Download</a>
-</header>
-
-
-    <div class="container-fluid">
-      <div class="row flex-xl-nowrap">
-        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
-          <form class="bd-search d-flex align-items-center">
-  <input type="search" class="form-control"
-    id="search-input" placeholder="Search..."
-    aria-label="Search for..." autocomplete="off">
-  <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3"
-    type="button" data-toggle="collapse" data-target="#bd-docs-nav"
-    aria-controls="bd-docs-nav" aria-expanded="false"
-    aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 30 30" width="30" height="30" focusable="false" role="img"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>
-</button>
-</form>
-
-<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/getting-started/introduction/">
-      Getting started
-    </a>
-
-    <ul class="nav bd-sidenav"><li>
-          <a href="/docs/getting-started/introduction/">
-            Introduction
-          </a>
-        </li><li>
-          <a href="/docs/getting-started/download/">
-            Download
-          </a>
-        </li><li>
-          <a href="/docs/getting-started/contents/">
-            Contents
-          </a>
-        </li><li>
-          <a href="/docs/getting-started/usage/">
-            Usage
-          </a>
-        </li><li>
-          <a href="/docs/getting-started/browsers-devices/">
-            Browsers & devices
-          </a>
-        </li><li>
-          <a href="/docs/getting-started/build-tools/">
-            Build tools
-          </a>
-        </li></ul>
-  </div><div class="bd-toc-item active">
-    <a class="bd-toc-link" href="/docs/api/table-options/">
-      API
-    </a>
-
-    <ul class="nav bd-sidenav"><li>
-          <a href="/docs/api/table-options/">
-            Table Options
-          </a>
-        </li><li>
-          <a href="/docs/api/column-options/">
-            Column Options
-          </a>
-        </li><li class="active bd-sidenav-active">
-          <a href="/docs/api/events/">
-            Events
-          </a>
-        </li><li>
-          <a href="/docs/api/methods/">
-            Methods
-          </a>
-        </li><li>
-          <a href="/docs/api/localizations/">
-            Localizations
-          </a>
-        </li></ul>
-  </div><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/extensions/addrbar/">
-      Extensions
-    </a>
-
-    <ul class="nav bd-sidenav"><li>
-          <a href="/docs/extensions/addrbar/">
-            Addrbar
-          </a>
-        </li><li>
-          <a href="/docs/extensions/auto-refresh/">
-            Auto Refresh
-          </a>
-        </li><li>
-          <a href="/docs/extensions/cookie/">
-            Cookie
-          </a>
-        </li><li>
-          <a href="/docs/extensions/copy-rows/">
-            Copy Rows
-          </a>
-        </li><li>
-          <a href="/docs/extensions/custom-view/">
-            Custom View
-          </a>
-        </li><li>
-          <a href="/docs/extensions/defer-url/">
-            Defer URL
-          </a>
-        </li><li>
-          <a href="/docs/extensions/editable/">
-            Editable
-          </a>
-        </li><li>
-          <a href="/docs/extensions/export/">
-            Export
-          </a>
-        </li><li>
-          <a href="/docs/extensions/filter-control/">
-            Filter Control
-          </a>
-        </li><li>
-          <a href="/docs/extensions/fixed-columns/">
-            Fixed Columns
-          </a>
-        </li><li>
-          <a href="/docs/extensions/group-by-v2/">
-            Group By v2
-          </a>
-        </li><li>
-          <a href="/docs/extensions/i18n-enhance/">
-            i18n Enhance
-          </a>
-        </li><li>
-          <a href="/docs/extensions/key-events/">
-            Key Events
-          </a>
-        </li><li>
-          <a href="/docs/extensions/mobile/">
-            Mobile
-          </a>
-        </li><li>
-          <a href="/docs/extensions/multiple-sort/">
-            Multiple Sort
-          </a>
-        </li><li>
-          <a href="/docs/extensions/page-jump-to/">
-            Page Jump To
-          </a>
-        </li><li>
-          <a href="/docs/extensions/pipeline/">
-            Pipeline
-          </a>
-        </li><li>
-          <a href="/docs/extensions/print/">
-            Print
-          </a>
-        </li><li>
-          <a href="/docs/extensions/reorder-columns/">
-            Reorder Columns
-          </a>
-        </li><li>
-          <a href="/docs/extensions/reorder-rows/">
-            Reorder Rows
-          </a>
-        </li><li>
-          <a href="/docs/extensions/resizable/">
-            Resizable
-          </a>
-        </li><li>
-          <a href="/docs/extensions/sticky-header/">
-            Sticky Header
-          </a>
-        </li><li>
-          <a href="/docs/extensions/toolbar/">
-            Toolbar
-          </a>
-        </li><li>
-          <a href="/docs/extensions/treegrid/">
-            Treegrid
-          </a>
-        </li></ul>
-  </div><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/vuejs/introduction/">
-      VueJS
-    </a>
-
-    <ul class="nav bd-sidenav"><li>
-          <a href="/docs/vuejs/introduction/">
-            Introduction
-          </a>
-        </li><li>
-          <a href="/docs/vuejs/browser/">
-            Browser
-          </a>
-        </li><li>
-          <a href="/docs/vuejs/webpack/">
-            Webpack
-          </a>
-        </li><li>
-          <a href="/docs/vuejs/component/">
-            Component
-          </a>
-        </li></ul>
-  </div><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/online-editor/">
-      Online Editor
-    </a>
-
-    <ul class="nav bd-sidenav"></ul>
-  </div><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/faq/">
-      FAQ
-    </a>
-
-    <ul class="nav bd-sidenav"></ul>
-  </div><div class="bd-toc-item">
-    <a class="bd-toc-link" href="/docs/about/overview/">
-      About
-    </a>
-
-    <ul class="nav bd-sidenav"><li>
-          <a href="/docs/about/overview/">
-            Overview
-          </a>
-        </li><li>
-          <a href="/docs/about/team/">
-            Team
-          </a>
-        </li><li>
-          <a href="/docs/about/license/">
-            License
-          </a>
-        </li><li>
-          <a href="/docs/about/translations/">
-            Translations
-          </a>
-        </li></ul>
-  </div></nav>
-
-        </div>
-
-        
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            <ul class="section-nav">
-<li class="toc-entry toc-h2"><a href="#onall">onAll</a></li>
-<li class="toc-entry toc-h2"><a href="#oncheck">onCheck</a></li>
-<li class="toc-entry toc-h2"><a href="#oncheckall">onCheckAll</a></li>
-<li class="toc-entry toc-h2"><a href="#onchecksome">onCheckSome</a></li>
-<li class="toc-entry toc-h2"><a href="#onclickcell">onClickCell</a></li>
-<li class="toc-entry toc-h2"><a href="#onclickrow">onClickRow</a></li>
-<li class="toc-entry toc-h2"><a href="#oncollapserow">onCollapseRow</a></li>
-<li class="toc-entry toc-h2"><a href="#oncolumnswitch">onColumnSwitch</a></li>
-<li class="toc-entry toc-h2"><a href="#oncolumnswitchall">onColumnSwitchAll</a></li>
-<li class="toc-entry toc-h2"><a href="#ondblclickcell">onDblClickCell</a></li>
-<li class="toc-entry toc-h2"><a href="#ondblclickrow">onDblClickRow</a></li>
-<li class="toc-entry toc-h2"><a href="#onexpandrow">onExpandRow</a></li>
-<li class="toc-entry toc-h2"><a href="#onloaderror">onLoadError</a></li>
-<li class="toc-entry toc-h2"><a href="#onloadsuccess">onLoadSuccess</a></li>
-<li class="toc-entry toc-h2"><a href="#onpagechange">onPageChange</a></li>
-<li class="toc-entry toc-h2"><a href="#onpostbody">onPostBody</a></li>
-<li class="toc-entry toc-h2"><a href="#onpostfooter">onPostFooter</a></li>
-<li class="toc-entry toc-h2"><a href="#onpostheader">onPostHeader</a></li>
-<li class="toc-entry toc-h2"><a href="#onprebody">onPreBody</a></li>
-<li class="toc-entry toc-h2"><a href="#onrefresh">onRefresh</a></li>
-<li class="toc-entry toc-h2"><a href="#onrefreshoptions">onRefreshOptions</a></li>
-<li class="toc-entry toc-h2"><a href="#onresetview">onResetView</a></li>
-<li class="toc-entry toc-h2"><a href="#onscrollbody">onScrollBody</a></li>
-<li class="toc-entry toc-h2"><a href="#onsearch">onSearch</a></li>
-<li class="toc-entry toc-h2"><a href="#onsort">onSort</a></li>
-<li class="toc-entry toc-h2"><a href="#ontoggle">onToggle</a></li>
-<li class="toc-entry toc-h2"><a href="#ontogglepagination">onTogglePagination</a></li>
-<li class="toc-entry toc-h2"><a href="#onuncheck">onUncheck</a></li>
-<li class="toc-entry toc-h2"><a href="#onuncheckall">onUncheckAll</a></li>
-<li class="toc-entry toc-h2"><a href="#onunchecksome">onUncheckSome</a></li>
-<li class="toc-entry toc-h2"><a href="#onvirtualscroll">onVirtualScroll</a></li>
-</ul>
-          </div>
-        
-
-        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content api" role="main">
-          <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
-            <a class="btn btn-sm btn-bd-light mb-2 mb-md-0"
-              
-              href="https://github.com/wenzhixin/bootstrap-table/blob/develop/site/docs/api/events.md"
-              
-              title="View and edit this file on GitHub" target="_blank" rel="noopener">
-              View on GitHub
-            </a>
-            <h1 class="bd-title" id="content">
-              Events
-            </h1>
-          </div>
-          <p class="bd-lead">The Events API of Bootstrap Table.</p>
-          <div id="gg"></div>
-
-          <p>Events can be bound in two ways:</p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta name="author" content="Zhixin Wen, and Bootstrap Table contributors"><meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation"><meta name="generator" content="Astro v5.14.8"><meta name="docsearch:language" content="en"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://bootstrap-table.com/docs/api/events/"><meta property="og:title" content="Bootstrap Table · An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="og:description" content="An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="og:image" content="/assets/images/bootstrap-table.jpg"><meta property="og:site_name" content="Bootstrap Table"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://bootstrap-table.com/docs/api/events/"><meta property="twitter:title" content="Bootstrap Table · An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="twitter:description" content="An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="twitter:image" content="/assets/images/bootstrap-table.jpg"><meta property="twitter:creator" content="@wenzhixin2010"><!-- Canonical URL --><link rel="canonical" href="https://bootstrap-table.com/docs/api/events/"><title>Bootstrap Table · An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4"><link rel="stylesheet" href="/assets/css/docs.min.css"><link rel="stylesheet" href="/assets/css/style.css?m=9"><!-- Prism.js code highlighting styles --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism-tomorrow.min.css"><link rel="icon" href="/favicon.png"><script type="module">window!==top&&(top.location.href=window.location.href);</script><style>@media(max-width:1199.98px){.bd-toc[data-astro-cid-obewoz47]{margin-bottom:1.5rem;order:-1}}@media(min-width:1200px){.bd-toc[data-astro-cid-obewoz47]{position:fixed;width:16.666667%;z-index:1000;max-height:calc(100vh - 7rem)}}
+</style></head><body data-bs-spy="scroll" data-bs-target="#TableOfContents"> <header class="navbar navbar-expand-lg bd-navbar sticky-top"> <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3" aria-label="Main navigation"> <div class="bd-navbar-toggle"> <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation"> <i class="bi bi-list"></i> <span class="d-none fs-6 pe-1">Browse</span> </button> </div>  <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="Bootstrap Table"> <img src="/favicon.png" width="32" height="32" alt="Bootstrap Table"> </a> <div class="d-flex"> <div class="bd-search"></div> <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation"> <i class="bi bi-three-dots"></i> </button> </div> <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel"> <div class="offcanvas-header px-4 pb-0"> <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap Table</h5> <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button> </div> <div class="offcanvas-body p-4 pt-0 p-lg-0"> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/"> Home </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link active" href="/docs/getting-started/introduction/"> Docs </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/themes"> Themes </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://examples.bootstrap-table.com" target="_blank" rel="noopener"> Examples </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://live.bootstrap-table.com" target="_blank" rel="noopener"> Online Editor </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/news"> News </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://blog.bootstrap-table.com" target="_blank" rel="noopener"> Blog </a> </li> </ul> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap ms-md-auto"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"> <i class="bi bi-github"></i> <small class="d-lg-none ms-2">GitHub</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"> <i class="bi bi-twitter"></i> <small class="d-lg-none ms-2">Twitter</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"> <i class="bi bi-heart-fill"></i> <small class="d-lg-none ms-2">Open Collective</small> </a> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-versions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+v1.25.0 </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-versions"> <li> <a class="dropdown-item active" href="/"> Latest (v1.25.0) </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.25.0/" target="_blank"> v1.25.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.23.5/" target="_blank"> v1.23.5 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.22.6/" target="_blank"> v1.22.6 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.21.4/" target="_blank"> v1.21.4 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.20.2/" target="_blank"> v1.20.2 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.19.1/" target="_blank"> v1.19.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.18.3/" target="_blank"> v1.18.3 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.17.1/" target="_blank"> v1.17.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.16.0/" target="_blank"> v1.16.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.15.5/" target="_blank"> v1.15.5 </a> </li> </ul> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown" id="theme-switcher" data-theme-config="{&#34;themes&#34;:[{&#34;name&#34;:&#34;light&#34;,&#34;icon&#34;:&#34;bi-sun-fill&#34;,&#34;label&#34;:&#34;Light&#34;},{&#34;name&#34;:&#34;dark&#34;,&#34;icon&#34;:&#34;bi-moon-stars-fill&#34;,&#34;label&#34;:&#34;Dark&#34;},{&#34;name&#34;:&#34;auto&#34;,&#34;icon&#34;:&#34;bi-circle-half&#34;,&#34;label&#34;:&#34;Auto&#34;}]}"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-bootstrap-theme" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span id="theme-icon"> <i class="bi bi-sun-fill"></i> </span> </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu"> <!-- Theme options will be generated by JavaScript --> </ul> </li> </ul> </div> </div> </nav> </header> <div class="container-fluid"> <div class="row flex-xl-nowrap h-100"> <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3"> <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel"> <div class="offcanvas-header border-bottom"> <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button> </div> <div class="offcanvas-body d-flex flex-column"> <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav"> <li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> Getting started </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/introduction/"> Introduction </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/download/"> Download </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/contents/"> Contents </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/usage/"> Usage </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/browsers-devices/"> Browsers &amp; devices </a> </li> </ul> </li><li class="bd-links-group py-2 active"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> API </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/table-options/"> Table Options </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/column-options/"> Column Options </a> </li><li> <a class="bd-links-link d-inline-block rounded active bd-sidenav-active" href="/docs/api/events/"> Events </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/methods/"> Methods </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/localizations/"> Localizations </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> Extensions </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/addrbar/"> Addrbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/auto-refresh/"> Auto Refresh </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/cookie/"> Cookie </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/copy-rows/"> Copy Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/custom-view/"> Custom View </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/defer-url/"> Defer URL </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/editable/"> Editable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/export/"> Export </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/filter-control/"> Filter Control </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/fixed-columns/"> Fixed Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/group-by-v2/"> Group By v2 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/i18n-enhance/"> i18n Enhance </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/key-events/"> Key Events </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/mobile/"> Mobile </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/multiple-sort/"> Multiple Sort </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/page-jump-to/"> Page Jump To </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/pipeline/"> Pipeline </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/print/"> Print </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/reorder-columns/"> Reorder Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/reorder-rows/"> Reorder Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/resizable/"> Resizable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/sticky-header/"> Sticky Header </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/toolbar/"> Toolbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/treegrid/"> Treegrid </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> VueJS </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/introduction/"> Introduction </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/browser/"> Browser </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/webpack/"> Webpack </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/component/"> Component </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> FAQ </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/faq/faq/"> FAQ </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> About </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/about/overview/"> Overview </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/about/license/"> License </a> </li> </ul> </li> </ul> </div> </div> </aside> <main class="col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 mt-3 bd-content overflow-y-auto api" role="main"> <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between"> <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0" href="https://github.com/wenzhixin/bootstrap-table/blob/develop/site/pages/docs/api/events.mdx" title="View and edit this file on GitHub" target="_blank" rel="noopener">
+View on GitHub
+</a> <h1 class="bd-title" id="content"> Events </h1> </div> <p class="bd-lead">The Events API of Bootstrap Table.</p> <div id="gg"></div> <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary" data-astro-cid-obewoz47> <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents" data-astro-cid-obewoz47>
+On this page
+<i class="bi bi-chevron-expand d-xl-none ms-2" data-astro-cid-obewoz47></i> </button> <strong class="d-none d-md-block h6 my-2 ms-3" id="docs-tocs" data-astro-cid-obewoz47>On this page</strong> <hr class="d-none d-md-block my-2 ms-3" data-astro-cid-obewoz47> <div class="collapse bd-toc-collapse" id="tocContents" data-astro-cid-obewoz47> <nav id="TableOfContents" aria-labelledby="docs-tocs" data-astro-cid-obewoz47> <ul class="toc-list" data-astro-cid-obewoz47> <!-- TOC items will be generated by JavaScript --> </ul> </nav> </div> </div>  <p>Events can be bound in two ways:</p>
 <ul>
-  <li>via the option object</li>
-  <li>via jquery event handler</li>
+<li>via the option object</li>
+<li>via jquery event handler</li>
 </ul>
-
 <p>Binding via the options object:</p>
-
-<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here, you can expect to have as the last parameter the bootstrap-table object
-
-$('#table').bootstrapTable({
-  onEventName: function (arg1, arg2, ...) {
-    // ...
-  }
-})</code></pre></figure>
-
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// Here, you can expect to have as the last parameter the bootstrap-table object</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">$</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;#table&#39;</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">bootstrapTable</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#B392F0">  onEventName</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">arg1</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">arg2</span><span style="color:#E1E4E8">, ...) {</span></span>
+<span class="line"><span style="color:#6A737D">    // ...</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
 <p>Binding via the jquery event handler:</p>
-
-<figure class="highlight"><pre><code class="language-html" data-lang="html">// Here, you can expect to have in the 'e' variable the sender property, which is the bootstrap-table object
-
-$('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
-  // ...
-})</code></pre></figure>
-
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// Here, you can expect to have in the &#39;e&#39; variable the sender property, which is the bootstrap-table object</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">$</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;#table&#39;</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;event-name.bs.table&#39;</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">e</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">arg1</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">arg2</span><span style="color:#E1E4E8">, ...) {</span></span>
+<span class="line"><span style="color:#6A737D">  // ...</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
 <p><em>Hint: if you use the jquery event handler, make sure to bind the event listener before the event is executed!</em></p>
-
 <h2 id="onall">onAll</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">all.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">name, args</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when any event triggers. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">name</code>: the event name,</li>
-      <li><code class="language-plaintext highlighter-rouge">args</code>: the event data.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>all.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>name, args</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when any event triggers. The parameters contain:</p>
+<ul>
+<li><code>name</code>: the event name,</li>
+<li><code>args</code>: the event data.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="oncheck">onCheck</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">check.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user checks a row. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$element</code>: the DOM element checked.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>check.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>row, $element</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user checks a row. The parameters contain:</p>
+<ul>
+<li><code>row</code>: the record corresponding to the clicked row.</li>
+<li><code>$element</code>: the DOM element checked.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="oncheckall">onCheckAll</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">check-all.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">rowsAfter, rowsBefore</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user checks all rows. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
-      <li><code class="language-plaintext highlighter-rouge">rowsBefore</code>: array of records of the checked rows before.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>check-all.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>rowsAfter, rowsBefore</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user checks all rows. The parameters contain:</p>
+<ul>
+<li><code>rowsAfter</code>: array of records of the now checked rows.</li>
+<li><code>rowsBefore</code>: array of records of the checked rows before.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onchecksome">onCheckSome</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">check-some.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">rows</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user checks some rows. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">rows</code>: array of records corresponding to newly checked rows.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>check-some.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>rows</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user checks some rows. The parameters contain:</p>
+<ul>
+<li><code>rows</code>: array of records corresponding to newly checked rows.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onclickcell">onClickCell</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">click-cell.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">field, value, row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user clicks a cell. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-      <li><code class="language-plaintext highlighter-rouge">value</code>: the data value corresponding to the clicked cell.</li>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$element</code>: the td element.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>click-cell.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>field, value, row, $element</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user clicks a cell. The parameters contain:</p>
+<ul>
+<li><code>field</code>: the field name corresponding to the clicked cell.</li>
+<li><code>value</code>: the data value corresponding to the clicked cell.</li>
+<li><code>row</code>: the record corresponding to the clicked row.</li>
+<li><code>$element</code>: the td element.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onclickrow">onClickRow</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">click-row.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">row, $element, field</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user clicks a row. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$element</code>: the tr element.</li>
-      <li><code class="language-plaintext highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>click-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>row, $element, field</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user clicks a row. The parameters contain:</p>
+<ul>
+<li><code>row</code>: the record corresponding to the clicked row.</li>
+<li><code>$element</code>: the tr element.</li>
+<li><code>field</code>: the field name corresponding to the clicked cell.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="oncollapserow">onCollapseRow</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">collapse-row.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">index, row, detailView</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when you click the detail icon to collapse the detail view. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">index</code>: the index of the collapsed row.</li>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the collapsed row.</li>
-      <li><code class="language-plaintext highlighter-rouge">detailView</code>: the collapsed detailView.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>collapse-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>index, row, detailView</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when you click the detail icon to collapse the detail view. The parameters contain:</p>
+<ul>
+<li><code>index</code>: the index of the collapsed row.</li>
+<li><code>row</code>: the record corresponding to the collapsed row.</li>
+<li><code>detailView</code>: the collapsed detailView.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="oncolumnswitch">onColumnSwitch</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">column-switch.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">field, checked</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when switch the column visible (<a href="/docs/api/table-options/#showcolumns">showColumns</a>). The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">field</code>: the field name corresponding to the switch column.</li>
-      <li><code class="language-plaintext highlighter-rouge">checked</code>: the checked state of the column.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>column-switch.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>field, checked</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when switch the column visible (<a href="/docs/api/table-options/#showcolumns">showColumns</a>). The parameters contain:</p>
+<ul>
+<li><code>field</code>: the field name corresponding to the switch column.</li>
+<li><code>checked</code>: the checked state of the column.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="oncolumnswitchall">onColumnSwitchAll</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">column-switch-all.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">checked</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when toggle all columns. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">checked</code>: the checked state of the column.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>column-switch-all.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>checked</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when toggle all columns. The parameters contain:</p>
+<ul>
+<li><code>checked</code>: the checked state of the column.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="ondblclickcell">onDblClickCell</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">dbl-click-cell.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">field, value, row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user double click a cell. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-      <li><code class="language-plaintext highlighter-rouge">value</code>: the data value corresponding to the clicked cell.</li>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$element</code>: the td element.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>dbl-click-cell.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>field, value, row, $element</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user double click a cell. The parameters contain:</p>
+<ul>
+<li><code>field</code>: the field name corresponding to the clicked cell.</li>
+<li><code>value</code>: the data value corresponding to the clicked cell.</li>
+<li><code>row</code>: the record corresponding to the clicked row.</li>
+<li><code>$element</code>: the td element.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="ondblclickrow">onDblClickRow</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">dbl-click-row.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">row, $element, field</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user doubles click a row. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$element</code>: the tr element.</li>
-      <li><code class="language-plaintext highlighter-rouge">field</code>: the field name corresponding to the clicked cell.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>dbl-click-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>row, $element, field</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user doubles click a row. The parameters contain:</p>
+<ul>
+<li><code>row</code>: the record corresponding to the clicked row.</li>
+<li><code>$element</code>: the tr element.</li>
+<li><code>field</code>: the field name corresponding to the clicked cell.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onexpandrow">onExpandRow</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">expand-row.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">index, row, $detail</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when you click the detail icon to expand the detail view. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">index</code>: the index of the expanded row.</li>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the expanded row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$detail</code>: the DOM element of the detail <code class="language-plaintext highlighter-rouge">div</code> after the current <code class="language-plaintext highlighter-rouge">tr</code> element, you can use jQuery methods to custom the detail views.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>expand-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>index, row, $detail</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when you click the detail icon to expand the detail view. The parameters contain:</p>
+<ul>
+<li><code>index</code>: the index of the expanded row.</li>
+<li><code>row</code>: the record corresponding to the expanded row.</li>
+<li><code>$detail</code>: the DOM element of the detail <code>div</code> after the current <code>tr</code> element, you can use jQuery methods to custom the detail views.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onloaderror">onLoadError</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">load-error.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">status, jqXHR</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when some errors occur to load remote data. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">status</code>: the status code of <code class="language-plaintext highlighter-rouge">jqXHR</code>.</li>
-      <li><code class="language-plaintext highlighter-rouge">jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>load-error.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>status, jqXHR</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when some errors occur to load remote data. The parameters contain:</p>
+<ul>
+<li><code>status</code>: the status code of <code>jqXHR</code>.</li>
+<li><code>jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onloadsuccess">onLoadSuccess</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">load-success.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">data</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when remote data is loaded successfully. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">data</code>: the remote data loaded into the table. (Note: this data cannot be modified once it’s loaded into the table. If you need to process received data before using it in the table, write your custom <a href="/docs/api/table-options/#responsehandler">responseHandler</a> instead.)</li>
-      <li><code class="language-plaintext highlighter-rouge">status</code>: the status code of <code class="language-plaintext highlighter-rouge">jqXHR</code>.</li>
-      <li><code class="language-plaintext highlighter-rouge">jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>load-success.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>data</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when remote data is loaded successfully. The parameters contain:</p>
+<ul>
+<li><code>data</code>: the remote data loaded into the table. (Note: this data cannot be modified once it’s loaded into the table. If you need to process received data before using it in the table, write your custom <a href="/docs/api/table-options/#responsehandler">responseHandler</a> instead.)</li>
+<li><code>status</code>: the status code of <code>jqXHR</code>.</li>
+<li><code>jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onpagechange">onPageChange</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">page-change.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">number, size</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when changing the page number or page size. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">number</code>: the page number.</li>
-      <li><code class="language-plaintext highlighter-rouge">size</code>: the page size.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>page-change.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>number, size</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when changing the page number or page size. The parameters contain:</p>
+<ul>
+<li><code>number</code>: the page number.</li>
+<li><code>size</code>: the page size.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onpostbody">onPostBody</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">post-body.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">data</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires after the table body are rendered and available in the DOM. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">data</code>: the rendered data.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>post-body.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>data</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires after the table body are rendered and available in the DOM. The parameters contain:</p>
+<ul>
+<li><code>data</code>: the rendered data.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onpostfooter">onPostFooter</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">post-footer.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">$tableFooter</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires after the footer are rendered and available in the DOM. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">$tableFooter</code>: the DOM element of the footer.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>post-footer.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>$tableFooter</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires after the footer are rendered and available in the DOM. The parameters contain:</p>
+<ul>
+<li><code>$tableFooter</code>: the DOM element of the footer.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onpostheader">onPostHeader</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">post-header.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires after the table header is rendered and available in the DOM.</p>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>post-header.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires after the table header is rendered and available in the DOM.</p>
+</li>
 </ul>
-
 <h2 id="onprebody">onPreBody</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">pre-body.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">data</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires before the table body are rendered. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">data</code>: the rendered data.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>pre-body.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>data</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires before the table body are rendered. The parameters contain:</p>
+<ul>
+<li><code>data</code>: the rendered data.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onrefresh">onRefresh</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">refresh.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">params</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires after the click of the refresh button. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">params</code>: the additional parameters request to the server.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>refresh.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>params</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires after the click of the refresh button. The parameters contain:</p>
+<ul>
+<li><code>params</code>: the additional parameters request to the server.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onrefreshoptions">onRefreshOptions</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">refresh-options.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">options</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires after refreshing the options, and before destroying and init the table. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">options</code>: the table options object.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>refresh-options.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>options</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires after refreshing the options, and before destroying and init the table. The parameters contain:</p>
+<ul>
+<li><code>options</code>: the table options object.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onresetview">onResetView</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">reset-view.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when resetting the view of the table.</p>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>reset-view.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when resetting the view of the table.</p>
+</li>
 </ul>
-
 <h2 id="onscrollbody">onScrollBody</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">scroll-body.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">$tableBody</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the table body scroll.</p>
-    <h2 id="onsearch">onSearch</h2>
-  </li>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">search.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">text</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when searching the table. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">text</code>: the text of the search input.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>scroll-body.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>$tableBody</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the table body scroll.</p>
+</li>
 </ul>
-
+<h2 id="onsearch">onSearch</h2>
+<ul>
+<li>
+<p><strong>jQuery Event:</strong> <code>search.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>text</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when searching the table. The parameters contain:</p>
+<ul>
+<li><code>text</code>: the text of the search input.</li>
+</ul>
+</li>
+</ul>
 <h2 id="onsort">onSort</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">sort.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">name, order</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user sort a column. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">name</code>: the sort column field name.</li>
-      <li><code class="language-plaintext highlighter-rouge">order</code>: the sort column order.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>sort.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>name, order</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user sort a column. The parameters contain:</p>
+<ul>
+<li><code>name</code>: the sort column field name.</li>
+<li><code>order</code>: the sort column order.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="ontoggle">onToggle</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">toggle.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">cardView</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when toggling the view of the table. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">cardView</code>: the cardView state of the table.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>toggle.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>cardView</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when toggling the view of the table. The parameters contain:</p>
+<ul>
+<li><code>cardView</code>: the cardView state of the table.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="ontogglepagination">onTogglePagination</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">toggle-pagination.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">state</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the pagination is toggled:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">state</code>: the new pagination state (<code class="language-plaintext highlighter-rouge">true</code>-&gt; Pagination is enabled, <code class="language-plaintext highlighter-rouge">false</code> -&gt; Pagination is disabled )</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>toggle-pagination.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>state</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the pagination is toggled:</p>
+<ul>
+<li><code>state</code>: the new pagination state (<code>true</code>-&gt; Pagination is enabled, <code>false</code> -&gt; Pagination is disabled )</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onuncheck">onUncheck</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">uncheck.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">row, $element</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user unchecks a row. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">row</code>: the record corresponding to the clicked row.</li>
-      <li><code class="language-plaintext highlighter-rouge">$element</code>: the DOM element unchecked.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>uncheck.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>row, $element</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user unchecks a row. The parameters contain:</p>
+<ul>
+<li><code>row</code>: the record corresponding to the clicked row.</li>
+<li><code>$element</code>: the DOM element unchecked.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onuncheckall">onUncheckAll</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">uncheck-all.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">rowsAfter, rowsBefore</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user unchecks all rows. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">rowsAfter</code>: array of records of the now checked rows.</li>
-      <li><code class="language-plaintext highlighter-rouge">rowsBefore</code>: array of records of the checked rows before.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>uncheck-all.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>rowsAfter, rowsBefore</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user unchecks all rows. The parameters contain:</p>
+<ul>
+<li><code>rowsAfter</code>: array of records of the now checked rows.</li>
+<li><code>rowsBefore</code>: array of records of the checked rows before.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onunchecksome">onUncheckSome</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">uncheck-some.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">rows</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user unchecks some rows. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">rows</code>: array of records corresponding to previously checked rows.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>uncheck-some.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>rows</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user unchecks some rows. The parameters contain:</p>
+<ul>
+<li><code>rows</code>: array of records corresponding to previously checked rows.</li>
 </ul>
-
+</li>
+</ul>
 <h2 id="onvirtualscroll">onVirtualScroll</h2>
-
 <ul>
-  <li>
-    <p><strong>jQuery Event:</strong> <code class="language-plaintext highlighter-rouge">virtual-scroll.bs.table</code></p>
-  </li>
-  <li>
-    <p><strong>Parameter:</strong> <code class="language-plaintext highlighter-rouge">startIndex, endIndex</code></p>
-  </li>
-  <li>
-    <p><strong>Detail:</strong></p>
-
-    <p>It fires when the user scrolls the virtual scroll. The parameters contain:</p>
-
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">startIndex</code>: the start row index of the virtual scroll.</li>
-      <li><code class="language-plaintext highlighter-rouge">endIndex</code>: the end row index of the virtual scroll.</li>
-    </ul>
-  </li>
+<li>
+<p><strong>jQuery Event:</strong> <code>virtual-scroll.bs.table</code></p>
+</li>
+<li>
+<p><strong>Parameter:</strong> <code>startIndex, endIndex</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>It fires when the user scrolls the virtual scroll. The parameters contain:</p>
+<ul>
+<li><code>startIndex</code>: the start row index of the virtual scroll.</li>
+<li><code>endIndex</code>: the end row index of the virtual scroll.</li>
 </ul>
+</li>
+</ul> </main> </div> </div> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@4"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script> <script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script><script type="module">(function(){window.fnames=[],window.ftypes=[],window.fnames[0]="EMAIL",window.ftypes[0]="email",window.fnames[1]="FNAME",window.ftypes[1]="text",window.fnames[2]="LNAME",window.ftypes[2]="text",window.fnames[3]="ADDRESS",window.ftypes[3]="address",window.fnames[4]="PHONE",window.ftypes[4]="phone",window.fnames[5]="BIRTHDAY",window.ftypes[5]="birthday"})(jQuery);</script><script>(function(){const baseurl = "";
+const algolia = {"appId":"FXDJ517Z8G","apiKey":"9b89c4a7048370f4809b0bc77b2564ac","indexName":"bootstrap-table-test"};
+const version = "1.25.0";
 
-        </main>
-      </div>
-    </div>
+  /* eslint-disable no-undef */
+  const script = document.createElement('script')
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-<script async defer src="https://buttons.github.io/buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script>
-$(function () {
-  $('.bd-content.api a').attr('target', '_blank')
-})
-</script><script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script>
-<script src="/assets/js/docs.min.js?m=1"></script>
+  script.src = `${baseurl}/assets/js/docs.js?v=${version}`
+  document.head.appendChild(script)
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || []
-  function gtag() {window.dataLayer.push(arguments)}
-  gtag('js', new Date())
-  gtag('config', 'UA-132747866-1')
-</script>
-
-  </body>
-</html>
+  // Set Algolia configuration as global variables
+  window.ALGOLIA_CONFIG = algolia
+  /* eslint-enable no-undef */
+})();</script> </body></html>
