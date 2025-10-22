@@ -1,0 +1,2600 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta name="author" content="Zhixin Wen, and Bootstrap Table contributors"><meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation"><meta name="generator" content="Astro v5.13.5"><meta name="docsearch:language" content="en"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://bootstrap-table.com/docs/api/table-options/"><meta property="og:title" content="Bootstrap Table · An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="og:description" content="An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="og:image" content="/assets/images/bootstrap-table.jpg"><meta property="og:site_name" content="Bootstrap Table"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://bootstrap-table.com/docs/api/table-options/"><meta property="twitter:title" content="Bootstrap Table · An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="twitter:description" content="An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)"><meta property="twitter:image" content="/assets/images/bootstrap-table.jpg"><meta property="twitter:creator" content="@wenzhixin2010"><!-- Canonical URL --><link rel="canonical" href="https://bootstrap-table.com/docs/api/table-options/"><title>Bootstrap Table · An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4"><link rel="stylesheet" href="/assets/css/docs.min.css"><link rel="stylesheet" href="/assets/css/style.css?m=9"><!-- Prism.js code highlighting styles --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism-tomorrow.min.css"><link rel="icon" href="/favicon.png"><script type="module">window!==top&&(top.location.href=window.location.href);</script><style>@media (max-width: 1199.98px){.bd-toc[data-astro-cid-obewoz47]{margin-bottom:1.5rem;order:-1}}@media (min-width: 1200px){.bd-toc[data-astro-cid-obewoz47]{position:fixed;width:16.666667%;z-index:1000;max-height:calc(100vh - 7rem)}}
+</style></head><body data-bs-spy="scroll" data-bs-target="#TableOfContents"> <header class="navbar navbar-expand-lg bd-navbar sticky-top"> <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3" aria-label="Main navigation"> <div class="bd-navbar-toggle"> <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation"> <i class="bi bi-list"></i> <span class="d-none fs-6 pe-1">Browse</span> </button> </div>  <a class="navbar-brand p-0 me-0 me-lg-2" href="/" aria-label="Bootstrap Table"> <img src="/favicon.png" width="32" height="32" alt="Bootstrap Table"> </a> <div class="d-flex"> <div class="bd-search"></div> <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation"> <i class="bi bi-three-dots"></i> </button> </div> <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel"> <div class="offcanvas-header px-4 pb-0"> <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap Table</h5> <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button> </div> <div class="offcanvas-body p-4 pt-0 p-lg-0"> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/"> Home </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link active" href="/docs/getting-started/introduction/"> Docs </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/themes"> Themes </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://examples.bootstrap-table.com" target="_blank" rel="noopener"> Examples </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://live.bootstrap-table.com" target="_blank" rel="noopener"> Online Editor </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/news"> News </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://blog.bootstrap-table.com" target="_blank" rel="noopener"> Blog </a> </li> </ul> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap ms-md-auto"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"> <i class="bi bi-github"></i> <small class="d-lg-none ms-2">GitHub</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"> <i class="bi bi-twitter"></i> <small class="d-lg-none ms-2">Twitter</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"> <i class="bi bi-heart-fill"></i> <small class="d-lg-none ms-2">Open Collective</small> </a> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-versions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+v1.24.2 </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-versions"> <li> <a class="dropdown-item active" href="/"> Latest (v1.24.2) </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.21.4/" target="_blank"> v1.21.4 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.20.2/" target="_blank"> v1.20.2 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.19.1/" target="_blank"> v1.19.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.18.3/" target="_blank"> v1.18.3 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.17.1/" target="_blank"> v1.17.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.16.0/" target="_blank"> v1.16.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.15.5/" target="_blank"> v1.15.5 </a> </li> </ul> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown" id="theme-switcher" data-theme-config="{&#34;themes&#34;:[{&#34;name&#34;:&#34;light&#34;,&#34;icon&#34;:&#34;bi-sun-fill&#34;,&#34;label&#34;:&#34;Light&#34;},{&#34;name&#34;:&#34;dark&#34;,&#34;icon&#34;:&#34;bi-moon-stars-fill&#34;,&#34;label&#34;:&#34;Dark&#34;},{&#34;name&#34;:&#34;auto&#34;,&#34;icon&#34;:&#34;bi-circle-half&#34;,&#34;label&#34;:&#34;Auto&#34;}]}"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-bootstrap-theme" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span id="theme-icon"> <i class="bi bi-sun-fill"></i> </span> </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu"> <!-- Theme options will be generated by JavaScript --> </ul> </li> </ul> </div> </div> </nav> </header> <div class="container-fluid"> <div class="row flex-xl-nowrap h-100"> <aside class="bd-sidebar bd-sidebar col-12 col-md-3 col-xl-2 ps-3"> <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel"> <div class="offcanvas-header border-bottom"> <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button> </div> <div class="offcanvas-body d-flex flex-column"> <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav"> <li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> Getting started </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/introduction/"> Introduction </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/download/"> Download </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/contents/"> Contents </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/usage/"> Usage </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/getting-started/browsers-devices/"> Browsers &amp; devices </a> </li> </ul> </li><li class="bd-links-group py-2 active"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> API </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded active bd-sidenav-active" href="/docs/api/table-options/"> Table Options </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/column-options/"> Column Options </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/events/"> Events </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/methods/"> Methods </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/api/localizations/"> Localizations </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> Extensions </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/addrbar/"> Addrbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/auto-refresh/"> Auto Refresh </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/cookie/"> Cookie </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/copy-rows/"> Copy Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/custom-view/"> Custom View </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/defer-url/"> Defer URL </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/editable/"> Editable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/export/"> Export </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/filter-control/"> Filter Control </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/fixed-columns/"> Fixed Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/group-by-v2/"> Group By v2 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/i18n-enhance/"> i18n Enhance </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/key-events/"> Key Events </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/mobile/"> Mobile </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/multiple-sort/"> Multiple Sort </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/page-jump-to/"> Page Jump To </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/pipeline/"> Pipeline </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/print/"> Print </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/reorder-columns/"> Reorder Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/reorder-rows/"> Reorder Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/resizable/"> Resizable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/sticky-header/"> Sticky Header </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/toolbar/"> Toolbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/extensions/treegrid/"> Treegrid </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> VueJS </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/introduction/"> Introduction </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/browser/"> Browser </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/webpack/"> Webpack </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/vuejs/component/"> Component </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> FAQ </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/faq/faq/"> FAQ </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> About </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/docs/about/overview/"> Overview </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/docs/about/license/"> License </a> </li> </ul> </li> </ul> </div> </div> </aside> <main class="col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 bd-content overflow-y-auto api" role="main"> <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between"> <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0" href="https://github.com/wenzhixin/bootstrap-table/blob/develop/site/pages/docs/api/table-options.mdx" title="View and edit this file on GitHub" target="_blank" rel="noopener">
+View on GitHub
+</a> <h1 class="bd-title" id="content"> Table Options </h1> </div> <p class="bd-lead">The table options API of Bootstrap Table.</p> <div id="gg"></div> <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary" data-astro-cid-obewoz47> <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents" data-astro-cid-obewoz47>
+On this page
+<i class="bi bi-chevron-expand d-xl-none ms-2" data-astro-cid-obewoz47></i> </button> <strong class="d-none d-md-block h6 my-2 ms-3" id="docs-tocs" data-astro-cid-obewoz47>On this page</strong> <hr class="d-none d-md-block my-2 ms-3" data-astro-cid-obewoz47> <div class="collapse bd-toc-collapse" id="tocContents" data-astro-cid-obewoz47> <nav id="TableOfContents" aria-labelledby="docs-tocs" data-astro-cid-obewoz47> <ul class="toc-list" data-astro-cid-obewoz47> <!-- TOC items will be generated by JavaScript --> </ul> </nav> </div> </div>  <p>The table options are defined in <code>jQuery.fn.bootstrapTable.defaults</code>.</p>
+<h2 id>-</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-toggle</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Activate bootstrap table without writing JavaScript.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;table&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-html.html">From HTML</a></p>
+</li>
+</ul>
+<h2 id="ajax">ajax</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-ajax</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>A method to replace ajax call. Should implement the same API as jQuery ajax method.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-ajax.html">Table AJAX</a></p>
+</li>
+</ul>
+<h2 id="ajaxoptions">ajaxOptions</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-ajax-options</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Object</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Additional options for submit ajax request. List of values: <a href="http://api.jquery.com/jQuery.ajax">jQuery.ajax</a>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/ajax-options.html">AJAX Options</a></p>
+</li>
+</ul>
+<h2 id="buttons">buttons</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>This option allows creating/adding custom button(s) to the “buttons bar” (top right of the table).
+These buttons can be sorted with the table option <a href="https://bootstrap-table.com/docs/api/table-options/#buttonsorder">buttonsOrder</a>, the used key/name for the event should be used for that!</p>
+<p>The custom button is highly configurable, the following options exists:</p>
+<ul>
+<li><code>text</code>
+<ul>
+<li>Description: This options is used for the <a href="https://bootstrap-table.com/docs/api/table-options/#showbuttontext">showButtonText</a> table option.</li>
+<li>Type: <code>String</code></li>
+</ul>
+</li>
+<li><code>icon</code>
+<ul>
+<li>Description: This option is used for the <a href="https://bootstrap-table.com/docs/api/table-options/#showbuttonicons">showButtonIcons</a> table option.</li>
+<li>Type: <code>String</code> - Only needs the icon class e.g. <code>fa-users</code></li>
+</ul>
+</li>
+<li><code>render</code>
+<ul>
+<li>Description: Set this option to <code>false</code> to hide the button by default, the button is visible again when you add the data attribute <code>data-show-button-name=&quot;true&quot;</code>.</li>
+</ul>
+</li>
+<li><code>attributes</code>
+<ul>
+<li>Description: This option allows adding additional html attributes e.g. <code>title</code></li>
+<li>Type: <code>Object</code></li>
+<li>Example: <code>{title: &#39;Button title&#39;}</code></li>
+</ul>
+</li>
+<li><code>html</code>
+<ul>
+<li>Description: If you don’t want to autogenerate the html, you can use this option to insert your custom html.
+The <code>event</code> option only works if you custom HTML contains <code>name=&quot;button-name&quot;</code>.
+If this option is used the following options will be ignored:
+<ul>
+<li><code>text</code></li>
+<li><code>icon</code></li>
+<li><code>attributes</code></li>
+</ul>
+</li>
+<li>Type: <code>Function|String</code></li>
+</ul>
+</li>
+<li><code>event</code>
+<ul>
+<li>Description: Should be used if you want to add an event to the button</li>
+<li>Type: <code>Function|Object|String</code></li>
+</ul>
+</li>
+</ul>
+<p>The <code>event</code> option can be configured in three ways.
+One event with <code>click</code> event:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;event&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>One event with a self-defined event type:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;event&#39;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;mouseenter&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p>Multiple events with self-defined event types:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;event&#39;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;click&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { },</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;mouseenter&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { },</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;mouseleave&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p><strong>Hint:</strong> Instead of inline functions, you also can use function names.</p>
+<p>A configured custom button could look like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#B392F0">  btnRemoveEvenRows</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;text&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;Remove even Rows&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;icon&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa-trash&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;event&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">      //DO STUFF TO REMOVE EVEN ROWS</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;attributes&#39;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;title&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;Remove all rows which has a even id&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons.html">Buttons</a></p>
+</li>
+</ul>
+<h2 id="buttonsalign">buttonsAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to align the toolbar buttons. <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;right&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-align.html">Buttons Align</a></p>
+</li>
+</ul>
+<h2 id="buttonsattributetitle">buttonsAttributeTitle</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons-attribute-title</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Customize the title attribute of the toolbar buttons, which is mainly used to customize the toolbar style.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;title&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-attribute-title.html">Buttons Attribute Title</a></p>
+</li>
+</ul>
+<h2 id="buttonsclass">buttonsClass</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons-class</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines the class (added after <code>&#39;btn-&#39;</code>) of table buttons.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;secondary&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-class.html">Buttons Class</a></p>
+</li>
+</ul>
+<h2 id="buttonsorder">buttonsOrder</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons-order</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to custom order the toolbar buttons.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>[&#39;paginationSwitch&#39;, &#39;refresh&#39;, &#39;toggle&#39;, &#39;fullscreen&#39;, &#39;columns&#39;]</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-order.html">Buttons Order</a></p>
+</li>
+</ul>
+<h2 id="buttonsprefix">buttonsPrefix</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons-prefix</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines prefix of table buttons.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;btn&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-prefix.html">Buttons Prefix</a></p>
+</li>
+</ul>
+<h2 id="buttonstoolbar">buttonsToolbar</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-buttons-toolbar</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String/Node</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>A jQuery selector that indicates the custom buttons toolbar, for example: <code>#buttons-toolbar</code>, <code>.buttons-toolbar</code>, or a DOM node.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-toolbar.html">Buttons Toolbar</a></p>
+</li>
+</ul>
+<h2 id="cache">cache</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-cache</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>false</code> to disable caching of AJAX requests.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-cache.html">Table Cache</a></p>
+</li>
+</ul>
+<h2 id="cardview">cardView</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-card-view</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show card view table, for example, mobile view.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/card-view.html">Card View</a></p>
+</li>
+</ul>
+<h2 id="checkboxheader">checkboxHeader</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-checkbox-header</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>false</code> to hide the check-all checkbox in the header row.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/checkbox-header.html">Checkbox Header</a></p>
+</li>
+</ul>
+<h2 id="classes">classes</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-classes</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The class name of table. <code>&#39;table&#39;</code>, <code>&#39;table-bordered&#39;</code>, <code>&#39;table-hover&#39;</code>, <code>&#39;table-striped&#39;</code>, <code>&#39;table-dark&#39;</code>, <code>&#39;table-sm&#39;</code> and <code>&#39;table-borderless&#39;</code> can be used. By default, the table is bordered.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;table table-bordered table-hover&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-classes.html">Table Classes</a></p>
+</li>
+</ul>
+<h2 id="clicktoselect">clickToSelect</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-click-to-select</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to select the checkbox or radio box when clicking rows.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/click-to-select.html">Click To Select</a></p>
+</li>
+</ul>
+<h2 id="columns">columns</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>-</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The table columns config object. See column properties for more details.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>[]</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-columns.html">Table Columns</a></p>
+</li>
+</ul>
+<h2 id="contenttype">contentType</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-content-type</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The contentType of request remote data, for example: <code>application/x-www-form-urlencoded</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;application/json&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/content-type.html">Content Type</a></p>
+</li>
+</ul>
+<h2 id="customsearch">customSearch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-custom-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The custom search function is executed instead of the built-in search function, takes three parameters:</p>
+<ul>
+<li><code>data</code>: the table data.</li>
+<li><code>text</code>: the search text.</li>
+<li><code>filter</code>: the filter object from <code>filterBy</code> method.</li>
+</ul>
+<p>Example usage:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> customSearch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">data</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">text</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> data.</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">row</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> row.field.</span><span style="color:#B392F0">indexOf</span><span style="color:#E1E4E8">(text) </span><span style="color:#F97583">&gt;</span><span style="color:#F97583"> -</span><span style="color:#79B8FF">1</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-search.html">Custom Search</a></p>
+</li>
+</ul>
+<h2 id="customsort">customSort</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-custom-sort</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The custom sort function is executed instead of the built-in sort function, takes three parameters:</p>
+<ul>
+<li><code>sortName</code>: the sort name.</li>
+<li><code>sortOrder</code>: the sort order.</li>
+<li><code>data</code>: the rows data.</li>
+</ul>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-sort.html">Custom Order</a></p>
+</li>
+</ul>
+<h2 id="data">data</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-data</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Array | Object</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The data to be loaded.</p>
+<p>If in the data has <code>_&lt;field&gt;_rowspan</code> or <code>_&lt;field&gt;_colspan</code> property, then will merge cells auto, for example:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">$table.</span><span style="color:#B392F0">bootstrapTable</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  data: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#E1E4E8">      id: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      name: </span><span style="color:#9ECBFF">&#39;Item 1&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      _name_rowspan: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      price: </span><span style="color:#9ECBFF">&#39;$1&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#E1E4E8">      id: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      price: </span><span style="color:#9ECBFF">&#39;$2&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<p>If using this feature, the <code>data</code> is required to ensure that the format is correct.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>[]</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-data.html">From Data</a></p>
+</li>
+</ul>
+<h2 id="datafield">dataField</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-data-field</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Key in incoming JSON containing <code>&#39;rows&#39;</code> data list.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;rows&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/total-data-field.html">Total/Data Field</a></p>
+</li>
+</ul>
+<h2 id="datatype">dataType</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-data-type</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The type of data that you are expecting back from the server.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;json&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/data-type.html">Data Type</a></p>
+</li>
+</ul>
+<h2 id="detailfilter">detailFilter</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-detail-filter</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Enable expansion per row when <code>detailView</code> is set to <code>true</code>. Return true, and the row will be enabled for expansion, return false and expansion for the row will be disabled. Default function returns true to allow expansion for all rows.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>function(index, row) { return true }</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-filter.html">Detail Filter</a></p>
+</li>
+</ul>
+<h2 id="detailformatter">detailFormatter</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-detail-formatter</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Format your detail view when <code>detailView</code> is set to <code>true</code>. Return a String, and it will be appended into the detail view cell, optionally render the element directly using the third parameter, which is a jQuery element of the target cell.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>function(index, row, element) { return &#39;&#39; }</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view.html">Detail View</a></p>
+</li>
+</ul>
+<h2 id="detailview">detailView</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-detail-view</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show a detailed view table. You can set the <code>uniqueId</code> option to maintain the detail view state when refreshing the table.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-unique-id.html">Detail View UniqueId</a></p>
+</li>
+</ul>
+<h2 id="detailviewalign">detailViewAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-detail-view-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to align the detail view icon. <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;left&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-align.html">Detail view Align</a></p>
+</li>
+</ul>
+<h2 id="detailviewbyclick">detailViewByClick</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-detail-view-by-click</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to toggle the detail view when a cell is clicked.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-icon.html">Detail View Icon</a></p>
+</li>
+</ul>
+<h2 id="detailviewicon">detailViewIcon</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-detail-view-icon</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the detail view column (plus/minus icon).</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-icon.html">Detail View Icon</a></p>
+</li>
+</ul>
+<h2 id="escape">escape</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-escape</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Escapes a string for insertion into HTML, replacing <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&quot;</code>, <code>`</code>, and <code>&#39;</code> characters.
+To disable it for the column titles check the <code>escapeTitle</code> option.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape.html">Table Escape</a></p>
+</li>
+</ul>
+<h2 id="escapetitle">escapeTitle</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-escape-title</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Toggles if the <code>escape</code> option should be applied to the column titles.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape-title.html">Table Escape title</a></p>
+</li>
+</ul>
+<h2 id="filteroptions">filterOptions</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-filter-options</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Define the default filter options of the algorithm, <code>filterAlgorithm: &#39;and&#39;</code> means all given filters must match, <code>filterAlgorithm: &#39;or&#39;</code> means one of the given filters must match.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{ filterAlgorithm: &#39;and&#39; }</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/filter-options.html">Filter Options</a></p>
+</li>
+</ul>
+<h2 id="fixedscroll">fixedScroll</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-fixed-scroll</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to enable the fixed scrollbar position of the table when loading data.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/fixed-scroll.html">Fixed Scroll</a></p>
+</li>
+</ul>
+<h2 id="footerfield">footerField</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-footer-field</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines the key of the footer Object (From data array or server response JSON).
+The footer Object can be used to set/define footer colspan and/or the value of the footer.
+Only triggered when <code>data-pagination</code> is <code>true</code> and <code>data-side-pagination</code> is <code>server</code>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &quot;rows&quot;</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">      {</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;id&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;name&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;Item 0&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;price&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;$0&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;amount&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">3</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#9ECBFF">    &quot;footer&quot;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &quot;id&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;footer id&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      &quot;_id_colspan&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      &quot;name&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;footer name&quot;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+</li>
+<li>
+<p><strong>Default:</strong> <code>footerField</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-field.html">Footer Field</a></p>
+</li>
+</ul>
+<h2 id="footerstyle">footerStyle</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-footer-style</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The footer style formatter function, takes one parameter:</p>
+<ul>
+<li><code>column</code>: the column object.</li>
+</ul>
+<p>Support <code>classes</code> or <code>css</code>. Example usage:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> footerStyle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">column</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    css: { </span><span style="color:#9ECBFF">&#39;font-weight&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;normal&#39;</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    classes: </span><span style="color:#9ECBFF">&#39;my-class&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-style.html">Footer Style</a></p>
+</li>
+</ul>
+<h2 id="headerstyle">headerStyle</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-header-style</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The header style formatter function, takes one parameter:</p>
+<ul>
+<li><code>column</code>: the column object.</li>
+</ul>
+<p>Support <code>classes</code> or <code>css</code>. Example usage:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> headerStyle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">column</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    css: { </span><span style="color:#9ECBFF">&#39;font-weight&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;normal&#39;</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    classes: </span><span style="color:#9ECBFF">&#39;my-class&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/header-style.html">Header Style</a></p>
+</li>
+</ul>
+<h2 id="height">height</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-height</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The height of the table, enables a fixed header of the table.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-height.html">Table Height</a></p>
+</li>
+</ul>
+<h2 id="icons">icons</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-icons</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Object</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines icons used in the toolbar, pagination, and details view.</p>
+</li>
+<li>
+<p><strong>Default:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#E1E4E8">  paginationSwitchDown: &#39;fa-caret-square-down&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  paginationSwitchUp: &#39;fa-caret-square-up&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  refresh: &#39;fa-sync&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  toggleOff: &#39;fa-toggle-off&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  toggleOn: &#39;fa-toggle-on&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  columns: &#39;fa-th-list&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  fullscreen: &#39;fa-arrows-alt&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  detailOpen: &#39;fa-plus&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  detailClose: &#39;fa-minus&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-icons.html">Table Icons</a></p>
+</li>
+</ul>
+<h2 id="iconsize">iconSize</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-icon-size</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines icon size, <code>undefined</code>, <code>&#39;lg&#39;</code>, <code>&#39;sm&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/icon-size.html">Icon Size</a></p>
+</li>
+</ul>
+<h2 id="iconsprefix">iconsPrefix</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-icons-prefix</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines icon set name. By default, this option is automatically calculated by the theme.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#B392F0">  bootstrap3</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;glyphicon&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  bootstrap4</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  bootstrap5</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;bi&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;bootstrap-table&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;icon&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  bulma</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  foundation</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  materialize</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;material-icons&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  semantic</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/icons-prefix.html">Icons Prefix</a></p>
+</li>
+</ul>
+<h2 id="idfield">idField</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-id-field</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate which field will be used as checkbox/radio value, its the counterpart to <a href="https://bootstrap-table.com/docs/api/table-options/#selectitemname">selectItemName</a>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/id-field.html">Id Field</a></p>
+</li>
+</ul>
+<h2 id="ignoreclicktoselecton">ignoreClickToSelectOn</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-ignore-click-to-select-on</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set the ignore elements <code>clickToSelect</code> on. Takes one parameter:</p>
+<ul>
+<li><code>element</code>: the element clicked on.</li>
+</ul>
+<p>Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if <code>clickToSelect</code> is true.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{ return [&#39;A&#39;, &#39;BUTTON&#39;].includes(tagName) }</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/ignore-click-to-select-on.html">Ignore Click To Select On</a></p>
+</li>
+</ul>
+<h2 id="loadingfontsize">loadingFontSize</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-loading-font-size</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>To define the font size of the loading text, the default value is <code>&#39;auto&#39;</code>, calculated automatically according to the table width, between 12px and 32px.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;auto&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/loading-font-size.html">Loading Font Size</a></p>
+</li>
+</ul>
+<h2 id="loadingtemplate">loadingTemplate</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-loading-template</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>To custom the loading type by yourself. The parameters object contain:</p>
+<ul>
+<li>loadingMessage: the <code>formatLoadingMessage</code> locale.</li>
+</ul>
+</li>
+<li>
+<p><strong>Default:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">loadingMessage</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> &#39;&lt;span class=&quot;loading-wrap&quot;&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;span class=&quot;loading-text&quot;&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#E1E4E8">    loadingMessage </span><span style="color:#F97583">+</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;/span&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;span class=&quot;animation-wrap&quot;&gt;&lt;span class=&quot;animation-dot&quot;&gt;&lt;/span&gt;&lt;/span&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;/span&gt;&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/loading-template.html">Loading Template</a></p>
+</li>
+</ul>
+<h2 id="locale">locale</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-locale</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Sets the locale to use (i.e. <code>&#39;zh-CN&#39;</code>). Locale files must be pre-loaded.
+Allows for fallback locales, if loaded, in the following order:</p>
+<ul>
+<li>First tries for the locale as specified,</li>
+<li>Then tries the locale with ’_’ translated to ’-’ and the region code upper cased,</li>
+<li>Then tries the short locale code (i.e. <code>&#39;zh&#39;</code> instead of <code>&#39;zh-CN&#39;</code>),</li>
+<li>And finally will use the last locale file loaded (or the default locale if no locales loaded).</li>
+</ul>
+<p>If left <code>undefined</code> or an empty string, use the last locale loaded (or <code>&#39;en-US&#39;</code> if no locale files loaded).</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-locale.html">Table Locale</a></p>
+</li>
+</ul>
+<h2 id="maintainmetadata">maintainMetaData</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-maintain-meta-data</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to maintain the following metadata on the change page and search:</p>
+<ul>
+<li>selected rows</li>
+<li>hidden rows</li>
+</ul>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/maintain-meta-data.html">Maintain Meta Data</a></p>
+</li>
+</ul>
+<h2 id="method">method</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-method</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The method type to request remote data.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;get&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-method.html">Table Method</a></p>
+</li>
+</ul>
+<h2 id="minimumcountcolumns">minimumCountColumns</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-minimum-count-columns</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The minimum number of columns to hide from the columns dropdown list.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>1</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/minimum-count-columns.html">Minimum Count Columns</a></p>
+</li>
+</ul>
+<h2 id="multipleselectrow">multipleSelectRow</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-multiple-select-row</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to enable the multiple selection row. Can use the ctrl+click to select one row or shift+click to select a range of rows.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/multiple-select-row.html">Multiple Select Row</a></p>
+</li>
+</ul>
+<h2 id="pagelist">pageList</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-page-list</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>When setting the pagination property, initialize the page size by selecting the list. If you include the <code>&#39;all&#39;</code> or <code>&#39;unlimited&#39;</code> option, all the records will be shown in your table.</p>
+<p><em>Hint: If the table has lesser rows as the option(s), the options will be hidden automatically. To disable that feature, you can set <a href="https://bootstrap-table.com/docs/api/table-options/#smartdisplay">smartDisplay</a> to <code>false</code></em></p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>[10, 25, 50, 100]</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/page-list.html">Page List</a></p>
+</li>
+</ul>
+<h2 id="pagenumber">pageNumber</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-page-number</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>When setting the pagination property, initialize the page number.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>1</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/page-number.html">Page Number</a></p>
+</li>
+</ul>
+<h2 id="pagesize">pageSize</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-page-size</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>When setting the pagination property, initialize the page size.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>10</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/page-size.html">Page Size</a></p>
+</li>
+</ul>
+<h2 id="pagination">pagination</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show a pagination toolbar on the table bottom.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-pagination.html">Table Pagination</a></p>
+</li>
+</ul>
+<h2 id="paginationdetailhalign">paginationDetailHAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-detail-h-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to align the pagination detail. <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;left&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-h-align.html">Pagination H Align</a></p>
+</li>
+</ul>
+<h2 id="paginationhalign">paginationHAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-h-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to align the pagination. <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;right&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-h-align.html">Pagination H Align</a></p>
+</li>
+</ul>
+<h2 id="paginationloadmore">paginationLoadMore</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-load-more</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to enable loading more data through pagination. It is only used in the client-side pagination. In general, to implement the “load more” functionality, it is often necessary to combine it with a <code>responseHandler</code> to process the returned data.</p>
+<p>It is primarily used in scenarios where the total number of pages is unknown. In such cases, it is not possible to display the exact total count or calculate the total number of pages. Instead, a display format such as “100+” can be utilized to indicate the presence of additional items beyond the displayed count. As the user navigates to the last page, more data is loaded, along with an update to the pagination information. This process continues until all data loading is complete.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-load-more.html">Pagination Load More</a></p>
+</li>
+</ul>
+<h2 id="paginationloop">paginationLoop</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-loop</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to enable pagination continuous loop mode.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-loop.html">Pagination Loop</a></p>
+</li>
+</ul>
+<h2 id="paginationnexttext">paginationNextText</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-next-text</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate the icon or text to be shown in the pagination detail, the next button.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;›&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-text.html">Pagination Text</a></p>
+</li>
+</ul>
+<h2 id="paginationpagesbyside">paginationPagesBySide</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-pages-by-side</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The number of pages on each side (right, left) of the current page.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>1</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-index-number.html">Pagination Index Number</a></p>
+</li>
+</ul>
+<h2 id="paginationparts">paginationParts</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-parts</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>These options define which parts of the pagination should be visible.</p>
+<ul>
+<li><code>pageInfo</code> Shows which dataset will be displayed on the current page (e.g. <code>Showing 1 to 10 of 54 rows</code>).</li>
+<li><code>pageInfoShort</code> Similar to <code>pageInfo</code>, it only displays how many rows the table has (e.g. <code>Showing 54 rows</code>).</li>
+<li><code>pageSize</code> Shows the dropdown which defines how many rows should be displayed on the page.</li>
+<li><code>pageList</code> Shows the main part of the pagination (The list of the pages).</li>
+</ul>
+</li>
+<li>
+<p><strong>Default:</strong> <code>[&#39;pageInfo&#39;, &#39;pageSize&#39;, &#39;pageList&#39;]</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-parts.html">Pagination Parts</a></p>
+</li>
+</ul>
+<h2 id="paginationpretext">paginationPreText</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-pre-text</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate the icon or text shown in the pagination detail, the previous button.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;‹&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-text.html">Pagination Text</a></p>
+</li>
+</ul>
+<h2 id="paginationsuccessivelysize">paginationSuccessivelySize</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-successively-size</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Maximum successive number of pages in a row.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>5</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-index-number.html">Pagination Index Number</a></p>
+</li>
+</ul>
+<h2 id="paginationuseintermediate">paginationUseIntermediate</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-use-intermediate</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Calculate and show intermediate pages for quick access.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-index-number.html">Pagination Index Number</a></p>
+</li>
+</ul>
+<h2 id="paginationvalign">paginationVAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-pagination-v-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to vertical-align the pagination. <code>&#39;top&#39;</code>, <code>&#39;bottom&#39;</code>, <code>&#39;both&#39;</code> (put the pagination on top and bottom)  can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;bottom&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-v-align.html">Pagination V Align</a></p>
+</li>
+</ul>
+<h2 id="queryparams">queryParams</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-query-params</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>When requesting remote data, you can send additional parameters by modifying queryParams.</p>
+<p>If <code>queryParamsType = &#39;limit&#39;</code>, the params object contains: <code>limit</code>, <code>offset</code>, <code>search</code>, <code>sort</code>, <code>order</code>.</p>
+<p>Else, it contains: <code>pageSize</code>, <code>pageNumber</code>, <code>searchText</code>, <code>sortName</code>, <code>sortOrder</code>.</p>
+<p>Return <code>false</code> to stop request.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>function(params) { return params }</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/query-params.html">Query Params</a></p>
+</li>
+</ul>
+<h2 id="queryparamstype">queryParamsType</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-query-params-type</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>&#39;limit&#39;</code> to send query params with RESTFul type.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;limit&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/query-params-type.html">Query Params Type</a></p>
+</li>
+</ul>
+<h2 id="regexsearch">regexSearch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-regex-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to enable the regex search.
+If this option is enabled, you can search with regex, e.g. <code>[47a]$</code> for all items which end with a <code>4</code>, <code>7</code> or <code>a</code>.
+The regex can be entered with <code>/[47a]$/gim</code> or without <code>[47a]$</code> flags. The default flags are <code>gim</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/regex-search.html">Regex Search</a></p>
+</li>
+</ul>
+<h2 id="rememberorder">rememberOrder</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-remember-order</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to remember the order for each column.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/remember-order.html">Remember Order</a></p>
+</li>
+</ul>
+<h2 id="responsehandler">responseHandler</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-response-handler</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Before loading remote data, handle the response data format. The parameters object contains:</p>
+<ul>
+<li><code>res</code>: the response data.</li>
+<li><code>jqXHR</code>: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Default:</strong> <code>function(res) { return res }</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/response-handler.html">Response Handler</a></p>
+</li>
+</ul>
+<h2 id="rowattributes">rowAttributes</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-row-attributes</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The row attribute formatter function, takes two parameters:</p>
+<ul>
+<li><code>row</code>: the row record data.</li>
+<li><code>index</code>: the row index.</li>
+</ul>
+<p>Support all custom attributes.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/row-attributes.html">Row Attributes</a></p>
+</li>
+</ul>
+<h2 id="rowstyle">rowStyle</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-row-style</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The row style formatter function, takes two parameters:</p>
+<ul>
+<li><code>row</code>: the row record data.</li>
+<li><code>index</code>: the row index.</li>
+</ul>
+<p>Support classes or css.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/row-style.html">Row Style</a></p>
+</li>
+</ul>
+<h2 id="search">search</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Enable the search input.</p>
+<p>There are three ways to search:</p>
+<ul>
+<li>The value contains the search query (Default).
+Example: Github contains git.</li>
+<li>The value must be identical to the search query.
+Example: Github (value) and Github (search query).</li>
+<li>Comparisons (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>=&lt;</code>, <code>&gt;=</code>, <code>=&gt;</code>).
+Example: 4 is larger than 3.</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>If you want to use a custom search input, use the <a href="https://bootstrap-table.com/docs/api/table-options/#searchSelector">searchSelector</a>.</li>
+<li>You can also search via regex using the <a href="https://bootstrap-table.com/docs/api/table-options/#regexSearch">regexSearch</a> option.</li>
+<li>If you want to send searchable params to server-side pagination, use the <a href="https://bootstrap-table.com/docs/api/table-options/#searchable">searchable</a> option.</li>
+</ul>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-search.html">Table Search</a></p>
+</li>
+</ul>
+<h2 id="searchable">searchable</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-searchable</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to send <a href="https://bootstrap-table.com/docs/api/column-options/#searchable">searchable params</a> to the server while using server-side pagination.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/searchable.html">Searchable</a></p>
+</li>
+</ul>
+<h2 id="searchaccentneutralise">searchAccentNeutralise</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-accent-neutralise</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set to <code>true</code> if you want to use the accent neutralize feature.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-accent-neutralise.html">Search Accent Neutralise</a></p>
+</li>
+</ul>
+<h2 id="searchalign">searchAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to align the search input. <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;right&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-align.html">Search Align</a></p>
+</li>
+</ul>
+<h2 id="searchhighlight">searchHighlight</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-highlight</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set to <code>true</code> to highlight the searched text (using the <code>&lt;mark&gt;</code> HTML tag).
+You can also define a <a href="https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter">custom highlight formatter</a>, e.g., for values with HTML or to use a custom highlight color.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;false&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-highlight.html">Search Highlight</a></p>
+</li>
+</ul>
+<h2 id="searchonenterkey">searchOnEnterKey</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-on-enter-key</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The search method will be executed until the Enter key is pressed.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-on-enter-key.html">Search On Enter Key</a></p>
+</li>
+</ul>
+<h2 id="searchselector">searchSelector</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-selector</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean|String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>If this option is set (must be a valid dom selector, e.g. <code>#customSearch</code>), the found dom element (an <code>input</code> element) will be used as table search instead of the built-in search input.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-selector.html">Search Selector</a></p>
+</li>
+</ul>
+<h2 id="searchtext">searchText</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-text</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>When setting search property, initialize the search text.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-text.html">Search Text</a></p>
+</li>
+</ul>
+<h2 id="searchtimeout">searchTimeOut</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-search-time-out</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set timeout for search fire.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>500</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/search-time-out.html">Search Time Out</a></p>
+</li>
+</ul>
+<h2 id="selectitemname">selectItemName</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-select-item-name</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The name of the radio or checkbox input.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;btSelectItem&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/id-field.html">Id Field</a></p>
+</li>
+</ul>
+<h2 id="serversort">serverSort</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-server-sort</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>false</code> to sort the data on the client-side, only works when the <code>sidePagination</code> is <code>server</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/server-sort.html">Server Sort</a></p>
+</li>
+</ul>
+<h2 id="showbuttonicons">showButtonIcons</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-button-icons</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>All buttons will show icons on them.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-button-icons.html">show button icons</a></p>
+</li>
+</ul>
+<h2 id="showbuttontext">showButtonText</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-button-text</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>All buttons will show text on them.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-button-text.html">show button text</a></p>
+</li>
+</ul>
+<h2 id="showcolumns">showColumns</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-columns</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the columns drop down list. We can set the <a href="/docs/api/column-options/#switchable"><code>switchable</code></a> column option to <code>false</code> to hide the columns item in the drop down list. The minimum number of selected columns can be controlled with the <a href="/docs/api/table-options/#minimumcountcolumns">minimumCountColumns</a> table option.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/basic-columns.html">Basic Columns</a> and <a href="https://examples.bootstrap-table.com/#options/large-columns.html">Large Columns</a></p>
+</li>
+</ul>
+<h2 id="showcolumnssearch">showColumnsSearch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-columns-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show a search for the column’s filter.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-search.html">Columns Search</a></p>
+</li>
+</ul>
+<h2 id="showcolumnstoggleall">showColumnsToggleAll</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-columns-toggle-all</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show a toggle all checkbox within the columns option/dropdown.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-toggle-all.html">Columns Toggle All</a></p>
+</li>
+</ul>
+<h2 id="showextendedpagination">showExtendedPagination</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-extended-pagination</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show an extended version of pagination (including the count of all rows without filters).
+If you use pagination on the server side, please use <code>totalNotFilteredField</code> to define the count.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-extended-pagination.html">Show Extended Pagination</a></p>
+</li>
+</ul>
+<h2 id="showfooter">showFooter</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-footer</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the summary footer row.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-footer.html">Show Footer</a></p>
+</li>
+</ul>
+<h2 id="showfullscreen">showFullscreen</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-fullscreen</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the fullscreen button.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-fullscreen.html">Show Fullscreen</a></p>
+</li>
+</ul>
+<h2 id="showheader">showHeader</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-header</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>false</code> to hide the table header.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-header.html">Show Header</a></p>
+</li>
+</ul>
+<h2 id="showpaginationswitch">showPaginationSwitch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-pagination-switch</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the pagination switch button.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-pagination-switch.html">Show Pagination Switch</a></p>
+</li>
+</ul>
+<h2 id="showrefresh">showRefresh</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-refresh</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the refresh button.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-refresh.html">Show Refresh</a></p>
+</li>
+</ul>
+<h2 id="showsearchbutton">showSearchButton</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-search-button</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show a search Button behind the search input.
+The Search will only be executed if the button is pressed (e.g., to prevent traffic or loading time).</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-search-button.html">Show Search Button</a></p>
+</li>
+</ul>
+<h2 id="showsearchclearbutton">showSearchClearButton</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-search-clear-button</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show a clear Button behind the search input, which will clear the search input (also all filter from filter-control (if enabled)).</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-search-clear-button.html">Show Search Clear Button</a></p>
+</li>
+</ul>
+<h2 id="showtoggle">showToggle</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-show-toggle</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to show the toggle button to toggle table/card view.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/show-toggle.html">Show Toggle</a></p>
+</li>
+</ul>
+<h2 id="sidepagination">sidePagination</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-side-pagination</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines the side pagination of the table, can only be <code>&#39;client&#39;</code> or <code>&#39;server&#39;</code>.
+Using the <code>&#39;server&#39;</code> side requires setting the <code>&#39;url&#39;</code> or <code>&#39;ajax&#39;</code> option.</p>
+<p>Note that the required server response format is different depending on whether the  <code>&#39;sidePagination&#39;</code> option is set to <code>&#39;client&#39;</code> or <code>&#39;server&#39;</code>. See the following examples:</p>
+<ul>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+</ul>
+<p><strong>URL parameters:</strong></p>
+<p>When <code>sidePagination</code> is set to <code>server</code>, the bootstrap table will make calls to the <code>url</code> with the following URL parameters:</p>
+<ul>
+<li><code>offset</code> with a value between 0 and <code>total</code> - 1, indicating the first record to include.</li>
+<li><code>limit</code> with a value indicating the number of rows per page.</li>
+</ul>
+<p>When implementing server-side pagination, you must implement a JSON view in a format like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data">this example</a>. That view must take the URL parameter values indicated above and return records starting at the <code>offset</code> index and returns the number of records indicated by <code>limit</code>.  For example, if you want records 11-20, your view must obtain the <code>offset=10</code> and <code>limit=10</code> from the URL string and return records like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10">this example</a>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;client&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/client-side-pagination.html">Client Side Pagination</a> and <a href="https://examples.bootstrap-table.com/#options/server-side-pagination.html">Server Side Pagination</a></p>
+</li>
+</ul>
+<h2 id="silentsort">silentSort</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-silent-sort</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>false</code> to sort the data with the loading message. This options works when the sidePagination option is set to <code>&#39;server&#39;</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/silent-sort.html">Silent Sort</a></p>
+</li>
+</ul>
+<h2 id="singleselect">singleSelect</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-single-select</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to allow a checkbox selecting only one row.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/single-select.html">Single Select</a></p>
+</li>
+</ul>
+<h2 id="smartdisplay">smartDisplay</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-smart-display</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to display pagination or card view smartly.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/smart-display.html">Smart Display</a></p>
+</li>
+</ul>
+<h2 id="sortable">sortable</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sortable</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>false</code> to disable sortable of all columns.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/table-sortable.html">Table Sortable</a></p>
+</li>
+</ul>
+<h2 id="sortclass">sortClass</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-class</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The class name of the <code>td</code> elements are sorted.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-class.html">Sort Class</a></p>
+</li>
+</ul>
+<h2 id="sortemptylast">sortEmptyLast</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-empty-last</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to sort <code>&lt;empty string&gt;</code>, <code>undefined</code> and <code>null</code> as last value.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-empty-last.html">Sort Empty Last</a></p>
+</li>
+</ul>
+<h2 id="sortname">sortName</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-name</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines which column will be sorted.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-name-order.html">Sort Name Order</a></p>
+</li>
+</ul>
+<h2 id="sortorder">sortOrder</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-order</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines the column sort order, can only be <code>undefined</code>, <code>&#39;asc&#39;</code> or <code>&#39;desc&#39;</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-name-order.html">Sort Name Order</a></p>
+</li>
+</ul>
+<h2 id="sortreset">sortReset</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-reset</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to reset the sort on the third click.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-reset.html">Sort Reset</a></p>
+</li>
+</ul>
+<h2 id="sortresetpage">sortResetPage</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-reset-page</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to reset the page number when sorting.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-reset-page.html">Sort Reset Page</a></p>
+</li>
+</ul>
+<h2 id="sortstable">sortStable</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-sort-stable</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to get a stable sorting. We will add <code>&#39;_position&#39;</code> property to the row.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-stable.html">Sort Stable</a></p>
+</li>
+</ul>
+<h2 id="strictsearch">strictSearch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-strict-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Enable the strict search.
+Disables the comparison checks.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/strict-search.html">Strict Search</a></p>
+</li>
+</ul>
+<h2 id="theadclasses">theadClasses</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-thead-classes</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The class name of table thead. Bootstrap v4, use the modifier classes <code>.thead-light</code> or <code>.thead-dark</code> to make <code>thead</code> appear light or dark gray.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/thead-classes.html">Thead Classes</a></p>
+</li>
+</ul>
+<h2 id="toolbar">toolbar</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-toolbar</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String/Node</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>A jQuery selector that indicates the toolbar, for example: <code>#toolbar</code>, <code>.toolbar</code>, or a DOM node.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-toolbar.html">Custom Toolbar</a></p>
+</li>
+</ul>
+<h2 id="toolbaralign">toolbarAlign</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-toolbar-align</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate how to align the custom toolbar. <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code> can be used.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;left&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/toolbar-align.html">Toolbar Align</a></p>
+</li>
+</ul>
+<h2 id="totalfield">totalField</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-total-field</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Key in incoming JSON containing <code>&#39;total&#39;</code> data.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;total&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/total-data-field.html">Total/Data Field</a></p>
+</li>
+</ul>
+<h2 id="totalnotfiltered">totalNotFiltered</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-total-not-filtered</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>This property is mainly passed in by the pagination server, which is easy to use.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>0</code></p>
+</li>
+</ul>
+<h2 id="totalnotfilteredfield">totalNotFilteredField</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-total-not-filtered-field</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>string</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>The field from the JSON response will be used for <code>showExtendedPagination</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>totalNotFiltered</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/total-not-filtered-field.html">Total Not Filtered Field</a></p>
+</li>
+</ul>
+<h2 id="totalrows">totalRows</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-total-rows</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>This property is mainly passed in by the pagination server, which is easy to use.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>0</code></p>
+</li>
+</ul>
+<h2 id="trimonsearch">trimOnSearch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-trim-on-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to trim spaces in the search field.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/trim-on-search.html">Trim On Search</a></p>
+</li>
+</ul>
+<h2 id="undefinedtext">undefinedText</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-undefined-text</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Defines the default <code>undefined</code> text.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>&#39;-&#39;</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/undefined-text.html">Undefined Text</a></p>
+</li>
+</ul>
+<h2 id="uniqueid">uniqueId</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-unique-id</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Indicate a unique identifier for each row.
+The Unique id should always be safe for html e.g. alphanumeric, it should not contain chars which can break html e.g. <code>&quot;</code>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html">getRowByUniqueId</a></p>
+</li>
+</ul>
+<h2 id="url">url</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-url</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>A URL to request data from remote site.</p>
+<p>Note that the required server response format is different depending on whether the <code>&#39;sidePagination&#39;</code> option is specified. See the following examples:</p>
+<ul>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">Without server-side pagination</a></li>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">With server-side pagination</a></li>
+</ul>
+<p><strong>URL parameters:</strong></p>
+<p>When <code>sidePagination</code> is set to <code>server</code>, the bootstrap table will make calls to the <code>url</code> with the following URL parameters:</p>
+<ul>
+<li><code>offset</code> with a value between 0 and <code>total</code> - 1, indicating the first record to include.</li>
+<li><code>limit</code> with a value indicating the number of rows per page.</li>
+</ul>
+<p>When implementing server-side pagination, you must implement a JSON view in a format like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data">this example</a>. That view must take the URL parameter values indicated above and return records starting at the <code>offset</code> index and returns the number of records indicated by <code>limit</code>.  For example, if you want records 11-20, your view must obtain the <code>offset=10</code> and <code>limit=10</code> from the URL string and return records like <a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10">this example</a>.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-url.html">From URL</a></p>
+</li>
+<li>
+<p><strong>Error handling</strong></p>
+<p>To get loading errors please use <a href="https://bootstrap-table.com/docs/api/events/#onloaderror">onLoadError</a></p>
+</li>
+</ul>
+<h2 id="virtualscroll">virtualScroll</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-virtual-scroll</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to enable virtual scroll to display a virtual, “infinite” list.</p>
+<p><strong>Note:</strong> Currently, the implementation assumes that each line has the same height. If the heights of the lines vary, unpredictable bugs may occur. Please ensure that the height of each line is consistent, or apply the style <code>td { white-space: nowrap; }</code> to address this issue.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/large-data.html">Large Data</a></p>
+</li>
+</ul>
+<h2 id="virtualscrollitemheight">virtualScrollItemHeight</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-virtual-scroll-item-height</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>If this option is not defined, we will use the height of the first item by default.</p>
+<p>It is <strong>important</strong> to provide this if the virtual item height is significantly larger than the default height. This dimension is used to help determine how many cells should be created when initialized and to help calculate the height of the scrollable area. This height value can only use <code>px</code> units.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>undefined</code></p>
+</li>
+</ul>
+<h2 id="visiblesearch">visibleSearch</h2>
+<ul>
+<li>
+<p><strong>Attribute:</strong> <code>data-visible-search</code></p>
+</li>
+<li>
+<p><strong>Type:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>Detail:</strong></p>
+<p>Set <code>true</code> to search only in visible column/data. If the data contains other values which are not displayed, they will be ignored while searching.</p>
+</li>
+<li>
+<p><strong>Default:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>Example:</strong> <a href="https://examples.bootstrap-table.com/#options/visible-search.html">visible search</a></p>
+</li>
+</ul> </main> </div> </div> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@4"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script> <script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script><script type="module">(function(){window.fnames=[],window.ftypes=[],window.fnames[0]="EMAIL",window.ftypes[0]="email",window.fnames[1]="FNAME",window.ftypes[1]="text",window.fnames[2]="LNAME",window.ftypes[2]="text",window.fnames[3]="ADDRESS",window.ftypes[3]="address",window.fnames[4]="PHONE",window.ftypes[4]="phone",window.fnames[5]="BIRTHDAY",window.ftypes[5]="birthday"})(jQuery);</script><script>(function(){const baseurl = "";
+
+  const script = document.createElement('script')
+
+  // eslint-disable-next-line
+  script.src = `${baseurl}/assets/js/docs.js?v=1.0.0`
+  document.head.appendChild(script)
+})();</script> </body></html>
