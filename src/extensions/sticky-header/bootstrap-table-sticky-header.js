@@ -62,8 +62,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .on('scroll', () => this.renderStickyHeader())
   }
 
-  getCaret (...args) {
-    super.getCaret(...args)
+  resetCaret (...args) {
+    super.resetCaret(...args)
     if (!this.options.stickyHeader) {
       return
     }
