@@ -5,14 +5,12 @@ cypress
 site
 tools
 tests
-_config.yml
 .browserslistrc
 .cspell-words.txt
 .cspell.json
 .editorconfig
 CONTRIBUTING.md
-cypress.config.js
 DONATORS.md
-Gemfile
-Gemfile.lock
+*.config.js
 release.*
+src/.babelrc
