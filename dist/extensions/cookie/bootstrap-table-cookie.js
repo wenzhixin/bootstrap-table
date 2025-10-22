@@ -2408,54 +2408,6 @@
 
   requireEs_array_includes();
 
-  var es_array_join = {};
-
-  var arrayMethodIsStrict;
-  var hasRequiredArrayMethodIsStrict;
-
-  function requireArrayMethodIsStrict () {
-  	if (hasRequiredArrayMethodIsStrict) return arrayMethodIsStrict;
-  	hasRequiredArrayMethodIsStrict = 1;
-  	var fails = requireFails();
-
-  	arrayMethodIsStrict = function (METHOD_NAME, argument) {
-  	  var method = [][METHOD_NAME];
-  	  return !!method && fails(function () {
-  	    // eslint-disable-next-line no-useless-call -- required for testing
-  	    method.call(null, argument || function () { return 1; }, 1);
-  	  });
-  	};
-  	return arrayMethodIsStrict;
-  }
-
-  var hasRequiredEs_array_join;
-
-  function requireEs_array_join () {
-  	if (hasRequiredEs_array_join) return es_array_join;
-  	hasRequiredEs_array_join = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var IndexedObject = requireIndexedObject();
-  	var toIndexedObject = requireToIndexedObject();
-  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
-
-  	var nativeJoin = uncurryThis([].join);
-
-  	var ES3_STRINGS = IndexedObject !== Object;
-  	var FORCED = ES3_STRINGS || !arrayMethodIsStrict('join', ',');
-
-  	// `Array.prototype.join` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.join
-  	$({ target: 'Array', proto: true, forced: FORCED }, {
-  	  join: function join(separator) {
-  	    return nativeJoin(toIndexedObject(this), separator === undefined ? ',' : separator);
-  	  }
-  	});
-  	return es_array_join;
-  }
-
-  requireEs_array_join();
-
   var es_array_map = {};
 
   var hasRequiredEs_array_map;
@@ -2481,38 +2433,6 @@
   }
 
   requireEs_array_map();
-
-  var es_date_toJson = {};
-
-  var hasRequiredEs_date_toJson;
-
-  function requireEs_date_toJson () {
-  	if (hasRequiredEs_date_toJson) return es_date_toJson;
-  	hasRequiredEs_date_toJson = 1;
-  	var $ = require_export();
-  	var fails = requireFails();
-  	var toObject = requireToObject();
-  	var toPrimitive = requireToPrimitive();
-
-  	var FORCED = fails(function () {
-  	  return new Date(NaN).toJSON() !== null
-  	    || Date.prototype.toJSON.call({ toISOString: function () { return 1; } }) !== 1;
-  	});
-
-  	// `Date.prototype.toJSON` method
-  	// https://tc39.es/ecma262/#sec-date.prototype.tojson
-  	$({ target: 'Date', proto: true, arity: 1, forced: FORCED }, {
-  	  // eslint-disable-next-line no-unused-vars -- required for `.length`
-  	  toJSON: function toJSON(key) {
-  	    var O = toObject(this);
-  	    var pv = toPrimitive(O, 'number');
-  	    return typeof pv == 'number' && !isFinite(pv) ? null : O.toISOString();
-  	  }
-  	});
-  	return es_date_toJson;
-  }
-
-  requireEs_date_toJson();
 
   var es_object_assign = {};
 
@@ -3795,6 +3715,24 @@
 
   	domTokenListPrototype = DOMTokenListPrototype === Object.prototype ? undefined : DOMTokenListPrototype;
   	return domTokenListPrototype;
+  }
+
+  var arrayMethodIsStrict;
+  var hasRequiredArrayMethodIsStrict;
+
+  function requireArrayMethodIsStrict () {
+  	if (hasRequiredArrayMethodIsStrict) return arrayMethodIsStrict;
+  	hasRequiredArrayMethodIsStrict = 1;
+  	var fails = requireFails();
+
+  	arrayMethodIsStrict = function (METHOD_NAME, argument) {
+  	  var method = [][METHOD_NAME];
+  	  return !!method && fails(function () {
+  	    // eslint-disable-next-line no-useless-call -- required for testing
+  	    method.call(null, argument || function () { return 1; }, 1);
+  	  });
+  	};
+  	return arrayMethodIsStrict;
   }
 
   var arrayForEach;

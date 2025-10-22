@@ -2500,36 +2500,6 @@
 
   requireEs_array_indexOf();
 
-  var es_array_join = {};
-
-  var hasRequiredEs_array_join;
-
-  function requireEs_array_join () {
-  	if (hasRequiredEs_array_join) return es_array_join;
-  	hasRequiredEs_array_join = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var IndexedObject = requireIndexedObject();
-  	var toIndexedObject = requireToIndexedObject();
-  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
-
-  	var nativeJoin = uncurryThis([].join);
-
-  	var ES3_STRINGS = IndexedObject !== Object;
-  	var FORCED = ES3_STRINGS || !arrayMethodIsStrict('join', ',');
-
-  	// `Array.prototype.join` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.join
-  	$({ target: 'Array', proto: true, forced: FORCED }, {
-  	  join: function join(separator) {
-  	    return nativeJoin(toIndexedObject(this), separator === undefined ? ',' : separator);
-  	  }
-  	});
-  	return es_array_join;
-  }
-
-  requireEs_array_join();
-
   var es_array_map = {};
 
   var hasRequiredEs_array_map;

@@ -5,6 +5,24 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.25.0
+
+<span class="post-date">22 Oct 2025</span>
+
+#### Core
+
+- **Update:** Added `aria-sort` attribute on sortable headers.
+- **Update:** Fixed loading style display error in Bootstrap dark mode.
+- **Update:** Fixed performance issues in the `resetRows` method when handling large datasets.
+- **Update:** Fixed bug where the table `height` option caused duplicate headers when a caption was present.
+- **Update:** Fixed bug where CSS `!important` is ignored.
+- **Update:** Migrated site from Jekyll to Astro Framework.
+
+#### Extensions
+
+- **Update(group-by-v2):** Fixed a bug where rows were not grouped correctly when another column was sorted.
+- **Update(group-by-v2):** Modernized the extension with ES6+ features.
+
 ## Bootstrap Table 1.24.2
 
 <span class="post-date">28 Jul 2025</span>

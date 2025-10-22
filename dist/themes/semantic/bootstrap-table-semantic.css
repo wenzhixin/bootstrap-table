@@ -6,6 +6,18 @@
  */
 /* stylelint-disable annotation-no-unknown, max-line-length */
 /* stylelint-enable annotation-no-unknown, max-line-length */
+html {
+  --bt-table-border-color: rgba(34, 36, 38, 0.1);
+  --bt-table-loading-bg: #fff;
+  --bt-table-loading-color: rgba(0, 0, 0, 0.87);
+}
+
+html[data-bs-theme=dark] {
+  --bt-table-border-color: #32383e;
+  --bt-table-loading-bg: rgba(0, 0, 0, 0.87);
+  --bt-table-loading-color: #fff;
+}
+
 .bootstrap-table .fixed-table-toolbar::after {
   content: "";
   display: block;
@@ -152,18 +164,18 @@
   padding: 0.25rem;
 }
 .bootstrap-table .fixed-table-container.fixed-height:not(.has-footer) {
-  border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+  border-bottom: 1px solid var(--bt-table-border-color);
 }
 .bootstrap-table .fixed-table-container.fixed-height.has-card-view {
-  border-top: 1px solid rgba(34, 36, 38, 0.1);
-  border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+  border-top: 1px solid var(--bt-table-border-color);
+  border-bottom: 1px solid var(--bt-table-border-color);
 }
 .bootstrap-table .fixed-table-container.fixed-height .fixed-table-border {
-  border-left: 1px solid rgba(34, 36, 38, 0.1);
-  border-right: 1px solid rgba(34, 36, 38, 0.1);
+  border-left: 1px solid var(--bt-table-border-color);
+  border-right: 1px solid var(--bt-table-border-color);
 }
 .bootstrap-table .fixed-table-container.fixed-height .table thead th {
-  border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+  border-bottom: 1px solid var(--bt-table-border-color);
 }
 .bootstrap-table .fixed-table-container.fixed-height .table-dark thead th {
   border-bottom: 1px solid #32383e;
@@ -177,7 +189,7 @@
 }
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading {
   align-items: center;
-  background: #fff;
+  background: var(--bt-table-loading-bg);
   display: flex;
   justify-content: center;
   position: absolute;
@@ -213,7 +225,7 @@
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
   animation-name: loading;
-  background: rgba(0, 0, 0, 0.87);
+  background: var(--bt-table-loading-color);
   border-radius: 50%;
   display: block;
   height: 5px;
@@ -228,12 +240,12 @@
   animation-delay: 0.6s;
 }
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark {
-  background: rgba(0, 0, 0, 0.87);
+  background: var(--bt-table-loading-color);
 }
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-dot,
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap::after,
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading.table-dark .animation-wrap::before {
-  background: #fff;
+  background: var(--bt-table-loading-bg);
 }
 .bootstrap-table .fixed-table-container .fixed-table-footer {
   overflow: hidden;

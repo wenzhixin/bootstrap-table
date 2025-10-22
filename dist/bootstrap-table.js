@@ -2924,36 +2924,6 @@
 
   requireEs_array_iterator();
 
-  var es_array_join = {};
-
-  var hasRequiredEs_array_join;
-
-  function requireEs_array_join () {
-  	if (hasRequiredEs_array_join) return es_array_join;
-  	hasRequiredEs_array_join = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var IndexedObject = requireIndexedObject();
-  	var toIndexedObject = requireToIndexedObject();
-  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
-
-  	var nativeJoin = uncurryThis([].join);
-
-  	var ES3_STRINGS = IndexedObject !== Object;
-  	var FORCED = ES3_STRINGS || !arrayMethodIsStrict('join', ',');
-
-  	// `Array.prototype.join` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.join
-  	$({ target: 'Array', proto: true, forced: FORCED }, {
-  	  join: function join(separator) {
-  	    return nativeJoin(toIndexedObject(this), separator === undefined ? ',' : separator);
-  	  }
-  	});
-  	return es_array_join;
-  }
-
-  requireEs_array_join();
-
   var es_array_map = {};
 
   var hasRequiredEs_array_map;
@@ -2979,36 +2949,6 @@
   }
 
   requireEs_array_map();
-
-  var es_array_reverse = {};
-
-  var hasRequiredEs_array_reverse;
-
-  function requireEs_array_reverse () {
-  	if (hasRequiredEs_array_reverse) return es_array_reverse;
-  	hasRequiredEs_array_reverse = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var isArray = requireIsArray();
-
-  	var nativeReverse = uncurryThis([].reverse);
-  	var test = [1, 2];
-
-  	// `Array.prototype.reverse` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.reverse
-  	// fix for Safari 12.0 bug
-  	// https://bugs.webkit.org/show_bug.cgi?id=188794
-  	$({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
-  	  reverse: function reverse() {
-  	    // eslint-disable-next-line no-self-assign -- dirty hack
-  	    if (isArray(this)) this.length = this.length;
-  	    return nativeReverse(this);
-  	  }
-  	});
-  	return es_array_reverse;
-  }
-
-  requireEs_array_reverse();
 
   var es_array_slice = {};
 
@@ -3434,38 +3374,6 @@
   }
 
   requireEs_array_splice();
-
-  var es_date_toJson = {};
-
-  var hasRequiredEs_date_toJson;
-
-  function requireEs_date_toJson () {
-  	if (hasRequiredEs_date_toJson) return es_date_toJson;
-  	hasRequiredEs_date_toJson = 1;
-  	var $ = require_export();
-  	var fails = requireFails();
-  	var toObject = requireToObject();
-  	var toPrimitive = requireToPrimitive();
-
-  	var FORCED = fails(function () {
-  	  return new Date(NaN).toJSON() !== null
-  	    || Date.prototype.toJSON.call({ toISOString: function () { return 1; } }) !== 1;
-  	});
-
-  	// `Date.prototype.toJSON` method
-  	// https://tc39.es/ecma262/#sec-date.prototype.tojson
-  	$({ target: 'Date', proto: true, arity: 1, forced: FORCED }, {
-  	  // eslint-disable-next-line no-unused-vars -- required for `.length`
-  	  toJSON: function toJSON(key) {
-  	    var O = toObject(this);
-  	    var pv = toPrimitive(O, 'number');
-  	    return typeof pv == 'number' && !isFinite(pv) ? null : O.toISOString();
-  	  }
-  	});
-  	return es_date_toJson;
-  }
-
-  requireEs_date_toJson();
 
   var es_number_constructor = {};
 
@@ -3926,108 +3834,6 @@
   }
 
   requireEs_object_toString();
-
-  var es_parseFloat = {};
-
-  var numberParseFloat;
-  var hasRequiredNumberParseFloat;
-
-  function requireNumberParseFloat () {
-  	if (hasRequiredNumberParseFloat) return numberParseFloat;
-  	hasRequiredNumberParseFloat = 1;
-  	var globalThis = requireGlobalThis();
-  	var fails = requireFails();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var toString = requireToString();
-  	var trim = requireStringTrim().trim;
-  	var whitespaces = requireWhitespaces();
-
-  	var charAt = uncurryThis(''.charAt);
-  	var $parseFloat = globalThis.parseFloat;
-  	var Symbol = globalThis.Symbol;
-  	var ITERATOR = Symbol && Symbol.iterator;
-  	var FORCED = 1 / $parseFloat(whitespaces + '-0') !== -Infinity
-  	  // MS Edge 18- broken with boxed symbols
-  	  || (ITERATOR && !fails(function () { $parseFloat(Object(ITERATOR)); }));
-
-  	// `parseFloat` method
-  	// https://tc39.es/ecma262/#sec-parsefloat-string
-  	numberParseFloat = FORCED ? function parseFloat(string) {
-  	  var trimmedString = trim(toString(string));
-  	  var result = $parseFloat(trimmedString);
-  	  return result === 0 && charAt(trimmedString, 0) === '-' ? -0 : result;
-  	} : $parseFloat;
-  	return numberParseFloat;
-  }
-
-  var hasRequiredEs_parseFloat;
-
-  function requireEs_parseFloat () {
-  	if (hasRequiredEs_parseFloat) return es_parseFloat;
-  	hasRequiredEs_parseFloat = 1;
-  	var $ = require_export();
-  	var $parseFloat = requireNumberParseFloat();
-
-  	// `parseFloat` method
-  	// https://tc39.es/ecma262/#sec-parsefloat-string
-  	$({ global: true, forced: parseFloat !== $parseFloat }, {
-  	  parseFloat: $parseFloat
-  	});
-  	return es_parseFloat;
-  }
-
-  requireEs_parseFloat();
-
-  var es_parseInt = {};
-
-  var numberParseInt;
-  var hasRequiredNumberParseInt;
-
-  function requireNumberParseInt () {
-  	if (hasRequiredNumberParseInt) return numberParseInt;
-  	hasRequiredNumberParseInt = 1;
-  	var globalThis = requireGlobalThis();
-  	var fails = requireFails();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var toString = requireToString();
-  	var trim = requireStringTrim().trim;
-  	var whitespaces = requireWhitespaces();
-
-  	var $parseInt = globalThis.parseInt;
-  	var Symbol = globalThis.Symbol;
-  	var ITERATOR = Symbol && Symbol.iterator;
-  	var hex = /^[+-]?0x/i;
-  	var exec = uncurryThis(hex.exec);
-  	var FORCED = $parseInt(whitespaces + '08') !== 8 || $parseInt(whitespaces + '0x16') !== 22
-  	  // MS Edge 18- broken with boxed symbols
-  	  || (ITERATOR && !fails(function () { $parseInt(Object(ITERATOR)); }));
-
-  	// `parseInt` method
-  	// https://tc39.es/ecma262/#sec-parseint-string-radix
-  	numberParseInt = FORCED ? function parseInt(string, radix) {
-  	  var S = trim(toString(string));
-  	  return $parseInt(S, (radix >>> 0) || (exec(hex, S) ? 16 : 10));
-  	} : $parseInt;
-  	return numberParseInt;
-  }
-
-  var hasRequiredEs_parseInt;
-
-  function requireEs_parseInt () {
-  	if (hasRequiredEs_parseInt) return es_parseInt;
-  	hasRequiredEs_parseInt = 1;
-  	var $ = require_export();
-  	var $parseInt = requireNumberParseInt();
-
-  	// `parseInt` method
-  	// https://tc39.es/ecma262/#sec-parseint-string-radix
-  	$({ global: true, forced: parseInt !== $parseInt }, {
-  	  parseInt: $parseInt
-  	});
-  	return es_parseInt;
-  }
-
-  requireEs_parseInt();
 
   var es_regexp_constructor = {};
 
@@ -7280,13 +7086,31 @@
       if (!style) {
         return dom;
       }
+
+      // Helper function to handle !important priority
+      var IMPORTANT_PRIORITY_REGEX = /\s*!important\s*$/i;
+      var parsePriority = function parsePriority(value) {
+        if (typeof value === 'string' && IMPORTANT_PRIORITY_REGEX.test(value)) {
+          return {
+            value: value.replace(IMPORTANT_PRIORITY_REGEX, ''),
+            priority: 'important'
+          };
+        }
+        return {
+          value: value,
+          priority: ''
+        };
+      };
       if (typeof style === 'string') {
         style.split(';').forEach(function (i) {
           var index = i.indexOf(':');
           if (index > 0) {
             var k = i.substring(0, index).trim();
             var v = i.substring(index + 1).trim();
-            dom.style.setProperty(k, v);
+            var _parsePriority = parsePriority(v),
+              value = _parsePriority.value,
+              priority = _parsePriority.priority;
+            dom.style.setProperty(k, value, priority);
           }
         });
       } else if (Array.isArray(style)) {
@@ -7307,7 +7131,10 @@
           var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i6], 2),
             k = _Object$entries2$_i[0],
             v = _Object$entries2$_i[1];
-          dom.style.setProperty(k, v);
+          var _parsePriority2 = parsePriority(v),
+            value = _parsePriority2.value,
+            priority = _parsePriority2.priority;
+          dom.style.setProperty(k, value, priority);
         }
       }
       return dom;
@@ -7390,7 +7217,7 @@
     }
   };
 
-  var VERSION = '1.24.2';
+  var VERSION = '1.25.0';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -9848,9 +9675,13 @@
     }, {
       key: "getCaret",
       value: function getCaret() {
-        var _this1 = this;
+        var _this$options = this.options,
+          sortName = _this$options.sortName,
+          sortOrder = _this$options.sortOrder;
+        var ariaSort = sortOrder === 'asc' ? 'ascending' : 'descending';
         this.$header.find('th').each(function (i, th) {
-          $(th).find('.sortable').removeClass('desc asc').addClass($(th).data('field') === _this1.options.sortName ? _this1.options.sortOrder : 'both');
+          var isActive = $(th).data('field') === sortName;
+          $(th).attr('aria-sort', isActive ? ariaSort : null).find('.sortable').removeClass('desc asc').addClass(isActive ? sortOrder : 'both');
         });
       }
     }, {
@@ -9865,45 +9696,47 @@
     }, {
       key: "updateRows",
       value: function updateRows() {
-        var _this10 = this;
+        var _this1 = this;
         this.$selectItem.each(function (i, el) {
-          _this10.data[$(el).data('index')][_this10.header.stateField] = $(el).prop('checked');
+          _this1.data[$(el).data('index')][_this1.header.stateField] = $(el).prop('checked');
         });
       }
     }, {
       key: "resetRows",
       value: function resetRows() {
-        var _iterator3 = _createForOfIteratorHelper(this.data),
-          _step3;
-        try {
-          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-            var row = _step3.value;
-            this.$selectAll.prop('checked', false);
-            this.$selectItem.prop('checked', false);
-            if (this.header.stateField) {
+        if (this.data.length) {
+          this.$selectAll.prop('checked', false);
+          this.$selectItem.prop('checked', false);
+        }
+        if (this.header.stateField) {
+          var _iterator3 = _createForOfIteratorHelper(this.data),
+            _step3;
+          try {
+            for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              var row = _step3.value;
               row[this.header.stateField] = false;
             }
+          } catch (err) {
+            _iterator3.e(err);
+          } finally {
+            _iterator3.f();
           }
-        } catch (err) {
-          _iterator3.e(err);
-        } finally {
-          _iterator3.f();
         }
         this.initHiddenRows();
       }
     }, {
       key: "trigger",
       value: function trigger(_name) {
-        var _this$options, _this$options2;
+        var _this$options2, _this$options3;
         var name = "".concat(_name, ".bs.table");
         for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key2 = 1; _key2 < _len; _key2++) {
           args[_key2 - 1] = arguments[_key2];
         }
-        (_this$options = this.options)[BootstrapTable.EVENTS[name]].apply(_this$options, [].concat(args, [this]));
+        (_this$options2 = this.options)[BootstrapTable.EVENTS[name]].apply(_this$options2, [].concat(args, [this]));
         this.$el.trigger($.Event(name, {
           sender: this
         }), args);
-        (_this$options2 = this.options).onAll.apply(_this$options2, [name].concat([].concat(args, [this])));
+        (_this$options3 = this.options).onAll.apply(_this$options3, [name].concat([].concat(args, [this])));
         this.$el.trigger($.Event('all.bs.table', {
           sender: this
         }), [name, args]);
@@ -9911,21 +9744,21 @@
     }, {
       key: "resetHeader",
       value: function resetHeader() {
-        var _this11 = this;
+        var _this10 = this;
         // fix #61: the hidden table reset header bug.
         // fix bug: get $el.css('width') error sometime (height = 500)
         clearTimeout(this.timeoutId_);
         this.timeoutId_ = setTimeout(function () {
-          return _this11.fitHeader();
+          return _this10.fitHeader();
         }, this.$el.is(':hidden') ? 100 : 0);
       }
     }, {
       key: "fitHeader",
       value: function fitHeader() {
-        var _this12 = this;
+        var _this11 = this;
         if (this.$el.is(':hidden')) {
           this.timeoutId_ = setTimeout(function () {
-            return _this12.fitHeader();
+            return _this11.fitHeader();
           }, 100);
           return;
         }
@@ -9947,7 +9780,12 @@
         }
         this.$header_ = this.$header.clone(true, true);
         this.$selectAll_ = this.$header_.find('[name="btSelectAll"]');
-        this.$tableHeader.css('margin-right', scrollWidth).find('table').css('width', this.$el.outerWidth()).html('').attr('class', this.$el.attr('class')).append(this.$header_);
+        var $caption = this.$el.find('caption');
+        var $fixedHeaderTable = this.$tableHeader.css('margin-right', scrollWidth).find('table').css('width', this.$el.outerWidth()).html('').attr('class', this.$el.attr('class'));
+        if ($caption.length > 0) {
+          $fixedHeaderTable.append($caption.clone(true, true));
+        }
+        $fixedHeaderTable.append(this.$header_);
         this.$tableLoading.css('width', this.$el.outerWidth());
         var focusedTemp = $('.focus-temp:visible:eq(0)');
         if (focusedTemp.length > 0) {
@@ -9957,7 +9795,7 @@
 
         // fix bug: $.data() is not working as expected after $.append()
         this.$header.find('th[data-field]').each(function (i, el) {
-          _this12.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data());
+          _this11.$header_.find(Utils.sprintf('th[data-field="%s"]', $(el).data('field'))).data($(el).data());
         });
         var visibleFields = this.getVisibleFields();
         var $ths = this.$header_.find('th');
@@ -9968,16 +9806,16 @@
         var trLength = $tr.find('> *').length;
         $tr.find('> *').each(function (i, el) {
           var $this = $(el);
-          if (Utils.hasDetailViewIcon(_this12.options)) {
-            if (i === 0 && _this12.options.detailViewAlign !== 'right' || i === trLength - 1 && _this12.options.detailViewAlign === 'right') {
+          if (Utils.hasDetailViewIcon(_this11.options)) {
+            if (i === 0 && _this11.options.detailViewAlign !== 'right' || i === trLength - 1 && _this11.options.detailViewAlign === 'right') {
               var $thDetail = $ths.filter('.detail');
               var _zoomWidth = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width();
               $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth);
               return;
             }
           }
-          var index = i - Utils.getDetailViewIndexOffset(_this12.options);
-          var $th = _this12.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
+          var index = i - Utils.getDetailViewIndexOffset(_this11.options);
+          var $th = _this11.$header_.find(Utils.sprintf('th[data-field="%s"]', visibleFields[index]));
           if ($th.length > 1) {
             $th = $($ths[$this[0].cellIndex]);
           }
@@ -10060,10 +9898,10 @@
     }, {
       key: "fitFooter",
       value: function fitFooter() {
-        var _this13 = this;
+        var _this12 = this;
         if (this.$el.is(':hidden')) {
           setTimeout(function () {
-            return _this13.fitFooter();
+            return _this12.fitFooter();
           }, 100);
           return;
         }
@@ -10079,8 +9917,8 @@
         var trLength = $tr.find('> *').length;
         $tr.find('> *').each(function (i, el) {
           var $this = $(el);
-          if (Utils.hasDetailViewIcon(_this13.options)) {
-            if (i === 0 && _this13.options.detailViewAlign === 'left' || i === trLength - 1 && _this13.options.detailViewAlign === 'right') {
+          if (Utils.hasDetailViewIcon(_this12.options)) {
+            if (i === 0 && _this12.options.detailViewAlign === 'left' || i === trLength - 1 && _this12.options.detailViewAlign === 'right') {
               var $thDetail = $ths.filter('.detail');
               var _zoomWidth2 = $thDetail.innerWidth() - $thDetail.find('.fht-cell').width();
               $thDetail.find('.fht-cell').width($this.innerWidth() - _zoomWidth2);
@@ -10096,18 +9934,18 @@
     }, {
       key: "horizontalScroll",
       value: function horizontalScroll() {
-        var _this14 = this;
+        var _this13 = this;
         // horizontal scroll event
         // TODO: it's probably better improving the layout than binding to scroll event
         this.$tableBody.off('scroll').on('scroll', function () {
-          var scrollLeft = _this14.$tableBody.scrollLeft();
-          if (_this14.options.showHeader && _this14.options.height) {
-            _this14.$tableHeader.scrollLeft(scrollLeft);
+          var scrollLeft = _this13.$tableBody.scrollLeft();
+          if (_this13.options.showHeader && _this13.options.height) {
+            _this13.$tableHeader.scrollLeft(scrollLeft);
           }
-          if (_this14.options.showFooter && !_this14.options.cardView) {
-            _this14.$tableFooter.scrollLeft(scrollLeft);
+          if (_this13.options.showFooter && !_this13.options.cardView) {
+            _this13.$tableFooter.scrollLeft(scrollLeft);
           }
-          _this14.trigger('scroll-body', _this14.$tableBody);
+          _this13.trigger('scroll-body', _this13.$tableBody);
         });
       }
     }, {
@@ -10164,7 +10002,7 @@
     }, {
       key: "getData",
       value: function getData(params) {
-        var _this15 = this;
+        var _this14 = this;
         var data = this.options.data;
         if ((this.searchText || this.options.customSearch || this.options.sortName !== undefined || this.enableCustomSort ||
         // Fix #4616: this.enableCustomSort is for extensions
@@ -10187,11 +10025,11 @@
               var _Object$entries0$_i = _slicedToArray(_Object$entries0[_i10], 2),
                 key = _Object$entries0$_i[0],
                 value = _Object$entries0$_i[1];
-              var column = _this15.columns[_this15.fieldsColumnsIndex[key]];
+              var column = _this14.columns[_this14.fieldsColumnsIndex[key]];
               if (!column) {
                 continue;
               }
-              formattedColumns[key] = Utils.calculateObjectValue(column, _this15.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value);
+              formattedColumns[key] = Utils.calculateObjectValue(column, _this14.header.formatters[column.fieldIndex], [value, row, row.index, column.field], value);
             }
             return formattedColumns;
           });
@@ -10207,9 +10045,9 @@
     }, {
       key: "getSelections",
       value: function getSelections() {
-        var _this16 = this;
+        var _this15 = this;
         return (this.options.maintainMetaData ? this.options.data : this.data).filter(function (row) {
-          return row[_this16.header.stateField] === true;
+          return row[_this15.header.stateField] === true;
         });
       }
     }, {
@@ -10460,20 +10298,20 @@
     }, {
       key: "updateCellByUniqueId",
       value: function updateCellByUniqueId(params) {
-        var _this17 = this;
+        var _this16 = this;
         var allParams = Array.isArray(params) ? params : [params];
         allParams.forEach(function (_ref6) {
           var id = _ref6.id,
             field = _ref6.field,
             value = _ref6.value;
-          var row = _this17.getRowByUniqueId(id);
-          var index = _this17.data.indexOf(row);
-          var originalIndex = _this17.options.data.indexOf(row);
+          var row = _this16.getRowByUniqueId(id);
+          var index = _this16.data.indexOf(row);
+          var originalIndex = _this16.options.data.indexOf(row);
           if (!row || index === -1) {
             return;
           }
-          _this17.data[index][field] = value;
-          _this17.options.data[originalIndex][field] = value;
+          _this16.data[index][field] = value;
+          _this16.options.data[originalIndex][field] = value;
         });
         if (params.reinit === false) {
           this._updateCellOnly(params.field, this.data.indexOf(this.getRowByUniqueId(params.id)));
@@ -10544,19 +10382,19 @@
     }, {
       key: "showColumn",
       value: function showColumn(field) {
-        var _this18 = this;
+        var _this17 = this;
         var fields = Array.isArray(field) ? field : [field];
         fields.forEach(function (field) {
-          _this18._toggleColumn(_this18.fieldsColumnsIndex[field], true, true);
+          _this17._toggleColumn(_this17.fieldsColumnsIndex[field], true, true);
         });
       }
     }, {
       key: "hideColumn",
       value: function hideColumn(field) {
-        var _this19 = this;
+        var _this18 = this;
         var fields = Array.isArray(field) ? field : [field];
         fields.forEach(function (field) {
-          _this19._toggleColumn(_this19.fieldsColumnsIndex[field], false, true);
+          _this18._toggleColumn(_this18.fieldsColumnsIndex[field], false, true);
         });
       }
     }, {
@@ -10583,9 +10421,9 @@
     }, {
       key: "getVisibleColumns",
       value: function getVisibleColumns() {
-        var _this20 = this;
+        var _this19 = this;
         return this.columns.filter(function (column) {
-          return column.visible && !_this20.isSelectionColumn(column);
+          return column.visible && !_this19.isSelectionColumn(column);
         });
       }
     }, {
@@ -10614,7 +10452,7 @@
     }, {
       key: "_toggleAllColumns",
       value: function _toggleAllColumns(visible) {
-        var _this21 = this;
+        var _this20 = this;
         var _iterator9 = _createForOfIteratorHelper(this.columns.slice().reverse()),
           _step9;
         try {
@@ -10644,7 +10482,7 @@
             $items.prop('checked', visible);
           } else {
             $items.get().reverse().forEach(function (item) {
-              if ($items.filter(':checked').length > _this21.options.minimumCountColumns) {
+              if ($items.filter(':checked').length > _this20.options.minimumCountColumns) {
                 $(item).prop('checked', visible);
               }
             });
@@ -10778,7 +10616,7 @@
     }, {
       key: "_toggleCheckBy",
       value: function _toggleCheckBy(checked, obj) {
-        var _this22 = this;
+        var _this21 = this;
         if (!obj.hasOwnProperty('field') || !obj.hasOwnProperty('values')) {
           return;
         }
@@ -10788,16 +10626,16 @@
             return false;
           }
           if (obj.values.includes(row[obj.field])) {
-            var $el = _this22.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
+            var $el = _this21.$selectItem.filter(':enabled').filter(Utils.sprintf('[data-index="%s"]', i));
             var onlyCurrentPage = obj.hasOwnProperty('onlyCurrentPage') ? obj.onlyCurrentPage : false;
             $el = checked ? $el.not(':checked') : $el.filter(':checked');
             if (!$el.length && onlyCurrentPage) {
               return;
             }
             $el.prop('checked', checked);
-            row[_this22.header.stateField] = checked;
+            row[_this21.header.stateField] = checked;
             rows.push(row);
-            _this22.trigger(checked ? 'check' : 'uncheck', row, $el);
+            _this21.trigger(checked ? 'check' : 'uncheck', row, $el);
           }
         });
         this.updateSelected();
