@@ -3210,9 +3210,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 editorconfig-checker@^6.0.1:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/editorconfig-checker/-/editorconfig-checker-6.1.0.tgz#e6c47a7b93fbd8839673c9a585b9b973bb67ea9c"
-  integrity sha512-i25NwXlcWhadiO62AFUauucFPi9LwasoMRqoM8KkG3rJp6bx09mL/fDQpNMz2f6Nx/7EPVIZHK5/tIdztWzflA==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/editorconfig-checker/-/editorconfig-checker-6.1.1.tgz#0b452b796fe9f17221404d25fcec83b17c7d2a93"
+  integrity sha512-kiOb6qaWpMNt7Z/43ba0Pa1Inhr2/t9nKbvEKtCeXJ5AesztoM9AgLOOQVB4QUv/nGjgz3xkbx4pcogVRD2NWw==
 
 electron-to-chromium@^1.5.173:
   version "1.5.182"
