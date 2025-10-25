@@ -2862,19 +2862,19 @@ class BootstrapTable {
   }
 
   showColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-
-    fields.forEach(field => {
+    if (Array.isArray(field)) {
+      this._toggleColumns(field, true, true)
+    } else {
       this._toggleColumn(this.fieldsColumnsIndex[field], true, true)
-    })
+    }
   }
 
   hideColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-
-    fields.forEach(field => {
+    if (Array.isArray(field)) {
+      this._toggleColumns(field, false, true)
+    } else {
       this._toggleColumn(this.fieldsColumnsIndex[field], false, true)
-    })
+    }
   }
 
   _toggleColumn (index, checked, needUpdate) {
@@ -2892,6 +2892,40 @@ class BootstrapTable {
 
       if (needUpdate) {
         $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
+      }
+
+      if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
+        $items.filter(':checked').prop('disabled', true)
+      }
+    }
+  }
+
+  _toggleColumns (fields, checked, needUpdate) {
+    if (!Array.isArray(fields) || !fields.length) {
+      return
+    }
+
+    fields.forEach(field => {
+      let index = this.fieldsColumnsIndex[field]
+
+      if (index === undefined || this.columns[index].visible === checked) {
+        return
+      }
+      this.columns[index].visible = checked
+    });
+
+    this.initHeader()
+    this.initSearch()
+    this.initPagination()
+    this.initBody()
+
+    if (this.options.showColumns) {
+      const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
+
+      if (needUpdate) {
+        fields.forEach(field => {
+          $items.filter(Utils.sprintf('[value="%s"]', field)).prop('checked', checked)
+        });
       }
 
       if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
