@@ -21,6 +21,8 @@ jobs:
           cd ${{ github.workspace }}/site
           yarn install --frozen-lockfile
           yarn build
+          # Disable Jekyll, otherwise _astro folder will be ignored
+          touch dist/.nojekyll
 
       - name: Upload to Algolia
         run: |
@@ -43,7 +45,7 @@ jobs:
           rm -rf gh-pages
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: site/dist
