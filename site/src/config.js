@@ -5,8 +5,7 @@ export default {
   currentYear: new Date().getFullYear(),
 
   title: 'Bootstrap Table',
-  description: 'An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)',
-  author: 'Zhixin Wen, and Bootstrap Table contributors',
+  author: 'Zhixin Wen and Bootstrap Table contributors',
   keywords: 'bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation',
 
   baseurl: '',

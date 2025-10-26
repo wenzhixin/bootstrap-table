@@ -5,6 +5,9 @@ import Ads from '@/components/Ads.astro'
 import Supports from '@/components/Supports.astro'
 import Subscribe from '@/components/Subscribe.astro'
 import Prism from '@astrojs/prism/Prism.astro'
+import { useTranslations } from '@/i18n/utils'
+
+const t = useTranslations(Astro.url)
 ---
 
 <HomeLayout>
@@ -19,7 +22,7 @@ import Prism from '@astrojs/prism/Prism.astro'
             {Config.title}
           </h1>
           <p class="lead">
-            {Config.description}
+            {t('site.description')}
           </p>
           <div class="row mx-n2">
             <div class="col-md px-2">
