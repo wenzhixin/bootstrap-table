@@ -5,7 +5,7 @@ export default {
   currentYear: new Date().getFullYear(),
 
   title: 'Bootstrap Table',
-  author: 'Zhixin Wen, and Bootstrap Table contributors',
+  author: 'Zhixin Wen and Bootstrap Table contributors',
   keywords: 'bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation',
 
   baseurl: '',
