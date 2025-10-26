@@ -49,9 +49,11 @@ class ThemeSwitcher {
     if (themeIcon && this.themeConfig?.themes) {
       const themeData = this.themeConfig.themes.find(t => t.name === theme)
       const iconClass = themeData?.icon || 'bi-sun-fill'
+      const icon = themeIcon.querySelector('i')
 
-      themeIcon.innerHTML = `<i class="bi ${iconClass}"></i>
-        <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>`
+      if (icon) {
+        icon.className = `bi ${iconClass}`
+      }
     }
   }
 

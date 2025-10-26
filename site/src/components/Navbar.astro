@@ -1,56 +1,63 @@
 ---
 import Config from '@/config.js'
+import { useTranslations } from '@/i18n/utils'
 
 const layout = Astro.props.layout
+const t = useTranslations(Astro.url)
+
 const mainNav = [
   {
-    title: 'Home',
+    title: t('nav.home'),
     href: `${Config.baseurl}/`,
     isActive: layout === 'home'
   },
   {
-    title: 'Docs',
+    title: t('nav.docs'),
     href: `${Config.baseurl}/docs/getting-started/introduction/`,
     isActive: layout === 'docs'
   },
   {
-    title: 'Themes',
+    title: t('nav.themes'),
     href: `${Config.baseurl}/themes`,
     isActive: layout === 'themes'
   },
   {
-    title: 'Examples',
+    title: t('nav.examples'),
     href: 'https://examples.bootstrap-table.com',
     isExternal: true
   },
   {
-    title: 'Online Editor',
+    title: t('nav.online_editor'),
     href: 'https://live.bootstrap-table.com',
     isExternal: true
   },
   {
-    title: 'News',
+    title: t('nav.news'),
     href: `${Config.baseurl}/news`,
     isActive: layout === 'news'
   },
   {
-    title: 'Blog',
+    title: t('nav.blog'),
     href: 'https://blog.bootstrap-table.com',
     isExternal: true
   }
 ]
+
 const versionMenu = [
   {
-    title: `Latest (v${Config.currentVersion})`,
+    title: t('nav.version_latest', { version: Config.currentVersion }),
     href: `${Config.baseurl}/`,
-    isActive: true
+    isActive: true,
+    isExternal: false
   },
   ...Config.versions.map(version => ({
     title: `v${version}`,
     href: `http://bootstrap-table.com/versions/${version}/`,
+    isActive: false,
     isExternal: true
   }))
 ]
+
 const socialLinks = [
   {
     title: 'GitHub',
@@ -68,22 +75,23 @@ const socialLinks = [
     icon: 'bi-heart-fill'
   }
 ]
+
 const themeConfig = {
   themes: [
     {
       name: 'light',
       icon: 'bi-sun-fill',
-      label: 'Light'
+      label: t('nav.theme_light')
     },
     {
       name: 'dark',
       icon: 'bi-moon-stars-fill',
-      label: 'Dark'
+      label: t('nav.theme_dark')
     },
     {
       name: 'auto',
       icon: 'bi-circle-half',
-      label: 'Auto'
+      label: t('nav.theme_auto')
     }
   ]
 }
@@ -103,7 +111,7 @@ const themeConfig = {
             aria-label="Toggle docs navigation"
           >
             <i class="bi bi-list"></i>
-            <span class="d-none fs-6 pe-1">Browse</span>
+            <span class="d-none fs-6 pe-1">{t('nav.browse')}</span>
           </button>
         </div>
     }
@@ -228,6 +236,7 @@ const themeConfig = {
             >
               <span id="theme-icon">
                 <i class="bi bi-sun-fill"></i>
+                <span class="d-lg-none ms-2" id="bd-theme-text">{t('nav.toggle_theme')}</span>
               </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu">
