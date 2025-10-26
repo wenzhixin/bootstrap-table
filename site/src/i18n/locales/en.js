@@ -1,4 +1,7 @@
 export default {
+  // Site
+  'site.description': 'An extended table for integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)',
+
   // Navigation
   'nav.home': 'Home',
   'nav.docs': 'Docs',

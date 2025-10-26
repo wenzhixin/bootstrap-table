@@ -1,10 +1,14 @@
 ---
 import Config from '@/config.js'
+import { getLangFromUrl, useTranslations } from '@/i18n/utils'
 
-const title = Astro.props.title ?
-  `${Astro.props.title} · ${Config.title}` :
-  `${Config.title} · ${Config.description}`
-const description = Astro.props.description || Config.description
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(Astro.url)
+const { frontmatter } = Astro.props
+const title = frontmatter?.title ?
+  `${frontmatter.title} · ${Config.title}` :
+  `${Config.title} · ${t('site.description')}`
+const description = frontmatter?.description || t('site.description')
 const url = new URL(Astro.url.pathname, Astro.site || 'https://bootstrap-table.com')
 ---
 
@@ -15,7 +19,7 @@ const url = new URL(Astro.url.pathname, Astro.site || 'https://bootstrap-table.c
   <meta name="author" content={Config.author}>
   <meta name="keywords" content={Config.keywords}>
   <meta name="generator" content={Astro.generator} />
-  <meta name="docsearch:language" content="en">
+  <meta name="docsearch:language" content={lang}>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
