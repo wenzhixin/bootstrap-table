@@ -7,10 +7,12 @@ import TOC from '@/components/TOC.astro'
 import Scripts from '@/components/Scripts.astro'
 import Config from '@/config.js'
 import path from 'path'
+import { getLangFromUrl } from '@/i18n/utils'
 
 const layout = 'docs'
 const { file, frontmatter } = Astro.props
 const filename = path.basename(file)
+const lang = getLangFromUrl(Astro.url)
 const bodyProps = {}
 
 if (frontmatter.toc) {
@@ -20,7 +22,7 @@ if (frontmatter.toc) {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <Header frontmatter={frontmatter} />
   <body {...bodyProps}>
     <Navbar layout={layout} />
