@@ -1,27 +1,30 @@
 ---
+import { useTranslations } from '@/i18n/utils'
+
+const t = useTranslations(Astro.url)
 const nav = [
   {
-    title: 'Getting started',
+    title: t('sidebar.getting_started'),
     pages: [
-      { title: 'Introduction' },
-      { title: 'Download' },
-      { title: 'Contents' },
-      { title: 'Usage' },
-      { title: 'Browsers & devices' }
+      { title: t('sidebar.introduction') },
+      { title: t('sidebar.download') },
+      { title: t('sidebar.contents') },
+      { title: t('sidebar.usage') },
+      { title: t('sidebar.browsers_devices') }
     ]
   },
   {
     title: 'API',
     pages: [
-      { title: 'Table Options' },
-      { title: 'Column Options' },
-      { title: 'Events' },
-      { title: 'Methods' },
-      { title: 'Localizations' }
+      { title: t('sidebar.table_options') },
+      { title: t('sidebar.column_options') },
+      { title: t('sidebar.events') },
+      { title: t('sidebar.methods') },
+      { title: t('sidebar.localizations') }
     ]
   },
   {
-    title: 'Extensions',
+    title: t('sidebar.extensions'),
     pages: [
       { title: 'Addrbar' },
       { title: 'Auto Refresh' },
@@ -52,23 +55,23 @@ const nav = [
   {
     title: 'VueJS',
     pages: [
-      { title: 'Introduction' },
-      { title: 'Browser' },
+      { title: t('sidebar.vuejs_introduction') },
+      { title: t('sidebar.vuejs_browser') },
       { title: 'Webpack' },
-      { title: 'Component' }
+      { title: t('sidebar.vuejs_component') }
     ]
   },
   {
-    title: 'FAQ',
+    title: t('sidebar.faq'),
     pages: [
-      { title: 'FAQ' }
+      { title: t('sidebar.faq') }
     ]
   },
   {
-    title: 'About',
+    title: t('sidebar.about'),
     pages: [
-      { title: 'Overview' },
-      { title: 'License' }
+      { title: t('sidebar.about_overview') },
+      { title: t('sidebar.about_license') }
     ]
   }
 ]

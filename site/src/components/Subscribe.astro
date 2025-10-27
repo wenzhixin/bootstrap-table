@@ -1,3 +1,9 @@
+---
+import { useTranslations } from '@/i18n/utils'
+
+const t = useTranslations(Astro.url)
+---
+
 <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
 <style>
 #mc_embed_signup {
@@ -12,12 +18,12 @@
 </style>
 
 <div id="mc_embed_signup" class="pt-5 pb-5">
-  <form action="https://gmail.us20.list-manage.com/subscribe/post?u=f30f83799e58c38ca308f6b73&amp;id=4256ed0bdc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <h3 for="mce-EMAIL">Subscribe our News</h3>
+  <form action="https://gmail.us20.list-manage.com/subscribe/post?u=f30f83799e58c38ca308f6b73&id=4256ed0bdc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <h3>{t('subscribe.title')}</h3>
     <div class="input-group">
-      <input type="email" value="" name="EMAIL" class="form-control email" id="mce-EMAIL" placeholder="email address" required>
+      <input type="email" value="" name="EMAIL" class="form-control email" id="mce-EMAIL" placeholder={t('subscribe.email_placeholder')} required>
       <div class="input-group-append">
-        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-outline-secondary">
+        <input type="submit" value={t('subscribe.button')} name="subscribe" id="mc-embedded-subscribe" class="btn btn-outline-secondary">
       </div>
     </div>
   <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->

@@ -1,3 +1,9 @@
+---
+import { useTranslations } from '@/i18n/utils'
+
+const t = useTranslations(Astro.url)
+---
+
 <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary">
   <button
     class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-xl-none"
@@ -7,10 +13,10 @@
     aria-expanded="false"
     aria-controls="tocContents"
   >
-    On this page
+    {t('toc.title')}
     <i class="bi bi-chevron-expand d-xl-none ms-2"></i>
   </button>
-  <strong class="d-none d-md-block h6 my-2 ms-3" id="docs-tocs">On this page</strong>
+  <strong class="d-none d-md-block h6 my-2 ms-3" id="docs-tocs">{t('toc.title')}</strong>
   <hr class="d-none d-md-block my-2 ms-3" />
   <div class="collapse bd-toc-collapse" id="tocContents">
     <nav id="TableOfContents" aria-labelledby="docs-tocs">
