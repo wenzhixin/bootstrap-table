@@ -45,7 +45,7 @@ const url = new URL(Astro.url.pathname, Astro.site || 'https://bootstrap-table.c
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4" />
   <link rel="stylesheet" href={`${Config.baseurl}/assets/css/docs.min.css`}>
-  <link rel="stylesheet" href={`${Config.baseurl}/assets/css/style.css?m=9`}>
+  <link rel="stylesheet" href={`${Config.baseurl}/assets/css/style.css?m=${Config.currentVersion}`}>
 
   <!-- Prism.js code highlighting styles -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css">

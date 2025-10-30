@@ -54,5 +54,22 @@ export default {
   'subscribe.button': 'Subscribe',
 
   // TOC
-  'toc.title': 'On this page'
+  'toc.title': 'On this page',
+
+  // Supports
+  'supports.title': 'Support the Team',
+  'supports.description': 'Through contributions, donations, and sponsorship, you allow bootstrap-table to thrive.',
+  'supports.loading': 'Loading sponsors...',
+  'supports.error': 'Failed to load sponsors. Please try again later.',
+  'supports.platinum_title': 'Platinum',
+  'supports.gold_title': 'Gold',
+  'supports.bronze_title': 'Bronze',
+  'supports.backer_title': 'Backer',
+  'supports.backer_description': 'The following <b>Backers</b> are individuals who have contributed various amounts of money in order to help support bootstrap-table. Every little bit helps, and we appreciate even the smallest contributions.',
+  'supports.backer_link': 'Become a backer',
+  'supports.sponsor_title': 'Sponsors',
+  'supports.sponsor_description': '<b>{title} {sponsors}</b> are those who have pledged ${minimum}{range} to bootstrap-table.',
+  'supports.sponsor_link': 'Become a sponsor',
+  'supports.sponsor_range': ' to ${maximum}',
+  'supports.sponsor_or_more': ' or more'
 }
