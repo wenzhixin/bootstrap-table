@@ -7,12 +7,13 @@ import TOC from '@/components/TOC.astro'
 import Scripts from '@/components/Scripts.astro'
 import Config from '@/config.js'
 import path from 'path'
-import { getLangFromUrl } from '@/i18n/utils'
+import { getLangFromUrl, useTranslations } from '@/i18n/utils'
 
 const layout = 'docs'
 const { file, frontmatter } = Astro.props
 const filename = path.basename(file)
 const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(Astro.url)
 const bodyProps = {}
 
 if (frontmatter.toc) {
@@ -32,7 +33,7 @@ if (frontmatter.toc) {
         <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3">
           <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
             <div class="offcanvas-header border-bottom">
-              <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
+              <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">{t('nav.browse')} {t('nav.docs')}</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -54,8 +55,8 @@ if (frontmatter.toc) {
                 `${Config.repo}/blob/develop/site/pages/docs/${filename}` :
                 `${Config.repo}/blob/develop/site/pages/docs/${frontmatter.group}/${filename}`
               }
-              title="View and edit this file on GitHub" target="_blank" rel="noopener">
-              View on GitHub
+              title={t('nav.view_on_github')} target="_blank" rel="noopener">
+              {t('nav.view_on_github')}
             </a>
             <h1 class="bd-title" id="content">
               {frontmatter.title}
