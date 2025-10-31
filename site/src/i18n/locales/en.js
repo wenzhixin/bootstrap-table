@@ -16,6 +16,7 @@ export default {
   'nav.theme_auto': 'Auto',
   'nav.toggle_theme': 'Toggle theme',
   'nav.version_latest': 'Latest (v{version})',
+  'nav.view_on_github': 'View on GitHub',
 
   // Sidebar/Docs Navigation
   'sidebar.getting_started': 'Getting started',
@@ -50,7 +51,7 @@ export default {
 
   // Subscribe
   'subscribe.title': 'Subscribe our News',
-  'subscribe.email_placeholder': 'email address',
+  'subscribe.email_placeholder': 'Email address',
   'subscribe.button': 'Subscribe',
 
   // TOC
@@ -71,5 +72,18 @@ export default {
   'supports.sponsor_description': '<b>{title} {sponsors}</b> are those who have pledged ${minimum}{range} to bootstrap-table.',
   'supports.sponsor_link': 'Become a sponsor',
   'supports.sponsor_range': ' to ${maximum}',
-  'supports.sponsor_or_more': ' or more'
+  'supports.sponsor_or_more': ' or more',
+
+  // Home
+  'home.getting_started': 'Getting Started',
+  'home.download': 'Download',
+  'home.current_version': 'Currently v{version}',
+  'home.installation': 'Installation',
+  'home.installation_description': 'Include Bootstrap Table source CSS and JavaScript files via npm or yarn.',
+  'home.read_installation_docs': 'Read installation docs',
+  'home.cdn_description': 'When you only need to include Bootstrap Table\'s compiled CSS or JS, use {cdnjs}.',
+  'home.explore_docs': 'Explore docs',
+  'home.examples': 'Examples',
+  'home.examples_description': 'The examples of bootstrap table.',
+  'home.browse_examples': 'Browse examples'
 }

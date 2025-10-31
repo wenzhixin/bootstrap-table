@@ -28,18 +28,18 @@ const t = useTranslations(Astro.url)
             <div class="col-md px-2">
               <a href={`${Config.baseurl}/docs/getting-started/introduction/`}
                 class="btn btn-lg btn-bd-primary w-100 mb-3">
-                Getting Started
+                {t('home.getting_started')}
               </a>
             </div>
             <div class="col-md px-2">
               <a href={`${Config.baseurl}/docs/getting-started/download/`}
                 class="btn btn-lg btn-outline-secondary w-100 mb-3">
-                Download
+                {t('home.download')}
               </a>
             </div>
           </div>
           <p class="text-muted">
-            Currently v{Config.currentVersion}
+            {t('home.current_version', { version: Config.currentVersion })}
           </p>
           <Ads />
         </div>
@@ -55,9 +55,9 @@ const t = useTranslations(Astro.url)
           <path d="M28 4H4c-1.1 0-2 .9-2 2v20c0 1.1.9 2 2 2h24c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 26V6h24v20H4z"/>
           <path d="M14 8h4v2h-4zM14 12h4v2h-4zM14 16h4v2h-4zM14 20h4v2h-4z"/>
         </svg>
-        Installation
+        {t('home.installation')}
       </h3>
-      <p>Include Bootstrap Table source CSS and JavaScript files via npm or yarn.</p>
+      <p>{t('home.installation_description')}</p>
 
       <Prism code={`npm install bootstrap-table
 yarn add bootstrap-table`} lang="bash" />
@@ -65,7 +65,7 @@ yarn add bootstrap-table`} lang="bash" />
       <hr class="half-rule">
       <a class="btn btn-outline-primary"
         href={`${Config.baseurl}/docs/getting-started/download/`}>
-        Read installation docs
+        {t('home.read_installation_docs')}
       </a>
     </div>
 
@@ -78,14 +78,16 @@ yarn add bootstrap-table`} lang="bash" />
         </svg>
         CDN
       </h3>
-      <p>When you only need to include Bootstrap Table's compiled CSS or JS, use <a href={`https://cdn.jsdelivr.net/npm/bootstrap-table@${Config.currentVersion}/dist/`}>CDNJS</a>.</p>
+      <p set:html={t('home.cdn_description', {
+        cdnjs: `<a href="https://cdn.jsdelivr.net/npm/bootstrap-table@${Config.currentVersion}/dist/">CDNJS</a>`
+      })}></p>
 
       <Prism code={`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@${Config.currentVersion}/dist/bootstrap-table.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@${Config.currentVersion}/dist/bootstrap-table.min.js"></script>`} lang="html" />
 
       <hr class="half-rule">
       <a href={`${Config.baseurl}/docs/api`} class="btn btn-outline-primary">
-        Explore the docs
+        {t('home.explore_docs')}
       </a>
     </div>
 
@@ -96,15 +98,15 @@ yarn add bootstrap-table`} lang="bash" />
           <path d="M16 2L3 9v6c0 5.6 5.3 10.7 13 13 7.7-2.3 13-7.4 13-13V9l-13-7z"/>
           <path d="M16 6l-8 4.5v3.5c0 4.1 3.9 7.8 8 9.5 4.1-1.7 8-5.4 8-9.5v-3.5L16 6z"/>
         </svg>
-        Examples
+        {t('home.examples')}
       </h3>
       <p>
-        The examples of bootstrap table.
+        {t('home.examples_description')}
       </p>
 
       <hr class="half-rule">
       <a href="https://examples.bootstrap-table.com" class="btn btn-outline-primary">
-        Browse Examples
+        {t('home.browse_examples')}
       </a>
     </div>
   </div>
