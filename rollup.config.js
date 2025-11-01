@@ -10,6 +10,7 @@ import multiEntry from '@rollup/plugin-multi-entry'
 const files = globSync('src/**/*.js', {
   ignore: [
     'src/constants/**',
+    'src/modules/**',
     'src/utils/**',
     'src/virtual-scroll/**',
     'src/vue/**'
