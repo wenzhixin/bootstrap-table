@@ -2,7 +2,7 @@
 import Config from '@/config.js'
 import { useTranslations } from '@/i18n/utils'
 
-const t = useTranslations(Astro.url)
+const t = useTranslations(Astro.currentLocale)
 const infoItems = [
   {
     key: 'footer.description',

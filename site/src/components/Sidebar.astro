@@ -1,119 +1,114 @@
 ---
-import { useTranslations } from '@/i18n/utils'
+import {
+  getBaseUrl,
+  getCurrentSlug,
+  getSidebarTitle,
+  useTranslations
+} from '@/i18n/utils'
 
-const t = useTranslations(Astro.url)
+const baseurl = getBaseUrl(Astro.currentLocale)
+const t = useTranslations(Astro.currentLocale)
+
+// Build navigation structure from file system
 const nav = [
   {
-    title: t('sidebar.getting_started'),
+    slug: 'getting-started',
     pages: [
-      { title: t('sidebar.introduction') },
-      { title: t('sidebar.download') },
-      { title: t('sidebar.contents') },
-      { title: t('sidebar.usage') },
-      { title: t('sidebar.browsers_devices') }
+      { slug: 'introduction' },
+      { slug: 'download' },
+      { slug: 'contents' },
+      { slug: 'usage' },
+      { slug: 'browsers-devices' },
+      { slug: 'build-tools' }
     ]
   },
   {
-    title: 'API',
+    slug: 'api',
     pages: [
-      { title: t('sidebar.table_options') },
-      { title: t('sidebar.column_options') },
-      { title: t('sidebar.events') },
-      { title: t('sidebar.methods') },
-      { title: t('sidebar.localizations') }
+      { slug: 'table-options' },
+      { slug: 'column-options' },
+      { slug: 'events' },
+      { slug: 'methods' },
+      { slug: 'localizations' }
     ]
   },
   {
-    title: t('sidebar.extensions'),
+    slug: 'extensions',
     pages: [
-      { title: 'Addrbar' },
-      { title: 'Auto Refresh' },
-      { title: 'Cookie' },
-      { title: 'Copy Rows' },
-      { title: 'Custom View' },
-      { title: 'Defer URL' },
-      { title: 'Editable' },
-      { title: 'Export' },
-      { title: 'Filter Control' },
-      { title: 'Fixed Columns' },
-      { title: 'Group By v2' },
-      { title: 'i18n Enhance' },
-      { title: 'Key Events' },
-      { title: 'Mobile' },
-      { title: 'Multiple Sort' },
-      { title: 'Page Jump To' },
-      { title: 'Pipeline' },
-      { title: 'Print' },
-      { title: 'Reorder Columns' },
-      { title: 'Reorder Rows' },
-      { title: 'Resizable' },
-      { title: 'Sticky Header' },
-      { title: 'Toolbar' },
-      { title: 'Treegrid' }
+      { slug: 'addrbar' },
+      { slug: 'auto-refresh' },
+      { slug: 'cookie' },
+      { slug: 'copy-rows' },
+      { slug: 'custom-view' },
+      { slug: 'defer-url' },
+      { slug: 'editable' },
+      { slug: 'export' },
+      { slug: 'filter-control' },
+      { slug: 'fixed-columns' },
+      { slug: 'group-by-v2' },
+      { slug: 'i18n-enhance' },
+      { slug: 'key-events' },
+      { slug: 'mobile' },
+      { slug: 'multiple-sort' },
+      { slug: 'page-jump-to' },
+      { slug: 'pipeline' },
+      { slug: 'print' },
+      { slug: 'reorder-columns' },
+      { slug: 'reorder-rows' },
+      { slug: 'resizable' },
+      { slug: 'sticky-header' },
+      { slug: 'toolbar' },
+      { slug: 'treegrid' }
     ]
   },
   {
-    title: 'VueJS',
+    slug: 'vuejs',
     pages: [
-      { title: t('sidebar.vuejs_introduction') },
-      { title: t('sidebar.vuejs_browser') },
-      { title: 'Webpack' },
-      { title: t('sidebar.vuejs_component') }
+      { slug: 'introduction' },
+      { slug: 'browser' },
+      { slug: 'webpack' },
+      { slug: 'component' }
     ]
   },
   {
-    title: t('sidebar.faq'),
+    slug: 'faq',
     pages: [
-      { title: t('sidebar.faq') }
+      { slug: 'faq' }
     ]
   },
   {
-    title: t('sidebar.about'),
+    slug: 'about',
     pages: [
-      { title: t('sidebar.about_overview') },
-      { title: t('sidebar.about_license') }
+      { slug: 'overview' },
+      { slug: 'license' }
     ]
   }
 ]
 
-// Utility function: convert title to slug
-function slugify (text) {
-  return text.toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
-
-// Get current page information (adjust according to actual routing logic)
-const currentPath = Astro.url.pathname
-const pathSegments = currentPath.split('/').filter(Boolean)
-const currentGroup = pathSegments[1] || ''
-const currentPage = pathSegments[2] || ''
+const [currentGroup, currentPage] = getCurrentSlug(Astro.url.pathname, Astro.currentLocale)
 ---
 
 <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
   {nav.map(group => {
-    const groupSlug = slugify(group.title)
-    const isGroupActive = currentGroup === groupSlug
+    const isGroupActive = currentGroup === group.slug
 
     return (
       <li class={`bd-links-group py-2${isGroupActive ? ' active' : ''}`}>
         <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-          {group.title}
+          {getSidebarTitle(t, group.slug)}
         </strong>
 
         <ul class="list-unstyled fw-normal pb-2 small">
           {group.pages.map(doc => {
-            const docSlug = slugify(doc.title)
-            const isActive = isGroupActive && currentPage === docSlug
+            const isActive = isGroupActive && currentPage === doc.slug
 
             return (
               <li>
                 <a
                   class={`bd-links-link d-inline-block rounded${isActive ? ' active bd-sidenav-active' : ''}`}
-                  href={`/docs/${groupSlug}/${docSlug}/`}
+                  href={`${baseurl}/docs/${group.slug}/${doc.slug}/`}
                 >
-                  {doc.title}
+                  {getSidebarTitle(t, doc.slug)}
                 </a>
               </li>
             )

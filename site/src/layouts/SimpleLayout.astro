@@ -4,15 +4,14 @@ import Navbar from '@/components/Navbar.astro'
 import Footer from '@/components/Footer.astro'
 import Scripts from '@/components/Scripts.astro'
 import Ads from '@/components/Ads.astro'
-import { getLangFromUrl } from '@/i18n/utils'
 
 const { frontmatter } = Astro.props
 const layout = frontmatter.page || 'simple'
-const lang = getLangFromUrl(Astro.url)
+const locale = Astro.currentLocale
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={locale}>
   <Header frontmatter={frontmatter} />
   <body>
     <Navbar layout={layout} />

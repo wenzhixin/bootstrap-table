@@ -1,12 +1,10 @@
 ---
 import Config from '@/config.js'
-import { getLangFromUrl, useTranslations } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/utils'
 import { ui } from '@/i18n/ui'
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(Astro.url)
-
-const translations = ui[lang]
+const t = useTranslations(Astro.currentLocale)
+const translations = ui[Astro.currentLocale]
 ---
 
 <div class="container border-bottom supports-container">

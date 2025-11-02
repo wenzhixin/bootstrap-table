@@ -1,10 +1,10 @@
 import en from './locales/en'
 
-export const languages = {
+export const locales = {
   en: 'English'
 }
 
-export const defaultLang = 'en'
+export const defaultLocale = 'en'
 
 export const ui = {
   en
