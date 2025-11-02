@@ -817,15 +817,17 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Sets the locale to use (i.e. `'zh-CN'`). Locale files must be pre-loaded.
-  Allows for fallback locales, if loaded, in the following order:
+  Set the locale used by the table (e.g., `'zh-CN'`).
+  Before using this option, the corresponding locale file must be preloaded.
 
-  * First tries for the locale as specified,
-  * Then tries the locale with '_' translated to '-' and the region code upper cased,
-  * Then tries the short locale code (i.e. `'zh'` instead of `'zh-CN'`),
-  * And finally will use the last locale file loaded (or the default locale if no locales loaded).
+  The system supports a fallback mechanism for locales, attempting to load them in the following priority order:
 
-  If left `undefined` or an empty string, use the last locale loaded (or `'en-US'` if no locale files loaded).
+  * **First priority**: Attempt to load the specified whole locale (e.g., `'zh-CN'`)
+  * **Second priority**: Attempt to convert underscores `_` to hyphens `-` and capitalize the region code (e.g., convert `'zh_CN'` to `'zh-CN'`)
+  * **Third priority**: Attempt to use the short language code (e.g., fall back from `'zh-CN'` to `'zh'`)
+  * **Last resort**: Use the last-loaded locale file (if no locale files are loaded, use the built-in default locale)
+
+  Note: Setting this option to `undefined` or an empty string will automatically use the last-loaded locale (if no locale files are loaded, `'en-US'` is used by default).
 
 - **Default:** `undefined`
 
@@ -883,7 +885,13 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Set `true` to enable the multiple selection row. Can use the ctrl+click to select one row or shift+click to select a range of rows.
+  Set to `true` to enable multi-line selection.
+
+  When enabled, users can select multiple lines using the following methods:
+
+  * **Ctrl+click**: Select or deselect individual lines (while keeping other lines selected)
+  * **Shift+click**: Select all lines between the currently selected line and the clicked line (range selection)
+  * **Regular click**: If no modifier key is held, selects only the clicked row while deselecting all others
 
 - **Default:** `false`
 
@@ -1800,7 +1808,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  The class name of table thead. Bootstrap v4, use the modifier classes `.thead-light` or `.thead-dark` to make `thead` appear light or dark gray.
+  The class name of table thead. Bootstrap use the modifier classes `.thead-light` or `.thead-dark` to make `thead` appear light or dark gray.
 
 - **Default:** `''`
 
