@@ -1,24 +1,25 @@
 ---
 import Config from '@/config.js'
-import { useTranslations } from '@/i18n/utils'
+import { getBaseUrl, useTranslations } from '@/i18n/utils'
 
 const layout = Astro.props.layout
-const t = useTranslations(Astro.url)
+const baseurl = getBaseUrl(Astro.currentLocale)
+const t = useTranslations(Astro.currentLocale)
 
 const mainNav = [
   {
     title: t('nav.home'),
-    href: `${Config.baseurl}/`,
+    href: `${baseurl}/`,
     isActive: layout === 'home'
   },
   {
     title: t('nav.docs'),
-    href: `${Config.baseurl}/docs/getting-started/introduction/`,
+    href: `${baseurl}/docs/getting-started/introduction/`,
     isActive: layout === 'docs'
   },
   {
     title: t('nav.themes'),
-    href: `${Config.baseurl}/themes`,
+    href: `${baseurl}/themes`,
     isActive: layout === 'themes'
   },
   {
@@ -33,7 +34,7 @@ const mainNav = [
   },
   {
     title: t('nav.news'),
-    href: `${Config.baseurl}/news`,
+    href: `${baseurl}/news`,
     isActive: layout === 'news'
   },
   {
@@ -46,7 +47,7 @@ const mainNav = [
 const versionMenu = [
   {
     title: t('nav.version_latest', { version: Config.currentVersion }),
-    href: `${Config.baseurl}/`,
+    href: `${baseurl}/`,
     isActive: true,
     isExternal: false
   },
@@ -119,7 +120,7 @@ const themeConfig = {
 
     <a
       class="navbar-brand p-0 me-0 me-lg-2"
-      href={`${Config.baseurl}/`}
+      href={`${baseurl}/`}
       aria-label="Bootstrap Table"
     >
       <img src={`${Config.baseurl}/favicon.png`} width="32" height="32" alt="Bootstrap Table">

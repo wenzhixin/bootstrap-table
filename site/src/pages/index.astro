@@ -5,9 +5,10 @@ import Ads from '@/components/Ads.astro'
 import Supports from '@/components/Supports.astro'
 import Subscribe from '@/components/Subscribe.astro'
 import Prism from '@astrojs/prism/Prism.astro'
-import { useTranslations } from '@/i18n/utils'
+import { getBaseUrl, useTranslations } from '@/i18n/utils'
 
-const t = useTranslations(Astro.url)
+const baseurl = getBaseUrl(Astro.currentLocale)
+const t = useTranslations(Astro.currentLocale)
 ---
 
 <HomeLayout>
@@ -26,13 +27,13 @@ const t = useTranslations(Astro.url)
           </p>
           <div class="row mx-n2">
             <div class="col-md px-2">
-              <a href={`${Config.baseurl}/docs/getting-started/introduction/`}
+              <a href={`${baseurl}/docs/getting-started/introduction/`}
                 class="btn btn-lg btn-bd-primary w-100 mb-3">
                 {t('home.getting_started')}
               </a>
             </div>
             <div class="col-md px-2">
-              <a href={`${Config.baseurl}/docs/getting-started/download/`}
+              <a href={`${baseurl}/docs/getting-started/download/`}
                 class="btn btn-lg btn-outline-secondary w-100 mb-3">
                 {t('home.download')}
               </a>
@@ -64,7 +65,7 @@ yarn add bootstrap-table`} lang="bash" />
 
       <hr class="half-rule">
       <a class="btn btn-outline-primary"
-        href={`${Config.baseurl}/docs/getting-started/download/`}>
+        href={`${baseurl}/docs/getting-started/download/`}>
         {t('home.read_installation_docs')}
       </a>
     </div>
@@ -86,7 +87,7 @@ yarn add bootstrap-table`} lang="bash" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@${Config.currentVersion}/dist/bootstrap-table.min.js"></script>`} lang="html" />
 
       <hr class="half-rule">
-      <a href={`${Config.baseurl}/docs/api`} class="btn btn-outline-primary">
+      <a href={`${baseurl}/docs/api`} class="btn btn-outline-primary">
         {t('home.explore_docs')}
       </a>
     </div>

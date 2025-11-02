@@ -1,9 +1,9 @@
 ---
 import Config from '@/config.js'
-import { getLangFromUrl, useTranslations } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/utils'
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(Astro.url)
+const locale = Astro.currentLocale
+const t = useTranslations(Astro.currentLocale)
 const { frontmatter } = Astro.props
 const title = frontmatter?.title ?
   `${frontmatter.title} · ${Config.title}` :
@@ -19,7 +19,7 @@ const url = new URL(Astro.url.pathname, Astro.site || 'https://bootstrap-table.c
   <meta name="author" content={Config.author}>
   <meta name="keywords" content={Config.keywords}>
   <meta name="generator" content={Astro.generator} />
-  <meta name="docsearch:language" content={lang}>
+  <meta name="docsearch:language" content={locale}>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">

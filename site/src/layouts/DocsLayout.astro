@@ -7,13 +7,13 @@ import TOC from '@/components/TOC.astro'
 import Scripts from '@/components/Scripts.astro'
 import Config from '@/config.js'
 import path from 'path'
-import { getLangFromUrl, useTranslations } from '@/i18n/utils'
+import { useTranslations } from '@/i18n/utils'
 
 const layout = 'docs'
 const { file, frontmatter } = Astro.props
 const filename = path.basename(file)
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(Astro.url)
+const locale = Astro.currentLocale
+const t = useTranslations(Astro.currentLocale)
 const bodyProps = {}
 
 if (frontmatter.toc) {
@@ -23,7 +23,7 @@ if (frontmatter.toc) {
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={locale}>
   <Header frontmatter={frontmatter} />
   <body {...bodyProps}>
     <Navbar layout={layout} />

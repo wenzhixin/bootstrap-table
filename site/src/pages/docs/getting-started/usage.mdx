@@ -48,7 +48,7 @@ We can also use remote URL data by setting `data-url="data1.json"` on a normal t
 </table>
 ```
 
-You can also add `pagination`, `search`, and `sorting` to a table like the following table.
+You can also add `pagination`, `search`, and `sortable` to a table like the following table.
 
 ```html
 <table
@@ -127,7 +127,7 @@ $('#table').bootstrapTable({
 })
 ```
 
-You can also add `pagination`, `search`, and `sorting` to a table like the following table.
+You can also add `pagination`, `search`, and `sortable` to a table like the following table.
 
 ```javascript
 $('#table').bootstrapTable({
@@ -137,7 +137,8 @@ $('#table').bootstrapTable({
   columns: [
     {
       field: 'id',
-      title: 'Item ID'
+      title: 'Item ID',
+      sortable: true
     },
     {
       field: 'name',
