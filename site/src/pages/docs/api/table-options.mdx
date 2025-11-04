@@ -8,6 +8,17 @@ toc: true
 
 The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
+**Note:** The option names below (e.g., `ajax`, `buttons`, `cache`) are the exact property names to use when initializing Bootstrap Table via JavaScript.
+
+For example:
+```js
+$('#table').bootstrapTable({
+  ajax: yourFunction,
+  cache: false,
+  ...
+})
+```
+
 ## -
 
 - **Attribute:** `data-toggle`
@@ -1723,7 +1734,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines which column will be sorted.
+  Defines which column will be sorted. This attribute field works together with `sortOrder`, and both should be used together for proper sorting functionality.
 
 - **Default:** `undefined`
 
@@ -1737,7 +1748,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 
 - **Detail:**
 
-  Defines the column sort order, can only be `undefined`, `'asc'` or `'desc'`.
+  Defines the column sort order, can only be `undefined`, `'asc'` or `'desc'`. This attribute field works together with `sortName`, and both should be used together for proper sorting functionality.
 
 - **Default:** `undefined`
 

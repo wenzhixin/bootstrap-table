@@ -8,6 +8,21 @@ toc: true
 
 The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 
+**Note:** The option names below (e.g., `align`, `checkbox`, `class`) are exact property names to use when defining columns in the `columns` array.
+
+For example:
+```js
+$('#table').bootstrapTable({
+  columns: [
+    {
+      field: 'id',
+      title: 'ID',
+      align: 'center'
+    }
+  ]
+})
+```
+
 ## align
 
 - **Attribute:** `data-align`
