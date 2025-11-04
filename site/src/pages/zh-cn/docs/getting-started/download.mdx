@@ -1,0 +1,48 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 下载
+description: 下载 Bootstrap Table 以获取编译的 CSS 和 JavaScript、源代码，或通过您喜欢的包管理器（如 npm、yarn 等）进行安装。
+group: getting-started
+toc: true
+---
+
+## 源代码
+
+源代码 CSS、JavaScript、本地化文件和扩展，以及我们的文档。
+
+<a href="[[config:masterZip]]" class="btn btn-bd-primary" role="button">下载源代码</a>
+
+## 通过 GitHub 克隆或派生
+
+<a href="[[config:repo]]" class="btn btn-bd-primary" role="button">通过 GitHub</a>
+
+## CDNJS
+
+[CDNJS](https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/) 慷慨地为 Bootstrap Table 的 CSS 和 JavaScript 提供 CDN 支持。只需使用以下链接即可。
+
+```html
+<!-- 最新编译和压缩的 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css">
+
+<!-- 最新编译和压缩的 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.js"></script>
+<!-- 最新编译和压缩的本地化文件 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+```
+
+## 包管理器
+
+### NPM
+
+使用 [npm](https://www.npmjs.com/package/bootstrap-table) 安装和管理 Bootstrap table 的 CSS、JavaScript、本地化文件和扩展。
+
+```sh
+npm install bootstrap-table
+```
+
+### Yarn
+
+使用 [Yarn](https://yarnpkg.com/) 安装和管理 Bootstrap table 的 CSS、JavaScript、本地化文件和扩展。
+
+```sh
+yarn add bootstrap-table
