@@ -1,0 +1,152 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 用法
+description: Bootstrap Table 可以通过数据属性或 JavaScript 将数据以表格形式展示。
+group: getting-started
+toc: true
+---
+
+## 通过数据属性
+
+```html
+<table data-toggle="table">
+  <thead>
+    <tr>
+      <th>项目 ID</th>
+      <th>项目名称</th>
+      <th>项目价格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>项目 1</td>
+      <td>$1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>项目 2</td>
+      <td>$2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+我们也可以通过在普通表格上设置 `data-url="data1.json"` 来使用远程 URL 数据。
+
+```html
+<table
+  data-toggle="table"
+  data-url="data1.json">
+  <thead>
+    <tr>
+      <th data-field="id">项目 ID</th>
+      <th data-field="name">项目名称</th>
+      <th data-field="price">项目价格</th>
+    </tr>
+  </thead>
+</table>
+```
+
+您还可以像下面的表格一样，向表格添加 `pagination`、`search` 和 `sortable`。
+
+```html
+<table
+  data-toggle="table"
+  data-url="data1.json"
+  data-pagination="true"
+  data-search="true">
+  <thead>
+    <tr>
+      <th data-sortable="true" data-field="id">项目 ID</th>
+      <th data-field="name">项目名称</th>
+      <th data-field="price">项目价格</th>
+    </tr>
+  </thead>
+</table>
+```
+
+## 通过 JavaScript
+
+通过 JavaScript 调用 id 为 table 的 Bootstrap Table。
+
+```html
+<table id="table"></table>
+```
+
+```javascript
+$('#table').bootstrapTable({
+  columns: [
+    {
+      field: 'id',
+      title: '项目 ID'
+    },
+    {
+      field: 'name',
+      title: '项目名称'
+    },
+    {
+      field: 'price',
+      title: '项目价格'
+    }
+  ],
+  data: [
+    {
+      id: 1,
+      name: '项目 1',
+      price: '$1'
+    },
+    {
+      id: 2,
+      name: '项目 2',
+      price: '$2'
+    }
+  ]
+})
+```
+
+我们也可以通过设置 `url: 'data1.json'` 来使用远程 URL 数据。
+
+```javascript
+$('#table').bootstrapTable({
+  url: 'data1.json',
+  columns: [
+    {
+      field: 'id',
+      title: '项目 ID'
+    },
+    {
+      field: 'name',
+      title: '项目名称'
+    },
+    {
+      field: 'price',
+      title: '项目价格'
+    }
+  ]
+})
+```
+
+您还可以像下面的表格一样，向表格添加 `pagination`、`search` 和 `sortable`。
+
+```javascript
+$('#table').bootstrapTable({
+  url: 'data1.json',
+  pagination: true,
+  search: true,
+  columns: [
+    {
+      field: 'id',
+      title: '项目 ID',
+      sortable: true
+    },
+    {
+      field: 'name',
+      title: '项目名称'
+    },
+    {
+      field: 'price',
+      title: '项目价格'
+    }
+  ]
+})

@@ -1,0 +1,101 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 介绍
+description: Bootstrap Table 概述，包括下载和使用方法、基本模板等内容。
+group: getting-started
+redirect_from:
+  - "/docs/"
+  - "/getting-started/"
+  - "/themes/bootstrap4"
+toc: true
+---
+
+## 快速开始
+
+想要快速将 Bootstrap Table 添加到您的 <a href="https://getbootstrap.com/" target="_blank">Bootstrap v5</a> 项目中？可以使用 CDNJS 团队免费提供的 CDN。如果您使用包管理器或需要下载源文件，请[前往下载页面]([[config:baseurl]]/docs/getting-started/download/)。
+
+### CSS
+
+将以下样式表 `<link>` 标签复制到您的 `<head>` 标签中，并确保它位于所有其他样式表之前，以正确加载我们的 CSS。
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css">
+```
+
+### JS
+
+将以下 `<script>` 标签放置在页面末尾，紧邻 `</body>` 结束标签之前。请注意加载顺序：jQuery 必须放在最前面，然后是 Bootstrap.js，最后是我们的 JavaScript 插件。
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.js"></script>
+```
+
+## 入门模板
+
+请确保您的页面遵循最新的设计和开发标准。这包括使用 HTML5 doctype 和 viewport meta 标签，以实现正确的响应式行为。
+
+对于 Bootstrap v5，我们使用 [Bootstrap Icons](https://icons.getbootstrap.com/) 作为默认图标库，因此需要引入 Bootstrap Icons 的样式文件。
+
+将以上所有内容组合在一起，您的页面应该如下所示：
+
+```html
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- 必需的 meta 标签 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>你好，Bootstrap Table！</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css">
+  </head>
+  <body>
+    <table data-toggle="table">
+      <thead>
+        <tr>
+          <th>项目 ID</th>
+          <th>项目名称</th>
+          <th>项目价格</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>项目 1</td>
+          <td>$1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>项目 2</td>
+          <td>$2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.js"></script>
+  </body>
+</html>
+```
+
+### HTML5 doctype
+
+Bootstrap Table 需要使用 HTML5 doctype。如果没有它，您可能会看到一些不完整的样式问题，但添加它通常不会引起任何兼容性问题。
+
+```html
+<!doctype html>
+<html lang="zh-CN">
+  ...
+</html>
+```
+
+## 社区
+
+通过以下资源，您可以随时了解 Bootstrap Table 的最新开发动态并与社区保持联系。
+
+- 在 Twitter 上关注 [@[[config:twitter]]](https://twitter.com/[[config:twitter]])。
+- 阅读 [Bootstrap Table 官方新闻]([[config:baseurl]]/news)。
+- 可以在 Stack Overflow 上查找实现帮助（搜索标签：[`bootstrap-table`](https://stackoverflow.com/questions/tagged/bootstrap-table)）。
