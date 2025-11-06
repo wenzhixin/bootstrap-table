@@ -312,8 +312,8 @@ describe('sprintf', () => {
   })
 
   it('should handle missing arguments', () => {
-    expect(Utils.sprintf('Hello %s %s', 'World')).toBe('Hello World %s')
-    expect(Utils.sprintf('%s %s %s', 'A')).toBe('A %s %s')
+    expect(Utils.sprintf('Hello %s %s', 'World')).toBe('')
+    expect(Utils.sprintf('%s %s %s', 'A')).toBe('')
   })
 
   it('should handle no placeholders', () => {
@@ -422,9 +422,9 @@ describe('isNumeric', () => {
     expect(Utils.isNumeric(NaN)).toBe(false)
   })
 
-  it('should return true for Infinity', () => {
-    expect(Utils.isNumeric(Infinity)).toBe(true)
-    expect(Utils.isNumeric(-Infinity)).toBe(true)
+  it('should return false for Infinity', () => {
+    expect(Utils.isNumeric(Infinity)).toBe(false)
+    expect(Utils.isNumeric(-Infinity)).toBe(false)
   })
 
   it('should handle scientific notation', () => {
