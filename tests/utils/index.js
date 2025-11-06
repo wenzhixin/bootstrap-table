@@ -299,3 +299,262 @@ describe('normalizeAccent', () => {
     expect(Utils.normalizeAccent(longString)).toBe('a'.repeat(1000))
   })
 })
+
+describe('sprintf', () => {
+  it('should handle basic string formatting', () => {
+    expect(Utils.sprintf('Hello %s', 'World')).toBe('Hello World')
+    expect(Utils.sprintf('%s %s', 'Hello', 'World')).toBe('Hello World')
+  })
+
+  it('should handle number formatting', () => {
+    expect(Utils.sprintf('Number: %s', 42)).toBe('Number: 42')
+    expect(Utils.sprintf('%s + %s = %s', 1, 2, 3)).toBe('1 + 2 = 3')
+  })
+
+  it('should handle missing arguments', () => {
+    expect(Utils.sprintf('Hello %s %s', 'World')).toBe('')
+    expect(Utils.sprintf('%s %s %s', 'A')).toBe('')
+  })
+
+  it('should handle no placeholders', () => {
+    expect(Utils.sprintf('Hello World')).toBe('Hello World')
+    expect(Utils.sprintf('No placeholders here', 'unused')).toBe('No placeholders here')
+  })
+
+  it('should handle multiple same placeholders', () => {
+    expect(Utils.sprintf('%s %s %s', 'A', 'B', 'C')).toBe('A B C')
+  })
+
+  it('should handle special characters', () => {
+    expect(Utils.sprintf('Special: %s', '!@#$%^&*()')).toBe('Special: !@#$%^&*()')
+  })
+
+  it('should handle empty strings', () => {
+    expect(Utils.sprintf('%s', '')).toBe('')
+    expect(Utils.sprintf('', 'test')).toBe('')
+  })
+})
+
+describe('isObject', () => {
+  it('should return true for plain objects', () => {
+    expect(Utils.isObject({})).toBe(true)
+    expect(Utils.isObject({ a: 1 })).toBe(true)
+    expect(Utils.isObject({ nested: { obj: true } })).toBe(true)
+  })
+
+  it('should return false for null', () => {
+    expect(Utils.isObject(null)).toBe(false)
+  })
+
+  it('should return false for primitives', () => {
+    expect(Utils.isObject(42)).toBe(false)
+    expect(Utils.isObject('string')).toBe(false)
+    expect(Utils.isObject(true)).toBe(false)
+    expect(Utils.isObject(undefined)).toBe(false)
+  })
+
+  it('should return false for arrays', () => {
+    expect(Utils.isObject([])).toBe(false)
+    expect(Utils.isObject([1, 2, 3])).toBe(false)
+  })
+
+  it('should return false for functions', () => {
+    expect(Utils.isObject(() => {})).toBe(false)
+    expect(Utils.isObject(function() {})).toBe(false)
+  })
+
+  it('should return false for Date objects', () => {
+    expect(Utils.isObject(new Date())).toBe(false)
+  })
+
+  it('should return false for RegExp objects', () => {
+    expect(Utils.isObject(/test/)).toBe(false)
+  })
+})
+
+describe('isEmptyObject', () => {
+  it('should return true for empty objects', () => {
+    expect(Utils.isEmptyObject({})).toBe(true)
+  })
+
+  it('should return false for non-empty objects', () => {
+    expect(Utils.isEmptyObject({ a: 1 })).toBe(false)
+    expect(Utils.isEmptyObject({ key: 'value' })).toBe(false)
+  })
+
+  it('should handle objects with undefined values', () => {
+    expect(Utils.isEmptyObject({ a: undefined })).toBe(false)
+  })
+
+  it('should handle objects with null values', () => {
+    expect(Utils.isEmptyObject({ a: null })).toBe(false)
+  })
+
+  it('should handle nested empty objects', () => {
+    expect(Utils.isEmptyObject({ nested: {} })).toBe(false)
+  })
+})
+
+describe('isNumeric', () => {
+  it('should return true for numbers', () => {
+    expect(Utils.isNumeric(42)).toBe(true)
+    expect(Utils.isNumeric(0)).toBe(true)
+    expect(Utils.isNumeric(-1)).toBe(true)
+    expect(Utils.isNumeric(3.14)).toBe(true)
+  })
+
+  it('should return true for numeric strings', () => {
+    expect(Utils.isNumeric('42')).toBe(true)
+    expect(Utils.isNumeric('0')).toBe(true)
+    expect(Utils.isNumeric('-1')).toBe(true)
+    expect(Utils.isNumeric('3.14')).toBe(true)
+  })
+
+  it('should return false for non-numeric values', () => {
+    expect(Utils.isNumeric('abc')).toBe(false)
+    expect(Utils.isNumeric('12abc')).toBe(false)
+    expect(Utils.isNumeric('')).toBe(false)
+    expect(Utils.isNumeric(null)).toBe(false)
+    expect(Utils.isNumeric(undefined)).toBe(false)
+  })
+
+  it('should return false for NaN', () => {
+    expect(Utils.isNumeric(NaN)).toBe(false)
+  })
+
+  it('should return false for Infinity', () => {
+    expect(Utils.isNumeric(Infinity)).toBe(false)
+    expect(Utils.isNumeric(-Infinity)).toBe(false)
+  })
+
+  it('should handle scientific notation', () => {
+    expect(Utils.isNumeric('1e10')).toBe(true)
+    expect(Utils.isNumeric('1.5e-10')).toBe(true)
+  })
+
+  it('should handle hexadecimal strings', () => {
+    expect(Utils.isNumeric('0x10')).toBe(true)
+  })
+})
+
+describe('extend', () => {
+  it('should merge two objects', () => {
+    const obj1 = { a: 1 }
+    const obj2 = { b: 2 }
+    const result = Utils.extend(obj1, obj2)
+    expect(result).toEqual({ a: 1, b: 2 })
+  })
+
+  it('should override properties', () => {
+    const obj1 = { a: 1, b: 2 }
+    const obj2 = { b: 3, c: 4 }
+    const result = Utils.extend(obj1, obj2)
+    expect(result).toEqual({ a: 1, b: 3, c: 4 })
+  })
+
+  it('should handle deep merge when first arg is true', () => {
+    const obj1 = { a: { x: 1 } }
+    const obj2 = { a: { y: 2 } }
+    const result = Utils.extend(true, obj1, obj2)
+    expect(result).toEqual({ a: { x: 1, y: 2 } })
+  })
+
+  it('should handle multiple source objects', () => {
+    const obj1 = { a: 1 }
+    const obj2 = { b: 2 }
+    const obj3 = { c: 3 }
+    const result = Utils.extend(obj1, obj2, obj3)
+    expect(result).toEqual({ a: 1, b: 2, c: 3 })
+  })
+
+  it('should handle empty objects', () => {
+    const result = Utils.extend({}, { a: 1 })
+    expect(result).toEqual({ a: 1 })
+  })
+
+  it('should handle null and undefined sources', () => {
+    const obj = { a: 1 }
+    const result = Utils.extend(obj, null, undefined, { b: 2 })
+    expect(result).toEqual({ a: 1, b: 2 })
+  })
+
+  it('should not modify source objects in shallow merge', () => {
+    const obj1 = { a: 1 }
+    const obj2 = { b: 2 }
+    Utils.extend({}, obj1, obj2)
+    expect(obj1).toEqual({ a: 1 })
+    expect(obj2).toEqual({ b: 2 })
+  })
+
+  it('should handle arrays', () => {
+    const obj1 = { arr: [1, 2] }
+    const obj2 = { arr: [3, 4] }
+    const result = Utils.extend(obj1, obj2)
+    expect(result.arr).toEqual([3, 4])
+  })
+})
+
+describe('addQueryToUrl', () => {
+  it('should add query parameters to URL without existing query', () => {
+    const url = 'https://example.com/page'
+    const query = { foo: 'bar', baz: 'qux' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('foo=bar')
+    expect(result).toContain('baz=qux')
+  })
+
+  it('should add query parameters to URL with existing query', () => {
+    const url = 'https://example.com/page?existing=param'
+    const query = { foo: 'bar' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('existing=param')
+    expect(result).toContain('foo=bar')
+  })
+
+  it('should override existing query parameters', () => {
+    const url = 'https://example.com/page?foo=old'
+    const query = { foo: 'new' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('foo=new')
+    expect(result).not.toContain('foo=old')
+  })
+
+  it('should preserve URL hash', () => {
+    const url = 'https://example.com/page#section'
+    const query = { foo: 'bar' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('#section')
+    expect(result).toContain('foo=bar')
+  })
+
+  it('should handle URL with both query and hash', () => {
+    const url = 'https://example.com/page?existing=param#section'
+    const query = { foo: 'bar' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('existing=param')
+    expect(result).toContain('foo=bar')
+    expect(result).toContain('#section')
+  })
+
+  it('should handle empty query object', () => {
+    const url = 'https://example.com/page'
+    const query = {}
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('https://example.com/page')
+  })
+
+  it('should handle special characters in query values', () => {
+    const url = 'https://example.com/page'
+    const query = { search: 'hello world', special: '!@#$' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('search=')
+    expect(result).toContain('special=')
+  })
+
+  it('should handle multiple hash segments', () => {
+    const url = 'https://example.com/page#section#subsection'
+    const query = { foo: 'bar' }
+    const result = Utils.addQueryToUrl(url, query)
+    expect(result).toContain('#section#subsection')
+  })
+})
