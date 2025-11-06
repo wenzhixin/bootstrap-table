@@ -726,6 +726,9 @@ BootstrapTable.prototype.onMultipleSort = function () {
   this.data.sort((a, b) => arrayCmp(a, b))
 
   this.initBody()
+  if (this.options.maintainMetaData) {
+    this.updateRows()
+  }
   this.assignSortableArrows()
   this.trigger('multiple-sort')
 }
