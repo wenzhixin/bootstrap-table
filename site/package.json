@@ -11,18 +11,18 @@
     "algolia": "node scripts/algolia-index.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.4",
+    "@astrojs/mdx": "^4.3.9",
     "@astrojs/prism": "^3.3.0",
     "@astrojs/sitemap": "^3.6.0",
-    "algoliasearch": "^5.15.0",
-    "astro": "^5.13.5",
-    "jsdom": "^25.0.1",
+    "algoliasearch": "^5.42.0",
+    "astro": "^5.15.3",
+    "jsdom": "^27.1.0",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.41.0",
-    "@typescript-eslint/parser": "^8.41.0",
-    "eslint": "^9.37.0",
-    "eslint-plugin-astro": "^1.3.1"
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
+    "eslint": "^9.39.1",
+    "eslint-plugin-astro": "^1.5.0"
   }
 }
