@@ -11,11 +11,11 @@
     "algolia": "node scripts/algolia-index.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.9",
+    "@astrojs/mdx": "^4.3.10",
     "@astrojs/prism": "^3.3.0",
     "@astrojs/sitemap": "^3.6.0",
-    "algoliasearch": "^5.42.0",
-    "astro": "^5.15.3",
+    "algoliasearch": "^5.43.0",
+    "astro": "^5.15.4",
     "jsdom": "^27.1.0",
     "prismjs": "^1.30.0"
   },

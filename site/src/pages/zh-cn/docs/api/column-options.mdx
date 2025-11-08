@@ -1,0 +1,581 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 列选项
+description: Bootstrap Table 的列选项 API。
+group: api
+toc: true
+---
+
+列选项定义在 `jQuery.fn.bootstrapTable.columnDefaults` 中。
+
+**注意：** 下面的选项名称（例如 `align`、`checkbox`、`class`）是在 `columns` 数组中定义列时使用的确切属性名。
+
+例如：
+```js
+$('#table').bootstrapTable({
+  columns: [
+    {
+      field: 'id',
+      title: 'ID',
+      align: 'center'
+    }
+  ]
+})
+```
+
+## align
+
+- **属性:** `data-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定列数据的对齐方式。可以使用 `'left'`、`'right'`、`'center'`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+
+## cardVisible
+
+- **属性:** `data-card-visible`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `false` 可在卡片视图状态下隐藏该列项。
+
+- **默认值:** `true`
+
+- **示例:** [Card Visible](https://examples.bootstrap-table.com/#column-options/card-visible.html)
+
+## cellStyle
+
+- **属性:** `data-cell-style`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  单元格样式格式化函数，接收四个参数：
+
+  * `value`：字段值。
+  * `row`：行数据记录。
+  * `index`：行索引。
+  * `field`：行字段名。
+
+  支持返回 `classes` 或 `css`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Cell Style](https://examples.bootstrap-table.com/#column-options/cell-style.html)
+
+## checkbox
+
+- **属性:** `data-checkbox`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时显示复选框。复选框列具有固定宽度。
+
+  如果提供了值，则会自动勾选该复选框。也可以通过 formatter 控制复选框的状态（返回 `true` 勾选，返回 `false` 取消勾选）。
+
+- **默认值:** `false`
+
+- **示例:** [Column Checkbox](https://examples.bootstrap-table.com/#column-options/checkbox.html)
+
+## checkboxEnabled
+
+- **属性:** `data-checkbox-enabled`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `false` 可禁用复选框/单选框。
+
+- **默认值:** `true`
+
+- **示例:** [Checkbox Enabled](https://examples.bootstrap-table.com/#column-options/checkbox-enabled.html) 与 [Checkbox Disabled](https://examples.bootstrap-table.com/#column-options/checkbox-disabled.html)
+
+## class
+
+- **属性:** `class | data-class`
+
+- **类型:** `String`
+
+- **详情:**
+
+  列的类名。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Class](https://examples.bootstrap-table.com/#column-options/class.html)
+
+## clickToSelect
+
+- **属性:** `data-click-to-select`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时，点击行会选中复选框或单选框。
+
+- **默认值:** `true`
+
+- **示例:** [Click to Select](https://examples.bootstrap-table.com/#column-options/click-to-select.html)
+
+## colspan
+
+- **属性:** `colspan | data-colspan`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  指定单元格应跨越的列数。
+
+- **默认值:** `undefined`
+
+- **示例:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
+
+## detailFormatter
+
+- **属性:** `data-detail-formatter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  当 `detailView` 和 `detailViewByClick` 均设置为 `true` 时，此函数用于格式化详情视图。它可以返回一个字符串，该内容将被追加到详情视图单元格中；也可以直接使用第三个参数（目标单元格的 jQuery 对象）来渲染元素。
+
+  如果未定义此函数，将回退使用表格级别的 `detail-formatter`。
+
+- **默认值:** `function(index, row, $element) { return '' }`
+
+- **示例:** [Detail Formatter](https://examples.bootstrap-table.com/#column-options/detail-formatter.html)
+
+## escape
+
+- **属性:** `data-escape`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  对字符串进行 HTML 转义，替换其中的 `&`、`<`、`>`、`"`、`` ` `` 和 `'` 字符。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Escape](https://examples.bootstrap-table.com/#column-options/escape.html)
+
+## events
+
+- **属性:** `data-events`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  单元格事件监听器，在使用 formatter 函数时可接收四个参数：
+
+  * `event`：事件对象。
+  * `value`：字段值。
+  * `row`：行数据记录。
+  * `index`：行索引。
+
+  示例代码：
+
+  ```html
+  <th .. data-events="operateEvent">
+  var operateEvents = {
+    'click .like': function (e, value, row, index) {}
+  }
+  ```
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Events](https://examples.bootstrap-table.com/#column-options/events.html)
+
+## falign
+
+- **属性:** `data-falign`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定如何对齐表格页脚。可以使用 `'left'`、`'right'`、`'center'`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Aligning Footer](https://examples.bootstrap-table.com/#column-options/aligning-footer.html)
+
+## field
+
+- **属性:** `data-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  列字段名称。该字段必须唯一，否则可能出现未知问题。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Field](https://examples.bootstrap-table.com/#column-options/field.html)
+
+## footerFormatter
+
+- **属性:** `data-footer-formatter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  此函数执行时的上下文（this）指向列对象。
+
+  该函数接收两个参数：
+
+  * `data`：包含所有行数据的数组。
+  * `value`：如果设置了页脚数据，则为页脚列的值；否则为 undefined。
+
+  函数期望返回的数据类型为 `jQuery`、`String` 或 `HTMLElement`，其他类型将被强制转换为 `String`。
+
+  当从服务器获取数据并在响应中设置页脚值时，请使用 `footerField` 选项。
+
+- **默认值:** `undefined`
+
+- **示例:** [Footer Formatter](https://examples.bootstrap-table.com/#column-options/footer-formatter.html)
+
+## footerStyle
+
+- **属性:** `data-footer-style`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  页脚样式格式化函数，接收一个参数：
+
+  * `column`：列对象。
+
+  支持返回 `classes` 或 `css`。示例：
+
+  ```javascript
+  function footerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  ```
+
+- **默认值:** `{}`
+
+- **示例:** [Footer Style](https://examples.bootstrap-table.com/#options/footer-style.html)
+
+## formatter
+
+- **属性:** `data-formatter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  此函数执行时的上下文（this）指向列对象。
+
+  单元格格式化函数，接收四个参数：
+
+  * `value`：当前字段的值。
+  * `row`：当前行的数据对象。
+  * `index`：当前行的索引。
+  * `field`：当前字段的名称。
+
+  函数期望返回的数据类型为 `jQuery`、`String` 或 `HTMLElement`，其他类型将被强制转换为 `String`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Formatter](https://examples.bootstrap-table.com/#column-options/formatter.html)
+
+## halign
+
+- **属性:** `data-halign`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定如何对齐表格表头。可以使用 `'left'`、`'right'`、`'center'`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+
+## order
+
+- **属性:** `data-order`
+
+- **类型:** `String`
+
+- **详情:**
+
+  默认排序顺序，只能是 `'asc'` 或 `'desc'`。
+
+- **默认值:** `'asc'`
+
+- **示例:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
+
+## radio
+
+- **属性:** `data-radio`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时显示单选框。单选框列具有固定宽度。
+
+  如果提供了值，则会自动选中该单选框。也可以通过 formatter 控制单选框的状态（返回 `true` 选中，返回 `false` 取消选中）。
+
+- **默认值:** `false`
+
+- **示例:** [Column Radio](https://examples.bootstrap-table.com/#column-options/radio.html)
+
+## rowspan
+
+- **属性:** `rowspan | data-rowspan`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  指定单元格需要跨越的行数。
+
+- **默认值:** `undefined`
+
+- **示例:** [Rowspan Colspan](https://examples.bootstrap-table.com/#column-options/rowspan-colspan.html)
+
+## searchable
+
+- **属性:** `data-searchable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时，会在此列上执行搜索。
+
+- **默认值:** `true`
+
+- **示例:** [Column Searchable](https://examples.bootstrap-table.com/#column-options/searchable.html)
+
+## searchFormatter
+
+- **属性:** `data-search-formatter`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 可以基于格式化后的数据执行搜索。
+
+- **默认值:** `true`
+
+- **示例:** [Search Formatter](https://examples.bootstrap-table.com/#column-options/search-formatter.html)
+
+## searchHighlightFormatter
+
+- **属性:** `data-search-highlight-formatter`
+
+- **类型:** `Boolean|Function`
+
+- **详情:**
+
+  定义一个 `function`，为 [search highlight](https://bootstrap-table.com/docs/api/table-options/#searchhighlight) 选项提供自定义高亮格式化器。
+
+- **默认值:** `true`
+
+- **示例:** [Searchable Highlight Formatter](https://examples.bootstrap-table.com/#column-options/search-highlight-formatter.html)
+
+## showSelectTitle
+
+- **属性:** `data-show-select-title`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时，会显示使用 `radio` 或 `singleSelect`、`checkbox` 选项的列标题。
+
+- **默认值:** `false`
+
+- **示例:** [Show Select Title](https://examples.bootstrap-table.com/#column-options/show-select-title.html)
+
+## sortable
+
+- **属性:** `data-sortable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 允许对该列进行排序。
+
+- **默认值:** `false`
+
+- **示例:** [Column Sortable](https://examples.bootstrap-table.com/#column-options/sortable.html)
+
+## sorter
+
+- **属性:** `data-sorter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  自定义字段排序函数，用于本地排序，接收四个参数：
+
+  * `fieldA`：第一个字段值。
+  * `fieldB`：第二个字段值。
+  * `rowA`：第一行数据。
+  * `rowB`：第二行数据。
+
+  预期返回值：`-1`、`0`、`1`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Sorter](https://examples.bootstrap-table.com/#column-options/sorter.html)
+
+## sortName
+
+- **属性:** `data-sort-name`
+
+- **类型:** `String`
+
+- **详情:**
+
+  提供一个自定义的排序字段名，而不是表头中的默认排序字段，或列的字段名。例如，一列可能显示字段名为 `html` 的值，如 `<b><span style="color:red">abc</span></b>`，但用于排序的字段名是值为 `'abc'` 的 `content`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
+
+## switchable
+
+- **属性:** `data-switchable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 可禁用该列的显示/隐藏切换功能。
+
+- **默认值:** `true`
+
+- **示例:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
+
+## switchableLabel
+
+- **属性:** `data-switchable-label`
+
+- **类型:** `String`
+
+- **详情:**
+
+  列在下拉菜单中对应的切换标签。如果未指定，则使用列标题。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
+
+
+## title
+
+- **属性:** `data-title`
+
+- **类型:** `String`
+
+- **详情:**
+
+  列的标题文本。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Title](https://examples.bootstrap-table.com/#column-options/title.html)
+
+## titleTooltip
+
+- **属性:** `data-title-tooltip`
+
+- **类型:** `String`
+
+- **详情:**
+
+  列标题的提示文本。此选项的值会被应用到 HTML 的 `title` 属性上。
+
+- **默认值:** `undefined`
+
+- **示例:** [Title Tooltip](https://examples.bootstrap-table.com/#column-options/title-tooltip.html)
+
+## valign
+
+- **属性:** `data-valign`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定如何对齐单元格数据。可以使用 `'top'`、`'middle'`、`'bottom'`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Aligning Columns](https://examples.bootstrap-table.com/#column-options/aligning-columns.html)
+
+## visible
+
+- **属性:** `data-visible`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `false` 可隐藏该列。
+
+- **默认值:** `true`
+
+
+- **示例:** [Column Visible](https://examples.bootstrap-table.com/#column-options/visible.html)
+
+## width
+
+- **属性:** `data-width`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  列的宽度。如果未设置，宽度会自动扩展以适配内容。但如果表格保持响应式并且尺寸过小，则可能忽略该 `'width'`（可通过类设置最小/最大宽度等）。默认使用的单位是 `px`，可通过 `widthUnit` 修改单位。
+
+- **默认值:** `undefined`
+
+- **示例:** [Column Width](https://examples.bootstrap-table.com/#column-options/width.html)
+
+## widthUnit
+
+- **属性:** `data-width-unit`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义 `width` 选项所使用的单位。
+
+- **默认值:** `px`
+
+- **示例:** [Width Unit](https://examples.bootstrap-table.com/#column-options/width-unit.html)
