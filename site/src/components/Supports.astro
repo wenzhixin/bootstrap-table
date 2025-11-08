@@ -26,17 +26,22 @@ const translations = ui[Astro.currentLocale]
   </div>
 </div>
 
-<script define:vars={{
-  baseurl: Config.baseurl,
-  version: Config.currentVersion,
-  translations
-}}>
+<script
+  data-baseurl={Config.baseurl}
+  data-version={Config.currentVersion}
+  data-translations={JSON.stringify(translations)}
+>
+  const { dataset } = document.currentScript
   const script = document.createElement('script')
+  const baseurl = dataset.baseurl || ''
+  const version = dataset.version || ''
 
   script.src = `${baseurl}/assets/js/supports.js?v=${version}`
   script.onload = () => {
+    const supportsTranslations = dataset.translations ? JSON.parse(dataset.translations) : {}
+
     if (window.Supports && window.Supports.initSupports) {
-      window.Supports.initSupports(translations)
+      window.Supports.initSupports(supportsTranslations)
     }
   }
   document.head.appendChild(script)
