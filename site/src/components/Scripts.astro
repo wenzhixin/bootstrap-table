@@ -56,7 +56,6 @@ gtag('config', 'UA-132747866-1')
   algolia: Config.algolia,
   version: Config.currentVersion
 }}>
-  /* eslint-disable no-undef */
   const script = document.createElement('script')
 
   script.src = `${baseurl}/assets/js/docs.js?v=${version}`
@@ -64,5 +63,4 @@ gtag('config', 'UA-132747866-1')
 
   // Set Algolia configuration as global variables
   window.ALGOLIA_CONFIG = algolia
-  /* eslint-enable no-undef */
 </script>

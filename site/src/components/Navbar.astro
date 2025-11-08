@@ -1,10 +1,12 @@
 ---
 import Config from '@/config.js'
-import { getBaseUrl, useTranslations } from '@/i18n/utils'
+import { getBaseUrl, getLanguageMenu, useTranslations } from '@/i18n/utils'
 
 const layout = Astro.props.layout
-const baseurl = getBaseUrl(Astro.currentLocale)
-const t = useTranslations(Astro.currentLocale)
+const locale = Astro.currentLocale
+const { pathname } = Astro.url
+const baseurl = getBaseUrl(locale)
+const t = useTranslations(locale)
 
 const mainNav = [
   {
@@ -96,6 +98,8 @@ const themeConfig = {
     }
   ]
 }
+
+const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMenu(pathname, locale)
 ---
 
 <header class="navbar navbar-expand-lg bd-navbar sticky-top">
@@ -215,6 +219,32 @@ const themeConfig = {
                     {...(item.isExternal && { target: '_blank' })}
                   >
                     {item.title}
+                  </a>
+                </li>
+              )}
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-md-2"
+              href="#"
+              id="bd-language"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {currentLanguageLabel}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-language">
+              {languageMenu.map(item =>
+                <li>
+                  <a
+                    class={`dropdown-item ${item.isActive ? 'active' : ''}`}
+                    href={item.href}
+                    hreflang={item.code}
+                  >
+                    {item.label}
                   </a>
                 </li>
               )}
