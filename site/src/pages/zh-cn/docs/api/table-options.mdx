@@ -1,0 +1,2021 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 表格选项
+description: Bootstrap Table 的表格选项 API。
+group: api
+toc: true
+---
+
+表格选项定义在 `jQuery.fn.bootstrapTable.defaults` 中。
+
+**注意：** 下面的选项名称（例如 `ajax`、`buttons`、`cache`）是在通过 JavaScript 初始化 Bootstrap Table 时使用的确切属性名。
+
+例如：
+```js
+$('#table').bootstrapTable({
+  ajax: yourFunction,
+  cache: false,
+  ...
+})
+```
+
+## -
+
+- **属性:** `data-toggle`
+
+- **类型:** `String`
+
+- **详情:**
+
+  无需编写 JavaScript 即可激活 bootstrap table。
+
+- **默认值:** `'table'`
+
+- **示例:** [From HTML](https://examples.bootstrap-table.com/#welcomes/from-html.html)
+
+## ajax
+
+- **属性:** `data-ajax`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  替换 ajax 调用的方法。应实现与 jQuery ajax 方法相同的 API。
+
+- **默认值:** `undefined`
+
+- **示例:** [Table AJAX](https://examples.bootstrap-table.com/#options/table-ajax.html)
+
+## ajaxOptions
+
+- **属性:** `data-ajax-options`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  提交 ajax 请求的附加选项。值列表：[jQuery.ajax](http://api.jquery.com/jQuery.ajax)。
+
+- **默认值:** `{}`
+
+- **示例:** [AJAX Options](https://examples.bootstrap-table.com/#options/ajax-options.html)
+
+## buttons
+
+- **属性:** `data-buttons`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  此选项允许创建/添加自定义按钮到"按钮栏"（表格右上角）。
+  这些按钮可以通过表格选项 [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder) 进行排序，应使用事件使用的键/名称进行排序！
+
+  自定义按钮具有高度可配置性，存在以下选项：
+  - `text`
+    - 描述：此选项用于 [showButtonText](https://bootstrap-table.com/docs/api/table-options/#showbuttontext) 表格选项。
+    - 类型：`String`
+  - `icon`
+    - 描述：此选项用于 [showButtonIcons](https://bootstrap-table.com/docs/api/table-options/#showbuttonicons) 表格选项。
+    - 类型：`String` - 只需要图标类，例如 `fa-users`
+  - `render`
+    - 描述：将此选项设置为 `false` 以默认隐藏按钮，当添加数据属性 `data-show-button-name="true"` 时按钮再次可见。
+  - `attributes`
+    - 描述：此选项允许添加额外的 html 属性，例如 `title`
+    - 类型：`Object`
+    - 示例：`{title: 'Button title'}`
+  - `html`
+    - 描述：如果您不想自动生成 html，可以使用此选项插入您的自定义 html。
+      `event` 选项仅在您的自定义 HTML 包含 `name="button-name"` 时有效。
+      如果使用此选项，以下选项将被忽略：
+      - `text`
+      - `icon`
+      - `attributes`
+    - 类型：`Function|String`
+  - `event`
+    - 描述：如果您想向按钮添加事件，应使用此选项
+    - 类型：`Function|Object|String`
+
+  `event` 选项可以通过三种方式配置。
+  使用 `click` 事件：
+  ```javascript
+  {
+    'event': () => { }
+  }
+  ```
+
+  使用自定义事件类型的事件：
+  ```javascript
+    {
+      'event': {
+        'mouseenter': () => { }
+      }
+    }
+  ```
+
+  使用自定义事件类型的多个事件：
+  ```javascript
+    {
+      'event': {
+        'click': () => { },
+        'mouseenter': () => { },
+        'mouseleave': () => { }
+      }
+    }
+  ```
+
+  **提示：** 除了内联函数，您也可以使用函数名。
+
+  配置的自定义按钮可能如下所示：
+  ``` javascript
+  {
+    btnRemoveEvenRows: {
+      'text': 'Remove even Rows',
+      'icon': 'fa-trash',
+      'event': () => {
+        //DO STUFF TO REMOVE EVEN ROWS
+      },
+      'attributes': {
+        'title': 'Remove all rows which has a even id'
+      }
+    }
+  }
+  ```
+
+- **默认值:** `{}`
+
+- **示例:** [Buttons](https://examples.bootstrap-table.com/#options/buttons.html)
+
+## buttonsAlign
+
+- **属性:** `data-buttons-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定工具栏按钮的对齐方式。可使用 `'left'`（左对齐）或 `'right'`（右对齐）。
+
+- **默认值:** `'right'`
+
+- **示例:** [Buttons Align](https://examples.bootstrap-table.com/#options/buttons-align.html)
+
+## buttonsAttributeTitle
+
+- **属性:** `data-buttons-attribute-title`
+
+- **类型:** `String`
+
+- **详情:**
+
+  自定义工具栏按钮的 title 属性，主要用于自定义工具栏样式。
+
+- **默认值:** `'title'`
+
+- **示例:** [Buttons Attribute Title](https://examples.bootstrap-table.com/#options/buttons-attribute-title.html)
+
+## buttonsClass
+
+- **属性:** `data-buttons-class`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义表格按钮的类（在 `'btn-'` 后添加）。
+
+- **默认值:** `'secondary'`
+
+- **示例:** [Buttons Class](https://examples.bootstrap-table.com/#options/buttons-class.html)
+
+## buttonsOrder
+
+- **属性:** `data-buttons-order`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  设置工具栏按钮的自定义排序方式。
+
+- **默认值:** `['paginationSwitch', 'refresh', 'toggle', 'fullscreen', 'columns']`
+
+- **示例:** [Buttons Order](https://examples.bootstrap-table.com/#options/buttons-order.html)
+
+## buttonsPrefix
+
+- **属性:** `data-buttons-prefix`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义表格按钮的前缀。
+
+- **默认值:** `'btn'`
+
+- **示例:** [Buttons Prefix](https://examples.bootstrap-table.com/#options/buttons-prefix.html)
+
+## buttonsToolbar
+
+- **属性:** `data-buttons-toolbar`
+
+- **类型:** `String/Node`
+
+- **详情:**
+
+  指定自定义按钮工具栏的 jQuery 选择器，例如：`#buttons-toolbar`、`.buttons-toolbar`，或一个 DOM 节点。
+
+- **默认值:** `undefined`
+
+- **示例:** [Buttons Toolbar](https://examples.bootstrap-table.com/#options/buttons-toolbar.html)
+
+## cache
+
+- **属性:** `data-cache`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 以禁用 AJAX 请求的缓存。
+
+- **默认值:** `true`
+
+- **示例:** [Table Cache](https://examples.bootstrap-table.com/#options/table-cache.html)
+
+## cardView
+
+- **属性:** `data-card-view`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示卡片视图表格，例如移动视图。
+
+- **默认值:** `false`
+
+- **示例:** [Card View](https://examples.bootstrap-table.com/#options/card-view.html)
+
+## checkboxHeader
+
+- **属性:** `data-checkbox-header`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 以隐藏标题行中的全选复选框。
+
+- **默认值:** `true`
+
+- **示例:** [Checkbox Header](https://examples.bootstrap-table.com/#options/checkbox-header.html)
+
+## classes
+
+- **属性:** `data-classes`
+
+- **类型:** `String`
+
+- **详情:**
+
+  表格的类名。可以使用 `'table'`、`'table-bordered'`、`'table-hover'`、`'table-striped'`、`'table-dark'`、`'table-sm'` 和 `'table-borderless'`。默认情况下，表格是有边框的。
+
+- **默认值:** `'table table-bordered table-hover'`
+
+- **示例:** [Table Classes](https://examples.bootstrap-table.com/#options/table-classes.html)
+
+## clickToSelect
+
+- **属性:** `data-click-to-select`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在点击行时选择复选框或单选框。
+
+- **默认值:** `false`
+
+- **示例:** [Click To Select](https://examples.bootstrap-table.com/#options/click-to-select.html)
+
+## columns
+
+- **属性:** `-`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  表格列配置对象。有关更多详细信息，请参阅列选项。
+
+- **默认值:** `[]`
+
+- **示例:** [Table Columns](https://examples.bootstrap-table.com/#options/table-columns.html)
+
+## contentType
+
+- **属性:** `data-content-type`
+
+- **类型:** `String`
+
+- **详情:**
+
+  请求远程数据的 contentType，例如：`application/x-www-form-urlencoded`。
+
+- **默认值:** `'application/json'`
+
+- **示例:** [Content Type](https://examples.bootstrap-table.com/#options/content-type.html)
+
+## customSearch
+
+- **属性:** `data-custom-search`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  自定义搜索函数将代替内置搜索函数执行，接受三个参数：
+
+  * `data`：表格数据。
+  * `text`：搜索文本。
+  * `filter`：来自 `filterBy` 方法的过滤器对象。
+
+  示例用法：
+
+  ```javascript
+  function customSearch(data, text) {
+    return data.filter(function (row) {
+      return row.field.indexOf(text) > -1
+    })
+  }
+  ```
+
+- **默认值:** `undefined`
+
+- **示例:** [Custom Search](https://examples.bootstrap-table.com/#options/custom-search.html)
+
+## customSort
+
+- **属性:** `data-custom-sort`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  自定义排序函数将代替内置排序函数执行，接受三个参数：
+
+  * `sortName`：排序名称。
+  * `sortOrder`：排序顺序。
+  * `data`：行数据。
+
+- **默认值:** `undefined`
+
+- **示例:** [Custom Order](https://examples.bootstrap-table.com/#options/custom-sort.html)
+
+## data
+
+- **属性:** `data-data`
+
+- **类型:** `Array | Object`
+
+- **详情:**
+
+  要加载的数据。
+
+  如果数据中有 `_<field>_rowspan` 或 `_<field>_colspan` 属性，则将自动合并单元格，例如：
+  ```js
+  $table.bootstrapTable({
+    data: [
+      {
+        id: 1,
+        name: 'Item 1',
+        _name_rowspan: 2,
+        price: '$1'
+      },
+      {
+        id: 2,
+        price: '$2'
+      }
+    ]
+  })
+  ```
+  如果使用此功能，`data` 是必需的，以确保格式正确。
+
+- **默认值:** `[]`
+
+- **示例:** [From Data](https://examples.bootstrap-table.com/#welcomes/from-data.html)
+
+## dataField
+
+- **属性:** `data-data-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定传入 JSON 中包含 `'rows'` 数据列表的键名。
+
+- **默认值:** `'rows'`
+
+- **示例:** [Total/Data Field](https://examples.bootstrap-table.com/#options/total-data-field.html)
+
+## dataType
+
+- **属性:** `data-data-type`
+
+- **类型:** `String`
+
+- **详情:**
+
+  您期望从服务器返回的数据类型。
+
+- **默认值:** `'json'`
+
+- **示例:** [Data Type](https://examples.bootstrap-table.com/#options/data-type.html)
+
+## detailFilter
+
+- **属性:** `data-detail-filter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  当 `detailView` 设置为 `true` 时，控制每行的展开功能。返回 `true` 表示该行可以展开；返回 `false` 表示该行不可展开。默认函数返回 `true`，允许所有行展开。
+
+- **默认值:** `function(index, row) { return true }`
+
+- **示例:** [Detail Filter](https://examples.bootstrap-table.com/#options/detail-filter.html)
+
+## detailFormatter
+
+- **属性:** `data-detail-formatter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  当 `detailView` 设置为 `true` 时，用于格式化详情视图内容。函数可以返回一个字符串，该字符串将被附加到详情视图单元格中；也可以使用第三个参数（目标单元格的 jQuery 元素）直接渲染元素。
+
+- **默认值:** `function(index, row, element) { return '' }`
+
+- **示例:** [Detail View](https://examples.bootstrap-table.com/#options/detail-view.html)
+
+## detailView
+
+- **属性:** `data-detail-view`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示详细视图表格。您可以设置 `uniqueId` 选项以在刷新表格时保持详情视图状态。
+
+- **默认值:** `false`
+
+- **示例:** [Detail View UniqueId](https://examples.bootstrap-table.com/#options/detail-view-unique-id.html)
+
+## detailViewAlign
+
+- **属性:** `data-detail-view-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置详情视图图标的对齐方式。可使用 `'left'`（左对齐）或 `'right'`（右对齐）。
+
+- **默认值:** `'left'`
+
+- **示例:** [Detail view Align](https://examples.bootstrap-table.com/#options/detail-view-align.html)
+
+## detailViewByClick
+
+- **属性:** `data-detail-view-by-click`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在单击单元格时切换详情视图。
+
+- **默认值:** `false`
+
+- **示例:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
+
+## detailViewIcon
+
+- **属性:** `data-detail-view-icon`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示详情视图列（加/减图标）。
+
+- **默认值:** `true`
+
+- **示例:** [Detail View Icon](https://examples.bootstrap-table.com/#options/detail-view-icon.html)
+
+## escape
+
+- **属性:** `data-escape`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  转义字符串以插入 HTML，替换 `&`、`<`、`>`、`"`、`` ` `` 和 `'` 字符。
+  要禁用列标题的转义，请检查 `escapeTitle` 选项。
+
+- **默认值:** `false`
+
+- **示例:** [Table Escape](https://examples.bootstrap-table.com/#options/table-escape.html)
+
+## escapeTitle
+
+- **属性:** `data-escape-title`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  切换是否应将 `escape` 选项应用于列标题。
+
+- **默认值:** `true`
+
+- **示例:** [Table Escape title](https://examples.bootstrap-table.com/#options/table-escape-title.html)
+
+## filterOptions
+
+- **属性:** `data-filter-options`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  定义算法的默认过滤器选项，`filterAlgorithm: 'and'` 表示所有给定的过滤器必须匹配，`filterAlgorithm: 'or'` 表示给定的过滤器之一必须匹配。
+
+- **默认值:** `{ filterAlgorithm: 'and' }`
+
+- **示例:** [Filter Options](https://examples.bootstrap-table.com/#options/filter-options.html)
+
+## fixedScroll
+
+- **属性:** `data-fixed-scroll`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在加载数据时启用表格的固定滚动条位置。
+
+- **默认值:** `false`
+
+- **示例:** [Fixed Scroll](https://examples.bootstrap-table.com/#options/fixed-scroll.html)
+
+## footerField
+
+- **属性:** `data-footer-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义页脚对象的键（来自数据数组或服务器响应 JSON）。
+  页脚对象可用于设置/定义页脚 colspan 和/或页脚的值。
+  仅在 `data-pagination` 为 `true` 且 `data-side-pagination` 为 `server` 时触发。
+
+
+  ```javascript
+    {
+      "rows": [
+        {
+          "id": 0,
+          "name": "Item 0",
+          "price": "$0",
+          "amount": 3
+        }
+      ],
+      "footer": {
+        "id": "footer id",
+        "_id_colspan": 2,
+        "name": "footer name"
+      }
+    }
+    ```
+
+- **默认值:** `footerField`
+
+- **示例:** [Footer Field](https://examples.bootstrap-table.com/#options/footer-field.html)
+
+## footerStyle
+
+- **属性:** `data-footer-style`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  页脚样式格式化函数，接受一个参数：
+
+  * `column`：列对象。
+
+  支持 `classes` 或 `css`。示例用法：
+
+  ```javascript
+  function footerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  ```
+
+- **默认值:** `{}`
+
+- **示例:** [Footer Style](https://examples.bootstrap-table.com/#options/footer-style.html)
+
+## headerStyle
+
+- **属性:** `data-header-style`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  标题样式格式化函数，接受一个参数：
+
+  * `column`：列对象。
+
+  支持 `classes` 或 `css`。示例用法：
+
+  ```javascript
+  function headerStyle(column) {
+    return {
+      css: { 'font-weight': 'normal' },
+      classes: 'my-class'
+    }
+  }
+  ```
+
+- **默认值:** `{}`
+
+- **示例:** [Header Style](https://examples.bootstrap-table.com/#options/header-style.html)
+
+## height
+
+- **属性:** `data-height`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置表格的高度，启用固定表头功能。当内容超出高度时，表格将显示垂直滚动条。
+
+- **默认值:** `undefined`
+
+- **示例:** [Table Height](https://examples.bootstrap-table.com/#options/table-height.html)
+
+## icons
+
+- **属性:** `data-icons`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  定义在工具栏、分页和详情视图中使用的图标。
+
+- **默认值:**
+
+  ```html
+  {
+    paginationSwitchDown: 'fa-caret-square-down',
+    paginationSwitchUp: 'fa-caret-square-up',
+    refresh: 'fa-sync',
+    toggleOff: 'fa-toggle-off',
+    toggleOn: 'fa-toggle-on',
+    columns: 'fa-th-list',
+    fullscreen: 'fa-arrows-alt',
+    detailOpen: 'fa-plus',
+    detailClose: 'fa-minus'
+  }
+  ```
+
+- **示例:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
+
+## iconSize
+
+- **属性:** `data-icon-size`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义图标大小，可以使用 `undefined`、`'lg'`、`'sm'`。
+
+- **默认值:** `undefined`
+
+- **示例:** [Icon Size](https://examples.bootstrap-table.com/#options/icon-size.html)
+
+## iconsPrefix
+
+- **属性:** `data-icons-prefix`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义图标集名称。默认情况下，此选项由主题自动计算。
+
+  ```js
+  {
+    bootstrap3: 'glyphicon',
+    bootstrap4: 'fa',
+    bootstrap5: 'bi',
+    'bootstrap-table': 'icon',
+    bulma: 'fa',
+    foundation: 'fa',
+    materialize: 'material-icons',
+    semantic: 'fa'
+  }
+  ```
+
+- **默认值:** `undefined`
+
+- **示例:** [Icons Prefix](https://examples.bootstrap-table.com/#options/icons-prefix.html)
+## idField
+
+- **属性:** `data-id-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定哪个字段将用作复选框/单选框的值，它是 [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname) 的对应项。
+
+- **默认值:** `undefined`
+
+- **示例:** [Id Field](https://examples.bootstrap-table.com/#options/id-field.html)
+
+## ignoreClickToSelectOn
+
+- **属性:** `data-ignore-click-to-select-on`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  定义哪些元素在点击时应忽略 `clickToSelect` 功能。该函数接受一个参数：
+
+  * `element`：被点击的 DOM 元素。
+
+  返回 `true` 表示忽略该元素的点击（不会触发行选择），返回 `false` 表示正常处理点击（会触发行选择）。此选项仅在 `clickToSelect` 设置为 `true` 时生效。
+
+- **默认值:** `{ return ['A', 'BUTTON'].includes(tagName) }`
+
+- **示例:** [Ignore Click To Select On](https://examples.bootstrap-table.com/#options/ignore-click-to-select-on.html)
+
+## loadingFontSize
+
+- **属性:** `data-loading-font-size`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义加载文本的字体大小，默认值为 `'auto'`，根据表格宽度自动计算，在 12px 和 32px 之间。
+
+- **默认值:** `'auto'`
+
+- **示例:** [Loading Font Size](https://examples.bootstrap-table.com/#options/loading-font-size.html)
+
+## loadingTemplate
+
+- **属性:** `data-loading-template`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  自定义加载类型。参数对象包含：
+
+  * loadingMessage：`formatLoadingMessage` 本地化。
+
+- **默认值:**
+  ```js
+  function (loadingMessage) {
+    return '<span class="loading-wrap">' +
+      '<span class="loading-text">' +
+      loadingMessage +
+      '</span>' +
+      '<span class="animation-wrap"><span class="animation-dot"></span></span>' +
+      '</span>'
+  }
+  ```
+
+- **示例:** [Loading Template](https://examples.bootstrap-table.com/#options/loading-template.html)
+
+## locale
+
+- **属性:** `data-locale`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置表格使用的语言环境（例如 `'zh-CN'`）。使用此选项前，必须先预加载对应的语言环境文件。
+
+  系统支持语言环境后备机制，按以下优先级顺序尝试加载：
+
+  * **第一优先级**：尝试加载指定的完整语言环境（如 `'zh-CN'`）
+  * **第二优先级**：尝试将下划线 `_` 转换为连字符 `-` 并将区域代码大写（如 `'zh_CN'` 转换为 `'zh-CN'`）
+  * **第三优先级**：尝试使用短语言代码（如从 `'zh-CN'` 降级为 `'zh'`）
+  * **最后备选**：使用最后加载的语言环境文件（如果没有任何语言环境文件被加载，则使用内置的默认语言环境）
+
+  注意：如果将此选项设置为 `undefined` 或空字符串，系统将自动使用最后加载的语言环境（如果没有加载任何语言环境文件，则默认使用 `'en-US'`）。
+
+- **默认值:** `undefined`
+
+- **示例:** [Table Locale](https://examples.bootstrap-table.com/#options/table-locale.html)
+
+## maintainMetaData
+
+- **属性:** `data-maintain-meta-data`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在更改页面和搜索时维护以下元数据：
+   * 选定的行
+   * 隐藏的行
+
+- **默认值:** `false`
+
+- **示例:** [Maintain Meta Data](https://examples.bootstrap-table.com/#options/maintain-meta-data.html)
+
+## method
+
+- **属性:** `data-method`
+
+- **类型:** `String`
+
+- **详情:**
+
+  请求远程数据的方法类型。
+
+- **默认值:** `'get'`
+
+- **示例:** [Table Method](https://examples.bootstrap-table.com/#options/table-method.html)
+
+## minimumCountColumns
+
+- **属性:** `data-minimum-count-columns`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  从列下拉列表中隐藏的最小列数。
+
+- **默认值:** `1`
+
+- **示例:** [Minimum Count Columns](https://examples.bootstrap-table.com/#options/minimum-count-columns.html)
+
+## multipleSelectRow
+
+- **属性:** `data-multiple-select-row`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以启用多行选择功能。启用后，用户可以通过以下方式选择多行：
+  * **Ctrl+点击**：选择或取消选择单个行（保持其他行的选中状态）
+  * **Shift+点击**：选择从当前选中行到点击行之间的所有行（范围选择）
+  * **普通点击**：如果未按住修饰键，将取消其他行的选择，仅选中当前点击的行
+
+- **默认值:** `false`
+
+- **示例:** [Multiple Select Row](https://examples.bootstrap-table.com/#options/multiple-select-row.html)
+
+## pageList
+
+- **属性:** `data-page-list`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  设置分页属性时，通过选择列表初始化页面大小。如果包含 `'all'` 或 `'unlimited'` 选项，所有记录将显示在您的表格中。
+
+  *提示：如果表格的行数少于选项，选项将自动隐藏。要禁用该功能，可以将 [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) 设置为 `false`*
+
+- **默认值:** `[10, 25, 50, 100]`
+
+- **示例:** [Page List](https://examples.bootstrap-table.com/#options/page-list.html)
+
+## pageNumber
+
+- **属性:** `data-page-number`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置分页属性时，初始化页码。
+
+- **默认值:** `1`
+
+- **示例:** [Page Number](https://examples.bootstrap-table.com/#options/page-number.html)
+
+## pageSize
+
+- **属性:** `data-page-size`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置分页属性时，初始化页面大小。
+
+- **默认值:** `10`
+
+- **示例:** [Page Size](https://examples.bootstrap-table.com/#options/page-size.html)
+
+## pagination
+
+- **属性:** `data-pagination`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在表格底部显示分页工具栏。
+
+- **默认值:** `false`
+
+- **示例:** [Table Pagination](https://examples.bootstrap-table.com/#options/table-pagination.html)
+
+## paginationDetailHAlign
+
+- **属性:** `data-pagination-detail-h-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置分页详情的对齐方式。可使用 `'left'`（左对齐）或 `'right'`（右对齐）。
+
+- **默认值:** `'left'`
+
+- **示例:** [Pagination H Align](https://examples.bootstrap-table.com/#options/pagination-h-align.html)
+
+## paginationHAlign
+
+- **属性:** `data-pagination-h-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置分页的对齐方式。可使用 `'left'`（左对齐）或 `'right'`（右对齐）。
+
+- **默认值:** `'right'`
+
+- **示例:** [Pagination H Align](https://examples.bootstrap-table.com/#options/pagination-h-align.html)
+
+## paginationLoadMore
+
+- **属性:** `data-pagination-load-more`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以启用通过分页加载更多数据。仅在客户端分页中使用。通常，要实现"加载更多"功能，通常需要将其与 `responseHandler` 结合使用来处理返回的数据。
+
+  它主要用于总页数未知的场景。在这种情况下，无法显示确切的总数或计算总页数。相反，可以使用"100+"等显示格式来表示显示计数之外存在其他项目。当用户导航到最后一页时，会加载更多数据，同时更新分页信息。此过程持续进行，直到所有数据加载完成。
+
+- **默认值:** `false`
+
+- **示例:** [Pagination Load More](https://examples.bootstrap-table.com/#options/pagination-load-more.html)
+
+
+## paginationLoop
+
+- **属性:** `data-pagination-loop`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以启用分页连续循环模式。
+
+- **默认值:** `true`
+
+- **示例:** [Pagination Loop](https://examples.bootstrap-table.com/#options/pagination-loop.html)
+
+## paginationNextText
+
+- **属性:** `data-pagination-next-text`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置分页详情中下一页按钮显示的图标或文本。
+
+- **默认值:** `'›'`
+
+- **示例:** [Pagination Text](https://examples.bootstrap-table.com/#options/pagination-text.html)
+
+## paginationPagesBySide
+
+- **属性:** `data-pagination-pages-by-side`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  当前页面每侧（右、左）的页数。
+
+- **默认值:** `1`
+
+- **示例:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
+
+## paginationParts
+
+- **属性:** `data-pagination-parts`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  这些选项定义分页的哪些部分应该可见。
+  * `pageInfo` 显示当前页将显示哪些数据集（例如 `Showing 1 to 10 of 54 rows`）。
+  * `pageInfoShort` 类似于 `pageInfo`，它只显示表格有多少行（例如 `Showing 54 rows`）。
+  * `pageSize` 显示定义页面上应显示多少行的下拉列表。
+  * `pageList` 显示分页的主要部分（页面列表）。
+
+- **默认值:** `['pageInfo', 'pageSize', 'pageList']`
+
+- **示例:** [Pagination Parts](https://examples.bootstrap-table.com/#options/pagination-parts.html)
+
+## paginationPreText
+
+- **属性:** `data-pagination-pre-text`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置分页详情中上一页按钮显示的图标或文本。
+
+- **默认值:** `'‹'`
+
+- **示例:** [Pagination Text](https://examples.bootstrap-table.com/#options/pagination-text.html)
+
+## paginationSuccessivelySize
+
+- **属性:** `data-pagination-successively-size`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  一行中最大连续页数。
+
+- **默认值:** `5`
+
+- **示例:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
+
+## paginationUseIntermediate
+
+- **属性:** `data-pagination-use-intermediate`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  计算并显示中间页面以便快速访问。
+
+- **默认值:** `false`
+
+- **示例:** [Pagination Index Number](https://examples.bootstrap-table.com/#options/pagination-index-number.html)
+
+## paginationVAlign
+
+- **属性:** `data-pagination-v-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置分页的垂直对齐方式。可使用 `'top'`（顶部）、`'bottom'`（底部）或 `'both'`（顶部和底部）。
+
+- **默认值:** `'bottom'`
+
+- **示例:** [Pagination V Align](https://examples.bootstrap-table.com/#options/pagination-v-align.html)
+
+## queryParams
+
+- **属性:** `data-query-params`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  请求远程数据时，可以通过修改 queryParams 发送附加参数。
+
+  如果 `queryParamsType = 'limit'`，params 对象包含：`limit`、`offset`、`search`、`sort`、`order`。
+
+  否则，它包含：`pageSize`、`pageNumber`、`searchText`、`sortName`、`sortOrder`。
+
+  返回 `false` 以停止请求。
+
+- **默认值:** `function(params) { return params }`
+
+- **示例:** [Query Params](https://examples.bootstrap-table.com/#options/query-params.html)
+
+## queryParamsType
+
+- **属性:** `data-query-params-type`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置 `'limit'` 以发送 RESTFul 类型的查询参数。
+
+- **默认值:** `'limit'`
+
+- **示例:** [Query Params Type](https://examples.bootstrap-table.com/#options/query-params-type.html)
+
+## regexSearch
+
+- **属性:** `data-regex-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以启用正则表达式搜索。
+  如果启用此选项，您可以使用正则表达式搜索，例如 `[47a]$` 搜索所有以 `4`、`7` 或 `a` 结尾的项目。
+  正则表达式可以使用 `/[47a]$/gim` 或不带 `[47a]$` 标志输入。默认标志是 `gim`。
+
+
+- **默认值:** `false`
+
+- **示例:** [Regex Search](https://examples.bootstrap-table.com/#options/regex-search.html)
+
+## rememberOrder
+
+- **属性:** `data-remember-order`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以记住每列的顺序。
+
+- **默认值:** `false`
+
+- **示例:** [Remember Order](https://examples.bootstrap-table.com/#options/remember-order.html)
+
+## responseHandler
+
+- **属性:** `data-response-handler`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  在加载远程数据之前，处理响应数据格式。参数对象包含：
+
+  * `res`：响应数据。
+  * `jqXHR`：jqXHR 对象，它是 XMLHTTPRequest 对象的超集。有关更多信息，请参阅 [jqXHR 类型](http://api.jquery.com/Types/#jqXHR)。
+
+- **默认值:** `function(res) { return res }`
+
+- **示例:** [Response Handler](https://examples.bootstrap-table.com/#options/response-handler.html)
+
+## rowAttributes
+
+- **属性:** `data-row-attributes`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  行属性格式化函数，接受两个参数：
+
+  * `row`：行记录数据。
+  * `index`：行索引。
+
+  支持所有自定义属性。
+
+- **默认值:** `{}`
+
+- **示例:** [Row Attributes](https://examples.bootstrap-table.com/#options/row-attributes.html)
+
+## rowStyle
+
+- **属性:** `data-row-style`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  行样式格式化函数，接受两个参数：
+
+  * `row`：行记录数据。
+  * `index`：行索引。
+
+  支持 classes 或 css。
+
+- **默认值:** `{}`
+
+- **示例:** [Row Style](https://examples.bootstrap-table.com/#options/row-style.html)
+
+## search
+
+- **属性:** `data-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  启用搜索输入。
+
+  有三种搜索方式：
+  - 值包含搜索查询（默认）。
+    示例：Github 包含 git。
+  - 值必须与搜索查询相同。
+    示例：Github（值）和 Github（搜索查询）。
+  - 比较（`<`、`>`、`<=`、`=<`、`>=`、`=>`）。
+    示例：4 大于 3。
+
+  注意：
+  - 如果要使用自定义搜索输入，请使用 [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector)。
+  - 您也可以使用 [regexSearch](https://bootstrap-table.com/docs/api/table-options/#regexSearch) 选项通过正则表达式搜索。
+  - 如果要向服务器端分页发送可搜索参数，请使用 [searchable](https://bootstrap-table.com/docs/api/table-options/#searchable) 选项。
+
+- **默认值:** `false`
+
+- **示例:** [Table Search](https://examples.bootstrap-table.com/#options/table-search.html)
+
+## searchable
+
+- **属性:** `data-searchable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在使用服务器端分页时向服务器发送[可搜索参数](https://bootstrap-table.com/docs/api/column-options/#searchable)。
+
+- **默认值:** `false`
+
+- **示例:** [Searchable](https://examples.bootstrap-table.com/#options/searchable.html)
+
+## searchAccentNeutralise
+
+- **属性:** `data-search-accent-neutralise`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  如果要使用重音中性化功能，请设置为 `true`。
+
+- **默认值:** `false`
+
+- **示例:** [Search Accent Neutralise](https://examples.bootstrap-table.com/#options/search-accent-neutralise.html)
+
+## searchAlign
+
+- **属性:** `data-search-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置搜索输入框的对齐方式。可使用 `'left'`（左对齐）或 `'right'`（右对齐）。
+
+- **默认值:** `'right'`
+
+- **示例:** [Search Align](https://examples.bootstrap-table.com/#options/search-align.html)
+
+## searchHighlight
+
+- **属性:** `data-search-highlight`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以突出显示搜索的文本（使用 `<mark>` HTML 标签）。
+  您也可以定义[自定义高亮格式化程序](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter)，例如，对于带有 HTML 的值或使用自定义高亮颜色。
+
+- **默认值:** `'false'`
+
+- **示例:** [Search Highlight](https://examples.bootstrap-table.com/#options/search-highlight.html)
+
+## searchOnEnterKey
+
+- **属性:** `data-search-on-enter-key`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  搜索方法将执行，直到按下 Enter 键。
+
+- **默认值:** `false`
+
+- **示例:** [Search On Enter Key](https://examples.bootstrap-table.com/#options/search-on-enter-key.html)
+
+## searchSelector
+
+- **属性:** `data-search-selector`
+
+- **类型:** `Boolean|String`
+
+- **详情:**
+
+  如果设置此选项（必须是有效的 dom 选择器，例如 `#customSearch`），找到的 dom 元素（一个 `input` 元素）将用作表格搜索，而不是内置搜索输入。
+
+- **默认值:** `false`
+
+- **示例:** [Search Selector](https://examples.bootstrap-table.com/#options/search-selector.html)
+
+## searchText
+
+- **属性:** `data-search-text`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置搜索属性时，初始化搜索文本。
+
+- **默认值:** `''`
+
+- **示例:** [Search Text](https://examples.bootstrap-table.com/#options/search-text.html)
+
+## searchTimeOut
+
+- **属性:** `data-search-time-out`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置搜索触发的超时时间。
+
+- **默认值:** `500`
+
+- **示例:** [Search Time Out](https://examples.bootstrap-table.com/#options/search-time-out.html)
+
+## selectItemName
+
+- **属性:** `data-select-item-name`
+
+- **类型:** `String`
+
+- **详情:**
+
+  单选框或复选框输入的名称。
+
+- **默认值:** `'btSelectItem'`
+
+- **示例:** [Id Field](https://examples.bootstrap-table.com/#options/id-field.html)
+
+## serverSort
+
+- **属性:** `data-server-sort`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 以在客户端对数据进行排序，仅在 `sidePagination` 为 `server` 时有效。
+
+- **默认值:** `true`
+
+- **示例:** [Server Sort](https://examples.bootstrap-table.com/#options/server-sort.html)
+
+## showButtonIcons
+
+- **属性:** `data-show-button-icons`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  所有按钮显示图标。
+
+- **默认值:** `true`
+
+- **示例:** [show button icons](https://examples.bootstrap-table.com/#options/show-button-icons.html)
+
+## showButtonText
+
+- **属性:** `data-show-button-text`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  所有按钮显示文本。
+
+- **默认值:** `false`
+
+- **示例:** [show button text](https://examples.bootstrap-table.com/#options/show-button-text.html)
+
+## showColumns
+
+- **属性:** `data-show-columns`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示列下拉列表。我们可以将 [`switchable`](/docs/api/column-options/#switchable) 列选项设置为 `false` 以隐藏下拉列表中的列项。所选列的最小数量可以通过 [minimumCountColumns](/docs/api/table-options/#minimumcountcolumns) 表格选项控制。
+
+- **默认值:** `false`
+
+- **示例:** [Basic Columns](https://examples.bootstrap-table.com/#options/basic-columns.html) and [Large Columns](https://examples.bootstrap-table.com/#options/large-columns.html)
+
+## showColumnsSearch
+
+- **属性:** `data-show-columns-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示列过滤器的搜索。
+
+- **默认值:** `false`
+
+- **示例:** [Columns Search](https://examples.bootstrap-table.com/#options/columns-search.html)
+
+## showColumnsToggleAll
+
+- **属性:** `data-show-columns-toggle-all`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在列选项/下拉列表中显示全选复选框。
+
+- **默认值:** `false`
+
+- **示例:** [Columns Toggle All](https://examples.bootstrap-table.com/#options/columns-toggle-all.html)
+
+## showExtendedPagination
+
+- **属性:** `data-show-extended-pagination`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示分页的扩展版本（包括所有无过滤器的行数）。
+  如果在服务器端使用分页，请使用 `totalNotFilteredField` 定义计数。
+
+- **默认值:** `false`
+
+- **示例:** [Show Extended Pagination](https://examples.bootstrap-table.com/#options/show-extended-pagination.html)
+
+## showFooter
+
+- **属性:** `data-show-footer`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示摘要页脚行。
+
+- **默认值:** `false`
+
+- **示例:** [Show Footer](https://examples.bootstrap-table.com/#options/show-footer.html)
+
+## showFullscreen
+
+- **属性:** `data-show-fullscreen`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示全屏按钮。
+
+- **默认值:** `false`
+
+- **示例:** [Show Fullscreen](https://examples.bootstrap-table.com/#options/show-fullscreen.html)
+
+## showHeader
+
+- **属性:** `data-show-header`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 以隐藏表格标题。
+
+- **默认值:** `true`
+
+- **示例:** [Show Header](https://examples.bootstrap-table.com/#options/show-header.html)
+
+## showPaginationSwitch
+
+- **属性:** `data-show-pagination-switch`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示分页切换按钮。
+
+- **默认值:** `false`
+
+- **示例:** [Show Pagination Switch](https://examples.bootstrap-table.com/#options/show-pagination-switch.html)
+
+## showRefresh
+
+- **属性:** `data-show-refresh`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示刷新按钮。
+
+- **默认值:** `false`
+
+- **示例:** [Show Refresh](https://examples.bootstrap-table.com/#options/show-refresh.html)
+
+## showSearchButton
+
+- **属性:** `data-show-search-button`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在搜索输入后显示搜索按钮。
+  启用后，搜索操作仅在用户点击搜索按钮时执行，而不是在输入时自动触发。这有助于减少不必要的网络请求和服务器负载，特别是在处理大量数据或网络环境较慢的情况下。
+
+- **默认值:** `false`
+
+- **示例:** [Show Search Button](https://examples.bootstrap-table.com/#options/show-search-button.html)
+
+## showSearchClearButton
+
+- **属性:** `data-show-search-clear-button`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在搜索输入后显示清除按钮，该按钮将清除搜索输入（也包括过滤器控件中的所有过滤器（如果启用））。
+
+- **默认值:** `false`
+
+- **示例:** [Show Search Clear Button](https://examples.bootstrap-table.com/#options/show-search-clear-button.html)
+
+## showToggle
+
+- **属性:** `data-show-toggle`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以显示切换按钮以切换表格/卡片视图。
+
+- **默认值:** `false`
+
+- **示例:** [Show Toggle](https://examples.bootstrap-table.com/#options/show-toggle.html)
+
+## sidePagination
+
+- **属性:** `data-side-pagination`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义表格的分页侧，只能是 `'client'` 或 `'server'`。
+  使用 `'server'` 侧需要设置 `'url'` 或 `'ajax'` 选项。
+
+  请注意，所需的服务器响应格式根据 `'sidePagination'` 选项设置为 `'client'` 还是 `'server'` 而不同。请参阅以下示例：
+
+  * [无服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
+  * [有服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+
+  **URL 参数：**
+
+  当 `sidePagination` 设置为 `server` 时，bootstrap table 将使用以下 URL 参数调用 `url`：
+
+  - `offset` 值介于 0 和 `total` - 1 之间，指定要包含的第一条记录。
+  - `limit` 值指定每页的行数。
+
+  实现服务器端分页时，您必须实现类似[此示例](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data)格式的 JSON 视图。该视图必须采用上面指定的 URL 参数值，并返回从 `offset` 索引开始的记录，以及由 `limit` 指定的记录数。例如，如果您想要记录 11-20，您的视图必须从 URL 字符串获取 `offset=10` 和 `limit=10`，并返回类似[此示例](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10)的记录。
+
+- **默认值:** `'client'`
+
+- **示例:** [Client Side Pagination](https://examples.bootstrap-table.com/#options/client-side-pagination.html) and [Server Side Pagination](https://examples.bootstrap-table.com/#options/server-side-pagination.html)
+
+## silentSort
+
+- **属性:** `data-silent-sort`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 以使用加载消息对数据进行排序。此选项在 sidePagination 选项设置为 `'server'` 时有效。
+
+- **默认值:** `true`
+
+- **示例:** [Silent Sort](https://examples.bootstrap-table.com/#options/silent-sort.html)
+
+## singleSelect
+
+- **属性:** `data-single-select`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以允许复选框仅选择一行。
+
+- **默认值:** `false`
+
+- **示例:** [Single Select](https://examples.bootstrap-table.com/#options/single-select.html)
+
+## smartDisplay
+
+- **属性:** `data-smart-display`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以智能显示分页或卡片视图。
+
+- **默认值:** `true`
+
+- **示例:** [Smart Display](https://examples.bootstrap-table.com/#options/smart-display.html)
+
+## sortable
+
+- **属性:** `data-sortable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `false` 以禁用所有列的排序。
+
+- **默认值:** `true`
+
+- **示例:** [Table Sortable](https://examples.bootstrap-table.com/#options/table-sortable.html)
+
+## sortClass
+
+- **属性:** `data-sort-class`
+
+- **类型:** `String`
+
+- **详情:**
+
+  已排序的 `td` 元素的类名。
+
+- **默认值:** `undefined`
+
+- **示例:** [Sort Class](https://examples.bootstrap-table.com/#options/sort-class.html)
+
+## sortEmptyLast
+
+- **属性:** `data-sort-empty-last`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以将 `<空字符串>`、`undefined` 和 `null` 排序为最后一个值。
+
+- **默认值:** `false`
+
+- **示例:** [Sort Empty Last](https://examples.bootstrap-table.com/#options/sort-empty-last.html)
+
+## sortName
+
+- **属性:** `data-sort-name`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定要排序的列。此属性字段通常与 `sortOrder` 一起使用，两者应结合使用以实现正确的排序功能。
+
+- **默认值:** `undefined`
+
+- **示例:** [Sort Name Order](https://examples.bootstrap-table.com/#options/sort-name-order.html)
+
+## sortOrder
+
+- **属性:** `data-sort-order`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义列排序顺序，只能是 `undefined`、`'asc'` 或 `'desc'`。此属性字段通常与 `sortName` 一起使用，两者应结合使用以实现正确的排序功能。
+
+- **默认值:** `undefined`
+
+- **示例:** [Sort Name Order](https://examples.bootstrap-table.com/#options/sort-name-order.html)
+
+## sortReset
+
+- **属性:** `data-sort-reset`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在第三次点击时重置排序。
+
+- **默认值:** `false`
+
+- **示例:** [Sort Reset](https://examples.bootstrap-table.com/#options/sort-reset.html)
+
+## sortResetPage
+
+- **属性:** `data-sort-reset-page`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以在排序时重置页码。
+
+- **默认值:** `false`
+
+- **示例:** [Sort Reset Page](https://examples.bootstrap-table.com/#options/sort-reset-page.html)
+
+## sortStable
+
+- **属性:** `data-sort-stable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以获得稳定的排序。我们将向行添加 `'_position'` 属性。
+
+- **默认值:** `false`
+
+- **示例:** [Sort Stable](https://examples.bootstrap-table.com/#options/sort-stable.html)
+
+## strictSearch
+
+- **属性:** `data-strict-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  启用严格搜索。
+  禁用比较检查。
+
+- **默认值:** `false`
+
+- **示例:** [Strict Search](https://examples.bootstrap-table.com/#options/strict-search.html)
+
+## theadClasses
+
+- **属性:** `data-thead-classes`
+
+- **类型:** `String`
+
+- **详情:**
+
+  表格 thead 的类名。Bootstrap 使用修饰符类 `.thead-light` 或 `.thead-dark` 使 thead 显示为浅灰色或深灰色。
+
+- **默认值:** `''`
+
+- **示例:** [Thead Classes](https://examples.bootstrap-table.com/#options/thead-classes.html)
+
+## toolbar
+
+- **属性:** `data-toolbar`
+
+- **类型:** `String/Node`
+
+- **详情:**
+
+  指定工具栏的 jQuery 选择器，例如：`#toolbar`、`.toolbar`，或一个 DOM 节点。
+
+- **默认值:** `undefined`
+
+- **示例:** [Custom Toolbar](https://examples.bootstrap-table.com/#options/custom-toolbar.html)
+
+## toolbarAlign
+
+- **属性:** `data-toolbar-align`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置自定义工具栏的对齐方式。可使用 `'left'`（左对齐）或 `'right'`（右对齐）。
+
+- **默认值:** `'left'`
+
+- **示例:** [Toolbar Align](https://examples.bootstrap-table.com/#options/toolbar-align.html)
+
+## totalField
+
+- **属性:** `data-total-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定传入 JSON 中包含 `'total'` 数据列表的键名。
+
+- **默认值:** `'total'`
+
+- **示例:** [Total/Data Field](https://examples.bootstrap-table.com/#options/total-data-field.html)
+
+## totalNotFiltered
+
+- **属性:** `data-total-not-filtered`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  此属性主要由分页服务器传入，易于使用。
+
+- **默认值:** `0`
+
+## totalNotFilteredField
+
+- **属性:** `data-total-not-filtered-field`
+
+- **类型:** `string`
+
+- **详情:**
+
+  JSON 响应中的字段将用于 `showExtendedPagination`。
+
+- **默认值:** `totalNotFiltered`
+
+- **示例:** [Total Not Filtered Field](https://examples.bootstrap-table.com/#options/total-not-filtered-field.html)
+
+## totalRows
+
+- **属性:** `data-total-rows`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  此属性主要由分页服务器传入，易于使用。
+
+- **默认值:** `0`
+
+## trimOnSearch
+
+- **属性:** `data-trim-on-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以修剪搜索字段中的空格。
+
+- **默认值:** `true`
+
+- **示例:** [Trim On Search](https://examples.bootstrap-table.com/#options/trim-on-search.html)
+
+## undefinedText
+
+- **属性:** `data-undefined-text`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义默认的 `undefined` 文本。
+
+- **默认值:** `'-'`
+
+- **示例:** [Undefined Text](https://examples.bootstrap-table.com/#options/undefined-text.html)
+
+## uniqueId
+
+- **属性:** `data-unique-id`
+
+- **类型:** `String`
+
+- **详情:**
+
+  为每行指定唯一标识符。
+  唯一 ID 应始终对 html 安全，例如字母数字，不应包含可能破坏 html 的字符，例如 `"`。
+
+- **默认值:** `undefined`
+
+- **示例:** [getRowByUniqueId](https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html)
+
+## url
+
+- **属性:** `data-url`
+
+- **类型:** `String`
+
+- **详情:**
+
+  从远程站点请求数据的 URL。
+
+  请注意，所需的服务器响应格式根据是否指定了 `'sidePagination'` 选项而不同。请参阅以下示例：
+
+  * [无服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
+  * [有服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+
+  **URL 参数：**
+
+  当 `sidePagination` 设置为 `server` 时，bootstrap table 将使用以下 URL 参数调用 `url`：
+
+  - `offset` 值介于 0 和 `total` - 1 之间，指定要包含的第一条记录。
+  - `limit` 值指定每页的行数。
+
+  实现服务器端分页时，您必须实现类似[此示例](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data)格式的 JSON 视图。该视图必须采用上面指定的 URL 参数值，并返回从 `offset` 索引开始的记录，以及由 `limit` 指定的记录数。例如，如果您想要记录 11-20，您的视图必须从 URL 字符串获取 `offset=10` 和 `limit=10`，并返回类似[此示例](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10)的记录。
+
+- **默认值:** `undefined`
+
+- **示例:** [From URL](https://examples.bootstrap-table.com/#welcomes/from-url.html)
+
+- **错误处理**
+
+  要获取加载错误，请使用 [onLoadError](https://bootstrap-table.com/docs/api/events/#onloaderror)
+
+## virtualScroll
+
+- **属性:** `data-virtual-scroll`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以启用虚拟滚动来显示虚拟的"无限"列表。
+
+  **注意：** 目前的实现需要每行具有相同的高度。如果行的高度不同，可能会出现不可预测的错误。请确保每行的高度一致，或应用样式 `td { white-space: nowrap; }` 来解决此问题。
+
+- **默认值:** `false`
+
+- **示例:** [Large Data](https://examples.bootstrap-table.com/#options/large-data.html)
+
+## virtualScrollItemHeight
+
+- **属性:** `data-virtual-scroll-item-height`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  如果未定义此选项，默认情况下我们将使用第一项的高度。
+
+  如果虚拟项目高度明显大于默认高度，提供此选项是**重要**的。此维度用于帮助确定初始化时应创建多少个单元格，并帮助计算可滚动区域的高度。此高度值只能使用 `px` 单位。
+
+- **默认值:** `undefined`
+
+## visibleSearch
+
+- **属性:** `data-visible-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 以仅在可见列/数据中搜索。如果数据包含其他未显示的值，它们在搜索时将被忽略。
+
+- **默认值:** `false`
+
+- **示例:** [visible search](https://examples.bootstrap-table.com/#options/visible-search.html)
