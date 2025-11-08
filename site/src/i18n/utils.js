@@ -1,4 +1,4 @@
-import { defaultLocale, ui } from './ui'
+import { defaultLocale, locales, ui } from './ui'
 import Config from '@/config.js'
 
 /**
@@ -79,5 +79,66 @@ export function useTranslations (locale) {
     }
 
     return translation
+  }
+}
+
+/**
+ * Extracts path segments without locale prefix
+ * @param {string} pathname - Current location pathname
+ * @returns {string[]} Segments excluding locale code
+ */
+function getBaseSegments (pathname) {
+  const segments = pathname.split('/').filter(Boolean)
+  const localeKeys = Object.keys(locales)
+
+  return localeKeys.includes(segments[0]) ? segments.slice(1) : segments
+}
+
+/**
+ * Checks whether a pathname ends with a slash
+ * @param {string} pathname - Current location pathname
+ * @returns {boolean} True when pathname ends with '/'
+ */
+function hasTrailingSlash (pathname) {
+  return pathname !== '/' && pathname.endsWith('/')
+}
+
+/**
+ * Builds a localized path for the provided locale
+ * @param {string} pathname - Current location pathname
+ * @param {string} targetLocale - Locale to link to
+ * @returns {string} Localized URL preserving trailing slash
+ */
+export function getLocalizedPath (pathname, targetLocale) {
+  const baseSegments = getBaseSegments(pathname)
+  const trailingSlash = hasTrailingSlash(pathname)
+
+  if (!baseSegments.length) {
+    return targetLocale === defaultLocale ? '/' : `/${targetLocale}/`
+  }
+
+  const basePath = `/${baseSegments.join('/')}${trailingSlash ? '/' : ''}`
+  const prefix = targetLocale === defaultLocale ? '' : `/${targetLocale}`
+
+  return `${prefix}${basePath}`
+}
+
+/**
+ * Generates language menu metadata for the navbar
+ * @param {string} pathname - Current location pathname
+ * @param {string} currentLocale - Active locale code
+ * @returns {{ menu: Array<{code: string, label: string, href: string, isActive: boolean}>, currentLabel: string }} Menu items and active label
+ */
+export function getLanguageMenu (pathname, currentLocale) {
+  const languageMenu = Object.entries(locales).map(([code, label]) => ({
+    code,
+    label,
+    href: getLocalizedPath(pathname, code),
+    isActive: code === currentLocale
+  }))
+
+  return {
+    menu: languageMenu,
+    currentLabel: locales[currentLocale] || locales[defaultLocale]
   }
 }
