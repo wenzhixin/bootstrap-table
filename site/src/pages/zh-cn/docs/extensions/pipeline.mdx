@@ -1,0 +1,91 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Pipeline
+description: Bootstrap Table 的数据管道扩展，为服务端请求提供客户端数据缓存，优化分页性能。
+group: extensions
+toc: true
+---
+
+该扩展为服务端分页请求提供客户端数据缓存功能，从而避免每次翻页都发起新的服务端请求。它在处理海量数据时提供了一种性能折中方案，介于以下两种极端情况之间：
+- 客户端分页：一次性返回全部数据到客户端
+- 服务端分页：每次翻页都重新从服务端获取数据
+
+新增两个核心选项：
+- `usePipeline`：启用数据管道缓存功能
+- `pipelineSize`：设置每个缓存窗口的大小
+
+### 缓存窗口说明
+缓存窗口大小必须能被当前每页条数整除；插件会自动向上调整为最接近且可整除的值。例如：
+- 若管道大小设置为 4990，每页显示 25 条，则会动态调整为 5000
+
+缓存窗口会根据 `pipelineSize` 与服务端返回的总行数自动计算。例如缓存大小为 500，总行数为 1300，则会生成以下缓存窗口：
+
+```json
+[
+  {
+    "lower": 0,
+    "upper": 499
+  },
+  {
+    "lower": 500,
+    "upper": 999
+  },
+  {
+    "lower": 1000,
+    "upper": 1499
+  }
+]
+```
+
+### 服务端要求
+服务端接口必须支持根据 `limit`（即 `pipelineSize`）与 `offset` 参数返回指定范围的数据，并同时返回总行数。因此服务端需要使用 offset 和 limit 来组装响应数据。
+
+### 缓存使用机制
+翻页时会检查新的 offset 是否仍处于当前缓存窗口：
+- 若在窗口内，则直接返回本地缓存数据
+- 否则会向服务端请求新的缓存窗口数据
+
+### 缓存失效条件
+以下情况会使当前缓存失效并发起新的服务端请求：
+- 排序操作
+- 搜索操作
+- 每页条数变更
+- 翻页进入新的缓存窗口
+
+### 新增事件
+- `cached-data-hit.bs.table`：当翻页命中本地缓存数据时触发
+- `cached-data-reset.bs.table`：当缓存失效并需要发起新的服务端请求时触发
+
+## 用法
+
+```html
+<script src="extensions/pipeline/bootstrap-table-pipeline.js"></script>
+```
+
+## 示例
+
+[Pipeline](https://examples.bootstrap-table.com/#extensions/pipeline.html)
+
+## 选项
+
+### pipelineSize
+
+* 类型：`Number`
+* 说明：每个缓存窗口的大小，必须大于 0。
+* 默认值：`1000`
+
+### usePipeline
+
+* 类型：`Boolean`
+* 说明：设为 `true` 启用管道缓存。
+* 默认值：`false`
+
+## 事件
+
+### onCachedDataHit (cached-data-hit.bs.table)
+
+* 当翻页命中本地缓存数据时触发。
+
+### onCachedDataReset (cached-data-reset.bs.table)
+
+* 当需要重置本地缓存（如排序、搜索、页大小变化或翻页超出当前缓存窗口）时触发。

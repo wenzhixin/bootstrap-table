@@ -1,0 +1,39 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table i18n Enhance
+description: Bootstrap Table 的国际化增强扩展，提供表格语言动态切换和列标题修改功能。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<script src="extensions/i18n-enhance/bootstrap-table-i18n-enhance.js"></script>
+```
+
+## 示例
+
+[i18n Enhance](https://examples.bootstrap-table.com/#extensions/i18n-enhance.html)
+
+## 方法
+
+### changeLocale
+
+动态切换表格的显示语言。
+
+* 参数：`localeId` - 目标语言的标识符
+* 示例：`$table.bootstrapTable('changeLocale', 'zh_TW')`
+
+### changeTitle
+
+修改指定列的标题。
+
+* 参数：`object` - 配置对象，键为列的字段名，值为新的标题文本
+* 示例：
+```js
+$table.bootstrapTable('changeTitle', {
+  columnA.field: 'New column A title.',
+  columnB.field: 'New column B title.'
+})
+```

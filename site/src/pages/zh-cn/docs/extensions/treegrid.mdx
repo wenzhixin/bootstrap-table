@@ -1,0 +1,82 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Treegrid
+description: Bootstrap Table 的树形网格扩展，允许展示具有父子关系的数据。
+group: extensions
+toc: true
+---
+
+## 依赖项
+该扩展依赖 [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0 库。
+
+## 用法
+
+```html
+<script src="extensions/treegrid/bootstrap-table-treegrid.js"></script>
+```
+
+## 示例
+
+[Treegrid](https://examples.bootstrap-table.com/#extensions/treegrid.html)
+
+## 选项
+
+### treeEnable
+
+- **属性:** `data-tree-enable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用树形网格功能。设置为 `true` 时，表格将以树形结构展示具有父子关系的数据。
+
+- **默认值:** `false`
+
+### idField
+
+- **属性:** `data-id-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  自定义主键字段名，用于标识每条数据的唯一 ID。
+
+- **默认值:** `'id'`
+
+### parentIdField
+
+- **属性:** `data-parent-id-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置父节点 ID 的字段名，用于建立数据之间的父子关系。
+
+- **默认值:** `'pid'`
+
+### treeShowField
+
+- **属性:** `data-tree-show-field`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定用于展示树形结构的字段名。设置该选项后，会自动启用树形网格功能。
+
+- **默认值:** `''`
+
+### rootParentId
+
+- **属性:** `data-root-parent-id`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置根节点的父 ID 值。所有父 ID 等于此值的数据都将被视为顶级节点。
+
+- **默认值:** `null`

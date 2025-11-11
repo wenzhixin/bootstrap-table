@@ -1,0 +1,171 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Export
+description: Bootstrap Table 的数据导出扩展，支持多种格式导出。
+group: extensions
+toc: true
+---
+
+数据导出扩展可以将表格数据导出为多种格式，包括 Excel、PDF、CSV 等。
+
+## 依赖插件
+
+本扩展依赖 [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)。
+
+> **注意**：某些导出格式可能需要额外的配置或依赖库，请参考上述文档进行配置。
+
+## 用法
+
+```html
+<script src="extensions/export/bootstrap-table-export.js"></script>
+```
+
+## 示例
+
+[Export](https://examples.bootstrap-table.com/#extensions/export.html)
+
+## 选项
+
+### showExport
+
+- **属性:** `data-show-export`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否在工具栏显示导出按钮。设置为 `true` 时，用户可以通过点击导出按钮下载表格数据。
+
+- **默认值:** `false`
+
+### exportDataType
+
+- **属性:** `data-export-data-type`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置导出数据的范围：
+  * `'basic'`：仅导出当前页数据
+  * `'all'`：导出所有数据
+  * `'selected'`：仅导出选中的行
+
+- **默认值:** `basic`
+
+### exportFooter
+
+- **属性:** `data-export-footer`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否同时导出表格页脚。设置为 `true` 时，表格的页脚行也会包含在导出的文件中。
+
+- **默认值:** `false`
+
+### exportOptions
+
+- **属性:** `data-export-options`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  传递给 `tableExport.jquery.plugin` 的[导出配置选项](https://github.com/hhurz/tableExport.jquery.plugin#options)。
+
+  其中 `exportOptions.fileName` 可以是字符串或函数，用于设置导出文件的名称：
+
+  ```js
+  exportOptions: {
+    fileName: function () {
+      return 'exportName'
+    }
+  }
+  ```
+
+### exportTypes
+
+- **属性:** `data-export-types`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  设置可用的导出格式列表。支持的格式包括：
+  `json`、`xml`、`png`、`csv`、`txt`、`sql`、`doc`、`excel`、`xlsx`、`pdf` 等。
+
+- **默认值:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+
+### 图标配置
+
+- `export`: `'glyphicon-export icon-share'`（导出按钮图标）
+
+## 列选项
+
+### forceExport
+
+- **属性:** `data-force-export`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时强制导出该列（例如隐藏列）。
+
+- **默认值:** `false`
+
+### forceHide
+
+- **属性:** `data-force-hide`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时在导出时强制隐藏该列（例如图标列）。
+
+- **默认值:** `false`
+
+## 事件
+
+### onExportSaved
+
+- **jQuery 事件:** `export-saved.bs.table`
+
+- **参数:** `exportedRows`
+
+- **详情:**
+
+  数据导出完成时触发，参数包含：
+
+  * `exportedRows`：已导出的行（取决于 `exportDataType`）。
+
+### onExportStarted
+
+- **jQuery 事件:** `export-started.bs.table`
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  数据收集并导出之前触发。
+
+## 方法
+
+### exportTable
+
+- **参数:** `options`
+
+- **详情:**
+
+  使用自定义选项导出表格。
+
+## 本地化
+
+### formatExport
+
+- **参数:** `undefined`
+
+- **默认值:** `function () { return "Export data" }`

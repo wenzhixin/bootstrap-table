@@ -1,0 +1,89 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Toolbar
+description: Bootstrap Table 的工具栏扩展，提供高级搜索和自定义工具栏功能。
+group: extensions
+toc: true
+---
+
+工具栏扩展为表格添加高级搜索功能和自定义工具栏，支持复杂的多条件搜索和弹出表单操作。
+
+## 用法
+
+```html
+<script src="extensions/toolbar/bootstrap-table-toolbar.js"></script>
+```
+
+## 示例
+
+[Advanced Toolbar](https://examples.bootstrap-table.com/#extensions/toolbar.html)
+
+## 选项
+
+### advancedSearch
+
+- **属性:** `data-advanced-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用高级搜索功能。设置为 `true` 时，表格工具栏将显示高级搜索按钮，点击可弹出复杂的多条件搜索表单。
+
+- **默认值:** `false`
+
+### actionForm
+
+- **属性:** `data-action-form`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置弹出表单的 `action`。
+
+- **默认值:** `''`
+
+### idForm
+
+- **属性:** `data-id-form`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定表单的 id。
+
+- **默认值:** `advancedSearch`
+
+### idTable
+
+- **属性:** `data-id-table`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定用于生成弹出表单的表格 id（必填）。
+
+- **默认值:** `''`
+
+## 事件
+
+### onColumnAdvancedSearch (column-advanced-search.bs.table)
+
+* 当用户在高级搜索表单中执行搜索操作时触发此事件。
+
+## 本地化
+
+### formatAdvancedCloseButton
+
+- **详情:** 设置高级搜索弹窗中关闭按钮的显示文本
+
+- **默认值:** `function () { return "Close" }`
+
+### formatAdvancedSearch
+
+- **详情:** 设置高级搜索弹窗的标题文本
+
+- **默认值:** `function () { return "Advanced Search" }`
