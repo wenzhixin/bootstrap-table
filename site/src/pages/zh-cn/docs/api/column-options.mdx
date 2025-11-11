@@ -45,7 +45,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设为 `false` 可在卡片视图状态下隐藏该列项。
+  设为 `false` 可在卡片视图模式下隐藏该列。
 
 - **默认值:** `true`
 
@@ -82,7 +82,7 @@ $('#table').bootstrapTable({
 
   设为 `true` 时显示复选框。复选框列具有固定宽度。
 
-  如果提供了值，则会自动勾选该复选框。也可以通过 formatter 控制复选框的状态（返回 `true` 勾选，返回 `false` 取消勾选）。
+  如果提供了值，会自动勾选该复选框。也可通过 formatter 控制复选框状态（返回 `true` 勾选，返回 `false` 取消勾选）。
 
 - **默认值:** `false`
 
@@ -152,9 +152,9 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  当 `detailView` 和 `detailViewByClick` 均设置为 `true` 时，此函数用于格式化详情视图。它可以返回一个字符串，该内容将被追加到详情视图单元格中；也可以直接使用第三个参数（目标单元格的 jQuery 对象）来渲染元素。
+  当 `detailView` 和 `detailViewByClick` 均设为 `true` 时，此函数用于格式化详情视图。可返回字符串追加到详情视图单元格中，或直接使用第三个参数（目标单元格的 jQuery 对象）渲染元素。
 
-  如果未定义此函数，将回退使用表格级别的 `detail-formatter`。
+  未定义此函数时，将回退使用表格级别的 `detail-formatter`。
 
 - **默认值:** `function(index, row, $element) { return '' }`
 
@@ -238,16 +238,16 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  此函数执行时的上下文（this）指向列对象。
+  函数执行时的上下文（this）指向列对象。
 
-  该函数接收两个参数：
+  函数接收两个参数：
 
   * `data`：包含所有行数据的数组。
-  * `value`：如果设置了页脚数据，则为页脚列的值；否则为 undefined。
+  * `value`：设置页脚数据时为页脚列的值，否则为 undefined。
 
-  函数期望返回的数据类型为 `jQuery`、`String` 或 `HTMLElement`，其他类型将被强制转换为 `String`。
+  函数期望返回 `jQuery`、`String` 或 `HTMLElement` 类型，其他类型将强制转换为 `String`。
 
-  当从服务器获取数据并在响应中设置页脚值时，请使用 `footerField` 选项。
+  从服务器获取数据并在响应中设置页脚值时，请使用 `footerField` 选项。
 
 - **默认值:** `undefined`
 
@@ -288,7 +288,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  此函数执行时的上下文（this）指向列对象。
+  函数执行时的上下文（this）指向列对象。
 
   单元格格式化函数，接收四个参数：
 
@@ -297,7 +297,7 @@ $('#table').bootstrapTable({
   * `index`：当前行的索引。
   * `field`：当前字段的名称。
 
-  函数期望返回的数据类型为 `jQuery`、`String` 或 `HTMLElement`，其他类型将被强制转换为 `String`。
+  函数期望返回 `jQuery`、`String` 或 `HTMLElement` 类型，其他类型将强制转换为 `String`。
 
 - **默认值:** `undefined`
 
@@ -341,7 +341,7 @@ $('#table').bootstrapTable({
 
   设为 `true` 时显示单选框。单选框列具有固定宽度。
 
-  如果提供了值，则会自动选中该单选框。也可以通过 formatter 控制单选框的状态（返回 `true` 选中，返回 `false` 取消选中）。
+  如果提供了值，会自动选中该单选框。也可通过 formatter 控制单选框状态（返回 `true` 选中，返回 `false` 取消选中）。
 
 - **默认值:** `false`
 
@@ -397,7 +397,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义一个 `function`，为 [search highlight](https://bootstrap-table.com/docs/api/table-options/#searchhighlight) 选项提供自定义高亮格式化器。
+  定义自定义高亮格式化函数，为 [search highlight](https://bootstrap-table.com/docs/api/table-options/#searchhighlight) 选项提供高亮功能。
 
 - **默认值:** `true`
 
@@ -460,7 +460,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  提供一个自定义的排序字段名，而不是表头中的默认排序字段，或列的字段名。例如，一列可能显示字段名为 `html` 的值，如 `<b><span style="color:red">abc</span></b>`，但用于排序的字段名是值为 `'abc'` 的 `content`。
+  提供自定义排序字段名，替代表头中的默认排序字段或列字段名。例如，列显示字段名为 `html` 的值（如 `<b><span style="color:red">abc</span></b>`），但排序使用字段名为 `content` 的值（`'abc'`）。
 
 - **默认值:** `undefined`
 
@@ -560,7 +560,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  列的宽度。如果未设置，宽度会自动扩展以适配内容。但如果表格保持响应式并且尺寸过小，则可能忽略该 `'width'`（可通过类设置最小/最大宽度等）。默认使用的单位是 `px`，可通过 `widthUnit` 修改单位。
+  列的宽度。未设置时宽度自动扩展以适配内容。但如果表格保持响应式且尺寸过小，可能忽略 `'width'`（可通过类设置最小/最大宽度等）。默认单位为 `px`，可通过 `widthUnit` 修改。
 
 - **默认值:** `undefined`
 

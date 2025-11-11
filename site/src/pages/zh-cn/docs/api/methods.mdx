@@ -1,0 +1,752 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 方法
+description: Bootstrap Table 的方法 API。
+group: api
+toc: true
+---
+
+调用语法：`$('#table').bootstrapTable('method', parameter)`。
+
+**注意：** 下面的方法名称（例如 `append`、`check`、`getData`）是在通过 JavaScript 调用 Bootstrap Table 方法时使用的确切方法名。
+
+例如：`$('#table').bootstrapTable('append', data)`
+
+## append
+
+- **参数:** `data`
+
+- **详情:**
+
+  将 `data` 追加到表格中。
+
+- **示例:** [Append](https://examples.bootstrap-table.com/#methods/append.html)
+
+## check
+
+- **参数:** `index`
+
+- **详情:**
+
+  选中指定索引的行。行索引从 0 开始计数。
+
+- **示例:** [Check/Uncheck](https://examples.bootstrap-table.com/#methods/check-uncheck.html)
+
+## checkAll
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  选中当前页的全部行。
+
+- **示例:** [Check/Uncheck All](https://examples.bootstrap-table.com/#methods/check-uncheck-all.html)
+
+## checkBy
+
+- **参数:** `params`
+
+- **详情:**
+
+  根据指定字段的值数组选中匹配的行，`params` 包含以下属性：
+
+  * `field`：用于查找和匹配记录的字段名称。
+  * `values`：需要选中的行的字段值数组。
+  * `onlyCurrentPage`（默认值：`false`）：若为 `true`，仅选中当前页可见的数据；启用分页时会忽略其他页的数据。
+
+- **示例:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
+
+## checkInvert
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  反选当前页的行。会触发 `onCheckSome` 与 `onUncheckSome` 事件。
+
+- **示例:** [Check Invert](https://examples.bootstrap-table.com/#methods/check-invert.html)
+
+## collapseAllRows
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将折叠所有已展开的行。
+
+- **示例:** [Expand/Collapse All Rows](https://examples.bootstrap-table.com/#methods/expand-collapse-all-rows.html)
+
+## collapseRow
+
+- **参数:** `index`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将折叠传入 `index` 的行。
+
+- **示例:** [Expand/Collapse Row](https://examples.bootstrap-table.com/#methods/expand-collapse-row.html)
+
+## collapseRowByUniqueId
+
+- **参数:** `uniqueId`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将折叠传入 `uniqueId` 的行。
+
+- **示例:** [Expand/Collapse Row by uniqueId](https://examples.bootstrap-table.com/#methods/expand-collapse-row-by-uniqueid.html)
+
+## destroy
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  销毁 Bootstrap Table。
+
+- **示例:** [Destroy](https://examples.bootstrap-table.com/#methods/destroy.html)
+
+## expandAllRows
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将展开所有行。
+
+- **示例:** [Expand/Collapse All Rows](https://examples.bootstrap-table.com/#methods/expand-collapse-all-rows.html)
+
+## expandRow
+
+- **参数:** `index`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将展开传入 `index` 的行。
+
+- **示例:** [Expand/Collapse Row](https://examples.bootstrap-table.com/#methods/expand-collapse-row.html)
+
+## expandRowByUniqueId
+
+- **参数:** `uniqueId`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将展开传入 `uniqueId` 的行。
+
+- **示例:** [Expand/Collapse Row by uniqueId](https://examples.bootstrap-table.com/#methods/expand-collapse-row-by-uniqueid.html)
+
+## filterBy
+
+- **参数:**
+    - `filter` - 过滤条件对象，默认值：`{}`
+    - `options` - 选项对象，默认值：
+        ```javascript
+        {
+            'filterAlgorithm': 'and'
+        }
+        ```
+
+- **详情:**
+
+  （仅支持客户端模式）根据指定条件过滤表格数据。
+
+  **过滤方式包括：**
+  - 保持 `options` 为空时使用 `and` 过滤算法
+  - 将 `filterAlgorithm` 设为 `or` 使用"或"逻辑过滤
+  - 传入自定义函数作为 `filterAlgorithm` 实现高级过滤逻辑
+
+  **过滤算法详解**
+
+  - **And（与逻辑）**
+    - 示例：`{age: 10}` 仅显示年龄等于 10 的数据
+    - 支持数组值：`{age: 10, hairColor: ['blue', 'red', 'green']}` 查找年龄等于 10 且发色为蓝、红或绿的数据
+
+  - **Or（或逻辑）**
+    - 示例：`{age: 10, name: "santa"}` 会显示年龄为 10 **或** 名称为 santa 的全部数据
+
+  - **Custom（自定义算法）**
+    - 使用自定义函数实现复杂过滤逻辑
+    - 函数接收两个参数：
+        - `row`：当前行的数据对象
+        - `filters`：过滤条件对象
+    - 返回 `true` 保留该行，返回 `false` 则过滤掉该行
+
+- **示例:** [Filter By](https://examples.bootstrap-table.com/#methods/filter-by.html)
+
+## getData
+
+- **参数:** `params`
+
+- **详情:**
+
+  获取表格中已加载的数据。
+
+  * `useCurrentPage`：若为 `true`，只返回当前页数据。
+  * `includeHiddenRows`：若为 `true`，包含隐藏行。
+  * `unfiltered`：若为 `true`，返回所有数据（未过滤）。
+  * `formatted`：按已定义的 [formatter](https://bootstrap-table.com/docs/api/column-options/#formatter) 返回格式化值。
+
+- **示例:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
+
+## getFooterData
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  获取页脚中已加载的数据。
+
+- **示例:** [Get Footer Data](https://examples.bootstrap-table.com/#methods/get-footer-data.html)
+
+## getHiddenColumns
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  获取被隐藏的列。
+
+- **示例:** [Get Visible/Hidden Columns](https://examples.bootstrap-table.com/#methods/get-visible-hidden-columns.html)
+
+## getHiddenRows
+
+- **参数:** `show`
+
+- **详情:**
+
+  获取所有隐藏行。当参数 `show` 为 `true` 时，会同时显示这些隐藏行；若为 `false` 或未提供，则仅返回隐藏行的数据而不显示。
+
+- **示例:** [Get Hidden Rows](https://examples.bootstrap-table.com/#methods/get-hidden-rows.html)
+
+## getOptions
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  返回选项对象。
+
+- **示例:** [Get Options](https://examples.bootstrap-table.com/#methods/get-options.html)
+
+## getRowByUniqueId
+
+- **参数:** `id`
+
+- **详情:**
+
+  获取表格中包含传入 `id` 的行数据。
+
+- **示例:** [Get Row By Unique Id](https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html)
+
+## getScrollPosition
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  获取当前滚动位置，单位为 `'px'`。
+
+- **示例:** [Get Scroll Position](https://examples.bootstrap-table.com/#methods/get-scroll-position.html)
+
+## getSelections
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  返回所有已选中的行数据。当没有记录被选中时，返回空数组。
+
+  **注意：** 在执行搜索、切换页面或排序等操作时，已选中的行会被自动取消选择。如需在操作后保留选择状态，请配置 [maintainMetaData](https://bootstrap-table.com/docs/api/table-options/#maintainmetadata) 选项。
+
+- **示例:** [Get Selections](https://examples.bootstrap-table.com/#methods/get-selections.html)
+
+## getVisibleColumns
+
+- **参数:** `-`
+
+- **详情:**
+
+  获取可见列。
+
+- **示例:** [Get Visible/Hidden Columns](https://examples.bootstrap-table.com/#methods/get-visible-hidden-columns.html)
+
+## hideAllColumns
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  隐藏所有列。
+
+- **示例:** [Show/Hide All Columns](https://examples.bootstrap-table.com/#methods/show-hide-all-columns.html)
+
+## hideColumn
+
+- **参数:** `field`
+
+- **详情:**
+
+  隐藏指定 `field` 的列。
+  参数可以是字符串或数组。
+
+- **示例:** [Show/Hide Column](https://examples.bootstrap-table.com/#methods/show-hide-column.html)
+
+## hideLoading
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  隐藏加载状态。
+
+- **示例:** [Show/Hide Loading](https://examples.bootstrap-table.com/#methods/show-hide-loading.html)
+
+## hideRow
+
+- **参数:** `params`
+
+- **详情:**
+
+  隐藏指定行。`params` 至少包含以下属性之一：
+
+  * `index`：行索引。
+  * `uniqueId`：该行的 uniqueId 值。
+
+- **示例:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
+
+## insertRow
+
+- **参数:** `params`
+
+- **详情:**
+
+  插入新行。`params` 包含以下属性：
+
+  * `index`：插入的行索引。
+  * `row`：行数据。
+
+- **示例:** [Insert Row](https://examples.bootstrap-table.com/#methods/insert-row.html)
+
+## load
+
+- **参数:** `data`
+
+- **详情:**
+
+  将 `data` 加载到表格中，旧数据会被替换。
+
+- **示例:** [Load](https://examples.bootstrap-table.com/#methods/load.html)
+
+## mergeCells
+
+- **参数:** `params`
+
+- **详情:**
+
+  合并多个单元格。`params` 包含以下属性：
+
+  * `index`：行索引。
+  * `field`：字段名。
+  * `rowspan`：需要合并的行数。
+  * `colspan`：需要合并的列数。
+
+- **示例:** [Merge Cells](https://examples.bootstrap-table.com/#methods/merge-cells.html)
+
+## nextPage
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  跳转到下一页。
+
+- **示例:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html)
+
+## prepend
+
+- **参数:** `data`
+
+- **详情:**
+
+  在表格开头插入 `data`。
+
+- **示例:** [Prepend](https://examples.bootstrap-table.com/#methods/prepend.html)
+
+## prevPage
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  跳转到上一页。
+
+- **示例:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html)
+
+## refresh
+
+- **参数:** `params`
+
+- **详情:**
+
+  刷新/重新加载远程数据。支持以下参数配置：
+
+  * `silent`（默认值：`false`）：设为 `true` 时静默刷新，不显示加载状态。
+  * `url`：可选，临时覆盖当前请求的 URL。
+  * `pageNumber`：可选，指定要跳转的页码。
+  * `pageSize`：可选，指定每页显示的记录数。
+  * `query`：可选，为本次请求添加额外的查询参数对象。
+
+  示例用法：
+  ```javascript
+  // 静默刷新
+  $('#table').bootstrapTable('refresh', {silent: true})
+
+  // 修改 URL 和分页参数
+  $('#table').bootstrapTable('refresh', {
+    url: '/new/api/endpoint',
+    pageNumber: 2,
+    pageSize: 20
+  })
+
+  // 添加查询参数
+  $('#table').bootstrapTable('refresh', {
+    query: {status: 'active', category: 'electronics'}
+  })
+  ```
+
+- **示例:** [Refresh](https://examples.bootstrap-table.com/#methods/refresh.html)
+
+## refreshOptions
+
+- **参数:** `options`
+
+- **详情:**
+
+  刷新表格选项。
+
+- **示例:** [Refresh Options](https://examples.bootstrap-table.com/#methods/refresh-options.html)
+
+## remove
+
+- **参数:** `params`
+
+- **详情:**
+
+  从表格中移除数据。`params` 包含以下属性：
+
+  * `field`：用于匹配要删除行的字段名。可以使用特殊字段 `$index` 按行索引删除。
+  * `values`：要删除行的字段值数组。如果使用 `$index` 特殊字段，可传入行索引数组。
+
+  **使用示例：**
+  ```javascript
+  // 根据 id 字段删除
+  $('#table').bootstrapTable('remove', {
+    field: 'id',
+    values: [1, 2, 3]
+  })
+
+  // 根据行索引删除（从 0 开始）
+  $('#table').bootstrapTable('remove', {
+    field: '$index',
+    values: [0, 2, 4]
+  })
+
+  // 根据其他字段删除
+  $('#table').bootstrapTable('remove', {
+    field: 'name',
+    values: ['John', 'Jane']
+  })
+  ```
+
+- **示例:** [Remove](https://examples.bootstrap-table.com/#methods/remove.html)
+
+## removeAll
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  删除表格中的所有数据。
+
+- **示例:** [Remove All](https://examples.bootstrap-table.com/#methods/remove-all.html)
+
+## removeByUniqueId
+
+- **参数:** `id`
+
+- **详情:**
+
+  删除表格中包含传入 `id` 的行数据。
+
+- **示例:** [Remove By Unique Id](https://examples.bootstrap-table.com/#methods/remove-by-unique-id.html)
+
+## resetSearch
+
+- **参数:** `text`
+
+- **详情:**
+
+  设置搜索关键字 `text`。
+
+- **示例:** [Reset Search](https://examples.bootstrap-table.com/#methods/reset-search.html)
+
+## resetView
+
+- **参数:** `params`
+
+- **详情:**
+
+  重置 Bootstrap Table 视图（例如重置表格高度）。`params` 包含：
+
+  * `height`：表格高度。
+
+- **示例:** [Reset View](https://examples.bootstrap-table.com/#methods/reset-view.html)
+
+## scrollTo
+
+- **参数:** `value|object`
+
+- **详情:**
+
+  - value
+    - 滚动到数值 `value` 对应的位置，单位为 `'px'`，传入 `'bottom'` 表示滚动到底部。
+  - object
+    - 滚动到指定单位的位置（`px` 或 `rows`，行索引从 0 开始）。
+    默认值：`{unit: 'px', value: 0}`
+
+- **示例:** [Scroll To](https://examples.bootstrap-table.com/#methods/scroll-to.html)
+
+## selectPage
+
+- **参数:** `page`
+
+- **详情:**
+
+  跳转到指定 `page`。
+
+- **示例:** [Select/Prev/Next Page](https://examples.bootstrap-table.com/#methods/select-prev-next-page.html)
+
+## showAllColumns
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  显示所有列。
+
+- **示例:** [Show/Hide All Columns](https://examples.bootstrap-table.com/#methods/show-hide-all-columns.html)
+
+## showColumn
+
+- **参数:** `field`
+
+- **详情:**
+
+  显示指定 `field` 的列。
+  参数可以是字符串或数组。
+
+- **示例:** [Show/Hide Column](https://examples.bootstrap-table.com/#methods/show-hide-column.html)
+
+## showLoading
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  显示加载状态。
+
+- **示例:** [Show/Hide Loading](https://examples.bootstrap-table.com/#methods/show-hide-loading.html)
+
+## showRow
+
+- **参数:** `params`
+
+- **详情:**
+
+  显示指定行。`params` 至少包含以下属性之一：
+
+  * `index`：行索引。
+  * `uniqueId`：该行的 uniqueId 值。
+
+- **示例:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
+
+## sortBy
+
+- **参数:** `params`
+
+- **详情:**
+
+  按指定字段排序。`params` 至少包含以下属性之一：
+
+  * `field`：字段名。
+  * `sortOrder`：排序顺序，只能是 `'asc'` 或 `'desc'`。
+
+- **示例:** [Sort By](https://examples.bootstrap-table.com/#methods/sort-by.html)
+
+## sortReset
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  重置表格的排序状态，清除所有当前排序条件。无论是用户点击表头触发的排序，还是通过程序调用 `sortBy` 方法设置的排序，都会被重置为初始状态。
+
+- **示例:** [Sort reset](https://examples.bootstrap-table.com/#methods/sort-reset.html)
+
+## toggleDetailView
+
+- **参数:** `index`
+
+- **详情:**
+
+  如果启用了详情视图（detail view）功能，将切换传入 `index` 的行详情视图。
+
+- **示例:** [Toggle Detail View](https://examples.bootstrap-table.com/#methods/toggle-detail-view.html)
+
+## toggleFullscreen
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  切换全屏显示。
+
+- **示例:** [Toggle Fullscreen](https://examples.bootstrap-table.com/#methods/toggle-fullscreen.html)
+
+## togglePagination
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  切换分页选项。
+
+- **示例:** [Toggle Pagination](https://examples.bootstrap-table.com/#methods/toggle-pagination.html)
+
+## toggleView
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  切换卡片视图和表格视图。
+
+- **示例:** [Toggle View](https://examples.bootstrap-table.com/#methods/toggle-view.html)
+
+## uncheck
+
+- **参数:** `index`
+
+- **详情:**
+
+  取消选中指定索引的行。行索引从 0 开始计数。
+
+- **示例:** [Check/Uncheck](https://examples.bootstrap-table.com/#methods/check-uncheck.html)
+
+## uncheckAll
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  取消选中当前页的全部行。
+
+- **示例:** [Check/Uncheck All](https://examples.bootstrap-table.com/#methods/check-uncheck-all.html)
+
+## uncheckBy
+
+- **参数:** `params`
+
+- **详情:**
+
+  根据指定字段的值数组取消选中匹配的行，`params` 包含以下属性：
+
+  * `field`：用于查找和匹配记录的字段名称。
+  * `values`：需要取消选中的行的字段值数组。
+  * `onlyCurrentPage`（默认值：`false`）：若为 `true`，仅取消选中当前页可见的数据；启用分页时会忽略其他页的数据。
+
+- **示例:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
+
+## updateByUniqueId
+
+- **参数:** `params`
+
+- **详情:**
+
+  更新指定行。`params` 包含以下属性：
+
+  * `id`：行 ID，应为表格中 `uniqueId` 字段的值。
+  * `row`：新的行数据。
+  * `replace`（可选）：设为 `true` 可替换整行，而非扩展。
+
+- **示例:** [Update By Unique Id](https://examples.bootstrap-table.com/#methods/update-by-unique-id.html)
+
+## updateCell
+
+- **参数:** `params`
+
+- **详情:**
+
+  更新单个单元格。`params` 包含以下属性：
+
+  * `index`：行索引。
+  * `field`：字段名。
+  * `value`：新的字段值。
+
+  若要禁用表格重新初始化，可设置 `{reinit: false}`。
+
+- **示例:** [Update Cell](https://examples.bootstrap-table.com/#methods/update-cell.html)
+
+## updateCellByUniqueId
+
+- **参数:** `params`
+
+- **详情:**
+
+  更新指定单元格。`params` 包含以下属性：
+
+  * `id`：行 ID，应为表格中 `uniqueId` 字段的值。
+  * `field`：需要更新的字段名。
+  * `value`：新值。
+
+  若要禁用表格重新初始化，可设置 `{reinit: false}`。
+
+- **示例:** [Update Cell By Unique Id](https://examples.bootstrap-table.com/#methods/update-cell-by-uniqueid.html)
+
+## updateColumnTitle
+
+- **参数:** `params`
+
+- **详情:**
+
+  更新列的标题。`params` 包含以下属性：
+
+  * `field`：字段名。
+  * `title`：字段标题。
+
+- **示例:** [Update Column Title](https://examples.bootstrap-table.com/#methods/update-column-title.html)
+
+## updateFormatText
+
+- **参数:** `formatName, text`
+
+- **详情:**
+
+  更新本地化格式文本。
+
+- **示例:** [Update Format Text](https://examples.bootstrap-table.com/#methods/update-format-text.html)
+
+## updateRow
+
+- **参数:** `params`
+
+- **详情:**
+
+  更新指定行。`params` 包含以下属性：
+
+  * `index`：待更新的行索引。
+  * `row`：新的行数据。
+  * `replace`（可选）：设为 `true` 可替换整行，而非扩展。
+
+- **示例:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)
