@@ -180,9 +180,9 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Get the loaded data of the table at the moment that this method is called
 
-  * `useCurrentPage`: if set to true, the method will return the data only on the current page.
-  * `includeHiddenRows`: if set to true, the method will include the hidden rows.
-  * `unfiltered`: if set to true, the method will include all data (unfiltered).
+  * `useCurrentPage`: if set to `true`, the method will return the data only on the current page.
+  * `includeHiddenRows`: if set to `true`, the method will include the hidden rows.
+  * `unfiltered`: if set to `true`, the method will include all data (unfiltered).
   * `formatted`: get the formatted value from the defined [formatter](https://bootstrap-table.com/docs/api/column-options/#formatter).
 
 - **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
@@ -386,7 +386,31 @@ For example: `$('#table').bootstrapTable('append', data)`
 
 - **Detail:**
 
-  Refresh/reload the remote server data, you can set `{silent: true}` to refresh the data silently, and set `{url: newUrl, pageNumber: pageNumber, pageSize: pageSize}` to change the url (optional), page number (optional) and page size (optional). To supply query params specific to this request, set `{query: {foo: 'bar'}}`.
+  Refresh/reload the remote server data. Supports the following parameter configurations:
+
+  * `silent` (default: `false`): Set to `true` to refresh data silently without showing loading status.
+  * `url`: Optional, temporarily override the current request URL.
+  * `pageNumber`: Optional, specify the page number to navigate to.
+  * `pageSize`: Optional, specify the number of records to display per page.
+  * `query`: Optional, add additional query parameters for this request.
+
+  Example usage:
+  ```javascript
+  // Silent refresh
+  $('#table').bootstrapTable('refresh', {silent: true})
+
+  // Modify URL and pagination parameters
+  $('#table').bootstrapTable('refresh', {
+    url: '/new/api/endpoint',
+    pageNumber: 2,
+    pageSize: 20
+  })
+
+  // Add query parameters
+  $('#table').bootstrapTable('refresh', {
+    query: {status: 'active', category: 'electronics'}
+  })
+  ```
 
 - **Example:** [Refresh](https://examples.bootstrap-table.com/#methods/refresh.html)
 
@@ -406,10 +430,31 @@ For example: `$('#table').bootstrapTable('append', data)`
 
 - **Detail:**
 
-  Remove data from the table. The params contain two properties:
+  Remove data from the table. The params contain the following properties:
 
-  * `field`: the field name of remove rows. If `$index` is not in your fields, you can use this special field `$index` to remove rows by row index.
-  * `values`: the array of values for rows that should be removed. If you use the special field `$index`, you can pass an array of indexes.
+  * `field`: The field name used to match rows to be removed. You can use the special field `$index` to remove rows by row index.
+  * `values`: An array of field values for rows to be removed. If using the special field `$index`, you can pass an array of row indexes.
+
+  **Usage examples:**
+  ```javascript
+  // Remove by id field
+  $('#table').bootstrapTable('remove', {
+    field: 'id',
+    values: [1, 2, 3]
+  })
+
+  // Remove by row index (starts from 0)
+  $('#table').bootstrapTable('remove', {
+    field: '$index',
+    values: [0, 2, 4]
+  })
+
+  // Remove by other field
+  $('#table').bootstrapTable('remove', {
+    field: 'name',
+    values: ['John', 'Jane']
+  })
+  ```
 
 - **Example:** [Remove](https://examples.bootstrap-table.com/#methods/remove.html)
 

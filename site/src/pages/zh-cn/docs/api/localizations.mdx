@@ -1,0 +1,188 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 本地化
+description: Bootstrap Table 的本地化 API。
+group: api
+toc: true
+---
+
+可以根据需要引入 [本地化文件](https://github.com/wenzhixin/bootstrap-table/tree/master/src/locale)：
+
+```html
+<script src="bootstrap-table-en-US.js"></script>
+<script src="bootstrap-table-zh-CN.js"></script>
+...
+```
+
+然后使用 JavaScript 切换语言：
+
+```javascript
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US'])
+// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN'])
+// ...
+```
+
+也可以通过数据属性为表格设置语言：
+
+```html
+<table data-toggle="table" data-locale="en-US">
+</table>
+```
+
+或通过 JavaScript 为表格设置语言：
+
+```javascript
+$('#table').bootstrapTable({
+  locale: 'en-US'
+})
+```
+
+语言代码也支持简写形式：
+```javascript
+$('#table').bootstrapTable({
+  locale: 'en'
+})
+```
+
+所有可用的翻译语言及其简写请参考 [GitHub](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/locale)。
+
+可以自定义本地化文案，使用方式如下：
+
+```javascript
+$('#table').bootstrapTable({
+  formatName: function () {
+    return 'Format message'
+  }
+})
+```
+
+**注意：** 以下本地化名称（如 `formatAllRows`、`formatLoadingMessage`）是在 JavaScript 中自定义 Bootstrap Table 本地化时使用的确切属性名。
+
+例如：
+```js
+$('#table').bootstrapTable({
+  formatAllRows: function() {
+    return 'All rows'
+  }
+})
+```
+
+## formatAllRows
+
+- **参数:** `undefined`
+
+- **默认值:** `'All'`
+
+## formatClearSearch
+
+- **参数:** `undefined`
+
+- **默认值:** `'Clear Search'`
+
+## formatColumns
+
+- **参数:** `undefined`
+
+- **默认值:** `'Columns'`
+
+## formatColumnsToggleAll
+
+- **参数:** `undefined`
+
+- **默认值:** `'Toggle all'`
+
+## formatDetailPagination
+
+- **参数:** `totalRows`
+
+- **默认值:** `'Showing %s rows'`
+
+## formatFullscreen
+
+- **参数:** `undefined`
+
+- **默认值:** `'Fullscreen'`
+
+## formatLoadingMessage
+
+- **参数:** `undefined`
+
+- **默认值:** `'Loading, please wait…'`
+
+## formatNoMatches
+
+- **参数:** `undefined`
+
+- **默认值:** `'No matching records found'`
+
+## formatPaginationSwitch
+
+- **参数:** `undefined`
+
+- **默认值:** `'Hide/Show pagination'`
+
+## formatPaginationSwitchDown
+
+- **参数:** `undefined`
+
+- **默认值:** `'Show pagination'`
+
+## formatPaginationSwitchUp
+
+- **参数:** `undefined`
+
+- **默认值:** `'Hide pagination'`
+
+## formatRecordsPerPage
+
+- **参数:** `pageNumber`
+
+- **默认值:** `'%s records per page'`
+
+## formatRefresh
+
+- **参数:** `undefined`
+
+- **默认值:** `'Refresh'`
+
+## formatSearch
+
+- **参数:** `undefined`
+
+- **默认值:** `'Search'`
+
+## formatShowingRows
+
+- **参数:** `pageFrom, pageTo, totalRows`
+
+- **默认值:** `'Showing %s to %s of %s rows'`
+
+## formatSRPaginationNextText
+
+- **参数:** `undefined`
+
+- **默认值:** `'next page'`
+
+## formatSRPaginationPageText
+
+- **参数:** `page`
+
+- **默认值:** `'to page %s'`
+
+## formatSRPaginationPreText
+
+- **参数:** `undefined`
+
+- **默认值:** `'previous page'`
+
+## formatToggleOff
+
+- **参数:** `undefined`
+
+- **默认值:** `'Hide card view'`
+
+## formatToggleOn
+
+- **参数:** `undefined`
+
+- **默认值:** `'Show card view'`

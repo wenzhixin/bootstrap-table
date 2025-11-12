@@ -27,7 +27,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  无需编写 JavaScript 即可激活 bootstrap table。
+  不需要编写 JavaScript 即可激活 Bootstrap Table。
 
 - **默认值:** `'table'`
 
@@ -41,7 +41,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  替换 ajax 调用的方法。应实现与 jQuery ajax 方法相同的 API。
+  替换 AJAX 调用方法。应实现与 jQuery AJAX 方法相同的 API。
 
 - **默认值:** `undefined`
 
@@ -55,7 +55,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  提交 ajax 请求的附加选项。值列表：[jQuery.ajax](http://api.jquery.com/jQuery.ajax)。
+  提交 AJAX 请求的额外选项。参考：[jQuery.ajax](http://api.jquery.com/jQuery.ajax)。
 
 - **默认值:** `{}`
 
@@ -69,8 +69,8 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  此选项允许创建/添加自定义按钮到"按钮栏"（表格右上角）。
-  这些按钮可以通过表格选项 [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder) 进行排序，应使用事件使用的键/名称进行排序！
+  允许创建/添加自定义按钮到按钮栏（表格右上角）。
+  这些按钮可以通过表格选项 [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder) 进行排序，应使用事件对应的键/名称进行排序。
 
   自定义按钮具有高度可配置性，存在以下选项：
   - `text`
@@ -239,7 +239,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `false` 以禁用 AJAX 请求的缓存。
+  设置为 `false` 可禁用 AJAX 请求缓存。
 
 - **默认值:** `true`
 
@@ -253,7 +253,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以显示卡片视图表格，例如移动视图。
+  设置为 `true` 可显示卡片视图表格（如移动端视图）。
 
 - **默认值:** `false`
 
@@ -267,7 +267,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `false` 以隐藏标题行中的全选复选框。
+  设置为 `false` 可隐藏标题行中的全选复选框。
 
 - **默认值:** `true`
 
@@ -281,7 +281,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  表格的类名。可以使用 `'table'`、`'table-bordered'`、`'table-hover'`、`'table-striped'`、`'table-dark'`、`'table-sm'` 和 `'table-borderless'`。默认情况下，表格是有边框的。
+  表格的类名。可使用 `'table'`、`'table-bordered'`、`'table-hover'`、`'table-striped'`、`'table-dark'`、`'table-sm'` 和 `'table-borderless'`。默认表格为边框样式。
 
 - **默认值:** `'table table-bordered table-hover'`
 
@@ -295,7 +295,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以在点击行时选择复选框或单选框。
+  设置为 `true` 可在点击行时选中复选框或单选框。
 
 - **默认值:** `false`
 
@@ -309,7 +309,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  表格列配置对象。有关更多详细信息，请参阅列选项。
+  表格列配置对象。详情请参阅列选项。
 
 - **默认值:** `[]`
 
@@ -323,7 +323,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  请求远程数据的 contentType，例如：`application/x-www-form-urlencoded`。
+  请求远程数据时的 Content-Type，例如：`application/x-www-form-urlencoded`。
 
 - **默认值:** `'application/json'`
 
@@ -337,7 +337,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  自定义搜索函数将代替内置搜索函数执行，接受三个参数：
+  自定义搜索函数，将替代内置搜索功能，接受三个参数：
 
   * `data`：表格数据。
   * `text`：搜索文本。
@@ -365,7 +365,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  自定义排序函数将代替内置排序函数执行，接受三个参数：
+  自定义排序函数，将替代内置排序功能，接受三个参数：
 
   * `sortName`：排序名称。
   * `sortOrder`：排序顺序。
@@ -472,7 +472,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以显示详细视图表格。您可以设置 `uniqueId` 选项以在刷新表格时保持详情视图状态。
+  设置为 `true` 可显示详情视图表格。可设置 `uniqueId` 选项以在刷新表格时保持详情视图状态。
 
 - **默认值:** `false`
 
@@ -500,7 +500,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以在单击单元格时切换详情视图。
+  设置为 `true` 可在单击单元格时切换详情视图。
 
 - **默认值:** `false`
 
@@ -514,7 +514,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以显示详情视图列（加/减图标）。
+  设置为 `true` 可显示详情视图列（加/减图标）。
 
 - **默认值:** `true`
 
@@ -529,7 +529,7 @@ $('#table').bootstrapTable({
 - **详情:**
 
   转义字符串以插入 HTML，替换 `&`、`<`、`>`、`"`、`` ` `` 和 `'` 字符。
-  要禁用列标题的转义，请检查 `escapeTitle` 选项。
+  如需禁用列标题的转义，请设置 `escapeTitle` 选项。
 
 - **默认值:** `false`
 
@@ -557,7 +557,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义算法的默认过滤器选项，`filterAlgorithm: 'and'` 表示所有给定的过滤器必须匹配，`filterAlgorithm: 'or'` 表示给定的过滤器之一必须匹配。
+  定义过滤算法的默认选项，`filterAlgorithm: 'and'` 表示所有过滤器必须匹配，`filterAlgorithm: 'or'` 表示任一过滤器匹配即可。
 
 - **默认值:** `{ filterAlgorithm: 'and' }`
 
@@ -571,7 +571,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以在加载数据时启用表格的固定滚动条位置。
+  设置为 `true` 可在加载数据时保持表格滚动条位置固定。
 
 - **默认值:** `false`
 
@@ -585,9 +585,9 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义页脚对象的键（来自数据数组或服务器响应 JSON）。
-  页脚对象可用于设置/定义页脚 colspan 和/或页脚的值。
-  仅在 `data-pagination` 为 `true` 且 `data-side-pagination` 为 `server` 时触发。
+  定义页脚对象的键名（来自数据数组或服务器响应 JSON）。
+  页脚对象可用于设置/定义页脚 colspan 和页脚值。
+  仅在 `data-pagination` 为 `true` 且 `data-side-pagination` 为 `server` 时生效。
 
 
   ```javascript
@@ -674,7 +674,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置表格的高度，启用固定表头功能。当内容超出高度时，表格将显示垂直滚动条。
+  设置表格高度以启用固定表头功能。当内容超出设定高度时，表格将显示垂直滚动条。
 
 - **默认值:** `undefined`
 
@@ -716,7 +716,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义图标大小，可以使用 `undefined`、`'lg'`、`'sm'`。
+  定义图标大小，可使用 `undefined`、`'lg'`、`'sm'`。
 
 - **默认值:** `undefined`
 
@@ -756,7 +756,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  指定哪个字段将用作复选框/单选框的值，它是 [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname) 的对应项。
+  指定用作复选框/单选框值的字段，对应 [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname) 选项。
 
 - **默认值:** `undefined`
 
@@ -770,11 +770,11 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义哪些元素在点击时应忽略 `clickToSelect` 功能。该函数接受一个参数：
+  定义哪些元素在点击时应忽略 `clickToSelect` 功能。函数接受一个参数：
 
   * `element`：被点击的 DOM 元素。
 
-  返回 `true` 表示忽略该元素的点击（不会触发行选择），返回 `false` 表示正常处理点击（会触发行选择）。此选项仅在 `clickToSelect` 设置为 `true` 时生效。
+  返回 `true` 表示忽略该元素点击（不触发行选择），返回 `false` 表示正常处理点击（触发行选择）。此选项仅在 `clickToSelect` 为 `true` 时生效。
 
 - **默认值:** `{ return ['A', 'BUTTON'].includes(tagName) }`
 
@@ -788,7 +788,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义加载文本的字体大小，默认值为 `'auto'`，根据表格宽度自动计算，在 12px 和 32px 之间。
+  定义加载文本的字体大小，默认值为 `'auto'`，根据表格宽度在 12px 到 32px 之间自动计算。
 
 - **默认值:** `'auto'`
 
@@ -802,9 +802,9 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  自定义加载类型。参数对象包含：
+  自定义加载模板。参数对象包含：
 
-  * loadingMessage：`formatLoadingMessage` 本地化。
+  * loadingMessage：`formatLoadingMessage` 本地化文案。
 
 - **默认值:**
   ```js
@@ -851,8 +851,8 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以在更改页面和搜索时维护以下元数据：
-   * 选定的行
+  设置为 `true` 可在切换页面和搜索时保持以下元数据：
+   * 选中的行
    * 隐藏的行
 
 - **默认值:** `false`
@@ -881,7 +881,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  从列下拉列表中隐藏的最小列数。
+  列下拉列表中隐藏的最小列数。
 
 - **默认值:** `1`
 
@@ -895,10 +895,10 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以启用多行选择功能。启用后，用户可以通过以下方式选择多行：
-  * **Ctrl+点击**：选择或取消选择单个行（保持其他行的选中状态）
+  设置为 `true` 可启用多行选择功能。启用后，用户可通过以下方式选择多行：
+  * **Ctrl+点击**：选择或取消选择单行（保持其他行的选中状态）
   * **Shift+点击**：选择从当前选中行到点击行之间的所有行（范围选择）
-  * **普通点击**：如果未按住修饰键，将取消其他行的选择，仅选中当前点击的行
+  * **普通点击**：未按住修饰键时，取消其他行的选择，仅选中当前点击的行
 
 - **默认值:** `false`
 
@@ -912,9 +912,9 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置分页属性时，通过选择列表初始化页面大小。如果包含 `'all'` 或 `'unlimited'` 选项，所有记录将显示在您的表格中。
+  设置分页时，通过选择列表初始化页面大小。如果包含 `'all'` 或 `'unlimited'` 选项，所有记录将显示在表格中。
 
-  *提示：如果表格的行数少于选项，选项将自动隐藏。要禁用该功能，可以将 [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) 设置为 `false`*
+  *提示：如果表格行数少于选项数量，选项将自动隐藏。要禁用此功能，可将 [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) 设置为 `false`*
 
 - **默认值:** `[10, 25, 50, 100]`
 
@@ -956,7 +956,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以在表格底部显示分页工具栏。
+  设置为 `true` 可在表格底部显示分页工具栏。
 
 - **默认值:** `false`
 
