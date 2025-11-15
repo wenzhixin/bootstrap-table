@@ -70,22 +70,42 @@ toc: true
 
 ### pipelineSize
 
-* 类型：`Number`
-* 说明：每个缓存窗口的大小，必须大于 0。
-* 默认值：`1000`
+- **属性:** `data-pipeline-size`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  每个缓存窗口的大小，必须大于 0。
+
+- **默认值:** `1000`
 
 ### usePipeline
 
-* 类型：`Boolean`
-* 说明：设为 `true` 启用管道缓存。
-* 默认值：`false`
+- **属性:** `data-use-pipeline`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 启用管道缓存。
+
+- **默认值:** `false`
 
 ## 事件
 
 ### onCachedDataHit (cached-data-hit.bs.table)
 
-* 当翻页命中本地缓存数据时触发。
+- **参数:** `undefined`
+
+- **详情:**
+
+  当翻页命中本地缓存数据时触发。
 
 ### onCachedDataReset (cached-data-reset.bs.table)
 
-* 当需要重置本地缓存（如排序、搜索、页大小变化或翻页超出当前缓存窗口）时触发。
+- **参数:** `undefined`
+
+- **详情:**
+
+  当需要重置本地缓存（如排序、搜索、页大小变化或翻页超出当前缓存窗口）时触发。
