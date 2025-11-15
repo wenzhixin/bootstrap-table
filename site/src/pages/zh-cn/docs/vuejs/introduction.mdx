@@ -1,0 +1,46 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 介绍
+description: Bootstrap Table Vue 组件概览、安装步骤与构成。
+group: vuejs
+toc: true
+---
+
+我们为 Vue.js 3.0+ 提供了 Bootstrap Table 组件，该组件支持完整的 [API](/docs/api/)、所有 [扩展](/extensions/) 以及全部 [CSS 框架](/themes/)。
+
+## 安装
+
+### 依赖
+
+* [Vue.js](https://vuejs.org)（3.0+）
+* [jQuery](http://jquery.com)
+
+### NPM
+
+使用 [npm](https://www.npmjs.com/package/bootstrap-table) 安装与管理 Bootstrap Table 的 CSS、JavaScript、本地化与扩展。
+
+```bash
+npm install bootstrap-table
+```
+
+### CDNJS
+
+[CDNJS](https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/) 为 Bootstrap Table 的 CSS 与 JavaScript 文件提供了免费的 CDN 服务，可直接使用如下链接访问。
+
+```html
+https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]
+```
+
+## 构建文件
+
+`dist/` 目录包含以下 Vue 组件文件：
+
+```plaintext
+bootstrap-table/
+└── dist/
+    ├── bootstrap-table-vue.js
+    └── bootstrap-table-vue.umd.js
+```
+
+* **bootstrap-table-vue.js：** ES 模块构建，适用于 [webpack](https://webpack.js.org/) 或 [vitejs](http://vitejs.dev/) 等现代打包工具。
+* **bootstrap-table-vue.umd.js：** UMD 构建，可在浏览器中通过 `<script>` 标签直接使用。
