@@ -14,14 +14,14 @@
     "@astrojs/mdx": "^4.3.10",
     "@astrojs/prism": "^3.3.0",
     "@astrojs/sitemap": "^3.6.0",
-    "algoliasearch": "^5.43.0",
-    "astro": "^5.15.4",
-    "jsdom": "^27.1.0",
+    "algoliasearch": "^5.44.0",
+    "astro": "^5.15.7",
+    "jsdom": "^27.2.0",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.46.3",
-    "@typescript-eslint/parser": "^8.46.3",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
     "eslint": "^9.39.1",
     "eslint-plugin-astro": "^1.5.0"
   }
