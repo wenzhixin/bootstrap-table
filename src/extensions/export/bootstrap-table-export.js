@@ -1,6 +1,6 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * extensions: https://github.com/hhurz/tableExport.jquery.plugin
+ * Built-in export implementation (replacing deprecated tableExport.jquery.plugin)
  */
 
 const Utils = $.fn.bootstrapTable.utils
@@ -179,6 +179,129 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const stateField = this.header.stateField
     const isCardView = o.cardView
 
+    // Helper: escape CSV field
+    const csvEscape = (value, delimiter) => {
+      const d = delimiter || ','
+      if (value == null) return ''
+      const str = String(value)
+      const mustQuote = str.includes(d) || str.includes('"') || str.includes('\n') || str.includes('\r')
+      if (!mustQuote) return str
+      return `"${str.replace(/"/g, '""')}"`
+    }
+
+    // Helper: build a 2D array of visible table content from DOM
+    const collectTableMatrix = (ignoreColumnIdxs) => {
+      const ignore = new Set((ignoreColumnIdxs || []).map(i => Number(i)))
+      const headerRow = []
+      const headerTr = this.$el.find('thead tr').last()
+      const $ths = headerTr.children()
+      $ths.each((idx, th) => {
+        if ($(th).is(':visible') && !ignore.has(idx)) {
+          headerRow.push($(th).text().trim())
+        }
+      })
+
+      const rows = []
+      const $trs = this.$el.find('tbody > tr:visible')
+      $trs.each((_, tr) => {
+        // skip detail view rows or non-data rows
+        const $tr = $(tr)
+        if ($tr.hasClass('detail-view') || $tr.hasClass('no-records-found')) return
+        const row = []
+        $tr.children().each((idx, td) => {
+          if ($(td).is(':visible') && !ignore.has(idx)) {
+            row.push($(td).text().trim())
+          }
+        })
+        if (row.length) rows.push(row)
+      })
+      return { headerRow, rows }
+    }
+
+    // Helper: convert to content by type
+    const buildFile = (type, matrix, exportOptions) => {
+      const delimiter = exportOptions && exportOptions.csvDelimiter ? exportOptions.csvDelimiter : ','
+      const tableName = (exportOptions && exportOptions.tableName) || 'table'
+      const { headerRow, rows } = matrix
+      switch (type) {
+        case 'csv': {
+          const lines = []
+          if (headerRow.length) lines.push(headerRow.map(h => csvEscape(h, delimiter)).join(delimiter))
+          rows.forEach(r => lines.push(r.map(v => csvEscape(v, delimiter)).join(delimiter)))
+          return { mime: 'text/csv;charset=utf-8', ext: 'csv', content: lines.join('\r\n') }
+        }
+        case 'txt': {
+          const d = '\t'
+          const lines = []
+          if (headerRow.length) lines.push(headerRow.join(d))
+          rows.forEach(r => lines.push(r.join(d)))
+          return { mime: 'text/plain;charset=utf-8', ext: 'txt', content: lines.join('\r\n') }
+        }
+        case 'json': {
+          const objs = []
+          if (headerRow.length) {
+            rows.forEach(r => {
+              const obj = {}
+              headerRow.forEach((h, i) => { obj[h || `col${i + 1}`] = r[i] })
+              objs.push(obj)
+            })
+          } else {
+            rows.forEach(r => objs.push(r))
+          }
+          return { mime: 'application/json;charset=utf-8', ext: 'json', content: JSON.stringify(objs, null, 2) }
+        }
+        case 'xml': {
+          const esc = s => String(s == null ? '' : s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&apos;')
+          const lines = ['<?xml version="1.0" encoding="UTF-8"?>', `<${tableName}>`]
+          rows.forEach(r => {
+            lines.push('  <row>')
+            r.forEach((v, i) => {
+              const key = headerRow[i] || `col${i + 1}`
+              lines.push(`    <${key}>${esc(v)}</${key}>`)
+            })
+            lines.push('  </row>')
+          })
+          lines.push(`</${tableName}>`)
+          return { mime: 'application/xml;charset=utf-8', ext: 'xml', content: lines.join('\n') }
+        }
+        case 'sql': {
+          const cols = headerRow.map(h => (h || '').replace(/`/g, '``') || null).map((c, i) => c || `col${i + 1}`)
+          const values = rows.map(r => '(' + r.map(v => {
+            if (v == null || v === '') return 'NULL'
+            const s = String(v).replace(/'/g, "''")
+            return `'${s}'`
+          }).join(', ') + ')')
+          const sql = `INSERT INTO \`${tableName}\` (\`${cols.join('`, `')}\`) VALUES\n${values.join(',\n')};`
+          return { mime: 'application/sql;charset=utf-8', ext: 'sql', content: sql }
+        }
+        case 'excel': {
+          // Map to CSV for compatibility with legacy default 'excel' option
+          const csv = buildFile('csv', matrix, exportOptions)
+          return { mime: 'application/vnd.ms-excel', ext: 'xls', content: csv.content }
+        }
+        default:
+          return null
+      }
+    }
+
+    // Helper: trigger browser download
+    const saveAs = (content, mime, filename) => {
+      const blob = new Blob([content], { type: mime })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    }
+
     const doExport = callback => {
       if (stateField) {
         this.hideColumn(stateField)
@@ -235,34 +358,50 @@ $.BootstrapTable = class extends $.BootstrapTable {
         options.fileName = o.exportOptions.fileName()
       }
 
-      this.$el.tableExport(Utils.extend({
-        onAfterSaveToFile: () => {
-          if (o.exportFooter) {
-            this.load(data)
-          }
+      // Build content and save without external plugin
+      const effective = Utils.extend({}, o.exportOptions, options)
+      const type = (effective.type || 'csv').toLowerCase()
+      const ignoreIdx = effective.ignoreColumn
+      const matrix = collectTableMatrix(ignoreIdx)
+      const built = buildFile(type, matrix, effective)
 
-          if (stateField) {
-            this.showColumn(stateField)
-          }
-          if (isCardView) {
-            this.toggleView()
-          }
-
-          hiddenColumns.forEach(row => {
-            if (row.forceExport) {
-              this.hideColumn(row.field)
-            }
-          })
-
-          this.columns.forEach(row => {
-            if (row.forceHide) {
-              this.showColumn(row.field)
-            }
-          })
-
-          if (callback) callback()
+      const onAfter = () => {
+        if (o.exportFooter) {
+          this.load(data)
         }
-      }, o.exportOptions, options))
+
+        if (stateField) {
+          this.showColumn(stateField)
+        }
+        if (isCardView) {
+          this.toggleView()
+        }
+
+        hiddenColumns.forEach(row => {
+          if (row.forceExport) {
+            this.hideColumn(row.field)
+          }
+        })
+
+        this.columns.forEach(row => {
+          if (row.forceHide) {
+            this.showColumn(row.field)
+          }
+        })
+
+        if (callback) callback()
+      }
+
+      if (!built) {
+        // unsupported type without deprecated plugin; no-op but still restore state
+        onAfter()
+        return
+      }
+
+      const fileBase = effective.fileName || 'table-export'
+      const filename = `${fileBase}.${built.ext}`
+      saveAs(built.content, built.mime, filename)
+      onAfter()
     }
 
     if (o.exportDataType === 'all' && o.pagination) {

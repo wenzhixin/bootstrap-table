@@ -6,9 +6,7 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
-
-This is an important link to check out as some file types may require extra steps.
+This extension now uses a built-in exporter (no external plugin required).
 
 ## Usage
 
@@ -66,7 +64,10 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-  Export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
+  Options for the built-in exporter:
+  - `fileName`: String or function returning the base filename (without extension).
+  - `csvDelimiter`: CSV delimiter (default `,`).
+  - `tableName`: Table name used for SQL/XML exports (default `table`).
 
   `exportOptions.fileName` can be a string or a function, for example:
 
@@ -86,7 +87,8 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-  Export types, support types: `['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf']`.
+  Built-in export types: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`.
+  Note: `png`, `xlsx`, `pdf`, `doc`, `powerpoint` are not supported by the built-in exporter.
 
 - **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
