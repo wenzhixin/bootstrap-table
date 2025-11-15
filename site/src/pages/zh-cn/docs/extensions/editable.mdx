@@ -1,0 +1,118 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Editable
+description: Bootstrap Table 的行内编辑扩展，支持单元格编辑功能。
+group: extensions
+toc: true
+---
+
+行内编辑扩展基于 [x-editable](https://github.com/vitalets/x-editable) 插件，为表格添加行内编辑功能，用户可以直接点击单元格进行编辑。
+
+## 用法
+
+```html
+<script src="extensions/editable/bootstrap-table-editable.js"></script>
+```
+
+## 选项
+
+### editable
+
+- **属性:** `data-editable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  全局控制是否启用可编辑功能。设置为 `false` 时，禁用所有列的编辑功能；设置为 `true` 时，启用编辑功能（需要列单独配置）。
+
+- **默认值:** `true`
+
+## 列选项
+
+### alwaysUseFormatter
+
+- **属性:** `data-always-use-formatter`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时，即便该列已经编辑过，仍然始终使用 formatter。
+
+- **默认值:** `false`
+
+### editable
+
+- **属性:** `data-editable`
+
+- **类型:** `Object | Function`
+
+- **详情:**
+
+  x-editable 的配置项。完整配置请参阅：[http://vitalets.github.io/x-editable/docs.html#editable](http://vitalets.github.io/x-editable/docs.html#editable)。
+
+  若为函数类型，会在表格每行调用，入参为 index、row、element，应返回 x-editable 的配置对象。
+
+  所有选项都可以通过 `data-editable-*` HTML 属性定义。表级选项会应用到所有列，可在列上覆盖：
+
+  ```html
+  <table id="my_table_id"
+    data-url="data/url.json"
+    data-id-field="id"
+    data-editable-emptytext="Default empty text."
+    data-editable-url="/my/editable/update/path">
+    <thead>
+      <tr>
+        <th class="col-md-1" data-field="id" data-sortable="true" data-align="center">#</th>
+        <th class="col-md-4" data-field="name" data-editable="true">Name</th>
+        <th class="col-md-7" data-field="description" data-editable="true" data-editable-emptytext="Custom empty text.">Description</th>
+      </tr>
+    </thead>
+  </table>
+  ```
+
+  可以使用 `noEditFormatter` 来让某些值不可编辑，例如：
+
+  ```javascript
+  {
+    editable: {
+      noEditFormatter (value, row, index) {
+        if (value === 'noEdit') {
+          return 'No Edit'
+        }
+        return false
+      }
+    }
+  }
+  ```
+
+- **默认值:** `undefined`
+
+## 事件
+
+### onEditableInit (editable-init.bs.table)
+
+当所有列通过 `$().editable()` 方法初始化完成时触发。
+
+### onEditableSave (editable-save.bs.table)
+
+当可编辑单元格保存时触发。
+
+参数：field、row、rowIndex、oldValue、$el
+
+### onEditableShown (editable-shown.bs.table)
+
+当可编辑单元格打开进行编辑时触发。
+
+参数：field、row、$el
+
+### onEditableHidden (editable-hidden.bs.table)
+
+当可编辑单元格被隐藏/关闭时触发。
+
+参数：field、row、$el、reason
+
+## 已知问题
+
+* Table Editable 扩展在 `select` 类型下不支持搜索。

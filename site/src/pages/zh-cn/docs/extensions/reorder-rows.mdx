@@ -1,0 +1,162 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Reorder Rows
+description: Bootstrap Table 的行重排扩展，允许通过拖拽方式调整表格行的顺序。
+group: extensions
+toc: true
+---
+
+## 依赖项
+该扩展依赖 [tablednd](https://github.com/isocra/TableDnD) v0.9 库。
+
+## 默认拖拽样式
+如需使用默认的拖拽样式，可以额外引入 `bootstrap-table-reorder-rows.css` 文件。
+
+## 用法
+
+```html
+<link rel="stylesheet" href="extensions/reorder-rows/bootstrap-table-reorder-rows.css">
+<script src=".../jquery.tablednd.js"></script>
+<script src="extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
+```
+
+## 示例
+
+[Reorder Rows](https://examples.bootstrap-table.com/#extensions/reorder-rows.html)
+
+## 选项
+
+### reorderableRows
+
+- **属性:** `data-reorderable-rows`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用行拖拽功能。设置为 `true` 时，允许用户通过拖拽行来调整表格行的顺序。
+
+- **默认值:** `false`
+
+### onAllowDrop
+
+- **属性:** `data-on-allow-drop`
+
+- **类型:** `function`
+
+- **详情:**
+
+  拖动行悬停在另一行上时调用。若函数返回 `true`，表示允许在该行上放置；否则不允许。入参共 4 个：
+  - 被拖行的数据
+  - 光标所在行的数据
+  - 被拖行的 DOM 元素
+  - 光标所在行的 DOM 元素
+
+- **默认值:** `null`
+
+### onDragStop
+
+- **属性:** `data-on-drag-stop`
+
+- **类型:** `function`
+
+- **详情:**
+
+  拖拽结束时调用，无论是否改变顺序。入参为表格、被拖行的数据、被拖行的 DOM 元素。
+
+- **默认值:** `null`
+
+### onDragStyle
+
+- **属性:** `data-on-drag-style`
+
+- **类型:** `String`
+
+- **详情:**
+
+  拖拽过程中为行应用的样式。受限于浏览器特性，某些样式（如边框）无法生效。
+
+- **默认值:** `null`
+
+### onDragClass
+
+- **属性:** `data-on-drag-class`
+
+- **类型:** `String`
+
+- **详情:**
+
+  拖拽期间添加的类名，放置后会移除。相比 `onDragStyle` 更灵活，可继承至单元格等内容。
+
+- **默认值:** `reorder-rows-on-drag-class`
+
+### onDropStyle
+
+- **属性:** `data-on-drop-style`
+
+- **类型:** `String`
+
+- **详情:**
+
+  行放置后应用的样式，同样存在样式限制；且会替换原样式，如无必要建议使用 `onDragClass`。
+
+- **默认值:** `null`
+
+### onReorderRowsDrag
+
+- **属性:** `data-on-reorder-rows-drag`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  用户开始拖拽时调用，参数为被拖行的 DOM 元素。
+
+- **默认值:** 空函数
+
+### onReorderRowsDrop
+
+- **属性:** `data-on-reorder-rows-drop`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  行放置时调用，参数为被放置的 DOM 元素。
+
+- **默认值:** 空函数
+
+### dragHandle
+
+- **属性:** `data-drag-handle`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定拖拽时使用的光标元素。
+
+  **注意：该选项主要用于适配 TableDnD 插件，非特殊需求请勿修改默认值。**
+
+- **默认值:** `>tbody>tr>td:not(.bs-checkbox)`
+
+### useRowAttrFunc
+
+- **属性:** `data-use-row-attr-func`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  当 `tr` 元素没有 `id` 属性时必须启用，否则插件不会触发 onDrop 事件。
+
+- **默认值:** `false`
+
+## 事件
+
+### onReorderRow (reorder-row.bs.table)
+
+行放置完成时触发，参数包括：
+* 新的表格数据
+* 被拖动的行
+* 原位置所在的行

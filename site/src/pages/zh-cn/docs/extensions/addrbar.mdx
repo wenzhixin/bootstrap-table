@@ -1,0 +1,75 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Addrbar
+description: Bootstrap Table 的地址栏扩展，实现表格状态与 URL 同步。
+group: extensions
+toc: true
+---
+
+地址栏扩展能够将表格的分页、排序、搜索等状态信息同步到浏览器地址栏中。当用户进行翻页、排序或搜索操作时，地址栏的查询参数会自动更新；页面加载时，插件会自动读取地址栏中的查询参数并恢复表格状态。
+
+## 用法
+
+```html
+<script src="extensions/addrbar/bootstrap-table-addrbar.js"></script>
+```
+
+## 示例
+
+[Addrbar](https://examples.bootstrap-table.com/#extensions/addrbar.html)
+
+## 选项
+
+### addrbar
+
+- **属性:** `data-addrbar`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用地址栏功能。设置为 `true` 时，表格状态将同步到地址栏。
+
+- **默认值:** `false`
+
+### addrCustomParams
+
+- **属性:** `data-addr-custom-params`
+
+- **类型:** `Function|Object`
+
+- **详情:**
+
+  定义自定义参数对象，其中的键值对将作为额外的 GET 参数添加到 URL 中（例如自定义过滤条件）。
+  `key` 表示 GET 参数名称，`value` 表示对应的参数值。
+
+- **默认值:** `{}`
+
+### addrPrefix
+
+- **属性:** `data-addr-prefix`
+
+- **类型:** `String`
+
+- **详情:**
+
+  查询参数的前缀，主要用于解决同一页面存在多个表格时的参数冲突问题。
+
+  当页面中包含多个表格且都启用地址栏扩展时，为了避免参数互相干扰，需要为每个表格设置不同的前缀。
+
+  默认情况下使用以下 5 个参数：
+
+  * `page`：当前页码
+  * `size`：每页显示条数
+  * `order`：排序方式（升序/降序）
+  * `sort`：排序字段名
+  * `search`：搜索关键词
+
+  如果多个表格使用相同的前缀，这些参数会互相覆盖。通过为每个表格设置唯一的 `addrPrefix` 值，可以有效避免冲突。
+
+- **默认值:** `''`
+
+## 注意事项
+
+* 当前仅支持服务端分页模式。
+* 客户端分页模式下无法正常使用此扩展。

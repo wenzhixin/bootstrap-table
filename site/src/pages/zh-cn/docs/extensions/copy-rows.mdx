@@ -1,0 +1,125 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Copy Rows
+description: Bootstrap Table 的行复制扩展，支持将选中行数据复制到剪贴板。
+group: extensions
+toc: true
+---
+
+该扩展为表格提供了将选中行复制到剪贴板的功能，目前除 Safari 外的桌面浏览器均可使用。
+
+## 用法
+
+```html
+<script src="extensions/copy-rows/bootstrap-table-copy-rows.js"></script>
+```
+
+## 示例
+
+[Copy Rows](https://examples.bootstrap-table.com/#extensions/copy-rows.html)
+
+## 选项
+
+### showCopyRows
+
+- **属性:** `data-show-copy-rows`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否在工具栏显示复制按钮。设置为 `true` 时，会显示一个复制按钮，用户可以通过该按钮将选中行的内容复制到剪贴板。
+
+- **默认值:** `false`
+
+### copyDelimiter
+
+- **属性:** `data-copy-delimiter`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置复制时用于分隔列值的分隔符。
+
+- **默认值:** `', '`
+
+### copyNewline
+
+- **属性:** `data-copy-newline`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置复制时用于分隔行的换行符。
+
+- **默认值:** `'\n'`
+
+### copyWithHidden
+
+- **属性:** `data-copy-with-hidden`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否在复制时包含隐藏列。设置为 `true` 时，会连同隐藏列一起复制。
+
+- **默认值:** `false`
+
+### copyRowsHandler
+
+- **属性:** `data-copy-rows-handler`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  复制前的数据处理函数。入参为将要复制的文本内容，返回值将作为最终复制到剪贴板的内容。
+
+- **默认值:** `function(text) { return text }`
+
+## 列选项
+
+### ignoreCopy
+
+- **属性:** `data-ignore-copy`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置该列在复制时是否被忽略。设置为 `true` 时，复制数据时将排除该列。
+
+- **默认值:** `false`
+
+### rawCopy
+
+- **属性:** `data-raw-copy`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否复制原始值而非格式化后内容。设置为 `true` 时，将复制原始数据；若列未使用 formatter，则此选项无效。
+
+- **默认值:** `false`
+
+## 图标
+
+- `copy`: `'fa-copy'`
+
+## 方法
+
+### copyColumnsToClipboard
+
+* 将选中行的内容复制到剪贴板。
+
+## 本地化
+
+### formatCopyRows
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Copy Rows" }`

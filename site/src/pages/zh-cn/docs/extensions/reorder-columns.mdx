@@ -1,0 +1,79 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Reorder Columns
+description: Bootstrap Table 的列重排扩展，允许通过拖拽方式调整表格列的顺序。
+group: extensions
+toc: true
+---
+
+## 依赖项
+该扩展依赖以下库：
+* [dragTable](https://github.com/akottr/dragtable/) v2.0.14（需同时引入 CSS）
+* [jquery-ui](https://code.jquery.com/ui/) v1.11
+
+## 用法
+
+```html
+<link rel="stylesheet" href="dragtable.css">
+<script src="jquery-ui.js"></script>
+<script src="jquery.dragtable.js"></script>
+<script src="extensions/reorder-columns/bootstrap-table-reorder-columns.js"></script>
+```
+
+## 示例
+
+[Reorder Columns](https://examples.bootstrap-table.com/#extensions/reorder-columns.html)
+
+## 选项
+
+### reorderableColumns
+
+- **属性:** `data-reorderable-columns`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用列拖拽功能。设置为 `true` 时，允许用户通过拖拽表头调整列顺序。
+
+- **默认值:** `false`
+
+### dragaccept
+
+- **属性:** `data-dragaccept`
+
+- **类型:** `String`
+
+- **详情:**
+
+  仅允许拖拽具有指定 CSS 类的列。
+
+- **默认值:** `null`
+
+### maxMovingRows
+
+- **属性:** `data-max-moving-rows`
+
+- **类型:** `Integer`
+
+- **详情:**
+
+  控制拖拽时同时移动的行数。设置为 1 时仅移动表头，推荐在超大表格（单元格数量 > 1000）时使用此设置以提升性能。
+
+- **默认值:** `10`
+
+## 事件
+
+### onReorderColumn (reorder-column.bs.table)
+
+当列拖拽完成时触发，参数为新的表头字段顺序。
+
+## 方法
+
+### orderColumns
+
+- **参数:** `object`，例如 `{name: 0, price: 1}`
+
+- **详情:**
+
+  根据传入的配置对象重新排列列顺序。对象的键为 [field](https://bootstrap-table.com/docs/api/column-options/#field)（列字段名），值为列索引（从 0 开始）。

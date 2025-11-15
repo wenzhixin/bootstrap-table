@@ -1,0 +1,31 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Defer URL
+description: Bootstrap Table 的延迟 URL 扩展，用于优化服务端渲染表格的性能。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<script src="extensions/defer-url/bootstrap-table-defer-url.js"></script>
+```
+
+## 示例
+
+[Defer URL](https://examples.bootstrap-table.com/#extensions/defer-url.html)
+
+## 选项
+
+### deferUrl
+
+- **属性:** `data-defer-url`
+
+- **类型:** `String`
+
+- **详情:**
+
+  使用服务端处理时，bootstrap-table 默认会丢弃当前表格中的数据，并向服务器请求第一页数据进行展示。对于空表来说这样没问题，但如果页面上已经以纯 HTML 形式渲染了第一页数据，就会造成资源浪费。此时可以使用 `deferUrl` 替代 `url`，让 bootstrap-table 跳过首次请求，直接使用页面上已有的数据。
+
+- **默认值:** `null`

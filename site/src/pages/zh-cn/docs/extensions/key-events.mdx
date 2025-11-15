@@ -1,0 +1,37 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Key Events
+description: Bootstrap Table 的键盘事件扩展，允许通过键盘快捷键快速操作表格。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<script src="extensions/key-events/bootstrap-table-key-events.js"></script>
+```
+
+## 示例
+
+[Key Events](https://examples.bootstrap-table.com/#extensions/key-events.html)
+
+## 选项
+
+### keyEvents
+
+- **属性:** `data-key-events`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用键盘事件支持。设置为 `true` 时，支持以下键盘快捷键：
+    * `s`：若启用搜索功能，则自动聚焦搜索输入框
+    * `r`：若启用 `showRefresh` 选项，则刷新表格
+    * `t`：若启用 `showToggle` 选项，则切换表格视图
+    * `p`：若启用 `showPaginationSwitch` 选项，则触发分页开关
+    * `←`：若开启分页功能，则跳转到上一页
+    * `→`：若开启分页功能，则跳转到下一页
+
+- **默认值:** `false`
