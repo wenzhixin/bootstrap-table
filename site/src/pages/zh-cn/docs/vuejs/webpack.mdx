@@ -1,0 +1,193 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Webpack
+description: 了解如何在使用 webpack 的项目中集成 Bootstrap Table Vue 组件。
+group: vuejs
+toc: true
+---
+
+## 引入 JavaScript
+
+在应用的入口文件（通常是 `index.js` 或 `app.js`）中添加以下语句以引入 Bootstrap Table 的 JavaScript：
+
+```javascript
+import 'bootstrap-table'
+```
+
+当然，你也可以按需引入主题、本地化或扩展：
+
+```javascript
+// 引入主题
+import 'bootstrap-table/dist/themes/materialize/bootstrap-table-materialize.min.js'
+
+// 引入本地化
+import 'bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js'
+
+// 引入扩展及依赖
+import 'tableexport.jquery.plugin'
+import 'bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js'
+```
+
+默认情况下，Bootstrap Table 依赖 [jQuery](https://jquery.com/)、[Bootstrap](https://getbootstrap.com) 和 [Popper](https://popper.js.org/)。这些依赖被定义为 peerDependencies，因此你需要通过 `npm install --save jquery bootstrap popper.js` 命令将它们添加到 `package.json` 中。
+
+## 引入 CSS
+
+在应用入口文件中添加以下语句以引入 Bootstrap Table 的 CSS：
+
+```javascript
+import 'bootstrap-table/dist/bootstrap-table.min.css'
+```
+
+当然，你也可以按需引入主题或扩展：
+
+```javascript
+// 引入主题
+import 'bootstrap-table/dist/themes/materialize/bootstrap-table-materialize.min.css'
+
+// 引入扩展
+import 'bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css'
+```
+
+## 使用示例
+
+```vue
+<template>
+  <BootstrapTable
+    :columns="columns"
+    :data="data"
+    :options="options"
+  />
+</template>
+
+<script>
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.js'
+
+export default {
+  components: {
+    BootstrapTable
+  },
+  data () {
+    return {
+      columns: [
+        {
+          title: 'Item ID',
+          field: 'id'
+        },
+        {
+          field: 'name',
+          title: 'Item Name'
+        },
+        {
+          field: 'price',
+          title: 'Item Price'
+        }
+      ],
+      data: [
+        {
+          id: 1,
+          name: 'Item 1',
+          price: '$1'
+        }
+      ],
+      options: {
+        search: true,
+        showColumns: true
+      }
+    }
+  }
+}
+</script>
+```
+
+## 起始模板
+
+在 bootstrap-table-example 项目中提供了一个 [vue-starter](https://github.com/wenzhixin/bootstrap-table-examples/tree/develop/vue-starter) 示例。
+
+`plugins/jquery.js`
+
+```javascript
+import jQuery from 'jquery'
+window.jQuery = jQuery
+```
+
+`plugins/table.js`
+
+```javascript
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-table/dist/bootstrap-table.min.css'
+
+import './jquery.js'
+import Vue from 'vue'
+import 'bootstrap'
+import 'bootstrap-table/dist/bootstrap-table.js'
+import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.esm.js'
+
+Vue.component('BootstrapTable', BootstrapTable)
+```
+
+`main.js`
+
+```javascript
+import './plugins/table.js'
+```
+
+`View.vue`
+
+```vue
+<template>
+  <BootstrapTable :columns="columns" :data="data" :options="options"></BootstrapTable>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      columns: [
+        {
+          title: 'Item ID',
+          field: 'id'
+        },
+        {
+          field: 'name',
+          title: 'Item Name'
+        }, {
+          field: 'price',
+          title: 'Item Price'
+        }
+      ],
+      data: [
+        {
+          id: 1,
+          name: 'Item 1',
+          price: '$1'
+        },
+        {
+          id: 2,
+          name: 'Item 2',
+          price: '$2'
+        },
+        {
+          id: 3,
+          name: 'Item 3',
+          price: '$3'
+        },
+        {
+          id: 4,
+          name: 'Item 4',
+          price: '$4'
+        },
+        {
+          id: 5,
+          name: 'Item 5',
+          price: '$5'
+        }
+      ],
+      options: {
+        search: true,
+        showColumns: true
+      }
+    }
+  }
+}
+</script>
+```
