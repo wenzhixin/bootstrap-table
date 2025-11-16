@@ -486,12 +486,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
     UtilsFilterControl.cacheValues(this)
 
-    // Detect if this is during initial filter rendering
     const isInitialRender = !this._initialized
 
     // Cookie extension support
     if (!this.options.cookie) {
-      // Only reset pageNumber if this is actual user interaction, not initial render
       if (!isInitialRender) {
         this.options.pageNumber = 1
       }
@@ -522,7 +520,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     })
 
-    // Pass firedByInitSearchText flag to prevent pageNumber reset during initialization
     this.onSearch({ currentTarget, firedByInitSearchText: isInitialRender }, false)
   }
 
