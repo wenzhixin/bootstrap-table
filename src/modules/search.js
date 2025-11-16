@@ -222,6 +222,7 @@ export default {
 
     $search.val(textToUse)
     this.searchText = textToUse
+    this.options.searchText = textToUse
     this.onSearch({ currentTarget: $search }, false)
   },
 
