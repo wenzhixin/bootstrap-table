@@ -182,19 +182,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // Helper: escape CSV field
     const csvEscape = (value, delimiter) => {
       const d = delimiter || ','
-      if (value == null) return ''
+      
+      if (value === null || value === undefined) return ''
+      
       const str = String(value)
       const mustQuote = str.includes(d) || str.includes('"') || str.includes('\n') || str.includes('\r')
+      
       if (!mustQuote) return str
       return `"${str.replace(/"/g, '""')}"`
     }
 
     // Helper: build a 2D array of visible table content from DOM
-    const collectTableMatrix = (ignoreColumnIdxs) => {
-      const ignore = new Set((ignoreColumnIdxs || []).map(i => Number(i)))
+    const collectTableMatrix = ignoreColumnIdxs => {
+      const ignore = new Set((ignoreColumnIdxs ? ignoreColumnIdxs.map(Number) : []))
       const headerRow = []
       const headerTr = this.$el.find('thead tr').last()
       const $ths = headerTr.children()
+      
       $ths.each((idx, th) => {
         if ($(th).is(':visible') && !ignore.has(idx)) {
           headerRow.push($(th).text().trim())
@@ -203,61 +207,85 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       const rows = []
       const $trs = this.$el.find('tbody > tr:visible')
+      
       $trs.each((_, tr) => {
         // skip detail view rows or non-data rows
         const $tr = $(tr)
+        
         if ($tr.hasClass('detail-view') || $tr.hasClass('no-records-found')) return
+        
         const row = []
         $tr.children().each((idx, td) => {
           if ($(td).is(':visible') && !ignore.has(idx)) {
             row.push($(td).text().trim())
           }
         })
-        if (row.length) rows.push(row)
+        
+        if (row.length) {
+          rows.push(row)
+        }
       })
+      
       return { headerRow, rows }
     }
 
     // Helper: convert to content by type
     const buildFile = (type, matrix, exportOptions) => {
       const delimiter = exportOptions && exportOptions.csvDelimiter ? exportOptions.csvDelimiter : ','
-      const tableName = (exportOptions && exportOptions.tableName) || 'table'
+      const tableName = exportOptions && exportOptions.tableName || 'table'
       const { headerRow, rows } = matrix
+      
       switch (type) {
         case 'csv': {
           const lines = []
-          if (headerRow.length) lines.push(headerRow.map(h => csvEscape(h, delimiter)).join(delimiter))
+          
+          if (headerRow.length) {
+            lines.push(headerRow.map(h => csvEscape(h, delimiter)).join(delimiter))
+          }
+          
           rows.forEach(r => lines.push(r.map(v => csvEscape(v, delimiter)).join(delimiter)))
           return { mime: 'text/csv;charset=utf-8', ext: 'csv', content: lines.join('\r\n') }
         }
         case 'txt': {
           const d = '\t'
           const lines = []
-          if (headerRow.length) lines.push(headerRow.join(d))
+          
+          if (headerRow.length) {
+            lines.push(headerRow.join(d))
+          }
+          
           rows.forEach(r => lines.push(r.join(d)))
           return { mime: 'text/plain;charset=utf-8', ext: 'txt', content: lines.join('\r\n') }
         }
         case 'json': {
           const objs = []
+          
           if (headerRow.length) {
             rows.forEach(r => {
               const obj = {}
-              headerRow.forEach((h, i) => { obj[h || `col${i + 1}`] = r[i] })
+              
+              headerRow.forEach((h, i) => {
+                obj[h || `col${i + 1}`] = r[i]
+              })
+              
               objs.push(obj)
             })
           } else {
             rows.forEach(r => objs.push(r))
           }
+          
           return { mime: 'application/json;charset=utf-8', ext: 'json', content: JSON.stringify(objs, null, 2) }
         }
         case 'xml': {
-          const esc = s => String(s == null ? '' : s)
+          const esc = s => String(s === null || s === undefined ? '' : s)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&apos;')
+          
           const lines = ['<?xml version="1.0" encoding="UTF-8"?>', `<${tableName}>`]
+          
           rows.forEach(r => {
             lines.push('  <row>')
             r.forEach((v, i) => {
@@ -266,16 +294,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
             })
             lines.push('  </row>')
           })
+          
           lines.push(`</${tableName}>`)
           return { mime: 'application/xml;charset=utf-8', ext: 'xml', content: lines.join('\n') }
         }
         case 'sql': {
           const cols = headerRow.map(h => (h || '').replace(/`/g, '``') || null).map((c, i) => c || `col${i + 1}`)
-          const values = rows.map(r => '(' + r.map(v => {
-            if (v == null || v === '') return 'NULL'
-            const s = String(v).replace(/'/g, "''")
+          
+          const values = rows.map(r => `(${r.map(v => {
+            if (v === null || v === undefined || v === '') return 'NULL'
+            const s = String(v).replace(/'/g, '\'\'' )
             return `'${s}'`
-          }).join(', ') + ')')
+          }).join(', ')})`)
+          
           const sql = `INSERT INTO \`${tableName}\` (\`${cols.join('`, `')}\`) VALUES\n${values.join(',\n')};`
           return { mime: 'application/sql;charset=utf-8', ext: 'sql', content: sql }
         }
@@ -306,6 +337,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (stateField) {
         this.hideColumn(stateField)
       }
+      
       if (isCardView) {
         this.toggleView()
       }
@@ -373,6 +405,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (stateField) {
           this.showColumn(stateField)
         }
+        
         if (isCardView) {
           this.toggleView()
         }
@@ -401,6 +434,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const fileBase = effective.fileName || 'table-export'
       const filename = `${fileBase}.${built.ext}`
       saveAs(built.content, built.mime, filename)
+      
       onAfter()
     }
 
