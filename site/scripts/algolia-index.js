@@ -511,7 +511,7 @@ async function main () {
     })
 
     // Upload records in batches
-    const batchSize = 100
+    const batchSize = 50
 
     for (let i = 0; i < records.length; i += batchSize) {
       const batch = records.slice(i, i + batchSize)
