@@ -96,7 +96,7 @@ class RecordGenerator {
     let record = {
       objectID: this.url,
       title,
-      content: this.truncateContent(content, 4000), // Reduce content length
+      content: this.truncateContent(content, 2000), // Further reduce content length for Chinese
       text: '', // Will be set after size check
       hierarchy,
       type: 'content',
@@ -105,9 +105,11 @@ class RecordGenerator {
       timestamp: Date.now()
     }
 
-    // Optimize record size
+    // Set text field before optimization (DocSearch requires text field)
+    record.text = record.content
+
+    // Optimize record size after setting all fields
     record = this.optimizeRecordSize(record)
-    record.text = record.content // DocSearch requires text field
 
     return record
   }
@@ -135,7 +137,7 @@ class RecordGenerator {
       let record = {
         objectID: `${this.url}#${anchor}`,
         title: headingText,
-        content: this.truncateContent(content, 3000), // Shorter section content
+        content: this.truncateContent(content, 1500), // Much shorter section content for Chinese
         text: '', // Will be set after size check
         hierarchy,
         type: `lvl${level}`,
@@ -144,9 +146,11 @@ class RecordGenerator {
         timestamp: Date.now()
       }
 
-      // Optimize record size
+      // Set text field before optimization (DocSearch requires text field)
+      record.text = record.content
+
+      // Optimize record size after setting all fields
       record = this.optimizeRecordSize(record)
-      record.text = record.content // DocSearch requires text field
 
       records.push(record)
     })
@@ -358,14 +362,14 @@ class RecordGenerator {
    * Optimize record size to ensure it doesn't exceed Algolia limits
    */
   optimizeRecordSize (record) {
-    const MAX_SIZE = 8000 // Leave more buffer space to ensure we stay under 10KB
-    const originalSize = JSON.stringify(record).length
+    const MAX_SIZE = 4000 // Aggressively reduce to ensure UTF-8 encoding stays under 10KB
+    const jsonString = JSON.stringify(record)
+    const originalSize = Buffer.byteLength(jsonString, 'utf8')
 
     if (originalSize <= MAX_SIZE) {
       return record
     }
 
-    console.log(`⚠️  Optimizing record ${record.objectID} (size: ${originalSize} bytes)`)
 
     const optimizedRecord = { ...record }
 
@@ -380,16 +384,19 @@ class RecordGenerator {
     }
 
     // Step 2: Remove optional fields to save space
-    let currentSize = JSON.stringify(optimizedRecord).length
+    let currentJsonString = JSON.stringify(optimizedRecord)
+    let currentSize = Buffer.byteLength(currentJsonString, 'utf8')
 
     if (currentSize > MAX_SIZE) {
       delete optimizedRecord.timestamp
-      currentSize = JSON.stringify(optimizedRecord).length
+      currentJsonString = JSON.stringify(optimizedRecord)
+      currentSize = Buffer.byteLength(currentJsonString, 'utf8')
     }
 
     if (currentSize > MAX_SIZE) {
       delete optimizedRecord.anchor
-      currentSize = JSON.stringify(optimizedRecord).length
+      currentJsonString = JSON.stringify(optimizedRecord)
+      currentSize = Buffer.byteLength(currentJsonString, 'utf8')
     }
 
     // Step 3: Compress hierarchy
@@ -404,7 +411,8 @@ class RecordGenerator {
       if (hierarchy.lvl3) compactHierarchy.lvl3 = hierarchy.lvl3
 
       optimizedRecord.hierarchy = compactHierarchy
-      currentSize = JSON.stringify(optimizedRecord).length
+      currentJsonString = JSON.stringify(optimizedRecord)
+      currentSize = Buffer.byteLength(currentJsonString, 'utf8')
     }
 
     // Step 4: Final content compression
@@ -416,7 +424,6 @@ class RecordGenerator {
       }
     }
 
-    console.log(`✅ Optimized ${record.objectID}: ${originalSize} → ${JSON.stringify(optimizedRecord).length} bytes`)
 
     return optimizedRecord
   }
@@ -427,6 +434,7 @@ class RecordGenerator {
  */
 async function generateIndex (distPath) {
   const allRecords = []
+  let processedCount = 0
 
   function scanDirectory (dir, basePath = '') {
     const files = fs.readdirSync(dir)
@@ -461,7 +469,7 @@ async function generateIndex (distPath) {
           const records = generator.generateRecords()
 
           allRecords.push(...records)
-          console.log(`✓ Processed: ${urlPath} (${records.length} records)`)
+          processedCount++
         } catch (error) {
           console.error(`✗ Error processing ${filePath}:`, error.message)
         }
@@ -470,6 +478,9 @@ async function generateIndex (distPath) {
   }
 
   scanDirectory(distPath)
+  if (processedCount > 0) {
+    console.log(`✓ Processed ${processedCount} files`)
+  }
   return allRecords
 }
 
@@ -492,47 +503,18 @@ async function main () {
     return
   }
 
-  console.log(`📦 Found ${records.length} records to index`)
-
-  // Skip upload if Algolia client is not initialized, just show stats
+  // Skip upload if Algolia client is not initialized
   if (!client) {
-    console.log('\n📊 Recording size statistics (no upload):')
-    const sizeStats = {}
     const maxSize = 10000
+    const oversizedCount = records.filter(r => Buffer.byteLength(JSON.stringify(r), 'utf8') > maxSize).length
 
-    records.forEach(record => {
-      const size = JSON.stringify(record).length
-      const range = Math.min(Math.floor(size / 1000) * 1000, maxSize)
-
-      sizeStats[range] = (sizeStats[range] || 0) + 1
-
-      if (size > maxSize) {
-        console.log(`  ❌ ${record.objectID}: ${size} bytes`)
-      }
-    })
-
-    console.log('\n📈 Size distribution:')
-    Object.keys(sizeStats).sort((a, b) => Number(a) - Number(b)).forEach(range => {
-      const nextRange = range === '0' ? '1K' : `${Number(range) + 1000}`
-      const label = range === '0' ? '< 1KB' : `${range}-${nextRange} bytes`
-
-      console.log(`  ${label}: ${sizeStats[range]} records`)
-    })
-
-    const oversizedCount = records.filter(r => JSON.stringify(r).length > maxSize).length
-
-    console.log(`\n⚠️  ${oversizedCount} records exceed ${maxSize} bytes limit`)
-
+    console.log(`\n📊 Found ${records.length} records to index`)
+    if (oversizedCount > 0) {
+      console.log(`⚠️  ${oversizedCount} records exceed ${maxSize} bytes limit`)
+    }
+    console.log('⚠️  Algolia credentials not provided - skipping upload')
     return
   }
-
-  // Show record distribution
-  const recordStats = {}
-
-  records.forEach(record => {
-    recordStats[record.type] = (recordStats[record.type] || 0) + 1
-  })
-  console.log('📊 Record types:', recordStats)
 
   try {
     // Clear existing index
@@ -550,7 +532,8 @@ async function main () {
     const oversizedRecords = []
 
     for (const record of records) {
-      const recordSize = JSON.stringify(record).length
+      const jsonString = JSON.stringify(record)
+      const recordSize = Buffer.byteLength(jsonString, 'utf8') // Use actual byte length for UTF-8
 
       if (recordSize > MAX_ALGOLIA_SIZE) {
         oversizedRecords.push({ ...record, size: recordSize })
@@ -559,15 +542,12 @@ async function main () {
       }
     }
 
+
     if (oversizedRecords.length > 0) {
-      console.warn(`⚠️  Warning: Found ${oversizedRecords.length} oversized records that exceed ${MAX_ALGOLIA_SIZE} bytes:`)
-      oversizedRecords.forEach(record => {
-        console.warn(`   - ${record.objectID}: ${record.size} bytes`)
-      })
-      console.warn('   These records will be skipped to avoid upload failures.')
+      console.warn(`⚠️  Skipped ${oversizedRecords.length} oversized records`)
     }
 
-    console.log(`📤 Uploading ${validRecords.length} valid records (skipped ${oversizedRecords.length} oversized records)`)
+    console.log(`📤 Uploading ${validRecords.length} records...`)
 
     for (let i = 0; i < validRecords.length; i += batchSize) {
       const batch = validRecords.slice(i, i + batchSize)
@@ -576,12 +556,35 @@ async function main () {
         indexName: ALGOLIA_INDEX_NAME,
         objects: batch
       })
-      console.log(`✅ Uploaded batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(validRecords.length / batchSize)} (${batch.length} records)`)
     }
 
     console.log('🎉 Successfully uploaded all records to Algolia!')
   } catch (error) {
     console.error('❌ Error uploading to Algolia:', error.message)
+
+    // Try to extract record info from error message
+    const errorMsg = error.message
+    const objectIDMatch = errorMsg.match(/objectID=([^\s]+)/)
+
+    if (objectIDMatch) {
+      console.error('\n📍 Problematic record details:')
+      console.error(`  objectID: ${objectIDMatch[1]}`)
+
+      // Find the record in our collection
+      const problematicRecord = records.find(r => r.objectID === objectIDMatch[1])
+
+      if (problematicRecord) {
+        const jsonString = JSON.stringify(problematicRecord)
+
+        console.error(`  string length: ${jsonString.length}`)
+        console.error(`  byte length (UTF-8): ${Buffer.byteLength(jsonString, 'utf8')} bytes`)
+        console.error(`  title: ${problematicRecord.title}`)
+        console.error(`  type: ${problematicRecord.type}`)
+        console.error(`  content length: ${problematicRecord.content?.length || 0}`)
+        console.error(`  text length: ${problematicRecord.text?.length || 0}`)
+      }
+    }
+
     process.exit(1)
   }
 }
