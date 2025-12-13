@@ -50,7 +50,7 @@ function oe(e) {
 function K(e) {
   return !!(e && e.__v_isReadonly);
 }
-function B(e) {
+function j(e) {
   return !!(e && e.__v_isShallow);
 }
 function L(e) {
@@ -71,10 +71,10 @@ function Te(e) {
 function Re() {
   S.pop();
 }
-let j = !1;
+let B = !1;
 function R(e, ...t) {
-  if (j) return;
-  j = !0;
+  if (B) return;
+  B = !0;
   const n = S.length ? S[S.length - 1].component : null, o = n && n.appContext.config.warnHandler, s = Ve();
   if (o)
     X(
@@ -100,7 +100,7 @@ function R(e, ...t) {
     s.length && r.push(`
 `, ...Ie(s)), console.warn(...r);
   }
-  j = !1;
+  B = !1;
 }
 function Ve() {
   let e = S[S.length - 1];
@@ -219,7 +219,7 @@ function De(e, t, n, o = !0, s = !1) {
     console.error(e);
   }
 }
-const p = [];
+const d = [];
 let b = -1;
 const x = [];
 let N = null, k = 0;
@@ -227,18 +227,18 @@ const Ae = /* @__PURE__ */ Promise.resolve();
 let Y = null;
 const Pe = 100;
 function Me(e) {
-  let t = b + 1, n = p.length;
+  let t = b + 1, n = d.length;
   for (; t < n; ) {
-    const o = t + n >>> 1, s = p[o], r = V(s);
+    const o = t + n >>> 1, s = d[o], r = V(s);
     r < e || r === e && s.flags & 2 ? t = o + 1 : n = o;
   }
   return t;
 }
 function Ue(e) {
   if (!(e.flags & 1)) {
-    const t = V(e), n = p[p.length - 1];
+    const t = V(e), n = d[d.length - 1];
     !n || // fast path when the job id is larger than the tail
-    !(e.flags & 2) && t >= V(n) ? p.push(e) : p.splice(Me(t), 0, e), e.flags |= 1, le();
+    !(e.flags & 2) && t >= V(n) ? d.push(e) : d.splice(Me(t), 0, e), e.flags |= 1, le();
   }
 }
 function le() {
@@ -268,8 +268,8 @@ function ce(e) {
   f.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map());
   const t = f.NODE_ENV !== "production" ? (n) => ae(e, n) : Ee;
   try {
-    for (b = 0; b < p.length; b++) {
-      const n = p[b];
+    for (b = 0; b < d.length; b++) {
+      const n = d[b];
       if (n && !(n.flags & 8)) {
         if (f.NODE_ENV !== "production" && t(n))
           continue;
@@ -281,11 +281,11 @@ function ce(e) {
       }
     }
   } finally {
-    for (; b < p.length; b++) {
-      const n = p[b];
+    for (; b < d.length; b++) {
+      const n = d[b];
       n && (n.flags &= -2);
     }
-    b = -1, p.length = 0, He(e), Y = null, (p.length || x.length) && ce(e);
+    b = -1, d.length = 0, He(e), Y = null, (d.length || x.length) && ce(e);
   }
 }
 function ae(e, t) {
@@ -302,12 +302,12 @@ function ae(e, t) {
 }
 const J = /* @__PURE__ */ new Map();
 f.NODE_ENV !== "production" && (H().__VUE_HMR_RUNTIME__ = {
-  createRecord: q(Be),
-  rerender: q(je),
+  createRecord: q(je),
+  rerender: q(Be),
   reload: q(Je)
 });
 const A = /* @__PURE__ */ new Map();
-function Be(e, t) {
+function je(e, t) {
   return A.has(e) ? !1 : (A.set(e, {
     initialDef: P(t),
     instances: /* @__PURE__ */ new Set()
@@ -316,10 +316,10 @@ function Be(e, t) {
 function P(e) {
   return be(e) ? e.__vccOpts : e;
 }
-function je(e, t) {
+function Be(e, t) {
   const n = A.get(e);
   n && (n.initialDef.render = t, [...n.instances].forEach((o) => {
-    t && (o.render = t, P(o.type).render = t), o.renderCache = [], o.update();
+    t && (o.render = t, P(o.type).render = t), o.renderCache = [], o.job.flags & 8 || o.update();
   }));
 }
 function Je(e, t) {
@@ -331,7 +331,7 @@ function Je(e, t) {
     const r = o[s], l = P(r.type);
     let c = J.get(l);
     c || (l !== n.initialDef && te(l, t), J.set(l, c = /* @__PURE__ */ new Set())), c.add(r), r.appContext.propsCache.delete(r.type), r.appContext.emitsCache.delete(r.type), r.appContext.optionsCache.delete(r.type), r.ceReload ? (c.add(r), r.ceReload(t.styles), c.delete(r)) : r.parent ? Ue(() => {
-      r.parent.update(), c.delete(r);
+      r.job.flags & 8 || (r.parent.update(), c.delete(r));
     }) : r.appContext.reload ? r.appContext.reload() : typeof window < "u" ? window.location.reload() : console.warn(
       "[HMR] Root or manually mounted instance modified. Full reload required."
     ), r.root.ce && r !== r.root && r.root.ce._removeChildStyle(l);
@@ -367,7 +367,7 @@ const Ke = Symbol.for("v-ndc"), Le = {};
 f.NODE_ENV !== "production" && (Le.ownKeys = (e) => (R(
   "Avoid app logic that relies on enumerating keys on a component instance. The keys will be empty in production mode to avoid performance overhead."
 ), Reflect.ownKeys(e)));
-const Ye = {}, fe = (e) => Object.getPrototypeOf(e) === Ye, Ge = (e) => e.__isSuspense, de = Symbol.for("v-fgt"), Qe = Symbol.for("v-txt"), Ze = Symbol.for("v-cmt"), $ = [];
+const Ye = {}, fe = (e) => Object.getPrototypeOf(e) === Ye, Ge = (e) => e.__isSuspense, pe = Symbol.for("v-fgt"), Qe = Symbol.for("v-txt"), Ze = Symbol.for("v-cmt"), $ = [];
 let h = null;
 function Xe(e = !1) {
   $.push(h = e ? null : []);
@@ -396,18 +396,18 @@ function nt(e) {
 }
 const ot = (...e) => me(
   ...e
-), pe = ({ key: e }) => e ?? null, F = ({
+), de = ({ key: e }) => e ?? null, F = ({
   ref: e,
   ref_key: t,
   ref_for: n
 }) => (typeof e == "number" && (e = "" + e), e != null ? E(e) || Z(e) || O(e) ? { i: M, r: e, k: t, f: !!n } : e : null);
-function he(e, t = null, n = null, o = 0, s = null, r = e === de ? 0 : 1, l = !1, c = !1) {
+function he(e, t = null, n = null, o = 0, s = null, r = e === pe ? 0 : 1, l = !1, c = !1) {
   const a = {
     __v_isVNode: !0,
     __v_skip: !0,
     type: e,
     props: t,
-    key: t && pe(t),
+    key: t && de(t),
     ref: t && F(t),
     scopeId: qe,
     slotScopeIds: null,
@@ -483,7 +483,7 @@ function U(e, t, n = !1, o = !1) {
     __v_skip: !0,
     type: e.type,
     props: m,
-    key: m && pe(m),
+    key: m && de(m),
     ref: t && t.ref ? (
       // #2078 in the case of <component :is="vnode" ref="extra"/>
       // if the vnode itself already has a ref, cloneVNode will need to merge
@@ -502,7 +502,7 @@ function U(e, t, n = !1, o = !1) {
     // existing patch flag to be reliable and need to add the FULL_PROPS flag.
     // note: preserve flag for fragments since they use the flag for children
     // fast paths only.
-    patchFlag: t && e.type !== de ? l === -1 ? 16 : l | 16 : l,
+    patchFlag: t && e.type !== pe ? l === -1 ? 16 : l | 16 : l,
     dynamicProps: e.dynamicProps,
     dynamicChildren: e.dynamicChildren,
     appContext: e.appContext,
@@ -516,6 +516,7 @@ function U(e, t, n = !1, o = !1) {
     suspense: e.suspense,
     ssContent: e.ssContent && U(e.ssContent),
     ssFallback: e.ssFallback && U(e.ssFallback),
+    placeholder: e.placeholder,
     el: e.el,
     anchor: e.anchor,
     ctx: e.ctx,
@@ -581,7 +582,7 @@ function lt(...e) {
     (n) => n
   );
 }
-const ct = /(?:^|[-_])(\w)/g, at = (e) => e.replace(ct, (t) => t.toUpperCase()).replace(/[-_]/g, "");
+const ct = /(?:^|[-_])\w/g, at = (e) => e.replace(ct, (t) => t.toUpperCase()).replace(/[-_]/g, "");
 function ge(e, t = !0) {
   return O(e) ? e.displayName || e.name : e.name || t && e.__name;
 }
@@ -631,7 +632,7 @@ function ut() {
           return [
             "div",
             {},
-            ["span", e, B(i) ? "ShallowReactive" : "Reactive"],
+            ["span", e, j(i) ? "ShallowReactive" : "Reactive"],
             "<",
             c(i),
             `>${K(i) ? " (readonly)" : ""}`
@@ -640,7 +641,7 @@ function ut() {
           return [
             "div",
             {},
-            ["span", e, B(i) ? "ShallowReadonly" : "Readonly"],
+            ["span", e, j(i) ? "ShallowReadonly" : "Readonly"],
             "<",
             c(i),
             ">"
@@ -663,8 +664,8 @@ function ut() {
   function r(i) {
     const u = [];
     i.type.props && i.props && u.push(l("props", C(i.props))), i.setupState !== W && u.push(l("setup", i.setupState)), i.data !== W && u.push(l("data", C(i.data)));
-    const d = a(i, "computed");
-    d && u.push(l("computed", d));
+    const p = a(i, "computed");
+    p && u.push(l("computed", p));
     const _ = a(i, "inject");
     return _ && u.push(l("injected", _)), u.push([
       "div",
@@ -695,11 +696,11 @@ function ut() {
         {
           style: "padding-left:1.25em"
         },
-        ...Object.keys(u).map((d) => [
+        ...Object.keys(u).map((p) => [
           "div",
           {},
-          ["span", o, d + ": "],
-          c(u[d], !1)
+          ["span", o, p + ": "],
+          c(u[p], !1)
         ])
       ]
     ] : ["span", {}];
@@ -708,30 +709,30 @@ function ut() {
     return typeof i == "number" ? ["span", t, i] : typeof i == "string" ? ["span", n, JSON.stringify(i)] : typeof i == "boolean" ? ["span", o, i] : w(i) ? ["object", { object: u ? C(i) : i }] : ["span", n, String(i)];
   }
   function a(i, u) {
-    const d = i.type;
-    if (O(d))
+    const p = i.type;
+    if (O(p))
       return;
     const _ = {};
     for (const T in i.ctx)
-      m(d, T, u) && (_[T] = i.ctx[T]);
+      m(p, T, u) && (_[T] = i.ctx[T]);
     return _;
   }
-  function m(i, u, d) {
-    const _ = i[d];
-    if (g(_) && _.includes(u) || w(_) && u in _ || i.extends && m(i.extends, u, d) || i.mixins && i.mixins.some((T) => m(T, u, d)))
+  function m(i, u, p) {
+    const _ = i[p];
+    if (g(_) && _.includes(u) || w(_) && u in _ || i.extends && m(i.extends, u, p) || i.mixins && i.mixins.some((T) => m(T, u, p)))
       return !0;
   }
   function y(i) {
-    return B(i) ? "ShallowRef" : i.effect ? "ComputedRef" : "Ref";
+    return j(i) ? "ShallowRef" : i.effect ? "ComputedRef" : "Ref";
   }
   window.devtoolsFormatters ? window.devtoolsFormatters.push(s) : window.devtoolsFormatters = [s];
 }
 var ft = {};
-function dt() {
+function pt() {
   ut();
 }
-ft.NODE_ENV !== "production" && dt();
-const pt = (e, t) => {
+ft.NODE_ENV !== "production" && pt();
+const dt = (e, t) => {
   const n = e.__vccOpts || e;
   for (const [o, s] of t)
     n[o] = s;
@@ -814,7 +815,7 @@ const pt = (e, t) => {
 function mt(e, t, n, o, s, r) {
   return Xe(), tt("table");
 }
-const _t = /* @__PURE__ */ pt(ht, [["render", mt]]);
+const _t = /* @__PURE__ */ dt(ht, [["render", mt]]);
 export {
   _t as default
 };

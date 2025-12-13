@@ -678,10 +678,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.44.0',
+  	  version: '3.46.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -6713,10 +6713,13 @@
           return;
         }
         cacheValues(this);
+        var isInitialRender = !this._initialized;
 
         // Cookie extension support
         if (!this.options.cookie) {
-          this.options.pageNumber = 1;
+          if (!isInitialRender) {
+            this.options.pageNumber = 1;
+          }
         } else {
           // Force call the initServer method in Cookie extension
           this._filterControlValuesLoaded = true;
@@ -6740,7 +6743,8 @@
           }
         });
         this.onSearch({
-          currentTarget: currentTarget
+          currentTarget: currentTarget,
+          firedByInitSearchText: isInitialRender
         }, false);
       }
     }, {
