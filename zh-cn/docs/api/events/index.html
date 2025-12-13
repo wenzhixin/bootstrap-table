@@ -1,0 +1,547 @@
+<!DOCTYPE html><html lang="zh-cn"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Bootstrap Table 的事件 API。"><meta name="author" content="Zhixin Wen and Bootstrap Table contributors"><meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation"><meta name="generator" content="Astro v5.16.5"><meta name="docsearch:language" content="zh-cn"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://bootstrap-table.com/zh-cn/docs/api/events/"><meta property="og:title" content="事件 · Bootstrap Table"><meta property="og:description" content="Bootstrap Table 的事件 API。"><meta property="og:image" content="/assets/images/bootstrap-table.jpg"><meta property="og:site_name" content="Bootstrap Table"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://bootstrap-table.com/zh-cn/docs/api/events/"><meta property="twitter:title" content="事件 · Bootstrap Table"><meta property="twitter:description" content="Bootstrap Table 的事件 API。"><meta property="twitter:image" content="/assets/images/bootstrap-table.jpg"><meta property="twitter:creator" content="@wenzhixin2010"><!-- Canonical URL --><link rel="canonical" href="https://bootstrap-table.com/zh-cn/docs/api/events/"><title>事件 · Bootstrap Table</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4"><link rel="stylesheet" href="/assets/css/docs.min.css"><link rel="stylesheet" href="/assets/css/style.css?m=1.26.0"><!-- Prism.js code highlighting styles --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism-tomorrow.min.css"><link rel="icon" href="/favicon.png"><script type="module">window!==top&&(top.location.href=window.location.href);</script><style>@media(max-width:1199.98px){.bd-toc[data-astro-cid-obewoz47]{margin-bottom:1.5rem;order:-1}}@media(min-width:1200px){.bd-toc[data-astro-cid-obewoz47]{position:fixed;width:16.666667%;z-index:1000;max-height:calc(100vh - 7rem)}}
+</style></head><body data-bs-spy="scroll" data-bs-target="#TableOfContents"> <header class="navbar navbar-expand-lg bd-navbar sticky-top"> <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3" aria-label="Main navigation"> <div class="bd-navbar-toggle"> <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation"> <i class="bi bi-list"></i> <span class="d-none fs-6 pe-1">浏览</span> </button> </div>  <a class="navbar-brand p-0 me-0 me-lg-2" href="/zh-cn/" aria-label="Bootstrap Table"> <img src="/favicon.png" width="32" height="32" alt="Bootstrap Table"> </a> <div class="d-flex"> <div class="bd-search"></div> <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation"> <i class="bi bi-three-dots"></i> </button> </div> <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel"> <div class="offcanvas-header px-4 pb-0"> <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap Table</h5> <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button> </div> <div class="offcanvas-body p-4 pt-0 p-lg-0"> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/zh-cn/"> 首页 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link active" href="/zh-cn/docs/getting-started/introduction/"> 文档 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/zh-cn/themes"> 主题 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://examples.bootstrap-table.com" target="_blank" rel="noopener"> 示例 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://live.bootstrap-table.com" target="_blank" rel="noopener"> 在线编辑器 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/zh-cn/news"> 新闻 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://blog.bootstrap-table.com" target="_blank" rel="noopener"> 博客 </a> </li> </ul> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap ms-md-auto"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"> <i class="bi bi-github"></i> <small class="d-lg-none ms-2">GitHub</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"> <i class="bi bi-twitter"></i> <small class="d-lg-none ms-2">Twitter</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"> <i class="bi bi-heart-fill"></i> <small class="d-lg-none ms-2">Open Collective</small> </a> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-versions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+v1.26.0 </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-versions"> <li> <a class="dropdown-item active" href="/zh-cn/"> 最新版本（v1.26.0） </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.26.0/" target="_blank"> v1.26.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.24.2/" target="_blank"> v1.24.2 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.23.5/" target="_blank"> v1.23.5 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.22.6/" target="_blank"> v1.22.6 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.21.4/" target="_blank"> v1.21.4 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.20.2/" target="_blank"> v1.20.2 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.19.1/" target="_blank"> v1.19.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.18.3/" target="_blank"> v1.18.3 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.17.1/" target="_blank"> v1.17.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.16.0/" target="_blank"> v1.16.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.15.5/" target="_blank"> v1.15.5 </a> </li> </ul> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-language" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 简体中文 </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-language"> <li> <a class="dropdown-item " href="/docs/api/events/" hreflang="en"> English </a> </li><li> <a class="dropdown-item active" href="/zh-cn/docs/api/events/" hreflang="zh-cn"> 简体中文 </a> </li> </ul> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown" id="theme-switcher" data-theme-config="{&#34;themes&#34;:[{&#34;name&#34;:&#34;light&#34;,&#34;icon&#34;:&#34;bi-sun-fill&#34;,&#34;label&#34;:&#34;浅色&#34;},{&#34;name&#34;:&#34;dark&#34;,&#34;icon&#34;:&#34;bi-moon-stars-fill&#34;,&#34;label&#34;:&#34;深色&#34;},{&#34;name&#34;:&#34;auto&#34;,&#34;icon&#34;:&#34;bi-circle-half&#34;,&#34;label&#34;:&#34;自动&#34;}]}"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-bootstrap-theme" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span id="theme-icon"> <i class="bi bi-sun-fill"></i> <span class="d-lg-none ms-2" id="bd-theme-text">切换主题</span> </span> </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu"> <!-- Theme options will be generated by JavaScript --> </ul> </li> </ul> </div> </div> </nav> </header> <div class="container-fluid"> <div class="row flex-xl-nowrap h-100"> <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3"> <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel"> <div class="offcanvas-header border-bottom"> <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">浏览 文档</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button> </div> <div class="offcanvas-body d-flex flex-column"> <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav"> <li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 入门指南 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/introduction/"> 介绍 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/download/"> 下载 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/contents/"> 目录 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/usage/"> 用法 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/browsers-devices/"> 浏览器和设备 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/build-tools/"> 构建工具 </a> </li> </ul> </li><li class="bd-links-group py-2 active"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> API </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/table-options/"> 表格选项 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/column-options/"> 列选项 </a> </li><li> <a class="bd-links-link d-inline-block rounded active bd-sidenav-active" href="/zh-cn/docs/api/events/"> 事件 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/methods/"> 方法 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/localizations/"> 本地化 </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 扩展 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/addrbar/"> Addrbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/auto-refresh/"> Auto Refresh </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/cookie/"> Cookie </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/copy-rows/"> Copy Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/custom-view/"> Custom View </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/defer-url/"> Defer Url </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/editable/"> Editable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/export/"> Export </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/filter-control/"> Filter Control </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/fixed-columns/"> Fixed Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/group-by-v2/"> Group By V2 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/i18n-enhance/"> I18n Enhance </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/key-events/"> Key Events </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/mobile/"> Mobile </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/multiple-sort/"> Multiple Sort </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/page-jump-to/"> Page Jump To </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/pipeline/"> Pipeline </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/print/"> Print </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/reorder-columns/"> Reorder Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/reorder-rows/"> Reorder Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/resizable/"> Resizable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/sticky-header/"> Sticky Header </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/toolbar/"> Toolbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/treegrid/"> Treegrid </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> VueJS </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/introduction/"> 介绍 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/browser/"> 浏览器 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/webpack/"> Webpack </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/component/"> 组件 </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 常见问题 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/faq/faq/"> 常见问题 </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 关于 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/about/overview/"> 概述 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/about/license/"> 许可证 </a> </li> </ul> </li> </ul> </div> </div> </aside> <main class="col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 mt-3 bd-content overflow-y-auto api" role="main"> <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between"> <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0" href="https://github.com/wenzhixin/bootstrap-table/blob/develop/site/src/pages/zh-cn/docs/api/events.mdx" title="在 GitHub 上查看" target="_blank" rel="noopener"> 在 GitHub 上查看 </a> <h1 class="bd-title" id="content"> 事件 </h1> </div> <p class="bd-lead">Bootstrap Table 的事件 API。</p> <div id="gg"></div> <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary" data-astro-cid-obewoz47> <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents" data-astro-cid-obewoz47> 本页目录 <i class="bi bi-chevron-expand d-xl-none ms-2" data-astro-cid-obewoz47></i> </button> <strong class="d-none d-md-block h6 my-2 ms-3" id="docs-tocs" data-astro-cid-obewoz47>本页目录</strong> <hr class="d-none d-md-block my-2 ms-3" data-astro-cid-obewoz47> <div class="collapse bd-toc-collapse" id="tocContents" data-astro-cid-obewoz47> <nav id="TableOfContents" aria-labelledby="docs-tocs" data-astro-cid-obewoz47> <ul class="toc-list" data-astro-cid-obewoz47> <!-- TOC items will be generated by JavaScript --> </ul> </nav> </div> </div>  <p>事件可以通过两种方式绑定：</p>
+<ul>
+<li>通过选项对象</li>
+<li>通过 jQuery 事件处理器</li>
+</ul>
+<p>通过选项对象绑定：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// 此时函数的最后一个参数是 bootstrap-table 实例</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">$</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;#table&#39;</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">bootstrapTable</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#B392F0">  onEventName</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">arg1</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">arg2</span><span style="color:#E1E4E8">, ...) {</span></span>
+<span class="line"><span style="color:#6A737D">    // ...</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<p>通过 jQuery 事件处理器绑定：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// 可以在变量 e 上获取 sender 属性，即 bootstrap-table 实例</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">$</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;#table&#39;</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;event-name.bs.table&#39;</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">e</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">arg1</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">arg2</span><span style="color:#E1E4E8">, ...) {</span></span>
+<span class="line"><span style="color:#6A737D">  // ...</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<p><em>注意：如果使用 jQuery 事件处理器，请确保在事件触发之前绑定监听器！</em></p>
+<p><strong>注意：</strong> 下面的事件名称（例如 <code>onCheck</code>、<code>onClickRow</code>、<code>onLoadSuccess</code>）是在使用 JavaScript 绑定事件时的确切事件名。</p>
+<h2 id="onall">onAll</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>all.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>name, args</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当任何事件触发时执行。参数包含：</p>
+<ul>
+<li><code>name</code>：事件名称。</li>
+<li><code>args</code>：事件数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="oncheck">onCheck</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>check.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>row, $element</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户选中某一行时触发。参数包含：</p>
+<ul>
+<li><code>row</code>：被选中行对应的记录。</li>
+<li><code>$element</code>：被选中的 DOM 元素。</li>
+</ul>
+</li>
+</ul>
+<h2 id="oncheckall">onCheckAll</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>check-all.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>rowsAfter, rowsBefore</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户选中所有行时触发。参数包含：</p>
+<ul>
+<li><code>rowsAfter</code>：当前已选中行对应的记录数组。</li>
+<li><code>rowsBefore</code>：之前已选中行对应的记录数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onchecksome">onCheckSome</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>check-some.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>rows</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户选中部分行时触发。参数包含：</p>
+<ul>
+<li><code>rows</code>：刚被选中行对应的记录数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onclickcell">onClickCell</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>click-cell.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>field, value, row, $element</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户单击单元格时触发。参数包含：</p>
+<ul>
+<li><code>field</code>：被点击单元格对应的字段名。</li>
+<li><code>value</code>：被点击单元格对应的数据值。</li>
+<li><code>row</code>：被点击行对应的记录。</li>
+<li><code>$element</code>：该单元格的 <code>td</code> 元素。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onclickrow">onClickRow</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>click-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>row, $element, field</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户单击某一行时触发。参数包含：</p>
+<ul>
+<li><code>row</code>：被点击行对应的记录。</li>
+<li><code>$element</code>：该行的 <code>tr</code> 元素。</li>
+<li><code>field</code>：被点击单元格对应的字段名。</li>
+</ul>
+</li>
+</ul>
+<h2 id="oncollapserow">onCollapseRow</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>collapse-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>index, row, detailView</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当点击详情图标折叠详情视图时触发。参数包含：</p>
+<ul>
+<li><code>index</code>：被折叠行的索引。</li>
+<li><code>row</code>：被折叠行对应的记录。</li>
+<li><code>detailView</code>：被折叠的详情视图。</li>
+</ul>
+</li>
+</ul>
+<h2 id="oncolumnswitch">onColumnSwitch</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>column-switch.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>field, checked</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>切换列的显示/隐藏状态时触发（通过<a href="/docs/api/table-options/#showcolumns">showColumns</a>功能）。参数包含：</p>
+<ul>
+<li><code>field</code>：被切换列的字段名。</li>
+<li><code>checked</code>：该列的显示状态（<code>true</code> 表示显示，<code>false</code> 表示隐藏）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="oncolumnswitchall">onColumnSwitchAll</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>column-switch-all.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>checked</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>一次性切换所有列的显示/隐藏状态时触发。参数包含：</p>
+<ul>
+<li><code>checked</code>：所有列的显示状态。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ondblclickcell">onDblClickCell</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>dbl-click-cell.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>field, value, row, $element</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户双击单元格时触发。参数包含：</p>
+<ul>
+<li><code>field</code>：被点击单元格对应的字段名。</li>
+<li><code>value</code>：被点击单元格对应的数据值。</li>
+<li><code>row</code>：被点击行对应的记录。</li>
+<li><code>$element</code>：该单元格的 <code>td</code> 元素。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ondblclickrow">onDblClickRow</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>dbl-click-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>row, $element, field</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户双击某行时触发。参数包含：</p>
+<ul>
+<li><code>row</code>：被双击行对应的记录。</li>
+<li><code>$element</code>：该行的 <code>tr</code> 元素。</li>
+<li><code>field</code>：被双击单元格对应的字段名。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onexpandrow">onExpandRow</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>expand-row.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>index, row, $detail</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当点击详情图标展开详情视图时触发。参数包含：</p>
+<ul>
+<li><code>index</code>：被展开行的索引。</li>
+<li><code>row</code>：与被展开行对应的记录。</li>
+<li><code>$detail</code>：位于当前 <code>tr</code> 元素之后的详情 <code>div</code> DOM 元素，可以调用 jQuery 方法自定义详情视图。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onloaderror">onLoadError</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>load-error.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>status, jqXHR</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>从远程服务器加载数据出错时触发。参数包含：</p>
+<ul>
+<li><code>status</code>：HTTP 状态码。</li>
+<li><code>jqXHR</code>：jqXHR 对象，是 XMLHttpRequest 对象的超集。更多信息参见 <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onloadsuccess">onLoadSuccess</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>load-success.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>data</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>从远程服务器成功加载数据时触发。参数包含：</p>
+<ul>
+<li><code>data</code>：加载到表格中的数据。（注意：数据加载到表格后无法再修改。如果需要在表格使用前处理返回数据，请使用自定义的 <a href="/docs/api/table-options/#responsehandler">responseHandler</a>。）</li>
+<li><code>status</code>：HTTP 状态码。</li>
+<li><code>jqXHR</code>：jqXHR 对象，是 XMLHttpRequest 对象的超集。更多信息参见 <a href="http://api.jquery.com/Types/#jqXHR">jqXHR Type</a>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onpagechange">onPageChange</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>page-change.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>number, size</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当页码或每页条数改变时触发。参数包含：</p>
+<ul>
+<li><code>number</code>：页码。</li>
+<li><code>size</code>：每页条数。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onpostbody">onPostBody</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>post-body.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>data</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当表格主体渲染完成并挂载到 DOM 后触发。参数包含：</p>
+<ul>
+<li><code>data</code>：已渲染的数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onpostfooter">onPostFooter</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>post-footer.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>$tableFooter</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当页脚渲染完成并挂载到 DOM 后触发。参数包含：</p>
+<ul>
+<li><code>$tableFooter</code>：页脚的 DOM 元素。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onpostheader">onPostHeader</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>post-header.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当表头渲染完成并挂载到 DOM 后触发。</p>
+</li>
+</ul>
+<h2 id="onprebody">onPreBody</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>pre-body.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>data</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>在表格主体渲染前触发。参数包含：</p>
+<ul>
+<li><code>data</code>：即将渲染的数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onrefresh">onRefresh</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>refresh.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>params</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>点击刷新按钮后触发。参数包含：</p>
+<ul>
+<li><code>params</code>：发送到服务器的额外参数。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onrefreshoptions">onRefreshOptions</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>refresh-options.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>options</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>刷新选项后、重新初始化表格前触发。参数包含：</p>
+<ul>
+<li><code>options</code>：表格选项对象。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onresetview">onResetView</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>reset-view.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当重置表格视图时触发。</p>
+</li>
+</ul>
+<h2 id="onscrollbody">onScrollBody</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>scroll-body.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>$tableBody</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>表格主体滚动时触发。</p>
+</li>
+</ul>
+<h2 id="onsearch">onSearch</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>search.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>text</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>执行表格搜索时触发。参数包含：</p>
+<ul>
+<li><code>text</code>：搜索框中的文本。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onsort">onSort</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>sort.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>name, order</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>用户对列排序时触发。参数包含：</p>
+<ul>
+<li><code>name</code>：排序列的字段名。</li>
+<li><code>order</code>：排序列的排序顺序。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ontoggle">onToggle</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>toggle.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>cardView</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>切换表格视图时触发。参数包含：</p>
+<ul>
+<li><code>cardView</code>：表格的卡片视图状态。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ontogglepagination">onTogglePagination</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>toggle-pagination.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>state</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>切换分页状态时触发。参数包含：</p>
+<ul>
+<li><code>state</code>：新的分页状态（<code>true</code> 表示启用分页，<code>false</code> 表示禁用分页）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onuncheck">onUncheck</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>uncheck.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>row, $element</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户取消选中某一行时触发。参数包含：</p>
+<ul>
+<li><code>row</code>：被取消选中行对应的记录。</li>
+<li><code>$element</code>：被取消选中的 DOM 元素。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onuncheckall">onUncheckAll</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>uncheck-all.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>rowsAfter, rowsBefore</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户取消选中所有行时触发。参数包含：</p>
+<ul>
+<li><code>rowsAfter</code>：当前已选中行对应的记录数组。</li>
+<li><code>rowsBefore</code>：之前已选中行对应的记录数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onunchecksome">onUncheckSome</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>uncheck-some.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>rows</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当用户取消选中部分行时触发。参数包含：</p>
+<ul>
+<li><code>rows</code>：之前已选中行对应的记录数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="onvirtualscroll">onVirtualScroll</h2>
+<ul>
+<li>
+<p><strong>jQuery 事件:</strong> <code>virtual-scroll.bs.table</code></p>
+</li>
+<li>
+<p><strong>参数:</strong> <code>startIndex, endIndex</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>滚动虚拟滚动区域时触发。参数包含：</p>
+<ul>
+<li><code>startIndex</code>：虚拟滚动的起始行索引。</li>
+<li><code>endIndex</code>：虚拟滚动的结束行索引。</li>
+</ul>
+</li>
+</ul> </main> </div> </div> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@4"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script> <script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script><script type="module">(function(){window.fnames=[],window.ftypes=[],window.fnames[0]="EMAIL",window.ftypes[0]="email",window.fnames[1]="FNAME",window.ftypes[1]="text",window.fnames[2]="LNAME",window.ftypes[2]="text",window.fnames[3]="ADDRESS",window.ftypes[3]="address",window.fnames[4]="PHONE",window.ftypes[4]="phone",window.fnames[5]="BIRTHDAY",window.ftypes[5]="birthday"})(jQuery);</script><script data-baseurl data-version="1.26.0" data-algolia="{&#34;appId&#34;:&#34;FXDJ517Z8G&#34;,&#34;apiKey&#34;:&#34;9b89c4a7048370f4809b0bc77b2564ac&#34;,&#34;indexName&#34;:&#34;bootstrap-table&#34;}">
+  const { dataset } = document.currentScript
+  const script = document.createElement('script')
+  const baseurl = dataset.baseurl || ''
+  const version = dataset.version || ''
+
+  script.src = `${baseurl}/assets/js/docs.js?v=${version}`
+  document.head.appendChild(script)
+
+  // Set Algolia configuration as global variables
+  window.ALGOLIA_CONFIG = dataset.algolia ? JSON.parse(dataset.algolia) : {}
+</script> </body></html>

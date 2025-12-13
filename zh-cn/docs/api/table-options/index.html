@@ -1,0 +1,2612 @@
+<!DOCTYPE html><html lang="zh-cn"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Bootstrap Table 的表格选项 API。"><meta name="author" content="Zhixin Wen and Bootstrap Table contributors"><meta name="keywords" content="bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation"><meta name="generator" content="Astro v5.16.5"><meta name="docsearch:language" content="zh-cn"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://bootstrap-table.com/zh-cn/docs/api/table-options/"><meta property="og:title" content="表格选项 · Bootstrap Table"><meta property="og:description" content="Bootstrap Table 的表格选项 API。"><meta property="og:image" content="/assets/images/bootstrap-table.jpg"><meta property="og:site_name" content="Bootstrap Table"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://bootstrap-table.com/zh-cn/docs/api/table-options/"><meta property="twitter:title" content="表格选项 · Bootstrap Table"><meta property="twitter:description" content="Bootstrap Table 的表格选项 API。"><meta property="twitter:image" content="/assets/images/bootstrap-table.jpg"><meta property="twitter:creator" content="@wenzhixin2010"><!-- Canonical URL --><link rel="canonical" href="https://bootstrap-table.com/zh-cn/docs/api/table-options/"><title>表格选项 · Bootstrap Table</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@4"><link rel="stylesheet" href="/assets/css/docs.min.css"><link rel="stylesheet" href="/assets/css/style.css?m=1.26.0"><!-- Prism.js code highlighting styles --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism-tomorrow.min.css"><link rel="icon" href="/favicon.png"><script type="module">window!==top&&(top.location.href=window.location.href);</script><style>@media(max-width:1199.98px){.bd-toc[data-astro-cid-obewoz47]{margin-bottom:1.5rem;order:-1}}@media(min-width:1200px){.bd-toc[data-astro-cid-obewoz47]{position:fixed;width:16.666667%;z-index:1000;max-height:calc(100vh - 7rem)}}
+</style></head><body data-bs-spy="scroll" data-bs-target="#TableOfContents"> <header class="navbar navbar-expand-lg bd-navbar sticky-top"> <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3" aria-label="Main navigation"> <div class="bd-navbar-toggle"> <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation"> <i class="bi bi-list"></i> <span class="d-none fs-6 pe-1">浏览</span> </button> </div>  <a class="navbar-brand p-0 me-0 me-lg-2" href="/zh-cn/" aria-label="Bootstrap Table"> <img src="/favicon.png" width="32" height="32" alt="Bootstrap Table"> </a> <div class="d-flex"> <div class="bd-search"></div> <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation"> <i class="bi bi-three-dots"></i> </button> </div> <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel"> <div class="offcanvas-header px-4 pb-0"> <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap Table</h5> <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button> </div> <div class="offcanvas-body p-4 pt-0 p-lg-0"> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/zh-cn/"> 首页 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link active" href="/zh-cn/docs/getting-started/introduction/"> 文档 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/zh-cn/themes"> 主题 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://examples.bootstrap-table.com" target="_blank" rel="noopener"> 示例 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://live.bootstrap-table.com" target="_blank" rel="noopener"> 在线编辑器 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="/zh-cn/news"> 新闻 </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link " href="https://blog.bootstrap-table.com" target="_blank" rel="noopener"> 博客 </a> </li> </ul> <hr class="d-lg-none"> <ul class="navbar-nav flex-row flex-wrap ms-md-auto"> <li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://github.com/wenzhixin/bootstrap-table" target="_blank" rel="noopener" aria-label="GitHub"> <i class="bi bi-github"></i> <small class="d-lg-none ms-2">GitHub</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://twitter.com/wenzhixin2010" target="_blank" rel="noopener" aria-label="Twitter"> <i class="bi bi-twitter"></i> <small class="d-lg-none ms-2">Twitter</small> </a> </li><li class="nav-item col-6 col-lg-auto"> <a class="nav-link py-2 px-0 px-lg-2" href="https://opencollective.com/bootstrap-table" target="_blank" rel="noopener" aria-label="Open Collective"> <i class="bi bi-heart-fill"></i> <small class="d-lg-none ms-2">Open Collective</small> </a> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-versions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+v1.26.0 </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-versions"> <li> <a class="dropdown-item active" href="/zh-cn/"> 最新版本（v1.26.0） </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.26.0/" target="_blank"> v1.26.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.24.2/" target="_blank"> v1.24.2 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.23.5/" target="_blank"> v1.23.5 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.22.6/" target="_blank"> v1.22.6 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.21.4/" target="_blank"> v1.21.4 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.20.2/" target="_blank"> v1.20.2 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.19.1/" target="_blank"> v1.19.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.18.3/" target="_blank"> v1.18.3 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.17.1/" target="_blank"> v1.17.1 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.16.0/" target="_blank"> v1.16.0 </a> </li><li> <a class="dropdown-item " href="http://bootstrap-table.com/versions/1.15.5/" target="_blank"> v1.15.5 </a> </li> </ul> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-language" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 简体中文 </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-language"> <li> <a class="dropdown-item " href="/docs/api/table-options/" hreflang="en"> English </a> </li><li> <a class="dropdown-item active" href="/zh-cn/docs/api/table-options/" hreflang="zh-cn"> 简体中文 </a> </li> </ul> </li> <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto"> <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div> <hr class="d-lg-none my-2"> </li> <li class="nav-item dropdown" id="theme-switcher" data-theme-config="{&#34;themes&#34;:[{&#34;name&#34;:&#34;light&#34;,&#34;icon&#34;:&#34;bi-sun-fill&#34;,&#34;label&#34;:&#34;浅色&#34;},{&#34;name&#34;:&#34;dark&#34;,&#34;icon&#34;:&#34;bi-moon-stars-fill&#34;,&#34;label&#34;:&#34;深色&#34;},{&#34;name&#34;:&#34;auto&#34;,&#34;icon&#34;:&#34;bi-circle-half&#34;,&#34;label&#34;:&#34;自动&#34;}]}"> <a class="nav-link dropdown-toggle me-md-2" href="#" id="bd-bootstrap-theme" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span id="theme-icon"> <i class="bi bi-sun-fill"></i> <span class="d-lg-none ms-2" id="bd-theme-text">切换主题</span> </span> </a> <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu"> <!-- Theme options will be generated by JavaScript --> </ul> </li> </ul> </div> </div> </nav> </header> <div class="container-fluid"> <div class="row flex-xl-nowrap h-100"> <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3"> <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel"> <div class="offcanvas-header border-bottom"> <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">浏览 文档</h5> <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button> </div> <div class="offcanvas-body d-flex flex-column"> <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav"> <li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 入门指南 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/introduction/"> 介绍 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/download/"> 下载 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/contents/"> 目录 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/usage/"> 用法 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/browsers-devices/"> 浏览器和设备 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/getting-started/build-tools/"> 构建工具 </a> </li> </ul> </li><li class="bd-links-group py-2 active"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> API </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded active bd-sidenav-active" href="/zh-cn/docs/api/table-options/"> 表格选项 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/column-options/"> 列选项 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/events/"> 事件 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/methods/"> 方法 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/api/localizations/"> 本地化 </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 扩展 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/addrbar/"> Addrbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/auto-refresh/"> Auto Refresh </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/cookie/"> Cookie </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/copy-rows/"> Copy Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/custom-view/"> Custom View </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/defer-url/"> Defer Url </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/editable/"> Editable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/export/"> Export </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/filter-control/"> Filter Control </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/fixed-columns/"> Fixed Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/group-by-v2/"> Group By V2 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/i18n-enhance/"> I18n Enhance </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/key-events/"> Key Events </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/mobile/"> Mobile </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/multiple-sort/"> Multiple Sort </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/page-jump-to/"> Page Jump To </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/pipeline/"> Pipeline </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/print/"> Print </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/reorder-columns/"> Reorder Columns </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/reorder-rows/"> Reorder Rows </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/resizable/"> Resizable </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/sticky-header/"> Sticky Header </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/toolbar/"> Toolbar </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/extensions/treegrid/"> Treegrid </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> VueJS </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/introduction/"> 介绍 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/browser/"> 浏览器 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/webpack/"> Webpack </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/vuejs/component/"> 组件 </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 常见问题 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/faq/faq/"> 常见问题 </a> </li> </ul> </li><li class="bd-links-group py-2"> <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold"> 关于 </strong> <ul class="list-unstyled fw-normal pb-2 small"> <li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/about/overview/"> 概述 </a> </li><li> <a class="bd-links-link d-inline-block rounded" href="/zh-cn/docs/about/license/"> 许可证 </a> </li> </ul> </li> </ul> </div> </div> </aside> <main class="col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 mt-3 bd-content overflow-y-auto api" role="main"> <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between"> <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0" href="https://github.com/wenzhixin/bootstrap-table/blob/develop/site/src/pages/zh-cn/docs/api/table-options.mdx" title="在 GitHub 上查看" target="_blank" rel="noopener"> 在 GitHub 上查看 </a> <h1 class="bd-title" id="content"> 表格选项 </h1> </div> <p class="bd-lead">Bootstrap Table 的表格选项 API。</p> <div id="gg"></div> <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary" data-astro-cid-obewoz47> <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents" data-astro-cid-obewoz47> 本页目录 <i class="bi bi-chevron-expand d-xl-none ms-2" data-astro-cid-obewoz47></i> </button> <strong class="d-none d-md-block h6 my-2 ms-3" id="docs-tocs" data-astro-cid-obewoz47>本页目录</strong> <hr class="d-none d-md-block my-2 ms-3" data-astro-cid-obewoz47> <div class="collapse bd-toc-collapse" id="tocContents" data-astro-cid-obewoz47> <nav id="TableOfContents" aria-labelledby="docs-tocs" data-astro-cid-obewoz47> <ul class="toc-list" data-astro-cid-obewoz47> <!-- TOC items will be generated by JavaScript --> </ul> </nav> </div> </div>  <p>表格选项定义在 <code>jQuery.fn.bootstrapTable.defaults</code> 中。</p>
+<p><strong>注意：</strong> 下面的选项名称（例如 <code>ajax</code>、<code>buttons</code>、<code>cache</code>）是在通过 JavaScript 初始化 Bootstrap Table 时使用的确切属性名。</p>
+<p>例如：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#B392F0">$</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&#39;#table&#39;</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">bootstrapTable</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  ajax: yourFunction,</span></span>
+<span class="line"><span style="color:#E1E4E8">  cache: </span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">  ...</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<h2 id>-</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-toggle</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>不需要编写 JavaScript 即可激活 Bootstrap Table。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;table&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-html.html">From HTML</a></p>
+</li>
+</ul>
+<h2 id="ajax">ajax</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-ajax</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>替换 AJAX 调用方法。应实现与 jQuery AJAX 方法相同的 API。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-ajax.html">Table AJAX</a></p>
+</li>
+</ul>
+<h2 id="ajaxoptions">ajaxOptions</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-ajax-options</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Object</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>提交 AJAX 请求的额外选项。参考：<a href="http://api.jquery.com/jQuery.ajax">jQuery.ajax</a>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/ajax-options.html">AJAX Options</a></p>
+</li>
+</ul>
+<h2 id="buttons">buttons</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>允许创建/添加自定义按钮到按钮栏（表格右上角）。
+这些按钮可以通过表格选项 <a href="https://bootstrap-table.com/docs/api/table-options/#buttonsorder">buttonsOrder</a> 进行排序，应使用事件对应的键/名称进行排序。</p>
+<p>自定义按钮具有高度可配置性，存在以下选项：</p>
+<ul>
+<li><code>text</code>
+<ul>
+<li>描述：此选项用于 <a href="https://bootstrap-table.com/docs/api/table-options/#showbuttontext">showButtonText</a> 表格选项。</li>
+<li>类型：<code>String</code></li>
+</ul>
+</li>
+<li><code>icon</code>
+<ul>
+<li>描述：此选项用于 <a href="https://bootstrap-table.com/docs/api/table-options/#showbuttonicons">showButtonIcons</a> 表格选项。</li>
+<li>类型：<code>String</code> - 只需要图标类，例如 <code>fa-users</code></li>
+</ul>
+</li>
+<li><code>render</code>
+<ul>
+<li>描述：将此选项设置为 <code>false</code> 以默认隐藏按钮，当添加数据属性 <code>data-show-button-name=&quot;true&quot;</code> 时按钮再次可见。</li>
+</ul>
+</li>
+<li><code>attributes</code>
+<ul>
+<li>描述：此选项允许添加额外的 html 属性，例如 <code>title</code></li>
+<li>类型：<code>Object</code></li>
+<li>示例：<code>{title: &#39;Button title&#39;}</code></li>
+</ul>
+</li>
+<li><code>html</code>
+<ul>
+<li>描述：如果您不想自动生成 html，可以使用此选项插入您的自定义 html。
+<code>event</code> 选项仅在您的自定义 HTML 包含 <code>name=&quot;button-name&quot;</code> 时有效。
+如果使用此选项，以下选项将被忽略：
+<ul>
+<li><code>text</code></li>
+<li><code>icon</code></li>
+<li><code>attributes</code></li>
+</ul>
+</li>
+<li>类型：<code>Function|String</code></li>
+</ul>
+</li>
+<li><code>event</code>
+<ul>
+<li>描述：如果您想向按钮添加事件，应使用此选项</li>
+<li>类型：<code>Function|Object|String</code></li>
+</ul>
+</li>
+</ul>
+<p><code>event</code> 选项可以通过三种方式配置。
+使用 <code>click</code> 事件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;event&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>使用自定义事件类型的事件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;event&#39;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;mouseenter&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p>使用自定义事件类型的多个事件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;event&#39;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;click&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { },</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;mouseenter&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { },</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;mouseleave&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> { }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+<p><strong>提示：</strong> 除了内联函数，您也可以使用函数名。</p>
+<p>配置的自定义按钮可能如下所示：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#B392F0">  btnRemoveEvenRows</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;text&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;Remove even Rows&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;icon&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa-trash&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;event&#39;</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">      //DO STUFF TO REMOVE EVEN ROWS</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;attributes&#39;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &#39;title&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;Remove all rows which has a even id&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons.html">Buttons</a></p>
+</li>
+</ul>
+<h2 id="buttonsalign">buttonsAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定工具栏按钮的对齐方式。可使用 <code>&#39;left&#39;</code>（左对齐）或 <code>&#39;right&#39;</code>（右对齐）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;right&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-align.html">Buttons Align</a></p>
+</li>
+</ul>
+<h2 id="buttonsattributetitle">buttonsAttributeTitle</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons-attribute-title</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>自定义工具栏按钮的 title 属性，主要用于自定义工具栏样式。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;title&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-attribute-title.html">Buttons Attribute Title</a></p>
+</li>
+</ul>
+<h2 id="buttonsclass">buttonsClass</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons-class</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义表格按钮的类（在 <code>&#39;btn-&#39;</code> 后添加）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;secondary&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-class.html">Buttons Class</a></p>
+</li>
+</ul>
+<h2 id="buttonsorder">buttonsOrder</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons-order</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置工具栏按钮的自定义排序方式。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>[&#39;paginationSwitch&#39;, &#39;refresh&#39;, &#39;toggle&#39;, &#39;fullscreen&#39;, &#39;columns&#39;]</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-order.html">Buttons Order</a></p>
+</li>
+</ul>
+<h2 id="buttonsprefix">buttonsPrefix</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons-prefix</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义表格按钮的前缀。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;btn&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-prefix.html">Buttons Prefix</a></p>
+</li>
+</ul>
+<h2 id="buttonstoolbar">buttonsToolbar</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-buttons-toolbar</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String/Node</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定自定义按钮工具栏的 jQuery 选择器，例如：<code>#buttons-toolbar</code>、<code>.buttons-toolbar</code>，或一个 DOM 节点。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/buttons-toolbar.html">Buttons Toolbar</a></p>
+</li>
+</ul>
+<h2 id="cache">cache</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-cache</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>false</code> 可禁用 AJAX 请求缓存。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-cache.html">Table Cache</a></p>
+</li>
+</ul>
+<h2 id="cardview">cardView</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-card-view</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可显示卡片视图表格（如移动端视图）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/card-view.html">Card View</a></p>
+</li>
+</ul>
+<h2 id="checkboxheader">checkboxHeader</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-checkbox-header</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>false</code> 可隐藏标题行中的全选复选框。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/checkbox-header.html">Checkbox Header</a></p>
+</li>
+</ul>
+<h2 id="classes">classes</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-classes</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>表格的类名。可使用 <code>&#39;table&#39;</code>、<code>&#39;table-bordered&#39;</code>、<code>&#39;table-hover&#39;</code>、<code>&#39;table-striped&#39;</code>、<code>&#39;table-dark&#39;</code>、<code>&#39;table-sm&#39;</code> 和 <code>&#39;table-borderless&#39;</code>。默认表格为边框样式。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;table table-bordered table-hover&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-classes.html">Table Classes</a></p>
+</li>
+</ul>
+<h2 id="clicktoselect">clickToSelect</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-click-to-select</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可在点击行时选中复选框或单选框。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/click-to-select.html">Click To Select</a></p>
+</li>
+</ul>
+<h2 id="columns">columns</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>-</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>表格列配置对象。详情请参阅列选项。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>[]</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-columns.html">Table Columns</a></p>
+</li>
+</ul>
+<h2 id="contenttype">contentType</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-content-type</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>请求远程数据时的 Content-Type，例如：<code>application/x-www-form-urlencoded</code>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;application/json&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/content-type.html">Content Type</a></p>
+</li>
+</ul>
+<h2 id="customsearch">customSearch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-custom-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>自定义搜索函数，将替代内置搜索功能，接受三个参数：</p>
+<ul>
+<li><code>data</code>：表格数据。</li>
+<li><code>text</code>：搜索文本。</li>
+<li><code>filter</code>：来自 <code>filterBy</code> 方法的过滤器对象。</li>
+</ul>
+<p>示例用法：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> customSearch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">data</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">text</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> data.</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">row</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> row.field.</span><span style="color:#B392F0">indexOf</span><span style="color:#E1E4E8">(text) </span><span style="color:#F97583">&gt;</span><span style="color:#F97583"> -</span><span style="color:#79B8FF">1</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-search.html">Custom Search</a></p>
+</li>
+</ul>
+<h2 id="customsort">customSort</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-custom-sort</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>自定义排序函数，将替代内置排序功能，接受三个参数：</p>
+<ul>
+<li><code>sortName</code>：排序名称。</li>
+<li><code>sortOrder</code>：排序顺序。</li>
+<li><code>data</code>：行数据。</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-sort.html">Custom Order</a></p>
+</li>
+</ul>
+<h2 id="data">data</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-data</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Array | Object</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>要加载的数据。</p>
+<p>如果数据中有 <code>_&lt;field&gt;_rowspan</code> 或 <code>_&lt;field&gt;_colspan</code> 属性，则将自动合并单元格，例如：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">$table.</span><span style="color:#B392F0">bootstrapTable</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  data: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#E1E4E8">      id: </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      name: </span><span style="color:#9ECBFF">&#39;Item 1&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      _name_rowspan: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      price: </span><span style="color:#9ECBFF">&#39;$1&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#E1E4E8">      id: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      price: </span><span style="color:#9ECBFF">&#39;$2&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<p>如果使用此功能，<code>data</code> 是必需的，以确保格式正确。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>[]</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-data.html">From Data</a></p>
+</li>
+</ul>
+<h2 id="datafield">dataField</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-data-field</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定传入 JSON 中包含 <code>&#39;rows&#39;</code> 数据列表的键名。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;rows&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/total-data-field.html">Total/Data Field</a></p>
+</li>
+</ul>
+<h2 id="datatype">dataType</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-data-type</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>您期望从服务器返回的数据类型。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;json&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/data-type.html">Data Type</a></p>
+</li>
+</ul>
+<h2 id="detailfilter">detailFilter</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-detail-filter</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当 <code>detailView</code> 设置为 <code>true</code> 时，控制每行的展开功能。返回 <code>true</code> 表示该行可以展开；返回 <code>false</code> 表示该行不可展开。默认函数返回 <code>true</code>，允许所有行展开。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>function(index, row) { return true }</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-filter.html">Detail Filter</a></p>
+</li>
+</ul>
+<h2 id="detailformatter">detailFormatter</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-detail-formatter</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当 <code>detailView</code> 设置为 <code>true</code> 时，用于格式化详情视图内容。函数可以返回一个字符串，该字符串将被附加到详情视图单元格中；也可以使用第三个参数（目标单元格的 jQuery 元素）直接渲染元素。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>function(index, row, element) { return &#39;&#39; }</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view.html">Detail View</a></p>
+</li>
+</ul>
+<h2 id="detailview">detailView</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-detail-view</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可显示详情视图表格。可设置 <code>uniqueId</code> 选项以在刷新表格时保持详情视图状态。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-unique-id.html">Detail View UniqueId</a></p>
+</li>
+</ul>
+<h2 id="detailviewalign">detailViewAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-detail-view-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置详情视图图标的对齐方式。可使用 <code>&#39;left&#39;</code>（左对齐）或 <code>&#39;right&#39;</code>（右对齐）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;left&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-align.html">Detail view Align</a></p>
+</li>
+</ul>
+<h2 id="detailviewbyclick">detailViewByClick</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-detail-view-by-click</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可在单击单元格时切换详情视图。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-icon.html">Detail View Icon</a></p>
+</li>
+</ul>
+<h2 id="detailviewicon">detailViewIcon</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-detail-view-icon</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可显示详情视图列（加/减图标）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/detail-view-icon.html">Detail View Icon</a></p>
+</li>
+</ul>
+<h2 id="escape">escape</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-escape</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>转义字符串以插入 HTML，替换 <code>&amp;</code>、<code>&lt;</code>、<code>&gt;</code>、<code>&quot;</code>、<code>`</code> 和 <code>&#39;</code> 字符。
+如需禁用列标题的转义，请设置 <code>escapeTitle</code> 选项。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape.html">Table Escape</a></p>
+</li>
+</ul>
+<h2 id="escapetitle">escapeTitle</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-escape-title</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>切换是否应将 <code>escape</code> 选项应用于列标题。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-escape-title.html">Table Escape title</a></p>
+</li>
+</ul>
+<h2 id="filteroptions">filterOptions</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-filter-options</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义过滤算法的默认选项，<code>filterAlgorithm: &#39;and&#39;</code> 表示所有过滤器必须匹配，<code>filterAlgorithm: &#39;or&#39;</code> 表示任一过滤器匹配即可。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{ filterAlgorithm: &#39;and&#39; }</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/filter-options.html">Filter Options</a></p>
+</li>
+</ul>
+<h2 id="fixedscroll">fixedScroll</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-fixed-scroll</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可在加载数据时保持表格滚动条位置固定。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/fixed-scroll.html">Fixed Scroll</a></p>
+</li>
+</ul>
+<h2 id="footerfield">footerField</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-footer-field</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义页脚对象的键名（来自数据数组或服务器响应 JSON）。
+页脚对象可用于设置/定义页脚 colspan 和页脚值。
+仅在 <code>data-pagination</code> 为 <code>true</code> 且 <code>data-side-pagination</code> 为 <code>server</code> 时生效。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#9ECBFF">    &quot;rows&quot;</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">      {</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;id&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;name&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;Item 0&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;price&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;$0&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;amount&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">3</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    ],</span></span>
+<span class="line"><span style="color:#9ECBFF">    &quot;footer&quot;</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">      &quot;id&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;footer id&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      &quot;_id_colspan&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">      &quot;name&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;footer name&quot;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span></code></pre>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>footerField</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-field.html">Footer Field</a></p>
+</li>
+</ul>
+<h2 id="footerstyle">footerStyle</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-footer-style</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>页脚样式格式化函数，接受一个参数：</p>
+<ul>
+<li><code>column</code>：列对象。</li>
+</ul>
+<p>支持 <code>classes</code> 或 <code>css</code>。示例用法：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> footerStyle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">column</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    css: { </span><span style="color:#9ECBFF">&#39;font-weight&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;normal&#39;</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    classes: </span><span style="color:#9ECBFF">&#39;my-class&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/footer-style.html">Footer Style</a></p>
+</li>
+</ul>
+<h2 id="headerstyle">headerStyle</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-header-style</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>标题样式格式化函数，接受一个参数：</p>
+<ul>
+<li><code>column</code>：列对象。</li>
+</ul>
+<p>支持 <code>classes</code> 或 <code>css</code>。示例用法：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> headerStyle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">column</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    css: { </span><span style="color:#9ECBFF">&#39;font-weight&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;normal&#39;</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    classes: </span><span style="color:#9ECBFF">&#39;my-class&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/header-style.html">Header Style</a></p>
+</li>
+</ul>
+<h2 id="height">height</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-height</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置表格高度以启用固定表头功能。当内容超出设定高度时，表格将显示垂直滚动条。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-height.html">Table Height</a></p>
+</li>
+</ul>
+<h2 id="icons">icons</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-icons</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Object</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义在工具栏、分页和详情视图中使用的图标。</p>
+</li>
+<li>
+<p><strong>默认值:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#E1E4E8">  paginationSwitchDown: &#39;fa-caret-square-down&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  paginationSwitchUp: &#39;fa-caret-square-up&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  refresh: &#39;fa-sync&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  toggleOff: &#39;fa-toggle-off&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  toggleOn: &#39;fa-toggle-on&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  columns: &#39;fa-th-list&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  fullscreen: &#39;fa-arrows-alt&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  detailOpen: &#39;fa-plus&#39;,</span></span>
+<span class="line"><span style="color:#E1E4E8">  detailClose: &#39;fa-minus&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-icons.html">Table Icons</a></p>
+</li>
+</ul>
+<h2 id="iconsize">iconSize</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-icon-size</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义图标大小，可使用 <code>undefined</code>、<code>&#39;lg&#39;</code>、<code>&#39;sm&#39;</code>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/icon-size.html">Icon Size</a></p>
+</li>
+</ul>
+<h2 id="iconsprefix">iconsPrefix</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-icons-prefix</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义图标集名称。默认情况下，此选项由主题自动计算。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#B392F0">  bootstrap3</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;glyphicon&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  bootstrap4</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  bootstrap5</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;bi&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">  &#39;bootstrap-table&#39;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;icon&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  bulma</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  foundation</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  materialize</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;material-icons&#39;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  semantic</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&#39;fa&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/icons-prefix.html">Icons Prefix</a></p>
+</li>
+</ul>
+<h2 id="idfield">idField</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-id-field</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定用作复选框/单选框值的字段，对应 <a href="https://bootstrap-table.com/docs/api/table-options/#selectitemname">selectItemName</a> 选项。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/id-field.html">Id Field</a></p>
+</li>
+</ul>
+<h2 id="ignoreclicktoselecton">ignoreClickToSelectOn</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-ignore-click-to-select-on</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义哪些元素在点击时应忽略 <code>clickToSelect</code> 功能。函数接受一个参数：</p>
+<ul>
+<li><code>element</code>：被点击的 DOM 元素。</li>
+</ul>
+<p>返回 <code>true</code> 表示忽略该元素点击（不触发行选择），返回 <code>false</code> 表示正常处理点击（触发行选择）。此选项仅在 <code>clickToSelect</code> 为 <code>true</code> 时生效。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{ return [&#39;A&#39;, &#39;BUTTON&#39;].includes(tagName) }</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/ignore-click-to-select-on.html">Ignore Click To Select On</a></p>
+</li>
+</ul>
+<h2 id="loadingfontsize">loadingFontSize</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-loading-font-size</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义加载文本的字体大小，默认值为 <code>&#39;auto&#39;</code>，根据表格宽度在 12px 到 32px 之间自动计算。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;auto&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/loading-font-size.html">Loading Font Size</a></p>
+</li>
+</ul>
+<h2 id="loadingtemplate">loadingTemplate</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-loading-template</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>自定义加载模板。参数对象包含：</p>
+<ul>
+<li>loadingMessage：<code>formatLoadingMessage</code> 本地化文案。</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">loadingMessage</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#9ECBFF"> &#39;&lt;span class=&quot;loading-wrap&quot;&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;span class=&quot;loading-text&quot;&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#E1E4E8">    loadingMessage </span><span style="color:#F97583">+</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;/span&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;span class=&quot;animation-wrap&quot;&gt;&lt;span class=&quot;animation-dot&quot;&gt;&lt;/span&gt;&lt;/span&gt;&#39;</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#9ECBFF">    &#39;&lt;/span&gt;&#39;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/loading-template.html">Loading Template</a></p>
+</li>
+</ul>
+<h2 id="locale">locale</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-locale</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置表格使用的语言环境（例如 <code>&#39;zh-CN&#39;</code>）。使用此选项前，必须先预加载对应的语言环境文件。</p>
+<p>系统支持语言环境后备机制，按以下优先级顺序尝试加载：</p>
+<ul>
+<li><strong>第一优先级</strong>：尝试加载指定的完整语言环境（如 <code>&#39;zh-CN&#39;</code>）</li>
+<li><strong>第二优先级</strong>：尝试将下划线 <code>_</code> 转换为连字符 <code>-</code> 并将区域代码大写（如 <code>&#39;zh_CN&#39;</code> 转换为 <code>&#39;zh-CN&#39;</code>）</li>
+<li><strong>第三优先级</strong>：尝试使用短语言代码（如从 <code>&#39;zh-CN&#39;</code> 降级为 <code>&#39;zh&#39;</code>）</li>
+<li><strong>最后备选</strong>：使用最后加载的语言环境文件（如果没有任何语言环境文件被加载，则使用内置的默认语言环境）</li>
+</ul>
+<p>注意：如果将此选项设置为 <code>undefined</code> 或空字符串，系统将自动使用最后加载的语言环境（如果没有加载任何语言环境文件，则默认使用 <code>&#39;en-US&#39;</code>）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-locale.html">Table Locale</a></p>
+</li>
+</ul>
+<h2 id="maintainmetadata">maintainMetaData</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-maintain-meta-data</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可在切换页面和搜索时保持以下元数据：</p>
+<ul>
+<li>选中的行</li>
+<li>隐藏的行</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/maintain-meta-data.html">Maintain Meta Data</a></p>
+</li>
+</ul>
+<h2 id="method">method</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-method</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>请求远程数据的方法类型。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;get&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-method.html">Table Method</a></p>
+</li>
+</ul>
+<h2 id="minimumcountcolumns">minimumCountColumns</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-minimum-count-columns</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>列下拉列表中隐藏的最小列数。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>1</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/minimum-count-columns.html">Minimum Count Columns</a></p>
+</li>
+</ul>
+<h2 id="multipleselectrow">multipleSelectRow</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-multiple-select-row</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可启用多行选择功能。启用后，用户可通过以下方式选择多行：</p>
+<ul>
+<li><strong>Ctrl+点击</strong>：选择或取消选择单行（保持其他行的选中状态）</li>
+<li><strong>Shift+点击</strong>：选择从当前选中行到点击行之间的所有行（范围选择）</li>
+<li><strong>普通点击</strong>：未按住修饰键时，取消其他行的选择，仅选中当前点击的行</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/multiple-select-row.html">Multiple Select Row</a></p>
+</li>
+</ul>
+<h2 id="pagelist">pageList</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-page-list</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页时，通过选择列表初始化页面大小。如果包含 <code>&#39;all&#39;</code> 或 <code>&#39;unlimited&#39;</code> 选项，所有记录将显示在表格中。</p>
+<p><em>提示：如果表格行数少于选项数量，选项将自动隐藏。要禁用此功能，可将 <a href="https://bootstrap-table.com/docs/api/table-options/#smartdisplay">smartDisplay</a> 设置为 <code>false</code></em></p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>[10, 25, 50, 100]</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/page-list.html">Page List</a></p>
+</li>
+</ul>
+<h2 id="pagenumber">pageNumber</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-page-number</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页属性时，初始化页码。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>1</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/page-number.html">Page Number</a></p>
+</li>
+</ul>
+<h2 id="pagesize">pageSize</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-page-size</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页属性时，初始化页面大小。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>10</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/page-size.html">Page Size</a></p>
+</li>
+</ul>
+<h2 id="pagination">pagination</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 可在表格底部显示分页工具栏。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-pagination.html">Table Pagination</a></p>
+</li>
+</ul>
+<h2 id="paginationdetailhalign">paginationDetailHAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-detail-h-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页详情的对齐方式。可使用 <code>&#39;left&#39;</code>（左对齐）或 <code>&#39;right&#39;</code>（右对齐）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;left&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-h-align.html">Pagination H Align</a></p>
+</li>
+</ul>
+<h2 id="paginationhalign">paginationHAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-h-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页的对齐方式。可使用 <code>&#39;left&#39;</code>（左对齐）或 <code>&#39;right&#39;</code>（右对齐）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;right&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-h-align.html">Pagination H Align</a></p>
+</li>
+</ul>
+<h2 id="paginationloadmore">paginationLoadMore</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-load-more</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以启用通过分页加载更多数据。仅在客户端分页中使用。通常，要实现”加载更多”功能，通常需要将其与 <code>responseHandler</code> 结合使用来处理返回的数据。</p>
+<p>它主要用于总页数未知的场景。在这种情况下，无法显示确切的总数或计算总页数。相反，可以使用”100+“等显示格式来表示显示计数之外存在其他项目。当用户导航到最后一页时，会加载更多数据，同时更新分页信息。此过程持续进行，直到所有数据加载完成。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-load-more.html">Pagination Load More</a></p>
+</li>
+</ul>
+<h2 id="paginationloop">paginationLoop</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-loop</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以启用分页连续循环模式。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-loop.html">Pagination Loop</a></p>
+</li>
+</ul>
+<h2 id="paginationnexttext">paginationNextText</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-next-text</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页详情中下一页按钮显示的图标或文本。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;›&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-text.html">Pagination Text</a></p>
+</li>
+</ul>
+<h2 id="paginationpagesbyside">paginationPagesBySide</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-pages-by-side</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>当前页面每侧（右、左）的页数。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>1</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-index-number.html">Pagination Index Number</a></p>
+</li>
+</ul>
+<h2 id="paginationparts">paginationParts</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-parts</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Array</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>这些选项定义分页的哪些部分应该可见。</p>
+<ul>
+<li><code>pageInfo</code> 显示当前页将显示哪些数据集（例如 <code>Showing 1 to 10 of 54 rows</code>）。</li>
+<li><code>pageInfoShort</code> 类似于 <code>pageInfo</code>，它只显示表格有多少行（例如 <code>Showing 54 rows</code>）。</li>
+<li><code>pageSize</code> 显示定义页面上应显示多少行的下拉列表。</li>
+<li><code>pageList</code> 显示分页的主要部分（页面列表）。</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>[&#39;pageInfo&#39;, &#39;pageSize&#39;, &#39;pageList&#39;]</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-parts.html">Pagination Parts</a></p>
+</li>
+</ul>
+<h2 id="paginationpretext">paginationPreText</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-pre-text</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页详情中上一页按钮显示的图标或文本。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;‹&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-text.html">Pagination Text</a></p>
+</li>
+</ul>
+<h2 id="paginationsuccessivelysize">paginationSuccessivelySize</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-successively-size</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>一行中最大连续页数。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>5</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-index-number.html">Pagination Index Number</a></p>
+</li>
+</ul>
+<h2 id="paginationuseintermediate">paginationUseIntermediate</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-use-intermediate</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>计算并显示中间页面以便快速访问。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-index-number.html">Pagination Index Number</a></p>
+</li>
+</ul>
+<h2 id="paginationvalign">paginationVAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-pagination-v-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置分页的垂直对齐方式。可使用 <code>&#39;top&#39;</code>（顶部）、<code>&#39;bottom&#39;</code>（底部）或 <code>&#39;both&#39;</code>（顶部和底部）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;bottom&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/pagination-v-align.html">Pagination V Align</a></p>
+</li>
+</ul>
+<h2 id="queryparams">queryParams</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-query-params</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>请求远程数据时，可以通过修改 queryParams 发送附加参数。</p>
+<p>如果 <code>queryParamsType = &#39;limit&#39;</code>，params 对象包含：<code>limit</code>、<code>offset</code>、<code>search</code>、<code>sort</code>、<code>order</code>。</p>
+<p>否则，它包含：<code>pageSize</code>、<code>pageNumber</code>、<code>searchText</code>、<code>sortName</code>、<code>sortOrder</code>。</p>
+<p>返回 <code>false</code> 以停止请求。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>function(params) { return params }</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/query-params.html">Query Params</a></p>
+</li>
+</ul>
+<h2 id="queryparamstype">queryParamsType</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-query-params-type</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置 <code>&#39;limit&#39;</code> 以发送 RESTFul 类型的查询参数。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;limit&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/query-params-type.html">Query Params Type</a></p>
+</li>
+</ul>
+<h2 id="regexsearch">regexSearch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-regex-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以启用正则表达式搜索。
+如果启用此选项，您可以使用正则表达式搜索，例如 <code>[47a]$</code> 搜索所有以 <code>4</code>、<code>7</code> 或 <code>a</code> 结尾的项目。
+正则表达式可以使用 <code>/[47a]$/gim</code> 或不带 <code>[47a]$</code> 标志输入。默认标志是 <code>gim</code>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/regex-search.html">Regex Search</a></p>
+</li>
+</ul>
+<h2 id="rememberorder">rememberOrder</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-remember-order</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以记住每列的顺序。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/remember-order.html">Remember Order</a></p>
+</li>
+</ul>
+<h2 id="responsehandler">responseHandler</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-response-handler</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>在加载远程数据之前，处理响应数据格式。参数对象包含：</p>
+<ul>
+<li><code>res</code>：响应数据。</li>
+<li><code>jqXHR</code>：jqXHR 对象，它是 XMLHTTPRequest 对象的超集。有关更多信息，请参阅 <a href="http://api.jquery.com/Types/#jqXHR">jqXHR 类型</a>。</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>function(res) { return res }</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/response-handler.html">Response Handler</a></p>
+</li>
+</ul>
+<h2 id="rowattributes">rowAttributes</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-row-attributes</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>行属性格式化函数，接受两个参数：</p>
+<ul>
+<li><code>row</code>：行记录数据。</li>
+<li><code>index</code>：行索引。</li>
+</ul>
+<p>支持所有自定义属性。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/row-attributes.html">Row Attributes</a></p>
+</li>
+</ul>
+<h2 id="rowstyle">rowStyle</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-row-style</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Function</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>行样式格式化函数，接受两个参数：</p>
+<ul>
+<li><code>row</code>：行记录数据。</li>
+<li><code>index</code>：行索引。</li>
+</ul>
+<p>支持 classes 或 css。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>{}</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/row-style.html">Row Style</a></p>
+</li>
+</ul>
+<h2 id="search">search</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>启用搜索输入。</p>
+<p>有三种搜索方式：</p>
+<ul>
+<li>值包含搜索查询（默认）。
+示例：Github 包含 git。</li>
+<li>值必须与搜索查询相同。
+示例：Github（值）和 Github（搜索查询）。</li>
+<li>比较（<code>&lt;</code>、<code>&gt;</code>、<code>&lt;=</code>、<code>=&lt;</code>、<code>&gt;=</code>、<code>=&gt;</code>）。
+示例：4 大于 3。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>如果要使用自定义搜索输入，请使用 <a href="https://bootstrap-table.com/docs/api/table-options/#searchSelector">searchSelector</a>。</li>
+<li>您也可以使用 <a href="https://bootstrap-table.com/docs/api/table-options/#regexSearch">regexSearch</a> 选项通过正则表达式搜索。</li>
+<li>如果要向服务器端分页发送可搜索参数，请使用 <a href="https://bootstrap-table.com/docs/api/table-options/#searchable">searchable</a> 选项。</li>
+</ul>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-search.html">Table Search</a></p>
+</li>
+</ul>
+<h2 id="searchable">searchable</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-searchable</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以在使用服务器端分页时向服务器发送<a href="https://bootstrap-table.com/docs/api/column-options/#searchable">可搜索参数</a>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/searchable.html">Searchable</a></p>
+</li>
+</ul>
+<h2 id="searchaccentneutralise">searchAccentNeutralise</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-accent-neutralise</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>如果要使用重音中性化功能，请设置为 <code>true</code>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-accent-neutralise.html">Search Accent Neutralise</a></p>
+</li>
+</ul>
+<h2 id="searchalign">searchAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置搜索输入框的对齐方式。可使用 <code>&#39;left&#39;</code>（左对齐）或 <code>&#39;right&#39;</code>（右对齐）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;right&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-align.html">Search Align</a></p>
+</li>
+</ul>
+<h2 id="searchhighlight">searchHighlight</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-highlight</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以突出显示搜索的文本（使用 <code>&lt;mark&gt;</code> HTML 标签）。
+您也可以定义<a href="https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter">自定义高亮格式化程序</a>，例如，对于带有 HTML 的值或使用自定义高亮颜色。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;false&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-highlight.html">Search Highlight</a></p>
+</li>
+</ul>
+<h2 id="searchonenterkey">searchOnEnterKey</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-on-enter-key</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>搜索方法将执行，直到按下 Enter 键。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-on-enter-key.html">Search On Enter Key</a></p>
+</li>
+</ul>
+<h2 id="searchselector">searchSelector</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-selector</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean|String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>如果设置此选项（必须是有效的 dom 选择器，例如 <code>#customSearch</code>），找到的 dom 元素（一个 <code>input</code> 元素）将用作表格搜索，而不是内置搜索输入。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-selector.html">Search Selector</a></p>
+</li>
+</ul>
+<h2 id="searchtext">searchText</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-text</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置搜索属性时，初始化搜索文本。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-text.html">Search Text</a></p>
+</li>
+</ul>
+<h2 id="searchtimeout">searchTimeOut</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-search-time-out</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置搜索触发的超时时间。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>500</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/search-time-out.html">Search Time Out</a></p>
+</li>
+</ul>
+<h2 id="selectitemname">selectItemName</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-select-item-name</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>单选框或复选框输入的名称。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;btSelectItem&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/id-field.html">Id Field</a></p>
+</li>
+</ul>
+<h2 id="serversort">serverSort</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-server-sort</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>false</code> 以在客户端对数据进行排序，仅在 <code>sidePagination</code> 为 <code>server</code> 时有效。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/server-sort.html">Server Sort</a></p>
+</li>
+</ul>
+<h2 id="showbuttonicons">showButtonIcons</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-button-icons</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>所有按钮显示图标。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-button-icons.html">show button icons</a></p>
+</li>
+</ul>
+<h2 id="showbuttontext">showButtonText</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-button-text</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>所有按钮显示文本。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-button-text.html">show button text</a></p>
+</li>
+</ul>
+<h2 id="showcolumns">showColumns</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-columns</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示列下拉列表。我们可以将 <a href="/docs/api/column-options/#switchable"><code>switchable</code></a> 列选项设置为 <code>false</code> 以隐藏下拉列表中的列项。所选列的最小数量可以通过 <a href="/docs/api/table-options/#minimumcountcolumns">minimumCountColumns</a> 表格选项控制。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/basic-columns.html">Basic Columns</a> and <a href="https://examples.bootstrap-table.com/#options/large-columns.html">Large Columns</a></p>
+</li>
+</ul>
+<h2 id="showcolumnssearch">showColumnsSearch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-columns-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示列过滤器的搜索。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-search.html">Columns Search</a></p>
+</li>
+</ul>
+<h2 id="showcolumnstoggleall">showColumnsToggleAll</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-columns-toggle-all</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以在列选项/下拉列表中显示全选复选框。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/columns-toggle-all.html">Columns Toggle All</a></p>
+</li>
+</ul>
+<h2 id="showextendedpagination">showExtendedPagination</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-extended-pagination</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示分页的扩展版本（包括所有无过滤器的行数）。
+如果在服务器端使用分页，请使用 <code>totalNotFilteredField</code> 定义计数。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-extended-pagination.html">Show Extended Pagination</a></p>
+</li>
+</ul>
+<h2 id="showfooter">showFooter</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-footer</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示摘要页脚行。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-footer.html">Show Footer</a></p>
+</li>
+</ul>
+<h2 id="showfullscreen">showFullscreen</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-fullscreen</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示全屏按钮。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-fullscreen.html">Show Fullscreen</a></p>
+</li>
+</ul>
+<h2 id="showheader">showHeader</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-header</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>false</code> 以隐藏表格标题。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-header.html">Show Header</a></p>
+</li>
+</ul>
+<h2 id="showpaginationswitch">showPaginationSwitch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-pagination-switch</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示分页切换按钮。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-pagination-switch.html">Show Pagination Switch</a></p>
+</li>
+</ul>
+<h2 id="showrefresh">showRefresh</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-refresh</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示刷新按钮。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-refresh.html">Show Refresh</a></p>
+</li>
+</ul>
+<h2 id="showsearchbutton">showSearchButton</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-search-button</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以在搜索输入后显示搜索按钮。
+启用后，搜索操作仅在用户点击搜索按钮时执行，而不是在输入时自动触发。这有助于减少不必要的网络请求和服务器负载，特别是在处理大量数据或网络环境较慢的情况下。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-search-button.html">Show Search Button</a></p>
+</li>
+</ul>
+<h2 id="showsearchclearbutton">showSearchClearButton</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-search-clear-button</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以在搜索输入后显示清除按钮，该按钮将清除搜索输入（也包括过滤器控件中的所有过滤器（如果启用））。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-search-clear-button.html">Show Search Clear Button</a></p>
+</li>
+</ul>
+<h2 id="showtoggle">showToggle</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-show-toggle</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以显示切换按钮以切换表格/卡片视图。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/show-toggle.html">Show Toggle</a></p>
+</li>
+</ul>
+<h2 id="sidepagination">sidePagination</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-side-pagination</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义表格的分页侧，只能是 <code>&#39;client&#39;</code> 或 <code>&#39;server&#39;</code>。
+使用 <code>&#39;server&#39;</code> 侧需要设置 <code>&#39;url&#39;</code> 或 <code>&#39;ajax&#39;</code> 选项。</p>
+<p>请注意，所需的服务器响应格式根据 <code>&#39;sidePagination&#39;</code> 选项设置为 <code>&#39;client&#39;</code> 还是 <code>&#39;server&#39;</code> 而不同。请参阅以下示例：</p>
+<ul>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">无服务器端分页</a></li>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">有服务器端分页</a></li>
+</ul>
+<p><strong>URL 参数：</strong></p>
+<p>当 <code>sidePagination</code> 设置为 <code>server</code> 时，bootstrap table 将使用以下 URL 参数调用 <code>url</code>：</p>
+<ul>
+<li><code>offset</code> 值介于 0 和 <code>total</code> - 1 之间，指定要包含的第一条记录。</li>
+<li><code>limit</code> 值指定每页的行数。</li>
+</ul>
+<p>实现服务器端分页时，您必须实现类似<a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data">此示例</a>格式的 JSON 视图。该视图必须采用上面指定的 URL 参数值，并返回从 <code>offset</code> 索引开始的记录，以及由 <code>limit</code> 指定的记录数。例如，如果您想要记录 11-20，您的视图必须从 URL 字符串获取 <code>offset=10</code> 和 <code>limit=10</code>，并返回类似<a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10">此示例</a>的记录。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;client&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/client-side-pagination.html">Client Side Pagination</a> and <a href="https://examples.bootstrap-table.com/#options/server-side-pagination.html">Server Side Pagination</a></p>
+</li>
+</ul>
+<h2 id="silentsort">silentSort</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-silent-sort</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>false</code> 以使用加载消息对数据进行排序。此选项在 sidePagination 选项设置为 <code>&#39;server&#39;</code> 时有效。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/silent-sort.html">Silent Sort</a></p>
+</li>
+</ul>
+<h2 id="singleselect">singleSelect</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-single-select</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以允许复选框仅选择一行。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/single-select.html">Single Select</a></p>
+</li>
+</ul>
+<h2 id="smartdisplay">smartDisplay</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-smart-display</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以智能显示分页或卡片视图。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/smart-display.html">Smart Display</a></p>
+</li>
+</ul>
+<h2 id="sortable">sortable</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sortable</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>false</code> 以禁用所有列的排序。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/table-sortable.html">Table Sortable</a></p>
+</li>
+</ul>
+<h2 id="sortclass">sortClass</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-class</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>已排序的 <code>td</code> 元素的类名。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-class.html">Sort Class</a></p>
+</li>
+</ul>
+<h2 id="sortemptylast">sortEmptyLast</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-empty-last</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以将 <code>&lt;空字符串&gt;</code>、<code>undefined</code> 和 <code>null</code> 排序为最后一个值。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-empty-last.html">Sort Empty Last</a></p>
+</li>
+</ul>
+<h2 id="sortname">sortName</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-name</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定要排序的列。此属性字段通常与 <code>sortOrder</code> 一起使用，两者应结合使用以实现正确的排序功能。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-name-order.html">Sort Name Order</a></p>
+</li>
+</ul>
+<h2 id="sortorder">sortOrder</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-order</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义列排序顺序，只能是 <code>undefined</code>、<code>&#39;asc&#39;</code> 或 <code>&#39;desc&#39;</code>。此属性字段通常与 <code>sortName</code> 一起使用，两者应结合使用以实现正确的排序功能。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-name-order.html">Sort Name Order</a></p>
+</li>
+</ul>
+<h2 id="sortreset">sortReset</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-reset</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以在第三次点击时重置排序。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-reset.html">Sort Reset</a></p>
+</li>
+</ul>
+<h2 id="sortresetpage">sortResetPage</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-reset-page</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以在排序时重置页码。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-reset-page.html">Sort Reset Page</a></p>
+</li>
+</ul>
+<h2 id="sortstable">sortStable</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-sort-stable</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以获得稳定的排序。我们将向行添加 <code>&#39;_position&#39;</code> 属性。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/sort-stable.html">Sort Stable</a></p>
+</li>
+</ul>
+<h2 id="strictsearch">strictSearch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-strict-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>启用严格搜索。
+禁用比较检查。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/strict-search.html">Strict Search</a></p>
+</li>
+</ul>
+<h2 id="theadclasses">theadClasses</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-thead-classes</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>表格 thead 的类名。Bootstrap 使用修饰符类 <code>.thead-light</code> 或 <code>.thead-dark</code> 使 thead 显示为浅灰色或深灰色。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/thead-classes.html">Thead Classes</a></p>
+</li>
+</ul>
+<h2 id="toolbar">toolbar</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-toolbar</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String/Node</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定工具栏的 jQuery 选择器，例如：<code>#toolbar</code>、<code>.toolbar</code>，或一个 DOM 节点。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/custom-toolbar.html">Custom Toolbar</a></p>
+</li>
+</ul>
+<h2 id="toolbaralign">toolbarAlign</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-toolbar-align</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置自定义工具栏的对齐方式。可使用 <code>&#39;left&#39;</code>（左对齐）或 <code>&#39;right&#39;</code>（右对齐）。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;left&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/toolbar-align.html">Toolbar Align</a></p>
+</li>
+</ul>
+<h2 id="totalfield">totalField</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-total-field</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>指定传入 JSON 中包含 <code>&#39;total&#39;</code> 数据列表的键名。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;total&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/total-data-field.html">Total/Data Field</a></p>
+</li>
+</ul>
+<h2 id="totalnotfiltered">totalNotFiltered</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-total-not-filtered</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>此属性主要由分页服务器传入，易于使用。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>0</code></p>
+</li>
+</ul>
+<h2 id="totalnotfilteredfield">totalNotFilteredField</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-total-not-filtered-field</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>string</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>JSON 响应中的字段将用于 <code>showExtendedPagination</code>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>totalNotFiltered</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/total-not-filtered-field.html">Total Not Filtered Field</a></p>
+</li>
+</ul>
+<h2 id="totalrows">totalRows</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-total-rows</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>此属性主要由分页服务器传入，易于使用。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>0</code></p>
+</li>
+</ul>
+<h2 id="trimonsearch">trimOnSearch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-trim-on-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以修剪搜索字段中的空格。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>true</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/trim-on-search.html">Trim On Search</a></p>
+</li>
+</ul>
+<h2 id="undefinedtext">undefinedText</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-undefined-text</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>定义默认的 <code>undefined</code> 文本。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>&#39;-&#39;</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/undefined-text.html">Undefined Text</a></p>
+</li>
+</ul>
+<h2 id="uniqueid">uniqueId</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-unique-id</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>为每行指定唯一标识符。
+唯一 ID 应始终对 html 安全，例如字母数字，不应包含可能破坏 html 的字符，例如 <code>&quot;</code>。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#methods/get-row-by-unique-id.html">getRowByUniqueId</a></p>
+</li>
+</ul>
+<h2 id="url">url</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-url</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>String</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>从远程站点请求数据的 URL。</p>
+<p>请注意，所需的服务器响应格式根据是否指定了 <code>&#39;sidePagination&#39;</code> 选项而不同。请参阅以下示例：</p>
+<ul>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json">无服务器端分页</a></li>
+<li><a href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json">有服务器端分页</a></li>
+</ul>
+<p><strong>URL 参数：</strong></p>
+<p>当 <code>sidePagination</code> 设置为 <code>server</code> 时，bootstrap table 将使用以下 URL 参数调用 <code>url</code>：</p>
+<ul>
+<li><code>offset</code> 值介于 0 和 <code>total</code> - 1 之间，指定要包含的第一条记录。</li>
+<li><code>limit</code> 值指定每页的行数。</li>
+</ul>
+<p>实现服务器端分页时，您必须实现类似<a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data">此示例</a>格式的 JSON 视图。该视图必须采用上面指定的 URL 参数值，并返回从 <code>offset</code> 索引开始的记录，以及由 <code>limit</code> 指定的记录数。例如，如果您想要记录 11-20，您的视图必须从 URL 字符串获取 <code>offset=10</code> 和 <code>limit=10</code>，并返回类似<a href="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10">此示例</a>的记录。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#welcomes/from-url.html">From URL</a></p>
+</li>
+<li>
+<p><strong>错误处理</strong></p>
+<p>要获取加载错误，请使用 <a href="https://bootstrap-table.com/docs/api/events/#onloaderror">onLoadError</a></p>
+</li>
+</ul>
+<h2 id="virtualscroll">virtualScroll</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-virtual-scroll</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以启用虚拟滚动来显示虚拟的”无限”列表。</p>
+<p><strong>注意：</strong> 目前的实现需要每行具有相同的高度。如果行的高度不同，可能会出现不可预测的错误。请确保每行的高度一致，或应用样式 <code>td { white-space: nowrap; }</code> 来解决此问题。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/large-data.html">Large Data</a></p>
+</li>
+</ul>
+<h2 id="virtualscrollitemheight">virtualScrollItemHeight</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-virtual-scroll-item-height</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Number</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>如果未定义此选项，默认情况下我们将使用第一项的高度。</p>
+<p>如果虚拟项目高度明显大于默认高度，提供此选项是<strong>重要</strong>的。此维度用于帮助确定初始化时应创建多少个单元格，并帮助计算可滚动区域的高度。此高度值只能使用 <code>px</code> 单位。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>undefined</code></p>
+</li>
+</ul>
+<h2 id="visiblesearch">visibleSearch</h2>
+<ul>
+<li>
+<p><strong>属性:</strong> <code>data-visible-search</code></p>
+</li>
+<li>
+<p><strong>类型:</strong> <code>Boolean</code></p>
+</li>
+<li>
+<p><strong>详情:</strong></p>
+<p>设置为 <code>true</code> 以仅在可见列/数据中搜索。如果数据包含其他未显示的值，它们在搜索时将被忽略。</p>
+</li>
+<li>
+<p><strong>默认值:</strong> <code>false</code></p>
+</li>
+<li>
+<p><strong>示例:</strong> <a href="https://examples.bootstrap-table.com/#options/visible-search.html">visible search</a></p>
+</li>
+</ul> </main> </div> </div> <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@4"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-core.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script> <script src="https://gg.wenzhixin.net.cn/bootstrap-table/gg.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132747866-1"></script><script type="module">(function(){window.fnames=[],window.ftypes=[],window.fnames[0]="EMAIL",window.ftypes[0]="email",window.fnames[1]="FNAME",window.ftypes[1]="text",window.fnames[2]="LNAME",window.ftypes[2]="text",window.fnames[3]="ADDRESS",window.ftypes[3]="address",window.fnames[4]="PHONE",window.ftypes[4]="phone",window.fnames[5]="BIRTHDAY",window.ftypes[5]="birthday"})(jQuery);</script><script data-baseurl data-version="1.26.0" data-algolia="{&#34;appId&#34;:&#34;FXDJ517Z8G&#34;,&#34;apiKey&#34;:&#34;9b89c4a7048370f4809b0bc77b2564ac&#34;,&#34;indexName&#34;:&#34;bootstrap-table&#34;}">
+  const { dataset } = document.currentScript
+  const script = document.createElement('script')
+  const baseurl = dataset.baseurl || ''
+  const version = dataset.version || ''
+
+  script.src = `${baseurl}/assets/js/docs.js?v=${version}`
+  document.head.appendChild(script)
+
+  // Set Algolia configuration as global variables
+  window.ALGOLIA_CONFIG = dataset.algolia ? JSON.parse(dataset.algolia) : {}
+</script> </body></html>
