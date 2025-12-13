@@ -1,56 +1,66 @@
 ---
 import Config from '@/config.js'
+import { getBaseUrl, getLanguageMenu, useTranslations } from '@/i18n/utils'
 
 const layout = Astro.props.layout
+const locale = Astro.currentLocale
+const { pathname } = Astro.url
+const baseurl = getBaseUrl(locale)
+const t = useTranslations(locale)
+
 const mainNav = [
   {
-    title: 'Home',
-    href: `${Config.baseurl}/`,
+    title: t('nav.home'),
+    href: `${baseurl}/`,
     isActive: layout === 'home'
   },
   {
-    title: 'Docs',
-    href: `${Config.baseurl}/docs/getting-started/introduction/`,
+    title: t('nav.docs'),
+    href: `${baseurl}/docs/getting-started/introduction/`,
     isActive: layout === 'docs'
   },
   {
-    title: 'Themes',
-    href: `${Config.baseurl}/themes`,
+    title: t('nav.themes'),
+    href: `${baseurl}/themes`,
     isActive: layout === 'themes'
   },
   {
-    title: 'Examples',
+    title: t('nav.examples'),
     href: 'https://examples.bootstrap-table.com',
     isExternal: true
   },
   {
-    title: 'Online Editor',
+    title: t('nav.online_editor'),
     href: 'https://live.bootstrap-table.com',
     isExternal: true
   },
   {
-    title: 'News',
-    href: `${Config.baseurl}/news`,
+    title: t('nav.news'),
+    href: `${baseurl}/news`,
     isActive: layout === 'news'
   },
   {
-    title: 'Blog',
+    title: t('nav.blog'),
     href: 'https://blog.bootstrap-table.com',
     isExternal: true
   }
 ]
+
 const versionMenu = [
   {
-    title: `Latest (v${Config.currentVersion})`,
-    href: `${Config.baseurl}/`,
-    isActive: true
+    title: t('nav.version_latest', { version: Config.currentVersion }),
+    href: `${baseurl}/`,
+    isActive: true,
+    isExternal: false
   },
   ...Config.versions.map(version => ({
     title: `v${version}`,
     href: `http://bootstrap-table.com/versions/${version}/`,
+    isActive: false,
     isExternal: true
   }))
 ]
+
 const socialLinks = [
   {
     title: 'GitHub',
@@ -68,25 +78,28 @@ const socialLinks = [
     icon: 'bi-heart-fill'
   }
 ]
+
 const themeConfig = {
   themes: [
     {
       name: 'light',
       icon: 'bi-sun-fill',
-      label: 'Light'
+      label: t('nav.theme_light')
     },
     {
       name: 'dark',
       icon: 'bi-moon-stars-fill',
-      label: 'Dark'
+      label: t('nav.theme_dark')
     },
     {
       name: 'auto',
       icon: 'bi-circle-half',
-      label: 'Auto'
+      label: t('nav.theme_auto')
     }
   ]
 }
+
+const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMenu(pathname, locale)
 ---
 
 <header class="navbar navbar-expand-lg bd-navbar sticky-top">
@@ -103,7 +116,7 @@ const themeConfig = {
             aria-label="Toggle docs navigation"
           >
             <i class="bi bi-list"></i>
-            <span class="d-none fs-6 pe-1">Browse</span>
+            <span class="d-none fs-6 pe-1">{t('nav.browse')}</span>
           </button>
         </div>
     }
@@ -111,7 +124,7 @@ const themeConfig = {
 
     <a
       class="navbar-brand p-0 me-0 me-lg-2"
-      href={`${Config.baseurl}/`}
+      href={`${baseurl}/`}
       aria-label="Bootstrap Table"
     >
       <img src={`${Config.baseurl}/favicon.png`} width="32" height="32" alt="Bootstrap Table">
@@ -212,6 +225,32 @@ const themeConfig = {
             </ul>
           </li>
 
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle me-md-2"
+              href="#"
+              id="bd-language"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {currentLanguageLabel}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-language">
+              {languageMenu.map(item =>
+                <li>
+                  <a
+                    class={`dropdown-item ${item.isActive ? 'active' : ''}`}
+                    href={item.href}
+                    hreflang={item.code}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              )}
+            </ul>
+          </li>
+
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
             <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div>
             <hr class="d-lg-none my-2" />
@@ -228,6 +267,7 @@ const themeConfig = {
             >
               <span id="theme-icon">
                 <i class="bi bi-sun-fill"></i>
+                <span class="d-lg-none ms-2" id="bd-theme-text">{t('nav.toggle_theme')}</span>
               </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu">

@@ -5,15 +5,16 @@ export default {
   currentYear: new Date().getFullYear(),
 
   title: 'Bootstrap Table',
-  description: 'An extended table to the integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)',
-  author: 'Zhixin Wen, and Bootstrap Table contributors',
+  author: 'Zhixin Wen and Bootstrap Table contributors',
   keywords: 'bootstrap,table,pagination,checkbox,radio,datatables,css,css-framework,semantic,semantic-ui,bulma,material,material-design,materialize,foundation',
 
   baseurl: '',
   repo: 'https://github.com/wenzhixin/bootstrap-table',
   website: 'http://wenzhixin.net.cn',
   repos: 'http://repos.wenzhixin.net.cn',
+  questions: 'https://github.com/wenzhixin/bootstrap-table/issues',
   email: 'wenzhixin2010@gmail.com',
+  github: 'wenzhixin',
   twitter: 'wenzhixin2010',
   opencollective: 'bootstrap-table',
   masterZip: 'https://github.com/wenzhixin/bootstrap-table/archive/master.zip',
@@ -25,6 +26,7 @@ export default {
   },
 
   versions: [
+    '1.26.0',
     '1.24.2',
     '1.23.5',
     '1.22.6',

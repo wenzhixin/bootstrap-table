@@ -1,0 +1,190 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Print
+description: Bootstrap Table 的表格打印扩展，支持自定义打印格式。
+group: extensions
+toc: true
+---
+
+打印扩展为表格工具栏添加打印按钮，支持自定义打印样式和格式，让用户能够方便地打印表格数据。
+
+## 用法
+
+```html
+<script src="extensions/print/bootstrap-table-print.js"></script>
+```
+
+## 示例
+
+[Print](https://examples.bootstrap-table.com/#extensions/print.html)
+
+## 选项
+
+### showPrint
+
+- **属性:** `data-show-print`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否在工具栏显示打印按钮。设置为 `true` 时，用户可以通过点击打印按钮打印表格。
+
+- **默认值:** `false`
+
+### printAsFilteredAndSortedOnUI
+
+- **属性:** `data-print-as-filtered-and-sorted-on-ui`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时按照当前 UI 的排序与过滤结果打印。若启用，请不要再设置 `printFilter`、`printSortOrder`、`printSortColumn`，否则这些预设只会应用于已经在 UI 中筛选排序过的数据。
+
+- **默认值:** `true`
+
+### printPageBuilder
+
+- **属性:** `data-print-page-builder`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  接收 HTML `<table>` 元素字符串作为参数，返回用于打印的 HTML 字符串，可用于添加样式、页眉或页脚。
+
+- **默认值:**
+```javascript
+printPageBuilder: function(table, styles) {
+  return `
+    <html>
+    <head>
+    ${styles}
+    <style type="text/css" media="print">
+    @page {
+      size: auto;
+      margin: 25px 0 25px 0;
+    }
+    </style>
+    <style type="text/css" media="all">
+    table {
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    table, th, td {
+      border: 1px solid grey;
+    }
+    th, td {
+      text-align: center;
+      vertical-align: middle;
+    }
+    p {
+      font-weight: bold;
+      margin-left:20px;
+    }
+    table {
+      width: 94%;
+      margin-left: 3%;
+      margin-right: 3%;
+    }
+    div.bs-table-print {
+      text-align: center;
+    }
+    </style>
+    </head>
+    <title>Print Table</title>
+    <body>
+    <p>Printed on: ${new Date} </p>
+    <div class="bs-table-print">${table}</div>
+    </body>
+    </html>
+  `
+}
+```
+
+### printSortColumn
+
+- **属性:** `data-print-sort-column`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置打印表格时根据哪个字段排序。
+
+- **默认值:** `undefined`
+
+### printSortOrder
+
+- **属性:** `data-print-sort-order`
+
+- **类型:** `String`
+
+- **详情:**
+
+  仅在设置了 `printSortColumn` 时生效。可选 `'asc'` 或 `'desc'`。
+
+- **默认值:** `'asc'`
+
+### printStyles
+
+- **属性:** `data-print-styles`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  为打印页面追加样式资源，例如自定义图标。
+
+- **默认值:** `[]`
+
+### 图标
+
+* `print`: `'fa-print'`
+
+## 列选项
+
+### printFilter
+
+- **属性:** `data-print-filter`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置该列在打印数据时使用的过滤值。
+
+- **默认值:** `undefined`
+
+### printFormatter
+
+- **属性:** `data-print-formatter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  自定义函数 `function(value, row, index)`，返回字符串，用于格式化打印表格中的单元格值，行为类似列选项 `formatter`。
+
+- **默认值:** `undefined`
+
+### printIgnore
+
+- **属性:** `data-print-ignore`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时在打印页面隐藏该列。
+
+- **默认值:** `false`
+
+## 本地化
+
+### formatPrint
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Print" }`

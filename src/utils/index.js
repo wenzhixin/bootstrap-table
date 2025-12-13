@@ -1,3 +1,68 @@
+const ACCENT_MAP = {
+  // Nordic
+  Æ: 'AE', æ: 'ae',
+  Ø: 'O', ø: 'o',
+  Å: 'A', å: 'a',
+
+  // German
+  Ä: 'A', ä: 'a',
+  Ö: 'O', ö: 'o',
+  Ü: 'U', ü: 'u',
+  ẞ: 'SS', ß: 'ss',
+
+  // French & others
+  Œ: 'OE', œ: 'oe',
+
+  // Slavic/Central European
+  Č: 'C', č: 'c',
+  Ć: 'C', ć: 'c',
+  Š: 'S', š: 's',
+  Ž: 'Z', ž: 'z',
+  Ł: 'L', ł: 'l',
+  Đ: 'Dj', đ: 'dj',
+  Ń: 'N', ń: 'n',
+  Ę: 'E', ę: 'e',
+  Ą: 'A', ą: 'a',
+  Ŕ: 'R', ŕ: 'r',
+
+  // Turkish
+  Ğ: 'G', ğ: 'g',
+  İ: 'I', ı: 'i',
+  Ş: 'S', ş: 's',
+
+  // Romanian
+  Ă: 'A', ă: 'a',
+  Â: 'A', â: 'a',
+  Î: 'I', î: 'i',
+  Ș: 'S', ș: 's',
+  Ț: 'T', ț: 't',
+
+  // Greek
+  Α: 'A', Ά: 'A', α: 'a', ά: 'a',
+  Β: 'V', β: 'v',
+  Γ: 'G', γ: 'g',
+  Δ: 'D', δ: 'd',
+  Ε: 'E', Έ: 'E', ε: 'e', έ: 'e',
+  Ζ: 'Z', ζ: 'z',
+  Η: 'I', Ή: 'I', η: 'i', ή: 'i',
+  Ι: 'I', Ί: 'I', ι: 'i', ί: 'i',
+  Κ: 'K', κ: 'k',
+  Λ: 'L', λ: 'l',
+  Μ: 'M', μ: 'm',
+  Ν: 'N', ν: 'n',
+  Ξ: 'X', ξ: 'x',
+  Ο: 'O', Ό: 'O', ο: 'o', ό: 'o',
+  Π: 'P', π: 'p',
+  Ρ: 'R', ρ: 'r',
+  Σ: 'S', σ: 's', ς: 's',
+  Τ: 'T', τ: 't',
+  Υ: 'Y', Ύ: 'Y', υ: 'y', ύ: 'y',
+  Φ: 'F', φ: 'f',
+  Χ: 'CH', χ: 'ch',
+  Ψ: 'PS', ψ: 'ps',
+  Ω: 'O', Ώ: 'O', ω: 'o', ώ: 'o'
+}
+
 export default {
   getBootstrapVersion () {
     let bootstrapVersion = 5
@@ -240,7 +305,14 @@ export default {
     if (typeof value !== 'string') {
       return value
     }
-    return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const pattern = new RegExp(`[${Object.keys(ACCENT_MAP).join('')}]`, 'g')
+
+    return value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(pattern, char => ACCENT_MAP[char])
+      .toLowerCase()
+      .trim()
   },
 
   updateFieldGroup (columns, fieldColumns) {

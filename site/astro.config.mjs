@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config'
+import { defaultLocale, locales } from './src/i18n/ui.js'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import remarkInjectConfig from './src/plugins/remark-config.js'
@@ -6,6 +7,10 @@ import remarkInjectConfig from './src/plugins/remark-config.js'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://bootstrap-table.com',
+  i18n: {
+    locales: Object.keys(locales),
+    defaultLocale
+  },
   vite: {
     resolve: {
       alias: {

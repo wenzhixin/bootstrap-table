@@ -1,0 +1,71 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Fixed Columns
+description: Bootstrap Table 的固定列扩展，支持固定表格的左右列。
+group: extensions
+toc: true
+---
+
+固定列扩展允许将表格的左侧或右侧列固定，当表格横向滚动时这些列保持可见，提升用户体验。
+
+## 用法
+
+```html
+<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+```
+
+## 示例
+
+[Fixed Columns](https://examples.bootstrap-table.com/#extensions/fixed-columns.html)
+
+## 选项
+
+### fixedColumns
+
+- **属性:** `data-fixed-columns`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用固定列功能。设置为 `true` 时，可以固定表格的左侧或右侧列。
+
+- **默认值:** `false`
+
+### fixedNumber
+
+- **属性:** `data-fixed-number`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  左侧固定列的数量。
+
+- **默认值:** `0`
+
+### fixedRightNumber
+
+- **属性:** `data-fixed-right-number`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  右侧固定列的数量。
+
+- **默认值:** `0`
+
+## 注意
+
+* 不支持 `detailView` 选项。
+* 不支持 `cardView` 选项。
+* 不支持 `showFooter` 选项。
+* 与 sticky-header 扩展一起使用时需在其后引入。例如：
+```html
+<link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
+<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
+<script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+```

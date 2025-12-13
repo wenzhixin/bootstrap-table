@@ -1,0 +1,340 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Filter Control
+description: Bootstrap Table 的过滤控制扩展，为表格列添加筛选功能。
+group: extensions
+toc: true
+---
+
+过滤控制扩展可以为表格的每一列添加输入框或下拉选择框等过滤控件，让用户能够快速筛选数据，提高数据查询效率。
+
+## 用法
+
+```html
+<link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+<script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
+```
+
+## 示例
+
+[Filter Control](https://examples.bootstrap-table.com/#extensions/filter-control.html)
+
+## 选项
+
+### filterControl
+
+- **属性:** `data-filter-control`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用列过滤功能。设置为 `true` 时，会自动为表格列添加输入框或下拉选择框等过滤控件。
+
+- **默认值:** `false`
+
+### filterControlVisible
+
+- **属性:** `data-filter-control-visible`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否显示过滤控件。设置为 `false` 时，将隐藏所有过滤输入控件，但过滤功能仍然有效。
+
+- **默认值:** `true`
+
+### alignmentSelectControlOptions
+
+- **属性:** `data-alignment-select-control-options`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置下拉选择框中选项的对齐方式。可选值：`left`（左对齐）、`right`（右对齐）或 `auto`（自动对齐）。
+
+- **默认值:** `undefined`
+
+### filterControlContainer
+
+- **属性:** `data-filter-control-container`
+
+- **类型:** `Selector`
+
+- **详情:**
+
+  指定过滤控件的容器选择器。例如设置为 `#filter`，会将所有过滤控件渲染到 id 为 `filter` 的元素中。
+
+  容器中的每个过滤元素（input 或 select）必须包含类名 `bootstrap-table-filter-control-<FieldName>`，其中 `<FieldName>` 需要替换为对应列的 [field](https://bootstrap-table.com/docs/api/column-options/#field) 属性值。
+
+- **默认值:** `false`
+
+### filterDataCollector
+
+- **属性:** `data-filter-data-collector`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  数据收集函数，用于收集要添加到下拉过滤框中的选项数据。
+  常用于处理通过 formatter 显示的标签数据（如逗号分隔的标签列表）。
+
+- **默认值:** `undefined`
+
+### filterControlMultipleSearch
+
+- **属性:** `data-filter-control-multiple-search`
+
+- **类型:** `bool`
+
+- **详情:**
+
+  是否启用多重搜索功能。设置为 `true` 时，用户可以在一个输入框中搜索多个值。
+
+  多个搜索值之间使用分隔符进行拆分，分隔符可通过 `filterControlMultipleSearchDelimiter` 选项自定义。
+
+- **默认值:** `false`
+
+### filterControlMultipleSearchDelimiter
+
+- **属性:** `data-filter-control-multiple-search-delimiter`
+
+- **类型:** `String`
+
+- **详情:**
+
+  定义拆分搜索值时使用的分隔符。
+
+- **默认值:** `,`
+
+### filterControlSearchClear
+
+- **属性:** `data-filter-control-search-clear`
+
+- **类型:** `bool`
+
+- **详情:**
+
+  是否启用搜索清除功能。设置为 `true` 时，结合表格选项 [showSearchButton](/docs/api/table-options/#showsearchbutton)，可以一键清除所有过滤条件。
+
+- **默认值:** `true`
+
+### searchOnEnterKey
+
+- **属性:** `data-search-on-enter-key`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时，用户按下 Enter 键即触发搜索。
+
+- **默认值:** `false`
+
+### showFilterControlSwitch
+
+- **属性:** `data-show-filter-control-switch`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 显示过滤控件开关按钮。
+
+- **默认值:** `false`
+
+### sortSelectOptions
+
+- **属性:** `data-sort-select-options`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 对下拉控件中的选项进行排序。
+
+- **默认值:** `false`
+
+## 列选项
+
+### filterControl
+
+- **属性:** `data-filter-control`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置该列的过滤控件类型：
+  * `input`：文本输入框
+  * `select`：下拉选择框
+  * `datepicker`：HTML5 日期选择器
+
+- **默认值:** `undefined`
+
+### filterControlPlaceholder
+
+- **属性:** `data-filter-control-placeholder`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置输入框控件的占位符文本。仅在控件类型为 `input` 时有效。
+
+- **默认值:** `''`
+
+### filterCustomSearch
+
+- **属性:** `data-filter-custom-search`
+
+- **类型:** `function`
+
+- **详情:**
+
+  自定义搜索函数，替代内置搜索。入参：
+
+    * `text`：搜索文本。
+    * `value`：待比较的列值。
+    * `field`：列字段名。
+    * `data`：表格数据。
+
+  返回 `false` 表示过滤掉当前行/列；返回 `true` 表示保留；返回 `null` 表示跳过当前值的自定义搜索。
+
+- **默认值:** `undefined`
+
+### filterData
+
+- **属性:** `data-filter-data`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置自定义下拉过滤数据，支持：
+  `var:variable` 从变量加载；
+  `obj:variable.key` 从对象加载；
+  `url:http://www.example.com/data.json` 从远程 JSON 文件加载；
+  `json:{key:data}` 从 JSON 字符串加载；
+  `func:functionName` 从函数返回值加载。
+
+- **默认值:** `undefined`
+
+### filterDatepickerOptions
+
+- **属性:** `data-filter-datepicker-options`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  当使用日期选择器时，通过该选项传递原生配置，例如：`data-filter-datepicker-options='{"max":value1, "min": value2, "step": value3}'`。详见[官方文档](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)。
+
+- **默认值:** `undefined`
+
+### filterDefault
+
+- **属性:** `data-filter-default`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置过滤器的默认值。
+
+- **默认值:** `undefined`
+
+### filterOrderBy
+
+- **属性:** `data-filter-order-by`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置下拉选项的排序方式：升序（`'asc'`）、降序（`'desc'`）或按服务端返回顺序（`'server'`）。
+
+- **默认值:** `'asc'`
+
+### filterStartsWithSearch
+
+- **属性:** `data-filter-starts-with-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 启用“前缀匹配”搜索模式。
+
+- **默认值:** `false`
+
+### filterStrictSearch
+
+- **属性:** `data-filter-strict-search`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 启用严格匹配搜索模式。
+
+- **默认值:** `false`
+
+### 图标
+
+* `clear`: `'glyphicon-trash icon-clear'`
+* `filterControlSwitchHide`: `'glyphicon-zoom-out icon-zoom-out'`
+* `filterControlSwitchShow`: `'glyphicon-zoom-in icon-zoom-in'`
+
+## 事件
+
+### onColumnSearch (column-search.bs.table)
+
+* 当列数据触发搜索时触发。
+
+### onCreatedControls (created-controls.bs.table)
+
+* 当过滤控件创建完成时触发。
+
+## 方法
+
+### triggerSearch
+
+* 手动触发搜索操作。
+
+### clearFilterControl
+
+* 清空该插件添加的所有控件（类似 `showSearchClearButton` 选项）。
+
+### toggleFilterControl
+
+* 切换过滤控件的显示/隐藏。
+
+## 本地化
+
+### formatClearFilters
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Clear Filters" }`
+
+### formatFilterControlSwitch
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Hide/Show controls" }`
+
+### formatFilterControlSwitchHide
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Hide controls" }`
+
+### formatFilterControlSwitchShow
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Show controls" }`

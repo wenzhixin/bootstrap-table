@@ -1,0 +1,103 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Group By v2
+description: Bootstrap Table 的数据分组扩展，允许按指定字段对表格数据进行分组展示。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<link rel="stylesheet" href="extensions/group-by-v2/bootstrap-table-group-by.css">
+<script src="extensions/group-by-v2/bootstrap-table-group-by.js"></script>
+```
+
+## 示例
+
+[Group By v2](https://examples.bootstrap-table.com/#extensions/group-by-v2.html)
+
+## 选项
+
+### groupBy
+
+- **属性:** `data-group-by`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用数据分组功能。设置为 `true` 时，表格数据将按指定字段分组展示。
+
+- **默认值:** `false`
+
+### groupByField
+
+- **属性:** `data-group-by-field`
+
+- **类型:** `String|Array`
+
+- **详情:**
+
+  设置用于分组的字段：
+  * 单字段时使用字符串，例如 `shape`。
+  * 多字段时使用数组，例如 `['shape', 'color']`。
+
+- **默认值:** `''`
+
+### groupByFormatter
+
+- **属性:** `data-group-by-formatter`
+
+- **类型:** `Function`
+
+- **详情:**
+
+  分组行的格式化函数，入参：
+
+  * `value`：分组值。
+  * `idx`：分组索引。
+  * `data`：该分组内的行数组。
+
+- **默认值:** `undefined`
+
+### groupByToggle
+
+- **属性:** `data-group-by-toggle`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时允许折叠/展开分组。
+
+- **默认值:** `false`
+
+### groupByShowToggleIcon
+
+- **属性:** `data-group-by-show-toggle-icon`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时根据折叠状态显示切换图标（需与 `groupByToggle` 配合）。
+
+- **默认值:** `false`
+
+### groupByCollapsedGroups
+
+- **属性:** `data-group-by-collapsed-groups`
+
+- **类型:** `Array|Function`
+
+- **详情:**
+
+  列表中的分组键将默认折叠。该选项可以是：
+  - 变量（数组）
+  - 数组字符串，例如 `['circle']`
+  - 返回数组的函数，入参为：
+    - 分组键
+    - 分组中的数据
+
+- **默认值:** `[]`

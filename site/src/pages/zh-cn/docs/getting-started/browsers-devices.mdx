@@ -1,0 +1,31 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 浏览器和设备
+description: 了解 Bootstrap Table 支持的浏览器和设备，从现代到旧版本，包括每个浏览器的已知特性和错误。
+group: getting-started
+toc: true
+---
+
+## 支持的浏览器
+
+Bootstrap Table 支持所有主流浏览器和平台的**最新稳定版本**。我们专注于具有良好性能和安全特性的现代浏览器。
+
+使用最新版本的 WebKit、Blink 或 Gecko 的替代浏览器，无论是直接使用还是通过平台的 Web View API，都没有明确支持。但是，Bootstrap Table 应该（在大多数情况下）在这些浏览器中正确显示和运行。下面提供了更具体的支持信息。
+
+您可以在我们的 [`.browserslistrc 文件`]([[config:repo]]/blob/[[config:currentVersion]]/.browserslistrc) 中找到我们支持的浏览器范围及其版本：
+
+```plaintext
+# https://github.com/browserslist/browserslist#readme
+
+>= 0.5%
+last 2 versions
+not dead
+Chrome >= 90
+Firefox >= 88
+Edge >= 90
+Safari >= 14
+iOS >= 14
+Android >= 6
+```
+
+由于 Bootstrap Table 是为 Bootstrap 设计的，我们将尽量在浏览器和设备兼容性方面与 Bootstrap 保持一致。您可以查看 [Bootstrap 的浏览器和设备支持](https://getbootstrap.com/docs/5.3/getting-started/browsers-devices/) 获取更多详细信息。

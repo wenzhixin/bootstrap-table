@@ -7,11 +7,19 @@ import TOC from '@/components/TOC.astro'
 import Scripts from '@/components/Scripts.astro'
 import Config from '@/config.js'
 import path from 'path'
+import { defaultLocale } from '@/i18n/ui'
+import { useTranslations } from '@/i18n/utils'
 
 const layout = 'docs'
 const { file, frontmatter } = Astro.props
 const filename = path.basename(file)
+const locale = Astro.currentLocale
+const t = useTranslations(Astro.currentLocale)
 const bodyProps = {}
+
+const group = ['faq', 'online-editor'].includes(frontmatter.group) ? '' : `${frontmatter.group}/`
+const localePrefix = locale === defaultLocale ? '' : `${locale}/`
+const githubDocUrl = `${Config.repo}/blob/develop/site/src/pages/${localePrefix}docs/${group}${filename}`
 
 if (frontmatter.toc) {
   bodyProps['data-bs-spy'] = 'scroll'
@@ -20,8 +28,8 @@ if (frontmatter.toc) {
 ---
 
 <!doctype html>
-<html lang="en">
-  <Header />
+<html lang={locale}>
+  <Header frontmatter={frontmatter} />
   <body {...bodyProps}>
     <Navbar layout={layout} />
 
@@ -30,7 +38,7 @@ if (frontmatter.toc) {
         <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3">
           <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
             <div class="offcanvas-header border-bottom">
-              <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
+              <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">{t('nav.browse')} {t('nav.docs')}</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -48,12 +56,9 @@ if (frontmatter.toc) {
         <main class={`col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 mt-3 bd-content overflow-y-auto ${frontmatter.group || ''}`} role="main">
           <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
             <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0"
-              href={frontmatter.group === 'faq' || frontmatter.group === 'online-editor' ?
-                `${Config.repo}/blob/develop/site/pages/docs/${filename}` :
-                `${Config.repo}/blob/develop/site/pages/docs/${frontmatter.group}/${filename}`
-              }
-              title="View and edit this file on GitHub" target="_blank" rel="noopener">
-              View on GitHub
+              href={githubDocUrl}
+              title={t('nav.view_on_github')} target="_blank" rel="noopener">
+              {t('nav.view_on_github')}
             </a>
             <h1 class="bd-title" id="content">
               {frontmatter.title}

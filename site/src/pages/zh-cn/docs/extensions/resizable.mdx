@@ -1,0 +1,38 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Resizable
+description: Bootstrap Table 的列宽调整扩展，支持拖拽调整列宽。
+group: extensions
+toc: true
+---
+
+列宽调整扩展基于 [jquery-resizable-columns](https://github.com/dobtco/jquery-resizable-columns) v0.2.3，允许用户通过拖拽的方式调整表格列的宽度。
+
+## 用法
+
+```html
+<script src="extensions/resizable/bootstrap-table-resizable.js"></script>
+```
+
+## 示例
+
+[Resizable](https://examples.bootstrap-table.com/#extensions/resizable.html)
+
+## 选项
+
+### resizable
+
+- **属性:** `data-resizable`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用列宽调整功能。设置为 `true` 时，用户可以通过拖拽列边界来调整列宽。
+
+- **默认值:** `false`
+
+## 已知问题
+
+* 当表格设置了 `height` 选项时，此扩展无法正常工作。
+* 建议在需要固定高度的表格中谨慎使用此功能。

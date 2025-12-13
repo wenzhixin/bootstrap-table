@@ -1,116 +1,114 @@
 ---
+import {
+  getBaseUrl,
+  getCurrentSlug,
+  getSidebarTitle,
+  useTranslations
+} from '@/i18n/utils'
+
+const baseurl = getBaseUrl(Astro.currentLocale)
+const t = useTranslations(Astro.currentLocale)
+
+// Build navigation structure from file system
 const nav = [
   {
-    title: 'Getting started',
+    slug: 'getting-started',
     pages: [
-      { title: 'Introduction' },
-      { title: 'Download' },
-      { title: 'Contents' },
-      { title: 'Usage' },
-      { title: 'Browsers & devices' }
+      { slug: 'introduction' },
+      { slug: 'download' },
+      { slug: 'contents' },
+      { slug: 'usage' },
+      { slug: 'browsers-devices' },
+      { slug: 'build-tools' }
     ]
   },
   {
-    title: 'API',
+    slug: 'api',
     pages: [
-      { title: 'Table Options' },
-      { title: 'Column Options' },
-      { title: 'Events' },
-      { title: 'Methods' },
-      { title: 'Localizations' }
+      { slug: 'table-options' },
+      { slug: 'column-options' },
+      { slug: 'events' },
+      { slug: 'methods' },
+      { slug: 'localizations' }
     ]
   },
   {
-    title: 'Extensions',
+    slug: 'extensions',
     pages: [
-      { title: 'Addrbar' },
-      { title: 'Auto Refresh' },
-      { title: 'Cookie' },
-      { title: 'Copy Rows' },
-      { title: 'Custom View' },
-      { title: 'Defer URL' },
-      { title: 'Editable' },
-      { title: 'Export' },
-      { title: 'Filter Control' },
-      { title: 'Fixed Columns' },
-      { title: 'Group By v2' },
-      { title: 'i18n Enhance' },
-      { title: 'Key Events' },
-      { title: 'Mobile' },
-      { title: 'Multiple Sort' },
-      { title: 'Page Jump To' },
-      { title: 'Pipeline' },
-      { title: 'Print' },
-      { title: 'Reorder Columns' },
-      { title: 'Reorder Rows' },
-      { title: 'Resizable' },
-      { title: 'Sticky Header' },
-      { title: 'Toolbar' },
-      { title: 'Treegrid' }
+      { slug: 'addrbar' },
+      { slug: 'auto-refresh' },
+      { slug: 'cookie' },
+      { slug: 'copy-rows' },
+      { slug: 'custom-view' },
+      { slug: 'defer-url' },
+      { slug: 'editable' },
+      { slug: 'export' },
+      { slug: 'filter-control' },
+      { slug: 'fixed-columns' },
+      { slug: 'group-by-v2' },
+      { slug: 'i18n-enhance' },
+      { slug: 'key-events' },
+      { slug: 'mobile' },
+      { slug: 'multiple-sort' },
+      { slug: 'page-jump-to' },
+      { slug: 'pipeline' },
+      { slug: 'print' },
+      { slug: 'reorder-columns' },
+      { slug: 'reorder-rows' },
+      { slug: 'resizable' },
+      { slug: 'sticky-header' },
+      { slug: 'toolbar' },
+      { slug: 'treegrid' }
     ]
   },
   {
-    title: 'VueJS',
+    slug: 'vuejs',
     pages: [
-      { title: 'Introduction' },
-      { title: 'Browser' },
-      { title: 'Webpack' },
-      { title: 'Component' }
+      { slug: 'introduction' },
+      { slug: 'browser' },
+      { slug: 'webpack' },
+      { slug: 'component' }
     ]
   },
   {
-    title: 'FAQ',
+    slug: 'faq',
     pages: [
-      { title: 'FAQ' }
+      { slug: 'faq' }
     ]
   },
   {
-    title: 'About',
+    slug: 'about',
     pages: [
-      { title: 'Overview' },
-      { title: 'License' }
+      { slug: 'overview' },
+      { slug: 'license' }
     ]
   }
 ]
 
-// Utility function: convert title to slug
-function slugify (text) {
-  return text.toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
-
-// Get current page information (adjust according to actual routing logic)
-const currentPath = Astro.url.pathname
-const pathSegments = currentPath.split('/').filter(Boolean)
-const currentGroup = pathSegments[1] || ''
-const currentPage = pathSegments[2] || ''
+const [currentGroup, currentPage] = getCurrentSlug(Astro.url.pathname, Astro.currentLocale)
 ---
 
 <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
   {nav.map(group => {
-    const groupSlug = slugify(group.title)
-    const isGroupActive = currentGroup === groupSlug
+    const isGroupActive = currentGroup === group.slug
 
     return (
       <li class={`bd-links-group py-2${isGroupActive ? ' active' : ''}`}>
         <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-          {group.title}
+          {getSidebarTitle(t, group.slug)}
         </strong>
 
         <ul class="list-unstyled fw-normal pb-2 small">
           {group.pages.map(doc => {
-            const docSlug = slugify(doc.title)
-            const isActive = isGroupActive && currentPage === docSlug
+            const isActive = isGroupActive && currentPage === doc.slug
 
             return (
               <li>
                 <a
                   class={`bd-links-link d-inline-block rounded${isActive ? ' active bd-sidenav-active' : ''}`}
-                  href={`/docs/${groupSlug}/${docSlug}/`}
+                  href={`${baseurl}/docs/${group.slug}/${doc.slug}/`}
                 >
-                  {doc.title}
+                  {getSidebarTitle(t, doc.slug)}
                 </a>
               </li>
             )

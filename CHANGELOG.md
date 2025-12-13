@@ -1,6 +1,23 @@
 ChangeLog
 ---------
 
+### 1.26.0
+
+#### Core
+
+- **New:** Added Chinese locale support to the site.
+- **New:** Added comprehensive tests for utility functions.
+- **Update:** Updated `normalizeAccent` function to handle diacritics properly.
+- **Update:** Set `aria-sort` attribute on sortable headers.
+- **Update:** Refactored `BootstrapTable` into separate modules.
+- **Update:** Clarified exact property names for column options and usage.
+- **Update:** Fixed character encoding for locale files.
+
+#### Extensions
+
+- **Update(filter-control):** Fixed bug where `showSearchClearButton` does not clear `searchText` from options.
+- **Update(filter-control):** Fixed page number resetting to 1 during initial table rendering when filter controls are initializing.
+
 ### 1.25.0
 
 #### Core

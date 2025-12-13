@@ -72,27 +72,47 @@ There are two new events:
 ## Example
 
 [Pipeline](https://examples.bootstrap-table.com/#extensions/pipeline.html)
-
 ## Options
 
-## pipelineSize
+### pipelineSize
 
-* type: Number
-* description: Size of each cache window. Must be greater than 0.
-* default: `1000`
+- **attribute:** `data-pipeline-size`
+
+- **type:** `Number`
+
+- **Detail:**
+
+  Size of each cache window. Must be greater than 0.
+
+- **Default:** `1000`
 
 ### usePipeline
 
-* type: Boolean
-* description: Set true to enable pipelining
-* default: `false`
+- **attribute:** `data-use-pipeline`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set true to enable pipelining.
+
+- **Default:** `false`
+
 
 ## Events
 
-### onCachedDataHit(cached-data-hit.bs.table)
+### onCachedDataHit (cached-data-hit.bs.table)
 
-* Fires when paging can use the locally cached data.
+- **Parameters:** `undefined`
 
-### onCachedDataReset(cached-data-reset.bs.table)
+- **Detail:**
 
-* Fires when the locally cached data needs to be reset (i.e. on sorting, searching, page size change or page out of the current cache window).
+  Fires when paging can use the locally cached data.
+
+### onCachedDataReset (cached-data-reset.bs.table)
+
+- **Parameters:** `undefined`
+
+- **Detail:**
+
+  Fires when the locally cached data needs to be reset (i.e. on sorting, searching, page size change or page out of the current cache window).

@@ -1,0 +1,427 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 事件
+description: Bootstrap Table 的事件 API。
+group: api
+toc: true
+---
+
+事件可以通过两种方式绑定：
+- 通过选项对象
+- 通过 jQuery 事件处理器
+
+通过选项对象绑定：
+```js
+// 此时函数的最后一个参数是 bootstrap-table 实例
+
+$('#table').bootstrapTable({
+  onEventName: function (arg1, arg2, ...) {
+    // ...
+  }
+})
+```
+
+通过 jQuery 事件处理器绑定：
+```js
+// 可以在变量 e 上获取 sender 属性，即 bootstrap-table 实例
+
+$('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
+  // ...
+})
+```
+
+*注意：如果使用 jQuery 事件处理器，请确保在事件触发之前绑定监听器！*
+
+**注意：** 下面的事件名称（例如 `onCheck`、`onClickRow`、`onLoadSuccess`）是在使用 JavaScript 绑定事件时的确切事件名。
+
+## onAll
+
+- **jQuery 事件:** `all.bs.table`
+
+- **参数:** `name, args`
+
+- **详情:**
+
+  当任何事件触发时执行。参数包含：
+
+  * `name`：事件名称。
+  * `args`：事件数据。
+
+## onCheck
+
+- **jQuery 事件:** `check.bs.table`
+
+- **参数:** `row, $element`
+
+- **详情:**
+
+  当用户选中某一行时触发。参数包含：
+
+  * `row`：被选中行对应的记录。
+  * `$element`：被选中的 DOM 元素。
+
+## onCheckAll
+
+- **jQuery 事件:** `check-all.bs.table`
+
+- **参数:** `rowsAfter, rowsBefore`
+
+- **详情:**
+
+  当用户选中所有行时触发。参数包含：
+
+  * `rowsAfter`：当前已选中行对应的记录数组。
+  * `rowsBefore`：之前已选中行对应的记录数组。
+
+## onCheckSome
+
+- **jQuery 事件:** `check-some.bs.table`
+
+- **参数:** `rows`
+
+- **详情:**
+
+  当用户选中部分行时触发。参数包含：
+
+  * `rows`：刚被选中行对应的记录数组。
+
+## onClickCell
+
+- **jQuery 事件:** `click-cell.bs.table`
+
+- **参数:** `field, value, row, $element`
+
+- **详情:**
+
+  当用户单击单元格时触发。参数包含：
+
+  * `field`：被点击单元格对应的字段名。
+  * `value`：被点击单元格对应的数据值。
+  * `row`：被点击行对应的记录。
+  * `$element`：该单元格的 `td` 元素。
+
+## onClickRow
+
+- **jQuery 事件:** `click-row.bs.table`
+
+- **参数:** `row, $element, field`
+
+- **详情:**
+
+  当用户单击某一行时触发。参数包含：
+
+  * `row`：被点击行对应的记录。
+  * `$element`：该行的 `tr` 元素。
+  * `field`：被点击单元格对应的字段名。
+
+## onCollapseRow
+
+- **jQuery 事件:** `collapse-row.bs.table`
+
+- **参数:** `index, row, detailView`
+
+- **详情:**
+
+  当点击详情图标折叠详情视图时触发。参数包含：
+
+  * `index`：被折叠行的索引。
+  * `row`：被折叠行对应的记录。
+  * `detailView`：被折叠的详情视图。
+
+## onColumnSwitch
+
+- **jQuery 事件:** `column-switch.bs.table`
+
+- **参数:** `field, checked`
+
+- **详情:**
+
+  切换列的显示/隐藏状态时触发（通过[showColumns](/docs/api/table-options/#showcolumns)功能）。参数包含：
+
+  * `field`：被切换列的字段名。
+  * `checked`：该列的显示状态（`true` 表示显示，`false` 表示隐藏）。
+
+## onColumnSwitchAll
+
+- **jQuery 事件:** `column-switch-all.bs.table`
+
+- **参数:** `checked`
+
+- **详情:**
+
+  一次性切换所有列的显示/隐藏状态时触发。参数包含：
+
+  * `checked`：所有列的显示状态。
+
+## onDblClickCell
+
+- **jQuery 事件:** `dbl-click-cell.bs.table`
+
+- **参数:** `field, value, row, $element`
+
+- **详情:**
+
+  当用户双击单元格时触发。参数包含：
+
+  * `field`：被点击单元格对应的字段名。
+  * `value`：被点击单元格对应的数据值。
+  * `row`：被点击行对应的记录。
+  * `$element`：该单元格的 `td` 元素。
+
+## onDblClickRow
+
+- **jQuery 事件:** `dbl-click-row.bs.table`
+
+- **参数:** `row, $element, field`
+
+- **详情:**
+
+  当用户双击某行时触发。参数包含：
+
+  * `row`：被双击行对应的记录。
+  * `$element`：该行的 `tr` 元素。
+  * `field`：被双击单元格对应的字段名。
+
+## onExpandRow
+
+- **jQuery 事件:** `expand-row.bs.table`
+
+- **参数:** `index, row, $detail`
+
+- **详情:**
+
+  当点击详情图标展开详情视图时触发。参数包含：
+
+  * `index`：被展开行的索引。
+  * `row`：与被展开行对应的记录。
+  * `$detail`：位于当前 `tr` 元素之后的详情 `div` DOM 元素，可以调用 jQuery 方法自定义详情视图。
+
+## onLoadError
+
+- **jQuery 事件:** `load-error.bs.table`
+
+- **参数:** `status, jqXHR`
+
+- **详情:**
+
+  从远程服务器加载数据出错时触发。参数包含：
+
+  * `status`：HTTP 状态码。
+  * `jqXHR`：jqXHR 对象，是 XMLHttpRequest 对象的超集。更多信息参见 [jqXHR Type](http://api.jquery.com/Types/#jqXHR)。
+
+## onLoadSuccess
+
+- **jQuery 事件:** `load-success.bs.table`
+
+- **参数:** `data`
+
+- **详情:**
+
+  从远程服务器成功加载数据时触发。参数包含：
+
+  * `data`：加载到表格中的数据。（注意：数据加载到表格后无法再修改。如果需要在表格使用前处理返回数据，请使用自定义的 [responseHandler](/docs/api/table-options/#responsehandler)。）
+  * `status`：HTTP 状态码。
+  * `jqXHR`：jqXHR 对象，是 XMLHttpRequest 对象的超集。更多信息参见 [jqXHR Type](http://api.jquery.com/Types/#jqXHR)。
+
+## onPageChange
+
+- **jQuery 事件:** `page-change.bs.table`
+
+- **参数:** `number, size`
+
+- **详情:**
+
+  当页码或每页条数改变时触发。参数包含：
+
+  * `number`：页码。
+  * `size`：每页条数。
+
+## onPostBody
+
+- **jQuery 事件:** `post-body.bs.table`
+
+- **参数:** `data`
+
+- **详情:**
+
+  当表格主体渲染完成并挂载到 DOM 后触发。参数包含：
+
+  * `data`：已渲染的数据。
+
+## onPostFooter
+
+- **jQuery 事件:** `post-footer.bs.table`
+
+- **参数:** `$tableFooter`
+
+- **详情:**
+
+  当页脚渲染完成并挂载到 DOM 后触发。参数包含：
+
+  * `$tableFooter`：页脚的 DOM 元素。
+
+## onPostHeader
+
+- **jQuery 事件:** `post-header.bs.table`
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  当表头渲染完成并挂载到 DOM 后触发。
+
+## onPreBody
+
+- **jQuery 事件:** `pre-body.bs.table`
+
+- **参数:** `data`
+
+- **详情:**
+
+  在表格主体渲染前触发。参数包含：
+
+  * `data`：即将渲染的数据。
+
+## onRefresh
+
+- **jQuery 事件:** `refresh.bs.table`
+
+- **参数:** `params`
+
+- **详情:**
+
+  点击刷新按钮后触发。参数包含：
+
+  * `params`：发送到服务器的额外参数。
+
+## onRefreshOptions
+
+- **jQuery 事件:** `refresh-options.bs.table`
+
+- **参数:** `options`
+
+- **详情:**
+
+  刷新选项后、重新初始化表格前触发。参数包含：
+
+  * `options`：表格选项对象。
+
+## onResetView
+
+- **jQuery 事件:** `reset-view.bs.table`
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  当重置表格视图时触发。
+
+## onScrollBody
+
+- **jQuery 事件:** `scroll-body.bs.table`
+
+- **参数:** `$tableBody`
+
+- **详情:**
+
+  表格主体滚动时触发。
+
+## onSearch
+
+- **jQuery 事件:** `search.bs.table`
+
+- **参数:** `text`
+
+- **详情:**
+
+  执行表格搜索时触发。参数包含：
+
+  * `text`：搜索框中的文本。
+
+## onSort
+
+- **jQuery 事件:** `sort.bs.table`
+
+- **参数:** `name, order`
+
+- **详情:**
+
+  用户对列排序时触发。参数包含：
+
+  * `name`：排序列的字段名。
+  * `order`：排序列的排序顺序。
+
+## onToggle
+
+- **jQuery 事件:** `toggle.bs.table`
+
+- **参数:** `cardView`
+
+- **详情:**
+
+  切换表格视图时触发。参数包含：
+
+  * `cardView`：表格的卡片视图状态。
+
+## onTogglePagination
+
+- **jQuery 事件:** `toggle-pagination.bs.table`
+
+- **参数:** `state`
+
+- **详情:**
+
+  切换分页状态时触发。参数包含：
+
+  * `state`：新的分页状态（`true` 表示启用分页，`false` 表示禁用分页）。
+
+## onUncheck
+
+- **jQuery 事件:** `uncheck.bs.table`
+
+- **参数:** `row, $element`
+
+- **详情:**
+
+  当用户取消选中某一行时触发。参数包含：
+
+  * `row`：被取消选中行对应的记录。
+  * `$element`：被取消选中的 DOM 元素。
+
+## onUncheckAll
+
+- **jQuery 事件:** `uncheck-all.bs.table`
+
+- **参数:** `rowsAfter, rowsBefore`
+
+- **详情:**
+
+  当用户取消选中所有行时触发。参数包含：
+
+  * `rowsAfter`：当前已选中行对应的记录数组。
+  * `rowsBefore`：之前已选中行对应的记录数组。
+
+## onUncheckSome
+
+- **jQuery 事件:** `uncheck-some.bs.table`
+
+- **参数:** `rows`
+
+- **详情:**
+
+  当用户取消选中部分行时触发。参数包含：
+
+  * `rows`：之前已选中行对应的记录数组。
+
+## onVirtualScroll
+
+- **jQuery 事件:** `virtual-scroll.bs.table`
+
+- **参数:** `startIndex, endIndex`
+
+- **详情:**
+
+  滚动虚拟滚动区域时触发。参数包含：
+
+  * `startIndex`：虚拟滚动的起始行索引。
+  * `endIndex`：虚拟滚动的结束行索引。

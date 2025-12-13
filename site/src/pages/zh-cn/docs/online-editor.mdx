@@ -1,0 +1,96 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 在线编辑器
+description: 在线编辑器说明。
+group: online-editor
+toc: true
+---
+
+本页介绍如何使用我们的[在线编辑器](https://live.bootstrap-table.com/)。
+
+在线编辑器适用于处理每一个 **Issue** 和 **Pull Request**！
+
+<img src="https://live.bootstrap-table.com/images/bootstrap-table-live.png" alt="Bootstrap Table Live Editor" />
+
+## 如何登录
+
+登录操作非常简单，只需点击右上角的 **Sign in with GitHub** 按钮，通过 GitHub 账号登录即可。
+
+## 基本功能与页面结构
+
+我们的在线编辑器用于为 Bootstrap Table 创建简单的示例与演示。
+
+页面结构如下：
+
+### 顶部导航栏
+
+顶部导航栏包含 5 个按钮：
+
+* **Run**：运行按钮会展示你当前编写的示例效果。
+* **Save**：保存按钮会保存当前示例。保存后，URL 将变为类似 `https://live.bootstrap-table.com/code/<username>/<ID>` 的形式。
+* **Libraries**：打开配置页面，你可以在这里配置示例的运行环境：
+  * Bootstrap Table source：选择示例使用的版本来源（CDN 或 GitHub 源码）。选择 `From GitHub src` 时，可以指定用于示例的分支；处理 Issue 时，通常使用 `From Released CDN`。
+  * Release CDN version：选择 Bootstrap Table 的版本，以便为旧版本创建示例。
+  * Theme：可在支持的主题之间切换，例如用于展示某个主题下的问题。
+  * Extensions：若示例需要演示某个扩展功能，可以在此直接勾选，无需手动引入相关资源！
+* **Load Examples**：打开页面以加载现有示例（与我们的[示例页面](https://examples.bootstrap-table.com/) 内容一致）。
+* **Links**：最后一个按钮提供了一些相关链接，例如官方网站、GitHub 仓库页面等。
+
+### 左侧区域
+
+左侧区域用于编写示例代码，可包含 HTML、CSS 和 JavaScript（CSS 与 JavaScript 代码需使用 `<style></style>` 或 `<script></script>` 标签包裹）。
+
+基础模板如下：
+```html
+<!-- 引入自定义 css 与 js 文件 -->
+<link rel="stylesheet" href="https://example.com/custom.css">
+<script src="https://example.com/custom.js"></script>
+
+<!-- 自定义样式 -->
+<style>
+</style>
+
+<!-- 无需书写 <html> 与 <body> 标签 -->
+<table id="table">
+</table>
+
+<script>
+  $(function () {
+    $('#table').bootstrapTable()
+  })
+</script>
+```
+
+注意：**必须将初始化函数写在 `$(function () {})` 中，以确保 jQuery 与 Bootstrap Table 均已完成加载。**
+
+### 右侧区域
+
+右侧区域用于查看示例的运行效果（需先点击 **Run** 按钮执行代码）。
+
+你也可以点击 **Result (Fullscreen)** 按钮，切换至示例的全屏显示模式。
+
+## Issue 工作流程
+
+每个 Issue 都应包含一个通过[在线编辑器](https://live.bootstrap-table.com/) 创建的示例，用于重现问题。
+
+操作步骤如下：
+1. 打开在线编辑器；
+2. 进入 Libraries 页面，配置示例的运行环境（包括版本、主题和扩展等）；
+3. 编写示例代码（或从本地项目复制相关代码）；
+4. 检查示例是否能准确重现你的问题；
+5. 点击 Save 按钮保存示例，然后复制生成的 URL；
+6. 创建 Issue 时，附上该示例的链接。
+
+（你也可以使用 Load Examples 按钮加载现有示例，以替代上述步骤 2 和 3。）
+
+## Pull Request 工作流程
+
+PR（Pull Request）的操作流程与 Issue 类似。
+
+唯一的区别是，你需要选择自己的分支（编辑器会使用该分支的代码生成示例）。具体操作如下：
+1. 打开 `Libraries` 页面；
+2. 在 `Bootstrap Table source` 选项中选择 `From GitHub src`；
+3. 在 `GitHub src branch` 输入框中填写分支名称，分支名称的格式为 `<username>:<branch>`；
+4. 你也可以直接在 Pull Request 页面复制该字符串。
+
+![](http://i.epvpimg.com/NNhNbab.png)

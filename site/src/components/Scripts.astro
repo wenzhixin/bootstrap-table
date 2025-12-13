@@ -51,18 +51,19 @@ gtag('js', new Date())
 gtag('config', 'UA-132747866-1')
 </script>
 
-<script define:vars={{
-  baseurl: Config.baseurl,
-  algolia: Config.algolia,
-  version: Config.currentVersion
-}}>
-  /* eslint-disable no-undef */
+<script
+  data-baseurl={Config.baseurl}
+  data-version={Config.currentVersion}
+  data-algolia={JSON.stringify(Config.algolia)}
+>
+  const { dataset } = document.currentScript
   const script = document.createElement('script')
+  const baseurl = dataset.baseurl || ''
+  const version = dataset.version || ''
 
   script.src = `${baseurl}/assets/js/docs.js?v=${version}`
   document.head.appendChild(script)
 
   // Set Algolia configuration as global variables
-  window.ALGOLIA_CONFIG = algolia
-  /* eslint-enable no-undef */
+  window.ALGOLIA_CONFIG = dataset.algolia ? JSON.parse(dataset.algolia) : {}
 </script>

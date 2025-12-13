@@ -645,10 +645,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.44.0',
+  	  version: '3.46.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -2337,12 +2337,12 @@
         });
       }
     }, {
-      key: "getCaret",
-      value: function getCaret() {
+      key: "resetCaret",
+      value: function resetCaret() {
         for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
           args[_key3] = arguments[_key3];
         }
-        _superPropGet(_class, "getCaret", this)(args);
+        _superPropGet(_class, "resetCaret", this)(args);
         if (!this.options.stickyHeader) {
           return;
         }

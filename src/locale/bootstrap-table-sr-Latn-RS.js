@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Bootstrap Table Serbian Latin RS translation
  * Author: Vladimir Kanazir (vladimir@kanazir.com)
  */
