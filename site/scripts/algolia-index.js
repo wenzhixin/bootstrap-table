@@ -15,13 +15,12 @@ const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID
 const ALGOLIA_API_KEY = process.env.ALGOLIA_API_KEY
 const ALGOLIA_INDEX_NAME = process.env.ALGOLIA_INDEX_NAME
 
-if (!ALGOLIA_APP_ID || !ALGOLIA_API_KEY || !ALGOLIA_INDEX_NAME) {
-  console.error('Missing ALGOLIA_APP_ID, ALGOLIA_API_KEY, or ALGOLIA_INDEX_NAME environment variables')
-  process.exit(1)
-}
+// Initialize Algolia client only if credentials are provided
+let client = null
 
-// Initialize Algolia client
-const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
+if (ALGOLIA_APP_ID && ALGOLIA_API_KEY && ALGOLIA_INDEX_NAME) {
+  client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
+}
 
 // Paths to ignore
 const IGNORE_PATHS = [
@@ -359,7 +358,7 @@ class RecordGenerator {
    * Optimize record size to ensure it doesn't exceed Algolia limits
    */
   optimizeRecordSize (record) {
-    const MAX_SIZE = 9500 // Leave some buffer space
+    const MAX_SIZE = 8000 // Leave more buffer space to ensure we stay under 10KB
     const originalSize = JSON.stringify(record).length
 
     if (originalSize <= MAX_SIZE) {
@@ -495,6 +494,38 @@ async function main () {
 
   console.log(`📦 Found ${records.length} records to index`)
 
+  // Skip upload if Algolia client is not initialized, just show stats
+  if (!client) {
+    console.log('\n📊 Recording size statistics (no upload):')
+    const sizeStats = {}
+    const maxSize = 10000
+
+    records.forEach(record => {
+      const size = JSON.stringify(record).length
+      const range = Math.min(Math.floor(size / 1000) * 1000, maxSize)
+
+      sizeStats[range] = (sizeStats[range] || 0) + 1
+
+      if (size > maxSize) {
+        console.log(`  ❌ ${record.objectID}: ${size} bytes`)
+      }
+    })
+
+    console.log('\n📈 Size distribution:')
+    Object.keys(sizeStats).sort((a, b) => Number(a) - Number(b)).forEach(range => {
+      const nextRange = range === '0' ? '1K' : `${Number(range) + 1000}`
+      const label = range === '0' ? '< 1KB' : `${range}-${nextRange} bytes`
+
+      console.log(`  ${label}: ${sizeStats[range]} records`)
+    })
+
+    const oversizedCount = records.filter(r => JSON.stringify(r).length > maxSize).length
+
+    console.log(`\n⚠️  ${oversizedCount} records exceed ${maxSize} bytes limit`)
+
+    return
+  }
+
   // Show record distribution
   const recordStats = {}
 
@@ -511,16 +542,41 @@ async function main () {
     })
 
     // Upload records in batches
-    const batchSize = 50
+    const batchSize = 100
 
-    for (let i = 0; i < records.length; i += batchSize) {
-      const batch = records.slice(i, i + batchSize)
+    // Filter out oversized records that exceed Algolia's 10KB limit
+    const MAX_ALGOLIA_SIZE = 10000
+    const validRecords = []
+    const oversizedRecords = []
+
+    for (const record of records) {
+      const recordSize = JSON.stringify(record).length
+
+      if (recordSize > MAX_ALGOLIA_SIZE) {
+        oversizedRecords.push({ ...record, size: recordSize })
+      } else {
+        validRecords.push(record)
+      }
+    }
+
+    if (oversizedRecords.length > 0) {
+      console.warn(`⚠️  Warning: Found ${oversizedRecords.length} oversized records that exceed ${MAX_ALGOLIA_SIZE} bytes:`)
+      oversizedRecords.forEach(record => {
+        console.warn(`   - ${record.objectID}: ${record.size} bytes`)
+      })
+      console.warn('   These records will be skipped to avoid upload failures.')
+    }
+
+    console.log(`📤 Uploading ${validRecords.length} valid records (skipped ${oversizedRecords.length} oversized records)`)
+
+    for (let i = 0; i < validRecords.length; i += batchSize) {
+      const batch = validRecords.slice(i, i + batchSize)
 
       await client.saveObjects({
         indexName: ALGOLIA_INDEX_NAME,
         objects: batch
       })
-      console.log(`✅ Uploaded batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(records.length / batchSize)} (${batch.length} records)`)
+      console.log(`✅ Uploaded batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(validRecords.length / batchSize)} (${batch.length} records)`)
     }
 
     console.log('🎉 Successfully uploaded all records to Algolia!')
