@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import Utils from '@/utils/index.js'
 
 describe('normalizeAccent', () => {
@@ -296,6 +296,7 @@ describe('normalizeAccent', () => {
   it('should handle edge cases', () => {
     // Test very long strings
     const longString = 'Á'.repeat(1000)
+
     expect(Utils.normalizeAccent(longString)).toBe('a'.repeat(1000))
   })
 })
@@ -360,7 +361,7 @@ describe('isObject', () => {
 
   it('should return false for functions', () => {
     expect(Utils.isObject(() => {})).toBe(false)
-    expect(Utils.isObject(function() {})).toBe(false)
+    expect(Utils.isObject(function () {})).toBe(false)
   })
 
   it('should return false for Date objects', () => {
@@ -442,6 +443,7 @@ describe('extend', () => {
     const obj1 = { a: 1 }
     const obj2 = { b: 2 }
     const result = Utils.extend(obj1, obj2)
+
     expect(result).toEqual({ a: 1, b: 2 })
   })
 
@@ -449,6 +451,7 @@ describe('extend', () => {
     const obj1 = { a: 1, b: 2 }
     const obj2 = { b: 3, c: 4 }
     const result = Utils.extend(obj1, obj2)
+
     expect(result).toEqual({ a: 1, b: 3, c: 4 })
   })
 
@@ -456,6 +459,7 @@ describe('extend', () => {
     const obj1 = { a: { x: 1 } }
     const obj2 = { a: { y: 2 } }
     const result = Utils.extend(true, obj1, obj2)
+
     expect(result).toEqual({ a: { x: 1, y: 2 } })
   })
 
@@ -464,23 +468,27 @@ describe('extend', () => {
     const obj2 = { b: 2 }
     const obj3 = { c: 3 }
     const result = Utils.extend(obj1, obj2, obj3)
+
     expect(result).toEqual({ a: 1, b: 2, c: 3 })
   })
 
   it('should handle empty objects', () => {
     const result = Utils.extend({}, { a: 1 })
+
     expect(result).toEqual({ a: 1 })
   })
 
   it('should handle null and undefined sources', () => {
     const obj = { a: 1 }
     const result = Utils.extend(obj, null, undefined, { b: 2 })
+
     expect(result).toEqual({ a: 1, b: 2 })
   })
 
   it('should not modify source objects in shallow merge', () => {
     const obj1 = { a: 1 }
     const obj2 = { b: 2 }
+
     Utils.extend({}, obj1, obj2)
     expect(obj1).toEqual({ a: 1 })
     expect(obj2).toEqual({ b: 2 })
@@ -490,6 +498,7 @@ describe('extend', () => {
     const obj1 = { arr: [1, 2] }
     const obj2 = { arr: [3, 4] }
     const result = Utils.extend(obj1, obj2)
+
     expect(result.arr).toEqual([3, 4])
   })
 })
@@ -499,6 +508,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page'
     const query = { foo: 'bar', baz: 'qux' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('foo=bar')
     expect(result).toContain('baz=qux')
   })
@@ -507,6 +517,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page?existing=param'
     const query = { foo: 'bar' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('existing=param')
     expect(result).toContain('foo=bar')
   })
@@ -515,6 +526,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page?foo=old'
     const query = { foo: 'new' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('foo=new')
     expect(result).not.toContain('foo=old')
   })
@@ -523,6 +535,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page#section'
     const query = { foo: 'bar' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('#section')
     expect(result).toContain('foo=bar')
   })
@@ -531,6 +544,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page?existing=param#section'
     const query = { foo: 'bar' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('existing=param')
     expect(result).toContain('foo=bar')
     expect(result).toContain('#section')
@@ -540,6 +554,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page'
     const query = {}
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('https://example.com/page')
   })
 
@@ -547,6 +562,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page'
     const query = { search: 'hello world', special: '!@#$' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('search=')
     expect(result).toContain('special=')
   })
@@ -555,6 +571,7 @@ describe('addQueryToUrl', () => {
     const url = 'https://example.com/page#section#subsection'
     const query = { foo: 'bar' }
     const result = Utils.addQueryToUrl(url, query)
+
     expect(result).toContain('#section#subsection')
   })
 })
