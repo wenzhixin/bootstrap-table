@@ -43,35 +43,27 @@ export default {
         this.data = f ? this.options.data.filter(item => {
           const filterAlgorithm = this.filterOptions.filterAlgorithm
 
-          if (filterAlgorithm === 'and') {
-            for (const key in f) {
-              if (
-                Array.isArray(f[key]) &&
-                  !f[key].includes(item[key]) ||
-                !Array.isArray(f[key]) &&
-                  item[key] !== f[key]
-              ) {
-                return false
-              }
-            }
-          } else if (filterAlgorithm === 'or') {
-            let match = false
-
-            for (const key in f) {
-              if (
-                Array.isArray(f[key]) &&
-                  f[key].includes(item[key]) ||
-                !Array.isArray(f[key]) &&
-                  item[key] === f[key]
-              ) {
-                match = true
-              }
-            }
-
-            return match
+          if (!['and', 'or'].includes(filterAlgorithm)) {
+            return true
           }
 
-          return true
+          for (const key in f) {
+            if (!Object.prototype.hasOwnProperty.call(f, key)) {
+              continue
+            }
+            const value = Utils.getItemField(item, key, false)
+            const isArray = Array.isArray(f[key])
+            const match = !isArray && f[key] === value || isArray && f[key].includes(value)
+
+            if (match && filterAlgorithm === 'or') {
+              return true
+            }
+            if (!match && filterAlgorithm === 'and') {
+              return false
+            }
+          }
+
+          return filterAlgorithm === 'and'
         }) : [...this.options.data]
       }
 
@@ -85,23 +77,7 @@ export default {
 
           const key = Utils.isNumeric(this.header.fields[j]) ? parseInt(this.header.fields[j], 10) : this.header.fields[j]
           const column = this.columns[this.fieldsColumnsIndex[key]]
-          let value
-
-          if (typeof key === 'string' && !item.hasOwnProperty(key)) {
-            value = item
-            const props = key.split('.')
-
-            for (let i = 0; i < props.length; i++) {
-              if (value[props[i]] === null || value[props[i]] === undefined) {
-                value = null
-                break
-              } else {
-                value = value[props[i]]
-              }
-            }
-          } else {
-            value = item[key]
-          }
+          let value = Utils.getItemField(item, key, false)
 
           if (this.options.searchAccentNeutralise) {
             value = Utils.normalizeAccent(value)

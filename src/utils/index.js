@@ -501,21 +501,27 @@ export default {
   },
 
   getItemField (item, field, escape, columnEscape = undefined) {
-    let value = item
-
     // use column escape if it is defined
     if (typeof columnEscape !== 'undefined') {
       escape = columnEscape
     }
 
-    if (typeof field !== 'string' || item.hasOwnProperty(field)) {
+    if (
+      typeof field !== 'string' ||
+      item.hasOwnProperty(field) ||
+      !field.includes('.')
+    ) {
       return escape ? this.escapeHTML(item[field]) : item[field]
     }
 
     const props = field.split('.')
+    let value = item
 
     for (const p of props) {
-      value = value && value[p]
+      if (value === null || value === undefined) {
+        return // undefined
+      }
+      value = value[p]
     }
     return escape ? this.escapeHTML(value) : value
   },
