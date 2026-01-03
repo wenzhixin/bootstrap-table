@@ -24,7 +24,7 @@ Utils.assignIcons($.fn.bootstrapTable.icons, 'autoRefresh', {
 })
 
 Object.assign($.fn.bootstrapTable.locales, {
-  formatAutoRefresh() {
+  formatAutoRefresh () {
     return 'Auto Refresh'
   }
 })
@@ -32,7 +32,7 @@ Object.assign($.fn.bootstrapTable.locales, {
 Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  init(...args) {
+  init (...args) {
     super.init(...args)
 
     if (this.options.autoRefresh && this.options.autoRefreshStatus) {
@@ -40,7 +40,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  initToolbar(...args) {
+  initToolbar (...args) {
     if (this.options.autoRefresh) {
       const attributes = {
         'aria-label': this.options.formatAutoRefresh(),
@@ -57,7 +57,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           icon: this.options.icons.autoRefresh,
           render: false,
           event: this.toggleAutoRefresh.bind(this),
-          attributes: attributes
+          attributes
         }
       })
     }
@@ -65,7 +65,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar(...args)
   }
 
-  toggleAutoRefresh() {
+  toggleAutoRefresh () {
     if (this.options.autoRefresh) {
       if (this.options.autoRefreshStatus) {
         clearInterval(this.options.autoRefreshFunction)
@@ -80,7 +80,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  destroy() {
+  destroy () {
     if (this.options.autoRefresh && this.options.autoRefreshStatus) {
       clearInterval(this.options.autoRefreshFunction)
     }
@@ -88,7 +88,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.destroy()
   }
 
-  setupRefreshInterval() {
+  setupRefreshInterval () {
     this.options.autoRefreshFunction = setInterval(() => {
       if (!this.options.autoRefresh || !this.options.autoRefreshStatus) {
         return
