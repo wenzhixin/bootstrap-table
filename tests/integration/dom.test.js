@@ -4,7 +4,7 @@
  */
 
 import { beforeEach, describe, expect, it } from 'vitest'
-import DOMHelper from '@/utils/dom.js'
+import DOMHelper from '@/helpers/dom.js'
 
 // Setup test environment
 beforeEach(() => {
