@@ -11,6 +11,7 @@ const files = globSync('src/**/*.js', {
   ignore: [
     'src/constants/**',
     'src/modules/**',
+    'src/helpers/**',
     'src/utils/**',
     'src/virtual-scroll/**',
     'src/vue/**'
