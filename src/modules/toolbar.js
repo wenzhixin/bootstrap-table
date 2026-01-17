@@ -345,13 +345,14 @@ export default {
       `, searchInputFinalHtml))
 
       this.$toolbar.append(html.join(''))
-      const $searchInput = Utils.getSearchInput(this)
+      const searchInput = Utils.getSearchInput(this)
+      const $searchInput = $(searchInput)
 
       if (opts.showSearchButton) {
         this.$toolbar.find('.search button[name=search]').off('click').on('click', () => {
           clearTimeout(timeoutId) // doesn't matter if it's 0
           timeoutId = setTimeout(() => {
-            this.onSearch({ currentTarget: $searchInput })
+            this.onSearch({ currentTarget: searchInput })
           }, opts.searchTimeOut)
         })
 
@@ -368,7 +369,7 @@ export default {
         })
       }
     } else if (typeof opts.searchSelector === 'string') {
-      handleInputEvent(Utils.getSearchInput(this))
+      handleInputEvent($(Utils.getSearchInput(this)))
     }
   },
 

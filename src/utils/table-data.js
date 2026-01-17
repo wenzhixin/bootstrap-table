@@ -1,4 +1,5 @@
 import { escapeApostrophe, escapeHTML } from './string.js'
+import DOMHelper from '../helpers/dom.js'
 
 /**
  * Table column and data processing utilities.
@@ -197,36 +198,39 @@ export function findIndex (items, item) {
  * Preserves row and cell attributes including id, class, style, and data-* attributes.
  *
  * @param {Array.<Object.<string, *>>} columns - The column definitions.
- * @param {jQuery} $els - The jQuery object containing tr elements.
+ * @param {HTMLCollection|NodeList|Array<Element>} els - The tr elements.
  * @returns {Array.<Object.<string, *>>} The array of row data objects.
  */
-export function trToData (columns, $els) {
+export function trToData (columns, els) {
   const data = []
   const m = []
+  const elsArray = Array.from(els)
 
-  $els.each((y, el) => {
-    const $el = $(el)
+  for (let y = 0; y < elsArray.length; y++) {
+    const el = elsArray[y]
     const row = {}
 
     // save tr's id, class and data-* attributes
-    row._id = $el.attr('id')
-    row._class = $el.attr('class')
-    row._data = getRealDataAttr($el.data())
-    row._style = $el.attr('style')
+    row._id = DOMHelper.attr(el, 'id')
+    row._class = DOMHelper.attr(el, 'class')
+    row._data = getRealDataAttr(el.dataset || {})
+    row._style = DOMHelper.attr(el, 'style')
 
-    $el.find('>td,>th').each((_x, el) => {
-      const $el = $(el)
-      const colspan = +$el.attr('colspan') || 1
-      const rowspan = +$el.attr('rowspan') || 1
-      let x = _x
+    const cells = DOMHelper.children(el, 'td,th')
+
+    for (let x = 0; x < cells.length; x++) {
+      const cell = cells[x]
+      const colspan = parseInt(DOMHelper.attr(cell, 'colspan'), 10) || 1
+      const rowspan = parseInt(DOMHelper.attr(cell, 'rowspan'), 10) || 1
+      let currentX = x
 
       // skip already occupied cells in current row
-      for (; m[y] && m[y][x]; x++) {
+      for (; m[y] && m[y][currentX]; currentX++) {
         // ignore
       }
 
       // mark matrix elements occupied by current cell with true
-      for (let tx = x; tx < x + colspan; tx++) {
+      for (let tx = currentX; tx < currentX + colspan; tx++) {
         for (let ty = y; ty < y + rowspan; ty++) {
           if (!m[ty]) { // fill missing rows
             m[ty] = []
@@ -235,20 +239,20 @@ export function trToData (columns, $els) {
         }
       }
 
-      const field = columns[x].field
+      const field = columns[currentX].field
 
-      row[field] = escapeApostrophe($el.html().trim())
+      row[field] = escapeApostrophe(DOMHelper.html(cell).trim())
       // save td's id, class and data-* attributes
-      row[`_${field}_id`] = $el.attr('id')
-      row[`_${field}_class`] = $el.attr('class')
-      row[`_${field}_rowspan`] = $el.attr('rowspan')
-      row[`_${field}_colspan`] = $el.attr('colspan')
-      row[`_${field}_title`] = $el.attr('title')
-      row[`_${field}_data`] = getRealDataAttr($el.data())
-      row[`_${field}_style`] = $el.attr('style')
-    })
+      row[`_${field}_id`] = DOMHelper.attr(cell, 'id')
+      row[`_${field}_class`] = DOMHelper.attr(cell, 'class')
+      row[`_${field}_rowspan`] = DOMHelper.attr(cell, 'rowspan')
+      row[`_${field}_colspan`] = DOMHelper.attr(cell, 'colspan')
+      row[`_${field}_title`] = DOMHelper.attr(cell, 'title')
+      row[`_${field}_data`] = getRealDataAttr(cell.dataset || {})
+      row[`_${field}_style`] = DOMHelper.attr(cell, 'style')
+    }
     data.push(row)
-  })
+  }
   return data
 }
 

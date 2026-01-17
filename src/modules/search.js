@@ -5,10 +5,10 @@ export default {
     if (this.options.search) {
       this.searchText = ''
       if (this.options.searchText !== '') {
-        const $search = Utils.getSearchInput(this)
+        const search = Utils.getSearchInput(this)
 
-        $search.val(this.options.searchText)
-        this.onSearch({ currentTarget: $search, firedByInitSearchText: true })
+        $(search).val(this.options.searchText)
+        this.onSearch({ currentTarget: search, firedByInitSearchText: true })
       }
     }
   },
@@ -168,7 +168,8 @@ export default {
         return
       }
 
-      const $searchInput = Utils.getSearchInput(this)
+      const searchInput = Utils.getSearchInput(this)
+      const $searchInput = $(searchInput)
       const $currentTarget = currentTarget instanceof jQuery ? currentTarget : $(currentTarget)
 
       if ($currentTarget.is($searchInput) || $currentTarget.hasClass('search-input')) {
@@ -192,14 +193,13 @@ export default {
   },
 
   resetSearch (text) {
-    const $search = Utils.getSearchInput(this)
-
+    const search = Utils.getSearchInput(this)
     const textToUse = text || ''
 
-    $search.val(textToUse)
+    $(search).val(textToUse)
     this.searchText = textToUse
     this.options.searchText = textToUse
-    this.onSearch({ currentTarget: $search }, false)
+    this.onSearch({ currentTarget: search }, false)
   },
 
   filterBy (columns, options) {

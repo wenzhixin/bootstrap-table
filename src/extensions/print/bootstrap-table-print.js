@@ -236,7 +236,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         for (const columns of columnsArray) {
           for (let h = 0; h < columns.length; h++) {
             if (canPrint(columns)) {
-              const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr'))
+              const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr').get())
               const footerValue = Utils.calculateObjectValue(columns[h], columns[h].footerFormatter, [data], footerData[0] && footerData[0][columns[h].field] || '')
 
               html.push(`<th>${footerValue}</th>`)

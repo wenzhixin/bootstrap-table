@@ -1,7 +1,9 @@
+import DOMHelper from '../helpers/dom.js'
+
 /**
  * DOM manipulation utility functions.
  *
- * This module provides helper functions for DOM manipulation that work with jQuery,
+ * This module provides helper functions for DOM manipulation using native JavaScript,
  * including scrollbar width calculation, class name conversion, style parsing,
  * h() function for element creation, and HTML-to-DOM conversion.
  *
@@ -20,22 +22,22 @@ let cachedWidth
  */
 export function getScrollBarWidth () {
   if (cachedWidth === undefined) {
-    const $inner = $('<div/>').addClass('fixed-table-scroll-inner')
-    const $outer = $('<div/>').addClass('fixed-table-scroll-outer')
+    const inner = DOMHelper.create('<div class="fixed-table-scroll-inner"></div>')
+    const outer = DOMHelper.create('<div class="fixed-table-scroll-outer"></div>')
 
-    $outer.append($inner)
-    $('body').append($outer)
+    DOMHelper.append(outer, inner)
+    DOMHelper.append(document.body, outer)
 
-    const w1 = $inner[0].offsetWidth
+    const w1 = inner.offsetWidth
 
-    $outer.css('overflow', 'scroll')
-    let w2 = $inner[0].offsetWidth
+    DOMHelper.css(outer, 'overflow', 'scroll')
+    let w2 = inner.offsetWidth
 
     if (w1 === w2) {
-      w2 = $outer[0].clientWidth
+      w2 = outer.clientWidth
     }
 
-    $outer.remove()
+    DOMHelper.remove(outer)
     cachedWidth = w1 - w2
   }
   return cachedWidth
@@ -170,13 +172,15 @@ export function h (element, attrs, children) {
 
 /**
  * Converts HTML to DOM nodes.
+ * Uses duck typing to detect jQuery objects without direct dependency.
  *
- * @param {string|jQuery|Node} html - The HTML to convert.
- * @returns {NodeList} The DOM nodes.
+ * @param {string|Node|Object} html - The HTML to convert. Can be a string, Node, or jQuery-like object.
+ * @returns {NodeList|Array<Node>} The DOM nodes.
  */
 export function htmlToNodes (html) {
-  if (html instanceof $) {
-    return html.get()
+  // Duck typing check for jQuery objects (check for 'jquery' property)
+  if (html && typeof html === 'object' && 'jquery' in html) {
+    return Array.from(html)
   }
   if (html instanceof Node) {
     return [html]

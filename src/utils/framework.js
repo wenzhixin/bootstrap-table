@@ -1,3 +1,5 @@
+import DOMHelper from '../helpers/dom.js'
+
 /**
  * Framework detection and icon utilities.
  *
@@ -81,11 +83,20 @@ export function getBootstrapVersion () {
  * Gets the search input element.
  *
  * @param {Object} that - The Bootstrap Table instance.
- * @returns {jQuery} The search input element as a jQuery object.
+ * @returns {HTMLElement|null} The search input element, or null if not found.
  */
 export function getSearchInput (that) {
   if (typeof that.options.searchSelector === 'string') {
-    return $(that.options.searchSelector)
+    return DOMHelper.$(that.options.searchSelector)
   }
-  return that.$toolbar.find('.search input')
+
+  const toolbar = that.$toolbar ? that.$toolbar[0] : null
+
+  if (!toolbar) {
+    return null
+  }
+
+  const result = DOMHelper.find(toolbar, '.search input')
+
+  return result.length > 0 ? result[0] : null
 }
