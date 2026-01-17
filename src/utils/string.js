@@ -136,6 +136,26 @@ export function escapeHTML (text) {
 }
 
 /**
+ * Escapes HTML attribute value to prevent XSS attacks.
+ * The order of replacements is important for attributes: & must be first,
+ * then " and ' to prevent breaking out of the attribute.
+ *
+ * @param {*} text - The attribute value to escape.
+ * @returns {*} The escaped text, or the original value if falsy.
+ */
+export function escapeAttr (text) {
+  if (!text) {
+    return text
+  }
+  return text.toString()
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+}
+
+/**
  * Unescapes HTML entities in a string.
  *
  * @param {*} text - The text to unescape.

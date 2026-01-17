@@ -5,6 +5,7 @@ import * as dom from './dom.js'
 import * as tableData from './table-data.js'
 import * as searchSort from './search-sort.js'
 import * as helper from './helper.js'
+import * as checkbox from './checkbox.js'
 
 export default {
   ...framework,
@@ -13,5 +14,6 @@ export default {
   ...dom,
   ...tableData,
   ...searchSort,
-  ...helper
+  ...helper,
+  ...checkbox
 }

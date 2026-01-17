@@ -81,6 +81,8 @@ const CONSTANTS = {
       buttonsPrefix: 'btn',
       dropdownActive: 'active',
       dropup: 'dropup',
+      formCheck: 'form-check',
+      formCheckInput: 'form-check-input',
       input: 'form-control',
       inputGroup: 'btn-group',
       inputPrefix: 'form-control-',
@@ -106,7 +108,7 @@ const CONSTANTS = {
       toolbarDropdownSeparator: '<div class="dropdown-divider"></div>'
     }
   }
-}[bootstrapVersion]
+}[bootstrapVersion || 5]
 
 const ICONS = {
   glyphicon: {
