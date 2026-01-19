@@ -51,6 +51,7 @@ unported
 unstackable
 utecht
 valign
+vdom
 vuejs
 wenzhixin
 xmlhttp

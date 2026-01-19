@@ -148,7 +148,11 @@ BootstrapTable.prototype.initBody = function (...args) {
 
       if (checkBox) {
         html.push('<td class="bs-checkbox">',
-          '<input name="btSelectGroup" type="checkbox" />',
+          Utils.getCheckboxHtml({
+            name: 'btSelectGroup',
+            centered: true,
+            withLabel: false
+          }),
           '</td>'
         )
       }

@@ -55,25 +55,24 @@ export function assignIcons (icons, icon, values) {
 /**
  * Gets the Bootstrap version.
  *
- * @returns {number} The Bootstrap version number (3, 4, or 5).
+ * @returns {number|undefined} The Bootstrap version number (3, 4, or 5), or undefined for non-Bootstrap themes.
  */
 export function getBootstrapVersion () {
+  // Check if using a non-Bootstrap theme
+  if (typeof $ !== 'undefined' && $.fn?.bootstrapTable?.theme) {
+    const theme = $.fn.bootstrapTable.theme
+
+    if (!theme.startsWith('bootstrap')) {
+      return
+    }
+  }
+
   let bootstrapVersion = 5
 
   if (typeof window !== 'undefined' && window.bootstrap?.Tooltip?.VERSION) {
-    const rawVersion = window.bootstrap.Tooltip.VERSION
-
-    if (rawVersion !== undefined) {
-      bootstrapVersion = parseInt(rawVersion, 10)
-    }
+    bootstrapVersion = parseInt(window.bootstrap.Tooltip.VERSION, 10)
   } else if (typeof $ !== 'undefined' && $.fn?.dropdown?.Constructor?.VERSION) {
-    const rawVersion = $.fn.dropdown.Constructor.VERSION
-
-    // Only try to parse VERSION if it is defined.
-    // It is undefined in older versions of Bootstrap (tested with 3.1.1).
-    if (rawVersion !== undefined) {
-      bootstrapVersion = parseInt(rawVersion, 10)
-    }
+    bootstrapVersion = parseInt($.fn.dropdown.Constructor.VERSION, 10)
   }
 
   return bootstrapVersion

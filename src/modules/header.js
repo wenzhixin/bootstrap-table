@@ -126,7 +126,11 @@ export default {
         if (column.checkbox) {
           text = ''
           if (!this.options.singleSelect && this.options.checkboxHeader) {
-            text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>'
+            text = Utils.getCheckboxHtml({
+              name: 'btSelectAll',
+              centered: true,
+              withLabel: false
+            })
           }
           this.header.stateField = column.field
         }

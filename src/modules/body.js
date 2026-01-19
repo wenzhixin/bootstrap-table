@@ -267,23 +267,33 @@ export default {
 
         item[this.header.stateField] = value === true || (!!value_ || value && value.checked)
 
+        const inputAttrs = {
+          'data-index': i,
+          name: this.options.selectItemName,
+          type,
+          value: item[this.options.idField],
+          checked: isChecked ? 'checked' : undefined,
+          disabled: isDisabled ? 'disabled' : undefined
+        }
+        const config = Utils.getCheckboxVdomConfig({
+          inputAttrs,
+          formCheckClass: this.constants.classes.formCheck,
+          formCheckInputClass: this.constants.classes.formCheckInput
+        })
+        const wrapperChildNodes = [Utils.h('input', config.inputAttrs)]
+
+        if (config.hasSpan) {
+          wrapperChildNodes.push(Utils.h('span'))
+        }
+        const children = [
+          Utils.h(config.wrapperTag, config.wrapperAttrs, wrapperChildNodes),
+          ...valueNodes
+        ]
+
         return Utils.h(this.options.cardView ? 'div' : 'td', {
           class: [this.options.cardView ? cardViewClass : 'bs-checkbox', column.class],
           style: this.options.cardView ? undefined : attrs.style
-        }, [
-          Utils.h('label', {}, [
-            Utils.h('input', {
-              'data-index': i,
-              name: this.options.selectItemName,
-              type,
-              value: item[this.options.idField],
-              checked: isChecked ? 'checked' : undefined,
-              disabled: isDisabled ? 'disabled' : undefined
-            }),
-            Utils.h('span')
-          ]),
-          ...valueNodes
-        ])
+        }, children)
       }
 
       if (this.options.cardView) {
