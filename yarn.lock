@@ -4126,9 +4126,9 @@ graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
 happy-dom@^20.3.1:
-  version "20.3.3"
-  resolved "https://registry.yarnpkg.com/happy-dom/-/happy-dom-20.3.3.tgz#95892ffb691001ed9d7dba373b11571083593682"
-  integrity sha512-hM9gltmtQLfmWPqoPreUtRdP3nZCSzQEw7l/JC+up5CxquDykhYFKzIzoFFeVev3AGFEULNvsbE8fpZPgxUYEQ==
+  version "20.3.4"
+  resolved "https://registry.yarnpkg.com/happy-dom/-/happy-dom-20.3.4.tgz#f7db4587a5ad77ece5b9b0c3cc158abdda62eca3"
+  integrity sha512-rfbiwB6OKxZFIFQ7SRnCPB2WL9WhyXsFoTfecYgeCeFSOBxvkWLaXsdv5ehzJrfqwXQmDephAKWLRQoFoJwrew==
   dependencies:
     "@types/node" ">=20.0.0"
     "@types/whatwg-mimetype" "^3.0.2"
