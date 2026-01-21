@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+### 1.26.1
+
+#### Core
+
+- **New:** Allow installation alongside v4 of `jQuery`.
+
 ### 1.26.0
 
 #### Core
