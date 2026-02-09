@@ -13,7 +13,7 @@
     "@babel/core": "^7.28.6",
     "@babel/eslint-parser": "^7.28.6",
     "@babel/preset-env": "^7.28.6",
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-inject": "^5.0.5",
