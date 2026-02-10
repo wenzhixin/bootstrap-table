@@ -1261,15 +1261,20 @@
   resolved "https://registry.yarnpkg.com/@cspell/url/-/url-9.6.4.tgz#37488bd963ab483647055288f9619bcd7cdb7a82"
   integrity sha512-h6VMlb7bDyGJfwLtipxxtHlT+ojzUXZz14AqZ/NEzY3LfOhfJTGpRcWLYFsgG/L0Ma4qjsYbPJt/Sj1C14j0VA==
 
+"@csstools/css-calc@^3.0.0":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@csstools/css-calc/-/css-calc-3.0.1.tgz#a8c1301c91b249d5ea445f90f3f8b03b2b7eb87f"
+  integrity sha512-bsDKIP6f4ta2DO9t+rAbSSwv4EMESXy5ZIvzQl1afmD6Z1XHkVu9ijcG9QR/qSgQS1dVa+RaQ/MfQ7FIB/Dn1Q==
+
 "@csstools/css-parser-algorithms@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-4.0.0.tgz#e1c65dc09378b42f26a111fca7f7075fc2c26164"
   integrity sha512-+B87qS7fIG3L5h3qwJ/IFbjoVoOe/bpOdh9hAjXbvx0o8ImEmUsGXN0inFOnk2ChCFgqkkGFQ+TpM5rbhkKe4w==
 
-"@csstools/css-syntax-patches-for-csstree@^1.0.25":
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/@csstools/css-syntax-patches-for-csstree/-/css-syntax-patches-for-csstree-1.0.25.tgz#200b4680988f33b07c2dfea70e6fddebaa578470"
-  integrity sha512-g0Kw9W3vjx5BEBAF8c5Fm2NcB/Fs8jJXh85aXqwEXiL+tqtOut07TWgyaGzAAfTM+gKckrrncyeGEZPcaRgm2Q==
+"@csstools/css-syntax-patches-for-csstree@^1.0.26":
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/@csstools/css-syntax-patches-for-csstree/-/css-syntax-patches-for-csstree-1.0.27.tgz#47caab710c26b5cfba200c5820b11dba29a2fcc9"
+  integrity sha512-sxP33Jwg1bviSUXAV43cVYdmjt2TLnLXNqCWl9xmxHawWVjGz/kEbdkr7F9pxJNBN2Mh+dq0crgItbW6tQvyow==
 
 "@csstools/css-tokenizer@^4.0.0":
   version "4.0.0"
@@ -6102,12 +6107,13 @@ stylelint-scss@^7.0.0:
     postcss-value-parser "^4.2.0"
 
 stylelint@^17.0.0:
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-17.1.1.tgz#b5670bffd08f95f523a8a960771c40a8de4453b5"
-  integrity sha512-SBHVcLEcRF1M9OkD3oT0hT2PayDNLw2hd+aovmzfNQ2ys4Xd3oS9ZNizILWqhQvW802AqKN/vUTMwJqQYMBlWw==
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-17.2.0.tgz#25d246b21bba3460ea779d5b74e43f85009ff534"
+  integrity sha512-602jhMkRt6P1dSh9kEzbFIaOKY//h4D0E7u/w2WHKxmi5VAjjMqe6P8rQPJuCWdbB3apOkjOFN5kcg6qWPIZWQ==
   dependencies:
+    "@csstools/css-calc" "^3.0.0"
     "@csstools/css-parser-algorithms" "^4.0.0"
-    "@csstools/css-syntax-patches-for-csstree" "^1.0.25"
+    "@csstools/css-syntax-patches-for-csstree" "^1.0.26"
     "@csstools/css-tokenizer" "^4.0.0"
     "@csstools/media-query-list-parser" "^5.0.0"
     "@csstools/selector-resolve-nested" "^4.0.0"
