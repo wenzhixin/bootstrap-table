@@ -12,8 +12,8 @@ const PAGE_HEIGHT = 800
 function normalizeWheel (event) {
   let sX = 0 // spinX
   let sY = 0 // spinY
-  let pX = 0 // pixelX
-  let pY = 0 // pixelY
+  let pX // pixelX
+  let pY // pixelY
 
   // Legacy
   if ('detail' in event) {

@@ -390,10 +390,9 @@ const showSortModal = that => {
 
     that.$sortModal.off('click', '.toolbar-btn-add').on('click', '.toolbar-btn-add', () => {
       const total = that.$sortModal.find('.multi-sort-name:first option').length
-      let current = that.$sortModal.find('tbody tr').length
+      const current = that.$sortModal.find('tbody tr').length
 
       if (current < total) {
-        current++
         that.addLevel()
         that.setButtonStates()
       }
@@ -401,10 +400,9 @@ const showSortModal = that => {
 
     that.$sortModal.off('click', '.toolbar-btn-delete').on('click', '.toolbar-btn-delete', () => {
       const total = that.$sortModal.find('.multi-sort-name:first option').length
-      let current = that.$sortModal.find('tbody tr').length
+      const current = that.$sortModal.find('tbody tr').length
 
       if (current > 1 && current <= total) {
-        current--
         that.$sortModal.find('tbody tr:last').remove()
         that.setButtonStates()
       }

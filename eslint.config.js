@@ -1,11 +1,10 @@
-import babelParser from '@babel/eslint-parser'
 import globals from 'globals'
 import js from '@eslint/js'
-import pluginImport from 'eslint-plugin-import'
+import { importX } from 'eslint-plugin-import-x'
 
 export default [
   js.configs.recommended,
-  pluginImport.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
   {
     languageOptions: {
       globals: {
@@ -13,10 +12,6 @@ export default [
         ...globals.node,
         $: true,
         jQuery: true
-      },
-      parser: babelParser,
-      parserOptions: {
-        requireConfigFile: false
       },
       ecmaVersion: 'latest',
       sourceType: 'module'
@@ -50,9 +45,9 @@ export default [
         ObjectExpression: 1,
         SwitchCase: 1
       }],
-      'import/extensions': 'off',
-      'import/no-named-as-default-member': 'off',
-      'import/no-unresolved': 'off',
+      'import-x/extensions': 'off',
+      'import-x/no-named-as-default-member': 'off',
+      'import-x/no-unresolved': 'off',
       'key-spacing': ['error', { afterColon: true, beforeColon: false, mode: 'strict' }],
       'keyword-spacing': ['error', { after: true, before: true }],
       'linebreak-style': ['error', 'unix'],

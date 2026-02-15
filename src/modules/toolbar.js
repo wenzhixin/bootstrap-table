@@ -3,8 +3,8 @@ import Utils from '../utils/index.js'
 export default {
   initToolbar () {
     const opts = this.options
-    let html = []
-    let timeoutId = 0
+    let html
+    let timeoutId
     let $keepOpen
     let switchableCount = 0
 
