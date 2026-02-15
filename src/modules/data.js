@@ -349,7 +349,6 @@ export default {
   },
 
   load (_data) {
-    let fixedScroll = false
     let data = _data
 
     // #431: support pagination
@@ -359,7 +358,8 @@ export default {
       this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
     }
 
-    fixedScroll = this.options.fixedScroll || data.fixedScroll
+    const fixedScroll = this.options.fixedScroll || data.fixedScroll
+
     data = Array.isArray(data) ? data : data[this.options.dataField]
 
     this.initData(data)

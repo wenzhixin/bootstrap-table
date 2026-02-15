@@ -171,7 +171,7 @@ export default {
     const tds = this.header.fields.map((field, j) => {
       const column = this.columns[j]
       const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
-      let value = ''
+      let value
       const attrs = {
         class: this.header.classes[j] ? [this.header.classes[j]] : [],
         style: this.header.styles[j] ? [this.header.styles[j]] : []
