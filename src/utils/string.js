@@ -6,6 +6,7 @@
  * - HTML escaping and unescaping
  * - Accent character normalization for search
  * - HTML tag removal
+ * - CSS style string normalization
  *
  * @module utils/string
  */
@@ -208,4 +209,30 @@ export function normalizeAccent (value) {
     .replace(pattern, char => ACCENT_MAP[char])
     .toLowerCase()
     .trim()
+}
+
+/**
+ * Normalizes a CSS style string by ensuring it ends with '; ' for proper concatenation.
+ * Returns undefined if the input is empty or contains only whitespace.
+ *
+ * @param {string|undefined} style - The style string to normalize.
+ * @returns {string|undefined} The normalized style string ending with '; ', or undefined.
+ * @example
+ * normalizeStyle('color: red')  // returns 'color: red; '
+ * normalizeStyle('color: red;') // returns 'color: red; '
+ * normalizeStyle('')            // returns undefined
+ * normalizeStyle(undefined)     // returns undefined
+ */
+export function normalizeStyle (style) {
+  if (!style) {
+    return undefined
+  }
+
+  const trimmed = style.trim()
+
+  if (!trimmed) {
+    return undefined
+  }
+
+  return trimmed.replace(/;?\s*$/, '; ')
 }

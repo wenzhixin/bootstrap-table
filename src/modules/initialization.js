@@ -171,7 +171,8 @@ export default {
           titleTooltip: $th.attr('title'),
           rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
           colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined,
-          scope: $th.attr('scope') ? $th.attr('scope') : undefined
+          scope: $th.attr('scope') ? $th.attr('scope') : undefined,
+          style: Utils.normalizeStyle($th.attr('style'))
         }, $th.data()))
       })
       columns.push(column)

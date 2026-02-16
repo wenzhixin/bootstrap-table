@@ -459,3 +459,48 @@ describe('normalizeAccent', () => {
     expect(string.normalizeAccent(longString)).toBe('a'.repeat(1000))
   })
 })
+
+describe('normalizeStyle', () => {
+  it('should return undefined for falsy values', () => {
+    expect(string.normalizeStyle(undefined)).toBe(undefined)
+    expect(string.normalizeStyle(null)).toBe(undefined)
+    expect(string.normalizeStyle('')).toBe(undefined)
+    expect(string.normalizeStyle('   ')).toBe(undefined)
+    expect(string.normalizeStyle('\t\n')).toBe(undefined)
+  })
+
+  it('should add trailing semicolon and space to style without one', () => {
+    expect(string.normalizeStyle('color: red')).toBe('color: red; ')
+    expect(string.normalizeStyle('text-align: center')).toBe('text-align: center; ')
+    expect(string.normalizeStyle('width: 100px')).toBe('width: 100px; ')
+  })
+
+  it('should preserve existing trailing semicolon', () => {
+    expect(string.normalizeStyle('color: red;')).toBe('color: red; ')
+    expect(string.normalizeStyle('color: red; ')).toBe('color: red; ')
+    expect(string.normalizeStyle('color: red;  ')).toBe('color: red; ')
+  })
+
+  it('should handle multiple CSS properties', () => {
+    expect(string.normalizeStyle('color: red; background: blue')).toBe('color: red; background: blue; ')
+    expect(string.normalizeStyle('color: red;background: blue')).toBe('color: red;background: blue; ')
+    expect(string.normalizeStyle('color: red; background: blue;')).toBe('color: red; background: blue; ')
+  })
+
+  it('should trim leading and trailing whitespace', () => {
+    expect(string.normalizeStyle('  color: red  ')).toBe('color: red; ')
+    expect(string.normalizeStyle('\tcolor: red\n')).toBe('color: red; ')
+    expect(string.normalizeStyle('  color: red;  ')).toBe('color: red; ')
+  })
+
+  it('should handle complex CSS values', () => {
+    expect(string.normalizeStyle('background: url("test.png")')).toBe('background: url("test.png"); ')
+    expect(string.normalizeStyle('font-family: Arial, sans-serif')).toBe('font-family: Arial, sans-serif; ')
+    expect(string.normalizeStyle('box-shadow: 0 0 5px rgba(0,0,0,0.5)')).toBe('box-shadow: 0 0 5px rgba(0,0,0,0.5); ')
+  })
+
+  it('should handle !important declarations', () => {
+    expect(string.normalizeStyle('color: red !important')).toBe('color: red !important; ')
+    expect(string.normalizeStyle('color: red !important;')).toBe('color: red !important; ')
+  })
+})
