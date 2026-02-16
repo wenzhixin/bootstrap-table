@@ -669,10 +669,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.46.0',
+  	  version: '3.48.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1784,7 +1784,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -2044,7 +2044,7 @@
   	      from = actualStart + k;
   	      if (from in O) createProperty(A, k, O[from]);
   	    }
-  	    A.length = actualDeleteCount;
+  	    setArrayLength(A, actualDeleteCount);
   	    if (insertCount < actualDeleteCount) {
   	      for (k = actualStart; k < len - actualDeleteCount; k++) {
   	        from = k + actualDeleteCount;

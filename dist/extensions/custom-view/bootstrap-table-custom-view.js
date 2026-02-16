@@ -645,10 +645,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.46.0',
+  	  version: '3.48.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1662,6 +1662,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1672,7 +1707,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1865,6 +1900,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -1910,7 +1946,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -1968,13 +2004,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -1985,28 +2019,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -2283,6 +2317,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var toIndexedObject = requireToIndexedObject();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var wellKnownSymbol = requireWellKnownSymbol();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var nativeSlice = requireArraySlice();
@@ -2319,7 +2354,7 @@
   	    }
   	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
   	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-  	    result.length = n;
+  	    setArrayLength(result, n);
   	    return result;
   	  }
   	});

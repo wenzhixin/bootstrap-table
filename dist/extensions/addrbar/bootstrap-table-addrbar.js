@@ -690,10 +690,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.46.0',
+  	  version: '3.48.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1707,6 +1707,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1717,7 +1752,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1910,6 +1945,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -1955,7 +1991,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -3287,6 +3323,7 @@
   	  var DELEGATES_TO_SYMBOL = !fails(function () {
   	    // String methods call symbol-named RegExp methods
   	    var O = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    O[SYMBOL] = function () { return 7; };
   	    return ''[KEY](O) !== 7;
   	  });
@@ -3300,12 +3337,13 @@
   	      // We can't use real regex here since it causes deoptimization
   	      // and serious performance degradation in V8
   	      // https://github.com/zloirock/core-js/issues/306
-  	      re = {};
   	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
   	      // a new one. We need to return the patched regex when creating the new one.
-  	      re.constructor = {};
-  	      re.constructor[SPECIES] = function () { return re; };
-  	      re.flags = '';
+  	      var constructor = {};
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      constructor[SPECIES] = function () { return re; };
+  	      re = { constructor: constructor, flags: '' };
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	      re[SYMBOL] = /./[SYMBOL];
   	    }
 
@@ -4191,7 +4229,7 @@
   	    var state = getInternalParamsState(this);
   	    validateArgumentsLength(arguments.length, 2);
   	    push(state.entries, { key: $toString(name), value: $toString(value) });
-  	    if (!DESCRIPTORS) this.length++;
+  	    if (!DESCRIPTORS) this.size++;
   	    state.updateURL();
   	  },
   	  // `URLSearchParams.prototype.delete` method

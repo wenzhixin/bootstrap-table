@@ -1,6 +1,24 @@
 ChangeLog
 ---------
 
+### 1.27.0
+
+#### Core
+
+- **New:** Split utils/index.js into modular structure.
+- **New:** Added DOMHelper utility for jQuery removal.
+- **New:** Added Bootstrap 5 checkbox compatibility utilities.
+- **New:** Added utility tests with comprehensive coverage.
+- **Update:** Allowed peer dependency of jQuery v4.x.
+- **Update:** Removed jQuery dependency from utils module.
+- **Update:** Fixed search filter with depth key.
+- **Update:** Fixed style attributes not being preserved on `thead>tr>th` elements.
+
+#### Extensions
+
+- **Update(group-by):** Fixed group expand/collapse state being reset when using searching.
+- **Update(multiple-sort):** Add modal-multiple-sort class to multiple sort modal.
+
 ### 1.26.0
 
 #### Core

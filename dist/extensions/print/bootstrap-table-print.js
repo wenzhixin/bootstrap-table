@@ -705,10 +705,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.46.0',
+  	  version: '3.48.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1722,6 +1722,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1732,7 +1767,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1925,6 +1960,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -1970,7 +2006,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -2028,13 +2064,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -2045,28 +2079,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -2354,6 +2388,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var bind = requireFunctionBindContext();
+  	var createProperty = requireCreateProperty();
 
   	// `FlattenIntoArray` abstract operation
   	// https://tc39.es/ecma262/#sec-flattenintoarray
@@ -2372,7 +2407,7 @@
   	        targetIndex = flattenIntoArray(target, original, element, elementLen, targetIndex, depth - 1) - 1;
   	      } else {
   	        doesNotExceedSafeInteger(targetIndex + 1);
-  	        target[targetIndex] = element;
+  	        createProperty(target, targetIndex, element);
   	      }
 
   	      targetIndex++;
@@ -2406,7 +2441,7 @@
   	    var O = toObject(this);
   	    var sourceLen = lengthOfArrayLike(O);
   	    var A = arraySpeciesCreate(O, 0);
-  	    A.length = flattenIntoArray(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toIntegerOrInfinity(depthArg));
+  	    flattenIntoArray(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toIntegerOrInfinity(depthArg));
   	    return A;
   	  }
   	});
@@ -2553,6 +2588,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var toIndexedObject = requireToIndexedObject();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var wellKnownSymbol = requireWellKnownSymbol();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var nativeSlice = requireArraySlice();
@@ -2589,7 +2625,7 @@
   	    }
   	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
   	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-  	    result.length = n;
+  	    setArrayLength(result, n);
   	    return result;
   	  }
   	});
@@ -3275,6 +3311,7 @@
   	  var DELEGATES_TO_SYMBOL = !fails(function () {
   	    // String methods call symbol-named RegExp methods
   	    var O = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    O[SYMBOL] = function () { return 7; };
   	    return ''[KEY](O) !== 7;
   	  });
@@ -3288,12 +3325,13 @@
   	      // We can't use real regex here since it causes deoptimization
   	      // and serious performance degradation in V8
   	      // https://github.com/zloirock/core-js/issues/306
-  	      re = {};
   	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
   	      // a new one. We need to return the patched regex when creating the new one.
-  	      re.constructor = {};
-  	      re.constructor[SPECIES] = function () { return re; };
-  	      re.flags = '';
+  	      var constructor = {};
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      constructor[SPECIES] = function () { return re; };
+  	      re = { constructor: constructor, flags: '' };
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	      re[SYMBOL] = /./[SYMBOL];
   	    }
 
@@ -3894,7 +3932,7 @@
                 var _columns = _step2.value;
                 for (var h = 0; h < _columns.length; h++) {
                   if (canPrint(_columns)) {
-                    var footerData = Utils.trToData(_columns, _this2.$el.find('>tfoot>tr'));
+                    var footerData = Utils.trToData(_columns, _this2.$el.find('>tfoot>tr').get());
                     var footerValue = Utils.calculateObjectValue(_columns[h], _columns[h].footerFormatter, [data], footerData[0] && footerData[0][_columns[h].field] || '');
                     html.push("<th>".concat(footerValue, "</th>"));
                   }

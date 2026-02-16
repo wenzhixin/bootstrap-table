@@ -25,7 +25,7 @@
     }
   }
   function _createClass(e, r, t) {
-    return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
       writable: false
     }), e;
   }
@@ -442,18 +442,18 @@
   	return isCallable;
   }
 
-  var isObject;
+  var isObject$1;
   var hasRequiredIsObject;
 
   function requireIsObject () {
-  	if (hasRequiredIsObject) return isObject;
+  	if (hasRequiredIsObject) return isObject$1;
   	hasRequiredIsObject = 1;
   	var isCallable = requireIsCallable();
 
-  	isObject = function (it) {
+  	isObject$1 = function (it) {
   	  return typeof it == 'object' ? it !== null : isCallable(it);
   	};
-  	return isObject;
+  	return isObject$1;
   }
 
   var getBuiltIn;
@@ -727,10 +727,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.46.0',
+  	  version: '3.48.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1744,6 +1744,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1754,7 +1789,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1947,6 +1982,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -1992,7 +2028,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -2739,13 +2775,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -2756,28 +2790,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -3035,6 +3069,7 @@
   	  var DELEGATES_TO_SYMBOL = !fails(function () {
   	    // String methods call symbol-named RegExp methods
   	    var O = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    O[SYMBOL] = function () { return 7; };
   	    return ''[KEY](O) !== 7;
   	  });
@@ -3048,12 +3083,13 @@
   	      // We can't use real regex here since it causes deoptimization
   	      // and serious performance degradation in V8
   	      // https://github.com/zloirock/core-js/issues/306
-  	      re = {};
   	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
   	      // a new one. We need to return the patched regex when creating the new one.
-  	      re.constructor = {};
-  	      re.constructor[SPECIES] = function () { return re; };
-  	      re.flags = '';
+  	      var constructor = {};
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      constructor[SPECIES] = function () { return re; };
+  	      re = { constructor: constructor, flags: '' };
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	      re[SYMBOL] = /./[SYMBOL];
   	    }
 
@@ -3577,6 +3613,49 @@
 
   requireWeb_domCollections_forEach();
 
+  var es_string_startsWith = {};
+
+  var hasRequiredEs_string_startsWith;
+
+  function requireEs_string_startsWith () {
+  	if (hasRequiredEs_string_startsWith) return es_string_startsWith;
+  	hasRequiredEs_string_startsWith = 1;
+  	var $ = require_export();
+  	var uncurryThis = requireFunctionUncurryThisClause();
+  	var getOwnPropertyDescriptor = requireObjectGetOwnPropertyDescriptor().f;
+  	var toLength = requireToLength();
+  	var toString = requireToString();
+  	var notARegExp = requireNotARegexp();
+  	var requireObjectCoercible = requireRequireObjectCoercible();
+  	var correctIsRegExpLogic = requireCorrectIsRegexpLogic();
+  	var IS_PURE = requireIsPure();
+
+  	var stringSlice = uncurryThis(''.slice);
+  	var min = Math.min;
+
+  	var CORRECT_IS_REGEXP_LOGIC = correctIsRegExpLogic('startsWith');
+  	// https://github.com/zloirock/core-js/pull/702
+  	var MDN_POLYFILL_BUG = !IS_PURE && !CORRECT_IS_REGEXP_LOGIC && !!function () {
+  	  var descriptor = getOwnPropertyDescriptor(String.prototype, 'startsWith');
+  	  return descriptor && !descriptor.writable;
+  	}();
+
+  	// `String.prototype.startsWith` method
+  	// https://tc39.es/ecma262/#sec-string.prototype.startswith
+  	$({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
+  	  startsWith: function startsWith(searchString /* , position = 0 */) {
+  	    var that = toString(requireObjectCoercible(this));
+  	    notARegExp(searchString);
+  	    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
+  	    var search = toString(searchString);
+  	    return stringSlice(that, index, index + search.length) === search;
+  	  }
+  	});
+  	return es_string_startsWith;
+  }
+
+  requireEs_string_startsWith();
+
   var es_array_filter = {};
 
   var hasRequiredEs_array_filter;
@@ -3603,39 +3682,59 @@
 
   requireEs_array_filter();
 
-  var es_array_indexOf = {};
+  var es_array_from = {};
 
-  var hasRequiredEs_array_indexOf;
+  var iteratorClose;
+  var hasRequiredIteratorClose;
 
-  function requireEs_array_indexOf () {
-  	if (hasRequiredEs_array_indexOf) return es_array_indexOf;
-  	hasRequiredEs_array_indexOf = 1;
-  	/* eslint-disable es/no-array-prototype-indexof -- required for testing */
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThisClause();
-  	var $indexOf = requireArrayIncludes().indexOf;
-  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
+  function requireIteratorClose () {
+  	if (hasRequiredIteratorClose) return iteratorClose;
+  	hasRequiredIteratorClose = 1;
+  	var call = requireFunctionCall();
+  	var anObject = requireAnObject();
+  	var getMethod = requireGetMethod();
 
-  	var nativeIndexOf = uncurryThis([].indexOf);
-
-  	var NEGATIVE_ZERO = !!nativeIndexOf && 1 / nativeIndexOf([1], 1, -0) < 0;
-  	var FORCED = NEGATIVE_ZERO || !arrayMethodIsStrict('indexOf');
-
-  	// `Array.prototype.indexOf` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.indexof
-  	$({ target: 'Array', proto: true, forced: FORCED }, {
-  	  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
-  	    var fromIndex = arguments.length > 1 ? arguments[1] : undefined;
-  	    return NEGATIVE_ZERO
-  	      // convert -0 to +0
-  	      ? nativeIndexOf(this, searchElement, fromIndex) || 0
-  	      : $indexOf(this, searchElement, fromIndex);
+  	iteratorClose = function (iterator, kind, value) {
+  	  var innerResult, innerError;
+  	  anObject(iterator);
+  	  try {
+  	    innerResult = getMethod(iterator, 'return');
+  	    if (!innerResult) {
+  	      if (kind === 'throw') throw value;
+  	      return value;
+  	    }
+  	    innerResult = call(innerResult, iterator);
+  	  } catch (error) {
+  	    innerError = true;
+  	    innerResult = error;
   	  }
-  	});
-  	return es_array_indexOf;
+  	  if (kind === 'throw') throw value;
+  	  if (innerError) throw innerResult;
+  	  anObject(innerResult);
+  	  return value;
+  	};
+  	return iteratorClose;
   }
 
-  requireEs_array_indexOf();
+  var callWithSafeIterationClosing;
+  var hasRequiredCallWithSafeIterationClosing;
+
+  function requireCallWithSafeIterationClosing () {
+  	if (hasRequiredCallWithSafeIterationClosing) return callWithSafeIterationClosing;
+  	hasRequiredCallWithSafeIterationClosing = 1;
+  	var anObject = requireAnObject();
+  	var iteratorClose = requireIteratorClose();
+
+  	// call something on iterator step with safe closing on error
+  	callWithSafeIterationClosing = function (iterator, fn, value, ENTRIES) {
+  	  try {
+  	    return ENTRIES ? fn(anObject(value)[0], value[1]) : fn(value);
+  	  } catch (error) {
+  	    iteratorClose(iterator, 'throw', error);
+  	  }
+  	};
+  	return callWithSafeIterationClosing;
+  }
 
   var iterators;
   var hasRequiredIterators;
@@ -3646,6 +3745,201 @@
   	iterators = {};
   	return iterators;
   }
+
+  var isArrayIteratorMethod;
+  var hasRequiredIsArrayIteratorMethod;
+
+  function requireIsArrayIteratorMethod () {
+  	if (hasRequiredIsArrayIteratorMethod) return isArrayIteratorMethod;
+  	hasRequiredIsArrayIteratorMethod = 1;
+  	var wellKnownSymbol = requireWellKnownSymbol();
+  	var Iterators = requireIterators();
+
+  	var ITERATOR = wellKnownSymbol('iterator');
+  	var ArrayPrototype = Array.prototype;
+
+  	// check on default Array iterator
+  	isArrayIteratorMethod = function (it) {
+  	  return it !== undefined && (Iterators.Array === it || ArrayPrototype[ITERATOR] === it);
+  	};
+  	return isArrayIteratorMethod;
+  }
+
+  var getIteratorMethod;
+  var hasRequiredGetIteratorMethod;
+
+  function requireGetIteratorMethod () {
+  	if (hasRequiredGetIteratorMethod) return getIteratorMethod;
+  	hasRequiredGetIteratorMethod = 1;
+  	var classof = requireClassof();
+  	var getMethod = requireGetMethod();
+  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var Iterators = requireIterators();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+
+  	var ITERATOR = wellKnownSymbol('iterator');
+
+  	getIteratorMethod = function (it) {
+  	  if (!isNullOrUndefined(it)) return getMethod(it, ITERATOR)
+  	    || getMethod(it, '@@iterator')
+  	    || Iterators[classof(it)];
+  	};
+  	return getIteratorMethod;
+  }
+
+  var getIterator;
+  var hasRequiredGetIterator;
+
+  function requireGetIterator () {
+  	if (hasRequiredGetIterator) return getIterator;
+  	hasRequiredGetIterator = 1;
+  	var call = requireFunctionCall();
+  	var aCallable = requireACallable();
+  	var anObject = requireAnObject();
+  	var tryToString = requireTryToString();
+  	var getIteratorMethod = requireGetIteratorMethod();
+
+  	var $TypeError = TypeError;
+
+  	getIterator = function (argument, usingIterator) {
+  	  var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
+  	  if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
+  	  throw new $TypeError(tryToString(argument) + ' is not iterable');
+  	};
+  	return getIterator;
+  }
+
+  var arrayFrom;
+  var hasRequiredArrayFrom;
+
+  function requireArrayFrom () {
+  	if (hasRequiredArrayFrom) return arrayFrom;
+  	hasRequiredArrayFrom = 1;
+  	var bind = requireFunctionBindContext();
+  	var call = requireFunctionCall();
+  	var toObject = requireToObject();
+  	var callWithSafeIterationClosing = requireCallWithSafeIterationClosing();
+  	var isArrayIteratorMethod = requireIsArrayIteratorMethod();
+  	var isConstructor = requireIsConstructor();
+  	var lengthOfArrayLike = requireLengthOfArrayLike();
+  	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
+  	var getIterator = requireGetIterator();
+  	var getIteratorMethod = requireGetIteratorMethod();
+
+  	var $Array = Array;
+
+  	// `Array.from` method implementation
+  	// https://tc39.es/ecma262/#sec-array.from
+  	arrayFrom = function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+  	  var O = toObject(arrayLike);
+  	  var IS_CONSTRUCTOR = isConstructor(this);
+  	  var argumentsLength = arguments.length;
+  	  var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
+  	  var mapping = mapfn !== undefined;
+  	  if (mapping) mapfn = bind(mapfn, argumentsLength > 2 ? arguments[2] : undefined);
+  	  var iteratorMethod = getIteratorMethod(O);
+  	  var index = 0;
+  	  var length, result, step, iterator, next, value;
+  	  // if the target is not iterable or it's an array with the default iterator - use a simple case
+  	  if (iteratorMethod && !(this === $Array && isArrayIteratorMethod(iteratorMethod))) {
+  	    result = IS_CONSTRUCTOR ? new this() : [];
+  	    iterator = getIterator(O, iteratorMethod);
+  	    next = iterator.next;
+  	    for (;!(step = call(next, iterator)).done; index++) {
+  	      value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true) : step.value;
+  	      createProperty(result, index, value);
+  	    }
+  	  } else {
+  	    length = lengthOfArrayLike(O);
+  	    result = IS_CONSTRUCTOR ? new this(length) : $Array(length);
+  	    for (;length > index; index++) {
+  	      value = mapping ? mapfn(O[index], index) : O[index];
+  	      createProperty(result, index, value);
+  	    }
+  	  }
+  	  setArrayLength(result, index);
+  	  return result;
+  	};
+  	return arrayFrom;
+  }
+
+  var checkCorrectnessOfIteration;
+  var hasRequiredCheckCorrectnessOfIteration;
+
+  function requireCheckCorrectnessOfIteration () {
+  	if (hasRequiredCheckCorrectnessOfIteration) return checkCorrectnessOfIteration;
+  	hasRequiredCheckCorrectnessOfIteration = 1;
+  	var wellKnownSymbol = requireWellKnownSymbol();
+
+  	var ITERATOR = wellKnownSymbol('iterator');
+  	var SAFE_CLOSING = false;
+
+  	try {
+  	  var called = 0;
+  	  var iteratorWithReturn = {
+  	    next: function () {
+  	      return { done: !!called++ };
+  	    },
+  	    'return': function () {
+  	      SAFE_CLOSING = true;
+  	    }
+  	  };
+  	  // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	  iteratorWithReturn[ITERATOR] = function () {
+  	    return this;
+  	  };
+  	  // eslint-disable-next-line es/no-array-from, no-throw-literal -- required for testing
+  	  Array.from(iteratorWithReturn, function () { throw 2; });
+  	} catch (error) { /* empty */ }
+
+  	checkCorrectnessOfIteration = function (exec, SKIP_CLOSING) {
+  	  try {
+  	    if (!SKIP_CLOSING && !SAFE_CLOSING) return false;
+  	  } catch (error) { return false; } // workaround of old WebKit + `eval` bug
+  	  var ITERATION_SUPPORT = false;
+  	  try {
+  	    var object = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	    object[ITERATOR] = function () {
+  	      return {
+  	        next: function () {
+  	          return { done: ITERATION_SUPPORT = true };
+  	        }
+  	      };
+  	    };
+  	    exec(object);
+  	  } catch (error) { /* empty */ }
+  	  return ITERATION_SUPPORT;
+  	};
+  	return checkCorrectnessOfIteration;
+  }
+
+  var hasRequiredEs_array_from;
+
+  function requireEs_array_from () {
+  	if (hasRequiredEs_array_from) return es_array_from;
+  	hasRequiredEs_array_from = 1;
+  	var $ = require_export();
+  	var from = requireArrayFrom();
+  	var checkCorrectnessOfIteration = requireCheckCorrectnessOfIteration();
+
+  	var INCORRECT_ITERATION = !checkCorrectnessOfIteration(function (iterable) {
+  	  // eslint-disable-next-line es/no-array-from -- required for testing
+  	  Array.from(iterable);
+  	});
+
+  	// `Array.from` method
+  	// https://tc39.es/ecma262/#sec-array.from
+  	$({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
+  	  from: from
+  	});
+  	return es_array_from;
+  }
+
+  requireEs_array_from();
+
+  var es_string_iterator = {};
 
   var iteratorsCore;
   var hasRequiredIteratorsCore;
@@ -3960,175 +4254,792 @@
   	return createIterResultObject;
   }
 
-  var es_array_iterator;
-  var hasRequiredEs_array_iterator;
+  var hasRequiredEs_string_iterator;
 
-  function requireEs_array_iterator () {
-  	if (hasRequiredEs_array_iterator) return es_array_iterator;
-  	hasRequiredEs_array_iterator = 1;
-  	var toIndexedObject = requireToIndexedObject();
-  	var addToUnscopables = requireAddToUnscopables();
-  	var Iterators = requireIterators();
+  function requireEs_string_iterator () {
+  	if (hasRequiredEs_string_iterator) return es_string_iterator;
+  	hasRequiredEs_string_iterator = 1;
+  	var charAt = requireStringMultibyte().charAt;
+  	var toString = requireToString();
   	var InternalStateModule = requireInternalState();
-  	var defineProperty = requireObjectDefineProperty().f;
   	var defineIterator = requireIteratorDefine();
   	var createIterResultObject = requireCreateIterResultObject();
-  	var IS_PURE = requireIsPure();
-  	var DESCRIPTORS = requireDescriptors();
 
-  	var ARRAY_ITERATOR = 'Array Iterator';
+  	var STRING_ITERATOR = 'String Iterator';
   	var setInternalState = InternalStateModule.set;
-  	var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR);
+  	var getInternalState = InternalStateModule.getterFor(STRING_ITERATOR);
 
-  	// `Array.prototype.entries` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.entries
-  	// `Array.prototype.keys` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.keys
-  	// `Array.prototype.values` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.values
-  	// `Array.prototype[@@iterator]` method
-  	// https://tc39.es/ecma262/#sec-array.prototype-@@iterator
-  	// `CreateArrayIterator` internal method
-  	// https://tc39.es/ecma262/#sec-createarrayiterator
-  	es_array_iterator = defineIterator(Array, 'Array', function (iterated, kind) {
+  	// `String.prototype[@@iterator]` method
+  	// https://tc39.es/ecma262/#sec-string.prototype-@@iterator
+  	defineIterator(String, 'String', function (iterated) {
   	  setInternalState(this, {
-  	    type: ARRAY_ITERATOR,
-  	    target: toIndexedObject(iterated), // target
-  	    index: 0,                          // next index
-  	    kind: kind                         // kind
+  	    type: STRING_ITERATOR,
+  	    string: toString(iterated),
+  	    index: 0
   	  });
-  	// `%ArrayIteratorPrototype%.next` method
-  	// https://tc39.es/ecma262/#sec-%arrayiteratorprototype%.next
-  	}, function () {
+  	// `%StringIteratorPrototype%.next` method
+  	// https://tc39.es/ecma262/#sec-%stringiteratorprototype%.next
+  	}, function next() {
   	  var state = getInternalState(this);
-  	  var target = state.target;
-  	  var index = state.index++;
-  	  if (!target || index >= target.length) {
-  	    state.target = null;
-  	    return createIterResultObject(undefined, true);
-  	  }
-  	  switch (state.kind) {
-  	    case 'keys': return createIterResultObject(index, false);
-  	    case 'values': return createIterResultObject(target[index], false);
-  	  } return createIterResultObject([index, target[index]], false);
-  	}, 'values');
-
-  	// argumentsList[@@iterator] is %ArrayProto_values%
-  	// https://tc39.es/ecma262/#sec-createunmappedargumentsobject
-  	// https://tc39.es/ecma262/#sec-createmappedargumentsobject
-  	var values = Iterators.Arguments = Iterators.Array;
-
-  	// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
-  	addToUnscopables('keys');
-  	addToUnscopables('values');
-  	addToUnscopables('entries');
-
-  	// V8 ~ Chrome 45- bug
-  	if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
-  	  defineProperty(values, 'name', { value: 'values' });
-  	} catch (error) { /* empty */ }
-  	return es_array_iterator;
-  }
-
-  requireEs_array_iterator();
-
-  var es_array_map = {};
-
-  var hasRequiredEs_array_map;
-
-  function requireEs_array_map () {
-  	if (hasRequiredEs_array_map) return es_array_map;
-  	hasRequiredEs_array_map = 1;
-  	var $ = require_export();
-  	var $map = requireArrayIteration().map;
-  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
-
-  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
-
-  	// `Array.prototype.map` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.map
-  	// with adding support of @@species
-  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
-  	  map: function map(callbackfn /* , thisArg */) {
-  	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  	  }
+  	  var string = state.string;
+  	  var index = state.index;
+  	  var point;
+  	  if (index >= string.length) return createIterResultObject(undefined, true);
+  	  point = charAt(string, index);
+  	  state.index += point.length;
+  	  return createIterResultObject(point, false);
   	});
-  	return es_array_map;
+  	return es_string_iterator;
   }
 
-  requireEs_array_map();
+  requireEs_string_iterator();
 
-  var es_array_slice = {};
+  /**
+   * Bootstrap Table DOM Manipulation Utility Library
+   * Provides jQuery-style DOM manipulation APIs using native JavaScript
+   *
+   * Security Notice:
+   * - The `create()` method uses innerHTML to parse HTML strings. Always sanitize user input
+   *   before passing it to create() to prevent XSS attacks.
+   * - The `html()` method sets innerHTML directly. Use the `text()` method for user-provided content.
+   * - The `attr()` method allows setting arbitrary attributes including event handlers.
+   *   Avoid setting event handler attributes (onclick, onerror, etc.) with user-controlled data.
+   */
+  var DOMHelper = /*#__PURE__*/function () {
+    function DOMHelper() {
+      _classCallCheck(this, DOMHelper);
+    }
+    return _createClass(DOMHelper, null, [{
+      key: "$",
+      value:
+      /**
+       * Element selector
+       * @param {string|Element} selector - CSS selector or DOM element
+       * @param {Element} context - Search context, defaults to document
+       * @returns {Element|null} First matched element
+       */
+      function $(selector) {
+        var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+        if (typeof selector === 'string') {
+          return context.querySelector(selector);
+        }
+        if (selector instanceof Element) {
+          return selector;
+        }
+        return null;
+      }
 
-  var arraySlice;
-  var hasRequiredArraySlice;
+      /**
+       * Element selector (multiple)
+       * @param {string|Element|NodeList} selector - CSS selector, DOM element, or NodeList
+       * @param {Element} context - Search context, defaults to document
+       * @returns {Element[]} Array of all matched elements. Note: if selector is an Element, returns [Element]
+       */
+    }, {
+      key: "$$",
+      value: function $$(selector) {
+        var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+        if (typeof selector === 'string') {
+          return Array.from(context.querySelectorAll(selector));
+        }
+        if (selector instanceof NodeList) {
+          return Array.from(selector);
+        }
+        if (selector instanceof Element) {
+          return [selector];
+        }
+        return [];
+      }
 
-  function requireArraySlice () {
-  	if (hasRequiredArraySlice) return arraySlice;
-  	hasRequiredArraySlice = 1;
-  	var uncurryThis = requireFunctionUncurryThis();
+      /**
+       * Create DOM element
+       * @param {string} html - HTML string. Note: This method uses innerHTML and can execute scripts.
+       *                        Always sanitize user input before passing it to this method.
+       * @returns {Element|null} Created DOM element. Returns null if html is empty, not a string,
+       *                         or contains only whitespace.
+       */
+    }, {
+      key: "create",
+      value: function create(html) {
+        if (typeof html !== 'string') return null;
+        var trimmed = html.trim();
+        if (!trimmed) return null;
+        var template = document.createElement('template');
+        template.innerHTML = trimmed;
+        return template.content.firstChild;
+      }
 
-  	arraySlice = uncurryThis([].slice);
-  	return arraySlice;
+      /**
+       * Add CSS class
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} className - Class name to add (space-separated for multiple classes)
+       * @returns {Element|null} The element itself
+       */
+    }, {
+      key: "addClass",
+      value: function addClass(element, className) {
+        var _element$classList;
+        if (typeof element === 'string') element = this.$(element);
+        if (!element || !element.classList) return element;
+        if (!className) return element;
+        var classes = className.split(' ').filter(function (c) {
+          return c;
+        });
+        (_element$classList = element.classList).add.apply(_element$classList, _toConsumableArray(classes));
+        return element;
+      }
+
+      /**
+       * Remove CSS class
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} className - Class name to remove (space-separated for multiple classes)
+       * @returns {Element|null} The element itself
+       */
+    }, {
+      key: "removeClass",
+      value: function removeClass(element, className) {
+        var _element$classList2;
+        if (typeof element === 'string') element = this.$(element);
+        if (!element || !element.classList) return element;
+        if (!className) return element;
+        var classes = className.split(' ').filter(function (c) {
+          return c;
+        });
+        (_element$classList2 = element.classList).remove.apply(_element$classList2, _toConsumableArray(classes));
+        return element;
+      }
+
+      /**
+       * Toggle CSS class
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} className - Class name to toggle (space-separated for multiple classes)
+       * @returns {Element|null} The element itself
+       */
+    }, {
+      key: "toggleClass",
+      value: function toggleClass(element, className) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element || !element.classList) return element;
+        if (!className) return element;
+        var classes = className.split(' ').filter(function (c) {
+          return c;
+        });
+        classes.forEach(function (cls) {
+          return element.classList.toggle(cls);
+        });
+        return element;
+      }
+
+      /**
+       * Check if element has CSS class
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} className - Class name to check
+       * @returns {boolean} Whether the class exists
+       */
+    }, {
+      key: "hasClass",
+      value: function hasClass(element, className) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element || !element.classList) return false;
+        if (!className) return false;
+        return element.classList.contains(className);
+      }
+
+      /**
+       * Get or set attribute
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} name - Attribute name. Warning: Avoid setting event handler attributes
+       *                        (onclick, onerror, etc.) with user-controlled data to prevent XSS.
+       * @param {string} [value] - Attribute value (omit to get)
+       * @returns {Element|null} Element when setting, or string|null when getting attribute
+       */
+    }, {
+      key: "attr",
+      value: function attr(element, name, value) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return value === undefined ? null : element;
+        if (value === undefined) {
+          return element.getAttribute(name);
+        }
+        element.setAttribute(name, value);
+        return element;
+      }
+
+      /**
+       * Remove attribute
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} name - Attribute name
+       * @returns {Element|null} The element itself
+       */
+    }, {
+      key: "removeAttr",
+      value: function removeAttr(element, name) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return element;
+        element.removeAttribute(name);
+        return element;
+      }
+
+      /**
+       * Get or set data attribute
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} key - Data key name
+       * @param {string} [value] - Data value (omit to get)
+       * @returns {(string|undefined) when getting (value omitted); (Element|null|undefined) when setting (value provided)}
+       * Returns the data attribute value (string or undefined) when getting, or the element (or null/undefined if not found) when setting.
+       */
+    }, {
+      key: "data",
+      value: function data(element, key, value) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return value === undefined ? undefined : element;
+        if (value === undefined) {
+          return element.dataset[key];
+        }
+        element.dataset[key] = value;
+        return element;
+      }
+
+      /**
+       * Append child element
+       * @param {Element|string} parent - Parent element or selector
+       * @param {Element|string} child - Child element or HTML string
+       * @returns {Element|null} Parent element
+       */
+    }, {
+      key: "append",
+      value: function append(parent, child) {
+        if (typeof parent === 'string') parent = this.$(parent);
+        if (typeof child === 'string') child = this.create(child);
+        if (parent && child) {
+          parent.appendChild(child);
+        }
+        return parent;
+      }
+
+      /**
+       * Prepend child element
+       * @param {Element|string} parent - Parent element or selector
+       * @param {Element|string} child - Child element or HTML string
+       * @returns {Element|null} Parent element
+       */
+    }, {
+      key: "prepend",
+      value: function prepend(parent, child) {
+        if (typeof parent === 'string') parent = this.$(parent);
+        if (typeof child === 'string') child = this.create(child);
+        if (parent && child) {
+          parent.insertBefore(child, parent.firstChild);
+        }
+        return parent;
+      }
+
+      /**
+       * Insert element after target
+       * @param {Element|string} newElement - Element to insert
+       * @param {Element|string} targetElement - Target element
+       * @returns {Element|null} Inserted element
+       */
+    }, {
+      key: "insertAfter",
+      value: function insertAfter(newElement, targetElement) {
+        if (typeof targetElement === 'string') targetElement = this.$(targetElement);
+        if (typeof newElement === 'string') newElement = this.create(newElement);
+        if (targetElement && newElement && targetElement.parentNode) {
+          targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
+        }
+        return newElement;
+      }
+
+      /**
+       * Insert element before target
+       * @param {Element|string} newElement - Element to insert
+       * @param {Element|string} targetElement - Target element
+       * @returns {Element|null} Inserted element
+       */
+    }, {
+      key: "insertBefore",
+      value: function insertBefore(newElement, targetElement) {
+        if (typeof targetElement === 'string') targetElement = this.$(targetElement);
+        if (typeof newElement === 'string') newElement = this.create(newElement);
+        if (targetElement && newElement && targetElement.parentNode) {
+          targetElement.parentNode.insertBefore(newElement, targetElement);
+        }
+        return newElement;
+      }
+
+      /**
+       * Find child elements
+       * @param {Element|string} element - Parent element or selector
+       * @param {string} selector - CSS selector
+       * @returns {Element[]} Array of matched child elements
+       */
+    }, {
+      key: "find",
+      value: function find(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return [];
+        return Array.from(element.querySelectorAll(selector));
+      }
+
+      /**
+       * Find first matching child element
+       * @param {Element|string} element - Parent element or selector
+       * @param {string} selector - CSS selector
+       * @returns {Element|null} First matched child element
+       */
+    }, {
+      key: "findFirst",
+      value: function findFirst(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return null;
+        return element.querySelector(selector);
+      }
+
+      /**
+       * Get or set style
+       * @param {Element|string} element - DOM element or selector
+       * @param {string|Object} property - Property name or property object
+       * @param {string} [value] - Style value (when property is string)
+       * @returns {Element|string|null} Element when setting, style value when getting
+       */
+    }, {
+      key: "css",
+      value: function css(element, property, value) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) {
+          return null;
+        }
+        if (_typeof(property) === 'object') {
+          // Batch set styles
+          Object.assign(element.style, property);
+          return element;
+        }
+        if (value === undefined) {
+          // Get style
+          return getComputedStyle(element)[property];
+        }
+        // Set style
+        element.style[property] = value;
+        return element;
+      }
+
+      /**
+       * Get element width
+       * @param {Element|string} element - DOM element or selector
+       * @returns {number} Element width
+       */
+    }, {
+      key: "width",
+      value: function width(element) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return 0;
+        return element.offsetWidth;
+      }
+
+      /**
+       * Get element height
+       * @param {Element|string} element - DOM element or selector
+       * @returns {number} Element height
+       */
+    }, {
+      key: "height",
+      value: function height(element) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return 0;
+        return element.offsetHeight;
+      }
+
+      /**
+       * Get element outer width (including border, optionally including margin)
+       * @param {Element|string} element - DOM element or selector
+       * @param {boolean} [includeMargin=false] - Whether to include margin
+       * @returns {number} Element outer width
+       */
+    }, {
+      key: "outerWidth",
+      value: function outerWidth(element) {
+        var includeMargin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return 0;
+        var width = element.offsetWidth;
+        if (includeMargin) {
+          var style = getComputedStyle(element);
+          var marginLeft = parseInt(style.marginLeft, 10) || 0;
+          var marginRight = parseInt(style.marginRight, 10) || 0;
+          width += marginLeft + marginRight;
+        }
+        return width;
+      }
+
+      /**
+       * Get element outer height (including border, optionally including margin)
+       * @param {Element|string} element - DOM element or selector
+       * @param {boolean} [includeMargin=false] - Whether to include margin
+       * @returns {number} Element outer height
+       */
+    }, {
+      key: "outerHeight",
+      value: function outerHeight(element) {
+        var includeMargin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return 0;
+        var height = element.offsetHeight;
+        if (includeMargin) {
+          var style = getComputedStyle(element);
+          var marginTop = parseInt(style.marginTop, 10) || 0;
+          var marginBottom = parseInt(style.marginBottom, 10) || 0;
+          height += marginTop + marginBottom;
+        }
+        return height;
+      }
+
+      /**
+       * Get or set element value
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [value] - Value (omit to get)
+       * @returns {Element|string|null} Element when setting, current value when getting
+       */
+    }, {
+      key: "val",
+      value: function val(element, value) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return value === undefined ? null : element;
+        if (value === undefined) {
+          return element.value;
+        }
+        element.value = value;
+        return element;
+      }
+
+      /**
+       * Get or set HTML content
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [content] - HTML content (omit to get). Warning: This method uses innerHTML
+       *                             and can execute scripts. Use text() for user-provided content.
+       * @returns {Element|string|null} Element when setting, HTML content when getting
+       */
+    }, {
+      key: "html",
+      value: function html(element, content) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return content === undefined ? null : element;
+        if (content === undefined) {
+          return element.innerHTML;
+        }
+        element.innerHTML = content;
+        return element;
+      }
+
+      /**
+       * Get or set text content
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [content] - Text content (omit to get)
+       * @returns {Element|string|null} Element when setting, text content when getting
+       */
+    }, {
+      key: "text",
+      value: function text(element, content) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return content === undefined ? null : element;
+        if (content === undefined) {
+          return element.textContent;
+        }
+        element.textContent = content;
+        return element;
+      }
+
+      /**
+       * Remove element
+       * @param {Element|string} element - DOM element or selector
+       * @returns {Element|null} Removed element
+       */
+    }, {
+      key: "remove",
+      value: function remove(element) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element || !element.parentNode) return element;
+        element.parentNode.removeChild(element);
+        return element;
+      }
+
+      /**
+       * Empty element content
+       * @param {Element|string} element - DOM element or selector
+       * @returns {Element|null} Emptied element
+       */
+    }, {
+      key: "empty",
+      value: function empty(element) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return element;
+        element.innerHTML = '';
+        return element;
+      }
+
+      /**
+       * Iterate over element collection
+       * @param {Element[]|NodeList|string} elements - Element collection or selector
+       * @param {Function} callback - Callback function with params (index, element)
+       * @returns {Element[]} Element collection
+       */
+    }, {
+      key: "each",
+      value: function each(elements, callback) {
+        if (typeof elements === 'string') {
+          elements = this.$$(elements);
+        } else if (elements instanceof NodeList) {
+          elements = Array.from(elements);
+        } else if (!Array.isArray(elements)) {
+          elements = [elements];
+        }
+        elements.forEach(function (element, index) {
+          callback.call(element, index, element);
+        });
+        return elements;
+      }
+
+      /**
+       * Get parent element
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [selector] - Parent element selector (optional)
+       * @returns {Element|null} Parent element
+       */
+    }, {
+      key: "parent",
+      value: function parent(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return null;
+        var parent = element.parentElement;
+        if (selector) {
+          while (parent && !parent.matches(selector)) {
+            parent = parent.parentElement;
+          }
+        }
+        return parent;
+      }
+
+      /**
+       * Get child elements
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [selector] - Child element selector (optional)
+       * @returns {Element[]} Array of child elements
+       */
+    }, {
+      key: "children",
+      value: function children(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return [];
+        var children = Array.from(element.children);
+        if (selector) {
+          children = children.filter(function (child) {
+            return child.matches(selector);
+          });
+        }
+        return children;
+      }
+
+      /**
+       * Get next sibling element
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [selector] - Sibling element selector (optional)
+       * @returns {Element|null} Next sibling element
+       */
+    }, {
+      key: "next",
+      value: function next(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return null;
+        var next = element.nextElementSibling;
+        if (selector) {
+          while (next && !next.matches(selector)) {
+            next = next.nextElementSibling;
+          }
+        }
+        return next;
+      }
+
+      /**
+       * Get previous sibling element
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} [selector] - Sibling element selector (optional)
+       * @returns {Element|null} Previous sibling element
+       */
+    }, {
+      key: "prev",
+      value: function prev(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return null;
+        var prev = element.previousElementSibling;
+        if (selector) {
+          while (prev && !prev.matches(selector)) {
+            prev = prev.previousElementSibling;
+          }
+        }
+        return prev;
+      }
+
+      /**
+       * Get element position relative to document
+       * @param {Element|string} element - DOM element or selector
+       * @returns {Object} Position info {top, left, width, height}
+       */
+    }, {
+      key: "offset",
+      value: function offset(element) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return {
+          top: 0,
+          left: 0,
+          width: 0,
+          height: 0
+        };
+        var rect = element.getBoundingClientRect();
+        return {
+          top: rect.top + window.scrollY,
+          left: rect.left + window.scrollX,
+          width: rect.width,
+          height: rect.height
+        };
+      }
+
+      /**
+       * Get element position relative to parent
+       * @param {Element|string} element - DOM element or selector
+       * @returns {Object} Position info {top, left}
+       */
+    }, {
+      key: "position",
+      value: function position(element) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return {
+          top: 0,
+          left: 0
+        };
+        return {
+          top: element.offsetTop,
+          left: element.offsetLeft
+        };
+      }
+
+      /**
+       * Check if element matches selector
+       * @param {Element|string} element - DOM element or selector
+       * @param {string} selector - CSS selector
+       * @returns {boolean} Whether it matches
+       */
+    }, {
+      key: "is",
+      value: function is(element, selector) {
+        if (typeof element === 'string') element = this.$(element);
+        if (!element) return false;
+        return element.matches(selector);
+      }
+    }]);
+  }(); // Export DOMHelper class
+
+  /**
+   * Framework detection and icon utilities.
+   *
+   * This module provides utility functions for detecting the Bootstrap framework version
+   * and managing icon prefixes and mappings for different CSS frameworks.
+   *
+   * @module utils/framework
+   */
+
+  /**
+   * Returns the prefix for the icons based on the theme.
+   *
+   * @param {string} theme - The theme name (bootstrap3, bootstrap4, bootstrap5, bootstrap-table, bulma, foundation, materialize, semantic).
+   * @returns {string} The icons prefix.
+   */
+  function getIconsPrefix(theme) {
+    return {
+      bootstrap3: 'glyphicon',
+      bootstrap4: 'fa',
+      bootstrap5: 'bi',
+      'bootstrap-table': 'icon',
+      bulma: 'fa',
+      foundation: 'fa',
+      materialize: 'material-icons',
+      semantic: 'fa'
+    }[theme] || 'fa';
   }
 
-  var hasRequiredEs_array_slice;
-
-  function requireEs_array_slice () {
-  	if (hasRequiredEs_array_slice) return es_array_slice;
-  	hasRequiredEs_array_slice = 1;
-  	var $ = require_export();
-  	var isArray = requireIsArray();
-  	var isConstructor = requireIsConstructor();
-  	var isObject = requireIsObject();
-  	var toAbsoluteIndex = requireToAbsoluteIndex();
-  	var lengthOfArrayLike = requireLengthOfArrayLike();
-  	var toIndexedObject = requireToIndexedObject();
-  	var createProperty = requireCreateProperty();
-  	var wellKnownSymbol = requireWellKnownSymbol();
-  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
-  	var nativeSlice = requireArraySlice();
-
-  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
-
-  	var SPECIES = wellKnownSymbol('species');
-  	var $Array = Array;
-  	var max = Math.max;
-
-  	// `Array.prototype.slice` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.slice
-  	// fallback for not array-like ES3 strings and DOM objects
-  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
-  	  slice: function slice(start, end) {
-  	    var O = toIndexedObject(this);
-  	    var length = lengthOfArrayLike(O);
-  	    var k = toAbsoluteIndex(start, length);
-  	    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
-  	    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
-  	    var Constructor, result, n;
-  	    if (isArray(O)) {
-  	      Constructor = O.constructor;
-  	      // cross-realm fallback
-  	      if (isConstructor(Constructor) && (Constructor === $Array || isArray(Constructor.prototype))) {
-  	        Constructor = undefined;
-  	      } else if (isObject(Constructor)) {
-  	        Constructor = Constructor[SPECIES];
-  	        if (Constructor === null) Constructor = undefined;
-  	      }
-  	      if (Constructor === $Array || Constructor === undefined) {
-  	        return nativeSlice(O, k, fin);
-  	      }
-  	    }
-  	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
-  	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-  	    result.length = n;
-  	    return result;
-  	  }
-  	});
-  	return es_array_slice;
+  /**
+   * Gets the icons for a given prefix.
+   *
+   * @param {Object.<string, Object>} icons - The icons object.
+   * @param {string} prefix - The prefix. For example, 'fa', 'bi', etc.
+   * @return {Object} The icons object for the given prefix.
+   */
+  function getIcons(icons, prefix) {
+    return icons[prefix] || {};
   }
 
-  requireEs_array_slice();
+  /**
+   * Assigns new icons to icons object.
+   *
+   * @param {Object.<string, Object>} icons - The icons object.
+   * @param {string} icon - The icon name. For example, 'search', 'refresh', etc.
+   * @param {Object.<string, string>} values - The values object.
+   */
+  function assignIcons(icons, icon, values) {
+    for (var _i = 0, _Object$keys = Object.keys(icons); _i < _Object$keys.length; _i++) {
+      var key = _Object$keys[_i];
+      icons[key][icon] = values[key];
+    }
+  }
+
+  /**
+   * Gets the Bootstrap version.
+   *
+   * @returns {number|undefined} The Bootstrap version number (3, 4, or 5), or undefined for non-Bootstrap themes.
+   */
+  function getBootstrapVersion() {
+    var _$$fn, _window$bootstrap, _$$fn2;
+    // Check if using a non-Bootstrap theme
+    if (typeof $ !== 'undefined' && (_$$fn = $.fn) !== null && _$$fn !== void 0 && (_$$fn = _$$fn.bootstrapTable) !== null && _$$fn !== void 0 && _$$fn.theme) {
+      var theme = $.fn.bootstrapTable.theme;
+      if (!theme.startsWith('bootstrap')) {
+        return;
+      }
+    }
+    var bootstrapVersion = 5;
+    if (typeof window !== 'undefined' && (_window$bootstrap = window.bootstrap) !== null && _window$bootstrap !== void 0 && (_window$bootstrap = _window$bootstrap.Tooltip) !== null && _window$bootstrap !== void 0 && _window$bootstrap.VERSION) {
+      bootstrapVersion = parseInt(window.bootstrap.Tooltip.VERSION, 10);
+    } else if (typeof $ !== 'undefined' && (_$$fn2 = $.fn) !== null && _$$fn2 !== void 0 && (_$$fn2 = _$$fn2.dropdown) !== null && _$$fn2 !== void 0 && (_$$fn2 = _$$fn2.Constructor) !== null && _$$fn2 !== void 0 && _$$fn2.VERSION) {
+      bootstrapVersion = parseInt($.fn.dropdown.Constructor.VERSION, 10);
+    }
+    return bootstrapVersion;
+  }
+
+  /**
+   * Gets the search input element.
+   *
+   * @param {Object} that - The Bootstrap Table instance.
+   * @returns {HTMLElement|null} The search input element, or null if not found.
+   */
+  function getSearchInput(that) {
+    if (typeof that.options.searchSelector === 'string') {
+      return DOMHelper.$(that.options.searchSelector);
+    }
+    var toolbar = that.$toolbar ? that.$toolbar[0] : null;
+    if (!toolbar) {
+      return null;
+    }
+    var result = DOMHelper.find(toolbar, '.search input');
+    return result.length > 0 ? result[0] : null;
+  }
+
+  var framework = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    assignIcons: assignIcons,
+    getBootstrapVersion: getBootstrapVersion,
+    getIcons: getIcons,
+    getIconsPrefix: getIconsPrefix,
+    getSearchInput: getSearchInput
+  });
 
   var es_object_getPrototypeOf = {};
 
@@ -4156,6 +5067,171 @@
   }
 
   requireEs_object_getPrototypeOf();
+
+  /**
+   * Object manipulation utilities.
+   *
+   * This module provides utility functions for working with plain JavaScript objects,
+   * including deep copying, merging, comparing, and checking object properties.
+   *
+   * @module utils/object
+   */
+
+  /**
+   * Checks if a value is a plain object.
+   *
+   * @param {*} obj - The value to check.
+   * @returns {boolean} True if the value is a plain object, false otherwise.
+   */
+  function isObject(obj) {
+    if (_typeof(obj) !== 'object' || obj === null) {
+      return false;
+    }
+    var proto = obj;
+    while (Object.getPrototypeOf(proto) !== null) {
+      proto = Object.getPrototypeOf(proto);
+    }
+    return Object.getPrototypeOf(obj) === proto;
+  }
+
+  // $.extend: https://github.com/jquery/jquery/blob/3.6.2/src/core.js#L132
+  /**
+   * Merges the contents of two or more objects together into the first object.
+   * This is a re-implementation of jQuery's extend function.
+   *
+   * @param {boolean} [deep=false] - If true, the merge becomes recursive (deep copy).
+   * @param {Object} target - The object to extend.
+   * @param {...Object} objects - The objects to merge into the target.
+   * @returns {Object} The extended target object.
+   */
+  function extend() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    var target = args[0] || {};
+    var i = 1;
+    var deep = false;
+    var clone;
+
+    // Handle a deep copy situation
+    if (typeof target === 'boolean') {
+      deep = target;
+
+      // Skip the boolean and the target
+      target = args[i] || {};
+      i++;
+    }
+
+    // Handle case when target is a string or something (possible in deep copy)
+    if (_typeof(target) !== 'object' && typeof target !== 'function') {
+      target = {};
+    }
+    for (; i < args.length; i++) {
+      var options = args[i];
+
+      // Ignore undefined/null values
+      if (typeof options === 'undefined' || options === null) {
+        continue;
+      }
+
+      // Extend the base object
+      // eslint-disable-next-line guard-for-in
+      for (var name in options) {
+        var copy = options[name];
+
+        // Prevent Object.prototype pollution
+        // Prevent never-ending loop
+        if (name === '__proto__' || target === copy) {
+          continue;
+        }
+        var copyIsArray = Array.isArray(copy);
+
+        // Recurse if we're merging plain objects or arrays
+        if (deep && copy && (isObject(copy) || copyIsArray)) {
+          var src = target[name];
+          if (copyIsArray && Array.isArray(src)) {
+            if (src.every(function (it) {
+              return !isObject(it) && !Array.isArray(it);
+            })) {
+              target[name] = copy;
+              continue;
+            }
+          }
+          if (copyIsArray && !Array.isArray(src)) {
+            clone = [];
+          } else if (!copyIsArray && !isObject(src)) {
+            clone = {};
+          } else {
+            clone = src;
+          }
+
+          // Never move original objects, clone them
+          target[name] = extend(deep, clone, copy);
+
+          // Don't bring in undefined values
+        } else if (copy !== undefined) {
+          target[name] = copy;
+        }
+      }
+    }
+    return target;
+  }
+
+  /**
+   * Creates a deep copy of a value.
+   *
+   * @param {*} arg - The value to deep copy.
+   * @returns {*} A deep copy of the input value.
+   */
+  function deepCopy(arg) {
+    if (arg === undefined) {
+      return arg;
+    }
+    return extend(true, Array.isArray(arg) ? [] : {}, arg);
+  }
+
+  /**
+   * Compares two objects for equality.
+   *
+   * @param {Object} objectA - The first object to compare.
+   * @param {Object} objectB - The second object to compare.
+   * @param {boolean} [compareLength=false] - If true, also compare the number of keys.
+   * @returns {boolean} True if the objects are equal, false otherwise.
+   */
+  function compareObjects(objectA, objectB, compareLength) {
+    var aKeys = Object.keys(objectA);
+    var bKeys = Object.keys(objectB);
+    if (compareLength && aKeys.length !== bKeys.length) {
+      return false;
+    }
+    for (var _i = 0, _aKeys = aKeys; _i < _aKeys.length; _i++) {
+      var key = _aKeys[_i];
+      if (bKeys.includes(key) && objectA[key] !== objectB[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Checks if an object is empty (has no own properties).
+   *
+   * @param {Object} [obj={}] - The object to check.
+   * @returns {boolean} True if the object is empty, false otherwise.
+   */
+  function isEmptyObject() {
+    var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return Object.entries(obj).length === 0 && obj.constructor === Object;
+  }
+
+  var object = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    compareObjects: compareObjects,
+    deepCopy: deepCopy,
+    extend: extend,
+    isEmptyObject: isEmptyObject,
+    isObject: isObject
+  });
 
   var es_regexp_constructor = {};
 
@@ -4388,7 +5464,7 @@
   	  var result = '';
   	  var brackets = false;
   	  var chr;
-  	  for (; index <= length; index++) {
+  	  for (; index < length; index++) {
   	    chr = charAt(string, index);
   	    if (chr === '\\') {
   	      result += chr + charAt(string, ++index);
@@ -4417,7 +5493,7 @@
   	  var groupid = 0;
   	  var groupname = '';
   	  var chr;
-  	  for (; index <= length; index++) {
+  	  for (; index < length; index++) {
   	    chr = charAt(string, index);
   	    if (chr === '\\') {
   	      chr += charAt(string, ++index);
@@ -4568,158 +5644,6 @@
   }
 
   requireEs_regexp_toString();
-
-  var es_string_endsWith = {};
-
-  var hasRequiredEs_string_endsWith;
-
-  function requireEs_string_endsWith () {
-  	if (hasRequiredEs_string_endsWith) return es_string_endsWith;
-  	hasRequiredEs_string_endsWith = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThisClause();
-  	var getOwnPropertyDescriptor = requireObjectGetOwnPropertyDescriptor().f;
-  	var toLength = requireToLength();
-  	var toString = requireToString();
-  	var notARegExp = requireNotARegexp();
-  	var requireObjectCoercible = requireRequireObjectCoercible();
-  	var correctIsRegExpLogic = requireCorrectIsRegexpLogic();
-  	var IS_PURE = requireIsPure();
-
-  	var slice = uncurryThis(''.slice);
-  	var min = Math.min;
-
-  	var CORRECT_IS_REGEXP_LOGIC = correctIsRegExpLogic('endsWith');
-  	// https://github.com/zloirock/core-js/pull/702
-  	var MDN_POLYFILL_BUG = !IS_PURE && !CORRECT_IS_REGEXP_LOGIC && !!function () {
-  	  var descriptor = getOwnPropertyDescriptor(String.prototype, 'endsWith');
-  	  return descriptor && !descriptor.writable;
-  	}();
-
-  	// `String.prototype.endsWith` method
-  	// https://tc39.es/ecma262/#sec-string.prototype.endswith
-  	$({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
-  	  endsWith: function endsWith(searchString /* , endPosition = @length */) {
-  	    var that = toString(requireObjectCoercible(this));
-  	    notARegExp(searchString);
-  	    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
-  	    var len = that.length;
-  	    var end = endPosition === undefined ? len : min(toLength(endPosition), len);
-  	    var search = toString(searchString);
-  	    return slice(that, end - search.length, end) === search;
-  	  }
-  	});
-  	return es_string_endsWith;
-  }
-
-  requireEs_string_endsWith();
-
-  var es_string_iterator = {};
-
-  var hasRequiredEs_string_iterator;
-
-  function requireEs_string_iterator () {
-  	if (hasRequiredEs_string_iterator) return es_string_iterator;
-  	hasRequiredEs_string_iterator = 1;
-  	var charAt = requireStringMultibyte().charAt;
-  	var toString = requireToString();
-  	var InternalStateModule = requireInternalState();
-  	var defineIterator = requireIteratorDefine();
-  	var createIterResultObject = requireCreateIterResultObject();
-
-  	var STRING_ITERATOR = 'String Iterator';
-  	var setInternalState = InternalStateModule.set;
-  	var getInternalState = InternalStateModule.getterFor(STRING_ITERATOR);
-
-  	// `String.prototype[@@iterator]` method
-  	// https://tc39.es/ecma262/#sec-string.prototype-@@iterator
-  	defineIterator(String, 'String', function (iterated) {
-  	  setInternalState(this, {
-  	    type: STRING_ITERATOR,
-  	    string: toString(iterated),
-  	    index: 0
-  	  });
-  	// `%StringIteratorPrototype%.next` method
-  	// https://tc39.es/ecma262/#sec-%stringiteratorprototype%.next
-  	}, function next() {
-  	  var state = getInternalState(this);
-  	  var string = state.string;
-  	  var index = state.index;
-  	  var point;
-  	  if (index >= string.length) return createIterResultObject(undefined, true);
-  	  point = charAt(string, index);
-  	  state.index += point.length;
-  	  return createIterResultObject(point, false);
-  	});
-  	return es_string_iterator;
-  }
-
-  requireEs_string_iterator();
-
-  var es_string_match = {};
-
-  var hasRequiredEs_string_match;
-
-  function requireEs_string_match () {
-  	if (hasRequiredEs_string_match) return es_string_match;
-  	hasRequiredEs_string_match = 1;
-  	var call = requireFunctionCall();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
-  	var anObject = requireAnObject();
-  	var isObject = requireIsObject();
-  	var toLength = requireToLength();
-  	var toString = requireToString();
-  	var requireObjectCoercible = requireRequireObjectCoercible();
-  	var getMethod = requireGetMethod();
-  	var advanceStringIndex = requireAdvanceStringIndex();
-  	var getRegExpFlags = requireRegexpGetFlags();
-  	var regExpExec = requireRegexpExecAbstract();
-
-  	var stringIndexOf = uncurryThis(''.indexOf);
-
-  	// @@match logic
-  	fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNative) {
-  	  return [
-  	    // `String.prototype.match` method
-  	    // https://tc39.es/ecma262/#sec-string.prototype.match
-  	    function match(regexp) {
-  	      var O = requireObjectCoercible(this);
-  	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
-  	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
-  	    },
-  	    // `RegExp.prototype[@@match]` method
-  	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
-  	    function (string) {
-  	      var rx = anObject(this);
-  	      var S = toString(string);
-  	      var res = maybeCallNative(nativeMatch, rx, S);
-
-  	      if (res.done) return res.value;
-
-  	      var flags = toString(getRegExpFlags(rx));
-
-  	      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
-
-  	      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
-  	      rx.lastIndex = 0;
-  	      var A = [];
-  	      var n = 0;
-  	      var result;
-  	      while ((result = regExpExec(rx, S)) !== null) {
-  	        var matchStr = toString(result[0]);
-  	        A[n] = matchStr;
-  	        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
-  	        n++;
-  	      }
-  	      return n === 0 ? null : A;
-  	    }
-  	  ];
-  	});
-  	return es_string_match;
-  }
-
-  requireEs_string_match();
 
   var es_string_replace = {};
 
@@ -4949,6 +5873,1048 @@
 
   requireEs_string_replace();
 
+  /**
+   * String manipulation utilities.
+   *
+   * This module provides utility functions for string processing, including:
+   * - String formatting (sprintf)
+   * - HTML escaping and unescaping
+   * - Accent character normalization for search
+   * - HTML tag removal
+   * - CSS style string normalization
+   *
+   * @module utils/string
+   */
+
+  /**
+   * Mapping of accented characters to their non-accented equivalents.
+   * Used by normalizeAccent function to convert accented characters.
+   *
+   * @constant {Object.<string, string>}
+   */
+  var ACCENT_MAP = {
+    // Nordic
+    Æ: 'AE',
+    æ: 'ae',
+    Ø: 'O',
+    ø: 'o',
+    Å: 'A',
+    å: 'a',
+    // German
+    Ä: 'A',
+    ä: 'a',
+    Ö: 'O',
+    ö: 'o',
+    Ü: 'U',
+    ü: 'u',
+    ẞ: 'SS',
+    ß: 'ss',
+    // French & others
+    Œ: 'OE',
+    œ: 'oe',
+    // Slavic/Central European
+    Č: 'C',
+    č: 'c',
+    Ć: 'C',
+    ć: 'c',
+    Š: 'S',
+    š: 's',
+    Ž: 'Z',
+    ž: 'z',
+    Ł: 'L',
+    ł: 'l',
+    Đ: 'Dj',
+    đ: 'dj',
+    Ń: 'N',
+    ń: 'n',
+    Ę: 'E',
+    ę: 'e',
+    Ą: 'A',
+    ą: 'a',
+    Ŕ: 'R',
+    ŕ: 'r',
+    // Turkish
+    Ğ: 'G',
+    ğ: 'g',
+    İ: 'I',
+    ı: 'i',
+    Ş: 'S',
+    ş: 's',
+    // Romanian
+    Ă: 'A',
+    ă: 'a',
+    Â: 'A',
+    â: 'a',
+    Î: 'I',
+    î: 'i',
+    Ș: 'S',
+    ș: 's',
+    Ț: 'T',
+    ț: 't',
+    // Greek
+    Α: 'A',
+    Ά: 'A',
+    α: 'a',
+    ά: 'a',
+    Β: 'V',
+    β: 'v',
+    Γ: 'G',
+    γ: 'g',
+    Δ: 'D',
+    δ: 'd',
+    Ε: 'E',
+    Έ: 'E',
+    ε: 'e',
+    έ: 'e',
+    Ζ: 'Z',
+    ζ: 'z',
+    Η: 'I',
+    Ή: 'I',
+    η: 'i',
+    ή: 'i',
+    Ι: 'I',
+    Ί: 'I',
+    ι: 'i',
+    ί: 'i',
+    Κ: 'K',
+    κ: 'k',
+    Λ: 'L',
+    λ: 'l',
+    Μ: 'M',
+    μ: 'm',
+    Ν: 'N',
+    ν: 'n',
+    Ξ: 'X',
+    ξ: 'x',
+    Ο: 'O',
+    Ό: 'O',
+    ο: 'o',
+    ό: 'o',
+    Π: 'P',
+    π: 'p',
+    Ρ: 'R',
+    ρ: 'r',
+    Σ: 'S',
+    σ: 's',
+    ς: 's',
+    Τ: 'T',
+    τ: 't',
+    Υ: 'Y',
+    Ύ: 'Y',
+    υ: 'y',
+    ύ: 'y',
+    Φ: 'F',
+    φ: 'f',
+    Χ: 'CH',
+    χ: 'ch',
+    Ψ: 'PS',
+    ψ: 'ps',
+    Ω: 'O',
+    Ώ: 'O',
+    ω: 'o',
+    ώ: 'o'
+  };
+
+  /**
+   * Simple string formatter that replaces %s placeholders with provided arguments.
+   * Only supports %s placeholder. Returns empty string if any argument is undefined.
+   *
+   * @param {string} _str - The format string containing %s placeholders.
+   * @param {...*} args - The values to replace the placeholders with.
+   * @returns {string} The formatted string, or empty string if any argument is undefined.
+   */
+  function sprintf(_str) {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+    var flag = true;
+    var i = 0;
+    var str = _str.replace(/%s/g, function () {
+      var arg = args[i++];
+      if (typeof arg === 'undefined') {
+        flag = false;
+        return '';
+      }
+      return arg;
+    });
+    return flag ? str : '';
+  }
+
+  /**
+   * Escapes apostrophes in a string by replacing them with HTML entity.
+   *
+   * @param {*} value - The value to escape.
+   * @returns {string} The string with apostrophes escaped.
+   */
+  function escapeApostrophe(value) {
+    return value.toString().replace(/'/g, '&#39;');
+  }
+
+  /**
+   * Escapes HTML special characters in a string.
+   *
+   * @param {*} text - The text to escape.
+   * @returns {*} The escaped text, or the original value if falsy.
+   */
+  function escapeHTML(text) {
+    if (!text) {
+      return text;
+    }
+    return text.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  /**
+   * Escapes HTML attribute value to prevent XSS attacks.
+   * The order of replacements is important for attributes: & must be first,
+   * then " and ' to prevent breaking out of the attribute.
+   *
+   * @param {*} text - The attribute value to escape.
+   * @returns {*} The escaped text, or the original value if falsy.
+   */
+  function escapeAttr(text) {
+    if (!text) {
+      return text;
+    }
+    return text.toString().replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /**
+   * Unescapes HTML entities in a string.
+   *
+   * @param {*} text - The text to unescape.
+   * @returns {*} The unescaped text, or the original value if not a string or falsy.
+   */
+  function unescapeHTML(text) {
+    if (typeof text !== 'string' || !text) {
+      return text;
+    }
+    return text.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'').replace(/&amp;/g, '&');
+  }
+
+  /**
+   * Removes HTML tags and HTML entities from a string.
+   *
+   * @param {*} text - The text to remove HTML from.
+   * @returns {*} The text with HTML removed, or the original value if falsy.
+   */
+  function removeHTML(text) {
+    if (!text) {
+      return text;
+    }
+    return text.toString().replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim();
+  }
+
+  /**
+   * Normalizes accented characters in a string to their non-accented equivalents.
+   * Converts to lowercase and removes diacritical marks.
+   *
+   * @param {*} value - The value to normalize.
+   * @returns {*} The normalized string, or the original value if not a string.
+   */
+  function normalizeAccent(value) {
+    if (typeof value !== 'string') {
+      return value;
+    }
+    var pattern = new RegExp("[".concat(Object.keys(ACCENT_MAP).join(''), "]"), 'g');
+    return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(pattern, function (char) {
+      return ACCENT_MAP[char];
+    }).toLowerCase().trim();
+  }
+
+  /**
+   * Normalizes a CSS style string by ensuring it ends with '; ' for proper concatenation.
+   * Returns undefined if the input is empty or contains only whitespace.
+   *
+   * @param {string|undefined} style - The style string to normalize.
+   * @returns {string|undefined} The normalized style string ending with '; ', or undefined.
+   * @example
+   * normalizeStyle('color: red')  // returns 'color: red; '
+   * normalizeStyle('color: red;') // returns 'color: red; '
+   * normalizeStyle('')            // returns undefined
+   * normalizeStyle(undefined)     // returns undefined
+   */
+  function normalizeStyle(style) {
+    if (!style) {
+      return undefined;
+    }
+    var trimmed = style.trim();
+    if (!trimmed) {
+      return undefined;
+    }
+    return trimmed.replace(/;?\s*$/, '; ');
+  }
+
+  var string = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    escapeApostrophe: escapeApostrophe,
+    escapeAttr: escapeAttr,
+    escapeHTML: escapeHTML,
+    normalizeAccent: normalizeAccent,
+    normalizeStyle: normalizeStyle,
+    removeHTML: removeHTML,
+    sprintf: sprintf,
+    unescapeHTML: unescapeHTML
+  });
+
+  var es_array_indexOf = {};
+
+  var hasRequiredEs_array_indexOf;
+
+  function requireEs_array_indexOf () {
+  	if (hasRequiredEs_array_indexOf) return es_array_indexOf;
+  	hasRequiredEs_array_indexOf = 1;
+  	/* eslint-disable es/no-array-prototype-indexof -- required for testing */
+  	var $ = require_export();
+  	var uncurryThis = requireFunctionUncurryThisClause();
+  	var $indexOf = requireArrayIncludes().indexOf;
+  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
+
+  	var nativeIndexOf = uncurryThis([].indexOf);
+
+  	var NEGATIVE_ZERO = !!nativeIndexOf && 1 / nativeIndexOf([1], 1, -0) < 0;
+  	var FORCED = NEGATIVE_ZERO || !arrayMethodIsStrict('indexOf');
+
+  	// `Array.prototype.indexOf` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.indexof
+  	$({ target: 'Array', proto: true, forced: FORCED }, {
+  	  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
+  	    var fromIndex = arguments.length > 1 ? arguments[1] : undefined;
+  	    return NEGATIVE_ZERO
+  	      // convert -0 to +0
+  	      ? nativeIndexOf(this, searchElement, fromIndex) || 0
+  	      : $indexOf(this, searchElement, fromIndex);
+  	  }
+  	});
+  	return es_array_indexOf;
+  }
+
+  requireEs_array_indexOf();
+
+  var es_array_map = {};
+
+  var hasRequiredEs_array_map;
+
+  function requireEs_array_map () {
+  	if (hasRequiredEs_array_map) return es_array_map;
+  	hasRequiredEs_array_map = 1;
+  	var $ = require_export();
+  	var $map = requireArrayIteration().map;
+  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
+
+  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
+
+  	// `Array.prototype.map` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.map
+  	// with adding support of @@species
+  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  	  map: function map(callbackfn /* , thisArg */) {
+  	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  	  }
+  	});
+  	return es_array_map;
+  }
+
+  requireEs_array_map();
+
+  /**
+   * DOM manipulation utility functions.
+   *
+   * This module provides helper functions for DOM manipulation using native JavaScript,
+   * including scrollbar width calculation, class name conversion, style parsing,
+   * h() function for element creation, and HTML-to-DOM conversion.
+   *
+   * Note: For a full jQuery-like DOM manipulation library, see src/helpers/dom.js
+   *
+   * @module utils/dom
+   */
+
+  var cachedWidth;
+
+  /**
+   * Gets the width of the browser scrollbar.
+   * The result is cached after the first call for performance.
+   *
+   * @returns {number} The width of the scrollbar in pixels.
+   */
+  function getScrollBarWidth() {
+    if (cachedWidth === undefined) {
+      var inner = DOMHelper.create('<div class="fixed-table-scroll-inner"></div>');
+      var outer = DOMHelper.create('<div class="fixed-table-scroll-outer"></div>');
+      DOMHelper.append(outer, inner);
+      DOMHelper.append(document.body, outer);
+      var w1 = inner.offsetWidth;
+      DOMHelper.css(outer, 'overflow', 'scroll');
+      var w2 = inner.offsetWidth;
+      if (w1 === w2) {
+        w2 = outer.clientWidth;
+      }
+      DOMHelper.remove(outer);
+      cachedWidth = w1 - w2;
+    }
+    return cachedWidth;
+  }
+
+  /**
+   * Converts a class specification to a string.
+   * Handles string, array, and object formats.
+   *
+   * @param {string|Array|Object.<string, boolean>} class_ - The class specification.
+   * @returns {string} The class names as a space-separated string.
+   */
+  function classToString(class_) {
+    if (typeof class_ === 'string') {
+      return class_;
+    }
+    if (Array.isArray(class_)) {
+      return class_.map(function (x) {
+        return classToString(x);
+      }).filter(function (x) {
+        return x;
+      }).join(' ');
+    }
+    if (class_ && _typeof(class_) === 'object') {
+      return Object.entries(class_).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          k = _ref2[0],
+          v = _ref2[1];
+        return v ? k : '';
+      }).filter(function (x) {
+        return x;
+      }).join(' ');
+    }
+    return '';
+  }
+
+  /**
+   * Parses and applies CSS styles to a DOM element.
+   * Supports string, array, and object formats. Handles !important priority.
+   *
+   * @param {HTMLElement} dom - The DOM element to apply styles to.
+   * @param {string|Array|Object.<string, string>} style - The style(s) to apply.
+   * @returns {HTMLElement} The DOM element with styles applied.
+   */
+  function parseStyle(dom, style) {
+    if (!style) {
+      return dom;
+    }
+
+    // Helper function to handle !important priority
+    var IMPORTANT_PRIORITY_REGEX = /\s*!important\s*$/i;
+    var parsePriority = function parsePriority(value) {
+      if (typeof value === 'string' && IMPORTANT_PRIORITY_REGEX.test(value)) {
+        return {
+          value: value.replace(IMPORTANT_PRIORITY_REGEX, ''),
+          priority: 'important'
+        };
+      }
+      return {
+        value: value,
+        priority: ''
+      };
+    };
+    if (typeof style === 'string') {
+      style.split(';').forEach(function (i) {
+        var index = i.indexOf(':');
+        if (index > 0) {
+          var k = i.substring(0, index).trim();
+          var v = i.substring(index + 1).trim();
+          var _parsePriority = parsePriority(v),
+            value = _parsePriority.value,
+            priority = _parsePriority.priority;
+          dom.style.setProperty(k, value, priority);
+        }
+      });
+    } else if (Array.isArray(style)) {
+      var _iterator = _createForOfIteratorHelper(style),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var item = _step.value;
+          parseStyle(dom, item);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    } else if (_typeof(style) === 'object') {
+      for (var _i = 0, _Object$entries = Object.entries(style); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          k = _Object$entries$_i[0],
+          v = _Object$entries$_i[1];
+        var _parsePriority2 = parsePriority(v),
+          value = _parsePriority2.value,
+          priority = _parsePriority2.priority;
+        dom.style.setProperty(k, value, priority);
+      }
+    }
+    return dom;
+  }
+
+  /**
+   * Creates a DOM element with attributes and children.
+   * This function provides a shorthand syntax for creating DOM elements.
+   *
+   * @param {string|HTMLElement} element - The tag name or existing element.
+   * @param {Object.<string, *>} [attrs={}] - The attributes to set on the element.
+   * @param {Array.<HTMLElement|string>} [children=[]] - The children to append.
+   * @returns {HTMLElement} The created or modified element.
+   */
+  function h(element, attrs, children) {
+    var el = element instanceof HTMLElement ? element : document.createElement(element);
+    var _attrs = attrs || {};
+    var _children = children || [];
+
+    // default attributes
+    if (el.tagName === 'A') {
+      el.href = 'javascript:';
+    }
+    for (var _i2 = 0, _Object$entries2 = Object.entries(_attrs); _i2 < _Object$entries2.length; _i2++) {
+      var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+        k = _Object$entries2$_i[0],
+        v = _Object$entries2$_i[1];
+      if (v === undefined) {
+        continue;
+      }
+      if (['text', 'innerText'].includes(k)) {
+        el.innerText = v;
+      } else if (['html', 'innerHTML'].includes(k)) {
+        el.innerHTML = v;
+      } else if (k === 'children') {
+        _children.push.apply(_children, _toConsumableArray(v));
+      } else if (k === 'class') {
+        el.setAttribute('class', classToString(v));
+      } else if (k === 'style') {
+        if (typeof v === 'string') {
+          el.setAttribute('style', v);
+        } else {
+          parseStyle(el, v);
+        }
+      } else if (k.startsWith('@') || k.startsWith('on')) {
+        // event handlers
+        var event = k.startsWith('@') ? k.substring(1) : k.substring(2).toLowerCase();
+        var args = Array.isArray(v) ? v : [v];
+        el.addEventListener.apply(el, [event].concat(_toConsumableArray(args)));
+      } else if (k.startsWith('.')) {
+        // set property
+        el[k.substring(1)] = v;
+      } else {
+        el.setAttribute(k, v);
+      }
+    }
+    if (_children.length) {
+      el.append.apply(el, _toConsumableArray(_children));
+    }
+    return el;
+  }
+
+  /**
+   * Converts HTML to DOM nodes.
+   * Uses duck typing to detect jQuery objects without direct dependency.
+   *
+   * @param {string|Node|Object} html - The HTML to convert. Can be a string, Node, or jQuery-like object.
+   * @returns {NodeList|Array<Node>} The DOM nodes.
+   */
+  function htmlToNodes(html) {
+    // Duck typing check for jQuery objects (check for 'jquery' property)
+    if (html && _typeof(html) === 'object' && 'jquery' in html) {
+      return Array.from(html);
+    }
+    if (html instanceof Node) {
+      return [html];
+    }
+    if (typeof html !== 'string') {
+      html = new String(html).toString();
+    }
+    var d = document.createElement('div');
+    d.innerHTML = html;
+    return d.childNodes;
+  }
+
+  var dom = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    classToString: classToString,
+    getScrollBarWidth: getScrollBarWidth,
+    h: h,
+    htmlToNodes: htmlToNodes,
+    parseStyle: parseStyle
+  });
+
+  var es_string_endsWith = {};
+
+  var hasRequiredEs_string_endsWith;
+
+  function requireEs_string_endsWith () {
+  	if (hasRequiredEs_string_endsWith) return es_string_endsWith;
+  	hasRequiredEs_string_endsWith = 1;
+  	var $ = require_export();
+  	var uncurryThis = requireFunctionUncurryThisClause();
+  	var getOwnPropertyDescriptor = requireObjectGetOwnPropertyDescriptor().f;
+  	var toLength = requireToLength();
+  	var toString = requireToString();
+  	var notARegExp = requireNotARegexp();
+  	var requireObjectCoercible = requireRequireObjectCoercible();
+  	var correctIsRegExpLogic = requireCorrectIsRegexpLogic();
+  	var IS_PURE = requireIsPure();
+
+  	var slice = uncurryThis(''.slice);
+  	var min = Math.min;
+
+  	var CORRECT_IS_REGEXP_LOGIC = correctIsRegExpLogic('endsWith');
+  	// https://github.com/zloirock/core-js/pull/702
+  	var MDN_POLYFILL_BUG = !IS_PURE && !CORRECT_IS_REGEXP_LOGIC && !!function () {
+  	  var descriptor = getOwnPropertyDescriptor(String.prototype, 'endsWith');
+  	  return descriptor && !descriptor.writable;
+  	}();
+
+  	// `String.prototype.endsWith` method
+  	// https://tc39.es/ecma262/#sec-string.prototype.endswith
+  	$({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
+  	  endsWith: function endsWith(searchString /* , endPosition = @length */) {
+  	    var that = toString(requireObjectCoercible(this));
+  	    notARegExp(searchString);
+  	    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
+  	    var len = that.length;
+  	    var end = endPosition === undefined ? len : min(toLength(endPosition), len);
+  	    var search = toString(searchString);
+  	    return slice(that, end - search.length, end) === search;
+  	  }
+  	});
+  	return es_string_endsWith;
+  }
+
+  requireEs_string_endsWith();
+
+  /**
+   * Table column and data processing utilities.
+   *
+   * This module provides utility functions for working with Bootstrap Table columns and data,
+   * including field indexing, data attribute parsing, and conversion between DOM and data formats.
+   *
+   * @module utils/table-data
+   */
+
+  /**
+   * Gets the title of a field from a list of column definitions.
+   *
+   * @param {Array.<Object.<string, *>>} list - The list of column definitions.
+   * @param {string} value - The field name to look for.
+   * @returns {string} The title of the field, or empty string if not found.
+   */
+  function getFieldTitle(list, value) {
+    var _iterator = _createForOfIteratorHelper(list),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var item = _step.value;
+        if (item.field === value) {
+          return item.title;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    return '';
+  }
+
+  /**
+   * Sets field indices for columns with colspan/rowspan support.
+   * Modifies the column definitions in place to add fieldIndex and colspanIndex properties.
+   *
+   * @param {Array.<Array.<Object.<string, *>>>} columns - The column definitions array.
+   */
+  function setFieldIndex(columns) {
+    var totalCol = 0;
+    var flag = [];
+    var _iterator2 = _createForOfIteratorHelper(columns[0]),
+      _step2;
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var column = _step2.value;
+        totalCol += +column.colspan || 1;
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+    for (var i = 0; i < columns.length; i++) {
+      flag[i] = [];
+      for (var j = 0; j < totalCol; j++) {
+        flag[i][j] = false;
+      }
+    }
+    for (var _i = 0; _i < columns.length; _i++) {
+      var _iterator3 = _createForOfIteratorHelper(columns[_i]),
+        _step3;
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var r = _step3.value;
+          var rowspan = +r.rowspan || 1;
+          var colspan = +r.colspan || 1;
+          var index = flag[_i].indexOf(false);
+          r.colspanIndex = index;
+          if (colspan === 1) {
+            r.fieldIndex = index;
+            // when field is undefined, use index instead
+            if (typeof r.field === 'undefined') {
+              r.field = index;
+            }
+          } else {
+            r.colspanGroup = +r.colspan;
+          }
+          for (var _j = 0; _j < rowspan; _j++) {
+            for (var k = 0; k < colspan; k++) {
+              flag[_i + _j][index + k] = true;
+            }
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+    }
+  }
+
+  /**
+   * Updates field groups based on column visibility.
+   * Modifies the column definitions in place to update colspan and visible properties.
+   *
+   * @param {Array.<Array.<Object.<string, *>>>} columns - The column definitions array.
+   * @param {Array.<Object.<string, *>>} fieldColumns - The field columns to update.
+   */
+  function updateFieldGroup(columns, fieldColumns) {
+    var _ref;
+    var allColumns = (_ref = []).concat.apply(_ref, _toConsumableArray(columns));
+    var _iterator4 = _createForOfIteratorHelper(columns),
+      _step4;
+    try {
+      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+        var c = _step4.value;
+        var _iterator6 = _createForOfIteratorHelper(c),
+          _step6;
+        try {
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var r = _step6.value;
+            if (r.colspanGroup > 1) {
+              var colspan = 0;
+              var _loop = function _loop(i) {
+                var underColumns = allColumns.filter(function (col) {
+                  return col.fieldIndex === i;
+                });
+                var column = underColumns[underColumns.length - 1];
+                if (underColumns.length > 1) {
+                  for (var j = 0; j < underColumns.length - 1; j++) {
+                    underColumns[j].visible = column.visible;
+                  }
+                }
+                if (column.visible) {
+                  colspan++;
+                }
+              };
+              for (var i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
+                _loop(i);
+              }
+              r.colspan = colspan;
+              r.visible = colspan > 0;
+            }
+          }
+        } catch (err) {
+          _iterator6.e(err);
+        } finally {
+          _iterator6.f();
+        }
+      }
+    } catch (err) {
+      _iterator4.e(err);
+    } finally {
+      _iterator4.f();
+    }
+    if (columns.length < 2) {
+      return;
+    }
+    var _iterator5 = _createForOfIteratorHelper(fieldColumns),
+      _step5;
+    try {
+      var _loop2 = function _loop2() {
+        var column = _step5.value;
+        var sameColumns = allColumns.filter(function (col) {
+          return col.fieldIndex === column.fieldIndex;
+        });
+        if (sameColumns.length > 1) {
+          var _iterator7 = _createForOfIteratorHelper(sameColumns),
+            _step7;
+          try {
+            for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+              var _c = _step7.value;
+              _c.visible = column.visible;
+            }
+          } catch (err) {
+            _iterator7.e(err);
+          } finally {
+            _iterator7.f();
+          }
+        }
+      };
+      for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+        _loop2();
+      }
+    } catch (err) {
+      _iterator5.e(err);
+    } finally {
+      _iterator5.f();
+    }
+  }
+
+  /**
+   * Converts camelCase data attribute names to kebab-case.
+   *
+   * @param {Object.<string, *>} dataAttr - The data attributes object.
+   * @returns {Object.<string, *>} The data attributes with kebab-case keys.
+   */
+  function getRealDataAttr(dataAttr) {
+    for (var _i2 = 0, _Object$entries = Object.entries(dataAttr); _i2 < _Object$entries.length; _i2++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+        attr = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+      var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
+      if (auxAttr !== attr) {
+        dataAttr[auxAttr] = value;
+        delete dataAttr[attr];
+      }
+    }
+    return dataAttr;
+  }
+
+  /**
+   * Gets a field value from an item, supporting nested properties.
+   *
+   * @param {Object.<string, *>} item - The item to get the field from.
+   * @param {string} field - The field name (supports dot notation for nested properties).
+   * @param {boolean} escape - Whether to escape HTML in the returned value.
+   * @param {boolean} [columnEscape=undefined] - Override for the escape parameter.
+   * @returns {*} The field value, escaped if requested.
+   */
+  function getItemField(item, field, escape) {
+    var columnEscape = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+    // use column escape if it is defined
+    if (typeof columnEscape !== 'undefined') {
+      escape = columnEscape;
+    }
+    if (typeof field !== 'string' || item.hasOwnProperty(field) || !field.includes('.')) {
+      return escape ? escapeHTML(item[field]) : item[field];
+    }
+    var props = field.split('.');
+    var value = item;
+    var _iterator8 = _createForOfIteratorHelper(props),
+      _step8;
+    try {
+      for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+        var p = _step8.value;
+        if (value === null || value === undefined) {
+          return; // undefined
+        }
+        value = value[p];
+      }
+    } catch (err) {
+      _iterator8.e(err);
+    } finally {
+      _iterator8.f();
+    }
+    return escape ? escapeHTML(value) : value;
+  }
+
+  /**
+   * Finds the index of an item in an array using deep equality.
+   *
+   * @param {Array.<*>} items - The array to search in.
+   * @param {*} item - The item to find.
+   * @returns {number} The index of the item, or -1 if not found.
+   */
+  function findIndex(items, item) {
+    var _iterator9 = _createForOfIteratorHelper(items),
+      _step9;
+    try {
+      for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+        var it = _step9.value;
+        if (JSON.stringify(it) === JSON.stringify(item)) {
+          return items.indexOf(it);
+        }
+      }
+    } catch (err) {
+      _iterator9.e(err);
+    } finally {
+      _iterator9.f();
+    }
+    return -1;
+  }
+
+  /**
+   * Converts table rows (tr elements) to data array.
+   * Preserves row and cell attributes including id, class, style, and data-* attributes.
+   *
+   * @param {Array.<Object.<string, *>>} columns - The column definitions.
+   * @param {HTMLCollection|NodeList|Array<Element>} els - The tr elements.
+   * @returns {Array.<Object.<string, *>>} The array of row data objects.
+   */
+  function trToData(columns, els) {
+    var data = [];
+    var m = [];
+    var elsArray = Array.from(els);
+    for (var y = 0; y < elsArray.length; y++) {
+      var el = elsArray[y];
+      var row = {};
+
+      // save tr's id, class and data-* attributes
+      row._id = DOMHelper.attr(el, 'id');
+      row._class = DOMHelper.attr(el, 'class');
+      row._data = getRealDataAttr(el.dataset || {});
+      row._style = DOMHelper.attr(el, 'style');
+      var cells = DOMHelper.children(el, 'td,th');
+      for (var x = 0; x < cells.length; x++) {
+        var cell = cells[x];
+        var colspan = parseInt(DOMHelper.attr(cell, 'colspan'), 10) || 1;
+        var rowspan = parseInt(DOMHelper.attr(cell, 'rowspan'), 10) || 1;
+        var currentX = x;
+
+        // skip already occupied cells in current row
+        for (; m[y] && m[y][currentX]; currentX++) {
+          // ignore
+        }
+
+        // mark matrix elements occupied by current cell with true
+        for (var tx = currentX; tx < currentX + colspan; tx++) {
+          for (var ty = y; ty < y + rowspan; ty++) {
+            if (!m[ty]) {
+              // fill missing rows
+              m[ty] = [];
+            }
+            m[ty][tx] = true;
+          }
+        }
+        var field = columns[currentX].field;
+        row[field] = escapeApostrophe(DOMHelper.html(cell).trim());
+        // save td's id, class and data-* attributes
+        row["_".concat(field, "_id")] = DOMHelper.attr(cell, 'id');
+        row["_".concat(field, "_class")] = DOMHelper.attr(cell, 'class');
+        row["_".concat(field, "_rowspan")] = DOMHelper.attr(cell, 'rowspan');
+        row["_".concat(field, "_colspan")] = DOMHelper.attr(cell, 'colspan');
+        row["_".concat(field, "_title")] = DOMHelper.attr(cell, 'title');
+        row["_".concat(field, "_data")] = getRealDataAttr(cell.dataset || {});
+        row["_".concat(field, "_style")] = DOMHelper.attr(cell, 'style');
+      }
+      data.push(row);
+    }
+    return data;
+  }
+
+  /**
+   * Checks if any row in the data has auto-merge cells (rowspan/colspan).
+   *
+   * @param {Array.<Object.<string, *>>} data - The data array to check.
+   * @returns {boolean} True if any row has auto-merge cells, false otherwise.
+   */
+  function checkAutoMergeCells(data) {
+    var _iterator0 = _createForOfIteratorHelper(data),
+      _step0;
+    try {
+      for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
+        var row = _step0.value;
+        for (var _i3 = 0, _Object$keys = Object.keys(row); _i3 < _Object$keys.length; _i3++) {
+          var key = _Object$keys[_i3];
+          if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
+            return true;
+          }
+        }
+      }
+    } catch (err) {
+      _iterator0.e(err);
+    } finally {
+      _iterator0.f();
+    }
+    return false;
+  }
+
+  var tableData = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    checkAutoMergeCells: checkAutoMergeCells,
+    findIndex: findIndex,
+    getFieldTitle: getFieldTitle,
+    getItemField: getItemField,
+    getRealDataAttr: getRealDataAttr,
+    setFieldIndex: setFieldIndex,
+    trToData: trToData,
+    updateFieldGroup: updateFieldGroup
+  });
+
+  var es_string_match = {};
+
+  var hasRequiredEs_string_match;
+
+  function requireEs_string_match () {
+  	if (hasRequiredEs_string_match) return es_string_match;
+  	hasRequiredEs_string_match = 1;
+  	var call = requireFunctionCall();
+  	var uncurryThis = requireFunctionUncurryThis();
+  	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
+  	var anObject = requireAnObject();
+  	var isObject = requireIsObject();
+  	var toLength = requireToLength();
+  	var toString = requireToString();
+  	var requireObjectCoercible = requireRequireObjectCoercible();
+  	var getMethod = requireGetMethod();
+  	var advanceStringIndex = requireAdvanceStringIndex();
+  	var getRegExpFlags = requireRegexpGetFlags();
+  	var regExpExec = requireRegexpExecAbstract();
+
+  	var stringIndexOf = uncurryThis(''.indexOf);
+
+  	// @@match logic
+  	fixRegExpWellKnownSymbolLogic('match', function (MATCH, nativeMatch, maybeCallNative) {
+  	  return [
+  	    // `String.prototype.match` method
+  	    // https://tc39.es/ecma262/#sec-string.prototype.match
+  	    function match(regexp) {
+  	      var O = requireObjectCoercible(this);
+  	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
+  	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
+  	    },
+  	    // `RegExp.prototype[@@match]` method
+  	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
+  	    function (string) {
+  	      var rx = anObject(this);
+  	      var S = toString(string);
+  	      var res = maybeCallNative(nativeMatch, rx, S);
+
+  	      if (res.done) return res.value;
+
+  	      var flags = toString(getRegExpFlags(rx));
+
+  	      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
+
+  	      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
+  	      rx.lastIndex = 0;
+  	      var A = [];
+  	      var n = 0;
+  	      var result;
+  	      while ((result = regExpExec(rx, S)) !== null) {
+  	        var matchStr = toString(result[0]);
+  	        A[n] = matchStr;
+  	        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+  	        n++;
+  	      }
+  	      return n === 0 ? null : A;
+  	    }
+  	  ];
+  	});
+  	return es_string_match;
+  }
+
+  requireEs_string_match();
+
   var es_string_search = {};
 
   var sameValue;
@@ -5014,48 +6980,150 @@
 
   requireEs_string_search();
 
-  var es_string_startsWith = {};
+  var es_array_iterator;
+  var hasRequiredEs_array_iterator;
 
-  var hasRequiredEs_string_startsWith;
-
-  function requireEs_string_startsWith () {
-  	if (hasRequiredEs_string_startsWith) return es_string_startsWith;
-  	hasRequiredEs_string_startsWith = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThisClause();
-  	var getOwnPropertyDescriptor = requireObjectGetOwnPropertyDescriptor().f;
-  	var toLength = requireToLength();
-  	var toString = requireToString();
-  	var notARegExp = requireNotARegexp();
-  	var requireObjectCoercible = requireRequireObjectCoercible();
-  	var correctIsRegExpLogic = requireCorrectIsRegexpLogic();
+  function requireEs_array_iterator () {
+  	if (hasRequiredEs_array_iterator) return es_array_iterator;
+  	hasRequiredEs_array_iterator = 1;
+  	var toIndexedObject = requireToIndexedObject();
+  	var addToUnscopables = requireAddToUnscopables();
+  	var Iterators = requireIterators();
+  	var InternalStateModule = requireInternalState();
+  	var defineProperty = requireObjectDefineProperty().f;
+  	var defineIterator = requireIteratorDefine();
+  	var createIterResultObject = requireCreateIterResultObject();
   	var IS_PURE = requireIsPure();
+  	var DESCRIPTORS = requireDescriptors();
 
-  	var stringSlice = uncurryThis(''.slice);
-  	var min = Math.min;
+  	var ARRAY_ITERATOR = 'Array Iterator';
+  	var setInternalState = InternalStateModule.set;
+  	var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR);
 
-  	var CORRECT_IS_REGEXP_LOGIC = correctIsRegExpLogic('startsWith');
-  	// https://github.com/zloirock/core-js/pull/702
-  	var MDN_POLYFILL_BUG = !IS_PURE && !CORRECT_IS_REGEXP_LOGIC && !!function () {
-  	  var descriptor = getOwnPropertyDescriptor(String.prototype, 'startsWith');
-  	  return descriptor && !descriptor.writable;
-  	}();
-
-  	// `String.prototype.startsWith` method
-  	// https://tc39.es/ecma262/#sec-string.prototype.startswith
-  	$({ target: 'String', proto: true, forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC }, {
-  	  startsWith: function startsWith(searchString /* , position = 0 */) {
-  	    var that = toString(requireObjectCoercible(this));
-  	    notARegExp(searchString);
-  	    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
-  	    var search = toString(searchString);
-  	    return stringSlice(that, index, index + search.length) === search;
+  	// `Array.prototype.entries` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.entries
+  	// `Array.prototype.keys` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.keys
+  	// `Array.prototype.values` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.values
+  	// `Array.prototype[@@iterator]` method
+  	// https://tc39.es/ecma262/#sec-array.prototype-@@iterator
+  	// `CreateArrayIterator` internal method
+  	// https://tc39.es/ecma262/#sec-createarrayiterator
+  	es_array_iterator = defineIterator(Array, 'Array', function (iterated, kind) {
+  	  setInternalState(this, {
+  	    type: ARRAY_ITERATOR,
+  	    target: toIndexedObject(iterated), // target
+  	    index: 0,                          // next index
+  	    kind: kind                         // kind
+  	  });
+  	// `%ArrayIteratorPrototype%.next` method
+  	// https://tc39.es/ecma262/#sec-%arrayiteratorprototype%.next
+  	}, function () {
+  	  var state = getInternalState(this);
+  	  var target = state.target;
+  	  var index = state.index++;
+  	  if (!target || index >= target.length) {
+  	    state.target = null;
+  	    return createIterResultObject(undefined, true);
   	  }
-  	});
-  	return es_string_startsWith;
+  	  switch (state.kind) {
+  	    case 'keys': return createIterResultObject(index, false);
+  	    case 'values': return createIterResultObject(target[index], false);
+  	  } return createIterResultObject([index, target[index]], false);
+  	}, 'values');
+
+  	// argumentsList[@@iterator] is %ArrayProto_values%
+  	// https://tc39.es/ecma262/#sec-createunmappedargumentsobject
+  	// https://tc39.es/ecma262/#sec-createmappedargumentsobject
+  	var values = Iterators.Arguments = Iterators.Array;
+
+  	// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+  	addToUnscopables('keys');
+  	addToUnscopables('values');
+  	addToUnscopables('entries');
+
+  	// V8 ~ Chrome 45- bug
+  	if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
+  	  defineProperty(values, 'name', { value: 'values' });
+  	} catch (error) { /* empty */ }
+  	return es_array_iterator;
   }
 
-  requireEs_string_startsWith();
+  requireEs_array_iterator();
+
+  var es_array_slice = {};
+
+  var arraySlice;
+  var hasRequiredArraySlice;
+
+  function requireArraySlice () {
+  	if (hasRequiredArraySlice) return arraySlice;
+  	hasRequiredArraySlice = 1;
+  	var uncurryThis = requireFunctionUncurryThis();
+
+  	arraySlice = uncurryThis([].slice);
+  	return arraySlice;
+  }
+
+  var hasRequiredEs_array_slice;
+
+  function requireEs_array_slice () {
+  	if (hasRequiredEs_array_slice) return es_array_slice;
+  	hasRequiredEs_array_slice = 1;
+  	var $ = require_export();
+  	var isArray = requireIsArray();
+  	var isConstructor = requireIsConstructor();
+  	var isObject = requireIsObject();
+  	var toAbsoluteIndex = requireToAbsoluteIndex();
+  	var lengthOfArrayLike = requireLengthOfArrayLike();
+  	var toIndexedObject = requireToIndexedObject();
+  	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
+  	var nativeSlice = requireArraySlice();
+
+  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
+
+  	var SPECIES = wellKnownSymbol('species');
+  	var $Array = Array;
+  	var max = Math.max;
+
+  	// `Array.prototype.slice` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.slice
+  	// fallback for not array-like ES3 strings and DOM objects
+  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  	  slice: function slice(start, end) {
+  	    var O = toIndexedObject(this);
+  	    var length = lengthOfArrayLike(O);
+  	    var k = toAbsoluteIndex(start, length);
+  	    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
+  	    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
+  	    var Constructor, result, n;
+  	    if (isArray(O)) {
+  	      Constructor = O.constructor;
+  	      // cross-realm fallback
+  	      if (isConstructor(Constructor) && (Constructor === $Array || isArray(Constructor.prototype))) {
+  	        Constructor = undefined;
+  	      } else if (isObject(Constructor)) {
+  	        Constructor = Constructor[SPECIES];
+  	        if (Constructor === null) Constructor = undefined;
+  	      }
+  	      if (Constructor === $Array || Constructor === undefined) {
+  	        return nativeSlice(O, k, fin);
+  	      }
+  	    }
+  	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
+  	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
+  	    setArrayLength(result, n);
+  	    return result;
+  	  }
+  	});
+  	return es_array_slice;
+  }
+
+  requireEs_array_slice();
 
   var web_domCollections_iterator = {};
 
@@ -5249,50 +7317,6 @@
   	  throw new $TypeError('Incorrect invocation');
   	};
   	return anInstance;
-  }
-
-  var getIteratorMethod;
-  var hasRequiredGetIteratorMethod;
-
-  function requireGetIteratorMethod () {
-  	if (hasRequiredGetIteratorMethod) return getIteratorMethod;
-  	hasRequiredGetIteratorMethod = 1;
-  	var classof = requireClassof();
-  	var getMethod = requireGetMethod();
-  	var isNullOrUndefined = requireIsNullOrUndefined();
-  	var Iterators = requireIterators();
-  	var wellKnownSymbol = requireWellKnownSymbol();
-
-  	var ITERATOR = wellKnownSymbol('iterator');
-
-  	getIteratorMethod = function (it) {
-  	  if (!isNullOrUndefined(it)) return getMethod(it, ITERATOR)
-  	    || getMethod(it, '@@iterator')
-  	    || Iterators[classof(it)];
-  	};
-  	return getIteratorMethod;
-  }
-
-  var getIterator;
-  var hasRequiredGetIterator;
-
-  function requireGetIterator () {
-  	if (hasRequiredGetIterator) return getIterator;
-  	hasRequiredGetIterator = 1;
-  	var call = requireFunctionCall();
-  	var aCallable = requireACallable();
-  	var anObject = requireAnObject();
-  	var tryToString = requireTryToString();
-  	var getIteratorMethod = requireGetIteratorMethod();
-
-  	var $TypeError = TypeError;
-
-  	getIterator = function (argument, usingIterator) {
-  	  var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
-  	  if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
-  	  throw new $TypeError(tryToString(argument) + ' is not iterable');
-  	};
-  	return getIterator;
   }
 
   var validateArgumentsLength;
@@ -5680,7 +7704,7 @@
   	    var state = getInternalParamsState(this);
   	    validateArgumentsLength(arguments.length, 2);
   	    push(state.entries, { key: $toString(name), value: $toString(value) });
-  	    if (!DESCRIPTORS) this.length++;
+  	    if (!DESCRIPTORS) this.size++;
   	    state.updateURL();
   	  },
   	  // `URLSearchParams.prototype.delete` method
@@ -5891,987 +7915,478 @@
 
   requireWeb_urlSearchParams();
 
-  var ACCENT_MAP = {
-    // Nordic
-    Æ: 'AE',
-    æ: 'ae',
-    Ø: 'O',
-    ø: 'o',
-    Å: 'A',
-    å: 'a',
-    // German
-    Ä: 'A',
-    ä: 'a',
-    Ö: 'O',
-    ö: 'o',
-    Ü: 'U',
-    ü: 'u',
-    ẞ: 'SS',
-    ß: 'ss',
-    // French & others
-    Œ: 'OE',
-    œ: 'oe',
-    // Slavic/Central European
-    Č: 'C',
-    č: 'c',
-    Ć: 'C',
-    ć: 'c',
-    Š: 'S',
-    š: 's',
-    Ž: 'Z',
-    ž: 'z',
-    Ł: 'L',
-    ł: 'l',
-    Đ: 'Dj',
-    đ: 'dj',
-    Ń: 'N',
-    ń: 'n',
-    Ę: 'E',
-    ę: 'e',
-    Ą: 'A',
-    ą: 'a',
-    Ŕ: 'R',
-    ŕ: 'r',
-    // Turkish
-    Ğ: 'G',
-    ğ: 'g',
-    İ: 'I',
-    ı: 'i',
-    Ş: 'S',
-    ş: 's',
-    // Romanian
-    Ă: 'A',
-    ă: 'a',
-    Â: 'A',
-    â: 'a',
-    Î: 'I',
-    î: 'i',
-    Ș: 'S',
-    ș: 's',
-    Ț: 'T',
-    ț: 't',
-    // Greek
-    Α: 'A',
-    Ά: 'A',
-    α: 'a',
-    ά: 'a',
-    Β: 'V',
-    β: 'v',
-    Γ: 'G',
-    γ: 'g',
-    Δ: 'D',
-    δ: 'd',
-    Ε: 'E',
-    Έ: 'E',
-    ε: 'e',
-    έ: 'e',
-    Ζ: 'Z',
-    ζ: 'z',
-    Η: 'I',
-    Ή: 'I',
-    η: 'i',
-    ή: 'i',
-    Ι: 'I',
-    Ί: 'I',
-    ι: 'i',
-    ί: 'i',
-    Κ: 'K',
-    κ: 'k',
-    Λ: 'L',
-    λ: 'l',
-    Μ: 'M',
-    μ: 'm',
-    Ν: 'N',
-    ν: 'n',
-    Ξ: 'X',
-    ξ: 'x',
-    Ο: 'O',
-    Ό: 'O',
-    ο: 'o',
-    ό: 'o',
-    Π: 'P',
-    π: 'p',
-    Ρ: 'R',
-    ρ: 'r',
-    Σ: 'S',
-    σ: 's',
-    ς: 's',
-    Τ: 'T',
-    τ: 't',
-    Υ: 'Y',
-    Ύ: 'Y',
-    υ: 'y',
-    ύ: 'y',
-    Φ: 'F',
-    φ: 'f',
-    Χ: 'CH',
-    χ: 'ch',
-    Ψ: 'PS',
-    ψ: 'ps',
-    Ω: 'O',
-    Ώ: 'O',
-    ω: 'o',
-    ώ: 'o'
-  };
-  var Utils = {
-    getBootstrapVersion: function getBootstrapVersion() {
-      var _window$bootstrap, _$$fn;
-      var bootstrapVersion = 5;
-      if (typeof window !== 'undefined' && (_window$bootstrap = window.bootstrap) !== null && _window$bootstrap !== void 0 && (_window$bootstrap = _window$bootstrap.Tooltip) !== null && _window$bootstrap !== void 0 && _window$bootstrap.VERSION) {
-        var rawVersion = window.bootstrap.Tooltip.VERSION;
-        if (rawVersion !== undefined) {
-          bootstrapVersion = parseInt(rawVersion, 10);
-        }
-      } else if (typeof $ !== 'undefined' && (_$$fn = $.fn) !== null && _$$fn !== void 0 && (_$$fn = _$$fn.dropdown) !== null && _$$fn !== void 0 && (_$$fn = _$$fn.Constructor) !== null && _$$fn !== void 0 && _$$fn.VERSION) {
-        var _rawVersion = $.fn.dropdown.Constructor.VERSION;
+  /**
+   * General helper utilities.
+   *
+   * This module provides miscellaneous helper functions used throughout Bootstrap Table,
+   * including debouncing, event handling, URL manipulation, and browser detection.
+   *
+   * @module utils/helper
+   */
 
-        // Only try to parse VERSION if it is defined.
-        // It is undefined in older versions of Bootstrap (tested with 3.1.1).
-        if (_rawVersion !== undefined) {
-          bootstrapVersion = parseInt(_rawVersion, 10);
-        }
-      }
-      return bootstrapVersion;
-    },
-    /**
-     * Returns the prefix for the icons based on the theme.
-     *
-     * @param {string} theme - The theme name (bootstrap3, bootstrap4, bootstrap5, bootstrap-table, bulma, foundation, materialize, semantic).
-     * @returns {string} The icons prefix.
-     */
-    getIconsPrefix: function getIconsPrefix(theme) {
-      return {
-        bootstrap3: 'glyphicon',
-        bootstrap4: 'fa',
-        bootstrap5: 'bi',
-        'bootstrap-table': 'icon',
-        bulma: 'fa',
-        foundation: 'fa',
-        materialize: 'material-icons',
-        semantic: 'fa'
-      }[theme] || 'fa';
-    },
-    /**
-     * Gets the icons for a given prefix.
-     *
-     * @param {Object.<string, Object>} icons - The icons object.
-     * @param {string} prefix - The prefix. For example, 'fa', 'bi', etc.
-     * @return {Object} The icons object for the given prefix.
-     */
-    getIcons: function getIcons(icons, prefix) {
-      return icons[prefix] || {};
-    },
-    /**
-     * Assigns new icons to icons object.
-     *
-     * @param {Object.<string, Object>} icons - The icons object.
-     * @param {string} icon - The icon name. For example, 'search', 'refresh', etc.
-     * @param {Object.<string, string>} values - The values object.
-     */
-    assignIcons: function assignIcons(icons, icon, values) {
-      for (var _i = 0, _Object$keys = Object.keys(icons); _i < _Object$keys.length; _i++) {
-        var key = _Object$keys[_i];
-        icons[key][icon] = values[key];
-      }
-    },
-    getSearchInput: function getSearchInput(that) {
-      if (typeof that.options.searchSelector === 'string') {
-        return $(that.options.searchSelector);
-      }
-      return that.$toolbar.find('.search input');
-    },
-    // $.extend: https://github.com/jquery/jquery/blob/3.6.2/src/core.js#L132
-    extend: function extend() {
-      var _this = this;
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-      var target = args[0] || {};
-      var i = 1;
-      var deep = false;
-      var clone;
-
-      // Handle a deep copy situation
-      if (typeof target === 'boolean') {
-        deep = target;
-
-        // Skip the boolean and the target
-        target = args[i] || {};
-        i++;
-      }
-
-      // Handle case when target is a string or something (possible in deep copy)
-      if (_typeof(target) !== 'object' && typeof target !== 'function') {
-        target = {};
-      }
-      for (; i < args.length; i++) {
-        var options = args[i];
-
-        // Ignore undefined/null values
-        if (typeof options === 'undefined' || options === null) {
-          continue;
-        }
-
-        // Extend the base object
-        // eslint-disable-next-line guard-for-in
-        for (var name in options) {
-          var copy = options[name];
-
-          // Prevent Object.prototype pollution
-          // Prevent never-ending loop
-          if (name === '__proto__' || target === copy) {
-            continue;
-          }
-          var copyIsArray = Array.isArray(copy);
-
-          // Recurse if we're merging plain objects or arrays
-          if (deep && copy && (this.isObject(copy) || copyIsArray)) {
-            var src = target[name];
-            if (copyIsArray && Array.isArray(src)) {
-              if (src.every(function (it) {
-                return !_this.isObject(it) && !Array.isArray(it);
-              })) {
-                target[name] = copy;
-                continue;
-              }
-            }
-            if (copyIsArray && !Array.isArray(src)) {
-              clone = [];
-            } else if (!copyIsArray && !this.isObject(src)) {
-              clone = {};
-            } else {
-              clone = src;
-            }
-
-            // Never move original objects, clone them
-            target[name] = this.extend(deep, clone, copy);
-
-            // Don't bring in undefined values
-          } else if (copy !== undefined) {
-            target[name] = copy;
-          }
-        }
-      }
-      return target;
-    },
-    // it only does '%s', and return '' when arguments are undefined
-    sprintf: function sprintf(_str) {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-      var flag = true;
-      var i = 0;
-      var str = _str.replace(/%s/g, function () {
-        var arg = args[i++];
-        if (typeof arg === 'undefined') {
-          flag = false;
-          return '';
-        }
-        return arg;
-      });
-      return flag ? str : '';
-    },
-    isObject: function isObject(obj) {
-      if (_typeof(obj) !== 'object' || obj === null) {
-        return false;
-      }
-      var proto = obj;
-      while (Object.getPrototypeOf(proto) !== null) {
-        proto = Object.getPrototypeOf(proto);
-      }
-      return Object.getPrototypeOf(obj) === proto;
-    },
-    isEmptyObject: function isEmptyObject() {
-      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      return Object.entries(obj).length === 0 && obj.constructor === Object;
-    },
-    isNumeric: function isNumeric(n) {
-      return !isNaN(parseFloat(n)) && isFinite(n);
-    },
-    getFieldTitle: function getFieldTitle(list, value) {
-      var _iterator = _createForOfIteratorHelper(list),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var item = _step.value;
-          if (item.field === value) {
-            return item.title;
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-      return '';
-    },
-    setFieldIndex: function setFieldIndex(columns) {
-      var totalCol = 0;
-      var flag = [];
-      var _iterator2 = _createForOfIteratorHelper(columns[0]),
-        _step2;
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var column = _step2.value;
-          totalCol += +column.colspan || 1;
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
-      }
-      for (var i = 0; i < columns.length; i++) {
-        flag[i] = [];
-        for (var j = 0; j < totalCol; j++) {
-          flag[i][j] = false;
-        }
-      }
-      for (var _i2 = 0; _i2 < columns.length; _i2++) {
-        var _iterator3 = _createForOfIteratorHelper(columns[_i2]),
-          _step3;
+  /**
+   * Calculates the value of an object property, supporting function calls and nested properties.
+   *
+   * @param {Object.<string, *>} self - The context to use when calling functions.
+   * @param {string|Function|*} name - The property name, function, or value to calculate.
+   * @param {Array.<*>} args - The arguments to pass to the function.
+   * @param {*} defaultValue - The default value to return if calculation fails.
+   * @returns {*} The calculated value or default value.
+   */
+  function calculateObjectValue(self, name, args, defaultValue) {
+    var func = name;
+    if (typeof name === 'string') {
+      // support obj.func1.func2
+      var names = name.split('.');
+      if (names.length > 1) {
+        func = window;
+        var _iterator = _createForOfIteratorHelper(names),
+          _step;
         try {
-          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-            var r = _step3.value;
-            var rowspan = +r.rowspan || 1;
-            var colspan = +r.colspan || 1;
-            var index = flag[_i2].indexOf(false);
-            r.colspanIndex = index;
-            if (colspan === 1) {
-              r.fieldIndex = index;
-              // when field is undefined, use index instead
-              if (typeof r.field === 'undefined') {
-                r.field = index;
-              }
-            } else {
-              r.colspanGroup = +r.colspan;
-            }
-            for (var _j = 0; _j < rowspan; _j++) {
-              for (var k = 0; k < colspan; k++) {
-                flag[_i2 + _j][index + k] = true;
-              }
-            }
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var f = _step.value;
+            func = func[f];
           }
         } catch (err) {
-          _iterator3.e(err);
+          _iterator.e(err);
         } finally {
-          _iterator3.f();
+          _iterator.f();
         }
+      } else {
+        func = window[name];
       }
-    },
-    normalizeAccent: function normalizeAccent(value) {
-      if (typeof value !== 'string') {
-        return value;
+    }
+    if (func !== null && _typeof(func) === 'object') {
+      return func;
+    }
+    if (typeof func === 'function') {
+      return func.apply(self, args || []);
+    }
+    if (!func && typeof name === 'string' && args && sprintf.apply(void 0, [name].concat(_toConsumableArray(args)))) {
+      return sprintf.apply(void 0, [name].concat(_toConsumableArray(args)));
+    }
+    return defaultValue;
+  }
+
+  /**
+   * Creates a debounced function that delays invoking func until after wait milliseconds.
+   *
+   * @param {Function} func - The function to debounce.
+   * @param {number} wait - The number of milliseconds to delay.
+   * @param {boolean} [immediate=false] - If true, trigger the function on the leading edge.
+   * @returns {Function} The debounced function.
+   */
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function executedFunction() {
+      var context = this;
+      var args = arguments;
+      var later = function later() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  /**
+   * Generates a unique event name with a prefix and optional ID.
+   *
+   * @param {string} eventPrefix - The prefix for the event name.
+   * @param {string} [id=''] - The optional ID to append. If not provided, generates a random ID.
+   * @returns {string} The generated event name.
+   */
+  function getEventName(eventPrefix) {
+    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    id = id || "".concat(+new Date()).concat(~~(Math.random() * 1000000));
+    return "".concat(eventPrefix, "-").concat(id);
+  }
+
+  /**
+   * Checks if the table has a detail view icon.
+   *
+   * @param {Object.<string, *>} options - The table options.
+   * @returns {boolean} True if the table has a detail view icon, false otherwise.
+   */
+  function hasDetailViewIcon(options) {
+    return options.detailView && options.detailViewIcon && !options.cardView;
+  }
+
+  /**
+   * Gets the index offset for the detail view column.
+   *
+   * @param {Object.<string, *>} options - The table options.
+   * @returns {number} The index offset (1 if detail view is on the left, 0 otherwise).
+   */
+  function getDetailViewIndexOffset(options) {
+    return hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0;
+  }
+
+  /**
+   * Adds query parameters to a URL while preserving the hash fragment.
+   *
+   * @param {string} url - The base URL.
+   * @param {Object.<string, string>} query - The query parameters to add.
+   * @returns {string} The URL with query parameters added.
+   */
+  function addQueryToUrl(url, query) {
+    var hashArray = url.split('#');
+    var _hashArray$0$split = hashArray[0].split('?'),
+      _hashArray$0$split2 = _slicedToArray(_hashArray$0$split, 2),
+      baseUrl = _hashArray$0$split2[0],
+      search = _hashArray$0$split2[1];
+    var urlParams = new URLSearchParams(search);
+    for (var _i = 0, _Object$entries = Object.entries(query); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+      urlParams.set(key, value);
+    }
+    return "".concat(baseUrl, "?").concat(urlParams.toString(), "#").concat(hashArray.slice(1).join('#'));
+  }
+
+  /**
+   * Checks if a value is numeric.
+   *
+   * @param {*} n - The value to check.
+   * @returns {boolean} True if the value is numeric, false otherwise.
+   */
+  function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  /**
+   * Checks if the current browser is Internet Explorer.
+   *
+   * @returns {boolean} True if the browser is IE, false otherwise.
+   */
+  function isIEBrowser() {
+    return navigator.userAgent.includes('MSIE ') || /Trident.*rv:11\./.test(navigator.userAgent);
+  }
+
+  var helper = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    addQueryToUrl: addQueryToUrl,
+    calculateObjectValue: calculateObjectValue,
+    debounce: debounce,
+    getDetailViewIndexOffset: getDetailViewIndexOffset,
+    getEventName: getEventName,
+    hasDetailViewIcon: hasDetailViewIcon,
+    isIEBrowser: isIEBrowser,
+    isNumeric: isNumeric
+  });
+
+  /**
+   * Search and sorting utilities.
+   *
+   * This module provides utility functions for searching and sorting table data,
+   * including regex comparison, custom sorting logic, and search result highlighting.
+   *
+   * @module utils/search-sort
+   */
+
+  /**
+   * Compares a value against a search pattern using regex.
+   * Supports both plain text search and regex patterns (e.g., /pattern/flags).
+   *
+   * @param {*} value - The value to search in.
+   * @param {string} search - The search pattern or regex.
+   * @returns {boolean} True if the value matches the search pattern, false otherwise.
+   */
+  function regexCompare(value, search) {
+    try {
+      var regexpParts = search.match(/^\/(.*?)\/([gim]*)$/);
+      if (value.toString().search(regexpParts ? new RegExp(regexpParts[1], regexpParts[2]) : new RegExp(search, 'gim')) !== -1) {
+        return true;
       }
-      var pattern = new RegExp("[".concat(Object.keys(ACCENT_MAP).join(''), "]"), 'g');
-      return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(pattern, function (char) {
-        return ACCENT_MAP[char];
-      }).toLowerCase().trim();
-    },
-    updateFieldGroup: function updateFieldGroup(columns, fieldColumns) {
-      var _ref;
-      var allColumns = (_ref = []).concat.apply(_ref, _toConsumableArray(columns));
-      var _iterator4 = _createForOfIteratorHelper(columns),
-        _step4;
-      try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var c = _step4.value;
-          var _iterator6 = _createForOfIteratorHelper(c),
-            _step6;
-          try {
-            for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-              var r = _step6.value;
-              if (r.colspanGroup > 1) {
-                var colspan = 0;
-                var _loop = function _loop(i) {
-                  var underColumns = allColumns.filter(function (col) {
-                    return col.fieldIndex === i;
-                  });
-                  var column = underColumns[underColumns.length - 1];
-                  if (underColumns.length > 1) {
-                    for (var j = 0; j < underColumns.length - 1; j++) {
-                      underColumns[j].visible = column.visible;
-                    }
-                  }
-                  if (column.visible) {
-                    colspan++;
-                  }
-                };
-                for (var i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
-                  _loop(i);
-                }
-                r.colspan = colspan;
-                r.visible = colspan > 0;
-              }
-            }
-          } catch (err) {
-            _iterator6.e(err);
-          } finally {
-            _iterator6.f();
-          }
-        }
-      } catch (err) {
-        _iterator4.e(err);
-      } finally {
-        _iterator4.f();
-      }
-      if (columns.length < 2) {
-        return;
-      }
-      var _iterator5 = _createForOfIteratorHelper(fieldColumns),
-        _step5;
-      try {
-        var _loop2 = function _loop2() {
-          var column = _step5.value;
-          var sameColumns = allColumns.filter(function (col) {
-            return col.fieldIndex === column.fieldIndex;
-          });
-          if (sameColumns.length > 1) {
-            var _iterator7 = _createForOfIteratorHelper(sameColumns),
-              _step7;
-            try {
-              for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-                var _c = _step7.value;
-                _c.visible = column.visible;
-              }
-            } catch (err) {
-              _iterator7.e(err);
-            } finally {
-              _iterator7.f();
-            }
-          }
-        };
-        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-          _loop2();
-        }
-      } catch (err) {
-        _iterator5.e(err);
-      } finally {
-        _iterator5.f();
-      }
-    },
-    getScrollBarWidth: function getScrollBarWidth() {
-      if (this.cachedWidth === undefined) {
-        var $inner = $('<div/>').addClass('fixed-table-scroll-inner');
-        var $outer = $('<div/>').addClass('fixed-table-scroll-outer');
-        $outer.append($inner);
-        $('body').append($outer);
-        var w1 = $inner[0].offsetWidth;
-        $outer.css('overflow', 'scroll');
-        var w2 = $inner[0].offsetWidth;
-        if (w1 === w2) {
-          w2 = $outer[0].clientWidth;
-        }
-        $outer.remove();
-        this.cachedWidth = w1 - w2;
-      }
-      return this.cachedWidth;
-    },
-    calculateObjectValue: function calculateObjectValue(self, name, args, defaultValue) {
-      var func = name;
-      if (typeof name === 'string') {
-        // support obj.func1.func2
-        var names = name.split('.');
-        if (names.length > 1) {
-          func = window;
-          var _iterator8 = _createForOfIteratorHelper(names),
-            _step8;
-          try {
-            for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
-              var f = _step8.value;
-              func = func[f];
-            }
-          } catch (err) {
-            _iterator8.e(err);
-          } finally {
-            _iterator8.f();
-          }
-        } else {
-          func = window[name];
-        }
-      }
-      if (func !== null && _typeof(func) === 'object') {
-        return func;
-      }
-      if (typeof func === 'function') {
-        return func.apply(self, args || []);
-      }
-      if (!func && typeof name === 'string' && args && this.sprintf.apply(this, [name].concat(_toConsumableArray(args)))) {
-        return this.sprintf.apply(this, [name].concat(_toConsumableArray(args)));
-      }
-      return defaultValue;
-    },
-    compareObjects: function compareObjects(objectA, objectB, compareLength) {
-      var aKeys = Object.keys(objectA);
-      var bKeys = Object.keys(objectB);
-      if (compareLength && aKeys.length !== bKeys.length) {
-        return false;
-      }
-      for (var _i3 = 0, _aKeys = aKeys; _i3 < _aKeys.length; _i3++) {
-        var key = _aKeys[_i3];
-        if (bKeys.includes(key) && objectA[key] !== objectB[key]) {
-          return false;
-        }
-      }
-      return true;
-    },
-    regexCompare: function regexCompare(value, search) {
-      try {
-        var regexpParts = search.match(/^\/(.*?)\/([gim]*)$/);
-        if (value.toString().search(regexpParts ? new RegExp(regexpParts[1], regexpParts[2]) : new RegExp(search, 'gim')) !== -1) {
-          return true;
-        }
-      } catch (e) {
-        console.error(e);
-        return false;
-      }
+    } catch (e) {
+      console.error(e);
       return false;
-    },
-    escapeApostrophe: function escapeApostrophe(value) {
-      return value.toString().replace(/'/g, '&#39;');
-    },
-    escapeHTML: function escapeHTML(text) {
-      if (!text) {
-        return text;
-      }
-      return text.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    },
-    unescapeHTML: function unescapeHTML(text) {
-      if (typeof text !== 'string' || !text) {
-        return text;
-      }
-      return text.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'').replace(/&amp;/g, '&');
-    },
-    removeHTML: function removeHTML(text) {
-      if (!text) {
-        return text;
-      }
-      return text.toString().replace(/(<([^>]+)>)/ig, '').replace(/&[#A-Za-z0-9]+;/gi, '').trim();
-    },
-    getRealDataAttr: function getRealDataAttr(dataAttr) {
-      for (var _i4 = 0, _Object$entries = Object.entries(dataAttr); _i4 < _Object$entries.length; _i4++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i4], 2),
-          attr = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
-        var auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase();
-        if (auxAttr !== attr) {
-          dataAttr[auxAttr] = value;
-          delete dataAttr[attr];
-        }
-      }
-      return dataAttr;
-    },
-    getItemField: function getItemField(item, field, escape) {
-      var columnEscape = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
-      var value = item;
+    }
+    return false;
+  }
 
-      // use column escape if it is defined
-      if (typeof columnEscape !== 'undefined') {
-        escape = columnEscape;
-      }
-      if (typeof field !== 'string' || item.hasOwnProperty(field)) {
-        return escape ? this.escapeHTML(item[field]) : item[field];
-      }
-      var props = field.split('.');
-      var _iterator9 = _createForOfIteratorHelper(props),
-        _step9;
-      try {
-        for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
-          var p = _step9.value;
-          value = value && value[p];
-        }
-      } catch (err) {
-        _iterator9.e(err);
-      } finally {
-        _iterator9.f();
-      }
-      return escape ? this.escapeHTML(value) : value;
-    },
-    isIEBrowser: function isIEBrowser() {
-      return navigator.userAgent.includes('MSIE ') || /Trident.*rv:11\./.test(navigator.userAgent);
-    },
-    findIndex: function findIndex(items, item) {
-      var _iterator0 = _createForOfIteratorHelper(items),
-        _step0;
-      try {
-        for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
-          var it = _step0.value;
-          if (JSON.stringify(it) === JSON.stringify(item)) {
-            return items.indexOf(it);
-          }
-        }
-      } catch (err) {
-        _iterator0.e(err);
-      } finally {
-        _iterator0.f();
-      }
-      return -1;
-    },
-    trToData: function trToData(columns, $els) {
-      var _this2 = this;
-      var data = [];
-      var m = [];
-      $els.each(function (y, el) {
-        var $el = $(el);
-        var row = {};
+  /**
+   * Sorts two values with support for numeric, string, and empty value handling.
+   *
+   * @param {*} a - The first value to compare.
+   * @param {*} b - The second value to compare.
+   * @param {number} order - The sort order (1 for ascending, -1 for descending).
+   * @param {Object.<string, *>} options - Sort options.
+   * @param {boolean} [options.sortStable=false] - If true, use position for equal values.
+   * @param {boolean} [options.sortEmptyLast=false] - If true, sort empty values last.
+   * @param {number} aPosition - The position of the first value.
+   * @param {number} bPosition - The position of the second value.
+   * @returns {number} Negative if a < b, positive if a > b, 0 if equal.
+   */
+  function sort(a, b, order, options, aPosition, bPosition) {
+    if (a === undefined || a === null) {
+      a = '';
+    }
+    if (b === undefined || b === null) {
+      b = '';
+    }
+    if (options.sortStable && a === b) {
+      a = aPosition;
+      b = bPosition;
+    }
 
-        // save tr's id, class and data-* attributes
-        row._id = $el.attr('id');
-        row._class = $el.attr('class');
-        row._data = _this2.getRealDataAttr($el.data());
-        row._style = $el.attr('style');
-        $el.find('>td,>th').each(function (_x, el) {
-          var $el = $(el);
-          var colspan = +$el.attr('colspan') || 1;
-          var rowspan = +$el.attr('rowspan') || 1;
-          var x = _x;
-
-          // skip already occupied cells in current row
-          for (; m[y] && m[y][x]; x++) {
-            // ignore
-          }
-
-          // mark matrix elements occupied by current cell with true
-          for (var tx = x; tx < x + colspan; tx++) {
-            for (var ty = y; ty < y + rowspan; ty++) {
-              if (!m[ty]) {
-                // fill missing rows
-                m[ty] = [];
-              }
-              m[ty][tx] = true;
-            }
-          }
-          var field = columns[x].field;
-          row[field] = _this2.escapeApostrophe($el.html().trim());
-          // save td's id, class and data-* attributes
-          row["_".concat(field, "_id")] = $el.attr('id');
-          row["_".concat(field, "_class")] = $el.attr('class');
-          row["_".concat(field, "_rowspan")] = $el.attr('rowspan');
-          row["_".concat(field, "_colspan")] = $el.attr('colspan');
-          row["_".concat(field, "_title")] = $el.attr('title');
-          row["_".concat(field, "_data")] = _this2.getRealDataAttr($el.data());
-          row["_".concat(field, "_style")] = $el.attr('style');
-        });
-        data.push(row);
-      });
-      return data;
-    },
-    sort: function sort(a, b, order, options, aPosition, bPosition) {
-      if (a === undefined || a === null) {
-        a = '';
-      }
-      if (b === undefined || b === null) {
-        b = '';
-      }
-      if (options.sortStable && a === b) {
-        a = aPosition;
-        b = bPosition;
-      }
-
-      // If both values are numeric, do a numeric comparison
-      if (this.isNumeric(a) && this.isNumeric(b)) {
-        // Convert numerical values form string to float.
-        a = parseFloat(a);
-        b = parseFloat(b);
-        if (a < b) {
-          return order * -1;
-        }
-        if (a > b) {
-          return order;
-        }
-        return 0;
-      }
-      if (options.sortEmptyLast) {
-        if (a === '') {
-          return 1;
-        }
-        if (b === '') {
-          return -1;
-        }
-      }
-      if (a === b) {
-        return 0;
-      }
-
-      // If value is not a string, convert to string
-      if (typeof a !== 'string') {
-        a = a.toString();
-      }
-      if (a.localeCompare(b) === -1) {
+    // If both values are numeric, do a numeric comparison
+    if (isNumeric(a) && isNumeric(b)) {
+      // Convert numerical values from string to float.
+      a = parseFloat(a);
+      b = parseFloat(b);
+      if (a < b) {
         return order * -1;
       }
-      return order;
-    },
-    getEventName: function getEventName(eventPrefix) {
-      var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      id = id || "".concat(+new Date()).concat(~~(Math.random() * 1000000));
-      return "".concat(eventPrefix, "-").concat(id);
-    },
-    hasDetailViewIcon: function hasDetailViewIcon(options) {
-      return options.detailView && options.detailViewIcon && !options.cardView;
-    },
-    getDetailViewIndexOffset: function getDetailViewIndexOffset(options) {
-      return this.hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0;
-    },
-    checkAutoMergeCells: function checkAutoMergeCells(data) {
-      var _iterator1 = _createForOfIteratorHelper(data),
-        _step1;
-      try {
-        for (_iterator1.s(); !(_step1 = _iterator1.n()).done;) {
-          var row = _step1.value;
-          for (var _i5 = 0, _Object$keys2 = Object.keys(row); _i5 < _Object$keys2.length; _i5++) {
-            var key = _Object$keys2[_i5];
-            if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
-              return true;
-            }
-          }
-        }
-      } catch (err) {
-        _iterator1.e(err);
-      } finally {
-        _iterator1.f();
+      if (a > b) {
+        return order;
       }
-      return false;
-    },
-    deepCopy: function deepCopy(arg) {
-      if (arg === undefined) {
-        return arg;
-      }
-      return this.extend(true, Array.isArray(arg) ? [] : {}, arg);
-    },
-    debounce: function debounce(func, wait, immediate) {
-      var timeout;
-      return function executedFunction() {
-        var context = this;
-        var args = arguments;
-        var later = function later() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
-    },
-    replaceSearchMark: function replaceSearchMark(html, searchText) {
-      var isDom = html instanceof Element;
-      var node = isDom ? html : document.createElement('div');
-      var regExp = new RegExp(searchText, 'gim');
-      var replaceTextWithDom = function replaceTextWithDom(text, regExp) {
-        var result = [];
-        var match;
-        var lastIndex = 0;
-        while ((match = regExp.exec(text)) !== null) {
-          if (lastIndex !== match.index) {
-            result.push(document.createTextNode(text.substring(lastIndex, match.index)));
-          }
-          var mark = document.createElement('mark');
-          mark.innerText = match[0];
-          result.push(mark);
-          lastIndex = match.index + match[0].length;
-        }
-        if (!result.length) {
-          // no match
-          return;
-        }
-        if (lastIndex !== text.length) {
-          result.push(document.createTextNode(text.substring(lastIndex)));
-        }
-        return result;
-      };
-      var _replaceMark = function replaceMark(node) {
-        for (var i = 0; i < node.childNodes.length; i++) {
-          var child = node.childNodes[i];
-          if (child.nodeType === document.TEXT_NODE) {
-            var elements = replaceTextWithDom(child.data, regExp);
-            if (elements) {
-              var _iterator10 = _createForOfIteratorHelper(elements),
-                _step10;
-              try {
-                for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-                  var el = _step10.value;
-                  node.insertBefore(el, child);
-                }
-              } catch (err) {
-                _iterator10.e(err);
-              } finally {
-                _iterator10.f();
-              }
-              node.removeChild(child);
-              i += elements.length - 1;
-            }
-          }
-          if (child.nodeType === document.ELEMENT_NODE) {
-            _replaceMark(child);
-          }
-        }
-      };
-      if (!isDom) {
-        node.innerHTML = html;
-      }
-      _replaceMark(node);
-      return isDom ? node : node.innerHTML;
-    },
-    classToString: function classToString(class_) {
-      var _this3 = this;
-      if (typeof class_ === 'string') {
-        return class_;
-      }
-      if (Array.isArray(class_)) {
-        return class_.map(function (x) {
-          return _this3.classToString(x);
-        }).filter(function (x) {
-          return x;
-        }).join(' ');
-      }
-      if (class_ && _typeof(class_) === 'object') {
-        return Object.entries(class_).map(function (_ref2) {
-          var _ref3 = _slicedToArray(_ref2, 2),
-            k = _ref3[0],
-            v = _ref3[1];
-          return v ? k : '';
-        }).filter(function (x) {
-          return x;
-        }).join(' ');
-      }
-      return '';
-    },
-    parseStyle: function parseStyle(dom, style) {
-      if (!style) {
-        return dom;
-      }
-
-      // Helper function to handle !important priority
-      var IMPORTANT_PRIORITY_REGEX = /\s*!important\s*$/i;
-      var parsePriority = function parsePriority(value) {
-        if (typeof value === 'string' && IMPORTANT_PRIORITY_REGEX.test(value)) {
-          return {
-            value: value.replace(IMPORTANT_PRIORITY_REGEX, ''),
-            priority: 'important'
-          };
-        }
-        return {
-          value: value,
-          priority: ''
-        };
-      };
-      if (typeof style === 'string') {
-        style.split(';').forEach(function (i) {
-          var index = i.indexOf(':');
-          if (index > 0) {
-            var k = i.substring(0, index).trim();
-            var v = i.substring(index + 1).trim();
-            var _parsePriority = parsePriority(v),
-              value = _parsePriority.value,
-              priority = _parsePriority.priority;
-            dom.style.setProperty(k, value, priority);
-          }
-        });
-      } else if (Array.isArray(style)) {
-        var _iterator11 = _createForOfIteratorHelper(style),
-          _step11;
-        try {
-          for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
-            var item = _step11.value;
-            this.parseStyle(dom, item);
-          }
-        } catch (err) {
-          _iterator11.e(err);
-        } finally {
-          _iterator11.f();
-        }
-      } else if (_typeof(style) === 'object') {
-        for (var _i6 = 0, _Object$entries2 = Object.entries(style); _i6 < _Object$entries2.length; _i6++) {
-          var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i6], 2),
-            k = _Object$entries2$_i[0],
-            v = _Object$entries2$_i[1];
-          var _parsePriority2 = parsePriority(v),
-            value = _parsePriority2.value,
-            priority = _parsePriority2.priority;
-          dom.style.setProperty(k, value, priority);
-        }
-      }
-      return dom;
-    },
-    h: function h(element, attrs, children) {
-      var el = element instanceof HTMLElement ? element : document.createElement(element);
-      var _attrs = attrs || {};
-      var _children = children || [];
-
-      // default attributes
-      if (el.tagName === 'A') {
-        el.href = 'javascript:';
-      }
-      for (var _i7 = 0, _Object$entries3 = Object.entries(_attrs); _i7 < _Object$entries3.length; _i7++) {
-        var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i7], 2),
-          k = _Object$entries3$_i[0],
-          v = _Object$entries3$_i[1];
-        if (v === undefined) {
-          continue;
-        }
-        if (['text', 'innerText'].includes(k)) {
-          el.innerText = v;
-        } else if (['html', 'innerHTML'].includes(k)) {
-          el.innerHTML = v;
-        } else if (k === 'children') {
-          _children.push.apply(_children, _toConsumableArray(v));
-        } else if (k === 'class') {
-          el.setAttribute('class', this.classToString(v));
-        } else if (k === 'style') {
-          if (typeof v === 'string') {
-            el.setAttribute('style', v);
-          } else {
-            this.parseStyle(el, v);
-          }
-        } else if (k.startsWith('@') || k.startsWith('on')) {
-          // event handlers
-          var event = k.startsWith('@') ? k.substring(1) : k.substring(2).toLowerCase();
-          var args = Array.isArray(v) ? v : [v];
-          el.addEventListener.apply(el, [event].concat(_toConsumableArray(args)));
-        } else if (k.startsWith('.')) {
-          // set property
-          el[k.substring(1)] = v;
-        } else {
-          el.setAttribute(k, v);
-        }
-      }
-      if (_children.length) {
-        el.append.apply(el, _toConsumableArray(_children));
-      }
-      return el;
-    },
-    htmlToNodes: function htmlToNodes(html) {
-      if (html instanceof $) {
-        return html.get();
-      }
-      if (html instanceof Node) {
-        return [html];
-      }
-      if (typeof html !== 'string') {
-        html = new String(html).toString();
-      }
-      var d = document.createElement('div');
-      d.innerHTML = html;
-      return d.childNodes;
-    },
-    addQueryToUrl: function addQueryToUrl(url, query) {
-      var hashArray = url.split('#');
-      var _hashArray$0$split = hashArray[0].split('?'),
-        _hashArray$0$split2 = _slicedToArray(_hashArray$0$split, 2),
-        baseUrl = _hashArray$0$split2[0],
-        search = _hashArray$0$split2[1];
-      var urlParams = new URLSearchParams(search);
-      for (var _i8 = 0, _Object$entries4 = Object.entries(query); _i8 < _Object$entries4.length; _i8++) {
-        var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i8], 2),
-          key = _Object$entries4$_i[0],
-          value = _Object$entries4$_i[1];
-        urlParams.set(key, value);
-      }
-      return "".concat(baseUrl, "?").concat(urlParams.toString(), "#").concat(hashArray.slice(1).join('#'));
+      return 0;
     }
-  };
+    if (options.sortEmptyLast) {
+      if (a === '') {
+        return 1;
+      }
+      if (b === '') {
+        return -1;
+      }
+    }
+    if (a === b) {
+      return 0;
+    }
 
-  var VERSION = '1.26.0';
+    // If value is not a string, convert to string
+    if (typeof a !== 'string') {
+      a = a.toString();
+    }
+    if (a.localeCompare(b) === -1) {
+      return order * -1;
+    }
+    return order;
+  }
+
+  /**
+   * Highlights search text matches in HTML by wrapping them in <mark> tags.
+   * Recursively processes all text nodes in the HTML.
+   *
+   * @param {string|Element} html - The HTML string or DOM element to process.
+   * @param {string} searchText - The text to search for and highlight.
+   * @returns {string|Element} The HTML with matches highlighted, or the processed element.
+   */
+  function replaceSearchMark(html, searchText) {
+    var isDom = html instanceof Element;
+    var node = isDom ? html : document.createElement('div');
+    var regExp = new RegExp(searchText, 'gim');
+    var replaceTextWithDom = function replaceTextWithDom(text, regExp) {
+      var result = [];
+      var match;
+      var lastIndex = 0;
+      while ((match = regExp.exec(text)) !== null) {
+        if (lastIndex !== match.index) {
+          result.push(document.createTextNode(text.substring(lastIndex, match.index)));
+        }
+        var mark = document.createElement('mark');
+        mark.innerText = match[0];
+        result.push(mark);
+        lastIndex = match.index + match[0].length;
+      }
+      if (!result.length) {
+        // no match
+        return;
+      }
+      if (lastIndex !== text.length) {
+        result.push(document.createTextNode(text.substring(lastIndex)));
+      }
+      return result;
+    };
+    var _replaceMark = function replaceMark(node) {
+      for (var i = 0; i < node.childNodes.length; i++) {
+        var child = node.childNodes[i];
+        if (child.nodeType === document.TEXT_NODE) {
+          var elements = replaceTextWithDom(child.data, regExp);
+          if (elements) {
+            var _iterator = _createForOfIteratorHelper(elements),
+              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var el = _step.value;
+                node.insertBefore(el, child);
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+            node.removeChild(child);
+            i += elements.length - 1;
+          }
+        }
+        if (child.nodeType === document.ELEMENT_NODE) {
+          _replaceMark(child);
+        }
+      }
+    };
+    if (!isDom) {
+      node.innerHTML = html;
+    }
+    _replaceMark(node);
+    return isDom ? node : node.innerHTML;
+  }
+
+  var searchSort = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    regexCompare: regexCompare,
+    replaceSearchMark: replaceSearchMark,
+    sort: sort
+  });
+
+  /**
+   * Bootstrap Table Checkbox Utilities
+   * Generate Bootstrap 5 or Bootstrap 3/4 compatible checkbox HTML and virtual DOM config
+   *
+   * @module utils/checkbox
+   */
+
+  /**
+   * Generate Bootstrap 5 or Bootstrap 3/4 compatible checkbox HTML
+   * @param {Object} options - Configuration options
+   * @param {string} options.name - checkbox name attribute
+   * @param {string} [options.value] - checkbox value attribute
+   * @param {boolean} [options.checked] - whether checked
+   * @param {boolean} [options.disabled] - whether disabled
+   * @param {string} [options.label] - display text
+   * @param {string} [options.extraClass] - extra CSS classes (must contain only safe CSS characters: letters, digits, hyphens, underscores)
+   * @param {boolean} [options.centered=true] - whether centered (for table checkbox)
+   * @param {boolean} [options.withLabel=false] - whether include label (for dropdown menu)
+   * @returns {string} HTML string
+   */
+  function getCheckboxHtml(options) {
+    var name = options.name,
+      _options$value = options.value,
+      value = _options$value === void 0 ? '' : _options$value,
+      _options$checked = options.checked,
+      checked = _options$checked === void 0 ? false : _options$checked,
+      _options$disabled = options.disabled,
+      disabled = _options$disabled === void 0 ? false : _options$disabled,
+      _options$label = options.label,
+      label = _options$label === void 0 ? '' : _options$label,
+      _options$extraClass = options.extraClass,
+      extraClass = _options$extraClass === void 0 ? '' : _options$extraClass,
+      _options$centered = options.centered,
+      centered = _options$centered === void 0 ? true : _options$centered,
+      _options$withLabel = options.withLabel,
+      withLabel = _options$withLabel === void 0 ? false : _options$withLabel;
+    var checkedAttr = checked ? ' checked="checked"' : '';
+    var disabledAttr = disabled ? ' disabled="disabled"' : '';
+    var valueAttr = value !== undefined && value !== '' ? " value=\"".concat(escapeAttr(value), "\"") : '';
+    var classAttr = extraClass ? " ".concat(extraClass) : '';
+    var escapedName = escapeAttr(name);
+    var escapedLabel = escapeHTML(label);
+    if (getBootstrapVersion() === 5) {
+      if (withLabel) {
+        return "<label class=\"dropdown-item dropdown-item-marker d-flex align-items-center gap-2\">\n        <input class=\"form-check-input m-0".concat(classAttr, "\" type=\"checkbox\" name=\"").concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr, " />\n        <span>").concat(escapedLabel, "</span>\n      </label>");
+      }
+      var centerClass = centered ? ' d-flex justify-content-center' : '';
+      return "<div class=\"form-check".concat(centerClass, "\">\n      <input class=\"form-check-input").concat(classAttr, "\" type=\"checkbox\" name=\"").concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr, " />\n    </div>");
+    }
+    if (withLabel) {
+      return "<label><input type=\"checkbox\" name=\"".concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr).concat(classAttr, "> <span>").concat(escapedLabel, "</span></label>");
+    }
+    return "<label><input type=\"checkbox\" name=\"".concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr).concat(classAttr, " /><span></span></label>");
+  }
+
+  /**
+   * Generate form-check wrapped checkbox HTML (for table cells)
+   * @param {string} inputHtml - input element HTML (must be trusted or pre-escaped, as it is inserted without additional escaping)
+   * @param {boolean} [centered=true] - whether centered
+   * @returns {string} HTML string
+   */
+  function wrapCheckbox(inputHtml) {
+    var centered = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    if (getBootstrapVersion() === 5) {
+      var centerClass = centered ? ' d-flex justify-content-center' : '';
+      return "<div class=\"form-check".concat(centerClass, "\">").concat(inputHtml, "</div>");
+    }
+    return "<label>".concat(inputHtml, "<span></span></label>");
+  }
+
+  /**
+   * Get checkbox virtual DOM config (for virtual DOM rendering in body.js)
+   * @param {Object} options - Configuration options
+   * @param {Object} options.inputAttrs - input element attributes object
+   * @param {string} options.formCheckClass - form-check CSS class name
+   * @param {string} options.formCheckInputClass - form-check-input CSS class name
+   * @param {boolean} [options.centered=true] - whether centered
+   * @returns {Object} Virtual DOM config object with inputAttrs, wrapperAttrs, wrapperTag and hasSpan
+   */
+  function getCheckboxVdomConfig(options) {
+    var inputAttrs = options.inputAttrs,
+      formCheckClass = options.formCheckClass,
+      formCheckInputClass = options.formCheckInputClass,
+      _options$centered2 = options.centered,
+      centered = _options$centered2 === void 0 ? true : _options$centered2;
+    if (getBootstrapVersion() === 5) {
+      var centerClass = centered ? ' d-flex justify-content-center' : '';
+      return {
+        inputAttrs: _objectSpread2(_objectSpread2({}, inputAttrs), {}, {
+          class: formCheckInputClass
+        }),
+        wrapperAttrs: {
+          class: "".concat(formCheckClass).concat(centerClass)
+        },
+        wrapperTag: 'div',
+        hasSpan: false
+      };
+    }
+    return {
+      inputAttrs: inputAttrs,
+      wrapperAttrs: {},
+      wrapperTag: 'label',
+      hasSpan: true
+    };
+  }
+
+  /**
+   * Generate showColumns dropdown menu column selection checkbox HTML
+   * Differs from getCheckboxHtml by using data-field instead of name attribute
+   * @param {Object} options - Configuration options
+   * @param {string} options.dataField - column field name (for data-field attribute)
+   * @param {string} options.value - checkbox value attribute
+   * @param {boolean} options.checked - whether checked
+   * @param {boolean} options.disabled - whether disabled
+   * @param {string} options.label - display text
+   * @returns {string} HTML string
+   */
+  function getDropdownColumnCheckboxHtml(options) {
+    var dataField = options.dataField,
+      value = options.value,
+      checked = options.checked,
+      disabled = options.disabled,
+      label = options.label;
+    var checkedAttr = checked ? ' checked="checked"' : '';
+    var disabledAttr = disabled ? ' disabled="disabled"' : '';
+    var escapedLabel = escapeHTML(label);
+    if (getBootstrapVersion() === 5) {
+      return "<label class=\"dropdown-item dropdown-item-marker d-flex align-items-center gap-2\">\n      <input class=\"form-check-input m-0\" type=\"checkbox\" data-field=\"".concat(escapeAttr(dataField), "\" value=\"").concat(escapeAttr(value), "\"").concat(checkedAttr).concat(disabledAttr, " />\n      <span>").concat(escapedLabel, "</span>\n    </label>");
+    }
+    return "<input type=\"checkbox\" data-field=\"".concat(escapeAttr(dataField), "\" value=\"").concat(escapeAttr(value), "\"").concat(checkedAttr).concat(disabledAttr, "> <span>").concat(escapedLabel, "</span>");
+  }
+
+  var checkbox = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    getCheckboxHtml: getCheckboxHtml,
+    getCheckboxVdomConfig: getCheckboxVdomConfig,
+    getDropdownColumnCheckboxHtml: getDropdownColumnCheckboxHtml,
+    wrapCheckbox: wrapCheckbox
+  });
+
+  var Utils = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, framework), object), string), dom), tableData), searchSort), helper), checkbox);
+
+  var VERSION = '1.27.0';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -6949,6 +8464,8 @@
         buttonsPrefix: 'btn',
         dropdownActive: 'active',
         dropup: 'dropup',
+        formCheck: 'form-check',
+        formCheckInput: 'form-check-input',
         input: 'form-control',
         inputGroup: 'btn-group',
         inputPrefix: 'form-control-',
@@ -6974,7 +8491,7 @@
         toolbarDropdownSeparator: '<div class="dropdown-divider"></div>'
       }
     }
-  }[bootstrapVersion];
+  }[bootstrapVersion || 5];
   var ICONS = {
     glyphicon: {
       clearSearch: 'glyphicon-trash',
@@ -7587,7 +9104,8 @@
             titleTooltip: $th.attr('title'),
             rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
             colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined,
-            scope: $th.attr('scope') ? $th.attr('scope') : undefined
+            scope: $th.attr('scope') ? $th.attr('scope') : undefined,
+            style: Utils.normalizeStyle($th.attr('style'))
           }, $th.data()));
         });
         columns.push(column);
@@ -7622,14 +9140,14 @@
 
       // if options.data is setting, do not process tbody and tfoot data
       if (!this.options.data.length) {
-        var htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr'));
+        var htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr').get());
         if (htmlData.length) {
           this.options.data = htmlData;
           this.fromHtml = true;
         }
       }
       if (!(this.options.pagination && this.options.sidePagination !== 'server')) {
-        this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'));
+        this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr').get());
       }
       if (this.footerData) {
         this.$el.find('tfoot').html('<tr></tr>');
@@ -7676,41 +9194,6 @@
   requireEs_array_findIndex();
 
   var es_array_splice = {};
-
-  var arraySetLength;
-  var hasRequiredArraySetLength;
-
-  function requireArraySetLength () {
-  	if (hasRequiredArraySetLength) return arraySetLength;
-  	hasRequiredArraySetLength = 1;
-  	var DESCRIPTORS = requireDescriptors();
-  	var isArray = requireIsArray();
-
-  	var $TypeError = TypeError;
-  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-
-  	// Safari < 13 does not throw an error in this case
-  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
-  	  // makes no sense without proper strict mode support
-  	  if (this !== undefined) return true;
-  	  try {
-  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
-  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
-  	  } catch (error) {
-  	    return error instanceof TypeError;
-  	  }
-  	}();
-
-  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
-  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
-  	    throw new $TypeError('Cannot set read only .length');
-  	  } return O.length = length;
-  	} : function (O, length) {
-  	  return O.length = length;
-  	};
-  	return arraySetLength;
-  }
 
   var deletePropertyOrThrow;
   var hasRequiredDeletePropertyOrThrow;
@@ -7775,7 +9258,7 @@
   	      from = actualStart + k;
   	      if (from in O) createProperty(A, k, O[from]);
   	    }
-  	    A.length = actualDeleteCount;
+  	    setArrayLength(A, actualDeleteCount);
   	    if (insertCount < actualDeleteCount) {
   	      for (k = actualStart; k < len - actualDeleteCount; k++) {
   	        from = k + actualDeleteCount;
@@ -8076,7 +9559,7 @@
       var tds = this.header.fields.map(function (field, j) {
         var column = _this2.columns[j];
         var value_ = Utils.getItemField(item, field, _this2.options.escape, column.escape);
-        var value = '';
+        var value;
         var attrs = {
           class: _this2.header.classes[j] ? [_this2.header.classes[j]] : [],
           style: _this2.header.styles[j] ? [_this2.header.styles[j]] : []
@@ -8148,17 +9631,28 @@
           var isDisabled = !column.checkboxEnabled || value && value.disabled;
           var valueNodes = _this2.header.formatters[j] && (typeof value === 'string' || value instanceof Node || value instanceof $) ? Utils.htmlToNodes(value) : [];
           item[_this2.header.stateField] = value === true || !!value_ || value && value.checked;
-          return Utils.h(_this2.options.cardView ? 'div' : 'td', {
-            class: [_this2.options.cardView ? cardViewClass : 'bs-checkbox', column.class],
-            style: _this2.options.cardView ? undefined : attrs.style
-          }, [Utils.h('label', {}, [Utils.h('input', {
+          var inputAttrs = {
             'data-index': i,
             name: _this2.options.selectItemName,
             type: type,
             value: item[_this2.options.idField],
             checked: isChecked ? 'checked' : undefined,
             disabled: isDisabled ? 'disabled' : undefined
-          }), Utils.h('span')])].concat(_toConsumableArray(valueNodes)));
+          };
+          var config = Utils.getCheckboxVdomConfig({
+            inputAttrs: inputAttrs,
+            formCheckClass: _this2.constants.classes.formCheck,
+            formCheckInputClass: _this2.constants.classes.formCheckInput
+          });
+          var wrapperChildNodes = [Utils.h('input', config.inputAttrs)];
+          if (config.hasSpan) {
+            wrapperChildNodes.push(Utils.h('span'));
+          }
+          var children = [Utils.h(config.wrapperTag, config.wrapperAttrs, wrapperChildNodes)].concat(_toConsumableArray(valueNodes));
+          return Utils.h(_this2.options.cardView ? 'div' : 'td', {
+            class: [_this2.options.cardView ? cardViewClass : 'bs-checkbox', column.class],
+            style: _this2.options.cardView ? undefined : attrs.style
+          }, children);
         }
         if (_this2.options.cardView) {
           if (_this2.options.smartDisplay && value === '') {
@@ -9282,7 +10776,6 @@
       return (_this$footerData = this.footerData) !== null && _this$footerData !== void 0 ? _this$footerData : [];
     },
     load: function load(_data) {
-      var fixedScroll = false;
       var data = _data;
 
       // #431: support pagination
@@ -9291,7 +10784,7 @@
         this.options.totalNotFiltered = data[this.options.totalNotFilteredField];
         this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined;
       }
-      fixedScroll = this.options.fixedScroll || data.fixedScroll;
+      var fixedScroll = this.options.fixedScroll || data.fixedScroll;
       data = Array.isArray(data) ? data : data[this.options.dataField];
       this.initData(data);
       this.initSearch();
@@ -9678,7 +11171,7 @@
               data_.push("data-".concat(k, "='").concat(_typeof(v) === 'object' ? JSON.stringify(v) : v, "'"));
             }
           }
-          html.push("<th".concat(Utils.sprintf(' title="%s"', column.titleTooltip)), column.checkbox || column.radio ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : classes || class_, Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined), Utils.sprintf(' rowspan="%s"', column.rowspan), Utils.sprintf(' colspan="%s"', column.colspan), Utils.sprintf(' scope="%s"', column.scope), Utils.sprintf(' data-field="%s"', column.field),
+          html.push("<th".concat(Utils.sprintf(' title="%s"', column.titleTooltip)), column.checkbox || column.radio ? Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') : classes || class_, Utils.sprintf(' style="%s"', (column.style || '') + halign + style + csses.join('; ') || undefined), Utils.sprintf(' rowspan="%s"', column.rowspan), Utils.sprintf(' colspan="%s"', column.colspan), Utils.sprintf(' scope="%s"', column.scope), Utils.sprintf(' data-field="%s"', column.field),
           // If `column` is not the first element of `this.options.columns[0]`, then className 'data-not-first-th' should be added.
           j === 0 && i > 0 ? ' data-not-first-th' : '', data_.length > 0 ? data_.join(' ') : '', '>');
           html.push(Utils.sprintf('<div class="th-inner %s">', _this.options.sortable && column.sortable ? "sortable".concat(columnHalign === 'center' ? ' sortable-center' : '', " both") : ''));
@@ -9687,7 +11180,11 @@
           if (column.checkbox) {
             text = '';
             if (!_this.options.singleSelect && _this.options.checkboxHeader) {
-              text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>';
+              text = Utils.getCheckboxHtml({
+                name: 'btSelectAll',
+                centered: true,
+                withLabel: false
+              });
             }
             _this.header.stateField = column.field;
           }
@@ -10291,10 +11788,10 @@
       if (this.options.search) {
         this.searchText = '';
         if (this.options.searchText !== '') {
-          var $search = Utils.getSearchInput(this);
-          $search.val(this.options.searchText);
+          var search = Utils.getSearchInput(this);
+          $(search).val(this.options.searchText);
           this.onSearch({
-            currentTarget: $search,
+            currentTarget: search,
             firedByInitSearchText: true
           });
         }
@@ -10327,22 +11824,24 @@
         } else if (typeof this.filterOptions.filterAlgorithm === 'string') {
           this.data = f ? this.options.data.filter(function (item) {
             var filterAlgorithm = _this.filterOptions.filterAlgorithm;
-            if (filterAlgorithm === 'and') {
-              for (var key in f) {
-                if (Array.isArray(f[key]) && !f[key].includes(item[key]) || !Array.isArray(f[key]) && item[key] !== f[key]) {
-                  return false;
-                }
-              }
-            } else if (filterAlgorithm === 'or') {
-              var match = false;
-              for (var _key in f) {
-                if (Array.isArray(f[_key]) && f[_key].includes(item[_key]) || !Array.isArray(f[_key]) && item[_key] === f[_key]) {
-                  match = true;
-                }
-              }
-              return match;
+            if (!['and', 'or'].includes(filterAlgorithm)) {
+              return true;
             }
-            return true;
+            for (var key in f) {
+              if (!Object.prototype.hasOwnProperty.call(f, key)) {
+                continue;
+              }
+              var value = Utils.getItemField(item, key, false);
+              var isArray = Array.isArray(f[key]);
+              var match = !isArray && f[key] === value || isArray && f[key].includes(value);
+              if (match && filterAlgorithm === 'or') {
+                return true;
+              }
+              if (!match && filterAlgorithm === 'and') {
+                return false;
+              }
+            }
+            return filterAlgorithm === 'and';
           }) : _toConsumableArray(this.options.data);
         }
         var visibleFields = this.getVisibleFields();
@@ -10353,21 +11852,7 @@
             }
             var key = Utils.isNumeric(_this.header.fields[j]) ? parseInt(_this.header.fields[j], 10) : _this.header.fields[j];
             var column = _this.columns[_this.fieldsColumnsIndex[key]];
-            var value = void 0;
-            if (typeof key === 'string' && !item.hasOwnProperty(key)) {
-              value = item;
-              var props = key.split('.');
-              for (var _i = 0; _i < props.length; _i++) {
-                if (value[props[_i]] === null || value[props[_i]] === undefined) {
-                  value = null;
-                  break;
-                } else {
-                  value = value[props[_i]];
-                }
-              }
-            } else {
-              value = item[key];
-            }
+            var value = Utils.getItemField(item, key, false);
             if (_this.options.searchAccentNeutralise) {
               value = Utils.normalizeAccent(value);
             }
@@ -10448,7 +11933,8 @@
         if (this.searchText === text) {
           return;
         }
-        var $searchInput = Utils.getSearchInput(this);
+        var searchInput = Utils.getSearchInput(this);
+        var $searchInput = $(searchInput);
         var $currentTarget = currentTarget instanceof jQuery ? currentTarget : $(currentTarget);
         if ($currentTarget.is($searchInput) || $currentTarget.hasClass('search-input')) {
           this.searchText = text;
@@ -10469,13 +11955,13 @@
       this.trigger('search', this.searchText);
     },
     resetSearch: function resetSearch(text) {
-      var $search = Utils.getSearchInput(this);
+      var search = Utils.getSearchInput(this);
       var textToUse = text || '';
-      $search.val(textToUse);
+      $(search).val(textToUse);
       this.searchText = textToUse;
       this.options.searchText = textToUse;
       this.onSearch({
-        currentTarget: $search
+        currentTarget: search
       }, false);
     },
     filterBy: function filterBy(columns, options) {
@@ -10491,8 +11977,8 @@
     initToolbar: function initToolbar() {
       var _this = this;
       var opts = this.options;
-      var html = [];
-      var timeoutId = 0;
+      var html;
+      var timeoutId;
       var $keepOpen;
       var switchableCount = 0;
       if (this.$toolbar.find('.bs-bars').children().length) {
@@ -10562,7 +12048,14 @@
               var allFieldsVisible = _this.getVisibleColumns().length === _this.columns.filter(function (column) {
                 return !_this.isSelectionColumn(column);
               }).length;
-              html.push(Utils.sprintf(_this.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>', allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())));
+              html.push(Utils.getCheckboxHtml({
+                name: 'toggle-all',
+                checked: allFieldsVisible,
+                label: opts.formatColumnsToggleAll(),
+                extraClass: 'toggle-all',
+                centered: false,
+                withLabel: true
+              }));
               html.push(_this.constants.html.toolbarDropdownSeparator);
             }
             var visibleColumns = 0;
@@ -10581,7 +12074,20 @@
               var checked = column.visible ? ' checked="checked"' : '';
               var disabled = visibleColumns <= opts.minimumCountColumns && checked ? ' disabled="disabled"' : '';
               if (column.switchable) {
-                html.push(Utils.sprintf(_this.constants.html.toolbarDropdownItem, Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>', column.field, i, checked, disabled, column.switchableLabel || column.title)));
+                var checkboxHtml = Utils.getDropdownColumnCheckboxHtml({
+                  dataField: column.field,
+                  value: i,
+                  checked: !!checked,
+                  disabled: !!disabled,
+                  label: column.switchableLabel || column.title
+                });
+
+                // Bootstrap 3/4 needs to be wrapped with toolbarDropdownItem
+                if (Utils.getBootstrapVersion() === 5) {
+                  html.push(checkboxHtml);
+                } else {
+                  html.push(Utils.sprintf(_this.constants.html.toolbarDropdownItem, checkboxHtml));
+                }
                 switchableCount++;
               }
             });
@@ -10765,13 +12271,14 @@
         }
         html.push(Utils.sprintf("\n        <div class=\"".concat(this.constants.classes.pull, "-").concat(opts.searchAlign, " search ").concat(this.constants.classes.inputGroup, "\">\n          %s\n        </div>\n      "), searchInputFinalHtml));
         this.$toolbar.append(html.join(''));
-        var $searchInput = Utils.getSearchInput(this);
+        var searchInput = Utils.getSearchInput(this);
+        var $searchInput = $(searchInput);
         if (opts.showSearchButton) {
           this.$toolbar.find('.search button[name=search]').off('click').on('click', function () {
             clearTimeout(timeoutId); // doesn't matter if it's 0
             timeoutId = setTimeout(function () {
               _this.onSearch({
-                currentTarget: $searchInput
+                currentTarget: searchInput
               });
             }, opts.searchTimeOut);
           });
@@ -10787,7 +12294,7 @@
           });
         }
       } else if (typeof opts.searchSelector === 'string') {
-        handleInputEvent(Utils.getSearchInput(this));
+        handleInputEvent($(Utils.getSearchInput(this)));
       }
     },
     refresh: function refresh(params) {

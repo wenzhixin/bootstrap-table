@@ -3,8 +3,8 @@ import Utils from '../utils/index.js'
 export default {
   initToolbar () {
     const opts = this.options
-    let html = []
-    let timeoutId = 0
+    let html
+    let timeoutId
     let $keepOpen
     let switchableCount = 0
 
@@ -98,12 +98,14 @@ export default {
           if (opts.showColumnsToggleAll) {
             const allFieldsVisible = this.getVisibleColumns().length === this.columns.filter(column => !this.isSelectionColumn(column)).length
 
-            html.push(
-              Utils.sprintf(this.constants.html.toolbarDropdownItem,
-                Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>',
-                  allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())
-              )
-            )
+            html.push(Utils.getCheckboxHtml({
+              name: 'toggle-all',
+              checked: allFieldsVisible,
+              label: opts.formatColumnsToggleAll(),
+              extraClass: 'toggle-all',
+              centered: false,
+              withLabel: true
+            }))
 
             html.push(this.constants.html.toolbarDropdownSeparator)
           }
@@ -129,9 +131,20 @@ export default {
             const disabled = visibleColumns <= opts.minimumCountColumns && checked ? ' disabled="disabled"' : ''
 
             if (column.switchable) {
-              html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
-                Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                  column.field, i, checked, disabled, column.switchableLabel || column.title)))
+              const checkboxHtml = Utils.getDropdownColumnCheckboxHtml({
+                dataField: column.field,
+                value: i,
+                checked: !!checked,
+                disabled: !!disabled,
+                label: column.switchableLabel || column.title
+              })
+
+              // Bootstrap 3/4 needs to be wrapped with toolbarDropdownItem
+              if (Utils.getBootstrapVersion() === 5) {
+                html.push(checkboxHtml)
+              } else {
+                html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem, checkboxHtml))
+              }
               switchableCount++
             }
           })
@@ -345,13 +358,14 @@ export default {
       `, searchInputFinalHtml))
 
       this.$toolbar.append(html.join(''))
-      const $searchInput = Utils.getSearchInput(this)
+      const searchInput = Utils.getSearchInput(this)
+      const $searchInput = $(searchInput)
 
       if (opts.showSearchButton) {
         this.$toolbar.find('.search button[name=search]').off('click').on('click', () => {
           clearTimeout(timeoutId) // doesn't matter if it's 0
           timeoutId = setTimeout(() => {
-            this.onSearch({ currentTarget: $searchInput })
+            this.onSearch({ currentTarget: searchInput })
           }, opts.searchTimeOut)
         })
 
@@ -368,7 +382,7 @@ export default {
         })
       }
     } else if (typeof opts.searchSelector === 'string') {
-      handleInputEvent(Utils.getSearchInput(this))
+      handleInputEvent($(Utils.getSearchInput(this)))
     }
   },
 

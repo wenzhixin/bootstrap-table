@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.26.0'
+const VERSION = '1.27.0'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -81,6 +81,8 @@ const CONSTANTS = {
       buttonsPrefix: 'btn',
       dropdownActive: 'active',
       dropup: 'dropup',
+      formCheck: 'form-check',
+      formCheckInput: 'form-check-input',
       input: 'form-control',
       inputGroup: 'btn-group',
       inputPrefix: 'form-control-',
@@ -106,7 +108,7 @@ const CONSTANTS = {
       toolbarDropdownSeparator: '<div class="dropdown-divider"></div>'
     }
   }
-}[bootstrapVersion]
+}[bootstrapVersion || 5]
 
 const ICONS = {
   glyphicon: {

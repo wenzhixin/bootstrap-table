@@ -81,6 +81,14 @@
       }
     };
   }
+  function _defineProperty(e, r, t) {
+    return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+      value: t,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    }) : e[r] = t, e;
+  }
   function _get() {
     return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
       var p = _superPropBase(e, t);
@@ -142,6 +150,27 @@
   function _nonIterableRest() {
     throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
+  function ownKeys$1(e, r) {
+    var t = Object.keys(e);
+    if (Object.getOwnPropertySymbols) {
+      var o = Object.getOwnPropertySymbols(e);
+      r && (o = o.filter(function (r) {
+        return Object.getOwnPropertyDescriptor(e, r).enumerable;
+      })), t.push.apply(t, o);
+    }
+    return t;
+  }
+  function _objectSpread2(e) {
+    for (var r = 1; r < arguments.length; r++) {
+      var t = null != arguments[r] ? arguments[r] : {};
+      r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) {
+        _defineProperty(e, r, t[r]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) {
+        Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+      });
+    }
+    return e;
+  }
   function _possibleConstructorReturn(t, e) {
     if (e && ("object" == typeof e || "function" == typeof e)) return e;
     if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
@@ -173,7 +202,7 @@
       if ("object" != typeof i) return i;
       throw new TypeError("@@toPrimitive must return a primitive value.");
     }
-    return (String )(t);
+    return ("string" === r ? String : Number)(t);
   }
   function _toPropertyKey(t) {
     var i = _toPrimitive(t, "string");
@@ -747,10 +776,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.46.0',
+  	  version: '3.48.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru), 2025 CoreJS Company (core-js.io)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.46.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1764,6 +1793,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1774,7 +1838,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1967,6 +2031,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -2012,7 +2077,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -2070,13 +2135,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -2087,28 +2150,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -3319,6 +3382,7 @@
   	  var getOwnPropertyNames = getOwnPropertyNamesModule.f;
   	  var splice = uncurryThis([].splice);
   	  var test = {};
+  	  // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	  test[METADATA] = 1;
 
   	  // prevent exposing of metadata key
@@ -3560,6 +3624,7 @@
   	      SAFE_CLOSING = true;
   	    }
   	  };
+  	  // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	  iteratorWithReturn[ITERATOR] = function () {
   	    return this;
   	  };
@@ -3574,6 +3639,7 @@
   	  var ITERATION_SUPPORT = false;
   	  try {
   	    var object = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    object[ITERATOR] = function () {
   	      return {
   	        next: function () {
@@ -4260,6 +4326,255 @@
 
   requireEs_object_toString();
 
+  var es_regexp_exec = {};
+
+  var regexpFlags;
+  var hasRequiredRegexpFlags;
+
+  function requireRegexpFlags () {
+  	if (hasRequiredRegexpFlags) return regexpFlags;
+  	hasRequiredRegexpFlags = 1;
+  	var anObject = requireAnObject();
+
+  	// `RegExp.prototype.flags` getter implementation
+  	// https://tc39.es/ecma262/#sec-get-regexp.prototype.flags
+  	regexpFlags = function () {
+  	  var that = anObject(this);
+  	  var result = '';
+  	  if (that.hasIndices) result += 'd';
+  	  if (that.global) result += 'g';
+  	  if (that.ignoreCase) result += 'i';
+  	  if (that.multiline) result += 'm';
+  	  if (that.dotAll) result += 's';
+  	  if (that.unicode) result += 'u';
+  	  if (that.unicodeSets) result += 'v';
+  	  if (that.sticky) result += 'y';
+  	  return result;
+  	};
+  	return regexpFlags;
+  }
+
+  var regexpStickyHelpers;
+  var hasRequiredRegexpStickyHelpers;
+
+  function requireRegexpStickyHelpers () {
+  	if (hasRequiredRegexpStickyHelpers) return regexpStickyHelpers;
+  	hasRequiredRegexpStickyHelpers = 1;
+  	var fails = requireFails();
+  	var globalThis = requireGlobalThis();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
+  	var $RegExp = globalThis.RegExp;
+
+  	var UNSUPPORTED_Y = fails(function () {
+  	  var re = $RegExp('a', 'y');
+  	  re.lastIndex = 2;
+  	  return re.exec('abcd') !== null;
+  	});
+
+  	// UC Browser bug
+  	// https://github.com/zloirock/core-js/issues/1008
+  	var MISSED_STICKY = UNSUPPORTED_Y || fails(function () {
+  	  return !$RegExp('a', 'y').sticky;
+  	});
+
+  	var BROKEN_CARET = UNSUPPORTED_Y || fails(function () {
+  	  // https://bugzilla.mozilla.org/show_bug.cgi?id=773687
+  	  var re = $RegExp('^r', 'gy');
+  	  re.lastIndex = 2;
+  	  return re.exec('str') !== null;
+  	});
+
+  	regexpStickyHelpers = {
+  	  BROKEN_CARET: BROKEN_CARET,
+  	  MISSED_STICKY: MISSED_STICKY,
+  	  UNSUPPORTED_Y: UNSUPPORTED_Y
+  	};
+  	return regexpStickyHelpers;
+  }
+
+  var regexpUnsupportedDotAll;
+  var hasRequiredRegexpUnsupportedDotAll;
+
+  function requireRegexpUnsupportedDotAll () {
+  	if (hasRequiredRegexpUnsupportedDotAll) return regexpUnsupportedDotAll;
+  	hasRequiredRegexpUnsupportedDotAll = 1;
+  	var fails = requireFails();
+  	var globalThis = requireGlobalThis();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('.', 's') -> /./s and it causes SyntaxError
+  	var $RegExp = globalThis.RegExp;
+
+  	regexpUnsupportedDotAll = fails(function () {
+  	  var re = $RegExp('.', 's');
+  	  return !(re.dotAll && re.test('\n') && re.flags === 's');
+  	});
+  	return regexpUnsupportedDotAll;
+  }
+
+  var regexpUnsupportedNcg;
+  var hasRequiredRegexpUnsupportedNcg;
+
+  function requireRegexpUnsupportedNcg () {
+  	if (hasRequiredRegexpUnsupportedNcg) return regexpUnsupportedNcg;
+  	hasRequiredRegexpUnsupportedNcg = 1;
+  	var fails = requireFails();
+  	var globalThis = requireGlobalThis();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('(?<a>b)', 'g') -> /(?<a>b)/g and it causes SyntaxError
+  	var $RegExp = globalThis.RegExp;
+
+  	regexpUnsupportedNcg = fails(function () {
+  	  var re = $RegExp('(?<a>b)', 'g');
+  	  return re.exec('b').groups.a !== 'b' ||
+  	    'b'.replace(re, '$<a>c') !== 'bc';
+  	});
+  	return regexpUnsupportedNcg;
+  }
+
+  var regexpExec;
+  var hasRequiredRegexpExec;
+
+  function requireRegexpExec () {
+  	if (hasRequiredRegexpExec) return regexpExec;
+  	hasRequiredRegexpExec = 1;
+  	/* eslint-disable regexp/no-empty-capturing-group, regexp/no-empty-group, regexp/no-lazy-ends -- testing */
+  	/* eslint-disable regexp/no-useless-quantifier -- testing */
+  	var call = requireFunctionCall();
+  	var uncurryThis = requireFunctionUncurryThis();
+  	var toString = requireToString();
+  	var regexpFlags = requireRegexpFlags();
+  	var stickyHelpers = requireRegexpStickyHelpers();
+  	var shared = requireShared();
+  	var create = requireObjectCreate();
+  	var getInternalState = requireInternalState().get;
+  	var UNSUPPORTED_DOT_ALL = requireRegexpUnsupportedDotAll();
+  	var UNSUPPORTED_NCG = requireRegexpUnsupportedNcg();
+
+  	var nativeReplace = shared('native-string-replace', String.prototype.replace);
+  	var nativeExec = RegExp.prototype.exec;
+  	var patchedExec = nativeExec;
+  	var charAt = uncurryThis(''.charAt);
+  	var indexOf = uncurryThis(''.indexOf);
+  	var replace = uncurryThis(''.replace);
+  	var stringSlice = uncurryThis(''.slice);
+
+  	var UPDATES_LAST_INDEX_WRONG = (function () {
+  	  var re1 = /a/;
+  	  var re2 = /b*/g;
+  	  call(nativeExec, re1, 'a');
+  	  call(nativeExec, re2, 'a');
+  	  return re1.lastIndex !== 0 || re2.lastIndex !== 0;
+  	})();
+
+  	var UNSUPPORTED_Y = stickyHelpers.BROKEN_CARET;
+
+  	// nonparticipating capturing group, copied from es5-shim's String#split patch.
+  	var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
+
+  	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG;
+
+  	if (PATCH) {
+  	  patchedExec = function exec(string) {
+  	    var re = this;
+  	    var state = getInternalState(re);
+  	    var str = toString(string);
+  	    var raw = state.raw;
+  	    var result, reCopy, lastIndex, match, i, object, group;
+
+  	    if (raw) {
+  	      raw.lastIndex = re.lastIndex;
+  	      result = call(patchedExec, raw, str);
+  	      re.lastIndex = raw.lastIndex;
+  	      return result;
+  	    }
+
+  	    var groups = state.groups;
+  	    var sticky = UNSUPPORTED_Y && re.sticky;
+  	    var flags = call(regexpFlags, re);
+  	    var source = re.source;
+  	    var charsAdded = 0;
+  	    var strCopy = str;
+
+  	    if (sticky) {
+  	      flags = replace(flags, 'y', '');
+  	      if (indexOf(flags, 'g') === -1) {
+  	        flags += 'g';
+  	      }
+
+  	      strCopy = stringSlice(str, re.lastIndex);
+  	      // Support anchored sticky behavior.
+  	      if (re.lastIndex > 0 && (!re.multiline || re.multiline && charAt(str, re.lastIndex - 1) !== '\n')) {
+  	        source = '(?: ' + source + ')';
+  	        strCopy = ' ' + strCopy;
+  	        charsAdded++;
+  	      }
+  	      // ^(? + rx + ) is needed, in combination with some str slicing, to
+  	      // simulate the 'y' flag.
+  	      reCopy = new RegExp('^(?:' + source + ')', flags);
+  	    }
+
+  	    if (NPCG_INCLUDED) {
+  	      reCopy = new RegExp('^' + source + '$(?!\\s)', flags);
+  	    }
+  	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
+
+  	    match = call(nativeExec, sticky ? reCopy : re, strCopy);
+
+  	    if (sticky) {
+  	      if (match) {
+  	        match.input = stringSlice(match.input, charsAdded);
+  	        match[0] = stringSlice(match[0], charsAdded);
+  	        match.index = re.lastIndex;
+  	        re.lastIndex += match[0].length;
+  	      } else re.lastIndex = 0;
+  	    } else if (UPDATES_LAST_INDEX_WRONG && match) {
+  	      re.lastIndex = re.global ? match.index + match[0].length : lastIndex;
+  	    }
+  	    if (NPCG_INCLUDED && match && match.length > 1) {
+  	      // Fix browsers whose `exec` methods don't consistently return `undefined`
+  	      // for NPCG, like IE8. NOTE: This doesn't work for /(.?)?/
+  	      call(nativeReplace, match[0], reCopy, function () {
+  	        for (i = 1; i < arguments.length - 2; i++) {
+  	          if (arguments[i] === undefined) match[i] = undefined;
+  	        }
+  	      });
+  	    }
+
+  	    if (match && groups) {
+  	      match.groups = object = create(null);
+  	      for (i = 0; i < groups.length; i++) {
+  	        group = groups[i];
+  	        object[group[0]] = match[group[1]];
+  	      }
+  	    }
+
+  	    return match;
+  	  };
+  	}
+
+  	regexpExec = patchedExec;
+  	return regexpExec;
+  }
+
+  var hasRequiredEs_regexp_exec;
+
+  function requireEs_regexp_exec () {
+  	if (hasRequiredEs_regexp_exec) return es_regexp_exec;
+  	hasRequiredEs_regexp_exec = 1;
+  	var $ = require_export();
+  	var exec = requireRegexpExec();
+
+  	// `RegExp.prototype.exec` method
+  	// https://tc39.es/ecma262/#sec-regexp.prototype.exec
+  	$({ target: 'RegExp', proto: true, forced: /./.exec !== exec }, {
+  	  exec: exec
+  	});
+  	return es_regexp_exec;
+  }
+
+  requireEs_regexp_exec();
+
   var es_string_includes = {};
 
   var isRegexp;
@@ -4441,6 +4756,301 @@
   }
 
   requireEs_string_iterator();
+
+  var es_string_split = {};
+
+  var fixRegexpWellKnownSymbolLogic;
+  var hasRequiredFixRegexpWellKnownSymbolLogic;
+
+  function requireFixRegexpWellKnownSymbolLogic () {
+  	if (hasRequiredFixRegexpWellKnownSymbolLogic) return fixRegexpWellKnownSymbolLogic;
+  	hasRequiredFixRegexpWellKnownSymbolLogic = 1;
+  	// TODO: Remove from `core-js@4` since it's moved to entry points
+  	requireEs_regexp_exec();
+  	var call = requireFunctionCall();
+  	var defineBuiltIn = requireDefineBuiltIn();
+  	var regexpExec = requireRegexpExec();
+  	var fails = requireFails();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+  	var createNonEnumerableProperty = requireCreateNonEnumerableProperty();
+
+  	var SPECIES = wellKnownSymbol('species');
+  	var RegExpPrototype = RegExp.prototype;
+
+  	fixRegexpWellKnownSymbolLogic = function (KEY, exec, FORCED, SHAM) {
+  	  var SYMBOL = wellKnownSymbol(KEY);
+
+  	  var DELEGATES_TO_SYMBOL = !fails(function () {
+  	    // String methods call symbol-named RegExp methods
+  	    var O = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	    O[SYMBOL] = function () { return 7; };
+  	    return ''[KEY](O) !== 7;
+  	  });
+
+  	  var DELEGATES_TO_EXEC = DELEGATES_TO_SYMBOL && !fails(function () {
+  	    // Symbol-named RegExp methods call .exec
+  	    var execCalled = false;
+  	    var re = /a/;
+
+  	    if (KEY === 'split') {
+  	      // We can't use real regex here since it causes deoptimization
+  	      // and serious performance degradation in V8
+  	      // https://github.com/zloirock/core-js/issues/306
+  	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
+  	      // a new one. We need to return the patched regex when creating the new one.
+  	      var constructor = {};
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      constructor[SPECIES] = function () { return re; };
+  	      re = { constructor: constructor, flags: '' };
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      re[SYMBOL] = /./[SYMBOL];
+  	    }
+
+  	    re.exec = function () {
+  	      execCalled = true;
+  	      return null;
+  	    };
+
+  	    re[SYMBOL]('');
+  	    return !execCalled;
+  	  });
+
+  	  if (
+  	    !DELEGATES_TO_SYMBOL ||
+  	    !DELEGATES_TO_EXEC ||
+  	    FORCED
+  	  ) {
+  	    var nativeRegExpMethod = /./[SYMBOL];
+  	    var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
+  	      var $exec = regexp.exec;
+  	      if ($exec === regexpExec || $exec === RegExpPrototype.exec) {
+  	        if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
+  	          // The native String method already delegates to @@method (this
+  	          // polyfilled function), leasing to infinite recursion.
+  	          // We avoid it by directly calling the native @@method method.
+  	          return { done: true, value: call(nativeRegExpMethod, regexp, str, arg2) };
+  	        }
+  	        return { done: true, value: call(nativeMethod, str, regexp, arg2) };
+  	      }
+  	      return { done: false };
+  	    });
+
+  	    defineBuiltIn(String.prototype, KEY, methods[0]);
+  	    defineBuiltIn(RegExpPrototype, SYMBOL, methods[1]);
+  	  }
+
+  	  if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true);
+  	};
+  	return fixRegexpWellKnownSymbolLogic;
+  }
+
+  var aConstructor;
+  var hasRequiredAConstructor;
+
+  function requireAConstructor () {
+  	if (hasRequiredAConstructor) return aConstructor;
+  	hasRequiredAConstructor = 1;
+  	var isConstructor = requireIsConstructor();
+  	var tryToString = requireTryToString();
+
+  	var $TypeError = TypeError;
+
+  	// `Assert: IsConstructor(argument) is true`
+  	aConstructor = function (argument) {
+  	  if (isConstructor(argument)) return argument;
+  	  throw new $TypeError(tryToString(argument) + ' is not a constructor');
+  	};
+  	return aConstructor;
+  }
+
+  var speciesConstructor;
+  var hasRequiredSpeciesConstructor;
+
+  function requireSpeciesConstructor () {
+  	if (hasRequiredSpeciesConstructor) return speciesConstructor;
+  	hasRequiredSpeciesConstructor = 1;
+  	var anObject = requireAnObject();
+  	var aConstructor = requireAConstructor();
+  	var isNullOrUndefined = requireIsNullOrUndefined();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+
+  	var SPECIES = wellKnownSymbol('species');
+
+  	// `SpeciesConstructor` abstract operation
+  	// https://tc39.es/ecma262/#sec-speciesconstructor
+  	speciesConstructor = function (O, defaultConstructor) {
+  	  var C = anObject(O).constructor;
+  	  var S;
+  	  return C === undefined || isNullOrUndefined(S = anObject(C)[SPECIES]) ? defaultConstructor : aConstructor(S);
+  	};
+  	return speciesConstructor;
+  }
+
+  var advanceStringIndex;
+  var hasRequiredAdvanceStringIndex;
+
+  function requireAdvanceStringIndex () {
+  	if (hasRequiredAdvanceStringIndex) return advanceStringIndex;
+  	hasRequiredAdvanceStringIndex = 1;
+  	var charAt = requireStringMultibyte().charAt;
+
+  	// `AdvanceStringIndex` abstract operation
+  	// https://tc39.es/ecma262/#sec-advancestringindex
+  	advanceStringIndex = function (S, index, unicode) {
+  	  return index + (unicode ? charAt(S, index).length : 1);
+  	};
+  	return advanceStringIndex;
+  }
+
+  var regexpExecAbstract;
+  var hasRequiredRegexpExecAbstract;
+
+  function requireRegexpExecAbstract () {
+  	if (hasRequiredRegexpExecAbstract) return regexpExecAbstract;
+  	hasRequiredRegexpExecAbstract = 1;
+  	var call = requireFunctionCall();
+  	var anObject = requireAnObject();
+  	var isCallable = requireIsCallable();
+  	var classof = requireClassofRaw();
+  	var regexpExec = requireRegexpExec();
+
+  	var $TypeError = TypeError;
+
+  	// `RegExpExec` abstract operation
+  	// https://tc39.es/ecma262/#sec-regexpexec
+  	regexpExecAbstract = function (R, S) {
+  	  var exec = R.exec;
+  	  if (isCallable(exec)) {
+  	    var result = call(exec, R, S);
+  	    if (result !== null) anObject(result);
+  	    return result;
+  	  }
+  	  if (classof(R) === 'RegExp') return call(regexpExec, R, S);
+  	  throw new $TypeError('RegExp#exec called on incompatible receiver');
+  	};
+  	return regexpExecAbstract;
+  }
+
+  var hasRequiredEs_string_split;
+
+  function requireEs_string_split () {
+  	if (hasRequiredEs_string_split) return es_string_split;
+  	hasRequiredEs_string_split = 1;
+  	var call = requireFunctionCall();
+  	var uncurryThis = requireFunctionUncurryThis();
+  	var fixRegExpWellKnownSymbolLogic = requireFixRegexpWellKnownSymbolLogic();
+  	var anObject = requireAnObject();
+  	var isObject = requireIsObject();
+  	var requireObjectCoercible = requireRequireObjectCoercible();
+  	var speciesConstructor = requireSpeciesConstructor();
+  	var advanceStringIndex = requireAdvanceStringIndex();
+  	var toLength = requireToLength();
+  	var toString = requireToString();
+  	var getMethod = requireGetMethod();
+  	var regExpExec = requireRegexpExecAbstract();
+  	var stickyHelpers = requireRegexpStickyHelpers();
+  	var fails = requireFails();
+
+  	var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y;
+  	var MAX_UINT32 = 0xFFFFFFFF;
+  	var min = Math.min;
+  	var push = uncurryThis([].push);
+  	var stringSlice = uncurryThis(''.slice);
+
+  	// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
+  	// Weex JS has frozen built-in prototypes, so use try / catch wrapper
+  	var SPLIT_WORKS_WITH_OVERWRITTEN_EXEC = !fails(function () {
+  	  // eslint-disable-next-line regexp/no-empty-group -- required for testing
+  	  var re = /(?:)/;
+  	  var originalExec = re.exec;
+  	  re.exec = function () { return originalExec.apply(this, arguments); };
+  	  var result = 'ab'.split(re);
+  	  return result.length !== 2 || result[0] !== 'a' || result[1] !== 'b';
+  	});
+
+  	var BUGGY = 'abbc'.split(/(b)*/)[1] === 'c' ||
+  	  // eslint-disable-next-line regexp/no-empty-group -- required for testing
+  	  'test'.split(/(?:)/, -1).length !== 4 ||
+  	  'ab'.split(/(?:ab)*/).length !== 2 ||
+  	  '.'.split(/(.?)(.?)/).length !== 4 ||
+  	  // eslint-disable-next-line regexp/no-empty-capturing-group, regexp/no-empty-group -- required for testing
+  	  '.'.split(/()()/).length > 1 ||
+  	  ''.split(/.?/).length;
+
+  	// @@split logic
+  	fixRegExpWellKnownSymbolLogic('split', function (SPLIT, nativeSplit, maybeCallNative) {
+  	  var internalSplit = '0'.split(undefined, 0).length ? function (separator, limit) {
+  	    return separator === undefined && limit === 0 ? [] : call(nativeSplit, this, separator, limit);
+  	  } : nativeSplit;
+
+  	  return [
+  	    // `String.prototype.split` method
+  	    // https://tc39.es/ecma262/#sec-string.prototype.split
+  	    function split(separator, limit) {
+  	      var O = requireObjectCoercible(this);
+  	      var splitter = isObject(separator) ? getMethod(separator, SPLIT) : undefined;
+  	      return splitter
+  	        ? call(splitter, separator, O, limit)
+  	        : call(internalSplit, toString(O), separator, limit);
+  	    },
+  	    // `RegExp.prototype[@@split]` method
+  	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@split
+  	    //
+  	    // NOTE: This cannot be properly polyfilled in engines that don't support
+  	    // the 'y' flag.
+  	    function (string, limit) {
+  	      var rx = anObject(this);
+  	      var S = toString(string);
+
+  	      if (!BUGGY) {
+  	        var res = maybeCallNative(internalSplit, rx, S, limit, internalSplit !== nativeSplit);
+  	        if (res.done) return res.value;
+  	      }
+
+  	      var C = speciesConstructor(rx, RegExp);
+  	      var unicodeMatching = rx.unicode;
+  	      var flags = (rx.ignoreCase ? 'i' : '') +
+  	                  (rx.multiline ? 'm' : '') +
+  	                  (rx.unicode ? 'u' : '') +
+  	                  (UNSUPPORTED_Y ? 'g' : 'y');
+  	      // ^(? + rx + ) is needed, in combination with some S slicing, to
+  	      // simulate the 'y' flag.
+  	      var splitter = new C(UNSUPPORTED_Y ? '^(?:' + rx.source + ')' : rx, flags);
+  	      var lim = limit === undefined ? MAX_UINT32 : limit >>> 0;
+  	      if (lim === 0) return [];
+  	      if (S.length === 0) return regExpExec(splitter, S) === null ? [S] : [];
+  	      var p = 0;
+  	      var q = 0;
+  	      var A = [];
+  	      while (q < S.length) {
+  	        splitter.lastIndex = UNSUPPORTED_Y ? 0 : q;
+  	        var z = regExpExec(splitter, UNSUPPORTED_Y ? stringSlice(S, q) : S);
+  	        var e;
+  	        if (
+  	          z === null ||
+  	          (e = min(toLength(splitter.lastIndex + (UNSUPPORTED_Y ? q : 0)), S.length)) === p
+  	        ) {
+  	          q = advanceStringIndex(S, q, unicodeMatching);
+  	        } else {
+  	          push(A, stringSlice(S, p, q));
+  	          if (A.length === lim) return A;
+  	          for (var i = 1; i <= z.length - 1; i++) {
+  	            push(A, z[i]);
+  	            if (A.length === lim) return A;
+  	          }
+  	          q = p = e;
+  	        }
+  	      }
+  	      push(A, stringSlice(S, p));
+  	      return A;
+  	    }
+  	  ];
+  	}, BUGGY || !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC, UNSUPPORTED_Y);
+  	return es_string_split;
+  }
+
+  requireEs_string_split();
 
   var web_domCollections_forEach = {};
 
@@ -4655,67 +5265,89 @@
       args[_key] = arguments[_key];
     }
     _initSort.apply(this, args);
-    if (this.enableCustomSort) {
-      if (this.options.sortName !== this.options.groupByField) {
-        if (this.options.customSort) {
-          Utils.calculateObjectValue(this.options, this.options.customSort, [this.options.sortName, this.options.sortOrder, this.data]);
-        } else {
-          var groupByFields = this.getGroupByFields();
-          this.data.sort(function (a, b) {
-            var fieldValuesA = groupByFields.map(function (field) {
-              return a[field];
-            });
-            var fieldValuesB = groupByFields.map(function (field) {
-              return b[field];
-            });
-            return fieldValuesA.join().localeCompare(fieldValuesB.join(), undefined, {
-              numeric: true
-            });
+    if (!this.enableCustomSort) {
+      return;
+    }
+
+    // Initialize group expand/collapse state tracking
+    if (!this._groupCollapsedState) {
+      this._groupCollapsedState = new Map();
+      // Pre-populate with default collapsed groups
+      if (this.options.groupByCollapsedGroups) {
+        var collapsedGroups = Array.isArray(this.options.groupByCollapsedGroups) ? this.options.groupByCollapsedGroups : [];
+        collapsedGroups.forEach(function (group) {
+          _this._groupCollapsedState.set(group, true);
+        });
+      }
+    }
+    if (this.options.sortName !== this.options.groupByField) {
+      if (this.options.customSort) {
+        Utils.calculateObjectValue(this.options, this.options.customSort, [this.options.sortName, this.options.sortOrder, this.data]);
+      } else {
+        var groupByFields = this.getGroupByFields();
+        this.data.sort(function (a, b) {
+          var fieldValuesA = groupByFields.map(function (field) {
+            return a[field];
           });
-        }
+          var fieldValuesB = groupByFields.map(function (field) {
+            return b[field];
+          });
+          return fieldValuesA.join().localeCompare(fieldValuesB.join(), undefined, {
+            numeric: true
+          });
+        });
       }
-      var groups = groupBy(this.data, function (item) {
-        var groupByFields = _this.getGroupByFields();
-        var groupValues = [];
-        var _iterator = _createForOfIteratorHelper(groupByFields),
-          _step;
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var field = _step.value;
-            var value_ = Utils.getItemField(item, field, _this.options.escape, item.escape);
-            groupValues.push(value_);
-          }
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
+    }
+    var groups = groupBy(this.data, function (item) {
+      var groupByFields = _this.getGroupByFields();
+      var groupValues = [];
+      var _iterator = _createForOfIteratorHelper(groupByFields),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var field = _step.value;
+          var value_ = Utils.getItemField(item, field, _this.options.escape, item.escape);
+          groupValues.push(value_);
         }
-        return groupValues.join(', ');
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      return groupValues.join(', ');
+    });
+    var index = 0;
+    var _loop = function _loop() {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+      _this.tableGroups.push({
+        id: index,
+        name: key,
+        data: value
       });
-      var index = 0;
-      var _loop = function _loop() {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          key = _Object$entries$_i[0],
-          value = _Object$entries$_i[1];
-        _this.tableGroups.push({
-          id: index,
-          name: key,
-          data: value
+      value.forEach(function (item) {
+        // Clone _data to avoid modifying original dataset reference
+        item._data = _objectSpread2(_objectSpread2({}, item._data || {}), {}, {
+          'parent-index': index
         });
-        value.forEach(function (item) {
-          if (!item._data) {
-            item._data = {};
-          }
-          if (_this.isCollapsed(key, value)) {
-            item._class += ' hidden';
-          }
-          item._data['parent-index'] = index;
-        });
-        index++;
-      };
-      for (var _i = 0, _Object$entries = Object.entries(groups); _i < _Object$entries.length; _i++) {
-        _loop();
-      }
+
+        // Remove existing hidden class from previous render
+        if (item._class) {
+          item._class = item._class.split(/\s+/).filter(function (className) {
+            return className && className !== 'hidden';
+          }).join(' ');
+        }
+
+        // Add hidden class if collapsed
+        if (_this.isCollapsed(key)) {
+          item._class = "".concat(item._class || '', " hidden");
+        }
+      });
+      index++;
+    };
+    for (var _i = 0, _Object$entries = Object.entries(groups); _i < _Object$entries.length; _i++) {
+      _loop();
     }
   };
   BootstrapTable.prototype.initBody = function () {
@@ -4741,22 +5373,22 @@
       }
       this.tableGroups.forEach(function (item) {
         var html = [];
-        html.push(Utils.sprintf('<tr class="info group-by %s" data-group-index="%s">', _this2.options.groupByToggle ? 'expanded' : '', item.id));
+        var isCollapsed = _this2.isCollapsed(item.name);
+        var groupClass = _this2.options.groupByToggle ? isCollapsed ? 'collapsed' : 'expanded' : '';
+        html.push(Utils.sprintf('<tr class="info group-by %s" data-group-index="%s">', groupClass, item.id));
         if (_this2.options.detailView && !_this2.options.cardView) {
           html.push('<td class="detail"></td>');
         }
         if (checkBox) {
-          html.push('<td class="bs-checkbox">', '<input name="btSelectGroup" type="checkbox" />', '</td>');
+          html.push('<td class="bs-checkbox">', Utils.getCheckboxHtml({
+            name: 'btSelectGroup',
+            centered: true,
+            withLabel: false
+          }), '</td>');
         }
-        var formattedValue = item.name;
-        if (_this2.options.groupByFormatter !== undefined) {
-          formattedValue = Utils.calculateObjectValue(_this2.options, _this2.options.groupByFormatter, [item.name, item.id, item.data]);
-        }
+        var formattedValue = _this2.options.groupByFormatter ? Utils.calculateObjectValue(_this2.options, _this2.options.groupByFormatter, [item.name, item.id, item.data]) : item.name;
         html.push('<td', Utils.sprintf(' colspan="%s"', visibleColumns), '>', formattedValue);
-        var icon = _this2.options.icons.collapseGroup;
-        if (_this2.isCollapsed(item.name, item.data)) {
-          icon = _this2.options.icons.expandGroup;
-        }
+        var icon = isCollapsed ? _this2.options.icons.expandGroup : _this2.options.icons.collapseGroup;
         if (_this2.options.groupByToggle && _this2.options.groupByShowToggleIcon) {
           html.push("<span class=\"float-right ".concat(_this2.options.iconsPrefix, " ").concat(icon, "\"></span>"));
         }
@@ -4793,6 +5425,14 @@
           $this.toggleClass('expanded collapsed');
           $this.find('span').toggleClass("".concat(_this2.options.icons.collapseGroup, " ").concat(_this2.options.icons.expandGroup));
           $groupRows.toggleClass('hidden');
+
+          // Store the user's toggle state
+          var groupItem = _this2.tableGroups.find(function (g) {
+            return g.id === groupIndex;
+          });
+          if (groupItem) {
+            _this2._groupCollapsedState.set(groupItem.name, $this.hasClass('collapsed'));
+          }
           var _iterator3 = _createForOfIteratorHelper($groupRows),
             _step3;
           try {
@@ -4836,12 +5476,19 @@
   BootstrapTable.prototype.uncheckGroup = function (index) {
     this.checkGroup_(index, false);
   };
-  BootstrapTable.prototype.isCollapsed = function (groupKey, items) {
-    if (this.options.groupByCollapsedGroups) {
-      var collapsedGroups = Utils.calculateObjectValue(this, this.options.groupByCollapsedGroups, [groupKey, items], true);
-      if (collapsedGroups.includes(groupKey)) {
-        return true;
-      }
+  BootstrapTable.prototype.isCollapsed = function (groupKey) {
+    // First, respect any explicitly stored collapsed state
+    if (this._groupCollapsedState && this._groupCollapsedState.has(groupKey)) {
+      return this._groupCollapsedState.get(groupKey);
+    }
+
+    // Backwards compatibility: support groupByCollapsedGroups as array or function
+    var collapsedGroups = this.options.groupByCollapsedGroups;
+    if (typeof collapsedGroups === 'function') {
+      return Utils.calculateObjectValue(this.options, collapsedGroups, [groupKey], false);
+    }
+    if (Array.isArray(collapsedGroups)) {
+      return collapsedGroups.includes(groupKey);
     }
     return false;
   };
@@ -4860,11 +5507,7 @@
     this.trigger('uncheck-all', rowsAfter, rowsBefore);
   };
   BootstrapTable.prototype.getGroupByFields = function () {
-    var groupByFields = this.options.groupByField;
-    if (!Array.isArray(this.options.groupByField)) {
-      groupByFields = [this.options.groupByField];
-    }
-    return groupByFields;
+    return Array.isArray(this.options.groupByField) ? this.options.groupByField : [this.options.groupByField];
   };
   $.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     function _class() {

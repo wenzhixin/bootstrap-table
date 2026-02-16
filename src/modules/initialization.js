@@ -171,7 +171,8 @@ export default {
           titleTooltip: $th.attr('title'),
           rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
           colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined,
-          scope: $th.attr('scope') ? $th.attr('scope') : undefined
+          scope: $th.attr('scope') ? $th.attr('scope') : undefined,
+          style: Utils.normalizeStyle($th.attr('style'))
         }, $th.data()))
       })
       columns.push(column)
@@ -211,7 +212,7 @@ export default {
 
     // if options.data is setting, do not process tbody and tfoot data
     if (!this.options.data.length) {
-      const htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
+      const htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr').get())
 
       if (htmlData.length) {
         this.options.data = htmlData
@@ -220,7 +221,7 @@ export default {
     }
 
     if (!(this.options.pagination && this.options.sidePagination !== 'server')) {
-      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'))
+      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr').get())
     }
 
     if (this.footerData) {

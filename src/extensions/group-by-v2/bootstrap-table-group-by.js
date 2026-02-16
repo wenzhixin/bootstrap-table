@@ -56,62 +56,83 @@ BootstrapTable.prototype.initSort = function (...args) {
 
   _initSort.apply(this, args)
 
-  if (this.enableCustomSort) {
-    if (this.options.sortName !== this.options.groupByField) {
-      if (this.options.customSort) {
-        Utils.calculateObjectValue(this.options, this.options.customSort, [
-          this.options.sortName,
-          this.options.sortOrder,
-          this.data
-        ])
-      } else {
-        const groupByFields = this.getGroupByFields()
+  if (!this.enableCustomSort) {
+    return
+  }
 
-        this.data.sort((a, b) => {
-          const fieldValuesA = groupByFields.map(field => a[field])
-          const fieldValuesB = groupByFields.map(field => b[field])
+  // Initialize group expand/collapse state tracking
+  if (!this._groupCollapsedState) {
+    this._groupCollapsedState = new Map()
+    // Pre-populate with default collapsed groups
+    if (this.options.groupByCollapsedGroups) {
+      const collapsedGroups = Array.isArray(this.options.groupByCollapsedGroups) ?
+        this.options.groupByCollapsedGroups : []
 
-          return fieldValuesA.join().localeCompare(fieldValuesB.join(), undefined, { numeric: true })
-        })
-      }
+      collapsedGroups.forEach(group => {
+        this._groupCollapsedState.set(group, true)
+      })
+    }
+  }
+  if (this.options.sortName !== this.options.groupByField) {
+    if (this.options.customSort) {
+      Utils.calculateObjectValue(this.options, this.options.customSort, [
+        this.options.sortName,
+        this.options.sortOrder,
+        this.data
+      ])
+    } else {
+      const groupByFields = this.getGroupByFields()
+
+      this.data.sort((a, b) => {
+        const fieldValuesA = groupByFields.map(field => a[field])
+        const fieldValuesB = groupByFields.map(field => b[field])
+
+        return fieldValuesA.join().localeCompare(fieldValuesB.join(), undefined, { numeric: true })
+      })
+    }
+  }
+
+  const groups = groupBy(this.data, item => {
+    const groupByFields = this.getGroupByFields()
+    const groupValues = []
+
+    for (const field of groupByFields) {
+      const value_ = Utils.getItemField(item, field, this.options.escape, item.escape)
+
+      groupValues.push(value_)
     }
 
-    const groups = groupBy(this.data, item => {
-      const groupByFields = this.getGroupByFields()
-      const groupValues = []
+    return groupValues.join(', ')
+  })
 
-      for (const field of groupByFields) {
-        const value_ = Utils.getItemField(item, field, this.options.escape, item.escape)
+  let index = 0
 
-        groupValues.push(value_)
-      }
-
-      return groupValues.join(', ')
+  for (const [key, value] of Object.entries(groups)) {
+    this.tableGroups.push({
+      id: index,
+      name: key,
+      data: value
     })
 
-    let index = 0
+    value.forEach(item => {
+      // Clone _data to avoid modifying original dataset reference
+      item._data = { ...item._data || {}, 'parent-index': index }
 
-    for (const [key, value] of Object.entries(groups)) {
-      this.tableGroups.push({
-        id: index,
-        name: key,
-        data: value
-      })
+      // Remove existing hidden class from previous render
+      if (item._class) {
+        item._class = item._class
+          .split(/\s+/)
+          .filter(className => className && className !== 'hidden')
+          .join(' ')
+      }
 
-      value.forEach(item => {
-        if (!item._data) {
-          item._data = {}
-        }
+      // Add hidden class if collapsed
+      if (this.isCollapsed(key)) {
+        item._class = `${item._class || ''} hidden`
+      }
+    })
 
-        if (this.isCollapsed(key, value)) {
-          item._class += ' hidden'
-        }
-
-        item._data['parent-index'] = index
-      })
-
-      index++
-    }
+    index++
   }
 }
 
@@ -140,34 +161,35 @@ BootstrapTable.prototype.initBody = function (...args) {
 
     this.tableGroups.forEach(item => {
       const html = []
+      const isCollapsed = this.isCollapsed(item.name)
+      const groupClass = this.options.groupByToggle ? isCollapsed ? 'collapsed' : 'expanded' : ''
 
-      html.push(Utils.sprintf('<tr class="info group-by %s" data-group-index="%s">', this.options.groupByToggle ? 'expanded' : '', item.id))
+      html.push(Utils.sprintf('<tr class="info group-by %s" data-group-index="%s">', groupClass, item.id))
       if (this.options.detailView && !this.options.cardView) {
         html.push('<td class="detail"></td>')
       }
 
       if (checkBox) {
         html.push('<td class="bs-checkbox">',
-          '<input name="btSelectGroup" type="checkbox" />',
+          Utils.getCheckboxHtml({
+            name: 'btSelectGroup',
+            centered: true,
+            withLabel: false
+          }),
           '</td>'
         )
       }
 
-      let formattedValue = item.name
+      const formattedValue = this.options.groupByFormatter ?
+        Utils.calculateObjectValue(this.options, this.options.groupByFormatter, [item.name, item.id, item.data]) :
+        item.name
 
-      if (this.options.groupByFormatter !== undefined) {
-        formattedValue = Utils.calculateObjectValue(this.options, this.options.groupByFormatter, [item.name, item.id, item.data])
-      }
       html.push('<td',
         Utils.sprintf(' colspan="%s"', visibleColumns),
         '>', formattedValue
       )
 
-      let icon = this.options.icons.collapseGroup
-
-      if (this.isCollapsed(item.name, item.data)) {
-        icon = this.options.icons.expandGroup
-      }
+      const icon = isCollapsed ? this.options.icons.expandGroup : this.options.icons.collapseGroup
 
       if (this.options.groupByToggle && this.options.groupByShowToggleIcon) {
         html.push(`<span class="float-right ${this.options.iconsPrefix} ${icon}"></span>`)
@@ -197,6 +219,14 @@ BootstrapTable.prototype.initBody = function (...args) {
           $this.toggleClass('expanded collapsed')
           $this.find('span').toggleClass(`${this.options.icons.collapseGroup} ${this.options.icons.expandGroup}`)
           $groupRows.toggleClass('hidden')
+
+          // Store the user's toggle state
+          const groupItem = this.tableGroups.find(g => g.id === groupIndex)
+
+          if (groupItem) {
+            this._groupCollapsedState.set(groupItem.name, $this.hasClass('collapsed'))
+          }
+
           for (const element of $groupRows) {
             this.collapseRow($(element).data('index'))
           }
@@ -239,13 +269,21 @@ BootstrapTable.prototype.uncheckGroup = function (index) {
   this.checkGroup_(index, false)
 }
 
-BootstrapTable.prototype.isCollapsed = function (groupKey, items) {
-  if (this.options.groupByCollapsedGroups) {
-    const collapsedGroups = Utils.calculateObjectValue(this, this.options.groupByCollapsedGroups, [groupKey, items], true)
+BootstrapTable.prototype.isCollapsed = function (groupKey) {
+  // First, respect any explicitly stored collapsed state
+  if (this._groupCollapsedState && this._groupCollapsedState.has(groupKey)) {
+    return this._groupCollapsedState.get(groupKey)
+  }
 
-    if (collapsedGroups.includes(groupKey)) {
-      return true
-    }
+  // Backwards compatibility: support groupByCollapsedGroups as array or function
+  const collapsedGroups = this.options.groupByCollapsedGroups
+
+  if (typeof collapsedGroups === 'function') {
+    return Utils.calculateObjectValue(this.options, collapsedGroups, [groupKey], false)
+  }
+
+  if (Array.isArray(collapsedGroups)) {
+    return collapsedGroups.includes(groupKey)
   }
 
   return false
@@ -271,13 +309,7 @@ BootstrapTable.prototype.checkGroup_ = function (index, checked) {
 }
 
 BootstrapTable.prototype.getGroupByFields = function () {
-  let groupByFields = this.options.groupByField
-
-  if (!Array.isArray(this.options.groupByField)) {
-    groupByFields = [this.options.groupByField]
-  }
-
-  return groupByFields
+  return Array.isArray(this.options.groupByField) ? this.options.groupByField : [this.options.groupByField]
 }
 
 $.BootstrapTable = class extends $.BootstrapTable {

@@ -35,7 +35,7 @@ const theme = {
   bootstrap3: {
     html: {
       multipleSortModal: `
-        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal fade modal-multiple-sort" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -79,7 +79,7 @@ const theme = {
   bootstrap4: {
     html: {
       multipleSortModal: `
-        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal fade modal-multiple-sort" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -125,7 +125,7 @@ const theme = {
   bootstrap5: {
     html: {
       multipleSortModal: `
-        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal fade modal-multiple-sort" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -169,7 +169,7 @@ const theme = {
   semantic: {
     html: {
       multipleSortModal: `
-        <div class="ui modal tiny" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="ui modal tiny modal-multiple-sort" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
           <i class="close icon"></i>
           <div class="header" id="%sLabel">
             %s
@@ -209,7 +209,7 @@ const theme = {
   materialize: {
     html: {
       multipleSortModal: `
-        <div id="%s" class="modal" aria-labelledby="%sLabel" aria-hidden="true">
+        <div id="%s" class="modal modal-multiple-sort" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-content" id="%sLabel">
             <h4>%s</h4>
             <div class="bootstrap-table">
@@ -246,7 +246,7 @@ const theme = {
   foundation: {
     html: {
       multipleSortModal: `
-        <div class="reveal" id="%s" data-reveal aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="reveal modal-multiple-sort" id="%s" data-reveal aria-labelledby="%sLabel" aria-hidden="true">
           <div id="%sLabel">
             <h1>%s</h1>
             <div class="bootstrap-table">
@@ -286,7 +286,7 @@ const theme = {
   bulma: {
     html: {
       multipleSortModal: `
-        <div class="modal" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal modal-multiple-sort" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-background"></div>
           <div class="modal-content" id="%sLabel">
             <div class="box">
@@ -324,7 +324,7 @@ const theme = {
   'bootstrap-table': {
     html: {
       multipleSortModal: `
-        <div class="modal" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal modal-multiple-sort" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-background"></div>
           <div class="modal-content" id="%sLabel">
             <div class="box">
@@ -390,10 +390,9 @@ const showSortModal = that => {
 
     that.$sortModal.off('click', '.toolbar-btn-add').on('click', '.toolbar-btn-add', () => {
       const total = that.$sortModal.find('.multi-sort-name:first option').length
-      let current = that.$sortModal.find('tbody tr').length
+      const current = that.$sortModal.find('tbody tr').length
 
       if (current < total) {
-        current++
         that.addLevel()
         that.setButtonStates()
       }
@@ -401,10 +400,9 @@ const showSortModal = that => {
 
     that.$sortModal.off('click', '.toolbar-btn-delete').on('click', '.toolbar-btn-delete', () => {
       const total = that.$sortModal.find('.multi-sort-name:first option').length
-      let current = that.$sortModal.find('tbody tr').length
+      const current = that.$sortModal.find('tbody tr').length
 
       if (current > 1 && current <= total) {
-        current--
         that.$sortModal.find('tbody tr:last').remove()
         that.setButtonStates()
       }
