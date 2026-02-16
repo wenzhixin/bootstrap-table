@@ -106,7 +106,7 @@ export default {
           column.checkbox || column.radio ?
             Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') :
             classes || class_,
-          Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined),
+          Utils.sprintf(' style="%s"', (column.style || '') + halign + style + csses.join('; ') || undefined),
           Utils.sprintf(' rowspan="%s"', column.rowspan),
           Utils.sprintf(' colspan="%s"', column.colspan),
           Utils.sprintf(' scope="%s"', column.scope),
