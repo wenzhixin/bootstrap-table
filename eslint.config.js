@@ -11,7 +11,12 @@ export default [
         ...globals.browser,
         ...globals.node,
         $: true,
-        jQuery: true
+        jQuery: true,
+        // cypress
+        cy: true,
+        describe: true,
+        expect: true,
+        it: true
       },
       ecmaVersion: 'latest',
       sourceType: 'module'

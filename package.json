@@ -47,7 +47,7 @@
     "vue": "^3.5.28"
   },
   "scripts": {
-    "lint:js": "eslint src tests",
+    "lint:js": "eslint src tests cypress",
     "lint:css": "stylelint src/**/*.scss",
     "lint:spell": "cspell lint --no-progress 'src/**/*.{js,json,vue,scss}' 'site/**/*.md' '*.md'",
     "lint:editor": "editorconfig-checker -exclude dist",
