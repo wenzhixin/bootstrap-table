@@ -109,3 +109,22 @@ toc: true
 - **详情:**
 
   当需要重置本地缓存（如排序、搜索、页大小变化或翻页超出当前缓存窗口）时触发。
+
+## 方法
+
+### resetPipelineCache
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  以编程方式重置管道缓存。当你需要从外部代码强制重置缓存时非常有用，例如使用 filter-control 扩展配合外部输入时。
+
+- **示例:**
+
+```javascript
+// 重置管道缓存
+$('#mytable').bootstrapTable('resetPipelineCache')
+// 刷新表格以触发新的服务端请求
+$('#mytable').bootstrapTable('refresh')
+```
