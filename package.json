@@ -72,6 +72,9 @@
     "build": "run-s lint clean *:build",
     "pre-commit": "run-s lint docs:check"
   },
+  "overrides": {
+    "minimatch": "^10.2.3"
+  },
   "peerDependencies": {
     "jquery": "3 || 4"
   },
