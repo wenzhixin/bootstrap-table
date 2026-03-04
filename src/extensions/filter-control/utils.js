@@ -146,7 +146,7 @@ export function cacheValues (that) {
     const fieldClass = escapeID(getElementClass($field))
 
     if (that.options.height && !that.options.filterControlContainer) {
-      $field = that.$el.find(`.fixed-table-header .${fieldClass}`)
+      $field = that.$el.closest('.fixed-table-container').find(`.fixed-table-header .${fieldClass}`)
     } else if (that.options.filterControlContainer) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     } else {
