@@ -171,6 +171,30 @@ export function h (element, attrs, children) {
 }
 
 /**
+ * Checks if a value is a DOM node or a jQuery-like object.
+ * Uses duck typing to detect jQuery objects without direct dependency.
+ *
+ * Note: Strings are not considered DOM nodes. Use {@link htmlToNodes} to
+ * convert HTML strings into DOM nodes.
+ *
+ * @param {*} value - The value to check.
+ * @returns {boolean} True if the value is a Node or jQuery-like object.
+ */
+export function isDomNode (value) {
+  if (value instanceof Node) {
+    return true
+  }
+  // Duck typing for jQuery-like objects (check for 'jquery' property)
+  return Boolean(
+    value &&
+    typeof value === 'object' &&
+    typeof value.length === 'number' &&
+    value.length >= 0 &&
+    'jquery' in value
+  )
+}
+
+/**
  * Converts HTML to DOM nodes.
  * Uses duck typing to detect jQuery objects without direct dependency.
  *

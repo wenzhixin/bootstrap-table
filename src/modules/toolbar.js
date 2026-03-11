@@ -162,7 +162,7 @@ export default {
       if (buttonConfig.hasOwnProperty('html')) {
         if (typeof buttonConfig.html === 'function') {
           buttonHtml = buttonConfig.html()
-        } else if (typeof buttonConfig.html === 'string') {
+        } else {
           buttonHtml = buttonConfig.html
         }
       } else {
@@ -230,7 +230,21 @@ export default {
 
     // Fix #188: this.showToolbar is for extensions
     if (this.showToolbar || html.length > 2) {
-      this.$toolbar.append(html.join(''))
+      if (html.some(item => Utils.isDomNode(item))) {
+        // When there are DOM nodes, build the structure manually
+        // Build wrapper element once from the opening div string
+        const wrapper = $(html[0])
+
+        // Skip html[0] (opening div) and html[html.length-1] (closing div)
+        // Append each button item into the wrapper
+        for (const item of html.slice(1, -1)) {
+          wrapper.append(...Utils.htmlToNodes(item))
+        }
+
+        this.$toolbar.append(wrapper)
+      } else {
+        this.$toolbar.append(html.join(''))
+      }
     }
 
     for (const [buttonName, buttonConfig] of Object.entries(this.buttons)) {
