@@ -462,7 +462,17 @@ export default {
     if (!this.options.cardView && this.options.showHeader && this.options.height) {
       this.$tableHeader.show()
       this.resetHeader()
-      padding += this.$header.outerHeight(true) + 1
+
+      // Fix #8149: ensure header height is available even when element is initially hidden
+      // If header height is 0 (element hidden) and we're not in fullscreen, defer padding calculation
+      const headerHeight = this.$header.outerHeight(true)
+
+      if (headerHeight === 0 && !this.$container.hasClass('fullscreen') && this.$el.is(':hidden')) {
+        // Element is hidden, defer the padding calculation
+        this._setDelayTimeout('resetView', () => this.resetView(params), 100)
+        return
+      }
+      padding += headerHeight + 1
     } else {
       this.$tableHeader.hide()
       this.trigger('post-header')
