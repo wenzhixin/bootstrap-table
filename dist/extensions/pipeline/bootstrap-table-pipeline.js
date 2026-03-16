@@ -2095,6 +2095,7 @@
     'cached-data-hit.bs.table': 'onCachedDataHit',
     'cached-data-reset.bs.table': 'onCachedDataReset'
   });
+  $.fn.bootstrapTable.methods.push('resetPipelineCache');
   $.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     function _class() {
       _classCallCheck(this, _class);
@@ -2310,6 +2311,13 @@
           args[_key4] = arguments[_key4];
         }
         _superPropGet(_class, "destroy", this, 3)(args);
+      }
+
+      // Public method to reset the pipeline cache
+    }, {
+      key: "resetPipelineCache",
+      value: function resetPipelineCache() {
+        this.resetCache = true;
       }
     }]);
   }($.BootstrapTable);

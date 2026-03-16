@@ -6771,7 +6771,7 @@
       // save tr's id, class and data-* attributes
       row._id = DOMHelper.attr(el, 'id');
       row._class = DOMHelper.attr(el, 'class');
-      row._data = getRealDataAttr(el.dataset || {});
+      row._data = getRealDataAttr(_objectSpread2({}, el.dataset));
       row._style = DOMHelper.attr(el, 'style');
       var cells = DOMHelper.children(el, 'td,th');
       for (var x = 0; x < cells.length; x++) {
@@ -6803,7 +6803,7 @@
         row["_".concat(field, "_rowspan")] = DOMHelper.attr(cell, 'rowspan');
         row["_".concat(field, "_colspan")] = DOMHelper.attr(cell, 'colspan');
         row["_".concat(field, "_title")] = DOMHelper.attr(cell, 'title');
-        row["_".concat(field, "_data")] = getRealDataAttr(cell.dataset || {});
+        row["_".concat(field, "_data")] = getRealDataAttr(_objectSpread2({}, cell.dataset));
         row["_".concat(field, "_style")] = DOMHelper.attr(cell, 'style');
       }
       data.push(row);

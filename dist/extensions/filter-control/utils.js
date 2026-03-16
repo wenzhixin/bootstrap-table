@@ -3905,7 +3905,7 @@
       var $field = $(this);
       var fieldClass = escapeID(getElementClass($field));
       if (that.options.height && !that.options.filterControlContainer) {
-        $field = that.$el.find(".fixed-table-header .".concat(fieldClass));
+        $field = that.$tableContainer.find(".fixed-table-header .".concat(fieldClass));
       } else if (that.options.filterControlContainer) {
         $field = $("".concat(that.options.filterControlContainer, " .").concat(fieldClass));
       } else {
