@@ -240,6 +240,56 @@ describe('h', () => {
   })
 })
 
+describe('isDomNode', () => {
+  it('should return false for strings', () => {
+    expect(dom.isDomNode('<div>test</div>')).toBe(false)
+    expect(dom.isDomNode('plain text')).toBe(false)
+    expect(dom.isDomNode('')).toBe(false)
+  })
+
+  it('should return true for DOM Nodes', () => {
+    const div = document.createElement('div')
+    const span = document.createElement('span')
+    const textNode = document.createTextNode('test')
+
+    expect(dom.isDomNode(div)).toBe(true)
+    expect(dom.isDomNode(span)).toBe(true)
+    expect(dom.isDomNode(textNode)).toBe(true)
+  })
+
+  it('should return true for jQuery-like objects', () => {
+    const jqueryObj = { jquery: '3.6.0', 0: document.createElement('div'), length: 1 }
+    const jqueryObj2 = { jquery: true, 0: document.createElement('span'), length: 1 }
+    const emptyJqueryObj = { jquery: '3.6.0', length: 0 }
+
+    expect(dom.isDomNode(jqueryObj)).toBe(true)
+    expect(dom.isDomNode(jqueryObj2)).toBe(true)
+    expect(dom.isDomNode(emptyJqueryObj)).toBe(true)
+  })
+
+  it('should return false for other types', () => {
+    expect(dom.isDomNode(null)).toBe(false)
+    expect(dom.isDomNode(undefined)).toBe(false)
+    expect(dom.isDomNode(123)).toBe(false)
+    expect(dom.isDomNode(true)).toBe(false)
+    expect(dom.isDomNode({})).toBe(false)
+    expect(dom.isDomNode([])).toBe(false)
+    expect(dom.isDomNode({ foo: 'bar' })).toBe(false)
+    expect(dom.isDomNode({ jquery: true })).toBe(false) // Not array-like
+  })
+
+  it('should return false for NodeList and HTMLCollection', () => {
+    const tempDiv = document.createElement('div')
+
+    tempDiv.innerHTML = '<div></div><div></div>'
+    const nodeList = tempDiv.childNodes
+    const htmlCollection = tempDiv.children
+
+    expect(dom.isDomNode(nodeList)).toBe(false)
+    expect(dom.isDomNode(htmlCollection)).toBe(false)
+  })
+})
+
 describe('htmlToNodes', () => {
   it('should convert HTML string, text, and multiple elements to nodes', () => {
     const nodes1 = dom.htmlToNodes('<div>test</div>')

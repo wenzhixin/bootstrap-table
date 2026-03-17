@@ -94,10 +94,17 @@ module.exports = (theme = '') => {
     })
 
     testIf('Buttons Custom', () => {
+      const stub = cy.stub()
+
+      cy.on('window:alert', stub)
+
       cy.visit(`${baseUrl}buttons.html`)
         .get('.fixed-table-toolbar .columns').should('exist')
         .get('.fixed-table-toolbar button[name="btnUsersAdd"]').should('exist')
         .get('.fixed-table-toolbar button[name="btnAdd"]').should('exist')
+        .get('.fixed-table-toolbar button[name="btnDom"]').should('exist')
+        .get('.fixed-table-toolbar button[name="btnDom"]').click()
+        .wrap(stub).should('have.been.calledWith', 'DOM Button clicked!')
     })
 
     testIf('Buttons Align', () => {

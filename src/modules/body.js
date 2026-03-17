@@ -262,8 +262,7 @@ export default {
         const isChecked = Utils.isObject(value) && value.hasOwnProperty('checked') ?
           value.checked : (value === true || value_) && value !== false
         const isDisabled = !column.checkboxEnabled || value && value.disabled
-        const valueNodes = this.header.formatters[j] && (
-          typeof value === 'string' || value instanceof Node || value instanceof $) ? Utils.htmlToNodes(value) : []
+        const valueNodes = this.header.formatters[j] && (typeof value === 'string' || Utils.isDomNode(value)) ? Utils.htmlToNodes(value) : []
 
         item[this.header.stateField] = value === true || (!!value_ || value && value.checked)
 
