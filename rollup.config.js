@@ -12,9 +12,9 @@ function removeCoreJsAtSymbol () {
   return {
     name: 'remove-core-js-at-symbol',
     renderChunk (code) {
-      // Replace core-js@x.x.x-x.x.x with core-js [at] x.x.x-x.x.x
+      // Replace any core-js@... occurrence with core-js [at] ...
       // to avoid email detection by security scanners
-      return code.replace(/core-js@(\d+\.\d+\.\d+-\d+\.\d+\.\d+)/g, 'core-js [at] $1')
+      return code.replace(/core-js@([^\s]+)/g, 'core-js [at] $1')
     }
   }
 }
