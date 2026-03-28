@@ -166,7 +166,7 @@
 
   	functionBindNative = !fails(function () {
   	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-  	  var test = (function () { /* empty */ }).bind();
+  	  var test = function () { /* empty */ }.bind();
   	  // eslint-disable-next-line no-prototype-builtins -- safe
   	  return typeof test != 'function' || test.hasOwnProperty('prototype');
   	});
@@ -645,10 +645,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.48.0',
+  	  version: '3.49.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1001,7 +1001,7 @@
 
   	var EXISTS = hasOwn(FunctionPrototype, 'name');
   	// additional protection from minified / mangled / dropped function names
-  	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+  	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
   	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
   	functionName = {
@@ -1024,7 +1024,7 @@
 
   	var functionToString = uncurryThis(Function.toString);
 
-  	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+  	// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
   	if (!isCallable(store.inspectSource)) {
   	  store.inspectSource = function (it) {
   	    return functionToString(it);
@@ -2315,16 +2315,20 @@
       key: "initToolbar",
       value: function initToolbar() {
         if (this.options.autoRefresh) {
-          this.buttons = Object.assign(this.buttons, {
+          var attributes = {
+            'aria-label': this.options.formatAutoRefresh(),
+            title: this.options.formatAutoRefresh()
+          };
+          if (this.options.autoRefreshStatus) {
+            attributes.class = this.constants.classes.buttonActive || 'active';
+          }
+          this.buttons = Object.assign(this.buttons || {}, {
             autoRefresh: {
               text: this.options.formatAutoRefresh(),
               icon: this.options.icons.autoRefresh,
               render: false,
               event: this.toggleAutoRefresh,
-              attributes: {
-                'aria-label': this.options.formatAutoRefresh(),
-                title: this.options.formatAutoRefresh()
-              }
+              attributes: attributes
             }
           });
         }
@@ -2339,10 +2343,10 @@
         if (this.options.autoRefresh) {
           if (this.options.autoRefreshStatus) {
             clearInterval(this.options.autoRefreshFunction);
-            this.$toolbar.find('>.columns .auto-refresh').removeClass(this.constants.classes.buttonActive);
+            this.$toolbar.find('>.columns [name="autoRefresh"]').removeClass(this.constants.classes.buttonActive);
           } else {
             this.setupRefreshInterval();
-            this.$toolbar.find('>.columns .auto-refresh').addClass(this.constants.classes.buttonActive);
+            this.$toolbar.find('>.columns [name="autoRefresh"]').addClass(this.constants.classes.buttonActive);
           }
           this.options.autoRefreshStatus = !this.options.autoRefreshStatus;
         }
