@@ -1,6 +1,22 @@
 ChangeLog
 ---------
 
+### 1.27.1
+
+#### Core
+
+- **Update:** Fixed toolbar DOM node button handling for custom buttons returning DOM nodes.
+- **Update:** Fixed WebInspect email detection false positive in core-js comments.
+- **Update:** Fixed SyntaxError when processing `data-*` attributes on inline HTML elements.
+- **Update:** Added comprehensive options cypress tests.
+
+#### Extensions
+
+- **New(pipeline):** Added `resetPipelineCache` method to allow programmatic cache reset.
+- **Update(auto-refresh):** Fixed button active state and selector.
+- **Update(filter-control):** Fixed issue with filter control being cleared.
+- **Update(treegrid):** Improved documentation with data structure guide and usage examples.
+
 ### 1.27.0
 
 #### Core
