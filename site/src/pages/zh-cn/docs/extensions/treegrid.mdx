@@ -19,6 +19,68 @@ toc: true
 
 [Treegrid](https://examples.bootstrap-table.com/#extensions/treegrid.html)
 
+## 数据结构
+
+Treegrid 需要使用扁平化的数据结构，通过 `idField` 和 `parentIdField` 来定义父子关系：
+
+```json
+[
+  {
+    "id": 1,
+    "name": "根节点 1",
+    "pid": 0
+  },
+  {
+    "id": 2,
+    "name": "根节点 2",
+    "pid": 0
+  },
+  {
+    "id": 11,
+    "name": "子节点 1.1",
+    "pid": 1
+  },
+  {
+    "id": 12,
+    "name": "子节点 1.2",
+    "pid": 1
+  },
+  {
+    "id": 111,
+    "name": "孙节点 1.1.1",
+    "pid": 11
+  }
+]
+```
+
+**关键要点：**
+- 每个节点在 `idField` 指定的字段中必须有唯一值（默认为 `id`）
+- `pid` 字段（或自定义的 `parentIdField`）包含父节点的 `idField` 值
+- 根节点使用 `0`、`null` 或 `rootParentId` 指定的值
+- 树形结构会自动根据 `parentIdField` 与父节点 `idField` 的匹配关系构建
+
+## 快速开始
+
+```javascript
+$('#table').bootstrapTable({
+  url: 'data.json',
+  idField: 'id',
+  parentIdField: 'pid',
+  treeShowField: 'name',
+  columns: [
+    { field: 'name', title: '名称' }
+  ],
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
+
 ## 选项
 
 ### treeEnable
@@ -41,7 +103,7 @@ toc: true
 
 - **详情:**
 
-  自定义主键字段名，用于标识每条数据的唯一 ID。
+  用于唯一标识数据中每一行的字段名。该字段用于建立父子关系。
 
 - **默认值:** `'id'`
 
@@ -53,7 +115,7 @@ toc: true
 
 - **详情:**
 
-  设置父节点 ID 的字段名，用于建立数据之间的父子关系。
+  包含父节点 id 的字段名。子节点通过将此字段与父节点的 `idField` 值匹配来链接到父节点。根节点使用 `0`、`null` 或 `rootParentId`。
 
 - **默认值:** `'pid'`
 
@@ -65,18 +127,90 @@ toc: true
 
 - **详情:**
 
-  指定用于展示树形结构的字段名。设置该选项后，会自动启用树形网格功能。
+  在树形结构中显示的字段名（通常是名称/标题字段）。此字段是 treegrid 扩展所必需的。
 
-- **默认值:** `''`
+- **默认值:** `null`
 
 ### rootParentId
 
 - **属性:** `data-root-parent-id`
 
-- **类型:** `String`
+- **类型:** `String | Number | null`
 
 - **详情:**
 
-  设置根节点的父 ID 值。所有父 ID 等于此值的数据都将被视为顶级节点。
+  用于在 `parentIdField` 中标识根节点的值。例如，如果数据使用 `null` 而不是 `0` 作为根节点，请将此项设置为 `null`。
 
 - **默认值:** `null`
+
+## 常见用例
+
+### 从远程 API 加载
+
+```javascript
+$('#table').bootstrapTable({
+  url: '/api/tree-data',
+  idField: 'id',
+  parentIdField: 'parentId',
+  treeShowField: 'title',
+  columns: [
+    { field: 'title', title: '标题' },
+    { field: 'description', title: '描述' }
+  ],
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
+
+### 使用自定义根节点 ID
+
+如果 API 返回的根节点使用 `parentId: -1`：
+
+```javascript
+$('#table').bootstrapTable({
+  rootParentId: -1,
+  parentIdField: 'parentId',
+  treeShowField: 'title',
+  // ... 其他选项
+})
+```
+
+### 初始状态：全部展开
+
+```javascript
+$('#table').bootstrapTable({
+  // ... 选项
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      initialState: 'expanded',
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
+
+### 初始状态：全部折叠
+
+```javascript
+$('#table').bootstrapTable({
+  // ... 选项
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      initialState: 'collapsed',
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
