@@ -116,3 +116,22 @@ There are two new events:
 - **Detail:**
 
   Fires when the locally cached data needs to be reset (i.e. on sorting, searching, page size change or page out of the current cache window).
+
+## Methods
+
+### resetPipelineCache
+
+- **Parameters:** `undefined`
+
+- **Detail:**
+
+  Resets the pipeline cache programmatically. This is useful when you need to force a cache reset from external code, for example, when using filter-control with an external input.
+
+- **Example:**
+
+```javascript
+// Reset the pipeline cache
+$('#mytable').bootstrapTable('resetPipelineCache')
+// Refresh the table to trigger a new server request
+$('#mytable').bootstrapTable('refresh')
+```

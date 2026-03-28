@@ -248,7 +248,7 @@
 
   	functionBindNative = !fails(function () {
   	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-  	  var test = (function () { /* empty */ }).bind();
+  	  var test = function () { /* empty */ }.bind();
   	  // eslint-disable-next-line no-prototype-builtins -- safe
   	  return typeof test != 'function' || test.hasOwnProperty('prototype');
   	});
@@ -727,10 +727,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.48.0',
+  	  version: '3.49.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.48.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1083,7 +1083,7 @@
 
   	var EXISTS = hasOwn(FunctionPrototype, 'name');
   	// additional protection from minified / mangled / dropped function names
-  	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+  	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
   	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
   	functionName = {
@@ -1106,7 +1106,7 @@
 
   	var functionToString = uncurryThis(Function.toString);
 
-  	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+  	// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
   	if (!isCallable(store.inspectSource)) {
   	  store.inspectSource = function (it) {
   	    return functionToString(it);
@@ -1721,7 +1721,7 @@
   	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
 
   	doesNotExceedSafeInteger = function (it) {
-  	  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
+  	  if (it > MAX_SAFE_INTEGER) throw new $TypeError('Maximum allowed index exceeded');
   	  return it;
   	};
   	return doesNotExceedSafeInteger;
@@ -2237,9 +2237,15 @@
   	  return !Array(1).includes();
   	});
 
+  	// Safari 26.4- bug
+  	var BROKEN_ON_SPARSE_WITH_FROM_INDEX = fails(function () {
+  	  // eslint-disable-next-line no-sparse-arrays, es/no-array-prototype-includes -- detection
+  	  return [, 1].includes(undefined, 1);
+  	});
+
   	// `Array.prototype.includes` method
   	// https://tc39.es/ecma262/#sec-array.prototype.includes
-  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
+  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE || BROKEN_ON_SPARSE_WITH_FROM_INDEX }, {
   	  includes: function includes(el /* , fromIndex = 0 */) {
   	    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
   	  }
@@ -2530,18 +2536,29 @@
 
   	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG;
 
+  	var setGroups = function (re, groups) {
+  	  var object = re.groups = create(null);
+  	  for (var i = 0; i < groups.length; i++) {
+  	    var group = groups[i];
+  	    object[group[0]] = re[group[1]];
+  	  }
+  	};
+
   	if (PATCH) {
   	  patchedExec = function exec(string) {
   	    var re = this;
   	    var state = getInternalState(re);
   	    var str = toString(string);
   	    var raw = state.raw;
-  	    var result, reCopy, lastIndex, match, i, object, group;
+  	    var result, reCopy, lastIndex;
 
   	    if (raw) {
   	      raw.lastIndex = re.lastIndex;
   	      result = call(patchedExec, raw, str);
   	      re.lastIndex = raw.lastIndex;
+
+  	      if (result && state.groups) setGroups(result, state.groups);
+
   	      return result;
   	    }
 
@@ -2560,8 +2577,10 @@
 
   	      strCopy = stringSlice(str, re.lastIndex);
   	      // Support anchored sticky behavior.
-  	      if (re.lastIndex > 0 && (!re.multiline || re.multiline && charAt(str, re.lastIndex - 1) !== '\n')) {
-  	        source = '(?: ' + source + ')';
+  	      var prevChar = re.lastIndex > 0 && charAt(str, re.lastIndex - 1);
+  	      if (re.lastIndex > 0 &&
+  	        (!re.multiline || re.multiline && prevChar !== '\n' && prevChar !== '\r' && prevChar !== '\u2028' && prevChar !== '\u2029')) {
+  	        source = '(?: (?:' + source + '))';
   	        strCopy = ' ' + strCopy;
   	        charsAdded++;
   	      }
@@ -2575,11 +2594,11 @@
   	    }
   	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
 
-  	    match = call(nativeExec, sticky ? reCopy : re, strCopy);
+  	    var match = call(nativeExec, sticky ? reCopy : re, strCopy);
 
   	    if (sticky) {
   	      if (match) {
-  	        match.input = stringSlice(match.input, charsAdded);
+  	        match.input = str;
   	        match[0] = stringSlice(match[0], charsAdded);
   	        match.index = re.lastIndex;
   	        re.lastIndex += match[0].length;
@@ -2591,19 +2610,13 @@
   	      // Fix browsers whose `exec` methods don't consistently return `undefined`
   	      // for NPCG, like IE8. NOTE: This doesn't work for /(.?)?/
   	      call(nativeReplace, match[0], reCopy, function () {
-  	        for (i = 1; i < arguments.length - 2; i++) {
+  	        for (var i = 1; i < arguments.length - 2; i++) {
   	          if (arguments[i] === undefined) match[i] = undefined;
   	        }
   	      });
   	    }
 
-  	    if (match && groups) {
-  	      match.groups = object = create(null);
-  	      for (i = 0; i < groups.length; i++) {
-  	        group = groups[i];
-  	        object[group[0]] = match[group[1]];
-  	      }
-  	    }
+  	    if (match && groups) setGroups(match, groups);
 
   	    return match;
   	  };
@@ -3051,7 +3064,7 @@
   function requireFixRegexpWellKnownSymbolLogic () {
   	if (hasRequiredFixRegexpWellKnownSymbolLogic) return fixRegexpWellKnownSymbolLogic;
   	hasRequiredFixRegexpWellKnownSymbolLogic = 1;
-  	// TODO: Remove from `core-js@4` since it's moved to entry points
+  	// TODO: Remove from `core-js [at] 4` since it's moved to entry points
   	requireEs_regexp_exec();
   	var call = requireFunctionCall();
   	var defineBuiltIn = requireDefineBuiltIn();
@@ -3229,9 +3242,88 @@
   	// `AdvanceStringIndex` abstract operation
   	// https://tc39.es/ecma262/#sec-advancestringindex
   	advanceStringIndex = function (S, index, unicode) {
-  	  return index + (unicode ? charAt(S, index).length : 1);
+  	  return index + (unicode ? charAt(S, index).length || 1 : 1);
   	};
   	return advanceStringIndex;
+  }
+
+  var regexpFlagsDetection;
+  var hasRequiredRegexpFlagsDetection;
+
+  function requireRegexpFlagsDetection () {
+  	if (hasRequiredRegexpFlagsDetection) return regexpFlagsDetection;
+  	hasRequiredRegexpFlagsDetection = 1;
+  	var globalThis = requireGlobalThis();
+  	var fails = requireFails();
+
+  	// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
+  	var RegExp = globalThis.RegExp;
+
+  	var FLAGS_GETTER_IS_CORRECT = !fails(function () {
+  	  var INDICES_SUPPORT = true;
+  	  try {
+  	    RegExp('.', 'd');
+  	  } catch (error) {
+  	    INDICES_SUPPORT = false;
+  	  }
+
+  	  var O = {};
+  	  // modern V8 bug
+  	  var calls = '';
+  	  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
+
+  	  var addGetter = function (key, chr) {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty(O, key, { get: function () {
+  	      calls += chr;
+  	      return true;
+  	    } });
+  	  };
+
+  	  var pairs = {
+  	    dotAll: 's',
+  	    global: 'g',
+  	    ignoreCase: 'i',
+  	    multiline: 'm',
+  	    sticky: 'y'
+  	  };
+
+  	  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
+
+  	  for (var key in pairs) addGetter(key, pairs[key]);
+
+  	  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
+
+  	  return result !== expected || calls !== expected;
+  	});
+
+  	regexpFlagsDetection = { correct: FLAGS_GETTER_IS_CORRECT };
+  	return regexpFlagsDetection;
+  }
+
+  var regexpGetFlags;
+  var hasRequiredRegexpGetFlags;
+
+  function requireRegexpGetFlags () {
+  	if (hasRequiredRegexpGetFlags) return regexpGetFlags;
+  	hasRequiredRegexpGetFlags = 1;
+  	var call = requireFunctionCall();
+  	var hasOwn = requireHasOwnProperty();
+  	var isPrototypeOf = requireObjectIsPrototypeOf();
+  	var regExpFlagsDetection = requireRegexpFlagsDetection();
+  	var regExpFlagsGetterImplementation = requireRegexpFlags();
+
+  	var RegExpPrototype = RegExp.prototype;
+
+  	regexpGetFlags = regExpFlagsDetection.correct ? function (it) {
+  	  return it.flags;
+  	} : function (it) {
+  	  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
+  	    ? call(regExpFlagsGetterImplementation, it)
+  	    : it.flags;
+  	};
+  	return regexpGetFlags;
   }
 
   var regexpExecAbstract;
@@ -3279,6 +3371,7 @@
   	var toLength = requireToLength();
   	var toString = requireToString();
   	var getMethod = requireGetMethod();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
   	var stickyHelpers = requireRegexpStickyHelpers();
   	var fails = requireFails();
@@ -3288,6 +3381,7 @@
   	var min = Math.min;
   	var push = uncurryThis([].push);
   	var stringSlice = uncurryThis(''.slice);
+  	var stringIndexOf = uncurryThis(''.indexOf);
 
   	// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
   	// Weex JS has frozen built-in prototypes, so use try / catch wrapper
@@ -3340,11 +3434,11 @@
   	      }
 
   	      var C = speciesConstructor(rx, RegExp);
-  	      var unicodeMatching = rx.unicode;
-  	      var flags = (rx.ignoreCase ? 'i' : '') +
-  	                  (rx.multiline ? 'm' : '') +
-  	                  (rx.unicode ? 'u' : '') +
-  	                  (UNSUPPORTED_Y ? 'g' : 'y');
+  	      var flags = toString(getRegExpFlags(rx));
+  	      var unicodeMatching = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
+  	      if (UNSUPPORTED_Y) {
+  	        if (!~stringIndexOf(flags, 'g')) flags += 'g';
+  	      } else if (!~stringIndexOf(flags, 'y')) flags += 'y';
   	      // ^(? + rx + ) is needed, in combination with some S slicing, to
   	      // simulate the 'y' flag.
   	      var splitter = new C(UNSUPPORTED_Y ? '^(?:' + rx.source + ')' : rx, flags);
@@ -3646,8 +3740,8 @@
   	  startsWith: function startsWith(searchString /* , position = 0 */) {
   	    var that = toString(requireObjectCoercible(this));
   	    notARegExp(searchString);
-  	    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
   	    var search = toString(searchString);
+  	    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
   	    return stringSlice(that, index, index + search.length) === search;
   	  }
   	});
@@ -3826,18 +3920,19 @@
   	var setArrayLength = requireArraySetLength();
   	var getIterator = requireGetIterator();
   	var getIteratorMethod = requireGetIteratorMethod();
+  	var iteratorClose = requireIteratorClose();
 
   	var $Array = Array;
 
   	// `Array.from` method implementation
   	// https://tc39.es/ecma262/#sec-array.from
   	arrayFrom = function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-  	  var O = toObject(arrayLike);
   	  var IS_CONSTRUCTOR = isConstructor(this);
   	  var argumentsLength = arguments.length;
   	  var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
   	  var mapping = mapfn !== undefined;
   	  if (mapping) mapfn = bind(mapfn, argumentsLength > 2 ? arguments[2] : undefined);
+  	  var O = toObject(arrayLike);
   	  var iteratorMethod = getIteratorMethod(O);
   	  var index = 0;
   	  var length, result, step, iterator, next, value;
@@ -3848,7 +3943,11 @@
   	    next = iterator.next;
   	    for (;!(step = call(next, iterator)).done; index++) {
   	      value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true) : step.value;
-  	      createProperty(result, index, value);
+  	      try {
+  	        createProperty(result, index, value);
+  	      } catch (error) {
+  	        iteratorClose(iterator, 'throw', error);
+  	      }
   	    }
   	  } else {
   	    length = lengthOfArrayLike(O);
@@ -5262,85 +5361,6 @@
   	return inheritIfRequired;
   }
 
-  var regexpFlagsDetection;
-  var hasRequiredRegexpFlagsDetection;
-
-  function requireRegexpFlagsDetection () {
-  	if (hasRequiredRegexpFlagsDetection) return regexpFlagsDetection;
-  	hasRequiredRegexpFlagsDetection = 1;
-  	var globalThis = requireGlobalThis();
-  	var fails = requireFails();
-
-  	// babel-minify and Closure Compiler transpiles RegExp('.', 'd') -> /./d and it causes SyntaxError
-  	var RegExp = globalThis.RegExp;
-
-  	var FLAGS_GETTER_IS_CORRECT = !fails(function () {
-  	  var INDICES_SUPPORT = true;
-  	  try {
-  	    RegExp('.', 'd');
-  	  } catch (error) {
-  	    INDICES_SUPPORT = false;
-  	  }
-
-  	  var O = {};
-  	  // modern V8 bug
-  	  var calls = '';
-  	  var expected = INDICES_SUPPORT ? 'dgimsy' : 'gimsy';
-
-  	  var addGetter = function (key, chr) {
-  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
-  	    Object.defineProperty(O, key, { get: function () {
-  	      calls += chr;
-  	      return true;
-  	    } });
-  	  };
-
-  	  var pairs = {
-  	    dotAll: 's',
-  	    global: 'g',
-  	    ignoreCase: 'i',
-  	    multiline: 'm',
-  	    sticky: 'y'
-  	  };
-
-  	  if (INDICES_SUPPORT) pairs.hasIndices = 'd';
-
-  	  for (var key in pairs) addGetter(key, pairs[key]);
-
-  	  // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-  	  var result = Object.getOwnPropertyDescriptor(RegExp.prototype, 'flags').get.call(O);
-
-  	  return result !== expected || calls !== expected;
-  	});
-
-  	regexpFlagsDetection = { correct: FLAGS_GETTER_IS_CORRECT };
-  	return regexpFlagsDetection;
-  }
-
-  var regexpGetFlags;
-  var hasRequiredRegexpGetFlags;
-
-  function requireRegexpGetFlags () {
-  	if (hasRequiredRegexpGetFlags) return regexpGetFlags;
-  	hasRequiredRegexpGetFlags = 1;
-  	var call = requireFunctionCall();
-  	var hasOwn = requireHasOwnProperty();
-  	var isPrototypeOf = requireObjectIsPrototypeOf();
-  	var regExpFlagsDetection = requireRegexpFlagsDetection();
-  	var regExpFlagsGetterImplementation = requireRegexpFlags();
-
-  	var RegExpPrototype = RegExp.prototype;
-
-  	regexpGetFlags = regExpFlagsDetection.correct ? function (it) {
-  	  return it.flags;
-  	} : function (it) {
-  	  return (!regExpFlagsDetection.correct && isPrototypeOf(RegExpPrototype, it) && !hasOwn(it, 'flags'))
-  	    ? call(regExpFlagsGetterImplementation, it)
-  	    : it.flags;
-  	};
-  	return regexpGetFlags;
-  }
-
   var proxyAccessor;
   var hasRequiredProxyAccessor;
 
@@ -5497,6 +5517,11 @@
   	    chr = charAt(string, index);
   	    if (chr === '\\') {
   	      chr += charAt(string, ++index);
+  	      // use `\x5c` for escaped backslash to avoid corruption by `\k<name>` to `\N` replacement below
+  	      if (!ncg && charAt(chr, 1) === '\\') {
+  	        result += '\\x5c';
+  	        continue;
+  	      }
   	    } else if (chr === ']') {
   	      brackets = false;
   	    } else if (!brackets) switch (true) {
@@ -5505,15 +5530,13 @@
   	        break;
   	      case chr === '(':
   	        result += chr;
-  	        // ignore non-capturing groups
-  	        if (stringSlice(string, index + 1, index + 3) === '?:') {
-  	          continue;
-  	        }
   	        if (exec(IS_NCG, stringSlice(string, index + 1))) {
   	          index += 2;
   	          ncg = true;
+  	          groupid++;
+  	        } else if (charAt(string, index + 1) !== '?') {
+  	          groupid++;
   	        }
-  	        groupid++;
   	        continue;
   	      case chr === '>' && ncg:
   	        if (groupname === '' || hasOwn(names, groupname)) {
@@ -5527,6 +5550,14 @@
   	    }
   	    if (ncg) groupname += chr;
   	    else result += chr;
+  	  }
+  	  // convert `\k<name>` backreferences to numbered backreferences
+  	  for (var ni = 0; ni < named.length; ni++) {
+  	    var backref = '\\k<' + named[ni][0] + '>';
+  	    var numRef = '\\' + named[ni][1];
+  	    while (stringIndexOf(result, backref) > -1) {
+  	      result = replace(result, backref, numRef);
+  	    }
   	  } return [result, named];
   	};
 
@@ -5802,23 +5833,24 @@
   	      var rx = anObject(this);
   	      var S = toString(string);
 
+  	      var functionalReplace = isCallable(replaceValue);
+  	      if (!functionalReplace) replaceValue = toString(replaceValue);
+  	      var flags = toString(getRegExpFlags(rx));
+
   	      if (
   	        typeof replaceValue == 'string' &&
-  	        stringIndexOf(replaceValue, UNSAFE_SUBSTITUTE) === -1 &&
-  	        stringIndexOf(replaceValue, '$<') === -1
+  	        !~stringIndexOf(replaceValue, UNSAFE_SUBSTITUTE) &&
+  	        !~stringIndexOf(replaceValue, '$<') &&
+  	        !~stringIndexOf(flags, 'y')
   	      ) {
   	        var res = maybeCallNative(nativeReplace, rx, S, replaceValue);
   	        if (res.done) return res.value;
   	      }
 
-  	      var functionalReplace = isCallable(replaceValue);
-  	      if (!functionalReplace) replaceValue = toString(replaceValue);
-
-  	      var flags = toString(getRegExpFlags(rx));
-  	      var global = stringIndexOf(flags, 'g') !== -1;
+  	      var global = !!~stringIndexOf(flags, 'g');
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
+  	        fullUnicode = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
   	        rx.lastIndex = 0;
   	      }
 
@@ -6409,6 +6441,24 @@
   }
 
   /**
+   * Checks if a value is a DOM node or a jQuery-like object.
+   * Uses duck typing to detect jQuery objects without direct dependency.
+   *
+   * Note: Strings are not considered DOM nodes. Use {@link htmlToNodes} to
+   * convert HTML strings into DOM nodes.
+   *
+   * @param {*} value - The value to check.
+   * @returns {boolean} True if the value is a Node or jQuery-like object.
+   */
+  function isDomNode(value) {
+    if (value instanceof Node) {
+      return true;
+    }
+    // Duck typing for jQuery-like objects (check for 'jquery' property)
+    return Boolean(value && _typeof(value) === 'object' && typeof value.length === 'number' && value.length >= 0 && 'jquery' in value);
+  }
+
+  /**
    * Converts HTML to DOM nodes.
    * Uses duck typing to detect jQuery objects without direct dependency.
    *
@@ -6437,6 +6487,7 @@
     getScrollBarWidth: getScrollBarWidth,
     h: h,
     htmlToNodes: htmlToNodes,
+    isDomNode: isDomNode,
     parseStyle: parseStyle
   });
 
@@ -6473,10 +6524,10 @@
   	  endsWith: function endsWith(searchString /* , endPosition = @length */) {
   	    var that = toString(requireObjectCoercible(this));
   	    notARegExp(searchString);
+  	    var search = toString(searchString);
   	    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
   	    var len = that.length;
   	    var end = endPosition === undefined ? len : min(toLength(endPosition), len);
-  	    var search = toString(searchString);
   	    return slice(that, end - search.length, end) === search;
   	  }
   	});
@@ -6771,7 +6822,7 @@
       // save tr's id, class and data-* attributes
       row._id = DOMHelper.attr(el, 'id');
       row._class = DOMHelper.attr(el, 'class');
-      row._data = getRealDataAttr(el.dataset || {});
+      row._data = getRealDataAttr(_objectSpread2({}, el.dataset));
       row._style = DOMHelper.attr(el, 'style');
       var cells = DOMHelper.children(el, 'td,th');
       for (var x = 0; x < cells.length; x++) {
@@ -6803,7 +6854,7 @@
         row["_".concat(field, "_rowspan")] = DOMHelper.attr(cell, 'rowspan');
         row["_".concat(field, "_colspan")] = DOMHelper.attr(cell, 'colspan');
         row["_".concat(field, "_title")] = DOMHelper.attr(cell, 'title');
-        row["_".concat(field, "_data")] = getRealDataAttr(cell.dataset || {});
+        row["_".concat(field, "_data")] = getRealDataAttr(_objectSpread2({}, cell.dataset));
         row["_".concat(field, "_style")] = DOMHelper.attr(cell, 'style');
       }
       data.push(row);
@@ -6893,9 +6944,9 @@
 
   	      var flags = toString(getRegExpFlags(rx));
 
-  	      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
+  	      if (!~stringIndexOf(flags, 'g')) return regExpExec(rx, S);
 
-  	      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
+  	      var fullUnicode = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
   	      rx.lastIndex = 0;
   	      var A = [];
   	      var n = 0;
@@ -7205,9 +7256,9 @@
   	    var i = 0;
   	    var code;
   	    while (length > i) {
-  	      code = +arguments[i++];
+  	      code = +arguments[i];
   	      if (toAbsoluteIndex(code, 0x10FFFF) !== code) throw new $RangeError(code + ' is not a valid code point');
-  	      elements[i] = code < 0x10000
+  	      elements[i++] = code < 0x10000
   	        ? fromCharCode(code)
   	        : fromCharCode(((code -= 0x10000) >> 10) + 0xD800, code % 0x400 + 0xDC00);
   	    } return join(elements, '');
@@ -7390,7 +7441,7 @@
   function requireWeb_urlSearchParams_constructor () {
   	if (hasRequiredWeb_urlSearchParams_constructor) return web_urlSearchParams_constructor;
   	hasRequiredWeb_urlSearchParams_constructor = 1;
-  	// TODO: in core-js@4, move /modules/ dependencies to public entries for better optimization by tools like `preset-env`
+  	// TODO: in core-js [at] 4, move /modules/ dependencies to public entries for better optimization by tools like `preset-env`
   	requireEs_array_iterator();
   	requireEs_string_fromCodePoint();
   	var $ = require_export();
@@ -7472,8 +7523,9 @@
 
   	var utf8Decode = function (octets) {
   	  var codePoint = null;
+  	  var length = octets.length;
 
-  	  switch (octets.length) {
+  	  switch (length) {
   	    case 1:
   	      codePoint = octets[0];
   	      break;
@@ -7488,9 +7540,17 @@
   	      break;
   	  }
 
-  	  return codePoint > 0x10FFFF ? null : codePoint;
+  	  // reject surrogates, overlong encodings, and out-of-range codepoints
+  	  if (codePoint === null
+  	    || codePoint > 0x10FFFF
+  	    || (codePoint >= 0xD800 && codePoint <= 0xDFFF)
+  	    || codePoint < (length > 3 ? 0x10000 : length > 2 ? 0x800 : length > 1 ? 0x80 : 0)
+  	  ) return null;
+
+  	  return codePoint;
   	};
 
+  	/* eslint-disable max-statements, max-depth -- ok */
   	var decode = function (input) {
   	  input = replace(input, plus, ' ');
   	  var length = input.length;
@@ -7538,11 +7598,15 @@
   	          var nextByte = parseHexOctet(input, i + 1);
 
   	          // eslint-disable-next-line no-self-compare -- NaN check
-  	          if (nextByte !== nextByte) {
-  	            i += 3;
-  	            break;
+  	          if (nextByte !== nextByte || nextByte > 191 || nextByte < 128) break;
+
+  	          // https://encoding.spec.whatwg.org/#utf-8-decoder - position-specific byte ranges
+  	          if (sequenceIndex === 1) {
+  	            if (octet === 0xE0 && nextByte < 0xA0) break;
+  	            if (octet === 0xED && nextByte > 0x9F) break;
+  	            if (octet === 0xF0 && nextByte < 0x90) break;
+  	            if (octet === 0xF4 && nextByte > 0x8F) break;
   	          }
-  	          if (nextByte > 191 || nextByte < 128) break;
 
   	          push(octets, nextByte);
   	          i += 2;
@@ -7556,7 +7620,9 @@
 
   	        var codePoint = utf8Decode(octets);
   	        if (codePoint === null) {
-  	          result += FALLBACK_REPLACER;
+  	          for (var replacement = 0; replacement < byteSequenceLength; replacement++) result += FALLBACK_REPLACER;
+  	          i++;
+  	          continue;
   	        } else {
   	          decodedChar = fromCodePoint(codePoint);
   	        }
@@ -7569,6 +7635,7 @@
 
   	  return result;
   	};
+  	/* eslint-enable max-statements, max-depth -- ok */
 
   	var find = /[!'()~]|%20/g;
 
@@ -7721,7 +7788,6 @@
   	      var entry = entries[index];
   	      if (entry.key === key && (value === undefined || entry.value === value)) {
   	        splice(entries, index, 1);
-  	        if (value !== undefined) break;
   	      } else index++;
   	    }
   	    if (!DESCRIPTORS) this.size = entries.length;
@@ -7771,7 +7837,7 @@
   	  // https://url.spec.whatwg.org/#dom-urlsearchparams-set
   	  set: function set(name, value) {
   	    var state = getInternalParamsState(this);
-  	    validateArgumentsLength(arguments.length, 1);
+  	    validateArgumentsLength(arguments.length, 2);
   	    var entries = state.entries;
   	    var found = false;
   	    var key = $toString(name);
@@ -7836,7 +7902,7 @@
   	}, { enumerable: true });
 
   	// `URLSearchParams.prototype.size` getter
-  	// https://github.com/whatwg/url/pull/734
+  	// https://url.spec.whatwg.org/#dom-urlsearchparams-size
   	if (DESCRIPTORS) defineBuiltInAccessor(URLSearchParamsPrototype, 'size', {
   	  get: function size() {
   	    return getInternalParamsState(this).entries.length;
@@ -7908,7 +7974,7 @@
   function requireWeb_urlSearchParams () {
   	if (hasRequiredWeb_urlSearchParams) return web_urlSearchParams;
   	hasRequiredWeb_urlSearchParams = 1;
-  	// TODO: Remove this module from `core-js@4` since it's replaced to module below
+  	// TODO: Remove this module from `core-js [at] 4` since it's replaced to module below
   	requireWeb_urlSearchParams_constructor();
   	return web_urlSearchParams;
   }
@@ -8386,7 +8452,7 @@
 
   var Utils = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, framework), object), string), dom), tableData), searchSort), helper), checkbox);
 
-  var VERSION = '1.27.0';
+  var VERSION = '1.27.1';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -9629,7 +9695,7 @@
           var type = column.checkbox ? 'checkbox' : 'radio';
           var isChecked = Utils.isObject(value) && value.hasOwnProperty('checked') ? value.checked : (value === true || value_) && value !== false;
           var isDisabled = !column.checkboxEnabled || value && value.disabled;
-          var valueNodes = _this2.header.formatters[j] && (typeof value === 'string' || value instanceof Node || value instanceof $) ? Utils.htmlToNodes(value) : [];
+          var valueNodes = _this2.header.formatters[j] && (typeof value === 'string' || Utils.isDomNode(value)) ? Utils.htmlToNodes(value) : [];
           item[_this2.header.stateField] = value === true || !!value_ || value && value.checked;
           var inputAttrs = {
             'data-index': i,
@@ -10310,7 +10376,9 @@
   	    if (y === undefined) return -1;
   	    if (x === undefined) return 1;
   	    if (comparefn !== undefined) return +comparefn(x, y) || 0;
-  	    return toString(x) > toString(y) ? 1 : -1;
+  	    var xString = toString(x);
+  	    var yString = toString(y);
+  	    return xString === yString ? 0 : xString > yString ? 1 : -1;
   	  };
   	};
 
@@ -10477,7 +10545,7 @@
   	  Number: NumberWrapper
   	});
 
-  	// Use `internal/copy-constructor-properties` helper in `core-js@4`
+  	// Use `internal/copy-constructor-properties` helper in `core-js [at] 4`
   	var copyConstructorProperties = function (target, source) {
   	  for (var keys = DESCRIPTORS ? getOwnPropertyNames(source) : (
   	    // ES3:
@@ -12105,7 +12173,7 @@
         if (buttonConfig.hasOwnProperty('html')) {
           if (typeof buttonConfig.html === 'function') {
             buttonHtml = buttonConfig.html();
-          } else if (typeof buttonConfig.html === 'string') {
+          } else {
             buttonHtml = buttonConfig.html;
           }
         } else {
@@ -12166,7 +12234,31 @@
 
       // Fix #188: this.showToolbar is for extensions
       if (this.showToolbar || html.length > 2) {
-        this.$toolbar.append(html.join(''));
+        if (html.some(function (item) {
+          return Utils.isDomNode(item);
+        })) {
+          // When there are DOM nodes, build the structure manually
+          // Build wrapper element once from the opening div string
+          var wrapper = $(html[0]);
+
+          // Skip html[0] (opening div) and html[html.length-1] (closing div)
+          // Append each button item into the wrapper
+          var _iterator2 = _createForOfIteratorHelper(html.slice(1, -1)),
+            _step2;
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var item = _step2.value;
+              wrapper.append.apply(wrapper, _toConsumableArray(Utils.htmlToNodes(item)));
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+          this.$toolbar.append(wrapper);
+        } else {
+          this.$toolbar.append(html.join(''));
+        }
       }
       var _loop = function _loop() {
         var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i3], 2),

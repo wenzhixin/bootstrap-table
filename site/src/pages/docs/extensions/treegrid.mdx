@@ -18,6 +18,68 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 [Treegrid](https://examples.bootstrap-table.com/#extensions/treegrid.html)
 
+## Data Structure
+
+The treegrid requires a flat data structure with parent-child relationships defined by `idField` and `parentIdField`:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Root Node 1",
+    "pid": 0
+  },
+  {
+    "id": 2,
+    "name": "Root Node 2",
+    "pid": 0
+  },
+  {
+    "id": 11,
+    "name": "Child Node 1.1",
+    "pid": 1
+  },
+  {
+    "id": 12,
+    "name": "Child Node 1.2",
+    "pid": 1
+  },
+  {
+    "id": 111,
+    "name": "Grandchild Node 1.1.1",
+    "pid": 11
+  }
+]
+```
+
+**Key points:**
+- Each node must have a unique value in the field specified by `idField` (defaults to `id`)
+- The `pid` field (or your custom `parentIdField`) contains the parent's `idField` value
+- Root nodes use `0`, `null`, or the value specified in `rootParentId`
+- The tree is built automatically by matching `parentIdField` to parent `idField` values
+
+## Quick Start
+
+```javascript
+$('#table').bootstrapTable({
+  url: 'data.json',
+  idField: 'id',
+  parentIdField: 'pid',
+  treeShowField: 'name',
+  columns: [
+    { field: 'name', title: 'Item Name' }
+  ],
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
+
 ## Options
 
 ### treeEnable
@@ -40,7 +102,7 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 - **Detail:**
 
-  Overwrite the default idField to `'id'`.
+  The field name that uniquely identifies each row in the data. This is used to establish parent-child relationships.
 
 - **Default:** `'id'`
 
@@ -52,7 +114,7 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 - **Detail:**
 
-  Set the parent id field.
+  The field name that contains the parent node's id. Child nodes link to their parent by matching this field to the parent's `idField` value. Use `0`, `null`, or `rootParentId` for root-level nodes.
 
 - **Default:** `'pid'`
 
@@ -64,18 +126,90 @@ Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 - **Detail:**
 
-  Set the `treeShowField` will auto enable the tree grid.
+  The field name to display in the tree structure (typically the name/title field). This field is required by the treegrid extension.
 
-- **Default:** `''`
+- **Default:** `null`
 
 ### rootParentId
 
 - **attribute:** `data-root-parent-id`
 
-- **type:** `String`
+- **type:** `String | Number | null`
 
 - **Detail:**
 
-  Set the root parent id.
+  The value used to identify root-level nodes in the `parentIdField`. For example, if your data uses `null` instead of `0` for root nodes, set this to `null`.
 
 - **Default:** `null`
+
+## Common Use Cases
+
+### Loading from Remote API
+
+```javascript
+$('#table').bootstrapTable({
+  url: '/api/tree-data',
+  idField: 'id',
+  parentIdField: 'parentId',
+  treeShowField: 'title',
+  columns: [
+    { field: 'title', title: 'Title' },
+    { field: 'description', title: 'Description' }
+  ],
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
+
+### Using Custom Root Parent Id
+
+If your API returns root nodes with `parentId: -1`:
+
+```javascript
+$('#table').bootstrapTable({
+  rootParentId: -1,
+  parentIdField: 'parentId',
+  treeShowField: 'title',
+  // ... other options
+})
+```
+
+### Initial State: All Expanded
+
+```javascript
+$('#table').bootstrapTable({
+  // ... options
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      initialState: 'expanded',
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```
+
+### Initial State: All Collapsed
+
+```javascript
+$('#table').bootstrapTable({
+  // ... options
+  onPostBody: function () {
+    $('#table').treegrid({
+      treeColumn: 0,
+      initialState: 'collapsed',
+      onChange: function () {
+        $('#table').bootstrapTable('resetView')
+      }
+    })
+  }
+})
+```

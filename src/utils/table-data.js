@@ -213,7 +213,7 @@ export function trToData (columns, els) {
     // save tr's id, class and data-* attributes
     row._id = DOMHelper.attr(el, 'id')
     row._class = DOMHelper.attr(el, 'class')
-    row._data = getRealDataAttr(el.dataset || {})
+    row._data = getRealDataAttr({ ...el.dataset })
     row._style = DOMHelper.attr(el, 'style')
 
     const cells = DOMHelper.children(el, 'td,th')
@@ -248,7 +248,7 @@ export function trToData (columns, els) {
       row[`_${field}_rowspan`] = DOMHelper.attr(cell, 'rowspan')
       row[`_${field}_colspan`] = DOMHelper.attr(cell, 'colspan')
       row[`_${field}_title`] = DOMHelper.attr(cell, 'title')
-      row[`_${field}_data`] = getRealDataAttr(cell.dataset || {})
+      row[`_${field}_data`] = getRealDataAttr({ ...cell.dataset })
       row[`_${field}_style`] = DOMHelper.attr(cell, 'style')
     }
     data.push(row)
