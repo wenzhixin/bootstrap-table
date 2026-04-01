@@ -529,6 +529,14 @@ export default {
       fontSize = `${fontSize}px`
     }
 
+    const $loadingWrap = this.$tableLoading.find('.loading-wrap')
+
+    if ($loadingWrap.length) {
+      $loadingWrap.css('font-size', fontSize)
+    } else {
+      this.$tableLoading.css('font-size', fontSize)
+    }
+
     this.$tableLoading.find('.loading-text').css('font-size', fontSize)
   },
 
