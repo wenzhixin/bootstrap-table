@@ -50,6 +50,11 @@ export default {
         allSelected = true
       }
 
+      if (opts.pageSize <= 0) {
+        opts.pageSize = opts.totalRows
+        allSelected = true
+      }
+
       this.totalPages = ~~((opts.totalRows - 1) / opts.pageSize) + 1
 
       opts.totalPages = this.totalPages
