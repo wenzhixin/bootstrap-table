@@ -193,7 +193,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
-    this._initialized = true
   }
 
   initSearch () {
@@ -519,6 +518,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
 
     this.onSearch({ currentTarget, firedByInitSearchText: isInitialRender }, false)
+    this._initialized = true
   }
 
   toggleFilterControl () {
