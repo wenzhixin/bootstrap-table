@@ -275,15 +275,14 @@ BootstrapTable.prototype.isCollapsed = function (groupKey) {
     return this._groupCollapsedState.get(groupKey)
   }
 
-  // Backwards compatibility: support groupByCollapsedGroups as array or function
-  const collapsedGroups = this.options.groupByCollapsedGroups
+  const result = Utils.calculateObjectValue(this.options, this.options.groupByCollapsedGroups, [groupKey], false)
 
-  if (typeof collapsedGroups === 'function') {
-    return Utils.calculateObjectValue(this.options, collapsedGroups, [groupKey], false)
+  if (Array.isArray(result)) {
+    return result.includes(groupKey)
   }
 
-  if (Array.isArray(collapsedGroups)) {
-    return collapsedGroups.includes(groupKey)
+  if (typeof result === 'boolean') {
+    return result
   }
 
   return false
