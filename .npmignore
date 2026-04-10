@@ -1,5 +1,7 @@
 _gh_pages
+.claude
 .github
+.playwright-mcp
 .sass-cache
 cypress
 site
@@ -11,6 +13,7 @@ tests
 .editorconfig
 CONTRIBUTING.md
 DONATORS.md
+*.sh
 *.config.js
 release.*
 src/.babelrc

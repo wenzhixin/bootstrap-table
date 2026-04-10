@@ -243,7 +243,7 @@ html[data-bs-theme="dark"] {
         }
 
         .loading-wrap {
-          align-items: baseline;
+          align-items: center;
           display: flex;
           justify-content: center;
 
@@ -267,10 +267,10 @@ html[data-bs-theme="dark"] {
             background: var(--bt-table-loading-color);
             border-radius: 50%;
             display: block;
-            height: 5px;
-            margin: 0 4px;
+            height: 0.3em;
+            margin: 0 0.2em;
             opacity: 0;
-            width: 5px;
+            width: 0.3em;
           }
 
           .animation-dot {
@@ -407,4 +407,15 @@ div.fixed-table-scroll-outer {
   0% { opacity: 0; }
   50% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bootstrap-table .fixed-table-loading {
+    .animation-dot,
+    .animation-wrap::after,
+    .animation-wrap::before {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+  }
 }
