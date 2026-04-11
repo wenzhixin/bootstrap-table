@@ -13,6 +13,7 @@ export default [
         $: true,
         jQuery: true,
         // cypress
+        Cypress: true,
         cy: true,
         describe: true,
         expect: true,
