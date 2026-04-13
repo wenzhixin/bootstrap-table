@@ -1261,10 +1261,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-4.0.0.tgz#e1c65dc09378b42f26a111fca7f7075fc2c26164"
   integrity sha512-+B87qS7fIG3L5h3qwJ/IFbjoVoOe/bpOdh9hAjXbvx0o8ImEmUsGXN0inFOnk2ChCFgqkkGFQ+TpM5rbhkKe4w==
 
-"@csstools/css-syntax-patches-for-csstree@^1.1.1":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@csstools/css-syntax-patches-for-csstree/-/css-syntax-patches-for-csstree-1.1.2.tgz#bef07c507732a052b662302e7cb4e9fdf522af90"
-  integrity sha512-5GkLzz4prTIpoyeUiIu3iV6CSG3Plo7xRVOFPKI7FVEJ3mZ0A8SwK0XU3Gl7xAkiQ+mDyam+NNp875/C5y+jSA==
+"@csstools/css-syntax-patches-for-csstree@^1.1.2":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@csstools/css-syntax-patches-for-csstree/-/css-syntax-patches-for-csstree-1.1.3.tgz#3204cf40deb97db83e225b0baa9e37d9c3bd344d"
+  integrity sha512-SH60bMfrRCJF3morcdk57WklujF4Jr/EsQUzqkarfHXEFcAR1gg7fS/chAE922Sehgzc1/+Tz5H3Ypa1HiEKrg==
 
 "@csstools/css-tokenizer@^4.0.0":
   version "4.0.0"
@@ -3928,10 +3928,10 @@ globby@10.0.1:
     merge2 "^1.2.3"
     slash "^3.0.0"
 
-globby@^16.1.1:
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/globby/-/globby-16.1.1.tgz#a26012f57b819f0491c834dbf09f89b0ce6ba104"
-  integrity sha512-dW7vl+yiAJSp6aCekaVnVJxurRv7DCOLyXqEG3RYMYUg7AuJ2jCqPkZTA8ooqC2vtnkaMcV5WfFBMuEnTu1OQg==
+globby@^16.2.0:
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/globby/-/globby-16.2.0.tgz#6ab1351fbac1d9b9e47ed423814c2ad41af308ea"
+  integrity sha512-QrJia2qDf5BB/V6HYlDTs0I0lBahyjLzpGQg3KT7FnCdTonAyPy2RtY802m2k4ALx6Dp752f82WsOczEVr3l6Q==
   dependencies:
     "@sindresorhus/merge-streams" "^4.0.0"
     fast-glob "^3.3.3"
@@ -5592,13 +5592,13 @@ stylelint-scss@^7.0.0:
     postcss-value-parser "^4.2.0"
 
 stylelint@^17.3.0:
-  version "17.6.0"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-17.6.0.tgz#029731f853f407699ef49713b1a7b550cc458012"
-  integrity sha512-tokrsMIVAR9vAQ/q3UVEr7S0dGXCi7zkCezPRnS2kqPUulvUh5Vgfwngrk4EoAoW7wnrThqTdnTFN5Ra7CaxIg==
+  version "17.7.0"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-17.7.0.tgz#5c142285fa31014d61040830310ade0a3038a0cf"
+  integrity sha512-n/+4RheCRl+cecGnF+S/Adz59iCRaK9BVznJYB+a7GOksfwNzjiOPnYv17pTO0HgRse9IiqbMtekGNhOb2tVYQ==
   dependencies:
     "@csstools/css-calc" "^3.1.1"
     "@csstools/css-parser-algorithms" "^4.0.0"
-    "@csstools/css-syntax-patches-for-csstree" "^1.1.1"
+    "@csstools/css-syntax-patches-for-csstree" "^1.1.2"
     "@csstools/css-tokenizer" "^4.0.0"
     "@csstools/media-query-list-parser" "^5.0.0"
     "@csstools/selector-resolve-nested" "^4.0.0"
@@ -5612,7 +5612,7 @@ stylelint@^17.3.0:
     fastest-levenshtein "^1.0.16"
     file-entry-cache "^11.1.2"
     global-modules "^2.0.0"
-    globby "^16.1.1"
+    globby "^16.2.0"
     globjoin "^0.1.4"
     html-tags "^5.1.0"
     ignore "^7.0.5"
