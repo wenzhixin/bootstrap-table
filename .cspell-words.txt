@@ -9,6 +9,7 @@ clearfix
 colspan
 csses
 datepicker
+undelegate
 dblclick
 djhvscf
 dragaccept
