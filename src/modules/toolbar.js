@@ -1,6 +1,52 @@
 import Utils from '../utils/index.js'
 
 export default {
+  renderButton (buttonName, buttonConfig) {
+    const opts = this.options
+    let buttonHtml
+
+    if (buttonConfig.hasOwnProperty('html')) {
+      if (typeof buttonConfig.html === 'function') {
+        buttonHtml = buttonConfig.html()
+      } else {
+        buttonHtml = buttonConfig.html
+      }
+    } else {
+      let buttonClass = this.constants.buttonsClass
+
+      if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
+        buttonClass += ` ${buttonConfig.attributes.class}`
+      }
+      buttonHtml = `<button class="${buttonClass}" type="button" name="${buttonName}"`
+
+      if (buttonConfig.hasOwnProperty('attributes')) {
+        for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
+          if (attributeName === 'class') {
+            continue
+          }
+
+          const attribute = attributeName === 'title' ?
+            opts.buttonsAttributeTitle : attributeName
+
+          buttonHtml += ` ${attribute}="${value}"`
+        }
+      }
+
+      buttonHtml += '>'
+
+      if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
+        buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon)} `
+      }
+
+      if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
+        buttonHtml += buttonConfig.text
+      }
+
+      buttonHtml += '</button>'
+    }
+    return buttonHtml
+  },
+
   initToolbar () {
     const opts = this.options
     let html
@@ -157,49 +203,7 @@ export default {
     const buttonsHtml = {}
 
     for (const [buttonName, buttonConfig] of Object.entries(this.buttons)) {
-      let buttonHtml
-
-      if (buttonConfig.hasOwnProperty('html')) {
-        if (typeof buttonConfig.html === 'function') {
-          buttonHtml = buttonConfig.html()
-        } else {
-          buttonHtml = buttonConfig.html
-        }
-      } else {
-        let buttonClass = this.constants.buttonsClass
-
-        if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
-          buttonClass += ` ${buttonConfig.attributes.class}`
-        }
-        buttonHtml = `<button class="${buttonClass}" type="button" name="${buttonName}"`
-
-        if (buttonConfig.hasOwnProperty('attributes')) {
-          for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
-            if (attributeName === 'class') {
-              continue
-            }
-
-            const attribute = attributeName === 'title' ?
-              this.options.buttonsAttributeTitle : attributeName
-
-            buttonHtml += ` ${attribute}="${value}"`
-          }
-        }
-
-        buttonHtml += '>'
-
-        if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon)} `
-        }
-
-        if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
-          buttonHtml += buttonConfig.text
-        }
-
-        buttonHtml += '</button>'
-      }
-
-      buttonsHtml[buttonName] = buttonHtml
+      buttonsHtml[buttonName] = this.renderButton(buttonName, buttonConfig)
       const optionName = `show${buttonName.charAt(0).toUpperCase()}${buttonName.substring(1)}`
       const showOption = opts[optionName]
 
