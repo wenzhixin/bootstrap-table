@@ -1,6 +1,21 @@
 ChangeLog
 ---------
 
+### 1.27.2
+
+#### Core
+
+- **New:** Added `EventHelper` class with delegation and trigger methods.
+- **New:** Extracted `renderButton` from `initToolbar` for better modularity.
+- **Update:** Fixed guard against `pageSize <= 0` causing division by zero in `initPagination`.
+- **Update:** Fixed loading animation styles.
+
+#### Extensions
+
+- **Update(export):** Fixed issues found in export extension and added Cypress tests.
+- **Update(filter-control):** Fixed filter-control select option loss issue.
+- **Update(sticky-header):** Fixed undefined crash when using sticky-header.
+
 ### 1.27.1
 
 #### Core

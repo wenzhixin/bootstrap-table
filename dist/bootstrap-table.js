@@ -8452,7 +8452,7 @@
 
   var Utils = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, framework), object), string), dom), tableData), searchSort), helper), checkbox);
 
-  var VERSION = '1.27.1';
+  var VERSION = '1.27.2';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -9909,6 +9909,12 @@
         fontSize = Math.max(12, fontSize);
         fontSize = Math.min(32, fontSize);
         fontSize = "".concat(fontSize, "px");
+      }
+      var $loadingWrap = this.$tableLoading.find('.loading-wrap');
+      if ($loadingWrap.length) {
+        $loadingWrap.css('font-size', fontSize);
+      } else {
+        this.$tableLoading.css('font-size', fontSize);
       }
       this.$tableLoading.find('.loading-text').css('font-size', fontSize);
     },
@@ -11598,6 +11604,11 @@
         opts.totalRows = data.length;
       }
       this.totalPages = 0;
+      if (opts.pageSize <= 0) {
+        console.warn('pageSize must be a positive number, falling back to show all rows.');
+        opts.pageSize = opts.totalRows || 1;
+        allSelected = true;
+      }
       if (opts.totalRows) {
         if (opts.pageSize === opts.formatAllRows()) {
           opts.pageSize = opts.totalRows;
@@ -12042,6 +12053,44 @@
   };
 
   var ToolbarModule = {
+    renderButton: function renderButton(buttonName, buttonConfig) {
+      var opts = this.options;
+      var buttonHtml;
+      if (buttonConfig.hasOwnProperty('html')) {
+        if (typeof buttonConfig.html === 'function') {
+          buttonHtml = buttonConfig.html();
+        } else {
+          buttonHtml = buttonConfig.html;
+        }
+      } else {
+        var buttonClass = this.constants.buttonsClass;
+        if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
+          buttonClass += " ".concat(buttonConfig.attributes.class);
+        }
+        buttonHtml = "<button class=\"".concat(buttonClass, "\" type=\"button\" name=\"").concat(buttonName, "\"");
+        if (buttonConfig.hasOwnProperty('attributes')) {
+          for (var _i = 0, _Object$entries = Object.entries(buttonConfig.attributes); _i < _Object$entries.length; _i++) {
+            var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+              attributeName = _Object$entries$_i[0],
+              value = _Object$entries$_i[1];
+            if (attributeName === 'class') {
+              continue;
+            }
+            var attribute = attributeName === 'title' ? opts.buttonsAttributeTitle : attributeName;
+            buttonHtml += " ".concat(attribute, "=\"").concat(value, "\"");
+          }
+        }
+        buttonHtml += '>';
+        if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
+          buttonHtml += "".concat(Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon), " ");
+        }
+        if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
+          buttonHtml += buttonConfig.text;
+        }
+        buttonHtml += '</button>';
+      }
+      return buttonHtml;
+    },
     initToolbar: function initToolbar() {
       var _this = this;
       var opts = this.options;
@@ -12165,45 +12214,11 @@
         }
       });
       var buttonsHtml = {};
-      for (var _i = 0, _Object$entries = Object.entries(this.buttons); _i < _Object$entries.length; _i++) {
-        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          buttonName = _Object$entries$_i[0],
-          buttonConfig = _Object$entries$_i[1];
-        var buttonHtml = void 0;
-        if (buttonConfig.hasOwnProperty('html')) {
-          if (typeof buttonConfig.html === 'function') {
-            buttonHtml = buttonConfig.html();
-          } else {
-            buttonHtml = buttonConfig.html;
-          }
-        } else {
-          var buttonClass = this.constants.buttonsClass;
-          if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
-            buttonClass += " ".concat(buttonConfig.attributes.class);
-          }
-          buttonHtml = "<button class=\"".concat(buttonClass, "\" type=\"button\" name=\"").concat(buttonName, "\"");
-          if (buttonConfig.hasOwnProperty('attributes')) {
-            for (var _i2 = 0, _Object$entries2 = Object.entries(buttonConfig.attributes); _i2 < _Object$entries2.length; _i2++) {
-              var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
-                attributeName = _Object$entries2$_i[0],
-                value = _Object$entries2$_i[1];
-              if (attributeName === 'class') {
-                continue;
-              }
-              var attribute = attributeName === 'title' ? this.options.buttonsAttributeTitle : attributeName;
-              buttonHtml += " ".concat(attribute, "=\"").concat(value, "\"");
-            }
-          }
-          buttonHtml += '>';
-          if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-            buttonHtml += "".concat(Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon), " ");
-          }
-          if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
-            buttonHtml += buttonConfig.text;
-          }
-          buttonHtml += '</button>';
-        }
-        buttonsHtml[buttonName] = buttonHtml;
+      for (var _i2 = 0, _Object$entries2 = Object.entries(this.buttons); _i2 < _Object$entries2.length; _i2++) {
+        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+          buttonName = _Object$entries2$_i[0],
+          buttonConfig = _Object$entries2$_i[1];
+        buttonsHtml[buttonName] = this.renderButton(buttonName, buttonConfig);
         var optionName = "show".concat(buttonName.charAt(0).toUpperCase()).concat(buttonName.substring(1));
         var showOption = opts[optionName];
         if ((!buttonConfig.hasOwnProperty('render') || buttonConfig.hasOwnProperty('render') && buttonConfig.render) && (showOption === undefined || showOption === true)) {

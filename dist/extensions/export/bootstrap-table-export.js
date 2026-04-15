@@ -3602,7 +3602,6 @@
         }
         $exportButtons.click(function (e) {
           e.preventDefault();
-          _this.trigger('export-started');
           _this.exportTable({
             type: $(e.currentTarget).data('type')
           });
@@ -3694,6 +3693,18 @@
             }
           }, o.exportOptions, options));
         };
+
+        // Early return for selected data type when no rows are selected
+        var selectedData = null;
+        if (o.exportDataType === 'selected') {
+          selectedData = this.getSelections();
+          if (!selectedData.length) {
+            return;
+          }
+        }
+
+        // Trigger export-started after early-return checks and before any export operation
+        this.trigger('export-started');
         if (o.exportDataType === 'all' && o.pagination) {
           var eventName = o.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table';
           var virtualScroll = this.options.virtualScroll;
@@ -3714,11 +3725,7 @@
             includeHiddenRows: true,
             unfiltered: true
           });
-          var selectedData = this.getSelections();
           var pagination = o.pagination;
-          if (!selectedData.length) {
-            return;
-          }
           if (o.sidePagination === 'server') {
             data = _defineProperty({
               total: o.totalRows

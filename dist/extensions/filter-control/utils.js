@@ -4187,18 +4187,8 @@
           keyCode = _ref5.keyCode;
         var $selectControl = $(currentTarget);
         var value = $selectControl.val();
-        if (Array.isArray(value)) {
-          for (var i = 0; i < value.length; i++) {
-            if (value[i] && value[i].length > 0 && value[i].trim()) {
-              $selectControl.find("option[value=\"".concat(value[i], "\"]")).attr('selected', true);
-            }
-          }
-        } else if (value && value.length > 0 && value.trim()) {
-          $selectControl.find('option[selected]').removeAttr('selected');
-          $selectControl.find("option[value=\"".concat(value, "\"]")).attr('selected', true);
-        } else {
-          $selectControl.find('option[selected]').removeAttr('selected');
-        }
+        var normalizedValue = value === null ? $selectControl.prop('multiple') ? [] : null : value;
+        $selectControl.val(normalizedValue);
         clearTimeout(currentTarget.timeoutId || 0);
         currentTarget.timeoutId = setTimeout(function () {
           that.onColumnSearch({
