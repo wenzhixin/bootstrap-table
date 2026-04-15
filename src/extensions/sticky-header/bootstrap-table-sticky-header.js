@@ -89,6 +89,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
   renderStickyHeader () {
     const that = this
 
+    if (
+      !this.$stickyContainer || !this.$stickyContainer.length ||
+      !this.$stickyBegin || !this.$stickyBegin.length ||
+      !this.$stickyEnd || !this.$stickyEnd.length
+    ) {
+      return
+    }
+
     this.$stickyHeader = this.$header.clone(true, true)
 
     if (this.options.filterControl) {
@@ -103,8 +111,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         } else if ($target.is('select')) {
           const $select = $coreTh.find('select')
 
-          $select.find('option[selected]').removeAttr('selected')
-          $select.find(`option[value="${value}"]`).attr('selected', true)
+          const normalizedValue = value === null ?
+            $select.prop('multiple') ? [] : null :
+            value
+
+          $select.val(normalizedValue)
         }
 
         that.triggerSearch()

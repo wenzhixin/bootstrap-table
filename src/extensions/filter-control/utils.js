@@ -474,18 +474,11 @@ export function createControls (that, header) {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
 
-      if (Array.isArray(value)) {
-        for (let i = 0; i < value.length; i++) {
-          if (value[i] && value[i].length > 0 && value[i].trim()) {
-            $selectControl.find(`option[value="${value[i]}"]`).attr('selected', true)
-          }
-        }
-      } else if (value && value.length > 0 && value.trim()) {
-        $selectControl.find('option[selected]').removeAttr('selected')
-        $selectControl.find(`option[value="${value}"]`).attr('selected', true)
-      } else {
-        $selectControl.find('option[selected]').removeAttr('selected')
-      }
+      const normalizedValue = value === null ?
+        $selectControl.prop('multiple') ? [] : null :
+        value
+
+      $selectControl.val(normalizedValue)
 
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
