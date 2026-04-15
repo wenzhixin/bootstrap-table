@@ -2385,6 +2385,9 @@
       value: function renderStickyHeader() {
         var _this4 = this;
         var that = this;
+        if (!this.$stickyContainer || !this.$stickyContainer.length || !this.$stickyBegin || !this.$stickyBegin.length || !this.$stickyEnd || !this.$stickyEnd.length) {
+          return;
+        }
         this.$stickyHeader = this.$header.clone(true, true);
         if (this.options.filterControl) {
           $(this.$stickyHeader).off('keyup change mouseup').on('keyup change mouse', function (e) {
@@ -2396,8 +2399,8 @@
               $coreTh.find('input').val(value);
             } else if ($target.is('select')) {
               var $select = $coreTh.find('select');
-              $select.find('option[selected]').removeAttr('selected');
-              $select.find("option[value=\"".concat(value, "\"]")).attr('selected', true);
+              var normalizedValue = value === null ? $select.prop('multiple') ? [] : null : value;
+              $select.val(normalizedValue);
             }
             that.triggerSearch();
           });
