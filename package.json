@@ -6,6 +6,20 @@
   "style": "dist/bootstrap-table.min.css",
   "sass": "src/bootstrap-table.scss",
   "main": "dist/bootstrap-table.min.js",
+  "files": [
+    "dist/",
+    "src/",
+    "!src/.babelrc",
+    "!src/**/*.css",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE",
+    "bower.json",
+    "bootstrap-table.jquery.json",
+    "composer.json",
+    "index.d.ts",
+    "package.json"
+  ],
   "directories": {
     "doc": "site"
   },
