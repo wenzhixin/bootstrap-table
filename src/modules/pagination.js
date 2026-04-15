@@ -44,6 +44,11 @@ export default {
     }
 
     this.totalPages = 0
+    if (opts.pageSize <= 0) {
+      console.warn('pageSize must be a positive number, falling back to show all rows.')
+      opts.pageSize = opts.totalRows || 1
+      allSelected = true
+    }
     if (opts.totalRows) {
       if (opts.pageSize === opts.formatAllRows()) {
         opts.pageSize = opts.totalRows
