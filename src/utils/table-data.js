@@ -272,3 +272,69 @@ export function checkAutoMergeCells (data) {
   }
   return false
 }
+
+/**
+ * Checks if any row in the data has rowspan cells with a span greater than 1.
+ *
+ * @param {Array.<Object.<string, *>>} data - The data array to check.
+ * @returns {boolean} True if any row has real rowspan merges, false otherwise.
+ */
+export function hasRowspanCells (data) {
+  for (const row of data) {
+    for (const key of Object.keys(row)) {
+      if (key.startsWith('_') && key.endsWith('_rowspan') && (+row[key] || 0) > 1) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+/**
+ * Flattens rowspan cells in the data by copying the cell value from the
+ * rowspan parent row into all spanned child rows, so each row becomes
+ * independent and can be sorted without breaking the table layout.
+ *
+ * @param {Array.<Object.<string, *>>} data - The data array to flatten.
+ */
+export function flattenRowspanCells (data) {
+  for (let i = 0; i < data.length; i++) {
+    const row = data[i]
+
+    for (const key of Object.keys(row)) {
+      if (!key.startsWith('_') || !key.endsWith('_rowspan')) {
+        continue
+      }
+      const field = key.replace(/^_/, '').replace(/_rowspan$/, '')
+      const rowspan = +row[key] || 1
+
+      if (rowspan <= 1) {
+        continue
+      }
+
+      const value = getItemField(row, field, false)
+      const useFlatKey = row.hasOwnProperty(field)
+
+      for (let j = 1; j < rowspan && i + j < data.length; j++) {
+        const childRow = data[i + j]
+
+        if (field.includes('.') && !useFlatKey) {
+          const props = field.split('.')
+          let target = childRow
+
+          for (let k = 0; k < props.length - 1; k++) {
+            if (typeof target[props[k]] !== 'object' || target[props[k]] === null) {
+              target[props[k]] = {}
+            }
+            target = target[props[k]]
+          }
+          target[props[props.length - 1]] = value
+        } else {
+          childRow[field] = value
+        }
+        delete childRow[`_${field}_rowspan`]
+      }
+      delete row[key]
+    }
+  }
+}

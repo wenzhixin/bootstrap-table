@@ -186,6 +186,10 @@ export default {
         })
       }
 
+      if (Utils.hasRowspanCells(this.data)) {
+        Utils.flattenRowspanCells(this.data)
+      }
+
       if (this.options.customSort) {
         Utils.calculateObjectValue(this.options, this.options.customSort, [
           this.options.sortName,
