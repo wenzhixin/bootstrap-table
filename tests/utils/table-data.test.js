@@ -143,6 +143,23 @@ describe('updateFieldGroup', () => {
       expect(columns[0][0].visible).toBe(false)
     })
 
+    it('should not throw when no sub-columns match the colspanGroup range', () => {
+      const columns = [
+        [
+          { field: 'group', colspan: 2, colspanGroup: 2, colspanIndex: 4 },
+          { field: 'field1', fieldIndex: 0, visible: true }
+        ]
+      ]
+      const fieldColumns = columns[0].filter(c => !c.colspanGroup)
+
+      expect(() => {
+        tableData.updateFieldGroup(columns, fieldColumns)
+      }).not.toThrow()
+
+      expect(columns[0][0].colspan).toBe(0)
+      expect(columns[0][0].visible).toBe(false)
+    })
+
     it('should sync visibility for columns with same fieldIndex', () => {
       // This sync only happens in multi-row scenario (second part of the function)
       // So we skip this test for single-row colspanGroup scenario
