@@ -288,7 +288,7 @@ export default {
       $checkboxes.off('click').on('click', ({ currentTarget }) => {
         const $this = $(currentTarget)
 
-        this._toggleColumn($this.val(), $this.prop('checked'), false)
+        this._toggleColumns([$this.data('field')], $this.prop('checked'), false)
         this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
         $toggleAll.prop('checked', $checkboxes.filter(':checked').length === this.columns.filter(column => !this.isSelectionColumn(column)).length)
       })

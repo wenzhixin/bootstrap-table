@@ -624,26 +624,22 @@ export default {
   },
 
   showColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-
-    fields.forEach(field => {
-      this._toggleColumn(this.fieldsColumnsIndex[field], true, true)
-    })
+    this._toggleColumns(Array.isArray(field) ? field : [field], true, true)
   },
 
   hideColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-
-    fields.forEach(field => {
-      this._toggleColumn(this.fieldsColumnsIndex[field], false, true)
-    })
+    this._toggleColumns(Array.isArray(field) ? field : [field], false, true)
   },
 
-  _toggleColumn (index, checked, needUpdate) {
+  _toggleColumnVisibility (index, checked) {
     if (index === undefined || this.columns[index].visible === checked) {
-      return
+      return false
     }
     this.columns[index].visible = checked
+    return true
+  },
+
+  _updateAfterColumnToggle (changedIndices, checked, needUpdate) {
     this.initHeader()
     this.initSearch()
     this.initPagination()
@@ -653,12 +649,34 @@ export default {
       const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
 
       if (needUpdate) {
-        $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
+        for (const index of changedIndices) {
+          $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
+        }
       }
 
       if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
         $items.filter(':checked').prop('disabled', true)
       }
+    }
+  },
+
+  _toggleColumns (fields, checked, needUpdate) {
+    if (!fields.length) {
+      return
+    }
+
+    const changedIndices = []
+
+    for (const field of fields) {
+      const index = this.fieldsColumnsIndex[field]
+
+      if (this._toggleColumnVisibility(index, checked)) {
+        changedIndices.push(index)
+      }
+    }
+
+    if (changedIndices.length) {
+      this._updateAfterColumnToggle(changedIndices, checked, needUpdate)
     }
   },
 
