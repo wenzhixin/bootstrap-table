@@ -86,8 +86,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.makeColumnsReorderable()
   }
 
-  _toggleColumn (...args) {
-    super._toggleColumn(...args)
+  _toggleColumns (...args) {
+    super._toggleColumns(...args)
 
     if (!this.options.reorderableColumns) {
       return
