@@ -21,44 +21,6 @@ $.akottr.dragtable.prototype._restoreState = function (persistObj) {
   }
 }
 
-// From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-const filterFn = () => {
-  if (!Array.prototype.filter) {
-    Array.prototype.filter = function (fun/* , thisArg*/) {
-      if (this === undefined || this === null) {
-        throw new TypeError()
-      }
-
-      const t = Object(this)
-      const len = t.length >>> 0
-
-      if (typeof fun !== 'function') {
-        throw new TypeError()
-      }
-
-      const res = []
-      const thisArg = arguments.length >= 2 ? arguments[1] : undefined
-
-      for (let i = 0; i < len; i++) {
-        if (i in t) {
-          const val = t[i]
-
-          // NOTE: Technically this should Object.defineProperty at
-          //       the next index, as push can be affected by
-          //       properties on Object.prototype and Array.prototype.
-          //       But this method's new, and collisions should be
-          //       rare, so use the more-compatible alternative.
-          if (fun.call(thisArg, val, i, t)) {
-            res.push(val)
-          }
-        }
-      }
-
-      return res
-    }
-  }
-}
-
 Object.assign($.fn.bootstrapTable.defaults, {
   reorderableColumns: false,
   maxMovingRows: 10,
@@ -178,7 +140,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         this.columns = columns
 
-        filterFn() // Support <IE9
         for (const column of this.columns) {
           let found = false
           const field = column.field

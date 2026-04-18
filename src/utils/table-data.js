@@ -93,6 +93,10 @@ export function updateFieldGroup (columns, fieldColumns) {
           const underColumns = allColumns.filter(col => col.fieldIndex === i)
           const column = underColumns[underColumns.length - 1]
 
+          if (!column) {
+            continue
+          }
+
           if (underColumns.length > 1) {
             for (let j = 0; j < underColumns.length - 1; j++) {
               underColumns[j].visible = column.visible
