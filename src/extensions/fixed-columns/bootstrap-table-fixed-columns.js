@@ -294,7 +294,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initFixedColumnsEvents () {
     const toggleHover = (e, toggle) => {
       const tr = `tr[data-index="${$(e.currentTarget).data('index')}"]`
-      let $trs = this.$tableBody.find(tr)
+      const isFromFixed = $(e.currentTarget).closest('.fixed-columns, .fixed-columns-right').length > 0
+      let $trs = $()
+
+      if (isFromFixed) {
+        $trs = $trs.add(this.$tableBody.find(tr))
+      }
 
       if (this.$fixedBody) {
         $trs = $trs.add(this.$fixedBody.find(tr))
@@ -303,14 +308,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $trs = $trs.add(this.$fixedBodyRight.find(tr))
       }
 
-      $trs.css('background-color', toggle ? $(e.currentTarget).css('background-color') : '')
+      $trs.toggleClass('hover-row', toggle)
     }
 
-    this.$tableBody.find('tr').hover(e => {
-      toggleHover(e, true)
-    }, e => {
-      toggleHover(e, false)
-    })
+    const bindHover = $el => {
+      $el.find('tr').hover(e => {
+        toggleHover(e, true)
+      }, e => {
+        toggleHover(e, false)
+      })
+    }
+
+    bindHover(this.$tableBody)
 
     const isFirefox = typeof navigator !== 'undefined' &&
       navigator.userAgent.toLowerCase().indexOf('firefox') > -1
@@ -337,11 +346,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.needFixedColumns && this.options.fixedNumber && this.$fixedBody) {
-      this.$fixedBody.find('tr').hover(e => {
-        toggleHover(e, true)
-      }, e => {
-        toggleHover(e, false)
-      })
+      bindHover(this.$fixedBody)
 
       this.$fixedBody[0].addEventListener(mousewheel, e => {
         updateScroll(e, this.$fixedBody[0])
@@ -349,11 +354,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
-      this.$fixedBodyRight.find('tr').hover(e => {
-        toggleHover(e, true)
-      }, e => {
-        toggleHover(e, false)
-      })
+      bindHover(this.$fixedBodyRight)
 
       this.$fixedBodyRight.off('scroll').on('scroll', () => {
         const top = this.$fixedBodyRight.scrollTop()
