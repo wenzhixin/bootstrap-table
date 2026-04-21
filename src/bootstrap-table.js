@@ -67,7 +67,16 @@ class BootstrapTable {
     }
     this.optionsColumnsChanged = !!options.columns
     this.options = Utils.extend(this.options, options)
+
+    const hasNewData = Object.prototype.hasOwnProperty.call(options, 'data')
+    const shouldResetHtmlData = this.fromHtml && !hasNewData
+
     this.trigger('refresh-options', this.options)
+
+    if (shouldResetHtmlData) {
+      this.options.data = []
+      this.fromHtml = false
+    }
     this.destroy()
     this.init()
   }
