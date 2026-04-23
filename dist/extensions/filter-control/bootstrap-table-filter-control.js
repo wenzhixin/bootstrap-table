@@ -6832,10 +6832,12 @@
         });
       }
     }, {
-      key: "_toggleColumn",
-      value: function _toggleColumn(index, checked, needUpdate) {
-        this._initialized = false;
-        _superPropGet(_class, "_toggleColumn", this)([index, checked, needUpdate]);
+      key: "_toggleColumns",
+      value: function _toggleColumns(fields, checked, needUpdate) {
+        if (fields.length) {
+          this._initialized = false;
+        }
+        _superPropGet(_class, "_toggleColumns", this)([fields, checked, needUpdate]);
         syncHeaders(this);
       }
     }]);

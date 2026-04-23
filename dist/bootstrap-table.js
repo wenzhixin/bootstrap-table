@@ -6657,6 +6657,9 @@
                   return col.fieldIndex === i;
                 });
                 var column = underColumns[underColumns.length - 1];
+                if (!column) {
+                  return 1; // continue
+                }
                 if (underColumns.length > 1) {
                   for (var j = 0; j < underColumns.length - 1; j++) {
                     underColumns[j].visible = column.visible;
@@ -6667,7 +6670,7 @@
                 }
               };
               for (var i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
-                _loop(i);
+                if (_loop(i)) continue;
               }
               r.colspan = colspan;
               r.visible = colspan > 0;
@@ -6889,13 +6892,86 @@
     return false;
   }
 
+  /**
+   * Checks if any row in the data has rowspan cells with a span greater than 1.
+   *
+   * @param {Array.<Object.<string, *>>} data - The data array to check.
+   * @returns {boolean} True if any row has real rowspan merges, false otherwise.
+   */
+  function hasRowspanCells(data) {
+    var _iterator1 = _createForOfIteratorHelper(data),
+      _step1;
+    try {
+      for (_iterator1.s(); !(_step1 = _iterator1.n()).done;) {
+        var row = _step1.value;
+        for (var _i4 = 0, _Object$keys2 = Object.keys(row); _i4 < _Object$keys2.length; _i4++) {
+          var key = _Object$keys2[_i4];
+          if (key.startsWith('_') && key.endsWith('_rowspan') && (+row[key] || 0) > 1) {
+            return true;
+          }
+        }
+      }
+    } catch (err) {
+      _iterator1.e(err);
+    } finally {
+      _iterator1.f();
+    }
+    return false;
+  }
+
+  /**
+   * Flattens rowspan cells in the data by copying the cell value from the
+   * rowspan parent row into all spanned child rows, so each row becomes
+   * independent and can be sorted without breaking the table layout.
+   *
+   * @param {Array.<Object.<string, *>>} data - The data array to flatten.
+   */
+  function flattenRowspanCells(data) {
+    for (var i = 0; i < data.length; i++) {
+      var row = data[i];
+      for (var _i5 = 0, _Object$keys3 = Object.keys(row); _i5 < _Object$keys3.length; _i5++) {
+        var key = _Object$keys3[_i5];
+        if (!key.startsWith('_') || !key.endsWith('_rowspan')) {
+          continue;
+        }
+        var field = key.replace(/^_/, '').replace(/_rowspan$/, '');
+        var rowspan = +row[key] || 1;
+        if (rowspan <= 1) {
+          continue;
+        }
+        var value = getItemField(row, field, false);
+        var useFlatKey = row.hasOwnProperty(field);
+        for (var j = 1; j < rowspan && i + j < data.length; j++) {
+          var childRow = data[i + j];
+          if (field.includes('.') && !useFlatKey) {
+            var props = field.split('.');
+            var target = childRow;
+            for (var k = 0; k < props.length - 1; k++) {
+              if (_typeof(target[props[k]]) !== 'object' || target[props[k]] === null) {
+                target[props[k]] = {};
+              }
+              target = target[props[k]];
+            }
+            target[props[props.length - 1]] = value;
+          } else {
+            childRow[field] = value;
+          }
+          delete childRow["_".concat(field, "_rowspan")];
+        }
+        delete row[key];
+      }
+    }
+  }
+
   var tableData = /*#__PURE__*/Object.freeze({
     __proto__: null,
     checkAutoMergeCells: checkAutoMergeCells,
     findIndex: findIndex,
+    flattenRowspanCells: flattenRowspanCells,
     getFieldTitle: getFieldTitle,
     getItemField: getItemField,
     getRealDataAttr: getRealDataAttr,
+    hasRowspanCells: hasRowspanCells,
     setFieldIndex: setFieldIndex,
     trToData: trToData,
     updateFieldGroup: updateFieldGroup
@@ -8452,7 +8528,7 @@
 
   var Utils = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, framework), object), string), dom), tableData), searchSort), helper), checkbox);
 
-  var VERSION = '1.27.2';
+  var VERSION = '1.27.3';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -9997,24 +10073,19 @@
       return rows;
     },
     showColumn: function showColumn(field) {
-      var _this4 = this;
-      var fields = Array.isArray(field) ? field : [field];
-      fields.forEach(function (field) {
-        _this4._toggleColumn(_this4.fieldsColumnsIndex[field], true, true);
-      });
+      this._toggleColumns(Array.isArray(field) ? field : [field], true, true);
     },
     hideColumn: function hideColumn(field) {
-      var _this5 = this;
-      var fields = Array.isArray(field) ? field : [field];
-      fields.forEach(function (field) {
-        _this5._toggleColumn(_this5.fieldsColumnsIndex[field], false, true);
-      });
+      this._toggleColumns(Array.isArray(field) ? field : [field], false, true);
     },
-    _toggleColumn: function _toggleColumn(index, checked, needUpdate) {
+    _toggleColumnVisibility: function _toggleColumnVisibility(index, checked) {
       if (index === undefined || this.columns[index].visible === checked) {
-        return;
+        return false;
       }
       this.columns[index].visible = checked;
+      return true;
+    },
+    _updateAfterColumnToggle: function _updateAfterColumnToggle(changedIndices, checked, needUpdate) {
       this.initHeader();
       this.initSearch();
       this.initPagination();
@@ -10022,11 +10093,46 @@
       if (this.options.showColumns) {
         var $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false);
         if (needUpdate) {
-          $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked);
+          var _iterator2 = _createForOfIteratorHelper(changedIndices),
+            _step2;
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var index = _step2.value;
+              $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked);
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
         }
         if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
           $items.filter(':checked').prop('disabled', true);
         }
+      }
+    },
+    _toggleColumns: function _toggleColumns(fields, checked, needUpdate) {
+      if (!fields.length) {
+        return;
+      }
+      var changedIndices = [];
+      var _iterator3 = _createForOfIteratorHelper(fields),
+        _step3;
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var field = _step3.value;
+          var index = this.fieldsColumnsIndex[field];
+          if (this._toggleColumnVisibility(index, checked)) {
+            changedIndices.push(index);
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+      if (changedIndices.length) {
+        this._updateAfterColumnToggle(changedIndices, checked, needUpdate);
       }
     },
     showAllColumns: function showAllColumns() {
@@ -10036,12 +10142,12 @@
       this._toggleAllColumns(false);
     },
     _toggleAllColumns: function _toggleAllColumns(visible) {
-      var _this6 = this;
-      var _iterator2 = _createForOfIteratorHelper(this.columns.slice().reverse()),
-        _step2;
+      var _this4 = this;
+      var _iterator4 = _createForOfIteratorHelper(this.columns.slice().reverse()),
+        _step4;
       try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var column = _step2.value;
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var column = _step4.value;
           if (column.switchable) {
             if (!visible && this.options.showColumns && this.getVisibleColumns().filter(function (it) {
               return it.switchable;
@@ -10052,9 +10158,9 @@
           }
         }
       } catch (err) {
-        _iterator2.e(err);
+        _iterator4.e(err);
       } finally {
-        _iterator2.f();
+        _iterator4.f();
       }
       this.initHeader();
       this.initSearch();
@@ -10066,7 +10172,7 @@
           $items.prop('checked', visible);
         } else {
           $items.get().reverse().forEach(function (item) {
-            if ($items.filter(':checked').length > _this6.options.minimumCountColumns) {
+            if ($items.filter(':checked').length > _this4.options.minimumCountColumns) {
               $(item).prop('checked', visible);
             }
           });
@@ -10097,9 +10203,9 @@
       $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     },
     getVisibleColumns: function getVisibleColumns() {
-      var _this7 = this;
+      var _this5 = this;
       return this.columns.filter(function (column) {
-        return column.visible && !_this7.isSelectionColumn(column);
+        return column.visible && !_this5.isSelectionColumn(column);
       });
     },
     getHiddenColumns: function getHiddenColumns() {
@@ -10721,6 +10827,9 @@
               row._position = i;
             }
           });
+        }
+        if (Utils.hasRowspanCells(this.data)) {
+          Utils.flattenRowspanCells(this.data);
         }
         if (this.options.customSort) {
           Utils.calculateObjectValue(this.options, this.options.customSort, [this.options.sortName, this.options.sortOrder, this.data]);
@@ -12317,7 +12426,7 @@
         $checkboxes.off('click').on('click', function (_ref) {
           var currentTarget = _ref.currentTarget;
           var $this = $(currentTarget);
-          _this._toggleColumn($this.val(), $this.prop('checked'), false);
+          _this._toggleColumns([$this.data('field')], $this.prop('checked'), false);
           _this.trigger('column-switch', $this.data('field'), $this.prop('checked'));
           $toggleAll.prop('checked', $checkboxes.filter(':checked').length === _this.columns.filter(function (column) {
             return !_this.isSelectionColumn(column);

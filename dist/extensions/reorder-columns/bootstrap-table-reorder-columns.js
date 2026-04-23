@@ -126,7 +126,10 @@
         f = true,
         o = false;
       try {
-        if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+        if (i = (t = t.call(r)).next, 0 === l) {
+          if (Object(t) !== t) return;
+          f = !1;
+        } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
       } catch (r) {
         o = true, n = r;
       } finally {
@@ -178,6 +181,15 @@
   function _toPropertyKey(t) {
     var i = _toPrimitive(t, "string");
     return "symbol" == typeof i ? i : i + "";
+  }
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, _typeof(o);
   }
   function _unsupportedIterableToArray(r, a) {
     if (r) {
@@ -2288,6 +2300,278 @@
 
   requireEs_array_find();
 
+  var es_array_sort = {};
+
+  var deletePropertyOrThrow;
+  var hasRequiredDeletePropertyOrThrow;
+
+  function requireDeletePropertyOrThrow () {
+  	if (hasRequiredDeletePropertyOrThrow) return deletePropertyOrThrow;
+  	hasRequiredDeletePropertyOrThrow = 1;
+  	var tryToString = requireTryToString();
+
+  	var $TypeError = TypeError;
+
+  	deletePropertyOrThrow = function (O, P) {
+  	  if (!delete O[P]) throw new $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
+  	};
+  	return deletePropertyOrThrow;
+  }
+
+  var toString;
+  var hasRequiredToString;
+
+  function requireToString () {
+  	if (hasRequiredToString) return toString;
+  	hasRequiredToString = 1;
+  	var classof = requireClassof();
+
+  	var $String = String;
+
+  	toString = function (argument) {
+  	  if (classof(argument) === 'Symbol') throw new TypeError('Cannot convert a Symbol value to a string');
+  	  return $String(argument);
+  	};
+  	return toString;
+  }
+
+  var arraySlice;
+  var hasRequiredArraySlice;
+
+  function requireArraySlice () {
+  	if (hasRequiredArraySlice) return arraySlice;
+  	hasRequiredArraySlice = 1;
+  	var uncurryThis = requireFunctionUncurryThis();
+
+  	arraySlice = uncurryThis([].slice);
+  	return arraySlice;
+  }
+
+  var arraySort;
+  var hasRequiredArraySort;
+
+  function requireArraySort () {
+  	if (hasRequiredArraySort) return arraySort;
+  	hasRequiredArraySort = 1;
+  	var arraySlice = requireArraySlice();
+
+  	var floor = Math.floor;
+
+  	var sort = function (array, comparefn) {
+  	  var length = array.length;
+
+  	  if (length < 8) {
+  	    // insertion sort
+  	    var i = 1;
+  	    var element, j;
+
+  	    while (i < length) {
+  	      j = i;
+  	      element = array[i];
+  	      while (j && comparefn(array[j - 1], element) > 0) {
+  	        array[j] = array[--j];
+  	      }
+  	      if (j !== i++) array[j] = element;
+  	    }
+  	  } else {
+  	    // merge sort
+  	    var middle = floor(length / 2);
+  	    var left = sort(arraySlice(array, 0, middle), comparefn);
+  	    var right = sort(arraySlice(array, middle), comparefn);
+  	    var llength = left.length;
+  	    var rlength = right.length;
+  	    var lindex = 0;
+  	    var rindex = 0;
+
+  	    while (lindex < llength || rindex < rlength) {
+  	      array[lindex + rindex] = (lindex < llength && rindex < rlength)
+  	        ? comparefn(left[lindex], right[rindex]) <= 0 ? left[lindex++] : right[rindex++]
+  	        : lindex < llength ? left[lindex++] : right[rindex++];
+  	    }
+  	  }
+
+  	  return array;
+  	};
+
+  	arraySort = sort;
+  	return arraySort;
+  }
+
+  var arrayMethodIsStrict;
+  var hasRequiredArrayMethodIsStrict;
+
+  function requireArrayMethodIsStrict () {
+  	if (hasRequiredArrayMethodIsStrict) return arrayMethodIsStrict;
+  	hasRequiredArrayMethodIsStrict = 1;
+  	var fails = requireFails();
+
+  	arrayMethodIsStrict = function (METHOD_NAME, argument) {
+  	  var method = [][METHOD_NAME];
+  	  return !!method && fails(function () {
+  	    // eslint-disable-next-line no-useless-call -- required for testing
+  	    method.call(null, argument || function () { return 1; }, 1);
+  	  });
+  	};
+  	return arrayMethodIsStrict;
+  }
+
+  var environmentFfVersion;
+  var hasRequiredEnvironmentFfVersion;
+
+  function requireEnvironmentFfVersion () {
+  	if (hasRequiredEnvironmentFfVersion) return environmentFfVersion;
+  	hasRequiredEnvironmentFfVersion = 1;
+  	var userAgent = requireEnvironmentUserAgent();
+
+  	var firefox = userAgent.match(/firefox\/(\d+)/i);
+
+  	environmentFfVersion = !!firefox && +firefox[1];
+  	return environmentFfVersion;
+  }
+
+  var environmentIsIeOrEdge;
+  var hasRequiredEnvironmentIsIeOrEdge;
+
+  function requireEnvironmentIsIeOrEdge () {
+  	if (hasRequiredEnvironmentIsIeOrEdge) return environmentIsIeOrEdge;
+  	hasRequiredEnvironmentIsIeOrEdge = 1;
+  	var UA = requireEnvironmentUserAgent();
+
+  	environmentIsIeOrEdge = /MSIE|Trident/.test(UA);
+  	return environmentIsIeOrEdge;
+  }
+
+  var environmentWebkitVersion;
+  var hasRequiredEnvironmentWebkitVersion;
+
+  function requireEnvironmentWebkitVersion () {
+  	if (hasRequiredEnvironmentWebkitVersion) return environmentWebkitVersion;
+  	hasRequiredEnvironmentWebkitVersion = 1;
+  	var userAgent = requireEnvironmentUserAgent();
+
+  	var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
+
+  	environmentWebkitVersion = !!webkit && +webkit[1];
+  	return environmentWebkitVersion;
+  }
+
+  var hasRequiredEs_array_sort;
+
+  function requireEs_array_sort () {
+  	if (hasRequiredEs_array_sort) return es_array_sort;
+  	hasRequiredEs_array_sort = 1;
+  	var $ = require_export();
+  	var uncurryThis = requireFunctionUncurryThis();
+  	var aCallable = requireACallable();
+  	var toObject = requireToObject();
+  	var lengthOfArrayLike = requireLengthOfArrayLike();
+  	var deletePropertyOrThrow = requireDeletePropertyOrThrow();
+  	var toString = requireToString();
+  	var fails = requireFails();
+  	var internalSort = requireArraySort();
+  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
+  	var FF = requireEnvironmentFfVersion();
+  	var IE_OR_EDGE = requireEnvironmentIsIeOrEdge();
+  	var V8 = requireEnvironmentV8Version();
+  	var WEBKIT = requireEnvironmentWebkitVersion();
+
+  	var test = [];
+  	var nativeSort = uncurryThis(test.sort);
+  	var push = uncurryThis(test.push);
+
+  	// IE8-
+  	var FAILS_ON_UNDEFINED = fails(function () {
+  	  test.sort(undefined);
+  	});
+  	// V8 bug
+  	var FAILS_ON_NULL = fails(function () {
+  	  test.sort(null);
+  	});
+  	// Old WebKit
+  	var STRICT_METHOD = arrayMethodIsStrict('sort');
+
+  	var STABLE_SORT = !fails(function () {
+  	  // feature detection can be too slow, so check engines versions
+  	  if (V8) return V8 < 70;
+  	  if (FF && FF > 3) return;
+  	  if (IE_OR_EDGE) return true;
+  	  if (WEBKIT) return WEBKIT < 603;
+
+  	  var result = '';
+  	  var code, chr, value, index;
+
+  	  // generate an array with more 512 elements (Chakra and old V8 fails only in this case)
+  	  for (code = 65; code < 76; code++) {
+  	    chr = String.fromCharCode(code);
+
+  	    switch (code) {
+  	      case 66: case 69: case 70: case 72: value = 3; break;
+  	      case 68: case 71: value = 4; break;
+  	      default: value = 2;
+  	    }
+
+  	    for (index = 0; index < 47; index++) {
+  	      test.push({ k: chr + index, v: value });
+  	    }
+  	  }
+
+  	  test.sort(function (a, b) { return b.v - a.v; });
+
+  	  for (index = 0; index < test.length; index++) {
+  	    chr = test[index].k.charAt(0);
+  	    if (result.charAt(result.length - 1) !== chr) result += chr;
+  	  }
+
+  	  return result !== 'DGBEFHACIJK';
+  	});
+
+  	var FORCED = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD || !STABLE_SORT;
+
+  	var getSortCompare = function (comparefn) {
+  	  return function (x, y) {
+  	    if (y === undefined) return -1;
+  	    if (x === undefined) return 1;
+  	    if (comparefn !== undefined) return +comparefn(x, y) || 0;
+  	    var xString = toString(x);
+  	    var yString = toString(y);
+  	    return xString === yString ? 0 : xString > yString ? 1 : -1;
+  	  };
+  	};
+
+  	// `Array.prototype.sort` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.sort
+  	$({ target: 'Array', proto: true, forced: FORCED }, {
+  	  sort: function sort(comparefn) {
+  	    if (comparefn !== undefined) aCallable(comparefn);
+
+  	    var array = toObject(this);
+
+  	    if (STABLE_SORT) return comparefn === undefined ? nativeSort(array) : nativeSort(array, comparefn);
+
+  	    var items = [];
+  	    var arrayLength = lengthOfArrayLike(array);
+  	    var itemsLength, index;
+
+  	    for (index = 0; index < arrayLength; index++) {
+  	      if (index in array) push(items, array[index]);
+  	    }
+
+  	    internalSort(items, getSortCompare(comparefn));
+
+  	    itemsLength = lengthOfArrayLike(items);
+  	    index = 0;
+
+  	    while (index < itemsLength) array[index] = items[index++];
+  	    while (index < arrayLength) deletePropertyOrThrow(array, index++);
+
+  	    return array;
+  	  }
+  	});
+  	return es_array_sort;
+  }
+
+  requireEs_array_sort();
+
   var es_object_assign = {};
 
   var objectAssign;
@@ -2561,39 +2845,6 @@
       this._bubbleCols();
     }
   };
-
-  // From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-  var filterFn = function filterFn() {
-    if (!Array.prototype.filter) {
-      Array.prototype.filter = function (fun /* , thisArg*/) {
-        if (this === undefined || this === null) {
-          throw new TypeError();
-        }
-        var t = Object(this);
-        var len = t.length >>> 0;
-        if (typeof fun !== 'function') {
-          throw new TypeError();
-        }
-        var res = [];
-        var thisArg = arguments.length >= 2 ? arguments[1] : undefined;
-        for (var i = 0; i < len; i++) {
-          if (i in t) {
-            var val = t[i];
-
-            // NOTE: Technically this should Object.defineProperty at
-            //       the next index, as push can be affected by
-            //       properties on Object.prototype and Array.prototype.
-            //       But this method's new, and collisions should be
-            //       rare, so use the more-compatible alternative.
-            if (fun.call(thisArg, val, i, t)) {
-              res.push(val);
-            }
-          }
-        }
-        return res;
-      };
-    }
-  };
   Object.assign($.fn.bootstrapTable.defaults, {
     reorderableColumns: false,
     maxMovingRows: 10,
@@ -2623,15 +2874,77 @@
         if (!this.options.reorderableColumns) {
           return;
         }
+        if (this.columnsSortOrder) {
+          this.syncColumnsStateFromDOM();
+          _superPropGet(_class, "initHeader", this)(args);
+        }
         this.makeColumnsReorderable();
       }
     }, {
-      key: "_toggleColumn",
-      value: function _toggleColumn() {
+      key: "syncColumnsStateFromDOM",
+      value: function syncColumnsStateFromDOM() {
+        var _this = this;
+        var ths = [];
+        var formatters = [];
+        var columns = [];
+        var optionsColumns = [];
+        var $headerRow = this.$header.find('tr').last();
+        var $headerCells = ($headerRow.length ? $headerRow : this.$header).find('th[data-field]:not(.detail)');
+        $headerCells.each(function (i, el) {
+          ths.push($(el).data('field'));
+          formatters.push($(el).data('formatter'));
+        });
+        if (ths.length < this.columns.length) {
+          var columnsHidden = this.columns.filter(function (column) {
+            return !column.visible;
+          });
+          for (var i = 0; i < columnsHidden.length; i++) {
+            ths.push(columnsHidden[i].field);
+            formatters.push(columnsHidden[i].formatter);
+          }
+        }
+        for (var _i2 = 0; _i2 < ths.length; _i2++) {
+          var columnIndex = this.fieldsColumnsIndex[ths[_i2]];
+          if (!Number.isInteger(columnIndex) || !this.columns[columnIndex]) {
+            continue;
+          }
+          this.fieldsColumnsIndex[ths[_i2]] = _i2;
+          this.columns[columnIndex].fieldIndex = _i2;
+          columns.push(this.columns[columnIndex]);
+        }
+        this.columns = columns;
+        var _iterator = _createForOfIteratorHelper(this.columns),
+          _step;
+        try {
+          var _loop = function _loop() {
+            var column = _step.value;
+            var field = column.field;
+            var matchedColumn = _this.options.columns[0].find(function (item) {
+              return item.field === field;
+            });
+            if (matchedColumn) {
+              optionsColumns.push(matchedColumn);
+            }
+          };
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            _loop();
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        this.options.columns[0] = optionsColumns;
+        this.header.fields = ths;
+        this.header.formatters = formatters;
+      }
+    }, {
+      key: "_toggleColumns",
+      value: function _toggleColumns() {
         for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
           args[_key2] = arguments[_key2];
         }
-        _superPropGet(_class, "_toggleColumn", this)(args);
+        _superPropGet(_class, "_toggleColumns", this)(args);
         if (!this.options.reorderableColumns) {
           return;
         }
@@ -2664,10 +2977,19 @@
         }
         this.makeColumnsReorderable();
       }
+
+      // requires cookie extension enabled to persist state
+    }, {
+      key: "_persistColumnsSortOrder",
+      value: function _persistColumnsSortOrder() {
+        if (this.options.cookie && typeof this.persistReorderColumnsState === 'function') {
+          this.persistReorderColumnsState(this);
+        }
+      }
     }, {
       key: "makeColumnsReorderable",
       value: function makeColumnsReorderable() {
-        var _this = this;
+        var _this2 = this;
         var order = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
         try {
           $(this.$el).dragtable('destroy');
@@ -2687,82 +3009,54 @@
                 sortOrder[el.dataset.field] = i;
               }
             });
-            _this.columnsSortOrder = sortOrder;
-            if (_this.options.cookie) {
-              _this.persistReorderColumnsState(_this);
-            }
-            var ths = [];
-            var formatters = [];
-            var columns = [];
-            var columnsHidden;
-            var columnIndex;
-            var optionsColumns = [];
-            _this.$header.find('th:not(.detail)').each(function (i, el) {
-              ths.push($(el).data('field'));
-              formatters.push($(el).data('formatter'));
-            });
-
-            // Exist columns not shown
-            if (ths.length < _this.columns.length) {
-              columnsHidden = _this.columns.filter(function (column) {
-                return !column.visible;
-              });
-              for (var i = 0; i < columnsHidden.length; i++) {
-                ths.push(columnsHidden[i].field);
-                formatters.push(columnsHidden[i].formatter);
-              }
-            }
-            for (var _i2 = 0; _i2 < ths.length; _i2++) {
-              columnIndex = _this.fieldsColumnsIndex[ths[_i2]];
-              if (columnIndex !== -1) {
-                _this.fieldsColumnsIndex[ths[_i2]] = _i2;
-                _this.columns[columnIndex].fieldIndex = _i2;
-                columns.push(_this.columns[columnIndex]);
-              }
-            }
-            _this.columns = columns;
-            filterFn(); // Support <IE9
-            var _iterator = _createForOfIteratorHelper(_this.columns),
-              _step;
-            try {
-              var _loop = function _loop() {
-                var column = _step.value;
-                var found = false;
-                var field = column.field;
-                _this.options.columns[0].filter(function (item) {
-                  if (!found && item['field'] === field) {
-                    optionsColumns.push(item);
-                    found = true;
-                    return false;
-                  }
-                  return true;
-                });
-              };
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                _loop();
-              }
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
-            }
-            _this.options.columns[0] = optionsColumns;
-            _this.header.fields = ths;
-            _this.header.formatters = formatters;
-            _this.initHeader();
-            _this.initToolbar();
-            _this.initSearchText();
-            _this.initBody();
-            _this.resetView();
-            _this.trigger('reorder-column', ths);
+            _this2.columnsSortOrder = sortOrder;
+            _this2._persistColumnsSortOrder();
+            _this2.syncColumnsStateFromDOM();
+            _this2.initHeader();
+            _this2.initToolbar();
+            _this2.initSearchText();
+            _this2.initBody();
+            _this2.resetView();
+            _this2.trigger('reorder-column', _this2.header.fields);
           }
         });
       }
     }, {
       key: "orderColumns",
       value: function orderColumns(order) {
+        if (!order || _typeof(order) !== 'object') {
+          return;
+        }
+        var $headerRow = this.$header.find('tr').last();
+        var $target = $headerRow.length ? $headerRow : this.$header;
+        var sortedEntries = Object.entries(order).sort(function (a, b) {
+          return a[1] - b[1];
+        });
+        var _iterator2 = _createForOfIteratorHelper(sortedEntries),
+          _step2;
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var _step2$value = _slicedToArray(_step2.value, 1),
+              field = _step2$value[0];
+            var $th = $target.find("th[data-field=\"".concat(field, "\"]"));
+            if ($th.length) {
+              $target.append($th);
+            }
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
         this.columnsSortOrder = order;
-        this.makeColumnsReorderable();
+        this._persistColumnsSortOrder();
+        this.syncColumnsStateFromDOM();
+        this.initHeader();
+        this.initToolbar();
+        this.initSearchText();
+        this.initBody();
+        this.resetView();
+        this.trigger('reorder-column', this.header.fields);
       }
     }]);
   }($.BootstrapTable);
