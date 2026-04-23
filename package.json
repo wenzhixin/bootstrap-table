@@ -10,7 +10,6 @@
     "dist/",
     "src/",
     "!src/.babelrc",
-    "!src/**/*.css",
     "CHANGELOG.md",
     "README.md",
     "LICENSE",
