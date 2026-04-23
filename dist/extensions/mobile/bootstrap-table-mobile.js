@@ -96,7 +96,7 @@
 
   var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-  var es_array_includes = {};
+  var es_array_filter = {};
 
   var globalThis_1;
   var hasRequiredGlobalThis;
@@ -1612,6 +1612,376 @@
   	return _export;
   }
 
+  var functionUncurryThisClause;
+  var hasRequiredFunctionUncurryThisClause;
+
+  function requireFunctionUncurryThisClause () {
+  	if (hasRequiredFunctionUncurryThisClause) return functionUncurryThisClause;
+  	hasRequiredFunctionUncurryThisClause = 1;
+  	var classofRaw = requireClassofRaw();
+  	var uncurryThis = requireFunctionUncurryThis();
+
+  	functionUncurryThisClause = function (fn) {
+  	  // Nashorn bug:
+  	  //   https://github.com/zloirock/core-js/issues/1128
+  	  //   https://github.com/zloirock/core-js/issues/1130
+  	  if (classofRaw(fn) === 'Function') return uncurryThis(fn);
+  	};
+  	return functionUncurryThisClause;
+  }
+
+  var functionBindContext;
+  var hasRequiredFunctionBindContext;
+
+  function requireFunctionBindContext () {
+  	if (hasRequiredFunctionBindContext) return functionBindContext;
+  	hasRequiredFunctionBindContext = 1;
+  	var uncurryThis = requireFunctionUncurryThisClause();
+  	var aCallable = requireACallable();
+  	var NATIVE_BIND = requireFunctionBindNative();
+
+  	var bind = uncurryThis(uncurryThis.bind);
+
+  	// optional / simple context binding
+  	functionBindContext = function (fn, that) {
+  	  aCallable(fn);
+  	  return that === undefined ? fn : NATIVE_BIND ? bind(fn, that) : function (/* ...args */) {
+  	    return fn.apply(that, arguments);
+  	  };
+  	};
+  	return functionBindContext;
+  }
+
+  var isArray;
+  var hasRequiredIsArray;
+
+  function requireIsArray () {
+  	if (hasRequiredIsArray) return isArray;
+  	hasRequiredIsArray = 1;
+  	var classof = requireClassofRaw();
+
+  	// `IsArray` abstract operation
+  	// https://tc39.es/ecma262/#sec-isarray
+  	// eslint-disable-next-line es/no-array-isarray -- safe
+  	isArray = Array.isArray || function isArray(argument) {
+  	  return classof(argument) === 'Array';
+  	};
+  	return isArray;
+  }
+
+  var toStringTagSupport;
+  var hasRequiredToStringTagSupport;
+
+  function requireToStringTagSupport () {
+  	if (hasRequiredToStringTagSupport) return toStringTagSupport;
+  	hasRequiredToStringTagSupport = 1;
+  	var wellKnownSymbol = requireWellKnownSymbol();
+
+  	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+  	var test = {};
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	test[TO_STRING_TAG] = 'z';
+
+  	toStringTagSupport = String(test) === '[object z]';
+  	return toStringTagSupport;
+  }
+
+  var classof;
+  var hasRequiredClassof;
+
+  function requireClassof () {
+  	if (hasRequiredClassof) return classof;
+  	hasRequiredClassof = 1;
+  	var TO_STRING_TAG_SUPPORT = requireToStringTagSupport();
+  	var isCallable = requireIsCallable();
+  	var classofRaw = requireClassofRaw();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+
+  	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+  	var $Object = Object;
+
+  	// ES3 wrong here
+  	var CORRECT_ARGUMENTS = classofRaw(function () { return arguments; }()) === 'Arguments';
+
+  	// fallback for IE11 Script Access Denied error
+  	var tryGet = function (it, key) {
+  	  try {
+  	    return it[key];
+  	  } catch (error) { /* empty */ }
+  	};
+
+  	// getting tag from ES6+ `Object.prototype.toString`
+  	classof = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
+  	  var O, tag, result;
+  	  return it === undefined ? 'Undefined' : it === null ? 'Null'
+  	    // @@toStringTag case
+  	    : typeof (tag = tryGet(O = $Object(it), TO_STRING_TAG)) == 'string' ? tag
+  	    // builtinTag case
+  	    : CORRECT_ARGUMENTS ? classofRaw(O)
+  	    // ES3 arguments fallback
+  	    : (result = classofRaw(O)) === 'Object' && isCallable(O.callee) ? 'Arguments' : result;
+  	};
+  	return classof;
+  }
+
+  var isConstructor;
+  var hasRequiredIsConstructor;
+
+  function requireIsConstructor () {
+  	if (hasRequiredIsConstructor) return isConstructor;
+  	hasRequiredIsConstructor = 1;
+  	var uncurryThis = requireFunctionUncurryThis();
+  	var fails = requireFails();
+  	var isCallable = requireIsCallable();
+  	var classof = requireClassof();
+  	var getBuiltIn = requireGetBuiltIn();
+  	var inspectSource = requireInspectSource();
+
+  	var noop = function () { /* empty */ };
+  	var construct = getBuiltIn('Reflect', 'construct');
+  	var constructorRegExp = /^\s*(?:class|function)\b/;
+  	var exec = uncurryThis(constructorRegExp.exec);
+  	var INCORRECT_TO_STRING = !constructorRegExp.test(noop);
+
+  	var isConstructorModern = function isConstructor(argument) {
+  	  if (!isCallable(argument)) return false;
+  	  try {
+  	    construct(noop, [], argument);
+  	    return true;
+  	  } catch (error) {
+  	    return false;
+  	  }
+  	};
+
+  	var isConstructorLegacy = function isConstructor(argument) {
+  	  if (!isCallable(argument)) return false;
+  	  switch (classof(argument)) {
+  	    case 'AsyncFunction':
+  	    case 'GeneratorFunction':
+  	    case 'AsyncGeneratorFunction': return false;
+  	  }
+  	  try {
+  	    // we can't check .prototype since constructors produced by .bind haven't it
+  	    // `Function#toString` throws on some built-it function in some legacy engines
+  	    // (for example, `DOMQuad` and similar in FF41-)
+  	    return INCORRECT_TO_STRING || !!exec(constructorRegExp, inspectSource(argument));
+  	  } catch (error) {
+  	    return true;
+  	  }
+  	};
+
+  	isConstructorLegacy.sham = true;
+
+  	// `IsConstructor` abstract operation
+  	// https://tc39.es/ecma262/#sec-isconstructor
+  	isConstructor = !construct || fails(function () {
+  	  var called;
+  	  return isConstructorModern(isConstructorModern.call)
+  	    || !isConstructorModern(Object)
+  	    || !isConstructorModern(function () { called = true; })
+  	    || called;
+  	}) ? isConstructorLegacy : isConstructorModern;
+  	return isConstructor;
+  }
+
+  var arraySpeciesConstructor;
+  var hasRequiredArraySpeciesConstructor;
+
+  function requireArraySpeciesConstructor () {
+  	if (hasRequiredArraySpeciesConstructor) return arraySpeciesConstructor;
+  	hasRequiredArraySpeciesConstructor = 1;
+  	var isArray = requireIsArray();
+  	var isConstructor = requireIsConstructor();
+  	var isObject = requireIsObject();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+
+  	var SPECIES = wellKnownSymbol('species');
+  	var $Array = Array;
+
+  	// a part of `ArraySpeciesCreate` abstract operation
+  	// https://tc39.es/ecma262/#sec-arrayspeciescreate
+  	arraySpeciesConstructor = function (originalArray) {
+  	  var C;
+  	  if (isArray(originalArray)) {
+  	    C = originalArray.constructor;
+  	    // cross-realm fallback
+  	    if (isConstructor(C) && (C === $Array || isArray(C.prototype))) C = undefined;
+  	    else if (isObject(C)) {
+  	      C = C[SPECIES];
+  	      if (C === null) C = undefined;
+  	    }
+  	  } return C === undefined ? $Array : C;
+  	};
+  	return arraySpeciesConstructor;
+  }
+
+  var arraySpeciesCreate;
+  var hasRequiredArraySpeciesCreate;
+
+  function requireArraySpeciesCreate () {
+  	if (hasRequiredArraySpeciesCreate) return arraySpeciesCreate;
+  	hasRequiredArraySpeciesCreate = 1;
+  	var arraySpeciesConstructor = requireArraySpeciesConstructor();
+
+  	// `ArraySpeciesCreate` abstract operation
+  	// https://tc39.es/ecma262/#sec-arrayspeciescreate
+  	arraySpeciesCreate = function (originalArray, length) {
+  	  return new (arraySpeciesConstructor(originalArray))(length === 0 ? 0 : length);
+  	};
+  	return arraySpeciesCreate;
+  }
+
+  var createProperty;
+  var hasRequiredCreateProperty;
+
+  function requireCreateProperty () {
+  	if (hasRequiredCreateProperty) return createProperty;
+  	hasRequiredCreateProperty = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var definePropertyModule = requireObjectDefineProperty();
+  	var createPropertyDescriptor = requireCreatePropertyDescriptor();
+
+  	createProperty = function (object, key, value) {
+  	  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
+  	  else object[key] = value;
+  	};
+  	return createProperty;
+  }
+
+  var arrayIteration;
+  var hasRequiredArrayIteration;
+
+  function requireArrayIteration () {
+  	if (hasRequiredArrayIteration) return arrayIteration;
+  	hasRequiredArrayIteration = 1;
+  	var bind = requireFunctionBindContext();
+  	var IndexedObject = requireIndexedObject();
+  	var toObject = requireToObject();
+  	var lengthOfArrayLike = requireLengthOfArrayLike();
+  	var arraySpeciesCreate = requireArraySpeciesCreate();
+  	var createProperty = requireCreateProperty();
+
+  	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
+  	var createMethod = function (TYPE) {
+  	  var IS_MAP = TYPE === 1;
+  	  var IS_FILTER = TYPE === 2;
+  	  var IS_SOME = TYPE === 3;
+  	  var IS_EVERY = TYPE === 4;
+  	  var IS_FIND_INDEX = TYPE === 6;
+  	  var IS_FILTER_REJECT = TYPE === 7;
+  	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
+  	  return function ($this, callbackfn, that) {
+  	    var O = toObject($this);
+  	    var self = IndexedObject(O);
+  	    var length = lengthOfArrayLike(self);
+  	    var boundFunction = bind(callbackfn, that);
+  	    var index = 0;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
+  	    var value, result;
+  	    for (;length > index; index++) if (NO_HOLES || index in self) {
+  	      value = self[index];
+  	      result = boundFunction(value, index, O);
+  	      if (TYPE) {
+  	        if (IS_MAP) createProperty(target, index, result);    // map
+  	        else if (result) switch (TYPE) {
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
+  	        } else switch (TYPE) {
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
+  	        }
+  	      }
+  	    }
+  	    return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
+  	  };
+  	};
+
+  	arrayIteration = {
+  	  // `Array.prototype.forEach` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.foreach
+  	  forEach: createMethod(0),
+  	  // `Array.prototype.map` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.map
+  	  map: createMethod(1),
+  	  // `Array.prototype.filter` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.filter
+  	  filter: createMethod(2),
+  	  // `Array.prototype.some` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.some
+  	  some: createMethod(3),
+  	  // `Array.prototype.every` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.every
+  	  every: createMethod(4),
+  	  // `Array.prototype.find` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.find
+  	  find: createMethod(5),
+  	  // `Array.prototype.findIndex` method
+  	  // https://tc39.es/ecma262/#sec-array.prototype.findIndex
+  	  findIndex: createMethod(6),
+  	  // `Array.prototype.filterReject` method
+  	  // https://github.com/tc39/proposal-array-filtering
+  	  filterReject: createMethod(7)
+  	};
+  	return arrayIteration;
+  }
+
+  var arrayMethodHasSpeciesSupport;
+  var hasRequiredArrayMethodHasSpeciesSupport;
+
+  function requireArrayMethodHasSpeciesSupport () {
+  	if (hasRequiredArrayMethodHasSpeciesSupport) return arrayMethodHasSpeciesSupport;
+  	hasRequiredArrayMethodHasSpeciesSupport = 1;
+  	var fails = requireFails();
+  	var wellKnownSymbol = requireWellKnownSymbol();
+  	var V8_VERSION = requireEnvironmentV8Version();
+
+  	var SPECIES = wellKnownSymbol('species');
+
+  	arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
+  	  // We can't use this feature detection in V8 since it causes
+  	  // deoptimization and serious performance degradation
+  	  // https://github.com/zloirock/core-js/issues/677
+  	  return V8_VERSION >= 51 || !fails(function () {
+  	    var array = [];
+  	    var constructor = array.constructor = {};
+  	    constructor[SPECIES] = function () {
+  	      return { foo: 1 };
+  	    };
+  	    return array[METHOD_NAME](Boolean).foo !== 1;
+  	  });
+  	};
+  	return arrayMethodHasSpeciesSupport;
+  }
+
+  var hasRequiredEs_array_filter;
+
+  function requireEs_array_filter () {
+  	if (hasRequiredEs_array_filter) return es_array_filter;
+  	hasRequiredEs_array_filter = 1;
+  	var $ = require_export();
+  	var $filter = requireArrayIteration().filter;
+  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
+
+  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
+
+  	// `Array.prototype.filter` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.filter
+  	// with adding support of @@species
+  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  	  filter: function filter(callbackfn /* , thisArg */) {
+  	    return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  	  }
+  	});
+  	return es_array_filter;
+  }
+
+  requireEs_array_filter();
+
+  var es_array_includes = {};
+
   var objectDefineProperties = {};
 
   var objectKeys;
@@ -1831,6 +2201,32 @@
 
   requireEs_array_includes();
 
+  var es_array_map = {};
+
+  var hasRequiredEs_array_map;
+
+  function requireEs_array_map () {
+  	if (hasRequiredEs_array_map) return es_array_map;
+  	hasRequiredEs_array_map = 1;
+  	var $ = require_export();
+  	var $map = requireArrayIteration().map;
+  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
+
+  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
+
+  	// `Array.prototype.map` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.map
+  	// with adding support of @@species
+  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  	  map: function map(callbackfn /* , thisArg */) {
+  	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  	  }
+  	});
+  	return es_array_map;
+  }
+
+  requireEs_array_map();
+
   var es_object_assign = {};
 
   var objectAssign;
@@ -1919,61 +2315,6 @@
   requireEs_object_assign();
 
   var es_object_toString = {};
-
-  var toStringTagSupport;
-  var hasRequiredToStringTagSupport;
-
-  function requireToStringTagSupport () {
-  	if (hasRequiredToStringTagSupport) return toStringTagSupport;
-  	hasRequiredToStringTagSupport = 1;
-  	var wellKnownSymbol = requireWellKnownSymbol();
-
-  	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
-  	var test = {};
-  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
-  	test[TO_STRING_TAG] = 'z';
-
-  	toStringTagSupport = String(test) === '[object z]';
-  	return toStringTagSupport;
-  }
-
-  var classof;
-  var hasRequiredClassof;
-
-  function requireClassof () {
-  	if (hasRequiredClassof) return classof;
-  	hasRequiredClassof = 1;
-  	var TO_STRING_TAG_SUPPORT = requireToStringTagSupport();
-  	var isCallable = requireIsCallable();
-  	var classofRaw = requireClassofRaw();
-  	var wellKnownSymbol = requireWellKnownSymbol();
-
-  	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
-  	var $Object = Object;
-
-  	// ES3 wrong here
-  	var CORRECT_ARGUMENTS = classofRaw(function () { return arguments; }()) === 'Arguments';
-
-  	// fallback for IE11 Script Access Denied error
-  	var tryGet = function (it, key) {
-  	  try {
-  	    return it[key];
-  	  } catch (error) { /* empty */ }
-  	};
-
-  	// getting tag from ES6+ `Object.prototype.toString`
-  	classof = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
-  	  var O, tag, result;
-  	  return it === undefined ? 'Undefined' : it === null ? 'Null'
-  	    // @@toStringTag case
-  	    : typeof (tag = tryGet(O = $Object(it), TO_STRING_TAG)) == 'string' ? tag
-  	    // builtinTag case
-  	    : CORRECT_ARGUMENTS ? classofRaw(O)
-  	    // ES3 arguments fallback
-  	    : (result = classofRaw(O)) === 'Object' && isCallable(O.callee) ? 'Arguments' : result;
-  	};
-  	return classof;
-  }
 
   var objectToString;
   var hasRequiredObjectToString;
@@ -2123,399 +2464,6 @@
 
   requireEs_string_includes();
 
-  var web_domCollections_forEach = {};
-
-  var domIterables;
-  var hasRequiredDomIterables;
-
-  function requireDomIterables () {
-  	if (hasRequiredDomIterables) return domIterables;
-  	hasRequiredDomIterables = 1;
-  	// iterable DOM collections
-  	// flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
-  	domIterables = {
-  	  CSSRuleList: 0,
-  	  CSSStyleDeclaration: 0,
-  	  CSSValueList: 0,
-  	  ClientRectList: 0,
-  	  DOMRectList: 0,
-  	  DOMStringList: 0,
-  	  DOMTokenList: 1,
-  	  DataTransferItemList: 0,
-  	  FileList: 0,
-  	  HTMLAllCollection: 0,
-  	  HTMLCollection: 0,
-  	  HTMLFormElement: 0,
-  	  HTMLSelectElement: 0,
-  	  MediaList: 0,
-  	  MimeTypeArray: 0,
-  	  NamedNodeMap: 0,
-  	  NodeList: 1,
-  	  PaintRequestList: 0,
-  	  Plugin: 0,
-  	  PluginArray: 0,
-  	  SVGLengthList: 0,
-  	  SVGNumberList: 0,
-  	  SVGPathSegList: 0,
-  	  SVGPointList: 0,
-  	  SVGStringList: 0,
-  	  SVGTransformList: 0,
-  	  SourceBufferList: 0,
-  	  StyleSheetList: 0,
-  	  TextTrackCueList: 0,
-  	  TextTrackList: 0,
-  	  TouchList: 0
-  	};
-  	return domIterables;
-  }
-
-  var domTokenListPrototype;
-  var hasRequiredDomTokenListPrototype;
-
-  function requireDomTokenListPrototype () {
-  	if (hasRequiredDomTokenListPrototype) return domTokenListPrototype;
-  	hasRequiredDomTokenListPrototype = 1;
-  	// in old WebKit versions, `element.classList` is not an instance of global `DOMTokenList`
-  	var documentCreateElement = requireDocumentCreateElement();
-
-  	var classList = documentCreateElement('span').classList;
-  	var DOMTokenListPrototype = classList && classList.constructor && classList.constructor.prototype;
-
-  	domTokenListPrototype = DOMTokenListPrototype === Object.prototype ? undefined : DOMTokenListPrototype;
-  	return domTokenListPrototype;
-  }
-
-  var functionUncurryThisClause;
-  var hasRequiredFunctionUncurryThisClause;
-
-  function requireFunctionUncurryThisClause () {
-  	if (hasRequiredFunctionUncurryThisClause) return functionUncurryThisClause;
-  	hasRequiredFunctionUncurryThisClause = 1;
-  	var classofRaw = requireClassofRaw();
-  	var uncurryThis = requireFunctionUncurryThis();
-
-  	functionUncurryThisClause = function (fn) {
-  	  // Nashorn bug:
-  	  //   https://github.com/zloirock/core-js/issues/1128
-  	  //   https://github.com/zloirock/core-js/issues/1130
-  	  if (classofRaw(fn) === 'Function') return uncurryThis(fn);
-  	};
-  	return functionUncurryThisClause;
-  }
-
-  var functionBindContext;
-  var hasRequiredFunctionBindContext;
-
-  function requireFunctionBindContext () {
-  	if (hasRequiredFunctionBindContext) return functionBindContext;
-  	hasRequiredFunctionBindContext = 1;
-  	var uncurryThis = requireFunctionUncurryThisClause();
-  	var aCallable = requireACallable();
-  	var NATIVE_BIND = requireFunctionBindNative();
-
-  	var bind = uncurryThis(uncurryThis.bind);
-
-  	// optional / simple context binding
-  	functionBindContext = function (fn, that) {
-  	  aCallable(fn);
-  	  return that === undefined ? fn : NATIVE_BIND ? bind(fn, that) : function (/* ...args */) {
-  	    return fn.apply(that, arguments);
-  	  };
-  	};
-  	return functionBindContext;
-  }
-
-  var isArray;
-  var hasRequiredIsArray;
-
-  function requireIsArray () {
-  	if (hasRequiredIsArray) return isArray;
-  	hasRequiredIsArray = 1;
-  	var classof = requireClassofRaw();
-
-  	// `IsArray` abstract operation
-  	// https://tc39.es/ecma262/#sec-isarray
-  	// eslint-disable-next-line es/no-array-isarray -- safe
-  	isArray = Array.isArray || function isArray(argument) {
-  	  return classof(argument) === 'Array';
-  	};
-  	return isArray;
-  }
-
-  var isConstructor;
-  var hasRequiredIsConstructor;
-
-  function requireIsConstructor () {
-  	if (hasRequiredIsConstructor) return isConstructor;
-  	hasRequiredIsConstructor = 1;
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var fails = requireFails();
-  	var isCallable = requireIsCallable();
-  	var classof = requireClassof();
-  	var getBuiltIn = requireGetBuiltIn();
-  	var inspectSource = requireInspectSource();
-
-  	var noop = function () { /* empty */ };
-  	var construct = getBuiltIn('Reflect', 'construct');
-  	var constructorRegExp = /^\s*(?:class|function)\b/;
-  	var exec = uncurryThis(constructorRegExp.exec);
-  	var INCORRECT_TO_STRING = !constructorRegExp.test(noop);
-
-  	var isConstructorModern = function isConstructor(argument) {
-  	  if (!isCallable(argument)) return false;
-  	  try {
-  	    construct(noop, [], argument);
-  	    return true;
-  	  } catch (error) {
-  	    return false;
-  	  }
-  	};
-
-  	var isConstructorLegacy = function isConstructor(argument) {
-  	  if (!isCallable(argument)) return false;
-  	  switch (classof(argument)) {
-  	    case 'AsyncFunction':
-  	    case 'GeneratorFunction':
-  	    case 'AsyncGeneratorFunction': return false;
-  	  }
-  	  try {
-  	    // we can't check .prototype since constructors produced by .bind haven't it
-  	    // `Function#toString` throws on some built-it function in some legacy engines
-  	    // (for example, `DOMQuad` and similar in FF41-)
-  	    return INCORRECT_TO_STRING || !!exec(constructorRegExp, inspectSource(argument));
-  	  } catch (error) {
-  	    return true;
-  	  }
-  	};
-
-  	isConstructorLegacy.sham = true;
-
-  	// `IsConstructor` abstract operation
-  	// https://tc39.es/ecma262/#sec-isconstructor
-  	isConstructor = !construct || fails(function () {
-  	  var called;
-  	  return isConstructorModern(isConstructorModern.call)
-  	    || !isConstructorModern(Object)
-  	    || !isConstructorModern(function () { called = true; })
-  	    || called;
-  	}) ? isConstructorLegacy : isConstructorModern;
-  	return isConstructor;
-  }
-
-  var arraySpeciesConstructor;
-  var hasRequiredArraySpeciesConstructor;
-
-  function requireArraySpeciesConstructor () {
-  	if (hasRequiredArraySpeciesConstructor) return arraySpeciesConstructor;
-  	hasRequiredArraySpeciesConstructor = 1;
-  	var isArray = requireIsArray();
-  	var isConstructor = requireIsConstructor();
-  	var isObject = requireIsObject();
-  	var wellKnownSymbol = requireWellKnownSymbol();
-
-  	var SPECIES = wellKnownSymbol('species');
-  	var $Array = Array;
-
-  	// a part of `ArraySpeciesCreate` abstract operation
-  	// https://tc39.es/ecma262/#sec-arrayspeciescreate
-  	arraySpeciesConstructor = function (originalArray) {
-  	  var C;
-  	  if (isArray(originalArray)) {
-  	    C = originalArray.constructor;
-  	    // cross-realm fallback
-  	    if (isConstructor(C) && (C === $Array || isArray(C.prototype))) C = undefined;
-  	    else if (isObject(C)) {
-  	      C = C[SPECIES];
-  	      if (C === null) C = undefined;
-  	    }
-  	  } return C === undefined ? $Array : C;
-  	};
-  	return arraySpeciesConstructor;
-  }
-
-  var arraySpeciesCreate;
-  var hasRequiredArraySpeciesCreate;
-
-  function requireArraySpeciesCreate () {
-  	if (hasRequiredArraySpeciesCreate) return arraySpeciesCreate;
-  	hasRequiredArraySpeciesCreate = 1;
-  	var arraySpeciesConstructor = requireArraySpeciesConstructor();
-
-  	// `ArraySpeciesCreate` abstract operation
-  	// https://tc39.es/ecma262/#sec-arrayspeciescreate
-  	arraySpeciesCreate = function (originalArray, length) {
-  	  return new (arraySpeciesConstructor(originalArray))(length === 0 ? 0 : length);
-  	};
-  	return arraySpeciesCreate;
-  }
-
-  var createProperty;
-  var hasRequiredCreateProperty;
-
-  function requireCreateProperty () {
-  	if (hasRequiredCreateProperty) return createProperty;
-  	hasRequiredCreateProperty = 1;
-  	var DESCRIPTORS = requireDescriptors();
-  	var definePropertyModule = requireObjectDefineProperty();
-  	var createPropertyDescriptor = requireCreatePropertyDescriptor();
-
-  	createProperty = function (object, key, value) {
-  	  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
-  	  else object[key] = value;
-  	};
-  	return createProperty;
-  }
-
-  var arrayIteration;
-  var hasRequiredArrayIteration;
-
-  function requireArrayIteration () {
-  	if (hasRequiredArrayIteration) return arrayIteration;
-  	hasRequiredArrayIteration = 1;
-  	var bind = requireFunctionBindContext();
-  	var IndexedObject = requireIndexedObject();
-  	var toObject = requireToObject();
-  	var lengthOfArrayLike = requireLengthOfArrayLike();
-  	var arraySpeciesCreate = requireArraySpeciesCreate();
-  	var createProperty = requireCreateProperty();
-
-  	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
-  	var createMethod = function (TYPE) {
-  	  var IS_MAP = TYPE === 1;
-  	  var IS_FILTER = TYPE === 2;
-  	  var IS_SOME = TYPE === 3;
-  	  var IS_EVERY = TYPE === 4;
-  	  var IS_FIND_INDEX = TYPE === 6;
-  	  var IS_FILTER_REJECT = TYPE === 7;
-  	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that) {
-  	    var O = toObject($this);
-  	    var self = IndexedObject(O);
-  	    var length = lengthOfArrayLike(self);
-  	    var boundFunction = bind(callbackfn, that);
-  	    var index = 0;
-  	    var resIndex = 0;
-  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
-  	    var value, result;
-  	    for (;length > index; index++) if (NO_HOLES || index in self) {
-  	      value = self[index];
-  	      result = boundFunction(value, index, O);
-  	      if (TYPE) {
-  	        if (IS_MAP) createProperty(target, index, result);    // map
-  	        else if (result) switch (TYPE) {
-  	          case 3: return true;                                // some
-  	          case 5: return value;                               // find
-  	          case 6: return index;                               // findIndex
-  	          case 2: createProperty(target, resIndex++, value);  // filter
-  	        } else switch (TYPE) {
-  	          case 4: return false;                               // every
-  	          case 7: createProperty(target, resIndex++, value);  // filterReject
-  	        }
-  	      }
-  	    }
-  	    return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
-  	  };
-  	};
-
-  	arrayIteration = {
-  	  // `Array.prototype.forEach` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.foreach
-  	  forEach: createMethod(0),
-  	  // `Array.prototype.map` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.map
-  	  map: createMethod(1),
-  	  // `Array.prototype.filter` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.filter
-  	  filter: createMethod(2),
-  	  // `Array.prototype.some` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.some
-  	  some: createMethod(3),
-  	  // `Array.prototype.every` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.every
-  	  every: createMethod(4),
-  	  // `Array.prototype.find` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.find
-  	  find: createMethod(5),
-  	  // `Array.prototype.findIndex` method
-  	  // https://tc39.es/ecma262/#sec-array.prototype.findIndex
-  	  findIndex: createMethod(6),
-  	  // `Array.prototype.filterReject` method
-  	  // https://github.com/tc39/proposal-array-filtering
-  	  filterReject: createMethod(7)
-  	};
-  	return arrayIteration;
-  }
-
-  var arrayMethodIsStrict;
-  var hasRequiredArrayMethodIsStrict;
-
-  function requireArrayMethodIsStrict () {
-  	if (hasRequiredArrayMethodIsStrict) return arrayMethodIsStrict;
-  	hasRequiredArrayMethodIsStrict = 1;
-  	var fails = requireFails();
-
-  	arrayMethodIsStrict = function (METHOD_NAME, argument) {
-  	  var method = [][METHOD_NAME];
-  	  return !!method && fails(function () {
-  	    // eslint-disable-next-line no-useless-call -- required for testing
-  	    method.call(null, argument || function () { return 1; }, 1);
-  	  });
-  	};
-  	return arrayMethodIsStrict;
-  }
-
-  var arrayForEach;
-  var hasRequiredArrayForEach;
-
-  function requireArrayForEach () {
-  	if (hasRequiredArrayForEach) return arrayForEach;
-  	hasRequiredArrayForEach = 1;
-  	var $forEach = requireArrayIteration().forEach;
-  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
-
-  	var STRICT_METHOD = arrayMethodIsStrict('forEach');
-
-  	// `Array.prototype.forEach` method implementation
-  	// https://tc39.es/ecma262/#sec-array.prototype.foreach
-  	arrayForEach = !STRICT_METHOD ? function forEach(callbackfn /* , thisArg */) {
-  	  return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  	// eslint-disable-next-line es/no-array-prototype-foreach -- safe
-  	} : [].forEach;
-  	return arrayForEach;
-  }
-
-  var hasRequiredWeb_domCollections_forEach;
-
-  function requireWeb_domCollections_forEach () {
-  	if (hasRequiredWeb_domCollections_forEach) return web_domCollections_forEach;
-  	hasRequiredWeb_domCollections_forEach = 1;
-  	var globalThis = requireGlobalThis();
-  	var DOMIterables = requireDomIterables();
-  	var DOMTokenListPrototype = requireDomTokenListPrototype();
-  	var forEach = requireArrayForEach();
-  	var createNonEnumerableProperty = requireCreateNonEnumerableProperty();
-
-  	var handlePrototype = function (CollectionPrototype) {
-  	  // some Chrome versions have non-configurable methods on DOMTokenList
-  	  if (CollectionPrototype && CollectionPrototype.forEach !== forEach) try {
-  	    createNonEnumerableProperty(CollectionPrototype, 'forEach', forEach);
-  	  } catch (error) {
-  	    CollectionPrototype.forEach = forEach;
-  	  }
-  	};
-
-  	for (var COLLECTION_NAME in DOMIterables) {
-  	  if (DOMIterables[COLLECTION_NAME]) {
-  	    handlePrototype(globalThis[COLLECTION_NAME] && globalThis[COLLECTION_NAME].prototype);
-  	  }
-  	}
-
-  	handlePrototype(DOMTokenListPrototype);
-  	return web_domCollections_forEach;
-  }
-
-  requireWeb_domCollections_forEach();
-
   /**
    * @author: Dennis Hernández
    * @update zhixin wen <wenzhixin2010@gmail.com>
@@ -2617,14 +2565,16 @@
       key: "showHideColumns",
       value: function showHideColumns(checked) {
         var _this2 = this;
-        if (this.options.columnsHidden.length > 0) {
-          this.columns.forEach(function (column) {
-            if (_this2.options.columnsHidden.includes(column.field)) {
-              if (column.visible !== checked) {
-                _this2._toggleColumn(_this2.fieldsColumnsIndex[column.field], checked, true);
-              }
-            }
-          });
+        if (this.options.columnsHidden.length === 0) {
+          return;
+        }
+        var fieldsToToggle = this.columns.filter(function (column) {
+          return _this2.options.columnsHidden.includes(column.field) && column.visible !== checked;
+        }).map(function (column) {
+          return column.field;
+        });
+        if (fieldsToToggle.length > 0) {
+          this._toggleColumns(fieldsToToggle, checked, true);
         }
       }
     }, {

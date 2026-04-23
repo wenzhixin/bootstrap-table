@@ -562,9 +562,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
     })
   }
 
-  _toggleColumn (index, checked, needUpdate) {
-    this._initialized = false
-    super._toggleColumn(index, checked, needUpdate)
+  _toggleColumns (fields, checked, needUpdate) {
+    if (fields.length) {
+      this._initialized = false
+    }
+    super._toggleColumns(fields, checked, needUpdate)
     UtilsFilterControl.syncHeaders(this)
   }
 }

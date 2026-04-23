@@ -5,6 +5,22 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.27.3
+
+<span class="post-date">24 Apr 2026</span>
+
+#### Core
+
+- **Update:** Refactored `showColumn`/`hideColumn` to batch column toggles with single re-render.
+- **Update:** Fixed table layout breaking when sorting rows with rowspan.
+- **Update:** Fixed fixedColumns hover conflict with CSS transitions.
+- **Update:** Fixed support for async loading of bootstrapTable methods in Vue component.
+
+#### Extensions
+
+- **Update(reorder-columns):** Fixed not restoring column order from cookies on init.
+- **Update(group-by-v2):** Documented that this extension does not support pagination.
+
 ## Bootstrap Table 1.27.2
 
 <span class="post-date">16 Apr 2026</span>

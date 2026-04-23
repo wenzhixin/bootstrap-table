@@ -36,6 +36,7 @@ var n = (e, t) => {
 	},
 	methods: {
 		_initTable() {
+			this._bindMethods();
 			let e = {
 				...i(this.options),
 				columns: i(this.columns),
@@ -43,13 +44,15 @@ var n = (e, t) => {
 			};
 			this._hasInit ? this.refreshOptions(e) : (this.$table.bootstrapTable(e), this._hasInit = !0);
 		},
-		...(() => {
-			let e = {};
-			for (let t of r.fn.bootstrapTable.methods) e[t] = function(...e) {
-				return this.$table.bootstrapTable(t, ...e);
-			};
-			return e;
-		})()
+		refreshOptions(...e) {
+			return this.$table.bootstrapTable("refreshOptions", ...e);
+		},
+		load(...e) {
+			return this.$table.bootstrapTable("load", ...e);
+		},
+		_bindMethods() {
+			for (let e of r.fn.bootstrapTable.methods || []) this[e] || (this[e] = (...t) => this.$table.bootstrapTable(e, ...t));
+		}
 	},
 	watch: {
 		options: {

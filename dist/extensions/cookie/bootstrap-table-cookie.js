@@ -4189,12 +4189,12 @@
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
       }
     }, {
-      key: "_toggleColumn",
-      value: function _toggleColumn() {
+      key: "_toggleColumns",
+      value: function _toggleColumns() {
         for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
           args[_key9] = arguments[_key9];
         }
-        _superPropGet(_class, "_toggleColumn", this)(args);
+        _superPropGet(_class, "_toggleColumns", this)(args);
         if (!this.options.cookie) {
           return;
         }

@@ -143,6 +143,23 @@ describe('updateFieldGroup', () => {
       expect(columns[0][0].visible).toBe(false)
     })
 
+    it('should not throw when no sub-columns match the colspanGroup range', () => {
+      const columns = [
+        [
+          { field: 'group', colspan: 2, colspanGroup: 2, colspanIndex: 4 },
+          { field: 'field1', fieldIndex: 0, visible: true }
+        ]
+      ]
+      const fieldColumns = columns[0].filter(c => !c.colspanGroup)
+
+      expect(() => {
+        tableData.updateFieldGroup(columns, fieldColumns)
+      }).not.toThrow()
+
+      expect(columns[0][0].colspan).toBe(0)
+      expect(columns[0][0].visible).toBe(false)
+    })
+
     it('should sync visibility for columns with same fieldIndex', () => {
       // This sync only happens in multi-row scenario (second part of the function)
       // So we skip this test for single-row colspanGroup scenario
@@ -433,6 +450,158 @@ describe('checkAutoMergeCells', () => {
     ]
 
     expect(tableData.checkAutoMergeCells(data)).toBe(true)
+  })
+})
+
+describe('hasRowspanCells', () => {
+  it('should return true when rowspan > 1', () => {
+    const data = [{ name: 'A', _name_rowspan: 3 }]
+
+    expect(tableData.hasRowspanCells(data)).toBe(true)
+  })
+
+  it('should return false when rowspan is 1', () => {
+    const data = [{ name: 'A', _name_rowspan: 1 }]
+
+    expect(tableData.hasRowspanCells(data)).toBe(false)
+  })
+
+  it('should return false when rowspan is null', () => {
+    const data = [{ name: 'A', _name_rowspan: null }]
+
+    expect(tableData.hasRowspanCells(data)).toBe(false)
+  })
+
+  it('should return false for empty array', () => {
+    expect(tableData.hasRowspanCells([])).toBe(false)
+  })
+
+  it('should check all rows', () => {
+    const data = [
+      { name: 'A' },
+      { name: 'B', _name_rowspan: 2 }
+    ]
+
+    expect(tableData.hasRowspanCells(data)).toBe(true)
+  })
+})
+
+describe('flattenRowspanCells', () => {
+  it('should copy rowspan cell value to spanned rows', () => {
+    const data = [
+      { name: 'Item 1', _name_rowspan: 3 },
+      { price: 10 },
+      { price: 20 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[0]._name_rowspan).toBeUndefined()
+    expect(data[1].name).toBe('Item 1')
+    expect(data[1]._name_rowspan).toBeUndefined()
+    expect(data[2].name).toBe('Item 1')
+    expect(data[2]._name_rowspan).toBeUndefined()
+  })
+
+  it('should not modify rows without rowspan', () => {
+    const data = [
+      { name: 'A', price: 1 },
+      { name: 'B', price: 2 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[0].name).toBe('A')
+    expect(data[1].name).toBe('B')
+  })
+
+  it('should handle rowspan of 1', () => {
+    const data = [{ name: 'A', _name_rowspan: 1 }]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[0].name).toBe('A')
+    expect(data[0]._name_rowspan).toBe(1)
+  })
+
+  it('should handle multiple rowspan fields in same row', () => {
+    const data = [
+      { group: 'G1', _group_rowspan: 2, tag: 'T1', _tag_rowspan: 2 },
+      { value: 1 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[1].group).toBe('G1')
+    expect(data[1].tag).toBe('T1')
+    expect(data[1]._group_rowspan).toBeUndefined()
+    expect(data[1]._tag_rowspan).toBeUndefined()
+  })
+
+  it('should handle empty array', () => {
+    tableData.flattenRowspanCells([])
+  })
+
+  it('should not exceed data bounds', () => {
+    const data = [
+      { name: 'A', _name_rowspan: 10 },
+      { price: 1 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[0]._name_rowspan).toBeUndefined()
+    expect(data[1].name).toBe('A')
+    expect(data.length).toBe(2)
+  })
+
+  it('should skip keys not starting with underscore', () => {
+    const data = [
+      { name: 'A', foo_rowspan: 2 },
+      { name: 'B' }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[0].foo_rowspan).toBe(2)
+    expect(data[1].name).toBe('B')
+  })
+
+  it('should handle dot-notation fields', () => {
+    const data = [
+      { user: { name: 'Alice' }, '_user.name_rowspan': 2 },
+      { price: 10 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[1].user.name).toBe('Alice')
+    expect(data[1]['user.name']).toBeUndefined()
+    expect(data[0]['_user.name_rowspan']).toBeUndefined()
+  })
+
+  it('should handle dot-notation fields with non-object intermediate', () => {
+    const data = [
+      { user: { name: 'Alice' }, '_user.name_rowspan': 2 },
+      { user: null, price: 10 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[1].user.name).toBe('Alice')
+    expect(data[0]['_user.name_rowspan']).toBeUndefined()
+  })
+
+  it('should handle dot-notation fields with flat keys', () => {
+    const data = [
+      { 'user.name': 'Alice', '_user.name_rowspan': 2 },
+      { price: 10 }
+    ]
+
+    tableData.flattenRowspanCells(data)
+
+    expect(data[1]['user.name']).toBe('Alice')
+    expect(data[0]['_user.name_rowspan']).toBeUndefined()
   })
 })
 

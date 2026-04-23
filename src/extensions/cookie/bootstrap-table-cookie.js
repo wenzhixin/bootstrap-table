@@ -363,8 +363,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
-  _toggleColumn (...args) {
-    super._toggleColumn(...args)
+  _toggleColumns (...args) {
+    super._toggleColumns(...args)
     if (!this.options.cookie) {
       return
     }

@@ -2592,20 +2592,27 @@
         var _this4 = this;
         var toggleHover = function toggleHover(e, toggle) {
           var tr = "tr[data-index=\"".concat($(e.currentTarget).data('index'), "\"]");
-          var $trs = _this4.$tableBody.find(tr);
+          var isFromFixed = $(e.currentTarget).closest('.fixed-columns, .fixed-columns-right').length > 0;
+          var $trs = $();
+          if (isFromFixed) {
+            $trs = $trs.add(_this4.$tableBody.find(tr));
+          }
           if (_this4.$fixedBody) {
             $trs = $trs.add(_this4.$fixedBody.find(tr));
           }
           if (_this4.$fixedBodyRight) {
             $trs = $trs.add(_this4.$fixedBodyRight.find(tr));
           }
-          $trs.css('background-color', toggle ? $(e.currentTarget).css('background-color') : '');
+          $trs.toggleClass('hover-row', toggle);
         };
-        this.$tableBody.find('tr').hover(function (e) {
-          toggleHover(e, true);
-        }, function (e) {
-          toggleHover(e, false);
-        });
+        var bindHover = function bindHover($el) {
+          $el.find('tr').hover(function (e) {
+            toggleHover(e, true);
+          }, function (e) {
+            toggleHover(e, false);
+          });
+        };
+        bindHover(this.$tableBody);
         var isFirefox = typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         var mousewheel = isFirefox ? 'DOMMouseScroll' : 'mousewheel';
         var updateScroll = function updateScroll(e, fixedBody) {
@@ -2624,21 +2631,13 @@
           }
         };
         if (this.needFixedColumns && this.options.fixedNumber && this.$fixedBody) {
-          this.$fixedBody.find('tr').hover(function (e) {
-            toggleHover(e, true);
-          }, function (e) {
-            toggleHover(e, false);
-          });
+          bindHover(this.$fixedBody);
           this.$fixedBody[0].addEventListener(mousewheel, function (e) {
             updateScroll(e, _this4.$fixedBody[0]);
           });
         }
         if (this.needFixedColumns && this.options.fixedRightNumber) {
-          this.$fixedBodyRight.find('tr').hover(function (e) {
-            toggleHover(e, true);
-          }, function (e) {
-            toggleHover(e, false);
-          });
+          bindHover(this.$fixedBodyRight);
           this.$fixedBodyRight.off('scroll').on('scroll', function () {
             var top = _this4.$fixedBodyRight.scrollTop();
             _this4.$tableBody.scrollTop(top);
