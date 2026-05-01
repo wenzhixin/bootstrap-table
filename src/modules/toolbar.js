@@ -74,7 +74,7 @@ export default {
     ].join(' ')}">`]
 
     if (typeof opts.buttonsOrder === 'string') {
-      opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').split(',')
+      opts.buttonsOrder = Utils.parseStringArray(opts.buttonsOrder)
     }
 
     this.buttons = Object.assign(this.buttons, {
