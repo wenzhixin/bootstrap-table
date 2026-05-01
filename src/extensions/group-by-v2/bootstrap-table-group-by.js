@@ -65,12 +65,17 @@ BootstrapTable.prototype.initSort = function (...args) {
     this._groupCollapsedState = new Map()
     // Pre-populate with default collapsed groups
     if (this.options.groupByCollapsedGroups) {
-      const collapsedGroups = Array.isArray(this.options.groupByCollapsedGroups) ?
-        this.options.groupByCollapsedGroups : []
+      let collapsedGroups = this.options.groupByCollapsedGroups
 
-      collapsedGroups.forEach(group => {
-        this._groupCollapsedState.set(group, true)
-      })
+      if (typeof collapsedGroups === 'string') {
+        collapsedGroups = Utils.parseStringArray(collapsedGroups)
+      }
+
+      if (Array.isArray(collapsedGroups)) {
+        collapsedGroups.forEach(group => {
+          this._groupCollapsedState.set(group, true)
+        })
+      }
     }
   }
   if (this.options.sortName !== this.options.groupByField) {
@@ -275,7 +280,13 @@ BootstrapTable.prototype.isCollapsed = function (groupKey) {
     return this._groupCollapsedState.get(groupKey)
   }
 
-  const result = Utils.calculateObjectValue(this.options, this.options.groupByCollapsedGroups, [groupKey], false)
+  let groupByCollapsedGroups = this.options.groupByCollapsedGroups
+
+  if (typeof groupByCollapsedGroups === 'string') {
+    groupByCollapsedGroups = Utils.parseStringArray(groupByCollapsedGroups)
+  }
+
+  const result = Utils.calculateObjectValue(this.options, groupByCollapsedGroups, [groupKey], false)
 
   if (Array.isArray(result)) {
     return result.includes(groupKey)
