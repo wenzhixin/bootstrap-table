@@ -231,11 +231,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       html.push('</tbody>')
       if (this.options.showFooter) {
-        html.push('<footer><tr>')
+        html.push('<tfoot><tr>')
 
         for (const columns of columnsArray) {
           for (let h = 0; h < columns.length; h++) {
-            if (canPrint(columns)) {
+            if (canPrint(columns[h])) {
               const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr').get())
               const footerValue = Utils.calculateObjectValue(columns[h], columns[h].footerFormatter, [data], footerData[0] && footerData[0][columns[h].field] || '')
 
@@ -244,7 +244,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
         }
 
-        html.push('</tr></footer>')
+        html.push('</tr></tfoot>')
       }
       html.push('</table>')
       return html.join('')
