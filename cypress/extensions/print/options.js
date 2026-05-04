@@ -1,14 +1,26 @@
 const stubWindowOpen = win => {
   const originalOpen = win.window.open
   let capturedHtml = ''
+  const linkElements = []
+
+  const fakeDoc = {
+    write (html) {
+      capturedHtml = html
+    },
+    close () {},
+    getElementsByTagName () {
+      return []
+    },
+    querySelectorAll (selector) {
+      if (selector === 'link[rel="stylesheet"]') {
+        return linkElements
+      }
+      return []
+    }
+  }
 
   win.window.open = () => ({
-    document: {
-      write (html) {
-        capturedHtml = html
-      },
-      close () {}
-    },
+    document: fakeDoc,
     focus () {},
     print () {},
     close () {}
@@ -17,6 +29,9 @@ const stubWindowOpen = win => {
   return {
     getHtml () {
       return capturedHtml
+    },
+    getLinkElements () {
+      return linkElements
     },
     restore () {
       win.window.open = originalOpen
@@ -293,6 +308,521 @@ module.exports = (theme = '') => {
             expect(html).to.include('<body>')
             expect(html).to.include('</body>')
             expect(html).to.include('Printed on:')
+            expect(html).to.include('print-color-adjust')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    // rowStyle and cellStyle support
+    it('Test rowStyle applies css and classes to print output', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.rowStyle = () => ({
+            css: { 'background-color': 'yellow' },
+            classes: 'row-highlight'
+          })
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('style="background-color: yellow"')
+            expect(html).to.include('class="row-highlight"')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test cellStyle applies css and classes to print output', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.columns[0][0].cellStyle = () => ({
+            css: { color: 'red' },
+            classes: 'cell-bold'
+          })
+          instance.header.cellStyles = instance.header.cellStyles || []
+          instance.header.cellStyles[0] = instance.options.columns[0][0].cellStyle
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('style="color: red"')
+            expect(html).to.include('class="cell-bold"')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test cellStyle with string css format', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.columns[0][0].cellStyle = () => ({
+            css: 'background-color: blue'
+          })
+          instance.header.cellStyles = instance.header.cellStyles || []
+          instance.header.cellStyles[0] = instance.options.columns[0][0].cellStyle
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('style="background-color: blue"')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test cellStyle with array css format', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.columns[0][0].cellStyle = () => ({
+            css: ['color: red', { 'font-weight': 'bold' }]
+          })
+          instance.header.cellStyles = instance.header.cellStyles || []
+          instance.header.cellStyles[0] = instance.options.columns[0][0].cellStyle
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('color: red')
+            expect(html).to.include('font-weight: bold')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test rowStyle with string css format', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.rowStyle = (row, index) => ({
+            css: index === 0 ? 'background-color: blue' : { color: 'white' }
+          })
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('background-color: blue')
+            expect(html).to.include('color: white')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test rowStyle with array css format', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.rowStyle = () => ({
+            css: ['color: red', { 'font-weight': 'bold' }]
+          })
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('color: red')
+            expect(html).to.include('font-weight: bold')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test rowStyle handles falsy items in array css', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          const condition = false
+
+          instance.options.rowStyle = () => ({
+            css: [condition && { color: 'red' }, 'font-size: 14px']
+          })
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('font-size: 14px')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test rowStyle with HTML-sourced _class and _style', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          data[0]._class = 'row-from-html'
+          data[1]._style = 'background-color: green'
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('class="row-from-html"')
+            expect(html).to.include('style="background-color: green"')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test cellStyle with HTML-sourced _field_class and _field_style', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          data[0]._name_class = 'cell-from-html'
+          data[1]._name_style = 'color: blue'
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('class="cell-from-html"')
+            expect(html).to.include('style="color: blue"')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    // printStyles loading
+    it('Test printStyles injects link tags into print HTML', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          instance.options.printStyles = ['style1.css', 'style2.css']
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('href="style1.css"')
+            expect(html).to.include('href="style2.css"')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
+    it('Test printStyles waits for all stylesheets to load before printing', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+
+          let printCount = 0
+          const loadCallbacks = []
+
+          const originalOpen = win.window.open
+
+          const createFakeLink = () => {
+            const link = {
+              eventListeners: {},
+              addEventListener (event, callback) {
+                if (!link.eventListeners[event]) {
+                  link.eventListeners[event] = []
+                }
+                link.eventListeners[event].push(callback)
+              },
+              triggerLoad () {
+                (link.eventListeners.load || []).forEach(cb => cb())
+              },
+              triggerError () {
+                (link.eventListeners.error || []).forEach(cb => cb())
+              }
+            }
+
+            return link
+          }
+
+          win.window.open = () => {
+            const links = []
+
+            for (let i = 0; i < 3; i++) {
+              const link = createFakeLink()
+
+              links.push(link)
+              loadCallbacks.push(link)
+            }
+            return {
+              document: {
+                write () {},
+                close () {},
+                querySelectorAll (selector) {
+                  if (selector === 'link[rel="stylesheet"]') {
+                    return links
+                  }
+                  return []
+                }
+              },
+              focus () {},
+              print () {
+                printCount++
+              },
+              close () {}
+            }
+          }
+
+          instance.options.printStyles = ['a.css', 'b.css', 'c.css']
+
+          try {
+            instance.doPrint(data)
+
+            // Trigger first two loads - print should not be called yet
+            loadCallbacks[0].triggerLoad()
+            loadCallbacks[1].triggerLoad()
+            expect(printCount).to.equal(0)
+
+            // Trigger third load - print should now be called
+            loadCallbacks[2].triggerLoad()
+            expect(printCount).to.equal(1)
+          } finally {
+            win.window.open = originalOpen
+          }
+        })
+    })
+
+    it('Test printStyles handles stylesheet load error', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+
+          let printCount = 0
+          const loadCallbacks = []
+
+          const originalOpen = win.window.open
+
+          const createFakeLink = () => {
+            const link = {
+              eventListeners: {},
+              addEventListener (event, callback) {
+                if (!link.eventListeners[event]) {
+                  link.eventListeners[event] = []
+                }
+                link.eventListeners[event].push(callback)
+              },
+              triggerLoad () {
+                (link.eventListeners.load || []).forEach(cb => cb())
+              },
+              triggerError () {
+                (link.eventListeners.error || []).forEach(cb => cb())
+              }
+            }
+
+            return link
+          }
+
+          win.window.open = () => {
+            const links = []
+
+            for (let i = 0; i < 2; i++) {
+              const link = createFakeLink()
+
+              links.push(link)
+              loadCallbacks.push(link)
+            }
+            return {
+              document: {
+                write () {},
+                close () {},
+                querySelectorAll (selector) {
+                  if (selector === 'link[rel="stylesheet"]') {
+                    return links
+                  }
+                  return []
+                }
+              },
+              focus () {},
+              print () {
+                printCount++
+              },
+              close () {}
+            }
+          }
+
+          instance.options.printStyles = ['valid.css', 'broken.css']
+
+          try {
+            instance.doPrint(data)
+
+            // One loads, one errors - print should be called after both
+            loadCallbacks[0].triggerLoad()
+            expect(printCount).to.equal(0)
+
+            loadCallbacks[1].triggerError()
+            expect(printCount).to.equal(1)
+          } finally {
+            win.window.open = originalOpen
+          }
+        })
+    })
+
+    it('Test waits for stylesheet injected by custom printPageBuilder', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+
+          let printCount = 0
+          const loadCallbacks = []
+
+          const originalOpen = win.window.open
+
+          const createFakeLink = () => {
+            const link = {
+              eventListeners: {},
+              addEventListener (event, callback) {
+                if (!link.eventListeners[event]) {
+                  link.eventListeners[event] = []
+                }
+                link.eventListeners[event].push(callback)
+              },
+              triggerLoad () {
+                (link.eventListeners.load || []).forEach(cb => cb())
+              }
+            }
+
+            return link
+          }
+
+          win.window.open = () => {
+            const link = createFakeLink()
+
+            loadCallbacks.push(link)
+            return {
+              document: {
+                write () {},
+                close () {},
+                querySelectorAll (selector) {
+                  if (selector === 'link[rel="stylesheet"]') {
+                    return [link]
+                  }
+                  return []
+                }
+              },
+              focus () {},
+              print () {
+                printCount++
+              },
+              close () {}
+            }
+          }
+
+          instance.options.printStyles = []
+          instance.options.printPageBuilder = table =>
+            `<html><head><link rel="stylesheet" href="custom.css" /></head><body>${table}</body></html>`
+
+          try {
+            instance.doPrint(data)
+
+            expect(printCount).to.equal(0)
+
+            loadCallbacks[0].triggerLoad()
+            expect(printCount).to.equal(1)
+          } finally {
+            win.window.open = originalOpen
+          }
+        })
+    })
+
+    it('Test printPageBuilder receives styles as second argument', () => {
+      cy.visit(`${baseUrl}print.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          let receivedStyles = null
+
+          instance.options.printStyles = ['custom.css']
+          instance.options.printPageBuilder = (table, styles) => {
+            receivedStyles = styles
+            return `<html><body>${table}</body></html>`
+          }
+
+          try {
+            instance.doPrint(data)
+
+            expect(receivedStyles).to.include('href="custom.css"')
+            expect(receivedStyles).to.include('<link')
+            expect(receivedStyles).to.not.include('onload=')
+            expect(receivedStyles).to.not.include('onerror=')
           } finally {
             stub.restore()
           }
