@@ -23,7 +23,8 @@ const stubWindowOpen = win => {
     document: fakeDoc,
     focus () {},
     print () {},
-    close () {}
+    close () {},
+    addEventListener () {}
   })
 
   return {
@@ -662,7 +663,8 @@ module.exports = (theme = '') => {
               print () {
                 printCount++
               },
-              close () {}
+              close () {},
+              addEventListener () {}
             }
           }
 
@@ -742,7 +744,8 @@ module.exports = (theme = '') => {
               print () {
                 printCount++
               },
-              close () {}
+              close () {},
+              addEventListener () {}
             }
           }
 
@@ -812,7 +815,8 @@ module.exports = (theme = '') => {
               print () {
                 printCount++
               },
-              close () {}
+              close () {},
+              addEventListener () {}
             }
           }
 
