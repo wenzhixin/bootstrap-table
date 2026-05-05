@@ -236,3 +236,29 @@ export function normalizeStyle (style) {
 
   return trimmed.replace(/;?\s*$/, '; ')
 }
+
+/**
+ * Serializes a style specification into a CSS string.
+ * Handles string, array, and object formats.
+ *
+ * @param {string|Array|Object.<string, string>} style - The style specification.
+ * @returns {string} The CSS style string.
+ * @example
+ * serializeStyle('color: red')                          // 'color: red'
+ * serializeStyle({ color: 'red', 'font-size': '12px' }) // 'color: red; font-size: 12px'
+ * serializeStyle(['color: red', { 'font-weight': 'bold' }]) // 'color: red; font-weight: bold'
+ */
+export function serializeStyle (style) {
+  if (typeof style === 'string') {
+    return style
+  }
+  if (Array.isArray(style)) {
+    return style
+      .filter(item => item !== null && item !== undefined)
+      .map(item => serializeStyle(item)).filter(Boolean).join('; ')
+  }
+  if (typeof style === 'object' && style !== null) {
+    return Object.entries(style).map(([k, v]) => `${k}: ${v}`).join('; ')
+  }
+  return ''
+}
