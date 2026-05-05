@@ -209,6 +209,40 @@ module.exports = (theme = '') => {
         })
     })
 
+    // Options: showFooter with print and rowspan/colspan columns
+    it('Test print footer output with rowspan/colspan columns', () => {
+      cy.visit(`${baseUrl}print-footer-rowspan-colspan.html`)
+        .get('.fixed-table-toolbar [name="print"]')
+        .should('exist')
+        .window().then(win => {
+          const instance = win.$('#table').data('bootstrap.table')
+          const data = instance.getData()
+          const stub = stubWindowOpen(win)
+
+          try {
+            instance.doPrint(data)
+            const html = stub.getHtml()
+
+            expect(html).to.include('<tfoot>')
+            expect(html).to.include('</tfoot>')
+
+            const tfootMatch = html.match(/<tfoot>[\s\S]*?<\/tfoot>/)
+
+            expect(tfootMatch).to.not.be.null
+
+            const tfootCells = tfootMatch[0].match(/<th>/g) || []
+
+            expect(tfootCells.length).to.equal(3)
+
+            // Verify footerFormatter results
+            expect(tfootMatch[0]).to.include('$600')
+            expect(tfootMatch[0]).to.include('3 items')
+          } finally {
+            stub.restore()
+          }
+        })
+    })
+
     // Options: printAsFilteredAndSortedOnUI
     it('Test printAsFilteredAndSortedOnUI defaults to true', () => {
       cy.visit(`${baseUrl}print.html`)

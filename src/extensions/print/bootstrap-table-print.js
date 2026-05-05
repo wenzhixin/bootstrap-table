@@ -290,7 +290,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (this.options.showFooter) {
         html.push('<tfoot><tr>')
 
-        const columns = columnsArray.flat(1)
+        const columns = columnsArray.flat(1).filter(column => !(column.colspanGroup > 0))
+
+        columns.sort((c1, c2) => c1.colspanIndex - c2.colspanIndex)
         const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr').get())
 
         for (const column of columns) {
