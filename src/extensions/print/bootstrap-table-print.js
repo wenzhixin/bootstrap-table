@@ -338,13 +338,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
     data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
+
+    if (!newWin) {
+      return
+    }
+
     const printStyles = typeof this.options.printStyles === 'string' ?
       this.options.printStyles.replace(/\[|\]| /g, '').toLowerCase().split(',') :
       this.options.printStyles
     const startPrint = () => {
       newWin.focus()
+      newWin.addEventListener('afterprint', () => {
+        newWin.close()
+      }, { once: true })
       newWin.print()
-      newWin.close()
     }
 
     const styles = printStyles.length ?
