@@ -606,6 +606,47 @@ module.exports = (theme = '') => {
         })
     })
 
+    const createFakeLink = () => {
+      const link = {
+        eventListeners: {},
+        addEventListener (event, callback) {
+          if (!link.eventListeners[event]) {
+            link.eventListeners[event] = []
+          }
+          link.eventListeners[event].push(callback)
+        },
+        triggerLoad () {
+          (link.eventListeners.load || []).forEach(cb => cb())
+        },
+        triggerError () {
+          (link.eventListeners.error || []).forEach(cb => cb())
+        }
+      }
+
+      return link
+    }
+
+    const createFakePrintWindow = (links, onPrint) => {
+      const doc = {
+        write () {},
+        close () {},
+        querySelectorAll (selector) {
+          return selector === 'link[rel="stylesheet"]' ? links : []
+        }
+      }
+
+      doc.documentElement = doc
+      return {
+        document: doc,
+        focus () {},
+        print () {
+          onPrint()
+        },
+        close () {},
+        addEventListener () {}
+      }
+    }
+
     it('Test printStyles waits for all stylesheets to load before printing', () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
@@ -616,56 +657,17 @@ module.exports = (theme = '') => {
 
           let printCount = 0
           const loadCallbacks = []
-
           const originalOpen = win.window.open
 
-          const createFakeLink = () => {
-            const link = {
-              eventListeners: {},
-              addEventListener (event, callback) {
-                if (!link.eventListeners[event]) {
-                  link.eventListeners[event] = []
-                }
-                link.eventListeners[event].push(callback)
-              },
-              triggerLoad () {
-                (link.eventListeners.load || []).forEach(cb => cb())
-              },
-              triggerError () {
-                (link.eventListeners.error || []).forEach(cb => cb())
-              }
-            }
-
-            return link
-          }
-
           win.window.open = () => {
-            const links = []
-
-            for (let i = 0; i < 3; i++) {
+            const links = Array.from({ length: 3 }, () => {
               const link = createFakeLink()
 
-              links.push(link)
               loadCallbacks.push(link)
-            }
-            return {
-              document: {
-                write () {},
-                close () {},
-                querySelectorAll (selector) {
-                  if (selector === 'link[rel="stylesheet"]') {
-                    return links
-                  }
-                  return []
-                }
-              },
-              focus () {},
-              print () {
-                printCount++
-              },
-              close () {},
-              addEventListener () {}
-            }
+              return link
+            })
+
+            return createFakePrintWindow(links, () => printCount++)
           }
 
           instance.options.printStyles = ['a.css', 'b.css', 'c.css']
@@ -697,56 +699,17 @@ module.exports = (theme = '') => {
 
           let printCount = 0
           const loadCallbacks = []
-
           const originalOpen = win.window.open
 
-          const createFakeLink = () => {
-            const link = {
-              eventListeners: {},
-              addEventListener (event, callback) {
-                if (!link.eventListeners[event]) {
-                  link.eventListeners[event] = []
-                }
-                link.eventListeners[event].push(callback)
-              },
-              triggerLoad () {
-                (link.eventListeners.load || []).forEach(cb => cb())
-              },
-              triggerError () {
-                (link.eventListeners.error || []).forEach(cb => cb())
-              }
-            }
-
-            return link
-          }
-
           win.window.open = () => {
-            const links = []
-
-            for (let i = 0; i < 2; i++) {
+            const links = Array.from({ length: 2 }, () => {
               const link = createFakeLink()
 
-              links.push(link)
               loadCallbacks.push(link)
-            }
-            return {
-              document: {
-                write () {},
-                close () {},
-                querySelectorAll (selector) {
-                  if (selector === 'link[rel="stylesheet"]') {
-                    return links
-                  }
-                  return []
-                }
-              },
-              focus () {},
-              print () {
-                printCount++
-              },
-              close () {},
-              addEventListener () {}
-            }
+              return link
+            })
+
+            return createFakePrintWindow(links, () => printCount++)
           }
 
           instance.options.printStyles = ['valid.css', 'broken.css']
@@ -776,48 +739,13 @@ module.exports = (theme = '') => {
 
           let printCount = 0
           const loadCallbacks = []
-
           const originalOpen = win.window.open
-
-          const createFakeLink = () => {
-            const link = {
-              eventListeners: {},
-              addEventListener (event, callback) {
-                if (!link.eventListeners[event]) {
-                  link.eventListeners[event] = []
-                }
-                link.eventListeners[event].push(callback)
-              },
-              triggerLoad () {
-                (link.eventListeners.load || []).forEach(cb => cb())
-              }
-            }
-
-            return link
-          }
 
           win.window.open = () => {
             const link = createFakeLink()
 
             loadCallbacks.push(link)
-            return {
-              document: {
-                write () {},
-                close () {},
-                querySelectorAll (selector) {
-                  if (selector === 'link[rel="stylesheet"]') {
-                    return [link]
-                  }
-                  return []
-                }
-              },
-              focus () {},
-              print () {
-                printCount++
-              },
-              close () {},
-              addEventListener () {}
-            }
+            return createFakePrintWindow([link], () => printCount++)
           }
 
           instance.options.printStyles = []
