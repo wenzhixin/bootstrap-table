@@ -2,6 +2,8 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
+import DOMHelper from '../../helpers/dom.js'
+
 const Utils = $.fn.bootstrapTable.utils
 
 function printPageBuilderDefault (table, styles) {
@@ -150,7 +152,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         [value_, row, i], value_)
 
       return typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : $('<div>').html(value).html()
+        this.options.undefinedText : DOMHelper.html(DOMHelper.create('<div></div>'), value).innerHTML
     }
 
     const getCellStyle = (row, i, column) => {
@@ -363,7 +365,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     newWin.document.write(calculatedPrintPage)
     newWin.document.close()
 
-    const links = newWin.document.querySelectorAll('link[rel="stylesheet"]')
+    const links = DOMHelper.$$('link[rel="stylesheet"]', newWin.document.documentElement)
 
     if (!links.length) {
       startPrint()
