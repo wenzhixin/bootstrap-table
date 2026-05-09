@@ -4,17 +4,32 @@ on:
   pull_request:
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      site: ${{ steps.filter.outputs.site }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            site:
+              - 'site/**'
+              - 'yarn.lock'
+
   test:
+    needs: changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'yarn'
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: 'wenzhixin/bootstrap-table-examples'
           path: './tools/bootstrap-table-examples'
@@ -23,9 +38,14 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn pre-commit
+
+      - name: Lint and build site
+        if: needs.changes.outputs.site == 'true'
+        run: |
           cd site
           yarn install --frozen-lockfile
           yarn lint
+          yarn build
 
       - name: Cypress Test
         run: |
