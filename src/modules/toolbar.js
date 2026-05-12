@@ -306,14 +306,18 @@ export default {
           const $this = $(currentTarget)
           const searchValue = $this.val().toLowerCase()
 
-          $listItems.show()
+          $listItems.each((_, el) => {
+            el.style.removeProperty('display')
+          })
           $checkboxes.each((i, el) => {
             const $checkbox = $(el)
             const $listItem = $checkbox.parents('.dropdown-item-marker')
             const text = $listItem.text().toLowerCase()
 
             if (!text.includes(searchValue)) {
-              $listItem.hide()
+              $listItem.each((_, item) => {
+                item.style.setProperty('display', 'none', 'important')
+              })
             }
           })
         })
