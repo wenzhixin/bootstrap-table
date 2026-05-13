@@ -202,6 +202,30 @@ export default {
       this[checked ? 'checkAll' : 'uncheckAll']()
       this.updateSelected()
     })
+
+    if (this.options.height && typeof ResizeObserver !== 'undefined') {
+      if (this.$el.is(':hidden')) {
+        if (this._resizeObserver) {
+          this._resizeObserver.disconnect()
+          this._resizeObserver = null
+        }
+        const observer = new ResizeObserver(entries => {
+          for (const entry of entries) {
+            if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
+              observer.disconnect()
+              if (this._resizeObserver === observer) {
+                this._resizeObserver = null
+              }
+              this.resetView()
+              return
+            }
+          }
+        })
+
+        this._resizeObserver = observer
+        observer.observe(this.$el[0])
+      }
+    }
   },
 
   getVisibleFields () {

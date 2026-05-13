@@ -23,7 +23,8 @@ class BootstrapTable {
     this.$el_ = this.$el.clone()
     this._timeoutId = {
       header: 0,
-      footer: 0
+      footer: 0,
+      resetView: 0
     }
   }
 
@@ -80,6 +81,10 @@ class BootstrapTable {
   destroy () {
     for (const type of Object.keys(this._timeoutId)) {
       clearTimeout(this._timeoutId[type])
+    }
+    if (this._resizeObserver) {
+      this._resizeObserver.disconnect()
+      this._resizeObserver = null
     }
     this.$el.insertBefore(this.$container)
     $(this.options.toolbar).insertBefore(this.$el)
