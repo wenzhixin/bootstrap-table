@@ -1,4 +1,4 @@
-import { escapeAttr, escapeHTML } from './string.js'
+import { escapeAttr } from './string.js'
 import { getBootstrapVersion } from './framework.js'
 
 /**
@@ -38,13 +38,12 @@ export function getCheckboxHtml (options) {
   const valueAttr = value !== undefined && value !== '' ? ` value="${escapeAttr(value)}"` : ''
   const classAttr = extraClass ? ` ${extraClass}` : ''
   const escapedName = escapeAttr(name)
-  const escapedLabel = escapeHTML(label)
 
   if (getBootstrapVersion() === 5) {
     if (withLabel) {
       return `<label class="dropdown-item dropdown-item-marker d-flex align-items-center gap-2">
         <input class="form-check-input m-0${classAttr}" type="checkbox" name="${escapedName}"${valueAttr}${checkedAttr}${disabledAttr} />
-        <span>${escapedLabel}</span>
+        <span>${label}</span>
       </label>`
     }
     const centerClass = centered ? ' d-flex justify-content-center' : ''
@@ -55,7 +54,7 @@ export function getCheckboxHtml (options) {
   }
 
   if (withLabel) {
-    return `<label><input type="checkbox" name="${escapedName}"${valueAttr}${checkedAttr}${disabledAttr}${classAttr}> <span>${escapedLabel}</span></label>`
+    return `<label><input type="checkbox" name="${escapedName}"${valueAttr}${checkedAttr}${disabledAttr}${classAttr}> <span>${label}</span></label>`
   }
   return `<label><input type="checkbox" name="${escapedName}"${valueAttr}${checkedAttr}${disabledAttr}${classAttr} /><span></span></label>`
 }
@@ -122,14 +121,13 @@ export function getDropdownColumnCheckboxHtml (options) {
 
   const checkedAttr = checked ? ' checked="checked"' : ''
   const disabledAttr = disabled ? ' disabled="disabled"' : ''
-  const escapedLabel = escapeHTML(label)
 
   if (getBootstrapVersion() === 5) {
     return `<label class="dropdown-item dropdown-item-marker d-flex align-items-center gap-2">
       <input class="form-check-input m-0" type="checkbox" data-field="${escapeAttr(dataField)}" value="${escapeAttr(value)}"${checkedAttr}${disabledAttr} />
-      <span>${escapedLabel}</span>
+      <span>${label}</span>
     </label>`
   }
 
-  return `<input type="checkbox" data-field="${escapeAttr(dataField)}" value="${escapeAttr(value)}"${checkedAttr}${disabledAttr}> <span>${escapedLabel}</span>`
+  return `<input type="checkbox" data-field="${escapeAttr(dataField)}" value="${escapeAttr(value)}"${checkedAttr}${disabledAttr}> <span>${label}</span>`
 }

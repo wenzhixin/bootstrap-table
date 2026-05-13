@@ -108,6 +108,16 @@ describe('getCheckboxHtml', () => {
       expect(html).toContain('dropdown-item')
       expect(html).toContain('Label Text')
     })
+
+    it('should preserve HTML in label', () => {
+      const html = checkbox.getCheckboxHtml({
+        name: 'test',
+        label: '<span>Title</span>',
+        withLabel: true
+      })
+
+      expect(html).toContain('<span>Title</span>')
+    })
   })
 
   describe('Bootstrap 3/4', () => {
@@ -163,6 +173,16 @@ describe('getCheckboxHtml', () => {
 
       expect(html).toContain('<label>')
       expect(html).toContain('Label Text')
+    })
+
+    it('should preserve HTML in label', () => {
+      const html = checkbox.getCheckboxHtml({
+        name: 'test',
+        label: '<em>Styled</em> Label',
+        withLabel: true
+      })
+
+      expect(html).toContain('<em>Styled</em> Label')
     })
 
     it('should handle extra class', () => {
@@ -374,6 +394,18 @@ describe('getDropdownColumnCheckboxHtml', () => {
       expect(html).toContain('dropdown-item')
     })
 
+    it('should preserve HTML in label', () => {
+      const html = checkbox.getDropdownColumnCheckboxHtml({
+        dataField: 'fieldName',
+        value: 'value1',
+        checked: false,
+        disabled: false,
+        label: '<span>Title</span>'
+      })
+
+      expect(html).toContain('<span>Title</span>')
+    })
+
     it('should include checked attribute', () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
         dataField: 'fieldName',
@@ -427,6 +459,18 @@ describe('getDropdownColumnCheckboxHtml', () => {
       expect(html).toContain('data-field="fieldName"')
       expect(html).toContain('value="value1"')
       expect(html).toContain('Field Label')
+    })
+
+    it('should preserve HTML in label', () => {
+      const html = checkbox.getDropdownColumnCheckboxHtml({
+        dataField: 'fieldName',
+        value: 'value1',
+        checked: false,
+        disabled: false,
+        label: '<span>Title</span>'
+      })
+
+      expect(html).toContain('<span>Title</span>')
     })
 
     it('should include checked attribute', () => {
