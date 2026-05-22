@@ -60,7 +60,8 @@ Object.assign($.fn.bootstrapTable.defaults, {
   _valuesFilterControl: [],
   _initialized: false,
   _isRendering: false,
-  _usingMultipleSelect: false
+  _usingMultipleSelect: false,
+  _isFilterControlInitialRender: false
 })
 
 Object.assign($.fn.bootstrapTable.columnDefaults, {
@@ -126,6 +127,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._initialized = false
       this._usingMultipleSelect = false
       this._isRendering = false
+      this._isFilterControlInitialRender = false
 
       this.$el
         .on('reset-view.bs.table', Utils.debounce(() => {
@@ -192,8 +194,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
+    this._isFilterControlInitialRender = true
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
     this._initialized = true
+
+    setTimeout(() => {
+      this._isFilterControlInitialRender = false
+    }, this.options.searchTimeOut + 50)
   }
 
   initSearch () {
@@ -484,7 +491,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
     UtilsFilterControl.cacheValues(this)
 
-    const isInitialRender = !this._initialized
+    const isInitialRender = !this._initialized || this._isFilterControlInitialRender
 
     // Cookie extension support
     if (!this.options.cookie) {
