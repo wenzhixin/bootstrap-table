@@ -60,8 +60,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   _valuesFilterControl: [],
   _initialized: false,
   _isRendering: false,
-  _usingMultipleSelect: false,
-  _isFilterControlInitialRender: false
+  _usingMultipleSelect: false
 })
 
 Object.assign($.fn.bootstrapTable.columnDefaults, {
@@ -127,7 +126,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._initialized = false
       this._usingMultipleSelect = false
       this._isRendering = false
-      this._isFilterControlInitialRender = false
 
       this.$el
         .on('reset-view.bs.table', Utils.debounce(() => {
@@ -194,13 +192,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this._isFilterControlInitialRender = true
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
     this._initialized = true
-
-    setTimeout(() => {
-      this._isFilterControlInitialRender = false
-    }, this.options.searchTimeOut + 50)
   }
 
   initSearch () {
@@ -485,13 +478,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // EVENTS
-  onColumnSearch ({ currentTarget, keyCode }) {
+  onColumnSearch ({ currentTarget, keyCode, isInitial }) {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
     UtilsFilterControl.cacheValues(this)
 
-    const isInitialRender = !this._initialized || this._isFilterControlInitialRender
+    const isInitialRender = !this._initialized || isInitial === true
 
     // Cookie extension support
     if (!this.options.cookie) {
@@ -555,16 +548,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
-  triggerSearch () {
+  triggerSearch (isInitial = false) {
     const searchControls = UtilsFilterControl.getSearchControls(this)
 
     searchControls.each(function () {
       const $element = $(this)
 
       if ($element.is('select')) {
-        $element.trigger('change')
+        $element.trigger('change', { isInitial })
       } else {
-        $element.trigger('keyup')
+        $element.trigger('keyup', { isInitial })
       }
     })
   }

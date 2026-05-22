@@ -449,6 +449,7 @@ export function createControls (that, header) {
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
       keyCode = obj ? obj.keyCode : keyCode
+      const isInitial = !!(obj && obj.isInitial)
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
         return
@@ -466,13 +467,14 @@ export function createControls (that, header) {
 
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
-        that.onColumnSearch({ currentTarget, keyCode })
+        that.onColumnSearch({ currentTarget, keyCode, isInitial })
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }, obj) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
+      const isInitial = !!(obj && obj.isInitial)
 
       const normalizedValue = value === null ?
         $selectControl.prop('multiple') ? [] : null :
@@ -482,7 +484,7 @@ export function createControls (that, header) {
 
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
-        that.onColumnSearch({ currentTarget, keyCode })
+        that.onColumnSearch({ currentTarget, keyCode, isInitial })
       }, that.options.searchTimeOut)
     })
 
@@ -550,7 +552,7 @@ export function createControls (that, header) {
     }
 
     if (that.options.sidePagination !== 'server') {
-      that.triggerSearch()
+      that.triggerSearch(true)
     }
 
     if (!that.options.filterControlVisible) {
