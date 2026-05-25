@@ -23,15 +23,15 @@ describe('filter-control issue #8246', () => {
       utilsSource = fs.readFileSync(FILTER_CONTROL_UTILS_PATH, 'utf-8')
     })
 
-    it('triggerSearch() accepts an isInitial parameter and forwards it via trigger data', () => {
+    it('triggerSearch() accepts an isInitial parameter and only attaches event data when truthy', () => {
       const match = mainSource.match(/triggerSearch\s*\([^)]*\)\s*\{[\s\S]*?\n {2}\}/)
 
       expect(match, 'triggerSearch block must be present').not.toBeNull()
       const body = match[0]
 
       expect(body).toMatch(/triggerSearch\s*\(\s*isInitial\s*=\s*false\s*\)/)
-      expect(body).toMatch(/\.trigger\('change',\s*\{\s*isInitial\s*\}\)/)
-      expect(body).toMatch(/\.trigger\('keyup',\s*\{\s*isInitial\s*\}\)/)
+      expect(body).toMatch(/\.trigger\(\s*eventName\s*,\s*\{\s*isInitial:\s*true\s*\}\s*\)/)
+      expect(body).toMatch(/\.trigger\(\s*eventName\s*\)/)
     })
 
     it('createControls calls triggerSearch(true) for the initial render', () => {
@@ -179,6 +179,122 @@ describe('filter-control issue #8246', () => {
         expect.objectContaining({ firedByInitSearchText: true }),
         false
       )
+    })
+  })
+
+  describe('cookie pageNumber persistence (the full reload-vs-filter chain)', () => {
+    // Simulates the call chain
+    //   filter-control.onColumnSearch
+    //     -> core.onSearch                       (modules/search.js:159)
+    //         -> cookie.onSearch override        (extensions/cookie/bootstrap-table-cookie.js)
+    //             -> UtilsCookie.setCookie(pageNumber, options.pageNumber)
+    //
+    // The user-visible artifact is the value written to the `bs.table.pageNumber`
+    // cookie at the end. Bug #8246 is reproduced when that value becomes `1`
+    // after a reload that landed the user on page 2.
+    function simulateOnColumnSearchToCookie (state) {
+      const setCookie = vi.fn()
+      const ctx = {
+        _initialized: state._initialized,
+        _filterControlValuesLoaded: false,
+        searchText: '',
+        options: {
+          cookie: true,
+          pageNumber: state.pageNumber,
+          search: false
+        }
+      }
+
+      // -- filter-control.onColumnSearch (the cookie branch) --
+      const isInitialRender = !ctx._initialized || state.isInitial === true
+
+      if (!ctx.options.cookie) {
+        if (!isInitialRender) {
+          ctx.options.pageNumber = 1
+        }
+      } else {
+        ctx._filterControlValuesLoaded = true
+      }
+
+      // -- core.onSearch — the actual gate that historically resets pageNumber --
+      const firedByInitSearchText = isInitialRender
+
+      if (!firedByInitSearchText) {
+        ctx.options.pageNumber = 1
+      }
+
+      // -- cookie.onSearch override saves whatever options.pageNumber is now --
+      setCookie('bs.table.pageNumber', ctx.options.pageNumber)
+
+      return { ctx, setCookie }
+    }
+
+    it('reload on page 2 keeps the cookie at 2 (issue #8246)', () => {
+      const { ctx, setCookie } = simulateOnColumnSearchToCookie({
+        _initialized: true,
+        isInitial: true,
+        pageNumber: 2
+      })
+
+      expect(ctx.options.pageNumber).toBe(2)
+      expect(setCookie).toHaveBeenCalledWith('bs.table.pageNumber', 2)
+      expect(setCookie).not.toHaveBeenCalledWith('bs.table.pageNumber', 1)
+    })
+
+    it('user filter on page 2 saves 1 to the cookie (expected behaviour)', () => {
+      const { ctx, setCookie } = simulateOnColumnSearchToCookie({
+        _initialized: true,
+        isInitial: false,
+        pageNumber: 2
+      })
+
+      expect(ctx.options.pageNumber).toBe(1)
+      expect(setCookie).toHaveBeenCalledWith('bs.table.pageNumber', 1)
+    })
+
+    it('reload on page 5 keeps the cookie at 5 (no off-by-one or hardcoded page)', () => {
+      const { ctx, setCookie } = simulateOnColumnSearchToCookie({
+        _initialized: true,
+        isInitial: true,
+        pageNumber: 5
+      })
+
+      expect(ctx.options.pageNumber).toBe(5)
+      expect(setCookie).toHaveBeenCalledWith('bs.table.pageNumber', 5)
+    })
+
+    it('reload on page 1 keeps the cookie at 1 (idempotent on first page)', () => {
+      const { ctx, setCookie } = simulateOnColumnSearchToCookie({
+        _initialized: true,
+        isInitial: true,
+        pageNumber: 1
+      })
+
+      expect(ctx.options.pageNumber).toBe(1)
+      expect(setCookie).toHaveBeenCalledWith('bs.table.pageNumber', 1)
+    })
+
+    it('two consecutive reloads each preserve their pageNumber (#8246 second-F5 regression)', () => {
+      // First reload from cookie = 2
+      const first = simulateOnColumnSearchToCookie({
+        _initialized: true,
+        isInitial: true,
+        pageNumber: 2
+      })
+
+      expect(first.ctx.options.pageNumber).toBe(2)
+      expect(first.setCookie).toHaveBeenLastCalledWith('bs.table.pageNumber', 2)
+
+      // Second reload reads what the first reload saved
+      const cookieAfterFirst = first.setCookie.mock.calls.at(-1)[1]
+      const second = simulateOnColumnSearchToCookie({
+        _initialized: true,
+        isInitial: true,
+        pageNumber: cookieAfterFirst
+      })
+
+      expect(second.ctx.options.pageNumber).toBe(2)
+      expect(second.setCookie).toHaveBeenLastCalledWith('bs.table.pageNumber', 2)
     })
   })
 })

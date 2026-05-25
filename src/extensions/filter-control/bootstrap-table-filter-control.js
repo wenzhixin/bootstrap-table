@@ -553,11 +553,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     searchControls.each(function () {
       const $element = $(this)
+      const eventName = $element.is('select') ? 'change' : 'keyup'
 
-      if ($element.is('select')) {
-        $element.trigger('change', { isInitial })
+      if (isInitial) {
+        $element.trigger(eventName, { isInitial: true })
       } else {
-        $element.trigger('keyup', { isInitial })
+        $element.trigger(eventName)
       }
     })
   }
