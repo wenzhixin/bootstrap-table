@@ -448,7 +448,7 @@ export function createControls (that, header) {
 
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
-      keyCode = obj ? obj.keyCode : keyCode
+      keyCode = obj?.keyCode ?? keyCode
       const isInitial = !!(obj && obj.isInitial)
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
