@@ -1,71 +1,104 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const FILTER_CONTROL_PATH = path.resolve(
-  __dirname,
-  '../../src/extensions/filter-control/bootstrap-table-filter-control.js'
-)
-const FILTER_CONTROL_UTILS_PATH = path.resolve(
-  __dirname,
-  '../../src/extensions/filter-control/utils.js'
-)
+async function loadFilterControlPrototype() {
+  await import('../../src/bootstrap-table.js')
+  await import('../../src/extensions/filter-control/bootstrap-table-filter-control.js')
+
+  const $ = globalThis.jQuery || globalThis.$
+
+  expect($?.fn?.bootstrapTable?.Constructor).toBeTruthy()
+
+  return {
+    $,
+    BootstrapTable: $.fn.bootstrapTable.Constructor
+  }
+}
 
 describe('filter-control issue #8246', () => {
-  describe('source regression guards', () => {
-    let mainSource
-    let utilsSource
+  describe('runtime regression guards', () => {
+    it('triggerSearch() only attaches isInitial event data when requested', async () => {
+      const { BootstrapTable } = await loadFilterControlPrototype()
+      const triggerSearch = BootstrapTable.prototype.triggerSearch
+      const context = {
+        $el: {
+          trigger: vi.fn()
+        },
+        options: {
+          searchTimeOut: 0
+        }
+      }
 
-    beforeAll(() => {
-      mainSource = fs.readFileSync(FILTER_CONTROL_PATH, 'utf-8')
-      utilsSource = fs.readFileSync(FILTER_CONTROL_UTILS_PATH, 'utf-8')
+      vi.useFakeTimers()
+
+      try {
+        triggerSearch.call(context, true)
+        vi.runAllTimers()
+
+        expect(context.$el.trigger).toHaveBeenCalledTimes(1)
+        expect(context.$el.trigger.mock.calls[0]).toHaveLength(2)
+        expect(context.$el.trigger.mock.calls[0][1]).toEqual({ isInitial: true })
+
+        context.$el.trigger.mockClear()
+
+        triggerSearch.call(context)
+        vi.runAllTimers()
+
+        expect(context.$el.trigger).toHaveBeenCalledTimes(1)
+        expect(context.$el.trigger.mock.calls[0]).toHaveLength(1)
+      } finally {
+        vi.useRealTimers()
+      }
     })
 
-    it('triggerSearch() accepts an isInitial parameter and only attaches event data when truthy', () => {
-      const match = mainSource.match(/triggerSearch\s*\([^)]*\)\s*\{[\s\S]*?\n {2}\}/)
+    it('marks only the initial filter-control triggerSearch call as initial', async () => {
+      const { $, BootstrapTable } = await loadFilterControlPrototype()
+      const triggerSearchSpy = vi.spyOn(BootstrapTable.prototype, 'triggerSearch')
 
-      expect(match, 'triggerSearch block must be present').not.toBeNull()
-      const body = match[0]
+      document.body.innerHTML = '<table id="issue-8246-table"></table>'
 
-      expect(body).toMatch(/triggerSearch\s*\(\s*isInitial\s*=\s*false\s*\)/)
-      expect(body).toMatch(/\.trigger\(\s*eventName\s*,\s*\{\s*isInitial:\s*true\s*\}\s*\)/)
-      expect(body).toMatch(/\.trigger\(\s*eventName\s*\)/)
-    })
+      const $table = $('#issue-8246-table')
 
-    it('createControls calls triggerSearch(true) for the initial render', () => {
-      expect(utilsSource).toMatch(/that\.triggerSearch\s*\(\s*true\s*\)/)
-    })
+      try {
+        $table.bootstrapTable({
+          search: true,
+          filterControl: true,
+          columns: [
+            {
+              field: 'name',
+              title: 'Name',
+              filterControl: 'input'
+            }
+          ],
+          data: [
+            { name: 'alpha' },
+            { name: 'beta' }
+          ]
+        })
 
-    it('keyup handler reads isInitial from event data and forwards to onColumnSearch', () => {
-      // capture from the keyup binding up to (but not including) the next binding
-      const m = utilsSource.match(/header\.off\('keyup',\s*'input'\)[\s\S]*?(?=header\.off\(|$)/)
+        expect(triggerSearchSpy).toHaveBeenCalledWith(true)
 
-      expect(m, 'keyup handler must be present').not.toBeNull()
-      const body = m[0]
+        const callsAfterInit = triggerSearchSpy.mock.calls.length
+        const $input = $table.closest('.bootstrap-table').find('thead input').first()
 
-      expect(body).toMatch(/const isInitial\s*=\s*!!\(obj && obj\.isInitial\)/)
-      expect(body).toMatch(/onColumnSearch\(\{[^}]*isInitial[^}]*\}\)/)
-    })
+        expect($input.length).toBe(1)
 
-    it('change handler on select reads isInitial from event data and forwards to onColumnSearch', () => {
-      const m = utilsSource.match(/header\.off\('change',\s*'select'\)[\s\S]*?(?=header\.off\(|$)/)
+        $input.val('alp')
+        $input.trigger('keyup')
 
-      expect(m, 'select change handler must be present').not.toBeNull()
-      const body = m[0]
+        expect(triggerSearchSpy.mock.calls.length).toBeGreaterThan(callsAfterInit)
+        expect(
+          triggerSearchSpy.mock.calls
+            .slice(callsAfterInit)
+            .some(args => args[0] === true)
+        ).toBe(false)
+      } finally {
+        if ($table.data('bootstrap.table')) {
+          $table.bootstrapTable('destroy')
+        }
 
-      expect(body).toMatch(/const isInitial\s*=\s*!!\(obj && obj\.isInitial\)/)
-      expect(body).toMatch(/onColumnSearch\(\{[^}]*isInitial[^}]*\}\)/)
-    })
-
-    it('onColumnSearch derives isInitialRender from _initialized OR the per-call isInitial flag', () => {
-      expect(mainSource).toMatch(
-        /onColumnSearch\s*\(\{[^}]*\bisInitial\b[^}]*\}\)/
-      )
-      expect(mainSource).toMatch(
-        /const isInitialRender = !this\._initialized \|\| isInitial === true/
-      )
+        triggerSearchSpy.mockRestore()
+        document.body.innerHTML = ''
+      }
     })
   })
 
