@@ -1,83 +1,106 @@
 import { describe, expect, it, vi } from 'vitest'
 
-async function loadFilterControlPrototype() {
+async function loadFilterControlPrototype () {
+  if (!globalThis.$) {
+    const { default: jq } = await import('jquery')
+
+    globalThis.$ = jq
+    globalThis.jQuery = jq
+  }
   await import('../../src/bootstrap-table.js')
   await import('../../src/extensions/filter-control/bootstrap-table-filter-control.js')
 
   const $ = globalThis.jQuery || globalThis.$
 
-  expect($?.fn?.bootstrapTable?.Constructor).toBeTruthy()
+  expect($?.BootstrapTable).toBeTruthy()
 
   return {
     $,
-    BootstrapTable: $.fn.bootstrapTable.Constructor
+    BootstrapTable: $.BootstrapTable
   }
 }
 
 describe('filter-control issue #8246', () => {
   describe('runtime regression guards', () => {
     it('triggerSearch() only attaches isInitial event data when requested', async () => {
-      const { BootstrapTable } = await loadFilterControlPrototype()
-      const triggerSearch = BootstrapTable.prototype.triggerSearch
-      const context = {
-        $el: {
-          trigger: vi.fn()
-        },
-        options: {
-          searchTimeOut: 0
-        }
-      }
+      const { $ } = await loadFilterControlPrototype()
 
-      vi.useFakeTimers()
+      document.body.innerHTML = '<table id="ts-test"></table>'
+      const $table = $('#ts-test')
+
+      $table.bootstrapTable({
+        filterControl: true,
+        columns: [{ field: 'a', title: 'A', filterControl: 'input' }],
+        data: [{ a: 'x' }]
+      })
+
+      const triggerSpy = vi.spyOn($.fn, 'trigger')
 
       try {
-        triggerSearch.call(context, true)
-        vi.runAllTimers()
+        // triggerSearch(true) — every keyup/change must carry { isInitial: true }
+        triggerSpy.mockClear()
+        $table.bootstrapTable('triggerSearch', true)
 
-        expect(context.$el.trigger).toHaveBeenCalledTimes(1)
-        expect(context.$el.trigger.mock.calls[0]).toHaveLength(2)
-        expect(context.$el.trigger.mock.calls[0][1]).toEqual({ isInitial: true })
+        const initialEvents = triggerSpy.mock.calls.filter(
+          c => c[0] === 'keyup' || c[0] === 'change'
+        )
 
-        context.$el.trigger.mockClear()
+        expect(initialEvents.length).toBeGreaterThan(0)
+        initialEvents.forEach(call => {
+          expect(call).toHaveLength(2)
+          expect(call[1]).toEqual({ isInitial: true })
+        })
 
-        triggerSearch.call(context)
-        vi.runAllTimers()
+        // triggerSearch() (no args) — must NOT attach extra event data, so the
+        // public API surface stays identical to the original signature.
+        triggerSpy.mockClear()
+        $table.bootstrapTable('triggerSearch')
 
-        expect(context.$el.trigger).toHaveBeenCalledTimes(1)
-        expect(context.$el.trigger.mock.calls[0]).toHaveLength(1)
+        const userEvents = triggerSpy.mock.calls.filter(
+          c => c[0] === 'keyup' || c[0] === 'change'
+        )
+
+        expect(userEvents.length).toBeGreaterThan(0)
+        userEvents.forEach(call => {
+          expect(call).toHaveLength(1)
+        })
       } finally {
-        vi.useRealTimers()
+        triggerSpy.mockRestore()
+        if ($table.data('bootstrap.table')) {
+          $table.bootstrapTable('destroy')
+        }
+        document.body.innerHTML = ''
       }
     })
 
-    it('marks only the initial filter-control triggerSearch call as initial', async () => {
+    it('only the initial onColumnSearch call carries isInitial: true; user input does not', async () => {
       const { $, BootstrapTable } = await loadFilterControlPrototype()
-      const triggerSearchSpy = vi.spyOn(BootstrapTable.prototype, 'triggerSearch')
+      const onColumnSearchSpy = vi.spyOn(BootstrapTable.prototype, 'onColumnSearch')
 
       document.body.innerHTML = '<table id="issue-8246-table"></table>'
-
       const $table = $('#issue-8246-table')
 
       try {
         $table.bootstrapTable({
           search: true,
           filterControl: true,
-          columns: [
-            {
-              field: 'name',
-              title: 'Name',
-              filterControl: 'input'
-            }
-          ],
-          data: [
-            { name: 'alpha' },
-            { name: 'beta' }
-          ]
+          searchTimeOut: 0,
+          columns: [{ field: 'name', title: 'Name', filterControl: 'input' }],
+          data: [{ name: 'alpha' }, { name: 'beta' }]
         })
 
-        expect(triggerSearchSpy).toHaveBeenCalledWith(true)
+        // Let the deferred onColumnSearch calls fired by the initial
+        // triggerSearch(true) drain.
+        await new Promise(resolve => setTimeout(resolve, 20))
 
-        const callsAfterInit = triggerSearchSpy.mock.calls.length
+        const initialCalls = onColumnSearchSpy.mock.calls.slice()
+        const initialWithFlag = initialCalls.filter(c => c[0]?.isInitial === true)
+
+        expect(initialWithFlag.length).toBeGreaterThan(0)
+
+        // Now simulate a user keystroke and assert no subsequent
+        // onColumnSearch is flagged as initial.
+        onColumnSearchSpy.mockClear()
         const $input = $table.closest('.bootstrap-table').find('thead input').first()
 
         expect($input.length).toBe(1)
@@ -85,18 +108,19 @@ describe('filter-control issue #8246', () => {
         $input.val('alp')
         $input.trigger('keyup')
 
-        expect(triggerSearchSpy.mock.calls.length).toBeGreaterThan(callsAfterInit)
-        expect(
-          triggerSearchSpy.mock.calls
-            .slice(callsAfterInit)
-            .some(args => args[0] === true)
-        ).toBe(false)
+        await new Promise(resolve => setTimeout(resolve, 20))
+
+        const userCalls = onColumnSearchSpy.mock.calls.slice()
+
+        expect(userCalls.length).toBeGreaterThan(0)
+        userCalls.forEach(call => {
+          expect(call[0]?.isInitial).not.toBe(true)
+        })
       } finally {
+        onColumnSearchSpy.mockRestore()
         if ($table.data('bootstrap.table')) {
           $table.bootstrapTable('destroy')
         }
-
-        triggerSearchSpy.mockRestore()
         document.body.innerHTML = ''
       }
     })
@@ -216,15 +240,6 @@ describe('filter-control issue #8246', () => {
   })
 
   describe('cookie pageNumber persistence (the full reload-vs-filter chain)', () => {
-    // Simulates the call chain
-    //   filter-control.onColumnSearch
-    //     -> core.onSearch                       (modules/search.js:159)
-    //         -> cookie.onSearch override        (extensions/cookie/bootstrap-table-cookie.js)
-    //             -> UtilsCookie.setCookie(pageNumber, options.pageNumber)
-    //
-    // The user-visible artifact is the value written to the `bs.table.pageNumber`
-    // cookie at the end. Bug #8246 is reproduced when that value becomes `1`
-    // after a reload that landed the user on page 2.
     function simulateOnColumnSearchToCookie (state) {
       const setCookie = vi.fn()
       const ctx = {
