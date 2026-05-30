@@ -1772,9 +1772,9 @@
     "@rollup/pluginutils" "^5.0.1"
 
 "@rollup/plugin-commonjs@^29.0.2":
-  version "29.0.2"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-29.0.2.tgz#d2d84c49d0983d071f2ab96f4cfe02fe80abd602"
-  integrity sha512-S/ggWH1LU7jTyi9DxZOKyxpVd4hF/OZ0JrEbeLjXk/DFXwRny0tjD2c992zOUYQobLrVkRVMDdmHP16HKP7GRg==
+  version "29.0.3"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-29.0.3.tgz#e0269126503d218e81e180478355ff740ca9baff"
+  integrity sha512-ZaOxZceP7SOUW7Lqw5IRVweSQYWaeIPnXIGLiB690EBA3FGJTO40EEr2L5yZplJWsgTCogILRSpcAe7+U0Otdg==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
     commondir "^1.0.1"
