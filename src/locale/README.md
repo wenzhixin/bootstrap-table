@@ -45,7 +45,7 @@ Table bellow is sorted ascending by language code. If case of add new translatio
 | Corsican (France)                                              | co-FR          | co         | missing        |
 | Czech (Czech Republic)                                         | cs-CZ          | cs         |                |
 | Welsh (United Kingdom)                                         | cy-GB          | cy         | missing        |
-| Danish (Denmark)                                               | da-DK          | da         | missing        |
+| Danish (Denmark)                                               | da-DK          | da         |                |
 | German (Austria)                                               | de-AT          |            | missing        |
 | German (Switzerland)                                           | de-CH          |            | missing        |
 | German (Germany)                                               | de-DE          | de         |                |
@@ -158,7 +158,7 @@ Table bellow is sorted ascending by language code. If case of add new translatio
 | Kyrgyz (Kyrgyzstan)                                            | ky-KG          | ky         | missing        |
 | Luxembourgish (Luxembourg)                                     | lb-LU          | lb         |                |
 | Lao (Lao P.D.R.)                                               | lo-LA          | lo         | missing        |
-| Lithuanian (Lithuania)                                         | lt-LT          | lt         | missing        |
+| Lithuanian (Lithuania)                                         | lt-LT          | lt         |                |
 | Latvian (Latvia)                                               | lv-LV          | lv         | missing        |
 | Maori (New Zealand)                                            | mi-NZ          | mi         | missing        |
 | Macedonian (Macedonia (Former Yugoslav Republic of Macedonia)) | mk-MK          | mk         | missing        |
@@ -179,7 +179,7 @@ Table bellow is sorted ascending by language code. If case of add new translatio
 | Nepali (Nepal)                                                 | ne-NP          | ne         | missing        |
 | Dutch (Belgium)                                                | nl-BE          |            |                |
 | Dutch (Netherlands)                                            | nl-NL          | nl         |                |
-| Norwegian, Nynorsk (Norway)                                    | nn-NO          | nn         | missing        |
+| Norwegian, Nynorsk (Norway)                                    | nn-NO          | nn         |                |
 | Sesotho sa Leboa (South Africa)                                | nso-ZA         | nso        | missing        |
 | Occitan (France)                                               | oc-FR          | oc         | missing        |
 | Oromo (Ethiopia)                                               | om-ET          | om         | missing        |
@@ -212,7 +212,7 @@ Table bellow is sorted ascending by language code. If case of add new translatio
 | Sami, Northern (Sweden)                                        | se-SE          |            | missing        |
 | Sinhala (Sri Lanka)                                            | si-LK          | si         | missing        |
 | Slovak (Slovakia)                                              | sk-SK          | sk         |                |
-| Slovenian (Slovenia)                                           | sl-SI          | sl         | missing        |
+| Slovenian (Slovenia)                                           | sl-SI          | sl         |                |
 | Sami, Southern (Norway)                                        | sma-NO         | sma        | missing        |
 | Sami, Southern (Sweden)                                        | sma-SE         |            | missing        |
 | Sami, Lule (Norway)                                            | smj-NO         | smj        | missing        |
