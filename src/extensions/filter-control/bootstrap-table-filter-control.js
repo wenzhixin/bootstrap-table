@@ -567,6 +567,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._initialized = false
     }
     super._toggleColumns(fields, checked, needUpdate)
+    // initHeader only runs when a column really changed visibility, so restore
+    // the flag here to stop it latching to false (#8216).
+    this._initialized = true
     UtilsFilterControl.syncHeaders(this)
   }
 }
