@@ -176,5 +176,23 @@ module.exports = (theme = '') => {
         .get('tr[data-index="0"]').click()
         .get('input[type="checkbox"][data-index="0"]').should('be.checked')
     })
+
+    testIf('Order List', () => {
+      cy.visit(`${baseUrl}order-list.html`)
+
+      // orderList 'desc,asc': the first click on a column sorts descending,
+      // the next ascending, then the cycle repeats.
+      cy.get('th[data-field="id"] .th-inner').click()
+      cy.get('th[data-field="id"] .th-inner').should('have.class', 'desc')
+      cy.get('tbody tr').first().find('td').eq(0).should('contain', '5')
+
+      cy.get('th[data-field="id"] .th-inner').click()
+      cy.get('th[data-field="id"] .th-inner').should('have.class', 'asc')
+      cy.get('tbody tr').first().find('td').eq(0).should('contain', '1')
+
+      // third click wraps back to the first direction of the cycle
+      cy.get('th[data-field="id"] .th-inner').click()
+      cy.get('th[data-field="id"] .th-inner').should('have.class', 'desc')
+    })
   })
 }

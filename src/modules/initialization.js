@@ -20,6 +20,9 @@ export default {
     opts.icons = Object.assign(Utils.getIcons(Constants.ICONS, opts.iconsPrefix),
       $.fn.bootstrapTable.defaults.icons, opts.icons)
 
+    // normalize orderList once at init so the click hot path deals only with arrays
+    opts.orderList = Utils.normalizeOrderList(opts.orderList)
+
     // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
@@ -200,6 +203,8 @@ export default {
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
         const column = Utils.extend({}, Constants.COLUMN_DEFAULTS, _column, { passed: _column })
+
+        column.orderList = Utils.normalizeOrderList(column.orderList)
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column

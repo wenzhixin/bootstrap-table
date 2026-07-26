@@ -331,6 +331,20 @@ $('#table').bootstrapTable({
 
 - **示例:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
 
+## orderList
+
+- **属性:** `data-order-list`
+
+- **类型:** `String | Array`
+
+- **详情:**
+
+  覆盖表级的 [`orderList`](https://bootstrap-table.com/zh-cn/docs/api/table-options/#orderlist)，控制重复点击该列头时排序方向的循环。适合让单个列首次即降序，例如日期列希望按最新优先排序：`orderList: 'desc,asc'`（[issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)）。接受逗号分隔的字符串或由 `'asc'`/`'desc'` 组成的数组。未设置时，该列依次回退到表级 `orderList`，再到该列的 [`order`](#order)。
+
+- **默认值:** `undefined`
+
+- **示例:** [Order List](https://examples.bootstrap-table.com/#column-options/order-list.html)
+
 ## radio
 
 - **属性:** `data-radio`

@@ -68,6 +68,7 @@ export interface BootstrapTableColumn {
   escape?: boolean;
   events?: BootstrapTableEvents;
   order?: string;
+  orderList?: string | string[];
   visible?: boolean;
   detailFormatter?: any;
   valign?: any;
@@ -200,6 +201,7 @@ export interface BootstrapTableOptions {
   showColumnsSearch?: boolean;
   queryParamsType?: string;
   sortOrder?: any;
+  orderList?: string | string[];
   paginationDetailHAlign?: string;
   customSearch?: any;
   visibleSearch?: boolean;

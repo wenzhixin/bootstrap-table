@@ -232,32 +232,46 @@ export default {
   onSort ({ type, currentTarget }) {
     const $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent()
     const $this_ = this.$header.find('th').eq($this.index())
+    const column = this.columns[this.fieldsColumnsIndex[$this.data('field')]]
 
     this.$header.add(this.$header_).find('span.order').remove()
 
+    // Resolve the effective sort-direction cycle for this column:
+    //   column orderList  >  global orderList  >  legacy [order, opposite(order)]
+    // orderList values are normalized to arrays at init time; an unset/invalid
+    // value stays undefined so the legacy column `order` fallback takes over.
+    // The only deliberate change vs. the old cycle: order 'desc' with sortReset
+    // previously got stuck (asc <-> undefined) and now cycles
+    // desc -> asc -> undefined -> desc.
+    let orderList = column.orderList || this.options.orderList
+
+    if (!orderList) {
+      const order = column.sortOrder || column.order || 'asc'
+
+      orderList = [order, order === 'asc' ? 'desc' : 'asc']
+    }
+
     if (this.options.sortName === $this.data('field')) {
-      const currentSortOrder = this.options.sortOrder
-      const initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
-        this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+      // Same column clicked again: advance one step through the cycle. With
+      // sortReset, a trailing "unsorted" state (handled inline to avoid an
+      // array allocation) clears the sort entirely.
+      const len = orderList.length
+      const nextIndex = (orderList.indexOf(this.options.sortOrder) + 1) %
+        (this.options.sortReset ? len + 1 : len)
 
-      if (currentSortOrder === undefined) {
-        this.options.sortOrder = 'asc'
-      } else if (currentSortOrder === 'asc') {
-        this.options.sortOrder = this.options.sortReset ? initialSortOrder === 'asc' ? 'desc' : undefined : 'desc'
-      } else if (this.options.sortOrder === 'desc') {
-        this.options.sortOrder = this.options.sortReset ? initialSortOrder === 'desc' ? 'asc' : undefined : 'asc'
-      }
-
+      this.options.sortOrder = nextIndex === len ? undefined : orderList[nextIndex]
       if (this.options.sortOrder === undefined) {
         this.options.sortName = undefined
       }
     } else {
+      // New column: start at the first direction, or — under rememberOrder —
+      // advance one step from the column's last direction (legacy behavior,
+      // now respecting a custom orderList too).
       this.options.sortName = $this.data('field')
       if (this.options.rememberOrder) {
-        this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc'
+        this.options.sortOrder = orderList[(orderList.indexOf($this.data('order')) + 1) % orderList.length]
       } else {
-        this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
-          this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+        this.options.sortOrder = orderList[0]
       }
     }
 

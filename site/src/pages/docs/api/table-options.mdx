@@ -1726,6 +1726,20 @@ $('#table').bootstrapTable({
 
 - **Example:** [Sort Empty Last](https://examples.bootstrap-table.com/#options/sort-empty-last.html)
 
+## orderList
+
+- **Attribute:** `data-order-list`
+
+- **Type:** `String | Array`
+
+- **Detail:**
+
+  Defines the cycle of sort directions used when repeatedly clicking a sortable column header, in order. Accepts a comma-separated string (`'asc,desc'`, `'desc, asc'`) or an array (`['asc', 'desc']`); tokens are case-insensitive. Set `['desc', 'asc']` to make every sortable column descending-first (e.g. date or amount columns, see [issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)). When `sortReset` is enabled, an "unsorted" state is appended after the last direction. A column-level `orderList` overrides this value. When unset (the default), each column falls back to its own [`order`](https://bootstrap-table.com/docs/api/column-options/#order), so most existing configurations keep their current click cycle. The one deliberate change is for columns with `order: 'desc'` combined with `sortReset`: the previous cycle got stuck alternating between ascending and the unsorted state, whereas it now cycles descending → ascending → unsorted → descending.
+
+- **Default:** `undefined`
+
+- **Example:** [Order List](https://examples.bootstrap-table.com/#options/order-list.html)
+
 ## sortName
 
 - **Attribute:** `data-sort-name`

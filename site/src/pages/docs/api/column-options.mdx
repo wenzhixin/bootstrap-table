@@ -331,6 +331,20 @@ $('#table').bootstrapTable({
 
 - **Example:** [Sort Name Order](https://examples.bootstrap-table.com/#column-options/sort-name-order.html)
 
+## orderList
+
+- **Attribute:** `data-order-list`
+
+- **Type:** `String | Array`
+
+- **Detail:**
+
+  Overrides the table-level [`orderList`](https://bootstrap-table.com/docs/api/table-options/#orderlist) for this column, controlling the cycle of sort directions when repeatedly clicking this column's header. Handy for making a single column descending-first, e.g. a date column that should sort newest-first: `orderList: 'desc,asc'` ([issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)). Accepts a comma-separated string or an array of `'asc'`/`'desc'` tokens. When unset, the column falls back to the table-level `orderList`, then to this column's [`order`](#order).
+
+- **Default:** `undefined`
+
+- **Example:** [Order List](https://examples.bootstrap-table.com/#column-options/order-list.html)
+
 ## radio
 
 - **Attribute:** `data-radio`
