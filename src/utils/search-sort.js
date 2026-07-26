@@ -10,6 +10,35 @@ import { isNumeric } from './helper.js'
  */
 
 /**
+ * Normalizes an `orderList` value into a clean array of `'asc'` / `'desc'` tokens.
+ *
+ * Accepts either an array (e.g. `['desc', 'asc']`) or a comma-separated string
+ * (e.g. `'desc, asc'`). Tokens are trimmed and lowercased; anything that is not
+ * `'asc'` or `'desc'` is silently dropped. Returns the normalized array, or
+ * `undefined` when the input is `undefined`/empty or contains no valid token —
+ * in which case callers fall back to the legacy column `order` cycle.
+ *
+ * @param {undefined|string|string[]} input - The raw `orderList` value.
+ * @returns {string[]|undefined} The normalized list, or `undefined`.
+ */
+export function normalizeOrderList (input) {
+  if (input === undefined || input === null) {
+    return undefined
+  }
+  const tokens = Array.isArray(input) ? input : String(input).split(',')
+  const list = []
+
+  for (const token of tokens) {
+    const normalized = String(token).trim().toLowerCase()
+
+    if (normalized === 'asc' || normalized === 'desc') {
+      list.push(normalized)
+    }
+  }
+  return list.length ? list : undefined
+}
+
+/**
  * Compares a value against a search pattern using regex.
  * Supports both plain text search and regex patterns (e.g., /pattern/flags).
  *

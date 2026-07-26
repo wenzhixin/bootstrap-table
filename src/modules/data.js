@@ -232,32 +232,42 @@ export default {
   onSort ({ type, currentTarget }) {
     const $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent()
     const $this_ = this.$header.find('th').eq($this.index())
+    const column = this.columns[this.fieldsColumnsIndex[$this.data('field')]]
 
     this.$header.add(this.$header_).find('span.order').remove()
 
+    // Resolve the effective sort-direction cycle for this column:
+    //   column orderList  >  global orderList  >  legacy [order, opposite(order)]
+    // orderList values are normalized to arrays at init time; an unset/invalid
+    // value stays undefined so the legacy column `order` fallback takes over and
+    // existing configurations keep cycling byte-for-byte as before.
+    let orderList = column.orderList || this.options.orderList
+
+    if (!orderList) {
+      const order = column.sortOrder || column.order || 'asc'
+
+      orderList = [order, order === 'asc' ? 'desc' : 'asc']
+    }
+
     if (this.options.sortName === $this.data('field')) {
-      const currentSortOrder = this.options.sortOrder
-      const initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
-        this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+      // Same column clicked again: advance one step through the cycle. With
+      // sortReset, an undefined terminal state is appended after the last
+      // direction; selecting it clears the sort entirely.
+      const cycle = this.options.sortReset ? [...orderList, undefined] : orderList
+      const nextIndex = (cycle.indexOf(this.options.sortOrder) + 1) % cycle.length
 
-      if (currentSortOrder === undefined) {
-        this.options.sortOrder = 'asc'
-      } else if (currentSortOrder === 'asc') {
-        this.options.sortOrder = this.options.sortReset ? initialSortOrder === 'asc' ? 'desc' : undefined : 'desc'
-      } else if (this.options.sortOrder === 'desc') {
-        this.options.sortOrder = this.options.sortReset ? initialSortOrder === 'desc' ? 'asc' : undefined : 'asc'
-      }
-
+      this.options.sortOrder = cycle[nextIndex]
       if (this.options.sortOrder === undefined) {
         this.options.sortName = undefined
       }
     } else {
+      // New column: start from the cycle's first direction, unless rememberOrder
+      // flips the column's last remembered direction (unchanged legacy behavior).
       this.options.sortName = $this.data('field')
       if (this.options.rememberOrder) {
         this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc'
       } else {
-        this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder ||
-          this.columns[this.fieldsColumnsIndex[$this.data('field')]].order
+        this.options.sortOrder = orderList[0]
       }
     }
 

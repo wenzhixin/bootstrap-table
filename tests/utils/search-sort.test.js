@@ -98,6 +98,50 @@ describe('sort', () => {
   })
 })
 
+describe('normalizeOrderList', () => {
+  it('should accept a valid array of tokens', () => {
+    expect(searchSort.normalizeOrderList(['asc', 'desc'])).toEqual(['asc', 'desc'])
+    expect(searchSort.normalizeOrderList(['desc', 'asc'])).toEqual(['desc', 'asc'])
+  })
+
+  it('should accept a comma-separated string', () => {
+    expect(searchSort.normalizeOrderList('asc,desc')).toEqual(['asc', 'desc'])
+    expect(searchSort.normalizeOrderList('desc, asc')).toEqual(['desc', 'asc'])
+    expect(searchSort.normalizeOrderList(' DESC , asc ')).toEqual(['desc', 'asc'])
+  })
+
+  it('should be case-insensitive and trim whitespace', () => {
+    expect(searchSort.normalizeOrderList('ASC, Desc')).toEqual(['asc', 'desc'])
+    expect(searchSort.normalizeOrderList([' ASC ', 'DESC'])).toEqual(['asc', 'desc'])
+  })
+
+  it('should drop malformed tokens, keeping valid ones', () => {
+    expect(searchSort.normalizeOrderList('asc, descending, desc')).toEqual(['asc', 'desc'])
+    expect(searchSort.normalizeOrderList(['foo', 'asc', 'bar', 'desc'])).toEqual(['asc', 'desc'])
+  })
+
+  it('should return undefined when no token is valid', () => {
+    expect(searchSort.normalizeOrderList('foo, bar')).toBeUndefined()
+    expect(searchSort.normalizeOrderList(['foo', 'bar'])).toBeUndefined()
+  })
+
+  it('should return undefined for empty input', () => {
+    expect(searchSort.normalizeOrderList('')).toBeUndefined()
+    expect(searchSort.normalizeOrderList([])).toBeUndefined()
+    expect(searchSort.normalizeOrderList(' , ')).toBeUndefined()
+  })
+
+  it('should pass through undefined / null untouched', () => {
+    expect(searchSort.normalizeOrderList(undefined)).toBeUndefined()
+    expect(searchSort.normalizeOrderList(null)).toBeUndefined()
+  })
+
+  it('should support a single-direction list', () => {
+    expect(searchSort.normalizeOrderList(['asc'])).toEqual(['asc'])
+    expect(searchSort.normalizeOrderList('desc')).toEqual(['desc'])
+  })
+})
+
 // Note: replaceSearchMark tests are skipped due to potential issues with happy-dom
 // The function modifies DOM elements and may cause worker timeout issues
 // This is a known limitation of testing DOM manipulation in this environment
