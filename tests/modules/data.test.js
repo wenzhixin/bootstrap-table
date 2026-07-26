@@ -275,6 +275,19 @@ describe('onSort rememberOrder', () => {
     // switching to b flips its remembered asc -> desc
     expect(click(ctx, 'b').sortOrder).toBe('desc')
   })
+
+  it('respects a column orderList under rememberOrder (desc → asc → desc)', () => {
+    const ctx = createSortContext({
+      options: { rememberOrder: true },
+      columns: [{ field: 'date', orderList: ['desc', 'asc'] }]
+    })
+
+    // first click on a fresh column starts from the cycle's first direction
+    expect(click(ctx, 'date').sortOrder).toBe('desc')
+    // subsequent clicks advance through the configured cycle, not a plain flip
+    expect(click(ctx, 'date').sortOrder).toBe('asc')
+    expect(click(ctx, 'date').sortOrder).toBe('desc')
+  })
 })
 
 describe('onSort server pagination', () => {

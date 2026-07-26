@@ -1730,9 +1730,9 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  定义重复点击可排序列头时排序方向的循环顺序。接受逗号分隔的字符串（`'asc,desc'`、`'desc, asc'`）或数组（`['asc', 'desc']`），token 大小写不敏感。默认 `['asc', 'desc']` 表示首次点击按升序排序；设置为 `['desc', 'asc']` 可让所有可排序列首次点击即降序（例如日期、金额列，见 [issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)）。启用 `sortReset` 时，会在最后一个方向之后追加一个"未排序"状态。列级 `orderList` 会覆盖此值。
+  定义重复点击可排序列头时排序方向的循环顺序。接受逗号分隔的字符串（`'asc,desc'`、`'desc, asc'`）或数组（`['asc', 'desc']`），token 大小写不敏感。设置为 `['desc', 'asc']` 可让所有可排序列首次点击即降序（例如日期、金额列，见 [issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)）。启用 `sortReset` 时，会在最后一个方向之后追加一个"未排序"状态。列级 `orderList` 会覆盖此值。未设置时（即默认值），每列回退到自身的 [`order`](https://bootstrap-table.com/zh-cn/docs/api/column-options/#order)，因此大多数已有配置的点击循环保持不变。唯一有意调整的是 `order: 'desc'` 且启用 `sortReset` 的列：之前的循环会在升序与未排序状态之间反复卡住，现在则按降序 → 升序 → 未排序 → 降序 循环。
 
-- **默认值:** `['asc', 'desc']`
+- **默认值:** `undefined`
 
 - **示例:** [Order List](https://examples.bootstrap-table.com/#options/order-list.html)
 
