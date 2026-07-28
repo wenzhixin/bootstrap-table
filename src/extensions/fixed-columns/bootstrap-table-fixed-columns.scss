@@ -25,6 +25,17 @@
 }
 
 .fixed-columns,
+.fixed-columns-right {
+  > .fixed-table-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.fixed-columns,
 .fixed-columns-right,
 .fixed-table-container > .fixed-table-body {
   .table-hover .hover-row {
