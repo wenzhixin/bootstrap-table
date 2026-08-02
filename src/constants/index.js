@@ -253,6 +253,7 @@ const DEFAULTS = {
   responseHandler: res => res,
   rowAttributes: (row, index) => ({}),
   rowStyle: (row, index) => ({}),
+  rtl: false, // false, true, 'ltr', 'rtl', 'auto'
   search: false,
   searchable: false,
   searchAccentNeutralise: false,

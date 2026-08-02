@@ -1243,6 +1243,35 @@ $('#table').bootstrapTable({
 
 - **示例:** [Row Style](https://examples.bootstrap-table.com/#options/row-style.html)
 
+## rtl
+
+- **属性:** `data-rtl`
+
+- **类型:** `Boolean | String`
+
+- **详情:**
+
+  设置表格的方向为从右到左（RTL）。
+
+  支持的取值：
+  - `false`（默认）：从左到右（LTR），与之前的版本逐字节一致。
+  - `true` / `'rtl'`：以 RTL 方向渲染表格。
+  - `'ltr'`：显式以 LTR 方向渲染表格。
+  - `'auto'`：自动探测方向。优先读取表格元素的 `dir` 属性，其次是 `<html>` 元素的 `dir`
+    属性，两者都未设置时回退为 LTR。
+
+  当 RTL 生效时，根容器会获得 `dir="rtl"` 属性和 `bootstrap-table-rtl` 类，因此工具栏按钮、
+  分页、搜索框和排序图标会左右镜像，而复选框 / 索引列则通过 `dir="rtl"` 的原生行为移动到右侧。
+
+  列对齐（`align` / `halign` / `falign`）保持物理语义，在 RTL 模式下**不会**被翻转。
+  如果需要随方向变化的逻辑对齐，请使用 CSS 逻辑值。
+
+  `fixed-columns` 扩展的 RTL 支持将作为后续工作提供。
+
+- **默认值:** `false`
+
+- **示例:** [RTL Support](https://examples.bootstrap-table.com/#options/rtl.html)
+
 ## search
 
 - **属性:** `data-search`
