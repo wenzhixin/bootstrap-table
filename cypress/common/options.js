@@ -194,5 +194,34 @@ module.exports = (theme = '') => {
       cy.get('th[data-field="id"] .th-inner').click()
       cy.get('th[data-field="id"] .th-inner').should('have.class', 'desc')
     })
+
+    testIf('RTL', () => {
+      cy.visit(`${baseUrl}rtl.html`)
+
+      // The root container carries the RTL direction attribute and semantic class.
+      cy.get('.bootstrap-table')
+        .should('have.class', 'bootstrap-table-rtl')
+        .and('have.attr', 'dir', 'rtl')
+
+      // The checkbox column is the first DOM column. Under dir="rtl" the browser
+      // lays columns out right-to-left, so its visual left edge ends up to the
+      // right of the last column's left edge (visual order is mirrored).
+      cy.get('.fixed-table-body thead tr:first-child th').then($ths => {
+        const lefts = $ths.map((_, el) => Math.round(el.getBoundingClientRect().left)).get()
+
+        expect(lefts.length).to.be.greaterThan(1)
+        expect(lefts[0]).to.be.greaterThan(lefts[lefts.length - 1])
+      })
+
+      // The columns button group is floated (pull/float-right in LTR); under RTL
+      // the mirror rule floats it to the left, so it sits in the left half of
+      // the toolbar.
+      cy.get('.fixed-table-toolbar .columns').then($el => {
+        const rect = Cypress.$('.bootstrap-table')[0].getBoundingClientRect()
+        const midX = rect.left + rect.width / 2
+
+        expect($el[0].getBoundingClientRect().left).to.be.lessThan(midX)
+      })
+    })
   })
 }

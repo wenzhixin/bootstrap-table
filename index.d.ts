@@ -159,6 +159,7 @@ export interface BootstrapTableOptions {
     $element: JQuery<HTMLElement>
   ) => boolean | void;
   rowStyle?: (row: any, index: number) => {};
+  rtl?: boolean | 'ltr' | 'rtl' | 'auto';
   showColumnsToggleAll?: boolean;
   footerStyle?: (column: BootstrapTableColumn) => {};
   onUncheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | void;

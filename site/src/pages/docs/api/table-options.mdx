@@ -1247,6 +1247,39 @@ $('#table').bootstrapTable({
 
 - **Example:** [Row Style](https://examples.bootstrap-table.com/#options/row-style.html)
 
+## rtl
+
+- **Attribute:** `data-rtl`
+
+- **Type:** `Boolean | String`
+
+- **Detail:**
+
+  Set the table direction to right-to-left (RTL).
+
+  Supported values:
+  - `false` (default): left-to-right (LTR), byte-for-byte identical to previous versions.
+  - `true` / `'rtl'`: render the table as RTL.
+  - `'ltr'`: render the table as LTR (explicit).
+  - `'auto'`: detect the direction automatically. It reads the `dir` attribute of
+    the table element first, then the `<html>` element, and falls back to LTR if
+    neither is set.
+
+  When RTL is active, the root container gets a `dir="rtl"` attribute and a
+  `bootstrap-table-rtl` class, so the toolbar buttons, pagination, search box
+  and sort icons are mirrored, while the checkbox/index columns move to the
+  right side natively via `dir="rtl"`.
+
+  Column alignment (`align` / `halign` / `falign`) keeps its physical meaning
+  and is **not** flipped under RTL. If you need alignment that follows the
+  direction, use CSS logical values instead.
+
+  The RTL support for the `fixed-columns` extension is planned for a future change.
+
+- **Default:** `false`
+
+- **Example:** [RTL Support](https://examples.bootstrap-table.com/#options/rtl.html)
+
 ## search
 
 - **Attribute:** `data-search`
