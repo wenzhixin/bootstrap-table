@@ -8,6 +8,40 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 let errorSum = 0
+
+const docsApiFolder = path.join(__dirname, '..', 'site', 'src', 'pages')
+
+// Supported locales: the docs folder and the localized labels of each
+// attribute. The label keys must match the `attributes` defined per doc type.
+const LOCALES = [
+  {
+    name: 'en',
+    folder: path.join(docsApiFolder, 'docs', 'api'),
+    labels: {
+      Attribute: 'Attribute',
+      Type: 'Type',
+      Detail: 'Detail',
+      Default: 'Default',
+      Example: 'Example',
+      Parameter: 'Parameter',
+      'jQuery Event': 'jQuery Event'
+    }
+  },
+  {
+    name: 'zh-cn',
+    folder: path.join(docsApiFolder, 'zh-cn', 'docs', 'api'),
+    labels: {
+      Attribute: '属性',
+      Type: '类型',
+      Detail: '详情',
+      Default: '默认值',
+      Example: '示例',
+      Parameter: '参数',
+      'jQuery Event': 'jQuery 事件'
+    }
+  }
+]
+
 const exampleFilesFolder = path.join(__dirname, 'bootstrap-table-examples')
 const exampleFilesFound = fs.existsSync(exampleFilesFolder)
 let exampleFiles = []
@@ -25,7 +59,8 @@ if (exampleFilesFound) {
 }
 
 class API {
-  constructor () {
+  constructor (locale) {
+    this.locale = locale
     this.init()
     this.sortOptions()
     this.check()
@@ -36,21 +71,22 @@ class API {
   }
 
   check () {
-    const file = path.join(__dirname, '..', 'site', 'src', 'pages', 'docs', 'api', this.file)
+    const file = path.join(this.locale.folder, this.file)
+    const { labels } = this.locale
     const md = {}
     const content = fs.readFileSync(file).toString()
     const lines = content.split('## ')
     const outLines = lines.slice(0, 1)
     const errors = []
     const exampleRegex = /\[.*\]\(.*\/(.*\.html)\)/m
-    const attributeRegex = /\*\*Attribute:\*\*\s`(.*)data-(.*)`/m
+    const attributeRegex = new RegExp('\\*\\*' + labels.Attribute + ':\\*\\*\\s`(.*)data-(.*)`', 'm')
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item
     }
 
     console.log('-------------------------')
-    console.log(`Checking file: ${file}`)
+    console.log(`Checking file (${this.locale.name}): ${file}`)
     console.log('-------------------------')
 
     const noDefaults = Object.keys(md).filter(it => !this.options.includes(it))
@@ -75,6 +111,7 @@ class API {
             }
 
             const tmpDetails = details[i + 1].trim()
+            const label = labels[name]
             if (name === 'Example' && exampleFilesFound) {
               const matches = exampleRegex.exec(tmpDetails)
               if (!matches) {
@@ -94,8 +131,8 @@ class API {
               }
             }
 
-            if (!tmpDetails || tmpDetails.indexOf(`**${name}:**`) === -1) {
-              errors.push(chalk.red(`[${key}] missing '${name}'`))
+            if (!tmpDetails || tmpDetails.indexOf(`**${label}:**`) === -1) {
+              errors.push(chalk.red(`[${key}] missing '${label}'`))
             }
           }
         } else {
@@ -165,11 +202,13 @@ class Localizations extends API {
   }
 }
 
-new TableOptions()
-new ColumnOptions()
-new Methods()
-new Events()
-new Localizations()
+for (const locale of LOCALES) {
+  new TableOptions(locale)
+  new ColumnOptions(locale)
+  new Methods(locale)
+  new Events(locale)
+  new Localizations(locale)
+}
 
 if (errorSum === 0) {
   console.log('Good job! Anything up to date!')
