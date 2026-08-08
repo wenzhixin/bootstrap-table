@@ -908,6 +908,20 @@ $('#table').bootstrapTable({
 
 - **Example:** [Multiple Select Row](https://examples.bootstrap-table.com/#options/multiple-select-row.html)
 
+## orderList
+
+- **Attribute:** `data-order-list`
+
+- **Type:** `String | Array`
+
+- **Detail:**
+
+  Defines the cycle of sort directions used when repeatedly clicking a sortable column header, in order. Accepts a comma-separated string (`'asc,desc'`, `'desc, asc'`) or an array (`['asc', 'desc']`); tokens are case-insensitive. Set `['desc', 'asc']` to make every sortable column descending-first (e.g. date or amount columns, see [issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)). When `sortReset` is enabled, an "unsorted" state is appended after the last direction. A column-level `orderList` overrides this value. When unset (the default), each column falls back to its own [`order`](https://bootstrap-table.com/docs/api/column-options/#order), so most existing configurations keep their current click cycle. The one deliberate change is for columns with `order: 'desc'` combined with `sortReset`: the previous cycle got stuck alternating between ascending and the unsorted state, whereas it now cycles descending → ascending → unsorted → descending.
+
+- **Default:** `undefined`
+
+- **Example:** [Order List](https://examples.bootstrap-table.com/#options/order-list.html)
+
 ## pageList
 
 - **Attribute:** `data-page-list`
@@ -1246,6 +1260,39 @@ $('#table').bootstrapTable({
 - **Default:** `{}`
 
 - **Example:** [Row Style](https://examples.bootstrap-table.com/#options/row-style.html)
+
+## rtl
+
+- **Attribute:** `data-rtl`
+
+- **Type:** `Boolean | String`
+
+- **Detail:**
+
+  Set the table direction to right-to-left (RTL).
+
+  Supported values:
+  - `false` (default): left-to-right (LTR), byte-for-byte identical to previous versions.
+  - `true` / `'rtl'`: render the table as RTL.
+  - `'ltr'`: render the table as LTR (explicit).
+  - `'auto'`: detect the direction automatically. It reads the `dir` attribute of
+    the table element first, then the `<html>` element, and falls back to LTR if
+    neither is set.
+
+  When RTL is active, the root container gets a `dir="rtl"` attribute and a
+  `bootstrap-table-rtl` class, so the toolbar buttons, pagination, search box
+  and sort icons are mirrored, while the checkbox/index columns move to the
+  right side natively via `dir="rtl"`.
+
+  Column alignment (`align` / `halign` / `falign`) keeps its physical meaning
+  and is **not** flipped under RTL. If you need alignment that follows the
+  direction, use CSS logical values instead.
+
+  The RTL support for the `fixed-columns` extension is planned for a future change.
+
+- **Default:** `false`
+
+- **Example:** [RTL Support](https://examples.bootstrap-table.com/#options/rtl.html)
 
 ## search
 

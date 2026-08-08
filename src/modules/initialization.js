@@ -20,6 +20,9 @@ export default {
     opts.icons = Object.assign(Utils.getIcons(Constants.ICONS, opts.iconsPrefix),
       $.fn.bootstrapTable.defaults.icons, opts.icons)
 
+    // normalize orderList once at init so the click hot path deals only with arrays
+    opts.orderList = Utils.normalizeOrderList(opts.orderList)
+
     // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
@@ -70,6 +73,25 @@ export default {
     }
   },
 
+  // Resolve the `rtl` option into a normalized internal value: 'ltr' or 'rtl'.
+  // Called during initContainer (after initConstants), before rendering the root container.
+  getRtlDirection () {
+    const rtl = this.options.rtl
+
+    if (rtl === 'auto') {
+      // Probe priority: the table element ($el) first, then <html>, else ltr.
+      const dir = (this.$el.attr('dir') || $('html').attr('dir') || '').toLowerCase()
+
+      return dir === 'rtl' ? 'rtl' : 'ltr'
+    }
+
+    if (rtl === true || rtl === 'rtl') {
+      return 'rtl'
+    }
+
+    return 'ltr'
+  },
+
   initContainer () {
     const topPagination = ['top', 'both'].includes(this.options.paginationVAlign) ?
       '<div class="fixed-table-pagination clearfix"></div>' : ''
@@ -78,8 +100,15 @@ export default {
     const loadingTemplate = Utils.calculateObjectValue(this.options,
       this.options.loadingTemplate, [this.options.formatLoadingMessage()])
 
+    // Normalize the table direction once; only the root container carries it
+    // (inherited by the table/toolbar/pagination). The original <table> dir is
+    // left untouched so existing extensions (print, filter-control) keep working.
+    const isRtl = this.getRtlDirection() === 'rtl'
+    const rtlClass = isRtl ? ' bootstrap-table-rtl' : ''
+    const rtlDir = isRtl ? ' dir="rtl"' : ''
+
     this.$container = $(`
-      <div class="bootstrap-table ${this.constants.theme}">
+      <div class="bootstrap-table ${this.constants.theme}${rtlClass}"${rtlDir}>
       <div class="fixed-table-toolbar"></div>
       ${topPagination}
       <div class="fixed-table-container">
@@ -200,6 +229,8 @@ export default {
     this.options.columns.forEach((columns, i) => {
       columns.forEach((_column, j) => {
         const column = Utils.extend({}, Constants.COLUMN_DEFAULTS, _column, { passed: _column })
+
+        column.orderList = Utils.normalizeOrderList(column.orderList)
 
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column

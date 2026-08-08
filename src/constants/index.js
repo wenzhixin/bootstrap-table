@@ -253,6 +253,7 @@ const DEFAULTS = {
   responseHandler: res => res,
   rowAttributes: (row, index) => ({}),
   rowStyle: (row, index) => ({}),
+  rtl: false, // false, true, 'ltr', 'rtl', 'auto'
   search: false,
   searchable: false,
   searchAccentNeutralise: false,
@@ -285,6 +286,7 @@ const DEFAULTS = {
   sortable: true,
   sortClass: undefined,
   sortEmptyLast: false,
+  orderList: undefined, // ['asc','desc'] | ['desc','asc'] | 'asc,desc'; undefined => legacy column `order` fallback
   sortName: undefined,
   sortOrder: undefined,
   sortReset: false,
@@ -425,6 +427,7 @@ const COLUMN_DEFAULTS = {
   formatter: undefined, // function
   halign: undefined, // left, right, center
   order: 'asc', // asc, desc
+  orderList: undefined, // overrides the table-level orderList for this column
   radio: false,
   rowspan: undefined, // number
   searchable: true,

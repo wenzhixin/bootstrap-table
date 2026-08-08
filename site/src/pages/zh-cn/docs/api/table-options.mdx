@@ -70,14 +70,14 @@ $('#table').bootstrapTable({
 - **详情:**
 
   允许创建/添加自定义按钮到按钮栏（表格右上角）。
-  这些按钮可以通过表格选项 [buttonsOrder](https://bootstrap-table.com/docs/api/table-options/#buttonsorder) 进行排序，应使用事件对应的键/名称进行排序。
+  这些按钮可以通过表格选项 [buttonsOrder](https://bootstrap-table.com/zh-cn/docs/api/table-options/#buttonsorder) 进行排序，应使用事件对应的键/名称进行排序。
 
   自定义按钮具有高度可配置性，存在以下选项：
   - `text`
-    - 描述：此选项用于 [showButtonText](https://bootstrap-table.com/docs/api/table-options/#showbuttontext) 表格选项。
+    - 描述：此选项用于 [showButtonText](https://bootstrap-table.com/zh-cn/docs/api/table-options/#showbuttontext) 表格选项。
     - 类型：`String`
   - `icon`
-    - 描述：此选项用于 [showButtonIcons](https://bootstrap-table.com/docs/api/table-options/#showbuttonicons) 表格选项。
+    - 描述：此选项用于 [showButtonIcons](https://bootstrap-table.com/zh-cn/docs/api/table-options/#showbuttonicons) 表格选项。
     - 类型：`String` - 只需要图标类，例如 `fa-users`
   - `render`
     - 描述：将此选项设置为 `false` 以默认隐藏按钮，当添加数据属性 `data-show-button-name="true"` 时按钮再次可见。
@@ -756,7 +756,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  指定用作复选框/单选框值的字段，对应 [selectItemName](https://bootstrap-table.com/docs/api/table-options/#selectitemname) 选项。
+  指定用作复选框/单选框值的字段，对应 [selectItemName](https://bootstrap-table.com/zh-cn/docs/api/table-options/#selectitemname) 选项。
 
 - **默认值:** `undefined`
 
@@ -904,6 +904,20 @@ $('#table').bootstrapTable({
 
 - **示例:** [Multiple Select Row](https://examples.bootstrap-table.com/#options/multiple-select-row.html)
 
+## orderList
+
+- **属性:** `data-order-list`
+
+- **类型:** `String | Array`
+
+- **详情:**
+
+  定义重复点击可排序列头时排序方向的循环顺序。接受逗号分隔的字符串（`'asc,desc'`、`'desc, asc'`）或数组（`['asc', 'desc']`），token 大小写不敏感。设置为 `['desc', 'asc']` 可让所有可排序列首次点击即降序（例如日期、金额列，见 [issue #7477](https://github.com/wenzhixin/bootstrap-table/issues/7477)）。启用 `sortReset` 时，会在最后一个方向之后追加一个"未排序"状态。列级 `orderList` 会覆盖此值。未设置时（即默认值），每列回退到自身的 [`order`](https://bootstrap-table.com/zh-cn/docs/api/column-options/#order)，因此大多数已有配置的点击循环保持不变。唯一有意调整的是 `order: 'desc'` 且启用 `sortReset` 的列：之前的循环会在升序与未排序状态之间反复卡住，现在则按降序 → 升序 → 未排序 → 降序 循环。
+
+- **默认值:** `undefined`
+
+- **示例:** [Order List](https://examples.bootstrap-table.com/#options/order-list.html)
+
 ## pageList
 
 - **属性:** `data-page-list`
@@ -914,7 +928,7 @@ $('#table').bootstrapTable({
 
   设置分页时，通过选择列表初始化页面大小。如果包含 `'all'` 或 `'unlimited'` 选项，所有记录将显示在表格中。
 
-  *提示：如果表格行数少于选项数量，选项将自动隐藏。要禁用此功能，可将 [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) 设置为 `false`*
+  *提示：如果表格行数少于选项数量，选项将自动隐藏。要禁用此功能，可将 [smartDisplay](https://bootstrap-table.com/zh-cn/docs/api/table-options/#smartdisplay) 设置为 `false`*
 
 - **默认值:** `[10, 25, 50, 100]`
 
@@ -1243,6 +1257,35 @@ $('#table').bootstrapTable({
 
 - **示例:** [Row Style](https://examples.bootstrap-table.com/#options/row-style.html)
 
+## rtl
+
+- **属性:** `data-rtl`
+
+- **类型:** `Boolean | String`
+
+- **详情:**
+
+  设置表格的方向为从右到左（RTL）。
+
+  支持的取值：
+  - `false`（默认）：从左到右（LTR），与之前的版本逐字节一致。
+  - `true` / `'rtl'`：以 RTL 方向渲染表格。
+  - `'ltr'`：显式以 LTR 方向渲染表格。
+  - `'auto'`：自动探测方向。优先读取表格元素的 `dir` 属性，其次是 `<html>` 元素的 `dir`
+    属性，两者都未设置时回退为 LTR。
+
+  当 RTL 生效时，根容器会获得 `dir="rtl"` 属性和 `bootstrap-table-rtl` 类，因此工具栏按钮、
+  分页、搜索框和排序图标会左右镜像，而复选框 / 索引列则通过 `dir="rtl"` 的原生行为移动到右侧。
+
+  列对齐（`align` / `halign` / `falign`）保持物理语义，在 RTL 模式下**不会**被翻转。
+  如果需要随方向变化的逻辑对齐，请使用 CSS 逻辑值。
+
+  `fixed-columns` 扩展的 RTL 支持将作为后续工作提供。
+
+- **默认值:** `false`
+
+- **示例:** [RTL Support](https://examples.bootstrap-table.com/#options/rtl.html)
+
 ## search
 
 - **属性:** `data-search`
@@ -1262,9 +1305,9 @@ $('#table').bootstrapTable({
     示例：4 大于 3。
 
   注意：
-  - 如果要使用自定义搜索输入，请使用 [searchSelector](https://bootstrap-table.com/docs/api/table-options/#searchSelector)。
-  - 您也可以使用 [regexSearch](https://bootstrap-table.com/docs/api/table-options/#regexSearch) 选项通过正则表达式搜索。
-  - 如果要向服务器端分页发送可搜索参数，请使用 [searchable](https://bootstrap-table.com/docs/api/table-options/#searchable) 选项。
+  - 如果要使用自定义搜索输入，请使用 [searchSelector](https://bootstrap-table.com/zh-cn/docs/api/table-options/#searchSelector)。
+  - 您也可以使用 [regexSearch](https://bootstrap-table.com/zh-cn/docs/api/table-options/#regexSearch) 选项通过正则表达式搜索。
+  - 如果要向服务器端分页发送可搜索参数，请使用 [searchable](https://bootstrap-table.com/zh-cn/docs/api/table-options/#searchable) 选项。
 
 - **默认值:** `false`
 
@@ -1278,7 +1321,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  设置为 `true` 以在使用服务器端分页时向服务器发送[可搜索参数](https://bootstrap-table.com/docs/api/column-options/#searchable)。
+  设置为 `true` 以在使用服务器端分页时向服务器发送[可搜索参数](https://bootstrap-table.com/zh-cn/docs/api/column-options/#searchable)。
 
 - **默认值:** `false`
 
@@ -1321,7 +1364,7 @@ $('#table').bootstrapTable({
 - **详情:**
 
   设置为 `true` 以突出显示搜索的文本（使用 `<mark>` HTML 标签）。
-  您也可以定义[自定义高亮格式化程序](https://bootstrap-table.com/docs/api/column-options/#searchhighlightformatter)，例如，对于带有 HTML 的值或使用自定义高亮颜色。
+  您也可以定义[自定义高亮格式化程序](https://bootstrap-table.com/zh-cn/docs/api/column-options/#searchhighlightformatter)，例如，对于带有 HTML 的值或使用自定义高亮颜色。
 
 - **默认值:** `'false'`
 
@@ -1974,7 +2017,7 @@ $('#table').bootstrapTable({
 
 - **错误处理**
 
-  要获取加载错误，请使用 [onLoadError](https://bootstrap-table.com/docs/api/events/#onloaderror)
+  要获取加载错误，请使用 [onLoadError](https://bootstrap-table.com/zh-cn/docs/api/events/#onloaderror)
 
 ## virtualScroll
 
