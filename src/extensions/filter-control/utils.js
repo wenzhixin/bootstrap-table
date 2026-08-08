@@ -449,7 +449,7 @@ export function createControls (that, header) {
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
       keyCode = obj?.keyCode ?? keyCode
-      const isInitial = !!(obj && obj.isInitial)
+      const isInitial = obj?.isInitial === true
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
         return
@@ -474,7 +474,7 @@ export function createControls (that, header) {
     header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }, obj) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
-      const isInitial = !!(obj && obj.isInitial)
+      const isInitial = obj?.isInitial === true
 
       const normalizedValue = value === null ?
         $selectControl.prop('multiple') ? [] : null :
