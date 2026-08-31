@@ -39,7 +39,7 @@
     "cross-env": "^10.1.0",
     "cspell": "^10.0.1",
     "cypress": "^15.18.1",
-    "editorconfig-checker": "^6.1.1",
+    "editorconfig-checker": "^7.0.0",
     "eslint": "^10.7.0",
     "eslint-plugin-import-x": "^4.17.1",
     "foreach-cli": "^1.8.1",
