@@ -3232,10 +3232,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-editorconfig-checker@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/editorconfig-checker/-/editorconfig-checker-6.1.1.tgz#0b452b796fe9f17221404d25fcec83b17c7d2a93"
-  integrity sha512-kiOb6qaWpMNt7Z/43ba0Pa1Inhr2/t9nKbvEKtCeXJ5AesztoM9AgLOOQVB4QUv/nGjgz3xkbx4pcogVRD2NWw==
+editorconfig-checker@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/editorconfig-checker/-/editorconfig-checker-7.0.0.tgz#44ccf9ff1165a736376065e5f759da318e0dfe81"
+  integrity sha512-bqTCyzjz6Qbah4hBO032mQiwGstrHL/jwsnlFvlqrDcpv8rv2pSgLo00Fnji1u6PGtSdY6uydzVLUdHupbpNBQ==
 
 electron-to-chromium@^1.5.238:
   version "1.5.240"
