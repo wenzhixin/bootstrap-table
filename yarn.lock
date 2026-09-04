@@ -842,10 +842,10 @@
     hashery "^1.5.1"
     keyv "^5.6.0"
 
-"@cspell/cspell-bundled-dicts@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-bundled-dicts/-/cspell-bundled-dicts-10.1.1.tgz#799c82c1856c2f4c918b264556a33b184d443000"
-  integrity sha512-EvPFPWwEPbPn2pIAD4D6PRRFbuM5OCiYfY0GhmpQyWWteCwR4gRmRs06UOWqfSRKHYBL/rUqcr3OAfiF5ctAjw==
+"@cspell/cspell-bundled-dicts@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-bundled-dicts/-/cspell-bundled-dicts-10.2.0.tgz#6c74d7a996a999ae3bddcea580d4df2f49422866"
+  integrity sha512-pNdBzc3+njM1A8cp0t/az+FbwBoiIzKCJ15gHVdEtynGOH+GLKzpbNeRAXe3ci+BYUjQQXlQrCKalXaa+ZXVtQ==
   dependencies:
     "@cspell/dict-ada" "^4.1.1"
     "@cspell/dict-al" "^1.1.1"
@@ -863,8 +863,8 @@
     "@cspell/dict-dotnet" "^5.0.13"
     "@cspell/dict-elixir" "^4.0.8"
     "@cspell/dict-en-common-misspellings" "^2.2.0"
-    "@cspell/dict-en-gb-mit" "^3.1.25"
-    "@cspell/dict-en_us" "^4.4.36"
+    "@cspell/dict-en-gb-mit" "^3.1.26"
+    "@cspell/dict-en_us" "^4.4.37"
     "@cspell/dict-filetypes" "^3.0.18"
     "@cspell/dict-flutter" "^1.1.1"
     "@cspell/dict-fonts" "^4.0.6"
@@ -892,13 +892,13 @@
     "@cspell/dict-php" "^4.1.1"
     "@cspell/dict-powershell" "^5.0.15"
     "@cspell/dict-public-licenses" "^2.0.16"
-    "@cspell/dict-python" "^4.4.0"
+    "@cspell/dict-python" "^4.5.0"
     "@cspell/dict-r" "^2.1.1"
     "@cspell/dict-ruby" "^5.1.2"
     "@cspell/dict-rust" "^4.1.2"
     "@cspell/dict-scala" "^5.0.9"
     "@cspell/dict-shell" "^1.2.0"
-    "@cspell/dict-software-terms" "^5.4.1"
+    "@cspell/dict-software-terms" "^5.4.2"
     "@cspell/dict-sql" "^2.2.1"
     "@cspell/dict-svelte" "^1.0.7"
     "@cspell/dict-swift" "^2.0.6"
@@ -907,46 +907,46 @@
     "@cspell/dict-vue" "^3.0.5"
     "@cspell/dict-zig" "^1.0.0"
 
-"@cspell/cspell-json-reporter@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-json-reporter/-/cspell-json-reporter-10.1.1.tgz#218606f20029758a627d7ee9e18bd95695716596"
-  integrity sha512-6makYERzgDCBGeOG7jSgZBOWxJKxBV6k0UQ60xDBZNrccACP45q8zO9YIXdHAYLmHB52l3Iz2vifeG7zhue7jA==
+"@cspell/cspell-json-reporter@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-json-reporter/-/cspell-json-reporter-10.2.0.tgz#eed4b3212d77540b93737c496cb1bda3232f8388"
+  integrity sha512-2iKTU/UPkSV9O4EzWSFreqM4/RTLoYnvCA9dmh9hJnmarYu/eDJk1CIVu+HgMlOiyCI3cgVux+649vJ0T2dHrA==
   dependencies:
-    "@cspell/cspell-types" "10.1.1"
+    "@cspell/cspell-types" "10.2.0"
 
-"@cspell/cspell-performance-monitor@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-performance-monitor/-/cspell-performance-monitor-10.1.1.tgz#61e0dac1f6095cab1533200d52d1b8a3602a915e"
-  integrity sha512-M3Bq+K0jmbnAE2dWB8vG/TljagcKWuILTpcf6sIMB/jTaT7QH9FyzVp0Q6srlN3GEdSBwFBqrfWCorkjRUd0cQ==
+"@cspell/cspell-performance-monitor@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-performance-monitor/-/cspell-performance-monitor-10.2.0.tgz#f70e9dd95641370eb630cec0f07bc11bd84fbee8"
+  integrity sha512-Wzh984VNI+nkNiVSC4yXbzdVhVnxtxcvtCmslVhk7wc0nmwN5r9M4TQ1k5tSOihVMJn4iV3+fy3TUjkrSsppFA==
 
-"@cspell/cspell-pipe@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-pipe/-/cspell-pipe-10.1.1.tgz#f6a9a0b35b31325ec8211377c92318c7a7fd5285"
-  integrity sha512-WOuL9zdcl38b9P5Kpco3c1vg5v82bSWZ7LVeARbyrOmW60HxS8uP4nkbCGeU6pINvJCs0JUQxEZCRMHuEF0dfQ==
+"@cspell/cspell-pipe@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-pipe/-/cspell-pipe-10.2.0.tgz#1452e5ff03bc4372d0e5e8d06c765b400307d2fb"
+  integrity sha512-BlA7k9kjgH7LxA3DZGRvOo2Cs9wArR0ux6gvmweoyD+zbOsZquTfrCwnU9IoctTy7HjuYrsE7mvCCN6xP11E7g==
 
-"@cspell/cspell-resolver@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-resolver/-/cspell-resolver-10.1.1.tgz#a7f91d16363bb14b08fb8bea4869864226f65f4f"
-  integrity sha512-bbsykc5c7dDdPTDFdsY0GKwXlflDDaTUycAegziFLCcp8b/q1txQmqBxx95ok1pjpU10sWxiJztZZRayFcM5sg==
+"@cspell/cspell-resolver@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-resolver/-/cspell-resolver-10.2.0.tgz#f7186fc038b9e66da845bb0fd63711534d11b776"
+  integrity sha512-m94I4iTzWaklOr+eNxy/kgpcJYS9dMzeEsZKV6uprVCPNLNn63Ic+ChadNErwV2ii3tiNLAkn8VJy84oe2h1YA==
   dependencies:
     global-directory "^5.0.0"
 
-"@cspell/cspell-service-bus@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-service-bus/-/cspell-service-bus-10.1.1.tgz#c0abed4193b80e9bec61815a8dd695d3796cde01"
-  integrity sha512-Z3BUsVllqyAoJSGXcyFp0hXtBVKEfrxVcSy3UPoSoLW9gZZjXmFwOorhga3+fMseC9VRK3L6mKSccn9YGAjsnA==
+"@cspell/cspell-service-bus@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-service-bus/-/cspell-service-bus-10.2.0.tgz#b7d91cfd36cf0352fe3ccfe144c9218ecbe4305c"
+  integrity sha512-r061UxqmEwZK+XiW0dnbE6r7nKHNavQJ4PVw2zqzBVtcFj9YU9LCpOZx4mL49IlmCWxy7jf2jAD9w8nFPn1pWg==
 
-"@cspell/cspell-types@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-types/-/cspell-types-10.1.1.tgz#b8089f10758a1c554955ac1406d21edf38587e2a"
-  integrity sha512-lsc+/pazJQ47Zy7qyuFiQRZzco+kBSUmAtCzbmT96pFpAVxR+b4A8qRBoTdiq4OXBRXRT+CqWMNynSiwQJWM6g==
+"@cspell/cspell-types@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-types/-/cspell-types-10.2.0.tgz#1c190eed2f9d4ebd846d7e4e69d04422b416ab09"
+  integrity sha512-tkmOVCm2XzPUipa8eIu88ShRogjJ5RIen3y9kzBn51re5Nmjw4HDWRLbeBP1WTGFYR7bMi2h0ybnH0BuBCA29g==
 
-"@cspell/cspell-worker@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-worker/-/cspell-worker-10.1.1.tgz#a8d45977e91e1ebbaab8d8f67a4bd4081579888f"
-  integrity sha512-X9Ehif6c/9BRIODBjWMr0paHQrY3Jw7q0FWeSdxPZrnKhgJ+cX4vtvqlSD1dGXMV2/fGh10p1HznuDhNlQ4tjg==
+"@cspell/cspell-worker@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-worker/-/cspell-worker-10.2.0.tgz#12006b5919be7d38e05d4928f394ef89185e951f"
+  integrity sha512-6yom68ucNQIUA56gEsXtoquM55AeQBKaMe/a35a91HIvB7AyhrTRTTeheuE/Gl2FUyszHecdewC6sbYELaAsvA==
   dependencies:
-    cspell-lib "10.1.1"
+    cspell-lib "10.2.0"
 
 "@cspell/dict-ada@^4.1.1":
   version "4.1.1"
@@ -1030,15 +1030,15 @@
   resolved "https://registry.yarnpkg.com/@cspell/dict-en-common-misspellings/-/dict-en-common-misspellings-2.2.0.tgz#a7ba55b9064f0219a78c9963064115ea98295258"
   integrity sha512-5PmCHv+AhY0LVNo3bE1FdRKMmw1esKj83GPwLymnVPYNtlI2Jf6y27EjC0azg4zny5keWmku0GQiMf55Fi+qeA==
 
-"@cspell/dict-en-gb-mit@^3.1.25":
-  version "3.1.25"
-  resolved "https://registry.yarnpkg.com/@cspell/dict-en-gb-mit/-/dict-en-gb-mit-3.1.25.tgz#f33bb024ffb4f52b0d4f263882e11bffcf338f8a"
-  integrity sha512-zGODptk24CMrXi49ieG2SUm94CKxEsVF0dYNF+1ZYH0MSsQDZ/PKDlrrbvtBqSupKdPSj0Z9sjOmMNfHHW9ZSg==
+"@cspell/dict-en-gb-mit@^3.1.26":
+  version "3.1.26"
+  resolved "https://registry.yarnpkg.com/@cspell/dict-en-gb-mit/-/dict-en-gb-mit-3.1.26.tgz#2c4273379e972b323d06824f071f43955e5139c7"
+  integrity sha512-F9Y/45+1oIPzfL/pyWLp4kzX+vddHPAYpIpIF+45bdc65AebeEiQHKzSmKgGGTd3qbQc3fATw2kAFdLryiQpjQ==
 
-"@cspell/dict-en_us@^4.4.36":
-  version "4.4.36"
-  resolved "https://registry.yarnpkg.com/@cspell/dict-en_us/-/dict-en_us-4.4.36.tgz#fdfd0e722b6d9f234364c08c72149fb305c2131e"
-  integrity sha512-2yOhI/+7d1DbfvMljGW4jw8pLqDEsVmnvUXBOCFXtLU2BWgQkrqOJDCNseYjEiEbTp0OtdrWEWWPFSP1TNugQw==
+"@cspell/dict-en_us@^4.4.37":
+  version "4.4.37"
+  resolved "https://registry.yarnpkg.com/@cspell/dict-en_us/-/dict-en_us-4.4.37.tgz#f3363e4b1a96772254949453d2f5db0efee9d181"
+  integrity sha512-rMKyPrk2SKmDU+Bj0U0ixsv4Du93oijwovc8XlUin0zwKOJZb0/PFG5Df4P8CrM2CrLeovpaFvhoI98DigxBLw==
 
 "@cspell/dict-filetypes@^3.0.18":
   version "3.0.18"
@@ -1175,10 +1175,10 @@
   resolved "https://registry.yarnpkg.com/@cspell/dict-public-licenses/-/dict-public-licenses-2.0.16.tgz#8eb3c467c24526460543a24edf55a979a4f34f39"
   integrity sha512-EQRrPvEOmwhwWezV+W7LjXbIBjiy6y/shrET6Qcpnk3XANTzfvWflf9PnJ5kId/oKWvihFy0za0AV1JHd03pSQ==
 
-"@cspell/dict-python@^4.4.0":
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/@cspell/dict-python/-/dict-python-4.4.0.tgz#1f6884798be96654d51252319954b7f20bddc5ae"
-  integrity sha512-49Eju/a97V6ExAeMJDM2Tk4jsYr0pm+kQzqQrKLAZdrRd6VrLIgseI481EQSmgoVkPPdsuwK1xj9ZlpDQIF4qg==
+"@cspell/dict-python@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@cspell/dict-python/-/dict-python-4.5.0.tgz#18953fdd888c5411aa02dcaa4491f1b9c6509bf4"
+  integrity sha512-O1lSuFXoX8p+4hvJMbqvg3blbn0Zx8LHqdPQSNaOxFZGf7hmq6pc8sfta+98E7Q/WtDooAnU3XpBxBXcn0r94g==
   dependencies:
     "@cspell/dict-data-science" "^2.0.16"
 
@@ -1207,10 +1207,10 @@
   resolved "https://registry.yarnpkg.com/@cspell/dict-shell/-/dict-shell-1.2.0.tgz#5702fe3f8fc8813448e98dcec9df9e34934b0f21"
   integrity sha512-PVctvT22lJ49niMiakO8xieY7ELCAzjSqhejWR7bAMb5AZ9F4WDEs+XdGMnoVHWeXq7K5rcepLPmEJb+37zzIw==
 
-"@cspell/dict-software-terms@^5.4.1":
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/@cspell/dict-software-terms/-/dict-software-terms-5.4.1.tgz#b50294190602c83b0e317f39ff34394846fcf3ea"
-  integrity sha512-tY88gnOWj2ax6h+i7BjU7dIH1f3fvY4WypS0a+TpjBgXC318AdOMmy0zK1SzxGNOjhWJfCeCZNVoLFM/DuOG4g==
+"@cspell/dict-software-terms@^5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@cspell/dict-software-terms/-/dict-software-terms-5.4.2.tgz#948ecc25f39a8f2eda3561fbd500fa5475540b50"
+  integrity sha512-C2tS1JjxqHef9TpPRm08a6n+PJCrKrD6FsmPEyXb2J6TFef4FFnKRcGOf3pFnd+a6/oyQgXZWeKiECH6lBFjQA==
 
 "@cspell/dict-sql@^2.2.1":
   version "2.2.1"
@@ -1247,33 +1247,33 @@
   resolved "https://registry.yarnpkg.com/@cspell/dict-zig/-/dict-zig-1.0.0.tgz#f75fef19f2fdad6f5bc4d02b95b8bec824e82ab9"
   integrity sha512-XibBIxBlVosU06+M6uHWkFeT0/pW5WajDRYdXG2CgHnq85b0TI/Ks0FuBJykmsgi2CAD3Qtx8UHFEtl/DSFnAQ==
 
-"@cspell/dynamic-import@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/dynamic-import/-/dynamic-import-10.1.1.tgz#2be1814d0c6bc6ddaf36779991ca2e97a311e538"
-  integrity sha512-bNI+Gp0Rnx/WyOvni4TksvNWeQvCfyQAhZRIGMt+9bbLyniVagnftnoahV/yoF9h3WWxU3tL2eaVZx9B5dijuQ==
+"@cspell/dynamic-import@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/dynamic-import/-/dynamic-import-10.2.0.tgz#f7259abae73801f69edbc6f32ccbe9305cd2798c"
+  integrity sha512-FpmedZcu9qcN14/awVPISEBi3A1nPR2zyLslvSRhp6GPJt0YsRVBR5BDKxbLNIGqvM2xg3ZLjo2eGTjThiyHxA==
   dependencies:
-    "@cspell/url" "10.1.1"
+    "@cspell/url" "10.2.0"
     import-meta-resolve "^4.2.0"
 
-"@cspell/filetypes@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/filetypes/-/filetypes-10.1.1.tgz#78205b821aef0042f2c14d45954fb6e1b6f50ef2"
-  integrity sha512-sSREdKF4roC4QM2n0qUgv10W74nUO7CUhDTCz3Sd3mHlUM46WI8QqbAIZFNTm5U4SuVaVAmXzsZvM69O/rOjvQ==
+"@cspell/filetypes@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/filetypes/-/filetypes-10.2.0.tgz#5a0bbc6a3c3886ecc98330938fa7cc47ca76b9d0"
+  integrity sha512-1I1wnjGqJkQqoHWZ8I28HuMPLG7yzJOh//rGGHBZE6Ly2loJWhk4+/Fa4wEoZ71Ss1HQii9d7smB0B/w1dqGDA==
 
-"@cspell/rpc@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/rpc/-/rpc-10.1.1.tgz#8ff960792098aa09378af00436c5a90abd080a06"
-  integrity sha512-sWQ++D8++6pAv8FSCfJOpc/t/yoK1r0xwcBb23SenOA9nvcmI7CwAp2FK2oByLnDTe+Bh6mQWtRRZSr3gfoGhQ==
+"@cspell/rpc@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/rpc/-/rpc-10.2.0.tgz#afa4dd5c858bf3ef40642c5e05de16ff4b97199f"
+  integrity sha512-K8g80OcuhsGqFQvX2kjhgCGs7mOQf5lSeR2Jg34Uq6VQQ/WapJ9pE7CK6R3RKFjhWT8hlrbALiByk9Mj+7GyeQ==
 
-"@cspell/strong-weak-map@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/strong-weak-map/-/strong-weak-map-10.1.1.tgz#7746169fa2741fda01c22086f6f4fb87690c06fa"
-  integrity sha512-s7PsRDfZO5J1dB0gtlaeNxwaibDUCYIFlbdzMawlUejR/UNrhDgDIr48OScoOt5SaUHijEVpFDkrWVyCs5R7oQ==
+"@cspell/strong-weak-map@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/strong-weak-map/-/strong-weak-map-10.2.0.tgz#fcca0ceb5ebc9900034f7db14fe5c290a466ecdf"
+  integrity sha512-fBLmVOakQ42Wy+7ZnIdnOSk4/WtJFoNLMEG4yqX/cGML3tIh06PTd9UphwltuwPDCL/tXJQsN/LOY8iLx6hmfw==
 
-"@cspell/url@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@cspell/url/-/url-10.1.1.tgz#37d27d2361f0da9b3a46422dea7ed5245896ef00"
-  integrity sha512-5O2bZ5H/zPomc4qshTpfCbIltallsdQNwlw6j/Gl+eVElrlFsgc0kzuYJdk1BMnpA0ZXPXYH7XVKCGIKzLcr2g==
+"@cspell/url@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@cspell/url/-/url-10.2.0.tgz#5ad02d6f9e35868f36ae815309028657971a104a"
+  integrity sha512-TIgG/pCkgo3SiayAbV0CorYPdnaNkYWfJFKHhSBTKIdBDwK4YwcbbDlXWGCTJ6gxhhwnrNhcw4jDjz8jejKS4A==
 
 "@csstools/css-calc@^3.2.1":
   version "3.2.1"
@@ -2969,116 +2969,116 @@ crypt@0.0.2:
   resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
   integrity sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=
 
-cspell-config-lib@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-config-lib/-/cspell-config-lib-10.1.1.tgz#9f898c4b936ea484247cbd7f3948fb842399d895"
-  integrity sha512-/AgOcOxO0jmAJCkShhaPQqSNrx+QUkEOncTf2uFnIx4/gRxFwiRZ0Zrv6PyHNBTC5vY82+qB6scT5Pj30n174A==
+cspell-config-lib@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-config-lib/-/cspell-config-lib-10.2.0.tgz#945f90d73b167b83092e7de8d7d98c6c38946ae0"
+  integrity sha512-QweJ6dtHm1UkguapTm3Csra6p87HiOmLKiVRAxn75tW9Yojb5fGnqLxErO5sGQZvwgWAqQeT9lrqm3ohvCJjVw==
   dependencies:
-    "@cspell/cspell-types" "10.1.1"
+    "@cspell/cspell-types" "10.2.0"
     comment-json "^5.0.0"
     smol-toml "^1.8.0"
     yaml "^2.9.0"
 
-cspell-dictionary@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-dictionary/-/cspell-dictionary-10.1.1.tgz#3490e35e98ddb65cff50059d6aee69b577e45a70"
-  integrity sha512-94eW96hjAa3ASAjtmWkC1h1S7GLNHEoDftViilZ/nQzHxeYHp8kU73/0Jqjawr3tzfNvdKV0Bq/8zgeEp1LNrA==
+cspell-dictionary@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-dictionary/-/cspell-dictionary-10.2.0.tgz#f6d6903b7f81e5f8dd63ec3066ff91699c76237d"
+  integrity sha512-5r7HBf3nkST6mwsFvRV51i3ETcqFuDQoYK03EqzZYTX4ZLVR/nGrRSOZuFW+d9yU3IKjLWgY14Ab4dDKmBcw7A==
   dependencies:
-    "@cspell/cspell-performance-monitor" "10.1.1"
-    "@cspell/cspell-pipe" "10.1.1"
-    "@cspell/cspell-types" "10.1.1"
-    cspell-trie-lib "10.1.1"
+    "@cspell/cspell-performance-monitor" "10.2.0"
+    "@cspell/cspell-pipe" "10.2.0"
+    "@cspell/cspell-types" "10.2.0"
+    cspell-trie-lib "10.2.0"
     fast-equals "^6.0.2"
 
-cspell-gitignore@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-gitignore/-/cspell-gitignore-10.1.1.tgz#4371bdb8c886935bdfc16c196c2326218b5c8a71"
-  integrity sha512-vYQjziKDH8qQzj/gHHJPKwmAqwfQIHBvyqukR0Uf1WzY1X08Ns9jMl5JDRUL7ffcosDYsReIhLxy2KJrxRkrng==
+cspell-gitignore@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-gitignore/-/cspell-gitignore-10.2.0.tgz#1be3cb282b32e5e04f1b5ff5f6d1a3fc124084d8"
+  integrity sha512-2/b64Niu5wNlUOW6N7QBRnU8dpnCdvRfZbOgcCO5f5m0OuIbrXTsnrfHJk25w/9M9H2yv2VS8LRKPWuxGXiZpA==
   dependencies:
-    "@cspell/url" "10.1.1"
-    cspell-glob "10.1.1"
-    cspell-io "10.1.1"
+    "@cspell/url" "10.2.0"
+    cspell-glob "10.2.0"
+    cspell-io "10.2.0"
 
-cspell-glob@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-glob/-/cspell-glob-10.1.1.tgz#9ad0e6f0e470a1f50c8e66d9982e7b9714c3671a"
-  integrity sha512-+xRfPD/KHU3JCMPK3Blt3AchW6KAzsyrNUdNns9mmkDRiej5Vl19kdN3eKh7B/0XoAKnX/v67tucCu/jr8MTug==
+cspell-glob@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-glob/-/cspell-glob-10.2.0.tgz#fa5860759965f44d946fcc3ed0d366fe3e2ac5dc"
+  integrity sha512-b6H3zFMkqM5OUVabAvdd4sqyziEo3fFlss73Jn2RsHY2h5PH8gOwM1WsWQOcbDSEn7tj5NsA9a3iETXMkY1thw==
   dependencies:
-    "@cspell/url" "10.1.1"
-    picomatch "^4.0.5"
+    "@cspell/url" "10.2.0"
+    picomatch "^4.0.7"
 
-cspell-grammar@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-grammar/-/cspell-grammar-10.1.1.tgz#9b3ba3f0cd804f385e0fc45e81501e1a54c57a02"
-  integrity sha512-mOHufusJEld/q8ZfC+AhequR515QIOHC0LdD1z6PU+Mpn3GRBGJBWK56iUwHH4XX935GsUMJFIQuOoMXXcbAsw==
+cspell-grammar@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-grammar/-/cspell-grammar-10.2.0.tgz#7d99be7f6fb12a908ccedc935d7dee6be398a264"
+  integrity sha512-CrMM0Qoh9WuputdD08n3qrJKtzoLEZArT7QhMaeZkl58fARYqmx8JgtrE9X0+GSV4Uden0zVa5o4KcdXtXUSAQ==
   dependencies:
-    "@cspell/cspell-pipe" "10.1.1"
-    "@cspell/cspell-types" "10.1.1"
+    "@cspell/cspell-pipe" "10.2.0"
+    "@cspell/cspell-types" "10.2.0"
 
-cspell-io@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-io/-/cspell-io-10.1.1.tgz#d04b1f358cf68d374692b7f0cbe3b0f574585a64"
-  integrity sha512-Gcl2B2hKOJBqi+nf1ZnZ2XZj+VWN+AZLfQZR5dxxny3Ggy51vW8AfJX8lF8Ev/c559AkC5G7KkO2jkVuZ4SVsA==
+cspell-io@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-io/-/cspell-io-10.2.0.tgz#c085bd0cbbaea3846f06f892bd5558cefdda8097"
+  integrity sha512-UqZcOCH+W9DhcjQGRiKJIwQaeNLGA+PKBHVmw4hvmBvuWGCH7uSiHuOeO+WrvJbolFDfZ9f7gV5ItmITgSANHg==
   dependencies:
-    "@cspell/cspell-service-bus" "10.1.1"
-    "@cspell/url" "10.1.1"
+    "@cspell/cspell-service-bus" "10.2.0"
+    "@cspell/url" "10.2.0"
 
-cspell-lib@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-lib/-/cspell-lib-10.1.1.tgz#012d33adc7ec4cd39f32c2f10353cb107bc5f5f8"
-  integrity sha512-jckdiCU/3pkvJ21G77R2fl93R6JjpYwP+wj8qQNUewYlTl9bdhMJi8xgLb4os7CJnHD5kA59ow8tNvh45d3zDw==
+cspell-lib@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-lib/-/cspell-lib-10.2.0.tgz#60e53324c135e5a10e3eda400147073b6816cdf4"
+  integrity sha512-uIU4RtUzodzlS39O26Q1g0AxdHNB7CndkaN40Ekmb19kKrOf49umsXhRhdzrYc/uQ9dsp4AFp/mQI5Yc1MK1NA==
   dependencies:
-    "@cspell/cspell-bundled-dicts" "10.1.1"
-    "@cspell/cspell-performance-monitor" "10.1.1"
-    "@cspell/cspell-pipe" "10.1.1"
-    "@cspell/cspell-resolver" "10.1.1"
-    "@cspell/cspell-types" "10.1.1"
-    "@cspell/dynamic-import" "10.1.1"
-    "@cspell/filetypes" "10.1.1"
-    "@cspell/rpc" "10.1.1"
-    "@cspell/strong-weak-map" "10.1.1"
-    "@cspell/url" "10.1.1"
-    cspell-config-lib "10.1.1"
-    cspell-dictionary "10.1.1"
-    cspell-glob "10.1.1"
-    cspell-grammar "10.1.1"
-    cspell-io "10.1.1"
-    cspell-trie-lib "10.1.1"
+    "@cspell/cspell-bundled-dicts" "10.2.0"
+    "@cspell/cspell-performance-monitor" "10.2.0"
+    "@cspell/cspell-pipe" "10.2.0"
+    "@cspell/cspell-resolver" "10.2.0"
+    "@cspell/cspell-types" "10.2.0"
+    "@cspell/dynamic-import" "10.2.0"
+    "@cspell/filetypes" "10.2.0"
+    "@cspell/rpc" "10.2.0"
+    "@cspell/strong-weak-map" "10.2.0"
+    "@cspell/url" "10.2.0"
+    cspell-config-lib "10.2.0"
+    cspell-dictionary "10.2.0"
+    cspell-glob "10.2.0"
+    cspell-grammar "10.2.0"
+    cspell-io "10.2.0"
+    cspell-trie-lib "10.2.0"
     env-paths "^4.0.0"
     gensequence "^8.0.8"
     import-fresh "^4.0.0"
     resolve-from "^5.0.0"
-    vscode-languageserver-textdocument "^1.0.12"
-    vscode-uri "^3.1.0"
+    vscode-languageserver-textdocument "^1.0.14"
+    vscode-uri "^3.2.0"
     xdg-basedir "^5.1.0"
 
-cspell-trie-lib@10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell-trie-lib/-/cspell-trie-lib-10.1.1.tgz#889a80ab8c9dc55a5447cfbad448322f83bec342"
-  integrity sha512-4ico1ebFl9lvP1Yr4pD+FxOYRS7Ct+ImV8v0KcEclxMixqNku4NoVP/CvmE1AyyVB3FN16fITN0vo3ZAR79PFw==
+cspell-trie-lib@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell-trie-lib/-/cspell-trie-lib-10.2.0.tgz#51cc23f81ecbb1305719cbb14cd7208687bc0030"
+  integrity sha512-lvEfGc/SfNfkdq9LZYQENDMuPoILsLwo2o4QHqdyic65MvmL1fZLi77O/qgSJ4aKgVja0/A8cbsdtKnFuruHbw==
 
 cspell@^10.0.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/cspell/-/cspell-10.1.1.tgz#fb89b98898d3417ccbc8a6fa69fa70bf49347302"
-  integrity sha512-imoZaB1+9gHMyFFMDBY7VbtIdDwkRJXQjs3bIfo1H+AUJnw/vMxLwXk8mnPmH7ziw2m2kyGF+rPAVUE93VEAAA==
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/cspell/-/cspell-10.2.0.tgz#92e12314bb4d99fe3776cbcc3976a451c064b65b"
+  integrity sha512-BZaciNlTSZ72IQtju46JlVXyXIMOdoqjU/i1KamisH1uYw1OO4HgG6T0Y8doB99s6v1WJH7W2RL2kqpfq7e1Kw==
   dependencies:
-    "@cspell/cspell-json-reporter" "10.1.1"
-    "@cspell/cspell-performance-monitor" "10.1.1"
-    "@cspell/cspell-pipe" "10.1.1"
-    "@cspell/cspell-types" "10.1.1"
-    "@cspell/cspell-worker" "10.1.1"
-    "@cspell/dynamic-import" "10.1.1"
-    "@cspell/url" "10.1.1"
+    "@cspell/cspell-json-reporter" "10.2.0"
+    "@cspell/cspell-performance-monitor" "10.2.0"
+    "@cspell/cspell-pipe" "10.2.0"
+    "@cspell/cspell-types" "10.2.0"
+    "@cspell/cspell-worker" "10.2.0"
+    "@cspell/dynamic-import" "10.2.0"
+    "@cspell/url" "10.2.0"
     ansi-regex "^6.3.0"
     chalk "^6.0.0"
     chalk-template "^1.1.2"
     commander "^15.0.0"
-    cspell-config-lib "10.1.1"
-    cspell-dictionary "10.1.1"
-    cspell-gitignore "10.1.1"
-    cspell-glob "10.1.1"
-    cspell-io "10.1.1"
-    cspell-lib "10.1.1"
+    cspell-config-lib "10.2.0"
+    cspell-dictionary "10.2.0"
+    cspell-gitignore "10.2.0"
+    cspell-glob "10.2.0"
+    cspell-io "10.2.0"
+    cspell-lib "10.2.0"
     fast-json-stable-stringify "^2.1.0"
     flatted "^3.4.4"
     semver "^7.8.5"
@@ -4921,6 +4921,11 @@ picomatch@^4.0.2, picomatch@^4.0.3, picomatch@^4.0.4, picomatch@^4.0.5:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.5.tgz#51ea57a17d86f605f81039595fbc40ed06a55fab"
   integrity sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==
 
+picomatch@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.7.tgz#6313360034ccb36b3dc61ecbdff78121f90fe21f"
+  integrity sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==
+
 pidtree@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/pidtree/-/pidtree-1.0.0.tgz#55a9b149ba64519a8b46781165a122a34f4a6d31"
@@ -5917,15 +5922,15 @@ vitest@^4.1.10:
     vite "^6.0.0 || ^7.0.0 || ^8.0.0"
     why-is-node-running "^2.3.0"
 
-vscode-languageserver-textdocument@^1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.12.tgz#457ee04271ab38998a093c68c2342f53f6e4a631"
-  integrity sha512-cxWNPesCnQCcMPeenjKKsOCKQZ/L6Tv19DTRIGuLWe32lyzWhihGVJ/rcckZXJxfdKCFvRLS3fpBIsV/ZGX4zA==
+vscode-languageserver-textdocument@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.14.tgz#7731b808ba1a907e3560d5e4317bcd14baf819ce"
+  integrity sha512-EQyqJMi552E4ZTf46izQ4Fj6XquqxCySR3J5ZSD1SisMf6RfpeOWHxGBE8Gr6V0/3GHIGdAzDn8F8+1nTGCnoQ==
 
-vscode-uri@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-3.1.0.tgz#dd09ec5a66a38b5c3fffc774015713496d14e09c"
-  integrity sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==
+vscode-uri@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-3.2.0.tgz#1cb1fd3cee7426b66732afc3fb86343d596d5fb4"
+  integrity sha512-m2gXo3bn0G1kT9InzMf07fTbqMbGtyckj3bH5ktLO+1Ssv+yiATZ4dhwaQv9UZWxJh6E9IFGnQyjgWVDWVBDrg==
 
 vue@^3.5.39:
   version "3.5.42"
