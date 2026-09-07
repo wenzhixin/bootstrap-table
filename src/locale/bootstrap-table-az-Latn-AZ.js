@@ -1,5 +1,5 @@
 /**
- * Bootstrap Table Azerbaijani (Latin) translation
+ * Bootstrap Table Azerbaijani (Latin, Azerbaijan) translation
  * Author: jamalkamaladdin (https://github.com/jamalkamaladdin)
  */
 
