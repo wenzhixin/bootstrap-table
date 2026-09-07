@@ -26,7 +26,7 @@ Table bellow is sorted ascending by language code. If case of add new translatio
 | Azerbaijani (Cyrillic)                                         | az-Cyrl        |            | missing        |
 | Azerbaijani (Cyrillic, Azerbaijan)                             | az-Cyrl-AZ     |            | missing        |
 | Azerbaijani (Latin)                                            | az-Latn        |            | missing        |
-| Azerbaijani (Latin, Azerbaijan)                                | az-Latn-AZ     | az         | missing        |
+| Azerbaijani (Latin, Azerbaijan)                                | az-Latn-AZ     | az         |                |
 | Bashkir (Russia)                                               | ba-RU          | ba         | missing        |
 | Belarusian (Belarus)                                           | be-BY          | be         | missing        |
 | Bulgarian (Bulgaria)                                           | bg-BG          | bg         |                |
