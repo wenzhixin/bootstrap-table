@@ -8,8 +8,16 @@ export function getInputClass (that, isSelect = false) {
   return that.options.iconSize ? Utils.sprintf('%s %s-%s', formControlClass, formControlClass, that.options.iconSize) : formControlClass
 }
 
+export function getSelectControlElement (selectControl) {
+  const element = selectControl && selectControl.length ? selectControl[0] : undefined
+
+  return element && element.tagName === 'SELECT' ? element : undefined
+}
+
 export function getOptionsFromSelectControl (selectControl) {
-  return selectControl[0].options
+  const element = getSelectControlElement(selectControl)
+
+  return element ? element.options : []
 }
 
 export function getControlContainer (that) {
@@ -61,6 +69,12 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
+  const element = getSelectControlElement(selectControl)
+
+  if (!element) {
+    return
+  }
+
   let value = _value === undefined || _value === null ? '' : _value.toString().trim()
 
   value = Utils.removeHTML(Utils.unescapeHTML(value))
@@ -74,13 +88,13 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
 
   const option = new Option(text, value, false, isSelected)
 
-  selectControl.get(0).add(option)
+  element.add(option)
 }
 
 export function sortSelectControl (selectControl, orderBy, options) {
-  const $selectControl = selectControl.get(0)
+  const $selectControl = getSelectControlElement(selectControl)
 
-  if (orderBy === 'server') {
+  if (!$selectControl || orderBy === 'server') {
     return
   }
 
@@ -433,10 +447,12 @@ export function createControls (that, header) {
 
       if (filterDataType) {
         filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
-        selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
+        selectControl = header.find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
-        filterDataType(that, filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
+        if (hasSelectControlElement(selectControl)) {
+          addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
+          filterDataType(that, filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
+        }
       } else {
         throw new SyntaxError(
           'Error. You should use any of these allowed filter data methods: var, obj, json, url, func.' +
