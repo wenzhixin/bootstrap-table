@@ -105,7 +105,7 @@ export default {
           res[this.options.pageNumberField] &&
           res[this.options.pageNumberField] !== this.options.pageNumber
         ) {
-          this.options.pageNumber = res[this.options.pageNumberField];
+          this.options.pageNumber = res[this.options.pageNumberField]
         }
 
         this.load(res)
