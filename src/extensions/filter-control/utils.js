@@ -195,7 +195,9 @@ export function setValues (that) {
       result = that._valuesFilterControl.filter(valueObj => valueObj.field === field)
 
       if (result.length > 0) {
-        if (result[0].hasFocus || result[0].value) {
+        // Restore an empty value too, otherwise a cleared control shows its
+        // filterDefault again after the controls are recreated
+        if (result[0].hasFocus || result[0].value || result[0].value === '') {
           const fieldToFocusCallback = ((element, cacheElementInfo) => {
             // Closure here to capture the field information
             const closedCallback = () => {
@@ -406,14 +408,17 @@ export function createControls (that, header) {
     }
 
     // Filtering by default when it is set.
+    // Apply it only once per column. The controls are recreated on every load,
+    // and a filter the user cleared must stay cleared.
     if (column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
       if (Utils.isEmptyObject(that.filterColumnsPartial)) {
         that.filterColumnsPartial = {}
       }
 
-      if (!(column.field in that.filterColumnsPartial)) {
+      if (!(column.field in that.filterColumnsPartial) && !that._filterDefaultsApplied[column.field]) {
         that.filterColumnsPartial[column.field] = column.filterDefault
       }
+      that._filterDefaultsApplied[column.field] = true
     }
 
     $.each(header.find('th'), (_, th) => {
