@@ -39,6 +39,20 @@ function initSupports (translations) {
     }
   ]
 
+  const isSafeUrl = url => {
+    if (!url) {
+      return false
+    }
+
+    try {
+      const parsed = new URL(url, window.location.origin)
+
+      return parsed.protocol === 'https:' || parsed.protocol === 'http:'
+    } catch (error) {
+      return false
+    }
+  }
+
   const loadSupports = async () => {
     try {
       const response = await fetch('https://examples.wenzhixin.net.cn/opencollective/supports.json')
@@ -104,8 +118,9 @@ function initSupports (translations) {
 
         rank.supports.forEach(support => {
           const link = document.createElement('a')
+          const fallbackLink = `https://opencollective.com/${support.slug}`
 
-          link.href = support.website || `https://opencollective.com/${support.slug}`
+          link.href = isSafeUrl(support.website) ? support.website : fallbackLink
           link.title = `$${support.totalDonations} by ${support.name || support.slug}`
           link.className = `support-item ${rank.key}`
           link.target = '_blank'
@@ -114,11 +129,13 @@ function initSupports (translations) {
           const img = document.createElement('img')
 
           img.className = 'support-avatar'
-          img.src = support.avatar || ''
+          img.src = isSafeUrl(support.avatar) ? support.avatar : ''
           img.alt = support.name || support.slug
           img.onerror = function () {
-            if (this.src !== (support.profileAvatar || '')) {
-              this.src = support.profileAvatar || ''
+            const profileAvatar = isSafeUrl(support.profileAvatar) ? support.profileAvatar : ''
+
+            if (this.src !== profileAvatar) {
+              this.src = profileAvatar
             }
           }
 
