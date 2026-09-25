@@ -557,7 +557,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if ($element.is('select')) {
         $element.trigger('change')
       } else {
-        $element.trigger('keyup')
+        $element.trigger('keyup', { keyCode: 13 })
       }
     })
   }
