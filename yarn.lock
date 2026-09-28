@@ -2140,20 +2140,20 @@
   dependencies:
     "@rolldown/pluginutils" "^1.0.1"
 
-"@vitest/mocker@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@vitest/mocker/-/mocker-5.0.1.tgz#e1ca450ac67a57638e79b08481797793700a09f2"
-  integrity sha512-6K1DoBNAPGvuOcSsGA4D6x+5zEEff/KmOOP3uetT2TrGpVfI+HRHRnJJfKi5ib/g1vx8IYHQD8s0pbJz8WQI7Q==
+"@vitest/mocker@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@vitest/mocker/-/mocker-5.0.2.tgz#5be83ad397d31390d06a8809d27d8bd9b3ab1048"
+  integrity sha512-Z5FS00Q1SJHkB35xATsmWGdQ5WA1/0MV3CDjqyv7GavHv1OfOj145MNfHOlHk7QLes21dKFDHr8EO2zvL+9WGA==
   dependencies:
     "@jridgewell/trace-mapping" "0.3.31"
-    "@vitest/spy" "5.0.1"
+    "@vitest/spy" "5.0.2"
     estree-walker "^3.0.3"
     magic-string "^1.2.3"
 
-"@vitest/spy@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@vitest/spy/-/spy-5.0.1.tgz#6dac40afd5620613c8d344542d3c30e8e20e32dd"
-  integrity sha512-rbto/mF/SGERxEgYOek7Xm6B9b+y+mVoo+f4b2LymYO8zM1b7uB5nHuhVMTP2hxdzgxvGiZYGxGIaMvL5y180Q==
+"@vitest/spy@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@vitest/spy/-/spy-5.0.2.tgz#a4a13f5b336e7c4227cfd74e9b0199209ffbb7fb"
+  integrity sha512-Ijc7T1nT9efNb5LxvjaBrEqw3f/QwUv5EE0nKqZxgqsaV/FxAAZ8baGylA8X/Z2oS4Lp+K74Jr6dTJsDKxJDeg==
 
 "@vue/compiler-core@3.5.43":
   version "3.5.43"
@@ -5262,11 +5262,6 @@ side-channel@^1.1.1:
     side-channel-map "^1.0.1"
     side-channel-weakmap "^1.0.2"
 
-siginfo@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/siginfo/-/siginfo-2.0.0.tgz#32e76c70b79724e3bb567cb9d543eb858ccfaf30"
-  integrity sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==
-
 signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
@@ -5369,11 +5364,6 @@ stable-hash-x@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/stable-hash-x/-/stable-hash-x-0.2.0.tgz#dfd76bfa5d839a7470125c6a6b3c8b22061793e9"
   integrity sha512-o3yWv49B/o4QZk5ZcsALc6t0+eCelPc44zZsLtCQnZPDwFpDYSWcDnrv2TtMmMbQ7uKo3J0HTURCqckw23czNQ==
-
-stackback@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/stackback/-/stackback-0.0.2.tgz#1ac8a0d9483848d1695e418b6d031a3c3ce68e3b"
-  integrity sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==
 
 std-env@^4.2.0:
   version "4.2.0"
@@ -5603,15 +5593,15 @@ throttleit@^1.0.0:
   resolved "https://registry.yarnpkg.com/throttleit/-/throttleit-1.0.1.tgz#304ec51631c3b770c65c6c6f76938b384000f4d5"
   integrity sha512-vDZpf9Chs9mAdfY046mcPt8fg5QSZr37hEH4TXYBnDF+izxgrbRGUAAaBvIk/fJm9aOFCGFd1EsNg5AZCbnQCQ==
 
-tinybench@6.1.4:
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/tinybench/-/tinybench-6.1.4.tgz#f855bb3ad1f2fe85cf624490d58bb4f4f5d30da8"
-  integrity sha512-9APumHG7r4yOk4X4WlkmE71aZcv1gvin1czO3OQ1U9iJcFA5Ja/ygyb0vPOVHTthFozUYs8CLoLUlM8grb2lTQ==
+tinybench@^6.1.4:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/tinybench/-/tinybench-6.2.0.tgz#392834d90f72567ee35330b4bc8f58e62e9e1d4d"
+  integrity sha512-78U2TlB2CnVenajOFzf3BKSm0J6oz5L0NV7g32LCPccvYc0lbWvys4d3uUUCS2B1N8PAf2+aekR8i1KbC3HO7Q==
 
-tinyexec@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-1.3.0.tgz#aacc1dbb1d4e93e6ad8dd64944e09f9ad147a474"
-  integrity sha512-QKAl9m8gWWGHV8jZcPeym6j+XULi6tOf1mT83WYJ4Lk2ytW/uwAWkrP0uFsdoYMdueVJ0qs26wZ+23xeB4ibNQ==
+tinyexec@^1.3.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-1.3.1.tgz#16a2e3c6e23fafce72640e678e651db36145b9c6"
+  integrity sha512-GCvB3aoys96IuDFBMcTB46JOR6mdMtAToqwiW8JlWhsoh1mhHi/xn9ss/Dg7N555GiJyEt2qzoG/NHCwM6h1EA==
 
 tinyglobby@^0.2.14, tinyglobby@^0.2.17:
   version "0.2.17"
@@ -5812,12 +5802,12 @@ vite@^8.1.4:
     fsevents "~2.3.3"
 
 vitest@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/vitest/-/vitest-5.0.1.tgz#22505b6481ed0e692b3f6d4fed179da8487d252c"
-  integrity sha512-iA95lQbKEkvrtTkdAgnWbXfbipWiiWe/hDl2P5tMi6WFwD76G0NxXAGp/M9EOcYupeGJRr6wppMc7CoA41TQjg==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-5.0.2.tgz#2bb525062c52c271ae0313504039637d3d0b785d"
+  integrity sha512-7MQrx9pDv5aHiUcovIb/70Ys3tgtkUVgCtledvKdCmEO+/1Dicq5ZqoSxOW034m03oqC+oHOKui2dM6qtMLoJg==
   dependencies:
     "@types/chai" "^5.2.2"
-    "@vitest/mocker" "5.0.1"
+    "@vitest/mocker" "5.0.2"
     chai "^6.2.2"
     es-module-lexer "^2.3.2"
     expect-type "^1.4.0"
@@ -5825,10 +5815,10 @@ vitest@^5.0.0:
     obug "^2.1.4"
     picomatch "^4.0.7"
     std-env "^4.2.0"
-    tinybench "6.1.4"
-    tinyexec "1.3.0"
+    tinybench "^6.1.4"
+    tinyexec "^1.3.0"
     tinyglobby "^0.2.17"
-    why-is-node-running "^2.3.0"
+    why-is-node-running "^3.2.1"
 
 vscode-languageserver-textdocument@^1.0.14:
   version "1.0.14"
@@ -5877,13 +5867,10 @@ which@^7.0.0:
   dependencies:
     isexe "^4.0.0"
 
-why-is-node-running@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/why-is-node-running/-/why-is-node-running-2.3.0.tgz#a3f69a97107f494b3cdc3bdddd883a7d65cebf04"
-  integrity sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==
-  dependencies:
-    siginfo "^2.0.0"
-    stackback "0.0.2"
+why-is-node-running@^3.2.1:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/why-is-node-running/-/why-is-node-running-3.2.2.tgz#4c563f5068c5960167220f1b7102ae501cefefb9"
+  integrity sha512-NKUzAelcoCXhXL4dJzKIwXeR8iEVqsA0Lq6Vnd0UXvgaKbzVo4ZTHROF2Jidrv+SgxOQ03fMinnNhzZATxOD3A==
 
 window-size@^0.1.4:
   version "0.1.4"
