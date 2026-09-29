@@ -478,13 +478,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // EVENTS
-  onColumnSearch ({ currentTarget, keyCode }) {
+  onColumnSearch ({ currentTarget, keyCode, isInitial }) {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
     UtilsFilterControl.cacheValues(this)
 
-    const isInitialRender = !this._initialized
+    const isInitialRender = !this._initialized || isInitial === true
 
     // Cookie extension support
     if (!this.options.cookie) {
@@ -548,16 +548,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
-  triggerSearch () {
+  triggerSearch (isInitial = false) {
     const searchControls = UtilsFilterControl.getSearchControls(this)
 
     searchControls.each(function () {
       const $element = $(this)
+      const eventName = $element.is('select') ? 'change' : 'keyup'
 
-      if ($element.is('select')) {
-        $element.trigger('change')
+      if (isInitial) {
+        $element.trigger(eventName, { isInitial: true })
       } else {
-        $element.trigger('keyup')
+        $element.trigger(eventName)
       }
     })
   }
