@@ -454,7 +454,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // which ones are going to be present.
     if (controls.length > 0) {
       this.filterColumnsPartial = {}
-      controls.eq(0).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
+      const $control = controls.eq(0)
+
+      $control.trigger($control.is('select') ? 'change' : 'keyup', { keyCode: 13 })
       /* controls.each(function () {
         $(this).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
       })*/
