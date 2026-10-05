@@ -48,7 +48,7 @@ function initSupports (translations) {
       const parsed = new URL(url, window.location.origin)
 
       return parsed.protocol === 'https:' || parsed.protocol === 'http:'
-    } catch (error) {
+    } catch {
       return false
     }
   }
@@ -118,9 +118,8 @@ function initSupports (translations) {
 
         rank.supports.forEach(support => {
           const link = document.createElement('a')
-          const fallbackLink = `https://opencollective.com/${support.slug}`
 
-          link.href = isSafeUrl(support.website) ? support.website : fallbackLink
+          link.href = isSafeUrl(support.website) ? support.website : `https://opencollective.com/${support.slug}`
           link.title = `$${support.totalDonations} by ${support.name || support.slug}`
           link.className = `support-item ${rank.key}`
           link.target = '_blank'
