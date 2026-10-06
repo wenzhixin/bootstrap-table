@@ -562,8 +562,26 @@ export default {
     let scrollTo = options.value
 
     if (options.unit === 'rows') {
+      let rowCount = options.value
+      let $rows = this.$body.find('> tr')
+
       scrollTo = 0
-      this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
+
+      if (this.options.virtualScroll && this.virtualScroll) {
+        // Rows outside the rendered block are replaced by spacer rows,
+        // so count them with the item height instead of the spacer height
+        const { itemHeight, startIndex = 0 } = this.virtualScroll
+        const rowsAbove = Math.min(rowCount, startIndex)
+
+        $rows = $rows.not('.virtual-scroll-top, .virtual-scroll-bottom')
+        rowCount -= rowsAbove
+        const rowsBelow = Math.max(rowCount - $rows.length, 0)
+
+        rowCount -= rowsBelow
+        scrollTo += (rowsAbove + rowsBelow) * itemHeight
+      }
+
+      $rows.slice(0, rowCount).each((i, el) => {
         scrollTo += $(el).outerHeight(true)
       })
     }
