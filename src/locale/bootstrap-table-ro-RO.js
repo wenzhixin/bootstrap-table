@@ -5,15 +5,15 @@
 
 $.fn.bootstrapTable.locales['ro-RO'] = $.fn.bootstrapTable.locales['ro'] = {
   formatAddLevel () {
-    return 'Add Level'
+    return 'Adaugă nivel'
   },
 
   formatAdvancedCloseButton () {
-    return 'Close'
+    return 'Închide'
   },
 
   formatAdvancedSearch () {
-    return 'Advanced search'
+    return 'Căutare avansată'
   },
 
   formatAllRows () {
@@ -21,19 +21,19 @@ $.fn.bootstrapTable.locales['ro-RO'] = $.fn.bootstrapTable.locales['ro'] = {
   },
 
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Reîncărcare automată'
   },
 
   formatCancel () {
-    return 'Cancel'
+    return 'Anulează'
   },
 
   formatClearSearch () {
-    return 'Clear Search'
+    return 'Șterge căutarea'
   },
 
   formatColumn () {
-    return 'Column'
+    return 'Coloană'
   },
 
   formatColumns () {
@@ -41,150 +41,177 @@ $.fn.bootstrapTable.locales['ro-RO'] = $.fn.bootstrapTable.locales['ro'] = {
   },
 
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Selectează toate'
   },
 
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'Copiază rândurile'
   },
 
   formatDeleteLevel () {
-    return 'Delete Level'
+    return 'Șterge nivel'
   },
 
   formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+    // Romanian plural: 1 rând, 2 rânduri, 20 de rânduri
+    const n = parseInt(totalRows, 10)
+    let rows = 'de rânduri'
+
+    if (n === 1) {
+      rows = 'rând'
+    } else if (n === 0 || n % 100 >= 1 && n % 100 <= 19) {
+      rows = 'rânduri'
+    }
+
+    return `Se afișează ${totalRows} ${rows}`
   },
 
   formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+    return 'Vă rugăm să eliminați sau să modificați coloanele duplicate.'
   },
 
   formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+    return 'Au fost detectate duplicate!'
   },
 
   formatExport () {
-    return 'Export data'
+    return 'Exportă datele'
   },
 
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Ascunde/afișează filtrele'
   },
 
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Ascunde filtrele'
   },
 
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Afișează filtrele'
   },
 
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Ecran complet'
   },
 
   formatJumpTo () {
-    return 'GO'
+    return 'Mergi'
   },
 
   formatLoadingMessage () {
-    return 'Se incarca, va rugam asteptati'
+    return 'Se încarcă, vă rugăm să așteptați'
   },
 
   formatMultipleSort () {
-    return 'Multiple Sort'
+    return 'Sortare multiplă'
   },
 
   formatNoMatches () {
-    return 'Nu au fost gasite inregistrari'
+    return 'Nu au fost găsite înregistrări'
   },
 
   formatOrder () {
-    return 'Order'
+    return 'Ordine'
   },
 
   formatPaginationSwitch () {
-    return 'Ascunde/Arata paginatia'
+    return 'Ascunde/afișează paginarea'
   },
 
   formatPaginationSwitchDown () {
-    return 'Show pagination'
+    return 'Afișează paginarea'
   },
 
   formatPaginationSwitchUp () {
-    return 'Hide pagination'
+    return 'Ascunde paginarea'
   },
 
   formatPrint () {
-    return 'Print'
+    return 'Imprimă'
   },
 
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} inregistrari pe pagina`
+    return `Rânduri pe pagină: ${pageNumber}`
   },
 
   formatRefresh () {
-    return 'Reincarca'
+    return 'Reîncarcă'
   },
 
   formatSRPaginationNextText () {
-    return 'next page'
+    return 'pagina următoare'
   },
 
   formatSRPaginationPageText (page) {
-    return `to page ${page}`
+    return `la pagina ${page}`
   },
 
   formatSRPaginationPreText () {
-    return 'previous page'
+    return 'pagina anterioară'
   },
 
   formatSearch () {
-    return 'Cauta'
+    return 'Caută'
   },
 
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri (filtered from ${totalNotFiltered} total rows)`
+    // Romanian plural: 1 rând, 2 rânduri, 20 de rânduri
+    const rows = count => {
+      const n = parseInt(count, 10)
+
+      if (n === 1) {
+        return `${count} rând`
+      }
+
+      if (n === 0 || n % 100 >= 1 && n % 100 <= 19) {
+        return `${count} rânduri`
+      }
+
+      return `${count} de rânduri`
     }
 
-    return `Arata de la ${pageFrom} pana la ${pageTo} din ${totalRows} randuri`
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      const filtered = parseInt(totalRows, 10) === 1 ? 'filtrat' : 'filtrate'
+
+      return `Se afișează de la ${pageFrom} la ${pageTo} din ${rows(totalRows)} (${filtered} dintr-un total de ${rows(totalNotFiltered)})`
+    }
+
+    return `Se afișează de la ${pageFrom} la ${pageTo} din ${rows(totalRows)}`
   },
 
   formatSort () {
-    return 'Sort'
+    return 'Sortează'
   },
 
   formatSortBy () {
-    return 'Sort by'
+    return 'Sortează după'
   },
 
   formatSortOrders () {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: 'Crescător',
+      desc: 'Descrescător'
     }
   },
 
   formatThenBy () {
-    return 'Then by'
+    return 'Apoi după'
   },
 
   formatToggleCustomViewOff () {
-    return 'Hide custom view'
+    return 'Ascunde vizualizarea personalizată'
   },
 
   formatToggleCustomViewOn () {
-    return 'Show custom view'
+    return 'Afișează vizualizarea personalizată'
   },
 
   formatToggleOff () {
-    return 'Hide card view'
+    return 'Ascunde vizualizarea pe carduri'
   },
 
   formatToggleOn () {
-    return 'Show card view'
+    return 'Afișează vizualizarea pe carduri'
   }
 }
 
