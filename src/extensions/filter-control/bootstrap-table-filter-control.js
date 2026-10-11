@@ -370,6 +370,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (filterColumnsDefaults) {
       this.filterColumnsPartial = filterColumnsDefaults
+      // Apply the restored filters to the data before re-rendering, so the
+      // restore does not depend on the deferred initial search running
+      // after the 250ms restore timer (broken when searchTimeOut < 250).
+      this.initSearch()
       this.updatePagination()
 
       // eslint-disable-next-line guard-for-in
@@ -480,20 +484,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // EVENTS
-  onColumnSearch ({ currentTarget, keyCode }) {
+  onColumnSearch ({ currentTarget, keyCode, isInitial }) {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
     UtilsFilterControl.cacheValues(this)
 
-    const isInitialRender = !this._initialized
+    const isInitialRender = !this._initialized || isInitial === true
 
     // Cookie extension support
     if (!this.options.cookie) {
       if (!isInitialRender) {
         this.options.pageNumber = 1
       }
-    } else {
+    } else if (!isInitialRender) {
       // Force call the initServer method in Cookie extension
       this._filterControlValuesLoaded = true
     }
@@ -511,7 +515,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const text = elementValue ? elementValue.trim() : ''
       const $field = $element.closest('[data-field]').data('field')
 
-      this.trigger('column-search', $field, text)
+      // Skip empty values on the initial render: the cookie extension
+      // persists every column-search event, and an empty one here (before
+      // its 250ms restore timer) would clobber the saved filter cookie.
+      if (!isInitialRender || text) {
+        this.trigger('column-search', $field, text)
+      }
 
       if (text) {
         this.filterColumnsPartial[$field] = text
@@ -550,17 +559,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
-  triggerSearch () {
+  triggerSearch (isInitial = false) {
     const searchControls = UtilsFilterControl.getSearchControls(this)
 
     searchControls.each(function () {
       const $element = $(this)
+      const eventName = $element.is('select') ? 'change' : 'keyup'
+      const eventData = { keyCode: 13 }
 
-      if ($element.is('select')) {
-        $element.trigger('change')
-      } else {
-        $element.trigger('keyup', { keyCode: 13 })
+      if (isInitial) {
+        eventData.isInitial = true
       }
+
+      $element.trigger(eventName, eventData)
     })
   }
 

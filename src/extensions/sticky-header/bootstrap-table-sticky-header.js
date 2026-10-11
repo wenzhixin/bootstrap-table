@@ -43,8 +43,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.$tableBody.off('scroll').on('scroll', () => this.matchPositionX())
   }
 
-  onColumnSearch ({ currentTarget, keyCode }) {
-    super.onColumnSearch({ currentTarget, keyCode })
+  onColumnSearch (...args) {
+    super.onColumnSearch(...args)
     if (!this.options.stickyHeader) {
       return
     }
