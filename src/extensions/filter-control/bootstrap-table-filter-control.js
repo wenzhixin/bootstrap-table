@@ -56,6 +56,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   searchOnEnterKey: false,
   showFilterControlSwitch: false,
   sortSelectOptions: false,
+  filterControlHideUnusedSelectOptions: false,
   // internal variables
   _valuesFilterControl: [],
   _initialized: false,
