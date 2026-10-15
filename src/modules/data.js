@@ -100,6 +100,14 @@ export default {
           this._paginationLoaded = this.data.length === res.length
         }
 
+        if (
+          this.options.sidePagination === 'server' &&
+          res[this.options.pageNumberField] &&
+          res[this.options.pageNumberField] !== this.options.pageNumber
+        ) {
+          this.options.pageNumber = res[this.options.pageNumberField]
+        }
+
         this.load(res)
         this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
         if (!silent) {
