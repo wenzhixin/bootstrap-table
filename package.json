@@ -45,7 +45,7 @@
     "foreach-cli": "^1.8.1",
     "glob": "^13.0.6",
     "globals": "^17.7.0",
-    "happy-dom": "^20.10.6",
+    "happy-dom": "^21.0.1",
     "headr": "^0.1.0",
     "jquery": "^4.0.0",
     "npm-run-all2": "^9.0.0",
