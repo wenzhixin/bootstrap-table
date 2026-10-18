@@ -516,13 +516,14 @@ export default {
       return
     }
 
-    this.columns[this.fieldsColumnsIndex[params.field]].title =
-      this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title
+    this.columns[this.fieldsColumnsIndex[params.field]].title = params.title
 
     if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
       this.$header.find('th[data-field]').each((i, el) => {
         if ($(el).data('field') === params.field) {
-          $($(el).find('.th-inner')[0]).html(params.title)
+          $($(el).find('.th-inner')[0]).html(
+            this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title
+          )
           return false
         }
       })

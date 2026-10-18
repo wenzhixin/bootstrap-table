@@ -182,7 +182,8 @@ export default {
                 value: i,
                 checked: !!checked,
                 disabled: !!disabled,
-                label: column.switchableLabel || column.title
+                label: column.switchableLabel || (opts.escape && opts.escapeTitle ?
+                  Utils.escapeHTML(column.title) : column.title)
               })
 
               // Bootstrap 3/4 needs to be wrapped with toolbarDropdownItem
