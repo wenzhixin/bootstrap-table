@@ -191,11 +191,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
         html.push('<tr>')
         for (let h = 0; h < columns.length; h++) {
           if (canPrint(columns[h])) {
+            const title = this.options.escape && this.options.escapeTitle ?
+              Utils.escapeHTML(columns[h].title) : columns[h].title
+
             html.push(
               `<th
               ${Utils.sprintf(' rowspan="%s"', columns[h].rowspan)}
               ${Utils.sprintf(' colspan="%s"', columns[h].colspan)}
-              >${columns[h].title}</th>`)
+              >${title}</th>`)
           }
         }
         html.push('</tr>')

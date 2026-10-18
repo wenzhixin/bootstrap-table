@@ -300,11 +300,13 @@ export default {
           return Utils.h('div', { class: cardViewClass })
         }
 
+        const fieldTitle = Utils.getFieldTitle(this.columns, field)
         const cardTitle = this.options.showHeader ?
           Utils.h('span', {
             class: ['card-view-title', cellStyle.classes],
             style: attrs.style,
-            html: Utils.getFieldTitle(this.columns, field)
+            html: this.options.escape && this.options.escapeTitle ?
+              Utils.escapeHTML(fieldTitle) : fieldTitle
           }) : ''
 
         return Utils.h('div', { class: cardViewClass }, [

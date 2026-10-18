@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import BodyModule from '@/modules/body.js'
+import HeaderModule from '@/modules/header.js'
 
 function createBodyMockContext (overrides = {}) {
   const timeoutIds = {}
@@ -223,6 +224,67 @@ describe('BodyModule', () => {
       ctx.scrollTo({ unit: 'rows', value: 15 })
 
       expect(ctx.$tableBody.scrollTop).toHaveBeenCalledWith(10 * 20 + 5 * 40)
+    })
+  })
+
+  describe('card view title escaping (#8484)', () => {
+    function createRowContext ({ escape = true, escapeTitle = true } = {}) {
+      const ctx = createBodyMockContext({
+        options: {
+          cardView: true,
+          showHeader: true,
+          escape,
+          escapeTitle,
+          undefinedText: '-'
+        },
+        hiddenRows: [],
+        searchText: '',
+        columns: [{ field: 'id', title: 'ID', visible: true, cardVisible: true, switchable: true }],
+        header: {
+          fields: ['id'],
+          classes: [],
+          styles: [],
+          cellStyles: [],
+          formatters: []
+        },
+        fieldsColumnsIndex: { id: 0 },
+        $header: { find: vi.fn(() => ({ each: vi.fn() })) },
+        resetView: vi.fn()
+      })
+
+      Object.assign(ctx, BodyModule, HeaderModule)
+      return ctx
+    }
+
+    function renderCardViewRow (ctx) {
+      const tr = ctx.initRow({ id: 1 }, 0, [{ id: 1 }], document.createDocumentFragment())
+
+      return tr.querySelector('.card-view-title')
+    }
+
+    it('should escape an updated title at the card view rendering boundary', () => {
+      const ctx = createRowContext()
+
+      ctx.updateColumnTitle({ field: 'id', title: 'A <b>&</b> B' })
+
+      // the stored title stays raw
+      expect(ctx.columns[0].title).toBe('A <b>&</b> B')
+
+      const titleEl = renderCardViewRow(ctx)
+
+      // the card view title is escaped exactly once, no HTML is rendered
+      expect(titleEl.innerHTML).toBe('A &lt;b&gt;&amp;&lt;/b&gt; B')
+      expect(titleEl.querySelector('b')).toBeNull()
+    })
+
+    it('should keep the card view title as HTML when escapeTitle is disabled', () => {
+      const ctx = createRowContext({ escape: true, escapeTitle: false })
+
+      ctx.updateColumnTitle({ field: 'id', title: '<b>ID</b>' })
+
+      const titleEl = renderCardViewRow(ctx)
+
+      expect(titleEl.querySelector('b')).not.toBeNull()
     })
   })
 })
