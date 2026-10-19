@@ -35,6 +35,8 @@ jobs:
           path: './tools/bootstrap-table-examples'
 
       - name: Lint src and check docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           yarn install --frozen-lockfile
           yarn pre-commit

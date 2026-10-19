@@ -82,8 +82,9 @@ $('#table').bootstrapTable({
 
   Set `true` to show a checkbox. The checkbox column has a fixed width.
 
-  If a value is given, the checkbox is automatically checked.
-  Its also possible to check/uncheck the checkbox by using a formatter (return `true` to check, return `false` to uncheck).
+  Set the field value of the checkbox column to `true` (or an object like `{ checked: true }`) in the row data to check the checkbox initially, e.g. `{ state: true }` for a column defined with `field: 'state'`. Any other truthy field value (`1`, `'yes'`, etc.) checks the checkbox as well, `true` or `{ checked: true }` are the recommended values.
+
+  Checking/unchecking the checkbox by using a formatter (return `true` to check, return `false` to uncheck) is also possible, but the formatter result is only applied to the rendered rows: it has no effect on the checked state of rows on other pages (with pagination) or rows hidden by the search, and a `false` return value overrides the visual state of rows the user checked manually. If you need the selected rows to be kept while changing the page or searching, please use [maintainMetaData](https://bootstrap-table.com/docs/api/table-options/#maintainmetadata). For initial checked states, prefer setting the field value in the row data.
 
 - **Default:** `false`
 
@@ -355,8 +356,9 @@ $('#table').bootstrapTable({
 
   Set `true` to show a radio. The radio column has a fixed width.
 
-  If a value is given, the checkbox is automatically checked.
-  Its also possible to check/uncheck the radio by using a formatter (return `true` to check, return `false` to uncheck).
+  Set the field value of the radio column to `true` (or an object like `{ checked: true }`) in the row data to select the radio box initially, e.g. `{ state: true }` for a column defined with `field: 'state'`. Any other truthy field value (`1`, `'yes'`, etc.) selects the radio box as well, `true` or `{ checked: true }` are the recommended values.
+
+  Selecting/unselecting the radio box by using a formatter (return `true` to select, return `false` to unselect) is also possible, but the formatter result is only applied to the rendered rows: it has no effect on the selected state of rows on other pages (with pagination) or rows hidden by the search, and a `false` return value overrides the visual state of the row selected by the user. For initial selected states, prefer setting the field value in the row data.
 
 - **Default:** `false`
 
