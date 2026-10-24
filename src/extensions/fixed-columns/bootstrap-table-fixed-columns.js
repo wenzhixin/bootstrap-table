@@ -122,6 +122,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.initFixedColumnsBody()
+    this.initFixedColumnsFooter()
     this.initFixedColumnsEvents()
   }
 
@@ -134,6 +135,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (args[0] === 'post-header') {
       this.initFixedColumnsHeader()
+    } else if (args[0] === 'post-footer') {
+      this.initFixedColumnsFooter()
     } else if (args[0] === 'scroll-body') {
       if (this.needFixedColumns && this.options.fixedNumber) {
         this.$fixedBody.scrollTop(this.$tableBody.scrollTop())
@@ -142,6 +145,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (this.needFixedColumns && this.options.fixedRightNumber) {
         this.$fixedBodyRight.scrollTop(this.$tableBody.scrollTop())
       }
+
+      this.syncFixedColumnsFooterScroll()
     }
   }
 
@@ -234,10 +239,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.initFixedColumnsBody()
+    this.initFixedColumnsFooter()
     this.initFixedColumnsEvents()
   }
 
   initFixedColumnsBody () {
+    const footerHeight = this.getFixedColumnsFooterHeight()
+
     const initFixedBody = ($fixedColumns, $fixedHeader) => {
       $fixedColumns.find('.fixed-table-body').remove()
       $fixedColumns.append(this.$tableBody.clone(true))
@@ -255,7 +263,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       })
 
       $fixedBody.css({
-        height: height - $fixedHeader.height()
+        height: height - $fixedHeader.height() - footerHeight
       })
 
       return $fixedBody
@@ -269,6 +277,71 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedBodyRight = initFixedBody(this.$fixedColumnsRight, this.$fixedHeaderRight)
       this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width())
       this.$fixedBodyRight.css('overflow-y', this.options.height ? 'auto' : 'hidden')
+    }
+  }
+
+  getFixedColumnsFooterHeight () {
+    // Without a fixed height the footer is rendered as a <tfoot> inside the
+    // table body, which is already covered by the cloned fixed body — so there
+    // is no separate footer area to reserve.
+    if (!this.options.height || !this.options.showFooter || this.options.cardView ||
+      !this.$tableFooter || !this.$tableFooter.length) {
+      return 0
+    }
+    return this.$tableFooter.outerHeight(true)
+  }
+
+  initFixedColumnsFooter () {
+    // Only tables with a fixed height keep the footer in a separate
+    // `.fixed-table-footer` container that needs to be cloned for the fixed
+    // columns. Without a fixed height the <tfoot> lives inside the cloned body.
+    const showFooter = this.options.height &&
+      this.options.showFooter && !this.options.cardView
+
+    const initFixedFooter = ($fixedColumns, isRight) => {
+      $fixedColumns.find('.fixed-table-footer').remove()
+      if (!showFooter) {
+        return null
+      }
+      $fixedColumns.append(this.$tableFooter.clone(true))
+      const $fixedFooter = $fixedColumns.find('.fixed-table-footer')
+
+      if (isRight) {
+        // keep the right footer scrolled to its rightmost position, mirroring
+        // the right header/body behavior
+        $fixedFooter.scrollLeft($fixedFooter.find('table').width())
+      }
+      return $fixedFooter
+    }
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedFooter = initFixedFooter(this.$fixedColumns)
+    } else if (this.$fixedColumns) {
+      this.$fixedColumns.find('.fixed-table-footer').remove()
+      this.$fixedFooter = null
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
+      this.$fixedFooterRight = initFixedFooter(this.$fixedColumnsRight, true)
+    } else if (this.$fixedColumnsRight) {
+      this.$fixedColumnsRight.find('.fixed-table-footer').remove()
+      this.$fixedFooterRight = null
+    }
+  }
+
+  syncFixedColumnsFooterScroll () {
+    if (!this.options.showFooter || this.options.cardView) {
+      return
+    }
+
+    // The fixed columns are horizontally pinned and must not follow the main
+    // footer's horizontal scroll: the left footer stays at its leftmost
+    // position, while the right footer stays pinned to its rightmost position.
+    if (this.$fixedFooter) {
+      this.$fixedFooter.scrollLeft(0)
+    }
+    if (this.$fixedFooterRight) {
+      this.$fixedFooterRight.scrollLeft(this.$fixedFooterRight.find('table').width())
     }
   }
 
