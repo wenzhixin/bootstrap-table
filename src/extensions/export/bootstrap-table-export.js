@@ -22,9 +22,15 @@ const TYPE_NAME = {
 const stringifyValue = value =>
   value === null || typeof value === 'undefined' ? '' : String(value)
 
+// Spreadsheet apps evaluate cells starting with these characters as formulas
+const FORMULA_PREFIX = /^[=+\-@\t\r]/
+const NUMERIC_TEXT = /^-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$/
+
 const csvEscape = (value, delimiter) => {
   const d = delimiter || ','
-  const str = stringifyValue(value)
+  const raw = stringifyValue(value)
+  // Neutralize formula-like text, but keep legitimate numeric values untouched
+  const str = FORMULA_PREFIX.test(raw) && !NUMERIC_TEXT.test(raw) ? `'${raw}` : raw
 
   return str.includes(d) || str.includes('"') || str.includes('\n') || str.includes('\r') ?
     `"${str.replace(/"/g, '""')}"` : str
@@ -36,10 +42,39 @@ const toText = value => {
     return ''
   }
 
+  // Formatters may return DOM nodes or jQuery objects; use their displayed text
+  if (Utils.isDomNode(value)) {
+    return Array.from(Utils.htmlToNodes(value)).map(node => node.textContent).join('')
+  }
+
   return DOMHelper.text(DOMHelper.html(DOMHelper.create('<div></div>'), stringifyValue(value)))
 }
 
-const escapeXmlText = value => stringifyValue(value)
+const hasField = column => column.field !== undefined && column.field !== null
+
+// `exportTypes` may be configured as a string such as "['csv', 'xml']"
+const parseExportTypes = exportTypes => typeof exportTypes === 'string' ?
+  exportTypes.slice(1, -1).replace(/ /g, '').split(',').map(type => type.slice(1, -1)) :
+  exportTypes
+
+// Keep the typed values for JSON while stripping markup from strings and DOM values
+const jsonValue = value =>
+  value === null || typeof value === 'number' || typeof value === 'boolean' ?
+    value : toText(value)
+
+// Drop code points outside the XML 1.0 character range before escaping
+const isXmlChar = char => {
+  const code = char.codePointAt(0)
+
+  return code === 0x9 || code === 0xA || code === 0xD ||
+    code >= 0x20 && code <= 0xD7FF ||
+    code >= 0xE000 && code <= 0xFFFD ||
+    code >= 0x10000 && code <= 0x10FFFF
+}
+
+const escapeXmlText = value => Array.from(stringifyValue(value))
+  .filter(isXmlChar)
+  .join('')
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;')
@@ -62,15 +97,22 @@ const sqlValue = value => {
     return 'NULL'
   }
 
-  if (typeof value === 'number' || typeof value === 'boolean') {
+  if (typeof value === 'number') {
+    // NaN and infinities are not valid numeric literals in the generated SQL
+    return Number.isFinite(value) ? String(value) : 'NULL'
+  }
+
+  if (typeof value === 'boolean') {
     return String(value)
   }
 
-  return `'${toText(value).replace(/'/g, '\'\'')}'`
+  // The generated statement uses backtick identifiers (MySQL dialect), where
+  // backslashes are escape characters; double them before doubling quotes
+  return `'${toText(value).replace(/\\/g, '\\\\').replace(/'/g, '\'\'')}'`
 }
 
 const buildSqlColumns = columns => columns.map((column, i) =>
-  `\`${escapeSqlIdentifier(column.field || `col${i + 1}`)}\``)
+  `\`${escapeSqlIdentifier(hasField(column) ? column.field : `col${i + 1}`)}\``)
 
 const buildXmlTags = columns => {
   const used = new Set()
@@ -79,7 +121,12 @@ const buildXmlTags = columns => {
     let tag = sanitizeXmlTag(column.field, `col${i + 1}`)
 
     if (used.has(tag)) {
-      tag = `${tag}_${i + 1}`
+      let suffix = i + 1
+
+      while (used.has(`${tag}_${suffix}`)) {
+        suffix += 1
+      }
+      tag = `${tag}_${suffix}`
     }
 
     used.add(tag)
@@ -115,10 +162,10 @@ const buildFile = (type, matrix, exportOptions) => {
       const lines = []
 
       if (headerRow.length) {
-        lines.push(headerRow.join('\t'))
+        lines.push(headerRow.map(title => csvEscape(title, '\t')).join('\t'))
       }
 
-      rows.forEach(row => lines.push(row.join('\t')))
+      rows.forEach(row => lines.push(row.map(value => csvEscape(value, '\t')).join('\t')))
 
       return {
         mime: 'text/plain;charset=utf-8',
@@ -128,10 +175,11 @@ const buildFile = (type, matrix, exportOptions) => {
     }
     case 'json': {
       const objects = values.map(rowValues => {
-        const object = {}
+        // A null prototype keeps fields such as `__proto__` as own properties
+        const object = Object.create(null)
 
         columns.forEach((column, i) => {
-          object[column.field] = rowValues[i]
+          object[column.field] = jsonValue(rowValues[i])
         })
         return object
       })
@@ -260,17 +308,11 @@ Object.assign($.fn.bootstrapTable.events, {
 $.BootstrapTable = class extends $.BootstrapTable {
   initToolbar (...args) {
     const o = this.options
-    let exportTypes = o.exportTypes
+    const exportTypes = parseExportTypes(o.exportTypes)
 
     this.showToolbar = this.showToolbar || o.showExport
 
     if (this.options.showExport) {
-
-      if (typeof exportTypes === 'string') {
-        const types = exportTypes.slice(1, -1).replace(/ /g, '').split(',')
-
-        exportTypes = types.map(t => t.slice(1, -1))
-      }
 
       if (typeof o.exportOptions === 'string') {
         o.exportOptions = Utils.calculateObjectValue(null, o.exportOptions)
@@ -367,53 +409,67 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   getExportColumns () {
-    return this.columns.filter(column => column.field &&
+    return this.columns.filter(column => hasField(column) &&
+      !column.checkbox && !column.radio &&
       column.field !== this.header.stateField &&
       (column.visible || column.forceExport) &&
       !column.forceHide)
   }
 
-  getExportValue (row, column) {
+  getExportValue (row, column, index) {
     const o = this.options
     const value_ = Utils.getItemField(row, column.field, o.escape, column.escape)
+    const rawValue = Utils.getItemField(row, column.field)
+    // Formatters keep receiving the escaped value; only keep untyped primitives
+    // as the fallback so escaping still applies to arrays, objects and strings
+    const keepRawType = rawValue === null || typeof rawValue === 'undefined' ||
+      typeof rawValue === 'number' || typeof rawValue === 'boolean'
+    const fallback = keepRawType ? rawValue : value_
 
     return Utils.calculateObjectValue(column,
       this.header.formatters[column.fieldIndex],
-      [value_, row, row.index, column.field],
-      value_)
+      [value_, row, index, column.field],
+      fallback)
+  }
+
+  filterHiddenRows (data) {
+    return data.filter(row => Utils.findIndex(this.hiddenRows, row) === -1)
   }
 
   collectExportData (data) {
     const o = this.options
     const exportColumns = this.getExportColumns()
     const columns = exportColumns.map(column => {
-      const title = column.title || column.field
+      const title = column.title ?? column.field
 
       return {
         field: column.field,
         title: toText(o.escape && o.escapeTitle ? Utils.escapeHTML(title) : title)
       }
     })
-    const rows = data.map(row => exportColumns.map(column => this.getExportValue(row, column)))
+    // The body renderer passes each row's index in `this.getData()` to formatters,
+    // so keep those positions for current-page and selected rows
+    const indexes = new Map(this.getData().map((row, i) => [row, i]))
+    const rows = data.map((row, i) => exportColumns.map(column =>
+      this.getExportValue(row, column, indexes.get(row) ?? i)))
     // `rows` holds the raw values, `textRows` the html stripped text used by most types
-    const textRows = rows.map(row => row.map(value => toText(value)))
+    const textRows = rows.map(row => row.map(value =>
+      value === null || typeof value === 'undefined' ? toText(o.undefinedText) : toText(value)))
 
     if (o.exportFooter) {
       const footerData = this.getFooterData()
+      const hasFooterData = footerData.length > 0
+      const footerRow = exportColumns.map(column => {
+        const base = hasFooterData ? footerData[0][column.field] || '' : ''
 
-      if (footerData.length) {
-        const footerRow = exportColumns.map(column => {
-          const base = footerData[0][column.field] || ''
+        return Utils.calculateObjectValue(column,
+          column.footerFormatter,
+          [o.exportDataType === 'selected' ? data : this.getData(), base],
+          base)
+      })
 
-          return Utils.calculateObjectValue(column,
-            column.footerFormatter,
-            [this.getData(), base],
-            base)
-        })
-
-        rows.push(footerRow)
-        textRows.push(footerRow.map(value => toText(value)))
-      }
+      rows.push(footerRow)
+      textRows.push(footerRow.map(value => toText(value)))
     }
 
     return { columns, rows: textRows, values: rows }
@@ -433,7 +489,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const exportOptions = Utils.extend({}, o.exportOptions, options)
-    const type = String(exportOptions.type || o.exportTypes[0] || 'csv').toLowerCase()
+    const exportTypes = parseExportTypes(o.exportTypes) || []
+    const type = String(exportOptions.type || exportTypes[0] || 'csv').toLowerCase()
 
     if (!EXPORT_TYPES.includes(type)) {
       console.warn(`bootstrap-table: unsupported export type "${type}", expected one of ${EXPORT_TYPES.join(', ')}`)
@@ -464,7 +521,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         o.virtualScroll = false
         this.$el.one('post-body.bs.table', () => {
           setTimeout(() => {
-            const data = this.getData()
+            const data = this.filterHiddenRows(this.getData())
 
             save(data)
             o.virtualScroll = virtualScroll
@@ -476,7 +533,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         return true
       }
 
-      const data = this.getData()
+      const data = this.filterHiddenRows(this.getData())
 
       save(data)
       this.trigger('export-saved', data)
@@ -484,14 +541,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (o.exportDataType === 'selected') {
-      save(selectedData)
-      this.trigger('export-saved', selectedData)
+      const data = this.filterHiddenRows(selectedData)
+
+      save(data)
+      this.trigger('export-saved', data)
       return true
     }
 
-    // Basic type exports the current page only, as the rendered rows did before
-    save(this.getData({ useCurrentPage: true }))
-    this.trigger('export-saved', this.getData(true))
+    // Basic type exports the current page only, as the rendered rows did before:
+    // slice the full data first, then skip hidden rows like the body renderer does
+    const data = this.filterHiddenRows(
+      this.getData({ useCurrentPage: true, includeHiddenRows: true })
+    )
+
+    save(data)
+    this.trigger('export-saved', data)
     return true
   }
 

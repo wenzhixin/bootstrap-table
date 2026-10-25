@@ -646,4 +646,594 @@ describe('export extension', () => {
       destroy($table)
     }
   })
+
+  describe('formatter return values', () => {
+    it('exports the text of DOM nodes and jQuery objects returned by formatters', async () => {
+      const $table = await createTable({
+        columns: [
+          { field: 'id', title: 'ID' },
+          {
+            field: 'name',
+            title: 'Name',
+            formatter: value => {
+              const span = document.createElement('span')
+
+              span.textContent = value
+              return span
+            }
+          },
+          {
+            field: 'price',
+            title: 'Price',
+            formatter: value => globalThis.$('<i></i>').text(value)
+          }
+        ]
+      })
+
+      try {
+        const text = await exportAs($table, 'csv')
+
+        expect(text).toContain('1,Item 1,1.00')
+        expect(text).not.toContain('[object')
+
+        const sql = await exportAs($table, 'sql')
+
+        expect(sql).toContain('\'Item 1\'')
+        expect(sql).not.toContain('[object')
+
+        const xml = await exportAs($table, 'xml')
+
+        expect(xml).toContain('<name>Item 1</name>')
+        expect(xml).not.toContain('[object')
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('passes the data index to formatters', async () => {
+      const $table = await createTable({
+        columns: [
+          { field: 'id', title: 'ID' },
+          {
+            field: 'name',
+            title: 'Name',
+            formatter: (value, row, index) => `${value} #${index}`
+          },
+          { field: 'price', title: 'Price' }
+        ],
+        data: [
+          { id: 1, name: 'a', price: '1.00' },
+          { id: 2, name: 'b', price: '2.00' },
+          { id: 3, name: 'c', price: '3.00' }
+        ]
+      })
+
+      try {
+        const text = await exportAs($table, 'csv')
+
+        expect(text).toContain('1,a #0,1.00')
+        expect(text).toContain('2,b #1,2.00')
+        expect(text).toContain('3,c #2,3.00')
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('keeps the absolute data index for current-page rows', async () => {
+      const $table = await createTable({
+        pagination: true,
+        pageSize: 2,
+        pageNumber: 2,
+        columns: [
+          { field: 'id', title: 'ID' },
+          {
+            field: 'name',
+            title: 'Name',
+            formatter: (value, row, index) => `${value} #${index}`
+          },
+          { field: 'price', title: 'Price' }
+        ],
+        data: [
+          { id: 1, name: 'a', price: '1.00' },
+          { id: 2, name: 'b', price: '2.00' },
+          { id: 3, name: 'c', price: '3.00' }
+        ]
+      })
+
+      try {
+        const text = await exportAs($table, 'csv')
+
+        expect(text).toContain('3,c #2,3.00')
+        expect(text).not.toContain('a #')
+        expect(text).not.toContain('undefined')
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('keeps the absolute data index for selected rows', async () => {
+      const $table = await createTable({
+        exportDataType: 'selected',
+        columns: [
+          { checkbox: true, field: 'state' },
+          { field: 'id', title: 'ID' },
+          {
+            field: 'name',
+            title: 'Name',
+            formatter: (value, row, index) => `${value} #${index}`
+          },
+          { field: 'price', title: 'Price' }
+        ],
+        data: [
+          { id: 1, name: 'a', price: '1.00' },
+          { id: 2, name: 'b', price: '2.00' },
+          { id: 3, name: 'c', price: '3.00' }
+        ]
+      })
+
+      try {
+        const instance = $table.data('bootstrap.table')
+
+        instance.check(0)
+        instance.check(2)
+
+        const text = await exportAs($table, 'csv')
+
+        expect(text).toContain('1,a #0,1.00')
+        expect(text).toContain('3,c #2,3.00')
+        expect(text).not.toContain('b #')
+        expect(text).not.toContain('undefined')
+      } finally {
+        destroy($table)
+      }
+    })
+  })
+
+  it('keeps generated xml tags unique when the suffix matches an existing tag', async () => {
+    const $table = await createTable({
+      columns: [
+        { field: 'name_3', title: 'A' },
+        { field: 'name', title: 'B' },
+        { field: 'name?', title: 'C' }
+      ],
+      data: [{ name_3: 'a', name: 'b', 'name?': 'c' }]
+    })
+
+    try {
+      const text = await exportAs($table, 'xml')
+
+      expect(text).toContain('<name_3>a</name_3>')
+      expect(text).toContain('<name>b</name>')
+      expect(text).toContain('<name_4>c</name_4>')
+      expect(text).not.toContain('<name_3>c</name_3>')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('strips markup from json strings but keeps numbers, booleans and null typed', async () => {
+    const $table = await createTable({
+      columns: [
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Name', formatter: value => `<b>${value}</b>` },
+        { field: 'price', title: 'Price' },
+        { field: 'active', title: 'Active' }
+      ],
+      data: [
+        { id: 1, name: 'Item 1', price: 1.5, active: true },
+        { id: 2, name: 'Item 2', price: null, active: false }
+      ]
+    })
+
+    try {
+      const objects = JSON.parse(await exportAs($table, 'json'))
+
+      expect(objects).toEqual([
+        { id: 1, name: 'Item 1', price: 1.5, active: true },
+        { id: 2, name: 'Item 2', price: null, active: false }
+      ])
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('includes columns whose field defaults to the numeric index zero', async () => {
+    const $table = await createTable({
+      columns: [[{ title: 'First' }, { title: 'Second' }]],
+      data: [{ 0: 'a', 1: 'b' }]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('First,Second')
+      expect(text).toContain('a,b')
+
+      const sql = await exportAs($table, 'sql')
+
+      expect(sql).toContain('(`0`, `1`)')
+      expect(sql).not.toContain('`col1`')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('applies undefinedText to text exports but keeps typed values for sql and json', async () => {
+    const $table = await createTable({
+      undefinedText: 'N/A',
+      data: [
+        { id: 1, name: 'Item 1', price: '1.00' },
+        { id: 2, name: null, price: '2.00' },
+        { id: 3, price: '3.00' }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('2,N/A,2.00')
+      expect(text).toContain('3,N/A,3.00')
+
+      const sql = await exportAs($table, 'sql')
+
+      expect(sql).toContain('(2, NULL, \'2.00\')')
+
+      const objects = JSON.parse(await exportAs($table, 'json'))
+
+      expect(objects[1].name).toBe(null)
+      expect(objects[1].id).toBe(2)
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('exports the footer when it is computed only by footer formatters', async () => {
+    const $table = await createTable({
+      showFooter: true,
+      exportFooter: true,
+      columns: [
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Name' },
+        { field: 'price', title: 'Price', footerFormatter: () => 'total' }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text.endsWith(',,total')).toBe(true)
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('matches the rendered current page when rows are hidden', async () => {
+    const $table = await createTable({
+      pagination: true,
+      pageSize: 2,
+      data: [
+        { id: 1, name: 'Item 1', price: '1.00' },
+        { id: 2, name: 'Item 2', price: '2.00' },
+        { id: 3, name: 'Item 3', price: '3.00' }
+      ]
+    })
+
+    try {
+      $table.data('bootstrap.table').hideRow({ index: 0 })
+
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('2,Item 2,2.00')
+      expect(text).not.toContain('Item 1')
+      expect(text).not.toContain('Item 3')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('excludes hidden rows from all-data-type exports', async () => {
+    const $table = await createTable({
+      exportDataType: 'all',
+      pagination: true,
+      pageSize: 2,
+      data: [
+        { id: 1, name: 'Item 1', price: '1.00' },
+        { id: 2, name: 'Item 2', price: '2.00' },
+        { id: 3, name: 'Item 3', price: '3.00' }
+      ]
+    })
+
+    try {
+      $table.data('bootstrap.table').hideRow({ index: 0 })
+
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('2,Item 2,2.00')
+      expect(text).toContain('3,Item 3,3.00')
+      expect(text).not.toContain('Item 1')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('neutralizes formula-like text in headers, cells and footers', async () => {
+    const $table = await createTable({
+      showFooter: true,
+      exportFooter: true,
+      columns: [
+        { field: 'id', title: '=Header' },
+        { field: 'name', title: 'Name' },
+        { field: 'price', title: 'Price', footerFormatter: () => '=Footer' }
+      ],
+      data: [
+        { id: 1, name: '=1+1', price: -1.5 },
+        { id: 2, name: '@SUM(1)', price: '=2+2' }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('\'=Header')
+      expect(text).toContain('1,\'=1+1,-1.5')
+      expect(text).toContain('2,\'@SUM(1),\'=2+2')
+      expect(text).toContain('\'=Footer')
+      expect(text).not.toContain('\'-1.5')
+
+      const excel = await exportAs($table, 'excel')
+
+      expect(excel).toContain('\'=1+1')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('doubles backslashes in sql string literals', async () => {
+    const $table = await createTable({
+      data: [
+        { id: 1, name: 'C:\\temp', price: 'a\\b' }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'sql')
+
+      expect(text).toContain('C:\\\\temp')
+      expect(text).toContain('a\\\\b')
+      expect(text).toContain('(1, \'C:\\\\temp\', \'a\\\\b\')')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('preserves primitive types in json when escape is enabled', async () => {
+    const $table = await createTable({
+      escape: true,
+      columns: [
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Name' },
+        { field: 'price', title: 'Price' },
+        { field: 'active', title: 'Active' }
+      ],
+      data: [
+        { id: 7, name: '<b>Item</b>', price: 0, active: true },
+        { id: 8, name: 'plain', price: 2.5, active: false }
+      ]
+    })
+
+    try {
+      const objects = JSON.parse(await exportAs($table, 'json'))
+
+      expect(objects).toEqual([
+        { id: 7, name: '<b>Item</b>', price: 0, active: true },
+        { id: 8, name: 'plain', price: 2.5, active: false }
+      ])
+
+      const sql = await exportAs($table, 'sql')
+
+      expect(sql).toContain(', 0, true)')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('uses the selected rows for footer formatters in selected mode', async () => {
+    const $table = await createTable({
+      exportDataType: 'selected',
+      showFooter: true,
+      exportFooter: true,
+      columns: [
+        { checkbox: true, field: 'state' },
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Name' },
+        {
+          field: 'price',
+          title: 'Price',
+          footerFormatter: data => `sum: ${data.reduce((total, row) => total + Number(row.price), 0)}`
+        }
+      ],
+      data: [
+        { id: 1, name: 'a', price: 10 },
+        { id: 2, name: 'b', price: 20 }
+      ]
+    })
+
+    try {
+      $table.data('bootstrap.table').check(0)
+
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('sum: 10')
+      expect(text).not.toContain('sum: 30')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('removes xml-invalid control characters before escaping', async () => {
+    const $table = await createTable({
+      data: [{ id: 1, name: 'a\u0001b', price: 'ok' }]
+    })
+
+    try {
+      const text = await exportAs($table, 'xml')
+
+      expect(text).toContain('<name>ab</name>')
+      expect(text).not.toContain('\u0001')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('quotes txt cells containing tabs or line breaks', async () => {
+    const $table = await createTable({
+      columns: [
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Na\tme' },
+        { field: 'price', title: 'Price' }
+      ],
+      data: [{ id: 1, name: 'Item\t1', price: 'line\nbreak' }]
+    })
+
+    try {
+      const text = await exportAs($table, 'txt')
+
+      expect(text).toContain('ID\t"Na\tme"\tPrice')
+      expect(text).toContain('1\t"Item\t1"\t"line\nbreak"')
+      expect(text.split('\r\n')).toHaveLength(2)
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('exports a column whose field is __proto__', async () => {
+    const $table = await createTable({
+      columns: [
+        { field: 'id', title: 'ID' },
+        { field: '__proto__', title: 'Proto' }
+      ],
+      data: [{ id: 1 }]
+    })
+
+    try {
+      const instance = $table.data('bootstrap.table')
+
+      // Define the own property after initData() deep-copies the rows
+      Object.defineProperty(instance.options.data[0], '__proto__', {
+        value: 7,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      })
+
+      const text = await exportAs($table, 'json')
+
+      expect(text).toContain('"__proto__": 7')
+
+      const objects = JSON.parse(text)
+
+      expect(Object.prototype.hasOwnProperty.call(objects[0], '__proto__')).toBe(true)
+      expect(objects[0].__proto__).toBe(7)
+      expect(objects[0].id).toBe(1)
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('excludes hidden selection columns even with forceExport', async () => {
+    const $table = await createTable({
+      columns: [
+        { checkbox: true, field: 'state', visible: false, forceExport: true },
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Name' },
+        { field: 'price', title: 'Price' }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('ID,Name,Price')
+      expect(text).not.toContain('state')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('keeps escaped array values visible instead of stripping their markup', async () => {
+    const $table = await createTable({
+      escape: true,
+      columns: [
+        { field: 'id', title: 'ID' },
+        { field: 'name', title: 'Name' },
+        { field: 'price', title: 'Price' }
+      ],
+      data: [{ id: 1, name: ['<b>Item</b>'], price: '1.00' }]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain('<b>Item</b>')
+      expect(text).not.toContain('1,Item,')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('keeps an explicitly blank column title blank', async () => {
+    const $table = await createTable({
+      columns: [
+        { field: 'id', title: '' },
+        { field: 'name', title: 'Name' },
+        { field: 'price', title: 'Price' }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'csv')
+
+      expect(text).toContain(',Name,Price')
+      expect(text).not.toContain('id,Name,Price')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('uses the first type when exportTypes is configured as a string list', async () => {
+    const $table = await createTable({ exportTypes: '[\'csv\']' })
+
+    try {
+      const result = $table.data('bootstrap.table').exportTable({})
+
+      expect(result).toBe(true)
+      expect(downloadName).toBe('table.csv')
+
+      const text = await capturedBlob.text()
+
+      expect(text).toContain('ID,Name,Price')
+    } finally {
+      destroy($table)
+    }
+  })
+
+  it('serializes non-finite numbers as NULL in sql', async () => {
+    const $table = await createTable({
+      data: [
+        { id: 1, name: NaN, price: Infinity },
+        { id: 2, name: -Infinity, price: 1.5 }
+      ]
+    })
+
+    try {
+      const text = await exportAs($table, 'sql')
+
+      expect(text).toContain('(1, NULL, NULL)')
+      expect(text).toContain('(2, NULL, 1.5)')
+      expect(text).not.toContain('NaN')
+      expect(text).not.toContain('Infinity')
+    } finally {
+      destroy($table)
+    }
+  })
 })
