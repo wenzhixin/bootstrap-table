@@ -206,7 +206,7 @@ html[data-bs-theme=dark] {
   opacity: 1;
 }
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   justify-content: center;
 }
@@ -228,10 +228,10 @@ html[data-bs-theme=dark] {
   background: var(--bt-table-loading-color);
   border-radius: 50%;
   display: block;
-  height: 5px;
-  margin: 0 4px;
+  height: 0.3em;
+  margin: 0 0.2em;
   opacity: 0;
-  width: 5px;
+  width: 0.3em;
 }
 .bootstrap-table .fixed-table-container .fixed-table-body .fixed-table-loading .loading-wrap .animation-dot {
   animation-delay: 0.3s;
@@ -335,6 +335,14 @@ div.fixed-table-scroll-outer {
   }
   100% {
     opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bootstrap-table .fixed-table-loading .animation-dot,
+  .bootstrap-table .fixed-table-loading .animation-wrap::after,
+  .bootstrap-table .fixed-table-loading .animation-wrap::before {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
 .bootstrap-table .fixed-table-container.fixed-height:not(.has-footer),

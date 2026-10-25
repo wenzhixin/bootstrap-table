@@ -199,7 +199,7 @@
 
   	functionBindNative = !fails(function () {
   	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-  	  var test = (function () { /* empty */ }).bind();
+  	  var test = function () { /* empty */ }.bind();
   	  // eslint-disable-next-line no-prototype-builtins -- safe
   	  return typeof test != 'function' || test.hasOwnProperty('prototype');
   	});
@@ -678,10 +678,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.44.0',
+  	  version: '3.49.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1034,7 +1034,7 @@
 
   	var EXISTS = hasOwn(FunctionPrototype, 'name');
   	// additional protection from minified / mangled / dropped function names
-  	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+  	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
   	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
   	functionName = {
@@ -1057,7 +1057,7 @@
 
   	var functionToString = uncurryThis(Function.toString);
 
-  	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+  	// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
   	if (!isCallable(store.inspectSource)) {
   	  store.inspectSource = function (it) {
   	    return functionToString(it);
@@ -1672,7 +1672,7 @@
   	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
 
   	doesNotExceedSafeInteger = function (it) {
-  	  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
+  	  if (it > MAX_SAFE_INTEGER) throw new $TypeError('Maximum allowed index exceeded');
   	  return it;
   	};
   	return doesNotExceedSafeInteger;
@@ -1695,6 +1695,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1705,7 +1740,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1898,6 +1933,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -1943,7 +1979,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -2001,13 +2037,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -2018,28 +2052,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -2333,9 +2367,15 @@
   	  return !Array(1).includes();
   	});
 
+  	// Safari 26.4- bug
+  	var BROKEN_ON_SPARSE_WITH_FROM_INDEX = fails(function () {
+  	  // eslint-disable-next-line no-sparse-arrays, es/no-array-prototype-includes -- detection
+  	  return [, 1].includes(undefined, 1);
+  	});
+
   	// `Array.prototype.includes` method
   	// https://tc39.es/ecma262/#sec-array.prototype.includes
-  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
+  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE || BROKEN_ON_SPARSE_WITH_FROM_INDEX }, {
   	  includes: function includes(el /* , fromIndex = 0 */) {
   	    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
   	  }
@@ -2998,8 +3038,7 @@
   	hasRequiredEnvironmentIsIos = 1;
   	var userAgent = requireEnvironmentUserAgent();
 
-  	// eslint-disable-next-line redos/no-vulnerable -- safe
-  	environmentIsIos = /(?:ipad|iphone|ipod).*applewebkit/i.test(userAgent);
+  	environmentIsIos = /ipad|iphone|ipod/i.test(userAgent) && /applewebkit/i.test(userAgent);
   	return environmentIsIos;
   }
 
@@ -3864,7 +3903,9 @@
   	  var iterator, iterFn, index, length, result, next, step;
 
   	  var stop = function (condition) {
-  	    if (iterator) iteratorClose(iterator, 'normal');
+  	    var $iterator = iterator;
+  	    iterator = undefined;
+  	    if ($iterator) iteratorClose($iterator, 'normal');
   	    return new Result(true, condition);
   	  };
 
@@ -3894,10 +3935,13 @@
 
   	  next = IS_RECORD ? iterable.next : iterator.next;
   	  while (!(step = call(next, iterator)).done) {
+  	    // `IteratorValue` errors should propagate without closing the iterator
+  	    var value = step.value;
   	    try {
-  	      result = callFn(step.value);
+  	      result = callFn(value);
   	    } catch (error) {
-  	      iteratorClose(iterator, 'throw', error);
+  	      if (iterator) iteratorClose(iterator, 'throw', error);
+  	      else throw error;
   	    }
   	    if (typeof result == 'object' && result && isPrototypeOf(ResultPrototype, result)) return result;
   	  } return new Result(false);
@@ -3926,6 +3970,7 @@
   	      SAFE_CLOSING = true;
   	    }
   	  };
+  	  // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	  iteratorWithReturn[ITERATOR] = function () {
   	    return this;
   	  };
@@ -3940,6 +3985,7 @@
   	  var ITERATION_SUPPORT = false;
   	  try {
   	    var object = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    object[ITERATOR] = function () {
   	      return {
   	        next: function () {
@@ -4163,7 +4209,7 @@
   function requireEs_promise () {
   	if (hasRequiredEs_promise) return es_promise;
   	hasRequiredEs_promise = 1;
-  	// TODO: Remove this module from `core-js@4` since it's split to modules listed below
+  	// TODO: Remove this module from `core-js [at] 4` since it's split to modules listed below
   	requireEs_promise_constructor();
   	requireEs_promise_all();
   	requireEs_promise_catch();
@@ -4340,18 +4386,29 @@
 
   	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG;
 
+  	var setGroups = function (re, groups) {
+  	  var object = re.groups = create(null);
+  	  for (var i = 0; i < groups.length; i++) {
+  	    var group = groups[i];
+  	    object[group[0]] = re[group[1]];
+  	  }
+  	};
+
   	if (PATCH) {
   	  patchedExec = function exec(string) {
   	    var re = this;
   	    var state = getInternalState(re);
   	    var str = toString(string);
   	    var raw = state.raw;
-  	    var result, reCopy, lastIndex, match, i, object, group;
+  	    var result, reCopy, lastIndex;
 
   	    if (raw) {
   	      raw.lastIndex = re.lastIndex;
   	      result = call(patchedExec, raw, str);
   	      re.lastIndex = raw.lastIndex;
+
+  	      if (result && state.groups) setGroups(result, state.groups);
+
   	      return result;
   	    }
 
@@ -4370,8 +4427,10 @@
 
   	      strCopy = stringSlice(str, re.lastIndex);
   	      // Support anchored sticky behavior.
-  	      if (re.lastIndex > 0 && (!re.multiline || re.multiline && charAt(str, re.lastIndex - 1) !== '\n')) {
-  	        source = '(?: ' + source + ')';
+  	      var prevChar = re.lastIndex > 0 && charAt(str, re.lastIndex - 1);
+  	      if (re.lastIndex > 0 &&
+  	        (!re.multiline || re.multiline && prevChar !== '\n' && prevChar !== '\r' && prevChar !== '\u2028' && prevChar !== '\u2029')) {
+  	        source = '(?: (?:' + source + '))';
   	        strCopy = ' ' + strCopy;
   	        charsAdded++;
   	      }
@@ -4385,11 +4444,11 @@
   	    }
   	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
 
-  	    match = call(nativeExec, sticky ? reCopy : re, strCopy);
+  	    var match = call(nativeExec, sticky ? reCopy : re, strCopy);
 
   	    if (sticky) {
   	      if (match) {
-  	        match.input = stringSlice(match.input, charsAdded);
+  	        match.input = str;
   	        match[0] = stringSlice(match[0], charsAdded);
   	        match.index = re.lastIndex;
   	        re.lastIndex += match[0].length;
@@ -4401,19 +4460,13 @@
   	      // Fix browsers whose `exec` methods don't consistently return `undefined`
   	      // for NPCG, like IE8. NOTE: This doesn't work for /(.?)?/
   	      call(nativeReplace, match[0], reCopy, function () {
-  	        for (i = 1; i < arguments.length - 2; i++) {
+  	        for (var i = 1; i < arguments.length - 2; i++) {
   	          if (arguments[i] === undefined) match[i] = undefined;
   	        }
   	      });
   	    }
 
-  	    if (match && groups) {
-  	      match.groups = object = create(null);
-  	      for (i = 0; i < groups.length; i++) {
-  	        group = groups[i];
-  	        object[group[0]] = match[group[1]];
-  	      }
-  	    }
+  	    if (match && groups) setGroups(match, groups);
 
   	    return match;
   	  };
@@ -4660,7 +4713,7 @@
   function requireFixRegexpWellKnownSymbolLogic () {
   	if (hasRequiredFixRegexpWellKnownSymbolLogic) return fixRegexpWellKnownSymbolLogic;
   	hasRequiredFixRegexpWellKnownSymbolLogic = 1;
-  	// TODO: Remove from `core-js@4` since it's moved to entry points
+  	// TODO: Remove from `core-js [at] 4` since it's moved to entry points
   	requireEs_regexp_exec();
   	var call = requireFunctionCall();
   	var defineBuiltIn = requireDefineBuiltIn();
@@ -4678,6 +4731,7 @@
   	  var DELEGATES_TO_SYMBOL = !fails(function () {
   	    // String methods call symbol-named RegExp methods
   	    var O = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    O[SYMBOL] = function () { return 7; };
   	    return ''[KEY](O) !== 7;
   	  });
@@ -4691,12 +4745,13 @@
   	      // We can't use real regex here since it causes deoptimization
   	      // and serious performance degradation in V8
   	      // https://github.com/zloirock/core-js/issues/306
-  	      re = {};
   	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
   	      // a new one. We need to return the patched regex when creating the new one.
-  	      re.constructor = {};
-  	      re.constructor[SPECIES] = function () { return re; };
-  	      re.flags = '';
+  	      var constructor = {};
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      constructor[SPECIES] = function () { return re; };
+  	      re = { constructor: constructor, flags: '' };
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	      re[SYMBOL] = /./[SYMBOL];
   	    }
 
@@ -4794,7 +4849,7 @@
   	// `AdvanceStringIndex` abstract operation
   	// https://tc39.es/ecma262/#sec-advancestringindex
   	advanceStringIndex = function (S, index, unicode) {
-  	  return index + (unicode ? charAt(S, index).length : 1);
+  	  return index + (unicode ? charAt(S, index).length || 1 : 1);
   	};
   	return advanceStringIndex;
   }
@@ -4844,6 +4899,7 @@
   	var toLength = requireToLength();
   	var toString = requireToString();
   	var getMethod = requireGetMethod();
+  	var getRegExpFlags = requireRegexpGetFlags();
   	var regExpExec = requireRegexpExecAbstract();
   	var stickyHelpers = requireRegexpStickyHelpers();
   	var fails = requireFails();
@@ -4853,6 +4909,7 @@
   	var min = Math.min;
   	var push = uncurryThis([].push);
   	var stringSlice = uncurryThis(''.slice);
+  	var stringIndexOf = uncurryThis(''.indexOf);
 
   	// Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
   	// Weex JS has frozen built-in prototypes, so use try / catch wrapper
@@ -4905,11 +4962,11 @@
   	      }
 
   	      var C = speciesConstructor(rx, RegExp);
-  	      var unicodeMatching = rx.unicode;
-  	      var flags = (rx.ignoreCase ? 'i' : '') +
-  	                  (rx.multiline ? 'm' : '') +
-  	                  (rx.unicode ? 'u' : '') +
-  	                  (UNSUPPORTED_Y ? 'g' : 'y');
+  	      var flags = toString(getRegExpFlags(rx));
+  	      var unicodeMatching = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
+  	      if (UNSUPPORTED_Y) {
+  	        if (!~stringIndexOf(flags, 'g')) flags += 'g';
+  	      } else if (!~stringIndexOf(flags, 'y')) flags += 'y';
   	      // ^(? + rx + ) is needed, in combination with some S slicing, to
   	      // simulate the 'y' flag.
   	      var splitter = new C(UNSUPPORTED_Y ? '^(?:' + rx.source + ')' : rx, flags);
@@ -5345,7 +5402,9 @@
   	    if (y === undefined) return -1;
   	    if (x === undefined) return 1;
   	    if (comparefn !== undefined) return +comparefn(x, y) || 0;
-  	    return toString(x) > toString(y) ? 1 : -1;
+  	    var xString = toString(x);
+  	    var yString = toString(y);
+  	    return xString === yString ? 0 : xString > yString ? 1 : -1;
   	  };
   	};
 
@@ -5426,9 +5485,9 @@
 
   	      var flags = toString(getRegExpFlags(rx));
 
-  	      if (stringIndexOf(flags, 'g') === -1) return regExpExec(rx, S);
+  	      if (!~stringIndexOf(flags, 'g')) return regExpExec(rx, S);
 
-  	      var fullUnicode = stringIndexOf(flags, 'u') !== -1;
+  	      var fullUnicode = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
   	      rx.lastIndex = 0;
   	      var A = [];
   	      var n = 0;
@@ -5586,23 +5645,24 @@
   	      var rx = anObject(this);
   	      var S = toString(string);
 
+  	      var functionalReplace = isCallable(replaceValue);
+  	      if (!functionalReplace) replaceValue = toString(replaceValue);
+  	      var flags = toString(getRegExpFlags(rx));
+
   	      if (
   	        typeof replaceValue == 'string' &&
-  	        stringIndexOf(replaceValue, UNSAFE_SUBSTITUTE) === -1 &&
-  	        stringIndexOf(replaceValue, '$<') === -1
+  	        !~stringIndexOf(replaceValue, UNSAFE_SUBSTITUTE) &&
+  	        !~stringIndexOf(replaceValue, '$<') &&
+  	        !~stringIndexOf(flags, 'y')
   	      ) {
   	        var res = maybeCallNative(nativeReplace, rx, S, replaceValue);
   	        if (res.done) return res.value;
   	      }
 
-  	      var functionalReplace = isCallable(replaceValue);
-  	      if (!functionalReplace) replaceValue = toString(replaceValue);
-
-  	      var flags = toString(getRegExpFlags(rx));
-  	      var global = stringIndexOf(flags, 'g') !== -1;
+  	      var global = !!~stringIndexOf(flags, 'g');
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
+  	        fullUnicode = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
   	        rx.lastIndex = 0;
   	      }
 
@@ -5690,8 +5750,8 @@
   	  startsWith: function startsWith(searchString /* , position = 0 */) {
   	    var that = toString(requireObjectCoercible(this));
   	    notARegExp(searchString);
-  	    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
   	    var search = toString(searchString);
+  	    var index = toLength(min(arguments.length > 1 ? arguments[1] : undefined, that.length));
   	    return stringSlice(that, index, index + search.length) === search;
   	  }
   	});
@@ -5804,7 +5864,7 @@
       var $field = $(this);
       var fieldClass = escapeID(getElementClass($field));
       if (that.options.height && !that.options.filterControlContainer) {
-        $field = that.$el.find(".fixed-table-header .".concat(fieldClass));
+        $field = that.$tableContainer.find(".fixed-table-header .".concat(fieldClass));
       } else if (that.options.filterControlContainer) {
         $field = $("".concat(that.options.filterControlContainer, " .").concat(fieldClass));
       } else {
@@ -6070,18 +6130,8 @@
           keyCode = _ref5.keyCode;
         var $selectControl = $(currentTarget);
         var value = $selectControl.val();
-        if (Array.isArray(value)) {
-          for (var i = 0; i < value.length; i++) {
-            if (value[i] && value[i].length > 0 && value[i].trim()) {
-              $selectControl.find("option[value=\"".concat(value[i], "\"]")).attr('selected', true);
-            }
-          }
-        } else if (value && value.length > 0 && value.trim()) {
-          $selectControl.find('option[selected]').removeAttr('selected');
-          $selectControl.find("option[value=\"".concat(value, "\"]")).attr('selected', true);
-        } else {
-          $selectControl.find('option[selected]').removeAttr('selected');
-        }
+        var normalizedValue = value === null ? $selectControl.prop('multiple') ? [] : null : value;
+        $selectControl.val(normalizedValue);
         clearTimeout(currentTarget.timeoutId || 0);
         currentTarget.timeoutId = setTimeout(function () {
           that.onColumnSearch({
@@ -6637,7 +6687,6 @@
         var controls = getSearchControls(that);
         // const search = Utils.getSearchInput(this)
         var hasValues = false;
-        var timeoutId = 0;
 
         // Clear cache values
         $.each(that._valuesFilterControl, function (i, item) {
@@ -6654,8 +6703,7 @@
         setValues(that);
 
         // clear cookies once the filters are clean
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(function () {
+        setTimeout(function () {
           if (cookies && cookies.length > 0) {
             $.each(cookies, function (i, item) {
               if (that.deleteCookie !== undefined) {
@@ -6713,10 +6761,13 @@
           return;
         }
         cacheValues(this);
+        var isInitialRender = !this._initialized;
 
         // Cookie extension support
         if (!this.options.cookie) {
-          this.options.pageNumber = 1;
+          if (!isInitialRender) {
+            this.options.pageNumber = 1;
+          }
         } else {
           // Force call the initServer method in Cookie extension
           this._filterControlValuesLoaded = true;
@@ -6740,7 +6791,8 @@
           }
         });
         this.onSearch({
-          currentTarget: currentTarget
+          currentTarget: currentTarget,
+          firedByInitSearchText: isInitialRender
         }, false);
       }
     }, {
@@ -6780,10 +6832,12 @@
         });
       }
     }, {
-      key: "_toggleColumn",
-      value: function _toggleColumn(index, checked, needUpdate) {
-        this._initialized = false;
-        _superPropGet(_class, "_toggleColumn", this)([index, checked, needUpdate]);
+      key: "_toggleColumns",
+      value: function _toggleColumns(fields, checked, needUpdate) {
+        if (fields.length) {
+          this._initialized = false;
+        }
+        _superPropGet(_class, "_toggleColumns", this)([fields, checked, needUpdate]);
         syncHeaders(this);
       }
     }]);

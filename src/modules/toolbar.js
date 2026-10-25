@@ -1,10 +1,56 @@
 import Utils from '../utils/index.js'
 
 export default {
+  renderButton (buttonName, buttonConfig) {
+    const opts = this.options
+    let buttonHtml
+
+    if (buttonConfig.hasOwnProperty('html')) {
+      if (typeof buttonConfig.html === 'function') {
+        buttonHtml = buttonConfig.html()
+      } else {
+        buttonHtml = buttonConfig.html
+      }
+    } else {
+      let buttonClass = this.constants.buttonsClass
+
+      if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
+        buttonClass += ` ${buttonConfig.attributes.class}`
+      }
+      buttonHtml = `<button class="${buttonClass}" type="button" name="${buttonName}"`
+
+      if (buttonConfig.hasOwnProperty('attributes')) {
+        for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
+          if (attributeName === 'class') {
+            continue
+          }
+
+          const attribute = attributeName === 'title' ?
+            opts.buttonsAttributeTitle : attributeName
+
+          buttonHtml += ` ${attribute}="${value}"`
+        }
+      }
+
+      buttonHtml += '>'
+
+      if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
+        buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon)} `
+      }
+
+      if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
+        buttonHtml += buttonConfig.text
+      }
+
+      buttonHtml += '</button>'
+    }
+    return buttonHtml
+  },
+
   initToolbar () {
     const opts = this.options
-    let html = []
-    let timeoutId = 0
+    let html
+    let timeoutId
     let $keepOpen
     let switchableCount = 0
 
@@ -28,7 +74,7 @@ export default {
     ].join(' ')}">`]
 
     if (typeof opts.buttonsOrder === 'string') {
-      opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').split(',')
+      opts.buttonsOrder = Utils.parseStringArray(opts.buttonsOrder)
     }
 
     this.buttons = Object.assign(this.buttons, {
@@ -98,12 +144,14 @@ export default {
           if (opts.showColumnsToggleAll) {
             const allFieldsVisible = this.getVisibleColumns().length === this.columns.filter(column => !this.isSelectionColumn(column)).length
 
-            html.push(
-              Utils.sprintf(this.constants.html.toolbarDropdownItem,
-                Utils.sprintf('<input type="checkbox" class="toggle-all" %s> <span>%s</span>',
-                  allFieldsVisible ? 'checked="checked"' : '', opts.formatColumnsToggleAll())
-              )
-            )
+            html.push(Utils.getCheckboxHtml({
+              name: 'toggle-all',
+              checked: allFieldsVisible,
+              label: opts.formatColumnsToggleAll(),
+              extraClass: 'toggle-all',
+              centered: false,
+              withLabel: true
+            }))
 
             html.push(this.constants.html.toolbarDropdownSeparator)
           }
@@ -129,9 +177,21 @@ export default {
             const disabled = visibleColumns <= opts.minimumCountColumns && checked ? ' disabled="disabled"' : ''
 
             if (column.switchable) {
-              html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem,
-                Utils.sprintf('<input type="checkbox" data-field="%s" value="%s"%s%s> <span>%s</span>',
-                  column.field, i, checked, disabled, column.switchableLabel || column.title)))
+              const checkboxHtml = Utils.getDropdownColumnCheckboxHtml({
+                dataField: column.field,
+                value: i,
+                checked: !!checked,
+                disabled: !!disabled,
+                label: column.switchableLabel || (opts.escape && opts.escapeTitle ?
+                  Utils.escapeHTML(column.title) : column.title)
+              })
+
+              // Bootstrap 3/4 needs to be wrapped with toolbarDropdownItem
+              if (Utils.getBootstrapVersion() === 5) {
+                html.push(checkboxHtml)
+              } else {
+                html.push(Utils.sprintf(this.constants.html.toolbarDropdownItem, checkboxHtml))
+              }
               switchableCount++
             }
           })
@@ -144,49 +204,7 @@ export default {
     const buttonsHtml = {}
 
     for (const [buttonName, buttonConfig] of Object.entries(this.buttons)) {
-      let buttonHtml
-
-      if (buttonConfig.hasOwnProperty('html')) {
-        if (typeof buttonConfig.html === 'function') {
-          buttonHtml = buttonConfig.html()
-        } else if (typeof buttonConfig.html === 'string') {
-          buttonHtml = buttonConfig.html
-        }
-      } else {
-        let buttonClass = this.constants.buttonsClass
-
-        if (buttonConfig.hasOwnProperty('attributes') && buttonConfig.attributes.class) {
-          buttonClass += ` ${buttonConfig.attributes.class}`
-        }
-        buttonHtml = `<button class="${buttonClass}" type="button" name="${buttonName}"`
-
-        if (buttonConfig.hasOwnProperty('attributes')) {
-          for (const [attributeName, value] of Object.entries(buttonConfig.attributes)) {
-            if (attributeName === 'class') {
-              continue
-            }
-
-            const attribute = attributeName === 'title' ?
-              this.options.buttonsAttributeTitle : attributeName
-
-            buttonHtml += ` ${attribute}="${value}"`
-          }
-        }
-
-        buttonHtml += '>'
-
-        if (opts.showButtonIcons && buttonConfig.hasOwnProperty('icon')) {
-          buttonHtml += `${Utils.sprintf(this.constants.html.icon, opts.iconsPrefix, buttonConfig.icon)} `
-        }
-
-        if (opts.showButtonText && buttonConfig.hasOwnProperty('text')) {
-          buttonHtml += buttonConfig.text
-        }
-
-        buttonHtml += '</button>'
-      }
-
-      buttonsHtml[buttonName] = buttonHtml
+      buttonsHtml[buttonName] = this.renderButton(buttonName, buttonConfig)
       const optionName = `show${buttonName.charAt(0).toUpperCase()}${buttonName.substring(1)}`
       const showOption = opts[optionName]
 
@@ -217,7 +235,21 @@ export default {
 
     // Fix #188: this.showToolbar is for extensions
     if (this.showToolbar || html.length > 2) {
-      this.$toolbar.append(html.join(''))
+      if (html.some(item => Utils.isDomNode(item))) {
+        // When there are DOM nodes, build the structure manually
+        // Build wrapper element once from the opening div string
+        const wrapper = $(html[0])
+
+        // Skip html[0] (opening div) and html[html.length-1] (closing div)
+        // Append each button item into the wrapper
+        for (const item of html.slice(1, -1)) {
+          wrapper.append(...Utils.htmlToNodes(item))
+        }
+
+        this.$toolbar.append(wrapper)
+      } else {
+        this.$toolbar.append(html.join(''))
+      }
     }
 
     for (const [buttonName, buttonConfig] of Object.entries(this.buttons)) {
@@ -257,7 +289,7 @@ export default {
       $checkboxes.off('click').on('click', ({ currentTarget }) => {
         const $this = $(currentTarget)
 
-        this._toggleColumn($this.val(), $this.prop('checked'), false)
+        this._toggleColumns([$this.data('field')], $this.prop('checked'), false)
         this.trigger('column-switch', $this.data('field'), $this.prop('checked'))
         $toggleAll.prop('checked', $checkboxes.filter(':checked').length === this.columns.filter(column => !this.isSelectionColumn(column)).length)
       })
@@ -275,14 +307,18 @@ export default {
           const $this = $(currentTarget)
           const searchValue = $this.val().toLowerCase()
 
-          $listItems.show()
+          $listItems.each((_, el) => {
+            el.style.removeProperty('display')
+          })
           $checkboxes.each((i, el) => {
             const $checkbox = $(el)
             const $listItem = $checkbox.parents('.dropdown-item-marker')
             const text = $listItem.text().toLowerCase()
 
             if (!text.includes(searchValue)) {
-              $listItem.hide()
+              $listItem.each((_, item) => {
+                item.style.setProperty('display', 'none', 'important')
+              })
             }
           })
         })
@@ -345,13 +381,14 @@ export default {
       `, searchInputFinalHtml))
 
       this.$toolbar.append(html.join(''))
-      const $searchInput = Utils.getSearchInput(this)
+      const searchInput = Utils.getSearchInput(this)
+      const $searchInput = $(searchInput)
 
       if (opts.showSearchButton) {
         this.$toolbar.find('.search button[name=search]').off('click').on('click', () => {
           clearTimeout(timeoutId) // doesn't matter if it's 0
           timeoutId = setTimeout(() => {
-            this.onSearch({ currentTarget: $searchInput })
+            this.onSearch({ currentTarget: searchInput })
           }, opts.searchTimeOut)
         })
 
@@ -368,7 +405,7 @@ export default {
         })
       }
     } else if (typeof opts.searchSelector === 'string') {
-      handleInputEvent(Utils.getSearchInput(this))
+      handleInputEvent($(Utils.getSearchInput(this)))
     }
   },
 

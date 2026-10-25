@@ -195,7 +195,7 @@
 
   	functionBindNative = !fails(function () {
   	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-  	  var test = (function () { /* empty */ }).bind();
+  	  var test = function () { /* empty */ }.bind();
   	  // eslint-disable-next-line no-prototype-builtins -- safe
   	  return typeof test != 'function' || test.hasOwnProperty('prototype');
   	});
@@ -674,10 +674,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.44.0',
+  	  version: '3.49.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1030,7 +1030,7 @@
 
   	var EXISTS = hasOwn(FunctionPrototype, 'name');
   	// additional protection from minified / mangled / dropped function names
-  	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+  	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
   	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
   	functionName = {
@@ -1053,7 +1053,7 @@
 
   	var functionToString = uncurryThis(Function.toString);
 
-  	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+  	// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
   	if (!isCallable(store.inspectSource)) {
   	  store.inspectSource = function (it) {
   	    return functionToString(it);
@@ -1668,7 +1668,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1790,6 +1790,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var arrayMethodHasSpeciesSupport;
   var hasRequiredArrayMethodHasSpeciesSupport;
 
@@ -1843,6 +1878,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var toIndexedObject = requireToIndexedObject();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var wellKnownSymbol = requireWellKnownSymbol();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var nativeSlice = requireArraySlice();
@@ -1879,7 +1915,7 @@
   	    }
   	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
   	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-  	    result.length = n;
+  	    setArrayLength(result, n);
   	    return result;
   	  }
   	});
@@ -2059,6 +2095,7 @@
     'cached-data-hit.bs.table': 'onCachedDataHit',
     'cached-data-reset.bs.table': 'onCachedDataReset'
   });
+  $.fn.bootstrapTable.methods.push('resetPipelineCache');
   $.BootstrapTable = /*#__PURE__*/function (_$$BootstrapTable) {
     function _class() {
       _classCallCheck(this, _class);
@@ -2274,6 +2311,13 @@
           args[_key4] = arguments[_key4];
         }
         _superPropGet(_class, "destroy", this, 3)(args);
+      }
+
+      // Public method to reset the pipeline cache
+    }, {
+      key: "resetPipelineCache",
+      value: function resetPipelineCache() {
+        this.resetCache = true;
       }
     }]);
   }($.BootstrapTable);

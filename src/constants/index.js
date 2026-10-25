@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Utils from '../utils/index.js'
 
-const VERSION = '1.25.0'
+const VERSION = '1.27.3'
 
 const bootstrapVersion = Utils.getBootstrapVersion()
 
@@ -81,6 +81,8 @@ const CONSTANTS = {
       buttonsPrefix: 'btn',
       dropdownActive: 'active',
       dropup: 'dropup',
+      formCheck: 'form-check',
+      formCheckInput: 'form-check-input',
       input: 'form-control',
       inputGroup: 'btn-group',
       inputPrefix: 'form-control-',
@@ -106,7 +108,7 @@ const CONSTANTS = {
       toolbarDropdownSeparator: '<div class="dropdown-divider"></div>'
     }
   }
-}[bootstrapVersion]
+}[bootstrapVersion || 5]
 
 const ICONS = {
   glyphicon: {
@@ -251,6 +253,7 @@ const DEFAULTS = {
   responseHandler: res => res,
   rowAttributes: (row, index) => ({}),
   rowStyle: (row, index) => ({}),
+  rtl: false, // false, true, 'ltr', 'rtl', 'auto'
   search: false,
   searchable: false,
   searchAccentNeutralise: false,
@@ -283,6 +286,7 @@ const DEFAULTS = {
   sortable: true,
   sortClass: undefined,
   sortEmptyLast: false,
+  orderList: undefined, // ['asc','desc'] | ['desc','asc'] | 'asc,desc'; undefined => legacy column `order` fallback
   sortName: undefined,
   sortOrder: undefined,
   sortReset: false,
@@ -423,6 +427,7 @@ const COLUMN_DEFAULTS = {
   formatter: undefined, // function
   halign: undefined, // left, right, center
   order: 'asc', // asc, desc
+  orderList: undefined, // overrides the table-level orderList for this column
   radio: false,
   rowspan: undefined, // number
   searchable: true,

@@ -2,6 +2,8 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
+import DOMHelper from '../../helpers/dom.js'
+
 const Utils = $.fn.bootstrapTable.utils
 
 function printPageBuilderDefault (table, styles) {
@@ -38,6 +40,10 @@ function printPageBuilderDefault (table, styles) {
     }
     div.bs-table-print {
       text-align: center;
+    }
+    table {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     </style>
     </head>
@@ -146,7 +152,35 @@ $.BootstrapTable = class extends $.BootstrapTable {
         [value_, row, i], value_)
 
       return typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : $('<div>').html(value).html()
+        this.options.undefinedText : DOMHelper.html(DOMHelper.create('<div></div>'), value).innerHTML
+    }
+
+    const getCellStyle = (row, i, column) => {
+      const value_ = Utils.getItemField(row, column.field, this.options.escape, column.escape)
+      const cellStyle = Utils.calculateObjectValue(this.header,
+        this.header.cellStyles[column.fieldIndex],
+        [value_, row, i, column.field], {})
+
+      let attrs = ''
+
+      const fieldClass = row[`_${column.field}_class`]
+      const fieldStyle = row[`_${column.field}_style`]
+      const classes = [fieldClass, cellStyle.classes].filter(Boolean)
+      const styles = [fieldStyle, cellStyle.css].filter(Boolean)
+
+      if (classes.length) {
+        attrs += ` class="${Utils.escapeAttr(Utils.classToString(classes))}"`
+      }
+
+      if (styles.length) {
+        const style = Utils.serializeStyle(styles)
+
+        if (style) {
+          attrs += ` style="${Utils.escapeAttr(style)}"`
+        }
+      }
+
+      return attrs
     }
 
     const buildTable = (data, columnsArray) => {
@@ -157,11 +191,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
         html.push('<tr>')
         for (let h = 0; h < columns.length; h++) {
           if (canPrint(columns[h])) {
+            const title = this.options.escape && this.options.escapeTitle ?
+              Utils.escapeHTML(columns[h].title) : columns[h].title
+
             html.push(
               `<th
               ${Utils.sprintf(' rowspan="%s"', columns[h].rowspan)}
               ${Utils.sprintf(' colspan="%s"', columns[h].colspan)}
-              >${columns[h].title}</th>`)
+              >${title}</th>`)
           }
         }
         html.push('</tr>')
@@ -188,7 +225,32 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       for (let i = 0; i < data.length; i++) {
-        html.push('<tr>')
+        const rowStyle = Utils.calculateObjectValue(this.options,
+          this.options.rowStyle, [data[i], i], {})
+
+        let rowStyleAttr = ''
+
+        if (rowStyle.classes) {
+          rowStyleAttr += ` class="${Utils.escapeAttr(Utils.classToString(rowStyle.classes))}"`
+        }
+
+        if (rowStyle.css) {
+          const style = Utils.serializeStyle(rowStyle.css)
+
+          if (style) {
+            rowStyleAttr += ` style="${Utils.escapeAttr(style)}"`
+          }
+        }
+
+        if (!rowStyle.classes && data[i]._class) {
+          rowStyleAttr += ` class="${Utils.escapeAttr(data[i]._class)}"`
+        }
+
+        if (!rowStyle.css && data[i]._style) {
+          rowStyleAttr += ` style="${Utils.escapeAttr(data[i]._style)}"`
+        }
+
+        html.push(`<tr${rowStyleAttr}>`)
 
         const columns = columnsArray.flat(1)
 
@@ -219,9 +281,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
             )
           ) {
             if (rowspan > 0 && colspan > 0) {
-              html.push(`<td ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
+              html.push(`<td${getCellStyle(data[i], i, columns[j])} ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
             } else {
-              html.push('<td>', formatValue(data[i], i, columns[j]), '</td>')
+              html.push(`<td${getCellStyle(data[i], i, columns[j])}>`, formatValue(data[i], i, columns[j]), '</td>')
             }
           }
         }
@@ -231,20 +293,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       html.push('</tbody>')
       if (this.options.showFooter) {
-        html.push('<footer><tr>')
+        html.push('<tfoot><tr>')
 
-        for (const columns of columnsArray) {
-          for (let h = 0; h < columns.length; h++) {
-            if (canPrint(columns)) {
-              const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr'))
-              const footerValue = Utils.calculateObjectValue(columns[h], columns[h].footerFormatter, [data], footerData[0] && footerData[0][columns[h].field] || '')
+        const columns = columnsArray.flat(1).filter(column => !(column.colspanGroup > 0))
 
-              html.push(`<th>${footerValue}</th>`)
-            }
+        columns.sort((c1, c2) => c1.colspanIndex - c2.colspanIndex)
+        const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr').get())
+
+        for (const column of columns) {
+          if (canPrint(column)) {
+            const footerValue = Utils.calculateObjectValue(column, column.footerFormatter, [data], footerData[0] && footerData[0][column.field] || '')
+
+            html.push(`<th>${footerValue}</th>`)
           }
         }
 
-        html.push('</tr></footer>')
+        html.push('</tr></tfoot>')
       }
       html.push('</table>')
       return html.join('')
@@ -279,30 +343,54 @@ $.BootstrapTable = class extends $.BootstrapTable {
     data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)
     const table = buildTable(data, this.options.columns)
     const newWin = window.open('')
+
+    if (!newWin) {
+      return
+    }
+
     const printStyles = typeof this.options.printStyles === 'string' ?
       this.options.printStyles.replace(/\[|\]| /g, '').toLowerCase().split(',') :
       this.options.printStyles
-    const styles = printStyles.map(it =>
-      `<link rel="stylesheet" href="${it}" />`).join('')
+    const startPrint = () => {
+      newWin.focus()
+      newWin.addEventListener('afterprint', () => {
+        newWin.close()
+      }, { once: true })
+      newWin.print()
+    }
+
+    const styles = printStyles.length ?
+      printStyles.map(s => `<link rel="stylesheet" href="${s}" />`).join('') : ''
 
     const calculatedPrintPage = Utils.calculateObjectValue(this, this.options.printPageBuilder,
       [table, styles], printPageBuilderDefault(table, styles))
-    const startPrint = () => {
-      newWin.focus()
-      newWin.print()
-      newWin.close()
-    }
 
     newWin.document.write(calculatedPrintPage)
     newWin.document.close()
 
-    if (printStyles.length) {
-      const links = document.getElementsByTagName('link')
-      const lastLink = links[links.length - 1]
+    const links = DOMHelper.$$('link[rel="stylesheet"]', newWin.document.documentElement)
 
-      lastLink.onload = startPrint
-    } else {
+    if (!links.length) {
       startPrint()
+    } else {
+      let loadedCount = 0
+      const totalStyles = links.length
+
+      const checkDone = () => {
+        loadedCount++
+        if (loadedCount === totalStyles) {
+          startPrint()
+        }
+      }
+
+      for (const link of links) {
+        if (link.sheet) {
+          checkDone()
+        } else {
+          link.addEventListener('load', checkDone)
+          link.addEventListener('error', checkDone)
+        }
+      }
     }
   }
 }

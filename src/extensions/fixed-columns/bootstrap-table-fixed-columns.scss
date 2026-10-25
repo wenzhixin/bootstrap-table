@@ -23,3 +23,11 @@
     overflow-x: hidden !important;
   }
 }
+
+.fixed-columns,
+.fixed-columns-right,
+.fixed-table-container > .fixed-table-body {
+  .table-hover .hover-row {
+    background-color: var(--bt-table-hover-bg, var(--bs-table-hover-bg, rgba(0, 0, 0, 0.075)));
+  }
+}

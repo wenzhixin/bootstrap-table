@@ -370,6 +370,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (filterColumnsDefaults) {
       this.filterColumnsPartial = filterColumnsDefaults
+      // Apply the restored filters to the data before re-rendering, so the
+      // restore does not depend on the deferred initial search running
+      // after the 250ms restore timer (broken when searchTimeOut < 250).
+      this.initSearch()
       this.updatePagination()
 
       // eslint-disable-next-line guard-for-in
@@ -418,7 +422,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const controls = UtilsFilterControl.getSearchControls(that)
     // const search = Utils.getSearchInput(this)
     let hasValues = false
-    let timeoutId = 0
 
     // Clear cache values
     $.each(that._valuesFilterControl, (i, item) => {
@@ -435,8 +438,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsFilterControl.setValues(that)
 
     // clear cookies once the filters are clean
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => {
+    setTimeout(() => {
       if (cookies && cookies.length > 0) {
         $.each(cookies, (i, item) => {
           if (that.deleteCookie !== undefined) {
@@ -456,7 +458,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // which ones are going to be present.
     if (controls.length > 0) {
       this.filterColumnsPartial = {}
-      controls.eq(0).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
+      const $control = controls.eq(0)
+
+      $control.trigger($control.is('select') ? 'change' : 'keyup', { keyCode: 13 })
       /* controls.each(function () {
         $(this).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
       })*/
@@ -480,16 +484,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // EVENTS
-  onColumnSearch ({ currentTarget, keyCode }) {
+  onColumnSearch ({ currentTarget, keyCode, isInitial }) {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
     UtilsFilterControl.cacheValues(this)
 
+    const isInitialRender = !this._initialized || isInitial === true
+
     // Cookie extension support
     if (!this.options.cookie) {
-      this.options.pageNumber = 1
-    } else {
+      if (!isInitialRender) {
+        this.options.pageNumber = 1
+      }
+    } else if (!isInitialRender) {
       // Force call the initServer method in Cookie extension
       this._filterControlValuesLoaded = true
     }
@@ -507,7 +515,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const text = elementValue ? elementValue.trim() : ''
       const $field = $element.closest('[data-field]').data('field')
 
-      this.trigger('column-search', $field, text)
+      // Skip empty values on the initial render: the cookie extension
+      // persists every column-search event, and an empty one here (before
+      // its 250ms restore timer) would clobber the saved filter cookie.
+      if (!isInitialRender || text) {
+        this.trigger('column-search', $field, text)
+      }
 
       if (text) {
         this.filterColumnsPartial[$field] = text
@@ -516,7 +529,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     })
 
-    this.onSearch({ currentTarget }, false)
+    this.onSearch({ currentTarget, firedByInitSearchText: isInitialRender }, false)
   }
 
   toggleFilterControl () {
@@ -546,23 +559,30 @@ $.BootstrapTable = class extends $.BootstrapTable {
       .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
-  triggerSearch () {
+  triggerSearch (isInitial = false) {
     const searchControls = UtilsFilterControl.getSearchControls(this)
 
     searchControls.each(function () {
       const $element = $(this)
+      const eventName = $element.is('select') ? 'change' : 'keyup'
+      const eventData = { keyCode: 13 }
 
-      if ($element.is('select')) {
-        $element.trigger('change')
-      } else {
-        $element.trigger('keyup')
+      if (isInitial) {
+        eventData.isInitial = true
       }
+
+      $element.trigger(eventName, eventData)
     })
   }
 
-  _toggleColumn (index, checked, needUpdate) {
-    this._initialized = false
-    super._toggleColumn(index, checked, needUpdate)
+  _toggleColumns (fields, checked, needUpdate) {
+    if (fields.length) {
+      this._initialized = false
+    }
+    super._toggleColumns(fields, checked, needUpdate)
+    // initHeader only runs when a column really changed visibility, so restore
+    // the flag here to stop it latching to false (#8216).
+    this._initialized = true
     UtilsFilterControl.syncHeaders(this)
   }
 }

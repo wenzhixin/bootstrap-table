@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     _initTable () {
+      this._bindMethods()
       const options = {
         ...deepCopy(this.options),
         columns: deepCopy(this.columns),
@@ -65,15 +66,19 @@ export default {
         this.refreshOptions(options)
       }
     },
-    ...(() => {
-      const res = {}
-      for (const method of $.fn.bootstrapTable.methods) {
-        res[method] = function (...args) {
-          return this.$table.bootstrapTable(method, ...args)
+    refreshOptions (...args) {
+      return this.$table.bootstrapTable('refreshOptions', ...args)
+    },
+    load (...args) {
+      return this.$table.bootstrapTable('load', ...args)
+    },
+    _bindMethods () {
+      for (const method of ($.fn.bootstrapTable.methods || [])) {
+        if (!this[method]) {
+          this[method] = (...args) => this.$table.bootstrapTable(method, ...args)
         }
       }
-      return res
-    })()
+    }
   },
   watch: {
     options: {

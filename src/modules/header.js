@@ -106,7 +106,7 @@ export default {
           column.checkbox || column.radio ?
             Utils.sprintf(' class="bs-checkbox %s"', column['class'] || '') :
             classes || class_,
-          Utils.sprintf(' style="%s"', halign + style + csses.join('; ') || undefined),
+          Utils.sprintf(' style="%s"', (column.style || '') + halign + style + csses.join('; ') || undefined),
           Utils.sprintf(' rowspan="%s"', column.rowspan),
           Utils.sprintf(' colspan="%s"', column.colspan),
           Utils.sprintf(' scope="%s"', column.scope),
@@ -126,7 +126,11 @@ export default {
         if (column.checkbox) {
           text = ''
           if (!this.options.singleSelect && this.options.checkboxHeader) {
-            text = '<label><input name="btSelectAll" type="checkbox" /><span></span></label>'
+            text = Utils.getCheckboxHtml({
+              name: 'btSelectAll',
+              centered: true,
+              withLabel: false
+            })
           }
           this.header.stateField = column.field
         }
@@ -198,6 +202,30 @@ export default {
       this[checked ? 'checkAll' : 'uncheckAll']()
       this.updateSelected()
     })
+
+    if (this.options.height && typeof ResizeObserver !== 'undefined') {
+      if (this.$el.is(':hidden')) {
+        if (this._resizeObserver) {
+          this._resizeObserver.disconnect()
+          this._resizeObserver = null
+        }
+        const observer = new ResizeObserver(entries => {
+          for (const entry of entries) {
+            if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
+              observer.disconnect()
+              if (this._resizeObserver === observer) {
+                this._resizeObserver = null
+              }
+              this.resetView()
+              return
+            }
+          }
+        })
+
+        this._resizeObserver = observer
+        observer.observe(this.$el[0])
+      }
+    }
   },
 
   getVisibleFields () {
@@ -488,13 +516,14 @@ export default {
       return
     }
 
-    this.columns[this.fieldsColumnsIndex[params.field]].title =
-      this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title
+    this.columns[this.fieldsColumnsIndex[params.field]].title = params.title
 
     if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
       this.$header.find('th[data-field]').each((i, el) => {
         if ($(el).data('field') === params.field) {
-          $($(el).find('.th-inner')[0]).html(params.title)
+          $($(el).find('.th-inner')[0]).html(
+            this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title
+          )
           return false
         }
       })

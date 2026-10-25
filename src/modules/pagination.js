@@ -36,7 +36,7 @@ export default {
 
     this.paginationParts = opts.paginationParts
     if (typeof this.paginationParts === 'string') {
-      this.paginationParts = this.paginationParts.replace(/\[|\]| |'/g, '').split(',')
+      this.paginationParts = Utils.parseStringArray(this.paginationParts)
     }
 
     if (opts.sidePagination !== 'server') {
@@ -44,6 +44,11 @@ export default {
     }
 
     this.totalPages = 0
+    if (opts.pageSize <= 0) {
+      console.warn('pageSize must be a positive number, falling back to show all rows.')
+      opts.pageSize = opts.totalRows || 1
+      allSelected = true
+    }
     if (opts.totalRows) {
       if (opts.pageSize === opts.formatAllRows()) {
         opts.pageSize = opts.totalRows

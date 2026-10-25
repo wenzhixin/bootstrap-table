@@ -67,6 +67,8 @@ Object.assign($.fn.bootstrapTable.events, {
   'cached-data-reset.bs.table': 'onCachedDataReset'
 })
 
+$.fn.bootstrapTable.methods.push('resetPipelineCache')
+
 $.BootstrapTable = class extends $.BootstrapTable {
   // needs to be called before initServer
   init (...args) {
@@ -258,5 +260,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.pipelineResponseHandler = null
 
     super.destroy(...args)
+  }
+
+  // Public method to reset the pipeline cache
+  resetPipelineCache () {
+    this.resetCache = true
   }
 }

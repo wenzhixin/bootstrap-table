@@ -171,7 +171,7 @@ export default {
     const tds = this.header.fields.map((field, j) => {
       const column = this.columns[j]
       const value_ = Utils.getItemField(item, field, this.options.escape, column.escape)
-      let value = ''
+      let value
       const attrs = {
         class: this.header.classes[j] ? [this.header.classes[j]] : [],
         style: this.header.styles[j] ? [this.header.styles[j]] : []
@@ -262,28 +262,37 @@ export default {
         const isChecked = Utils.isObject(value) && value.hasOwnProperty('checked') ?
           value.checked : (value === true || value_) && value !== false
         const isDisabled = !column.checkboxEnabled || value && value.disabled
-        const valueNodes = this.header.formatters[j] && (
-          typeof value === 'string' || value instanceof Node || value instanceof $) ? Utils.htmlToNodes(value) : []
+        const valueNodes = this.header.formatters[j] && (typeof value === 'string' || Utils.isDomNode(value)) ? Utils.htmlToNodes(value) : []
 
         item[this.header.stateField] = value === true || (!!value_ || value && value.checked)
+
+        const inputAttrs = {
+          'data-index': i,
+          name: this.options.selectItemName,
+          type,
+          value: item[this.options.idField],
+          checked: isChecked ? 'checked' : undefined,
+          disabled: isDisabled ? 'disabled' : undefined
+        }
+        const config = Utils.getCheckboxVdomConfig({
+          inputAttrs,
+          formCheckClass: this.constants.classes.formCheck,
+          formCheckInputClass: this.constants.classes.formCheckInput
+        })
+        const wrapperChildNodes = [Utils.h('input', config.inputAttrs)]
+
+        if (config.hasSpan) {
+          wrapperChildNodes.push(Utils.h('span'))
+        }
+        const children = [
+          Utils.h(config.wrapperTag, config.wrapperAttrs, wrapperChildNodes),
+          ...valueNodes
+        ]
 
         return Utils.h(this.options.cardView ? 'div' : 'td', {
           class: [this.options.cardView ? cardViewClass : 'bs-checkbox', column.class],
           style: this.options.cardView ? undefined : attrs.style
-        }, [
-          Utils.h('label', {}, [
-            Utils.h('input', {
-              'data-index': i,
-              name: this.options.selectItemName,
-              type,
-              value: item[this.options.idField],
-              checked: isChecked ? 'checked' : undefined,
-              disabled: isDisabled ? 'disabled' : undefined
-            }),
-            Utils.h('span')
-          ]),
-          ...valueNodes
-        ])
+        }, children)
       }
 
       if (this.options.cardView) {
@@ -291,11 +300,13 @@ export default {
           return Utils.h('div', { class: cardViewClass })
         }
 
+        const fieldTitle = Utils.getFieldTitle(this.columns, field)
         const cardTitle = this.options.showHeader ?
           Utils.h('span', {
             class: ['card-view-title', cellStyle.classes],
             style: attrs.style,
-            html: Utils.getFieldTitle(this.columns, field)
+            html: this.options.escape && this.options.escapeTitle ?
+              Utils.escapeHTML(fieldTitle) : fieldTitle
           }) : ''
 
         return Utils.h('div', { class: cardViewClass }, [
@@ -386,14 +397,11 @@ export default {
       }
     }
 
-    this.$el.removeAttr('role')
-
     // show no records
     if (!hasTr) {
       this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
         this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options),
         this.options.formatNoMatches())}</tr>`)
-      this.$el.attr('role', 'presentation')
     } else if (!this.options.virtualScroll) {
       this.$body.html(trFragments)
     } else {
@@ -442,6 +450,13 @@ export default {
     }
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
+
+    if (this.options.height && this.$el.is(':hidden')) {
+      if (!this._resizeObserver) {
+        this._setDelayTimeout('resetView', () => this.resetView(), 100)
+      }
+      return
+    }
 
     if (this.options.height) {
       const fixedBody = this.$tableBody.get(0)
@@ -520,6 +535,14 @@ export default {
       fontSize = `${fontSize}px`
     }
 
+    const $loadingWrap = this.$tableLoading.find('.loading-wrap')
+
+    if ($loadingWrap.length) {
+      $loadingWrap.css('font-size', fontSize)
+    } else {
+      this.$tableLoading.css('font-size', fontSize)
+    }
+
     this.$tableLoading.find('.loading-text').css('font-size', fontSize)
   },
 
@@ -541,8 +564,26 @@ export default {
     let scrollTo = options.value
 
     if (options.unit === 'rows') {
+      let rowCount = options.value
+      let $rows = this.$body.find('> tr')
+
       scrollTo = 0
-      this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
+
+      if (this.options.virtualScroll && this.virtualScroll) {
+        // Rows outside the rendered block are replaced by spacer rows,
+        // so count them with the item height instead of the spacer height
+        const { itemHeight, startIndex = 0 } = this.virtualScroll
+        const rowsAbove = Math.min(rowCount, startIndex)
+
+        $rows = $rows.not('.virtual-scroll-top, .virtual-scroll-bottom')
+        rowCount -= rowsAbove
+        const rowsBelow = Math.max(rowCount - $rows.length, 0)
+
+        rowCount -= rowsBelow
+        scrollTo += (rowsAbove + rowsBelow) * itemHeight
+      }
+
+      $rows.slice(0, rowCount).each((i, el) => {
         scrollTo += $(el).outerHeight(true)
       })
     }
@@ -607,26 +648,22 @@ export default {
   },
 
   showColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-
-    fields.forEach(field => {
-      this._toggleColumn(this.fieldsColumnsIndex[field], true, true)
-    })
+    this._toggleColumns(Array.isArray(field) ? field : [field], true, true)
   },
 
   hideColumn (field) {
-    const fields = Array.isArray(field) ? field : [field]
-
-    fields.forEach(field => {
-      this._toggleColumn(this.fieldsColumnsIndex[field], false, true)
-    })
+    this._toggleColumns(Array.isArray(field) ? field : [field], false, true)
   },
 
-  _toggleColumn (index, checked, needUpdate) {
+  _toggleColumnVisibility (index, checked) {
     if (index === undefined || this.columns[index].visible === checked) {
-      return
+      return false
     }
     this.columns[index].visible = checked
+    return true
+  },
+
+  _updateAfterColumnToggle (changedIndices, checked, needUpdate) {
     this.initHeader()
     this.initSearch()
     this.initPagination()
@@ -636,12 +673,34 @@ export default {
       const $items = this.$toolbar.find('.keep-open input:not(".toggle-all")').prop('disabled', false)
 
       if (needUpdate) {
-        $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
+        for (const index of changedIndices) {
+          $items.filter(Utils.sprintf('[value="%s"]', index)).prop('checked', checked)
+        }
       }
 
       if ($items.filter(':checked').length <= this.options.minimumCountColumns) {
         $items.filter(':checked').prop('disabled', true)
       }
+    }
+  },
+
+  _toggleColumns (fields, checked, needUpdate) {
+    if (!fields.length) {
+      return
+    }
+
+    const changedIndices = []
+
+    for (const field of fields) {
+      const index = this.fieldsColumnsIndex[field]
+
+      if (this._toggleColumnVisibility(index, checked)) {
+        changedIndices.push(index)
+      }
+    }
+
+    if (changedIndices.length) {
+      this._updateAfterColumnToggle(changedIndices, checked, needUpdate)
     }
   },
 

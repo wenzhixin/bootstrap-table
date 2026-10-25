@@ -1,0 +1,216 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Cookie
+description: Bootstrap Table 的 Cookie 扩展，用于保存和恢复表格状态。
+group: extensions
+toc: true
+---
+
+Cookie 扩展可以将表格的状态信息（如分页位置、排序状态、每页显示条数等）保存到 Cookie 中，当用户重新访问页面时自动恢复之前的设置。
+
+## 用法
+
+```html
+<script src="extensions/cookie/bootstrap-table-cookie.js"></script>
+```
+
+## 示例
+
+[Cookie](https://examples.bootstrap-table.com/#extensions/cookie.html)
+
+## 选项
+
+### cookie
+
+- **属性:** `data-cookie`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用 Cookie 保存功能。设置为 `true` 时，表格的分页状态、排序状态、搜索条件等信息将被保存到 Cookie 中。
+
+- **默认值:** `false`
+
+### cookieCustomStorageDelete
+
+- **属性:** `data-cookie-custom-storage-delete`
+
+- **类型:** `function`
+
+- **参数**
+
+  - `cookieName`：值的名称，例如搜索关键字
+
+- **详情:**
+
+  使用自定义函数删除已保存的值。
+  只有在 `cookieStorage` 选项设置为 `customStorage` 时才需要实现此函数。
+
+- **默认值:** `undefined`
+
+### cookieCustomStorageGet
+
+- **属性:** `data-cookie-custom-storage-get`
+
+- **类型:** `function`
+
+- **参数**
+
+  - `cookieName`：值的名称，例如搜索关键字
+
+- **详情:**
+
+  使用自定义函数获取已保存的值。
+  只有在 `cookieStorage` 选项设置为 `customStorage` 时才需要实现此函数。
+
+- **默认值:** `undefined`
+
+### cookieCustomStorageSet
+
+- **属性:** `data-cookie-custom-storage-set`
+
+- **类型:** `function`
+
+- **参数**
+
+  - `cookieName`：值的名称，例如搜索关键字
+  - `value`：要保存的值
+
+- **详情:**
+
+  使用自定义函数保存值到存储中。
+  只有在 `cookieStorage` 选项设置为 `customStorage` 时才需要实现此函数。
+
+- **默认值:** `undefined`
+
+### cookieDomain
+
+- **属性:** `data-cookie-domain`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置 Cookie 的域名。通常需要去掉 `www.` 前缀，例如 `example.com`。
+
+- **默认值:** `null`
+
+### cookieExpire
+
+- **属性:** `data-cookie-expire`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置 Cookie 的过期时间，格式为 `'数字+单位'`。例如 `'2h'` 表示 2 小时。
+  支持的时间单位：`'s'`（秒）、`'mi'`（分钟）、`'h'`（小时）、`'d'`（天）、`'m'`（月）、`'y'`（年）。
+
+- **默认值:** `2h`
+
+### cookieIdTable
+
+- **属性:** `data-cookie-id-table`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置表格的唯一标识符。当页面中存在多个表格时，每个表格需要设置不同的 ID，用于区分各自的 Cookie 数据。
+
+- **默认值:** `''`
+
+### cookiePath
+
+- **属性:** `data-cookie-path`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置 Cookie 的路径。默认为当前页面路径，可用于指定 Cookie 在整个网站或特定目录下生效。
+
+- **默认值:** `null`
+
+### cookieSecure
+
+- **属性:** `data-cookie-secure`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用安全模式。设置为 `true` 时，Cookie 只能在 HTTPS 连接下传输，提高数据安全性。
+
+- **默认值:** `null`
+
+### cookieSameSite
+
+- **属性:** `data-cookie-same-site`
+
+- **类型:** `string`
+
+- **详情:**
+
+  设置 `SameSite` cookie 属性的值，更多信息可参考 [SameSite 文档](https://developer.mozilla.org/de/docs/Web/HTTP/Headers/Set-Cookie/SameSite)。
+
+- **默认值:** `Lax`
+
+### cookieStorage
+
+- **属性:** `data-cookie-storage`
+
+- **类型:** `String`
+
+- **详情:**
+
+  设置扩展使用的存储方式。可选值：`cookieStorage`、`localStorage`、`sessionStorage` 或 `customStorage`。
+
+  当使用 `customStorage` 时，需要同时实现 `cookieCustomStorageGet`、`cookieCustomStorageSet` 和 `cookieCustomStorageDelete`。
+
+- **默认值:** `cookieStorage`
+
+### cookiesEnabled
+
+- **属性:** `data-cookies-enabled`
+
+- **类型:** `Array`
+
+- **详情:**
+
+  设置需要保存的表格属性数组，例如 `sortOrder`、`sortName`、`sortPriority`、`pageNumber`、`pageList`、`hiddenColumns`、`searchText`、`filterControl` 等。
+
+- **默认值:** `['bs.table.sortOrder', 'bs.table.sortName', 'bs.table.sortPriority', 'bs.table.pageNumber', 'bs.table.pageList', 'bs.table.hiddenColumns', 'bs.table.searchText', 'bs.table.filterControl', 'bs.table.cardView', 'bs.table.customView']`
+
+## 方法
+
+### deleteCookie
+
+- **参数:** `cookieName`
+
+- **详情:**
+
+  根据名称删除已保存的 cookie。
+
+### getCookies
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  返回已保存的 cookie。
+
+## 自动保存的表格状态
+
+该插件会自动保存以下表格状态信息：
+
+* **页码**：当前所在页数
+* **每页条数**：每页显示的记录数量
+* **搜索文本**：用户输入的搜索关键词
+* **过滤条件**：通过 filter-control 设置的过滤状态
+* **排序顺序**：升序或降序
+* **排序字段**：当前排序的列名
+* **多重排序**：多列排序的配置
+* **隐藏列**：用户手动隐藏的列
+* **视图模式**：卡片视图或普通表格视图

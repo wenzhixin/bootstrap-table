@@ -1,0 +1,134 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Custom View
+description: Bootstrap Table 的自定义视图扩展，允许你自定义数据展示方式。
+group: extensions
+toc: true
+---
+
+## 描述
+该扩展允许你通过自定义视图来展示表格数据，提供了除默认表格视图外的另一种数据展示方式。
+
+## 用法
+
+```html
+<script src="extensions/custom-view/bootstrap-table-custom-view.js"></script>
+```
+
+## 示例
+
+[Custom View](https://examples.bootstrap-table.com/#extensions/custom-view.html)
+
+## 选项
+
+### customView
+
+- **属性:** `data-custom-view`
+
+- **类型:** `Function|Boolean`
+
+- **详情:**
+
+  设为 `false` 关闭该扩展。
+  设为 `function` 时可渲染自定义视图。
+
+- **默认值:** `false`
+
+### customViewDefaultView
+
+- **属性:** `data-custom-view-default-view`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时自定义视图将作为默认视图显示。
+
+- **默认值:** `false`
+
+### showCustomView
+
+- **属性:** `data-show-custom-view`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 时显示自定义视图切换按钮。
+
+- **默认值:** `false`
+
+### 图标
+
+- `customViewOn`：
+    * Bootstrap 3：`glyphicon glyphicon-list`
+    * Bootstrap 4：`fa fa-eye`
+    * Bootstrap 5：`bi-eye`
+    * Semantic：`fa fa-eye`
+    * Foundation：`fa fa-eye`
+    * Bulma：`fa fa-eye`
+    * Materialize：`remove_red_eye`
+- `customViewOff`：
+    * Bootstrap 3：`glyphicon glyphicon-thumbnails`
+    * Bootstrap 4：`fa fa-th`
+    * Bootstrap 5：`bi-grid`
+    * Semantic：`fa fa-th`
+    * Foundation：`fa fa-th`
+    * Bulma：`fa fa-th`
+    * Materialize：`grid_on`
+
+## 方法
+
+### toggleCustomView
+
+* 在表格视图与自定义视图之间切换。
+
+## 事件
+
+### onCustomViewPreBody
+
+- **jQuery 事件:** `custom-view-pre-body.bs.table`
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  自定义视图渲染之前触发。
+
+### onCustomViewPostBody
+
+- **jQuery 事件:** `custom-view-post-body.bs.table`
+
+- **参数:** `undefined`
+
+- **详情:**
+
+  自定义视图渲染之后触发。
+
+### onToggleCustomView
+
+* 当自定义视图切换时触发。
+
+- **jQuery 事件:** `toggle-custom-view.bs.table`
+
+- **参数:** `state`
+
+- **详情:**
+
+  自定义视图切换时触发：
+
+  * `state`：新的自定义视图状态（`true` -> 启用自定义视图，`false` -> 关闭自定义视图）。
+
+## 本地化
+
+### formatToggleCustomViewOn
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Show custom view" }`
+
+### formatToggleCustomViewOff
+
+- **类型:** `Function`
+
+- **默认值:** `function () { return "Hide custom view" }`

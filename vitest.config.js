@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: [
-      'tests/utils/**/*.js'
+      'tests/**/*.js'
     ]
   },
   resolve: {

@@ -166,7 +166,7 @@
 
   	functionBindNative = !fails(function () {
   	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-  	  var test = (function () { /* empty */ }).bind();
+  	  var test = function () { /* empty */ }.bind();
   	  // eslint-disable-next-line no-prototype-builtins -- safe
   	  return typeof test != 'function' || test.hasOwnProperty('prototype');
   	});
@@ -645,10 +645,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.44.0',
+  	  version: '3.49.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -1001,7 +1001,7 @@
 
   	var EXISTS = hasOwn(FunctionPrototype, 'name');
   	// additional protection from minified / mangled / dropped function names
-  	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+  	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
   	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
   	functionName = {
@@ -1024,7 +1024,7 @@
 
   	var functionToString = uncurryThis(Function.toString);
 
-  	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+  	// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
   	if (!isCallable(store.inspectSource)) {
   	  store.inspectSource = function (it) {
   	    return functionToString(it);
@@ -1679,7 +1679,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1831,6 +1831,23 @@
   	return arraySpeciesCreate;
   }
 
+  var createProperty;
+  var hasRequiredCreateProperty;
+
+  function requireCreateProperty () {
+  	if (hasRequiredCreateProperty) return createProperty;
+  	hasRequiredCreateProperty = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var definePropertyModule = requireObjectDefineProperty();
+  	var createPropertyDescriptor = requireCreatePropertyDescriptor();
+
+  	createProperty = function (object, key, value) {
+  	  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
+  	  else object[key] = value;
+  	};
+  	return createProperty;
+  }
+
   var arrayIteration;
   var hasRequiredArrayIteration;
 
@@ -1838,13 +1855,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -1855,28 +1870,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -2144,9 +2159,15 @@
   	  return !Array(1).includes();
   	});
 
+  	// Safari 26.4- bug
+  	var BROKEN_ON_SPARSE_WITH_FROM_INDEX = fails(function () {
+  	  // eslint-disable-next-line no-sparse-arrays, es/no-array-prototype-includes -- detection
+  	  return [, 1].includes(undefined, 1);
+  	});
+
   	// `Array.prototype.includes` method
   	// https://tc39.es/ecma262/#sec-array.prototype.includes
-  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
+  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE || BROKEN_ON_SPARSE_WITH_FROM_INDEX }, {
   	  includes: function includes(el /* , fromIndex = 0 */) {
   	    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
   	  }

@@ -20,6 +20,9 @@ export default {
     opts.icons = Object.assign(Utils.getIcons(Constants.ICONS, opts.iconsPrefix),
       $.fn.bootstrapTable.defaults.icons, opts.icons)
 
+    // normalize orderList once at init so the click hot path deals only with arrays
+    opts.orderList = Utils.normalizeOrderList(opts.orderList)
+
     // init buttons class
     const buttonsPrefix = opts.buttonsPrefix ? `${opts.buttonsPrefix}-` : ''
 
@@ -70,6 +73,25 @@ export default {
     }
   },
 
+  // Resolve the `rtl` option into a normalized internal value: 'ltr' or 'rtl'.
+  // Called during initContainer (after initConstants), before rendering the root container.
+  getRtlDirection () {
+    const rtl = this.options.rtl
+
+    if (rtl === 'auto') {
+      // Probe priority: the table element ($el) first, then <html>, else ltr.
+      const dir = (this.$el.attr('dir') || $('html').attr('dir') || '').toLowerCase()
+
+      return dir === 'rtl' ? 'rtl' : 'ltr'
+    }
+
+    if (rtl === true || rtl === 'rtl') {
+      return 'rtl'
+    }
+
+    return 'ltr'
+  },
+
   initContainer () {
     const topPagination = ['top', 'both'].includes(this.options.paginationVAlign) ?
       '<div class="fixed-table-pagination clearfix"></div>' : ''
@@ -78,8 +100,15 @@ export default {
     const loadingTemplate = Utils.calculateObjectValue(this.options,
       this.options.loadingTemplate, [this.options.formatLoadingMessage()])
 
+    // Normalize the table direction once; only the root container carries it
+    // (inherited by the table/toolbar/pagination). The original <table> dir is
+    // left untouched so existing extensions (print, filter-control) keep working.
+    const isRtl = this.getRtlDirection() === 'rtl'
+    const rtlClass = isRtl ? ' bootstrap-table-rtl' : ''
+    const rtlDir = isRtl ? ' dir="rtl"' : ''
+
     this.$container = $(`
-      <div class="bootstrap-table ${this.constants.theme}">
+      <div class="bootstrap-table ${this.constants.theme}${rtlClass}"${rtlDir}>
       <div class="fixed-table-toolbar"></div>
       ${topPagination}
       <div class="fixed-table-container">
@@ -171,7 +200,8 @@ export default {
           titleTooltip: $th.attr('title'),
           rowspan: $th.attr('rowspan') ? +$th.attr('rowspan') : undefined,
           colspan: $th.attr('colspan') ? +$th.attr('colspan') : undefined,
-          scope: $th.attr('scope') ? $th.attr('scope') : undefined
+          scope: $th.attr('scope') ? $th.attr('scope') : undefined,
+          style: Utils.normalizeStyle($th.attr('style'))
         }, $th.data()))
       })
       columns.push(column)
@@ -200,6 +230,8 @@ export default {
       columns.forEach((_column, j) => {
         const column = Utils.extend({}, Constants.COLUMN_DEFAULTS, _column, { passed: _column })
 
+        column.orderList = Utils.normalizeOrderList(column.orderList)
+
         if (typeof column.fieldIndex !== 'undefined') {
           this.columns[column.fieldIndex] = column
           this.fieldsColumnsIndex[column.field] = column.fieldIndex
@@ -211,7 +243,7 @@ export default {
 
     // if options.data is setting, do not process tbody and tfoot data
     if (!this.options.data.length) {
-      const htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr'))
+      const htmlData = Utils.trToData(this.columns, this.$el.find('>tbody>tr').get())
 
       if (htmlData.length) {
         this.options.data = htmlData
@@ -220,7 +252,7 @@ export default {
     }
 
     if (!(this.options.pagination && this.options.sidePagination !== 'server')) {
-      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr'))
+      this.footerData = Utils.trToData(this.columns, this.$el.find('>tfoot>tr').get())
     }
 
     if (this.footerData) {

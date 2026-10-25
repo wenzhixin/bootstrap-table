@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
+const selectionInputTypes = ['password', 'search', 'tel', 'text', 'url']
 
 export function getInputClass (that, isSelect = false) {
   const formControlClass = isSelect ? that.constants.classes.select : that.constants.classes.input
@@ -146,7 +147,7 @@ export function cacheValues (that) {
     const fieldClass = escapeID(getElementClass($field))
 
     if (that.options.height && !that.options.filterControlContainer) {
-      $field = that.$el.find(`.fixed-table-header .${fieldClass}`)
+      $field = that.$tableContainer.find(`.fixed-table-header .${fieldClass}`)
     } else if (that.options.filterControlContainer) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     } else {
@@ -170,13 +171,27 @@ export function setCaretPosition (elem, caretPos) {
 
         range.move('character', caretPos)
         range.select()
-      } else if (elem.setSelectionRange) {
+      } else if (elem.setSelectionRange && canSetCaretPosition(elem)) {
         elem.setSelectionRange(caretPos, caretPos)
       }
     }
   } catch (ex) {
     console.error(ex)
   }
+}
+
+function canSetCaretPosition (elem) {
+  const tagName = elem.tagName && elem.tagName.toLowerCase()
+
+  if (tagName === 'textarea') {
+    return true
+  }
+
+  if (tagName !== 'input') {
+    return false
+  }
+
+  return selectionInputTypes.includes(elem.type)
 }
 
 export function setValues (that) {
@@ -448,7 +463,8 @@ export function createControls (that, header) {
 
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
-      keyCode = obj ? obj.keyCode : keyCode
+      keyCode = obj?.keyCode ?? keyCode
+      const isInitial = obj?.isInitial === true
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
         return
@@ -466,30 +482,24 @@ export function createControls (that, header) {
 
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
-        that.onColumnSearch({ currentTarget, keyCode })
+        that.onColumnSearch({ currentTarget, keyCode, isInitial })
       }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }, obj) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
+      const isInitial = obj?.isInitial === true
 
-      if (Array.isArray(value)) {
-        for (let i = 0; i < value.length; i++) {
-          if (value[i] && value[i].length > 0 && value[i].trim()) {
-            $selectControl.find(`option[value="${value[i]}"]`).attr('selected', true)
-          }
-        }
-      } else if (value && value.length > 0 && value.trim()) {
-        $selectControl.find('option[selected]').removeAttr('selected')
-        $selectControl.find(`option[value="${value}"]`).attr('selected', true)
-      } else {
-        $selectControl.find('option[selected]').removeAttr('selected')
-      }
+      const normalizedValue = value === null ?
+        $selectControl.prop('multiple') ? [] : null :
+        value
+
+      $selectControl.val(normalizedValue)
 
       clearTimeout(currentTarget.timeoutId || 0)
       currentTarget.timeoutId = setTimeout(() => {
-        that.onColumnSearch({ currentTarget, keyCode })
+        that.onColumnSearch({ currentTarget, keyCode, isInitial })
       }, that.options.searchTimeOut)
     })
 
@@ -557,7 +567,7 @@ export function createControls (that, header) {
     }
 
     if (that.options.sidePagination !== 'server') {
-      that.triggerSearch()
+      that.triggerSearch(true)
     }
 
     if (!that.options.filterControlVisible) {

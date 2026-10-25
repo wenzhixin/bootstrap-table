@@ -5,6 +5,96 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.27.3
+
+<span class="post-date">24 Apr 2026</span>
+
+#### Core
+
+- **Update:** Refactored `showColumn`/`hideColumn` to batch column toggles with single re-render.
+- **Update:** Fixed table layout breaking when sorting rows with rowspan.
+- **Update:** Fixed fixedColumns hover conflict with CSS transitions.
+- **Update:** Fixed support for async loading of bootstrapTable methods in Vue component.
+
+#### Extensions
+
+- **Update(reorder-columns):** Fixed not restoring column order from cookies on init.
+- **Update(group-by-v2):** Documented that this extension does not support pagination.
+
+## Bootstrap Table 1.27.2
+
+<span class="post-date">16 Apr 2026</span>
+
+#### Core
+
+- **New:** Added `EventHelper` class with delegation and trigger methods.
+- **New:** Extracted `renderButton` from `initToolbar` for better modularity.
+- **Update:** Fixed guard against `pageSize <= 0` causing division by zero in `initPagination`.
+- **Update:** Fixed loading animation styles.
+
+#### Extensions
+
+- **Update(export):** Fixed issues found in export extension and added Cypress tests.
+- **Update(filter-control):** Fixed filter-control select option loss issue.
+- **Update(sticky-header):** Fixed undefined crash when using sticky-header.
+
+## Bootstrap Table 1.27.1
+
+<span class="post-date">28 Mar 2026</span>
+
+#### Core
+
+- **Update:** Fixed toolbar DOM node button handling for custom buttons returning DOM nodes.
+- **Update:** Fixed WebInspect email detection false positive in core-js comments.
+- **Update:** Fixed SyntaxError when processing `data-*` attributes on inline HTML elements.
+- **Update:** Added comprehensive options cypress tests.
+
+#### Extensions
+
+- **New(pipeline):** Added `resetPipelineCache` method to allow programmatic cache reset.
+- **Update(auto-refresh):** Fixed button active state and selector.
+- **Update(filter-control):** Fixed issue with filter control being cleared.
+- **Update(treegrid):** Improved documentation with data structure guide and usage examples.
+
+## Bootstrap Table 1.27.0
+
+<span class="post-date">17 Feb 2026</span>
+
+#### Core
+
+- **New:** Split utils/index.js into modular structure.
+- **New:** Added DOMHelper utility for jQuery removal.
+- **New:** Added Bootstrap 5 checkbox compatibility utilities.
+- **New:** Added utility tests with comprehensive coverage.
+- **Update:** Allowed peer dependency of jQuery v4.x.
+- **Update:** Removed jQuery dependency from utils module.
+- **Update:** Fixed search filter with depth key.
+- **Update:** Fixed style attributes not being preserved on `thead>tr>th` elements.
+
+#### Extensions
+
+- **Update(group-by):** Fixed group expand/collapse state being reset when using searching.
+- **Update(multiple-sort):** Add modal-multiple-sort class to multiple sort modal.
+
+## Bootstrap Table 1.26.0
+
+<span class="post-date">13 Dec 2025</span>
+
+#### Core
+
+- **New:** Added Chinese locale support to the site.
+- **New:** Added comprehensive tests for utility functions.
+- **Update:** Updated `normalizeAccent` function to handle diacritics properly.
+- **Update:** Set `aria-sort` attribute on sortable headers.
+- **Update:** Refactored `BootstrapTable` into separate modules.
+- **Update:** Clarified exact property names for column options and usage.
+- **Update:** Fixed character encoding for locale files.
+
+#### Extensions
+
+- **Update(filter-control):** Fixed bug where `showSearchClearButton` does not clear `searchText` from options.
+- **Update(filter-control):** Fixed page number resetting to 1 during initial table rendering when filter controls are initializing.
+
 ## Bootstrap Table 1.25.0
 
 <span class="post-date">22 Oct 2025</span>

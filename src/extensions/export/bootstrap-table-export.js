@@ -156,7 +156,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     $exportButtons.click(e => {
       e.preventDefault()
-      this.trigger('export-started')
       this.exportTable({
         type: $(e.currentTarget).data('type')
       })
@@ -438,6 +437,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
       onAfter()
     }
 
+    // Early return for selected data type when no rows are selected
+    let selectedData = null
+
+    if (o.exportDataType === 'selected') {
+      selectedData = this.getSelections()
+
+      if (!selectedData.length) {
+        return
+      }
+    }
+
+    // Trigger export-started after early-return checks and before any export operation
+    this.trigger('export-started')
+
     if (o.exportDataType === 'all' && o.pagination) {
       const eventName = o.sidePagination === 'server' ?
         'post-body.bs.table' : 'page-change.bs.table'
@@ -461,12 +474,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         includeHiddenRows: true,
         unfiltered: true
       })
-      let selectedData = this.getSelections()
       const pagination = o.pagination
-
-      if (!selectedData.length) {
-        return
-      }
 
       if (o.sidePagination === 'server') {
         data = {

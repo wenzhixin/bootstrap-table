@@ -227,13 +227,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
         throw new Error('The cookie value of filterBy must be a json!')
       }
 
-      let filterByCookie = {}
+      let filterByCookie
 
       try {
         filterByCookie = JSON.parse(filterByCookieValue)
       } catch (e) {
         console.error(e)
-        throw new Error('Could not parse the json of the filterBy cookie!')
+        throw new Error('Could not parse the json of the filterBy cookie!', { cause: e })
       }
       this.filterColumns = filterByCookie ? filterByCookie : {}
 
@@ -242,8 +242,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._filterControlValuesLoaded = false
 
       this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
-        this.options.cookiesEnabled.replace('[', '').replace(']', '')
-          .replace(/'/g, '').replace(/ /g, '').split(',') :
+        Utils.parseStringArray(this.options.cookiesEnabled) :
         this.options.cookiesEnabled
 
       if (this.options.filterControl) {
@@ -363,8 +362,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber)
   }
 
-  _toggleColumn (...args) {
-    super._toggleColumn(...args)
+  _toggleColumns (...args) {
+    super._toggleColumns(...args)
     if (!this.options.cookie) {
       return
     }
@@ -455,15 +454,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const hiddenColumnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.hiddenColumns)
     const columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns)
 
-    let hiddenColumnsCookie = {}
-    let columnsCookie = {}
+    let hiddenColumnsCookie
+    let columnsCookie
 
     try {
       hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue)
       columnsCookie = JSON.parse(columnsCookieValue)
     } catch (e) {
       console.error(e)
-      throw new Error('Could not parse the json of the columns cookie!')
+      throw new Error('Could not parse the json of the columns cookie!', { cause: e })
     }
 
     try {

@@ -1,0 +1,69 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 组件
+description: Bootstrap Table Vue 组件的 API。
+group: vuejs
+toc: true
+---
+
+## 使用示例
+
+```vue
+<BootstrapTable
+  ref="table"
+  :columns="columns"
+  :data="data"
+  :options="options"
+  @on-post-body="onPostBody"
+/>
+```
+
+**注意：** 使用 `v-if` 指令时，建议用 `div` 标签包裹 `BootstrapTable` 组件，以避免不必要的错误。
+
+## Props
+
+### columns
+
+- **类型:** `Object`
+
+- **详情:**
+
+  Bootstrap Table 的[列选项](/docs/api/column-options/)。该 prop 为必填项。
+
+- **默认值:** `undefined`
+
+### data
+
+- **类型:** `Array | Object`
+
+- **详情:**
+
+  要加载的数据。
+
+- **默认值:** `undefined`
+
+### options
+
+- **类型:** `Object`
+
+- **详情:**
+
+  Bootstrap Table 的[表格选项](/docs/api/table-options/)。
+
+- **默认值:** `{}`
+
+## 事件
+
+调用语法：`@on-event="onEvent"`。
+
+除 `onAll` 外的全部事件都定义在 [Events API](/docs/api/events/) 中。
+
+**注意：** 事件名称需转换为小写并使用连字符分隔的格式，例如 `onClickRow` 应写为 `on-click-row`。
+
+## 方法
+
+调用语法：`this.$refs.table.methodName(parameter)`。
+
+示例：`this.$refs.table.getOptions()`
+
+所有方法定义见 [Methods API](/docs/api/methods/)。
