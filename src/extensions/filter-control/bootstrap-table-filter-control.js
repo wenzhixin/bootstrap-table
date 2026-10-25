@@ -58,6 +58,7 @@ Object.assign($.fn.bootstrapTable.defaults, {
   sortSelectOptions: false,
   // internal variables
   _valuesFilterControl: [],
+  _filterDefaultsApplied: {},
   _initialized: false,
   _isRendering: false,
   _usingMultipleSelect: false
@@ -123,6 +124,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (this.options.filterControl) {
       // Make sure that the internal variables are set correctly
       this._valuesFilterControl = []
+      this._filterDefaultsApplied = {}
       this._initialized = false
       this._usingMultipleSelect = false
       this._isRendering = false
