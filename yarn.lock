@@ -4662,9 +4662,9 @@ npm-normalize-package-bin@^6.0.0:
   integrity sha512-tdt4aFn9QamlhdN3HV2D2ccpBwO5/fyjjbXUxYA6uBjyekMZcZvDq0aSj9t5Jo+tih6AYFnt/cuIRn9013e0Uw==
 
 npm-run-all2@^9.0.0:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-9.0.3.tgz#2e7f3979b30c019e5b2dbf846ec9aca1478a0c02"
-  integrity sha512-BQAEdU1PtYc48qYRdghW2BVTQT3VqWCoFQmO87NlM1h1PYwMCKQpUWaNyB20V26caNzFsXQDfyOdznLlHCih6g==
+  version "9.0.4"
+  resolved "https://registry.yarnpkg.com/npm-run-all2/-/npm-run-all2-9.0.4.tgz#fd9c1909532e029445d495f3bb161e393002c525"
+  integrity sha512-GuGRF8MddEKavyUzjy0k2z2pA76/N+eT8lHlypx0/AhShLKD2FOerQxHhpFhcqnQmAqCkunUCYlf6Z9RKh/4zg==
   dependencies:
     ansi-styles "^7.0.0"
     cross-spawn "^7.0.6"
@@ -4672,7 +4672,7 @@ npm-run-all2@^9.0.0:
     picomatch "^4.0.2"
     pidtree "^1.0.0"
     read-package-json-fast "^6.0.0"
-    shell-quote "^1.8.4"
+    shell-quote "^1.12.0"
     which "^7.0.0"
 
 npm-run-path@^4.0.0, npm-run-path@^4.0.1:
@@ -5219,7 +5219,7 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha1-rhbxZE2HPsrYQ7AwexQzYtTEIXI=
 
-shell-quote@1.9.0, shell-quote@^1.8.4:
+shell-quote@1.9.0, shell-quote@^1.12.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.9.0.tgz#e108b1a136586d5964edb3300016d4bedba0fe57"
   integrity sha512-Iov+JwFv/2HcTpcwNMKd8+IWNb8tboQJNQTkAY/LLVK7gGH9jy+LGkVqPxfekHl+yMmiqXszdGWXgkfml7hjqA==
