@@ -52,7 +52,7 @@ toc: true
 
 - **详情:**
 
-  接收 HTML `<table>` 元素字符串作为参数，返回用于打印的 HTML 字符串，可用于添加样式、页眉或页脚。
+  接收 HTML `<table>` 字符串和 `styles` 字符串作为参数，返回用于打印的 HTML 字符串，可用于添加样式、页眉或页脚。
 
 - **默认值:**
 ```javascript
@@ -90,6 +90,10 @@ printPageBuilder: function(table, styles) {
     }
     div.bs-table-print {
       text-align: center;
+    }
+    table {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     </style>
     </head>
@@ -142,6 +146,14 @@ printPageBuilder: function(table, styles) {
 ### 图标
 
 * `print`: `'fa-print'`
+
+## rowStyle 与 cellStyle 支持
+
+打印扩展支持 `rowStyle` 和 `cellStyle` 选项，可以对打印表格中的行和单元格应用样式。`css` 属性（内联样式）和 `classes` 属性都会应用到打印输出中。
+
+`css` 属性支持多种格式：普通对象（`{ color: 'red' }`）、字符串（`'color: red'`）和数组（`['color: red', { 'font-weight': 'bold' }]`），与核心表格渲染器的行为一致。
+
+如果在打印输出中需要基于 class 的样式，请使用 `printStyles` 选项引入相关 CSS 文件。注意，如果使用了自定义 `printPageBuilder`，则必须在返回的 HTML 中包含 `styles` 参数（第二个参数，包含 `<link>` 标签的 HTML 字符串），以确保 CSS 链接被注入到打印窗口中。
 
 ## 列选项
 

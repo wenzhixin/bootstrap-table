@@ -154,3 +154,39 @@ export function isIEBrowser () {
   return navigator.userAgent.includes('MSIE ') ||
     /Trident.*rv:11\./.test(navigator.userAgent)
 }
+
+/**
+ * Parse a string into an array of strings.
+ * @param {string} str - Input string in formats like "['a', 'b']", "[1, 2]", "a,b", or "[]".
+ * @returns {string[]} Parsed array of strings.
+ */
+export function parseStringArray (str) {
+  if (!str) {
+    return []
+  }
+
+  const normalized = String(str).trim()
+
+  if (!normalized || normalized === '[]') {
+    return []
+  }
+
+  if (normalized.startsWith('[') && normalized.endsWith(']')) {
+    try {
+      const parsed = JSON.parse(normalized)
+
+      if (Array.isArray(parsed)) {
+        return parsed
+          .map(item => String(item))
+          .filter(item => item !== '')
+      }
+    } catch {
+      // Fall back to delimiter-based parsing for non-JSON array strings.
+    }
+  }
+
+  return normalized
+    .replace(/\[|\]|['"\s]/g, '')
+    .split(',')
+    .filter(item => item !== '')
+}

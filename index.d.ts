@@ -68,6 +68,7 @@ export interface BootstrapTableColumn {
   escape?: boolean;
   events?: BootstrapTableEvents;
   order?: string;
+  orderList?: string | string[];
   visible?: boolean;
   detailFormatter?: any;
   valign?: any;
@@ -158,6 +159,7 @@ export interface BootstrapTableOptions {
     $element: JQuery<HTMLElement>
   ) => boolean | void;
   rowStyle?: (row: any, index: number) => {};
+  rtl?: boolean | 'ltr' | 'rtl' | 'auto';
   showColumnsToggleAll?: boolean;
   footerStyle?: (column: BootstrapTableColumn) => {};
   onUncheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | void;
@@ -200,6 +202,7 @@ export interface BootstrapTableOptions {
   showColumnsSearch?: boolean;
   queryParamsType?: string;
   sortOrder?: any;
+  orderList?: string | string[];
   paginationDetailHAlign?: string;
   customSearch?: any;
   visibleSearch?: boolean;

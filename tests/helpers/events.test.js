@@ -3,7 +3,7 @@
  */
 
 import { beforeEach, describe, expect, it } from 'vitest'
-import { EventHelper } from '@/utils/events.js'
+import EventHelper from '@/helpers/events.js'
 import DOMHelper from '@/helpers/dom.js'
 
 // Setup test environment

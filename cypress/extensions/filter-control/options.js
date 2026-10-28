@@ -39,5 +39,39 @@ module.exports = (theme = '') => {
         .its('length')
         .should('eq', 1)
     })
+
+    it('Test if filter control searchOnEnterKey is set to true. Type "Item 0", call the triggerSearch method and validate table should perform search action.', () => {
+      cy.visit(`${baseUrl}filter-control-searchOnEnterKey-input.html`)
+        .wait(1000)
+        .get('.table > thead > tr > th > .fht-cell > .filter-control')
+        .find('input')
+        .first()
+        .type('Item 0')
+      cy.window().then(win => {
+        win.$('#table').bootstrapTable('triggerSearch')
+      })
+      cy.wait(1000)
+        .get('.table > tbody > tr')
+        .its('length')
+        .should('eq', 1)
+    })
+
+    it('Test if filter control searchOnEnterKey is set to true. Filter by "Item 0", call the clearFilterControl method and validate table should restore all rows.', () => {
+      cy.visit(`${baseUrl}filter-control-searchOnEnterKey-input.html`)
+        .wait(1000)
+        .get('.table > thead > tr > th > .fht-cell > .filter-control')
+        .find('input')
+        .first()
+        .type('Item 0')
+        .type('{enter}')
+        .wait(1000)
+      cy.window().then(win => {
+        win.$('#table').bootstrapTable('clearFilterControl')
+      })
+      cy.wait(1000)
+        .get('.table > tbody > tr')
+        .its('length')
+        .should('eq', 21)
+    })
   })
 }

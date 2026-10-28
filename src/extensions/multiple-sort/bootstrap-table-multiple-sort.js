@@ -745,7 +745,10 @@ BootstrapTable.prototype.addLevel = function (index, sortPriority) {
     if (column.sortable === false || column.visible === false) {
       return true
     }
-    $multiSortName.append(`<option value="${column.field}">${column.title}</option>`)
+    const title = this.options.escape && this.options.escapeTitle ?
+      Utils.escapeHTML(column.title) : column.title
+
+    $multiSortName.append(`<option value="${column.field}">${title}</option>`)
   })
 
   $.each(this.options.formatSortOrders(), (value, order) => {

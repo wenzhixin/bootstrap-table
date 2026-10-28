@@ -3,9 +3,9 @@
  * Provides jQuery-style event handling APIs using native JavaScript
  */
 
-import DOMHelper from '../helpers/dom.js'
+import DOMHelper from './dom.js'
 
-export class EventHelper {
+class EventHelper {
   /**
    * Add event listener with namespace support
    * @param {Element|string} element - DOM element or selector
@@ -409,3 +409,6 @@ export class EventHelper {
     return element
   }
 }
+
+// Export EventHelper class
+export default EventHelper

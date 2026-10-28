@@ -52,7 +52,7 @@ Adds a button to the toolbar to print the table in a predefined configurable for
 
 - **Detail:**
 
-  Receive HTML `<table>` element as a string parameter, returns HTML string for printing. This option is used for styling and adding a header or footer.
+  Receive HTML `<table>` string and `styles` string as parameters, returns HTML string for printing. This option is used for styling and adding a header or footer.
 
 - **Default:**
 ```javascript
@@ -90,6 +90,10 @@ printPageBuilder: function(table, styles) {
     }
     div.bs-table-print {
       text-align: center;
+    }
+    table {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     </style>
     </head>
@@ -142,6 +146,14 @@ printPageBuilder: function(table, styles) {
 ### Icons
 
 * print: `'fa-print'`
+
+## rowStyle and cellStyle Support
+
+The print extension supports `rowStyle` and `cellStyle` options to apply styles to rows and cells in the printed table. Both the `css` property (inline styles) and the `classes` property are applied to the printed output.
+
+The `css` property supports multiple formats: plain objects (`{ color: 'red' }`), strings (`'color: red'`), and arrays (`['color: red', { 'font-weight': 'bold' }]`), matching the behavior of the core table renderer.
+
+If you need class-based styling in the print output, use the `printStyles` option to include the relevant CSS file. Note that if you use a custom `printPageBuilder`, you must include the `styles` parameter (the second argument, an HTML string containing `<link>` tags) in your returned HTML to ensure the CSS links are injected into the print window.
 
 ## Column options
 

@@ -300,11 +300,13 @@ export default {
           return Utils.h('div', { class: cardViewClass })
         }
 
+        const fieldTitle = Utils.getFieldTitle(this.columns, field)
         const cardTitle = this.options.showHeader ?
           Utils.h('span', {
             class: ['card-view-title', cellStyle.classes],
             style: attrs.style,
-            html: Utils.getFieldTitle(this.columns, field)
+            html: this.options.escape && this.options.escapeTitle ?
+              Utils.escapeHTML(fieldTitle) : fieldTitle
           }) : ''
 
         return Utils.h('div', { class: cardViewClass }, [
@@ -395,14 +397,11 @@ export default {
       }
     }
 
-    this.$el.removeAttr('role')
-
     // show no records
     if (!hasTr) {
       this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
         this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options),
         this.options.formatNoMatches())}</tr>`)
-      this.$el.attr('role', 'presentation')
     } else if (!this.options.virtualScroll) {
       this.$body.html(trFragments)
     } else {
@@ -451,6 +450,13 @@ export default {
     }
 
     this.$tableContainer.toggleClass('has-card-view', this.options.cardView)
+
+    if (this.options.height && this.$el.is(':hidden')) {
+      if (!this._resizeObserver) {
+        this._setDelayTimeout('resetView', () => this.resetView(), 100)
+      }
+      return
+    }
 
     if (this.options.height) {
       const fixedBody = this.$tableBody.get(0)
@@ -558,8 +564,26 @@ export default {
     let scrollTo = options.value
 
     if (options.unit === 'rows') {
+      let rowCount = options.value
+      let $rows = this.$body.find('> tr')
+
       scrollTo = 0
-      this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
+
+      if (this.options.virtualScroll && this.virtualScroll) {
+        // Rows outside the rendered block are replaced by spacer rows,
+        // so count them with the item height instead of the spacer height
+        const { itemHeight, startIndex = 0 } = this.virtualScroll
+        const rowsAbove = Math.min(rowCount, startIndex)
+
+        $rows = $rows.not('.virtual-scroll-top, .virtual-scroll-bottom')
+        rowCount -= rowsAbove
+        const rowsBelow = Math.max(rowCount - $rows.length, 0)
+
+        rowCount -= rowsBelow
+        scrollTo += (rowsAbove + rowsBelow) * itemHeight
+      }
+
+      $rows.slice(0, rowCount).each((i, el) => {
         scrollTo += $(el).outerHeight(true)
       })
     }

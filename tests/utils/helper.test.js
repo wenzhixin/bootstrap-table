@@ -418,3 +418,37 @@ describe('isIEBrowser', () => {
     }
   })
 })
+
+describe('parseStringArray', () => {
+  it('should parse string with brackets, quotes and spaces', () => {
+    expect(helper.parseStringArray('[\'a\', \'b\', \'c\']')).toEqual(['a', 'b', 'c'])
+  })
+
+  it('should parse string with brackets and spaces but no quotes', () => {
+    expect(helper.parseStringArray('[a, b, c]')).toEqual(['a', 'b', 'c'])
+  })
+
+  it('should parse comma-separated string', () => {
+    expect(helper.parseStringArray('a,b,c')).toEqual(['a', 'b', 'c'])
+  })
+
+  it('should parse numeric elements', () => {
+    expect(helper.parseStringArray('[10, 25, 50]')).toEqual(['10', '25', '50'])
+  })
+
+  it('should parse single element', () => {
+    expect(helper.parseStringArray('[\'only\']')).toEqual(['only'])
+  })
+
+  it('should parse JSON-style array with double quotes', () => {
+    expect(helper.parseStringArray('["a","b","c"]')).toEqual(['a', 'b', 'c'])
+  })
+
+  it('should return empty array for empty array string', () => {
+    expect(helper.parseStringArray('[]')).toEqual([])
+  })
+
+  it('should return empty array for empty string', () => {
+    expect(helper.parseStringArray('')).toEqual([])
+  })
+})

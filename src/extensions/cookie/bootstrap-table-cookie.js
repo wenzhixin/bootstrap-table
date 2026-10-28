@@ -242,8 +242,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this._filterControlValuesLoaded = false
 
       this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
-        this.options.cookiesEnabled.replace('[', '').replace(']', '')
-          .replace(/'/g, '').replace(/ /g, '').split(',') :
+        Utils.parseStringArray(this.options.cookiesEnabled) :
         this.options.cookiesEnabled
 
       if (this.options.filterControl) {

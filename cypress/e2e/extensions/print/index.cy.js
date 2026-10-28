@@ -1,0 +1,1 @@
+require('../../../extensions/print/options')()

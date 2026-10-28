@@ -221,6 +221,67 @@
     float: right;
   }
 
+  &[dir="rtl"] {
+    .caret {
+      margin-right: 2px;
+      margin-left: 0;
+    }
+
+    .fixed-table-toolbar {
+      .columns {
+        > .btn,
+        > .btn-group {
+          &:not(:last-child):not(.dropdown-toggle),
+          &:not(:last-child) > .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: none;
+          }
+
+          &:not(:first-child):not(.dropdown-toggle),
+          &:not(:first-child) > .btn {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        }
+      }
+
+      .search .input-group {
+        .search-input {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-left: none;
+        }
+
+        button[name="search"],
+        button[name="clearSearch"] {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+
+          &:not(:last-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: none;
+          }
+        }
+      }
+    }
+
+    // In LTR, the columns dropdown is right-anchored to its toggle; mirror
+    // it to the left side under RTL. The `_theme.scss` rules for
+    // `.pull-right/.float-right .dropdown-menu` (which are not nested under a
+    // toolbar prefix) win on specificity for those wrappers, so this base
+    // override only applies to dropdowns that are not floated.
+    .dropdown-menu {
+      left: 0;
+      right: auto;
+    }
+
+    .pagination-detail {
+      float: right;
+    }
+  }
+
   .pagination {
     padding: 0;
     align-items: center;

@@ -36,7 +36,7 @@ export default {
 
     this.paginationParts = opts.paginationParts
     if (typeof this.paginationParts === 'string') {
-      this.paginationParts = this.paginationParts.replace(/\[|\]| |'/g, '').split(',')
+      this.paginationParts = Utils.parseStringArray(this.paginationParts)
     }
 
     if (opts.sidePagination !== 'server') {

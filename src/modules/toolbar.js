@@ -74,7 +74,7 @@ export default {
     ].join(' ')}">`]
 
     if (typeof opts.buttonsOrder === 'string') {
-      opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').split(',')
+      opts.buttonsOrder = Utils.parseStringArray(opts.buttonsOrder)
     }
 
     this.buttons = Object.assign(this.buttons, {
@@ -182,7 +182,8 @@ export default {
                 value: i,
                 checked: !!checked,
                 disabled: !!disabled,
-                label: column.switchableLabel || column.title
+                label: column.switchableLabel || (opts.escape && opts.escapeTitle ?
+                  Utils.escapeHTML(column.title) : column.title)
               })
 
               // Bootstrap 3/4 needs to be wrapped with toolbarDropdownItem
@@ -306,14 +307,18 @@ export default {
           const $this = $(currentTarget)
           const searchValue = $this.val().toLowerCase()
 
-          $listItems.show()
+          $listItems.each((_, el) => {
+            el.style.removeProperty('display')
+          })
           $checkboxes.each((i, el) => {
             const $checkbox = $(el)
             const $listItem = $checkbox.parents('.dropdown-item-marker')
             const text = $listItem.text().toLowerCase()
 
             if (!text.includes(searchValue)) {
-              $listItem.hide()
+              $listItem.each((_, item) => {
+                item.style.setProperty('display', 'none', 'important')
+              })
             }
           })
         })

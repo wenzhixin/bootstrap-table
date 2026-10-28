@@ -504,3 +504,40 @@ describe('normalizeStyle', () => {
     expect(string.normalizeStyle('color: red !important;')).toBe('color: red !important; ')
   })
 })
+
+describe('serializeStyle', () => {
+  it('should return string input as-is', () => {
+    expect(string.serializeStyle('color: red')).toBe('color: red')
+    expect(string.serializeStyle('')).toBe('')
+  })
+
+  it('should return empty string for falsy values', () => {
+    expect(string.serializeStyle(undefined)).toBe('')
+    expect(string.serializeStyle(null)).toBe('')
+    expect(string.serializeStyle(false)).toBe('')
+  })
+
+  it('should serialize object format', () => {
+    expect(string.serializeStyle({ color: 'red' })).toBe('color: red')
+    expect(string.serializeStyle({ color: 'red', 'font-size': '12px' })).toBe('color: red; font-size: 12px')
+  })
+
+  it('should serialize array format', () => {
+    expect(string.serializeStyle(['color: red', 'font-size: 12px'])).toBe('color: red; font-size: 12px')
+    expect(string.serializeStyle(['color: red', { 'font-weight': 'bold' }])).toBe('color: red; font-weight: bold')
+  })
+
+  it('should filter out null and undefined from arrays', () => {
+    expect(string.serializeStyle(['color: red', null, undefined, 'font-size: 12px'])).toBe('color: red; font-size: 12px')
+    expect(string.serializeStyle([null, undefined])).toBe('')
+  })
+
+  it('should handle nested arrays', () => {
+    expect(string.serializeStyle([['color: red'], ['font-size: 12px']])).toBe('color: red; font-size: 12px')
+  })
+
+  it('should return empty string for non-object types', () => {
+    expect(string.serializeStyle(123)).toBe('')
+    expect(string.serializeStyle(true)).toBe('')
+  })
+})

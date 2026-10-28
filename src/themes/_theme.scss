@@ -388,6 +388,100 @@ html[data-bs-theme="dark"] {
   }
 }
 
+// Right-to-left (RTL) support.
+// Only the root container carries dir="rtl" (inherited by the table, toolbar
+// and pagination); these rules mirror the directional LTR layout. Column
+// alignment keeps its physical meaning and is intentionally NOT flipped here.
+// Pagination prev/next arrows are reversed natively by the browser via
+// dir="rtl", so no CSS is needed for them.
+.bootstrap-table[dir="rtl"] {
+  // Mirror toolbar / pagination floats (pull-* for BS3, float-* for BS4/5).
+  // !important is required: BS3/BS4 framework utilities declare float with
+  // !important, so the override must too (higher specificity + !important wins).
+  .pull-right,
+  .float-right {
+    float: left !important;
+  }
+
+  .pull-left,
+  .float-left {
+    float: right !important;
+  }
+
+  .fixed-table-toolbar {
+    .columns {
+      .btn-group > .btn-group {
+        margin-right: -1px;
+        margin-left: 0;
+
+        &:first-child > .btn {
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+
+        &:last-child > .btn {
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+      }
+
+      .dropdown-menu {
+        text-align: right;
+      }
+    }
+
+    .columns-left {
+      margin-left: 5px;
+      margin-right: 0;
+    }
+
+    .columns-right {
+      margin-right: 5px;
+      margin-left: 0;
+    }
+
+    // Mirror the dropdown opened from a .pull-right (BS3) / .float-right (BS4/5)
+    // toolbar group. Theme-specific dropdown positioning lives in each theme
+    // file (e.g. bootstrap-table.scss).
+    .pull-right .dropdown-menu,
+    .float-right .dropdown-menu {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  .fixed-table-container {
+    .table {
+      thead th,
+      tfoot th {
+        .sortable {
+          background-position: left;
+          padding-left: 30px !important;
+          padding-right: 0.75rem !important;
+        }
+
+        .both {
+          background-position: center left 2px;
+        }
+      }
+    }
+  }
+
+  .fixed-table-pagination {
+    > .pagination-detail {
+      .pagination-info {
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .fixed-table-loading .loading-wrap .loading-text {
+    margin-left: 6px;
+    margin-right: 0;
+  }
+}
+
 /* calculate scrollbar width */
 div.fixed-table-scroll-inner {
   width: 100%;
