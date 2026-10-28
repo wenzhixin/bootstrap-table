@@ -311,6 +311,61 @@ html[data-bs-theme=dark] {
   float: right;
 }
 
+.bootstrap-table[dir=rtl] .pull-right,
+.bootstrap-table[dir=rtl] .float-right {
+  float: left !important;
+}
+.bootstrap-table[dir=rtl] .pull-left,
+.bootstrap-table[dir=rtl] .float-left {
+  float: right !important;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .columns .btn-group > .btn-group {
+  margin-right: -1px;
+  margin-left: 0;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .columns .btn-group > .btn-group:first-child > .btn {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .columns .btn-group > .btn-group:last-child > .btn {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .columns .dropdown-menu {
+  text-align: right;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .columns-left {
+  margin-left: 5px;
+  margin-right: 0;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .columns-right {
+  margin-right: 5px;
+  margin-left: 0;
+}
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .pull-right .dropdown-menu,
+.bootstrap-table[dir=rtl] .fixed-table-toolbar .float-right .dropdown-menu {
+  left: 0;
+  right: auto;
+}
+.bootstrap-table[dir=rtl] .fixed-table-container .table thead th .sortable,
+.bootstrap-table[dir=rtl] .fixed-table-container .table tfoot th .sortable {
+  background-position: left;
+  padding-left: 30px !important;
+  padding-right: 0.75rem !important;
+}
+.bootstrap-table[dir=rtl] .fixed-table-container .table thead th .both,
+.bootstrap-table[dir=rtl] .fixed-table-container .table tfoot th .both {
+  background-position: center left 2px;
+}
+.bootstrap-table[dir=rtl] .fixed-table-pagination > .pagination-detail .pagination-info {
+  margin-left: 5px;
+  margin-right: 0;
+}
+.bootstrap-table[dir=rtl] .fixed-table-loading .loading-wrap .loading-text {
+  margin-left: 6px;
+  margin-right: 0;
+}
+
 /* calculate scrollbar width */
 div.fixed-table-scroll-inner {
   width: 100%;

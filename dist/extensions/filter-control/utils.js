@@ -565,10 +565,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.49.0',
+  	  version: '3.51.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -581,9 +581,11 @@
   	if (hasRequiredShared) return shared;
   	hasRequiredShared = 1;
   	var store = requireSharedStore();
+  	// eslint-disable-next-line es/no-object-create -- safe
+  	var create = Object.create || Object;
 
   	shared = function (key, value) {
-  	  return store[key] || (store[key] = value || {});
+  	  return store[key] || (store[key] = value || create(null));
   	};
   	return shared;
   }
@@ -3223,7 +3225,9 @@
   	    function match(regexp) {
   	      var O = requireObjectCoercible(this);
   	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
-  	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
+  	      if (matcher) return call(matcher, regexp, O);
+  	      var S = toString(O);
+  	      return new RegExp(regexp)[MATCH](S);
   	    },
   	    // `RegExp.prototype[@@match]` method
   	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
@@ -3808,6 +3812,7 @@
   /* eslint-disable no-use-before-define */
   var Utils = $.fn.bootstrapTable.utils;
   var searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])';
+  var selectionInputTypes = ['password', 'search', 'tel', 'text', 'url'];
   function getInputClass(that) {
     var isSelect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     var formControlClass = isSelect ? that.constants.classes.select : that.constants.classes.input;
@@ -3942,13 +3947,23 @@
           var range = elem.createTextRange();
           range.move('character', caretPos);
           range.select();
-        } else if (elem.setSelectionRange) {
+        } else if (elem.setSelectionRange && canSetCaretPosition(elem)) {
           elem.setSelectionRange(caretPos, caretPos);
         }
       }
     } catch (ex) {
       console.error(ex);
     }
+  }
+  function canSetCaretPosition(elem) {
+    var tagName = elem.tagName && elem.tagName.toLowerCase();
+    if (tagName === 'textarea') {
+      return true;
+    }
+    if (tagName !== 'input') {
+      return false;
+    }
+    return selectionInputTypes.includes(elem.type);
   }
   function setValues(that) {
     var field = null;
@@ -4161,9 +4176,11 @@
     });
     if (addedFilterControl) {
       header.off('keyup', 'input').on('keyup', 'input', function (_ref4, obj) {
+        var _obj$keyCode;
         var currentTarget = _ref4.currentTarget,
           keyCode = _ref4.keyCode;
-        keyCode = obj ? obj.keyCode : keyCode;
+        keyCode = (_obj$keyCode = obj === null || obj === void 0 ? void 0 : obj.keyCode) !== null && _obj$keyCode !== void 0 ? _obj$keyCode : keyCode;
+        var isInitial = (obj === null || obj === void 0 ? void 0 : obj.isInitial) === true;
         if (that.options.searchOnEnterKey && keyCode !== 13) {
           return;
         }
@@ -4178,22 +4195,25 @@
         currentTarget.timeoutId = setTimeout(function () {
           that.onColumnSearch({
             currentTarget: currentTarget,
-            keyCode: keyCode
+            keyCode: keyCode,
+            isInitial: isInitial
           });
         }, that.options.searchTimeOut);
       });
-      header.off('change', 'select').on('change', 'select', function (_ref5) {
+      header.off('change', 'select').on('change', 'select', function (_ref5, obj) {
         var currentTarget = _ref5.currentTarget,
           keyCode = _ref5.keyCode;
         var $selectControl = $(currentTarget);
         var value = $selectControl.val();
+        var isInitial = (obj === null || obj === void 0 ? void 0 : obj.isInitial) === true;
         var normalizedValue = value === null ? $selectControl.prop('multiple') ? [] : null : value;
         $selectControl.val(normalizedValue);
         clearTimeout(currentTarget.timeoutId || 0);
         currentTarget.timeoutId = setTimeout(function () {
           that.onColumnSearch({
             currentTarget: currentTarget,
-            keyCode: keyCode
+            keyCode: keyCode,
+            isInitial: isInitial
           });
         }, that.options.searchTimeOut);
       });
@@ -4267,7 +4287,7 @@
         });
       }
       if (that.options.sidePagination !== 'server') {
-        that.triggerSearch();
+        that.triggerSearch(true);
       }
       if (!that.options.filterControlVisible) {
         header.find('.filter-control, .no-filter-control').hide();
