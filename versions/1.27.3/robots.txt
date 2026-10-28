@@ -1,0 +1,8 @@
+# www.robotstxt.org/
+
+# Allow crawling of all content
+User-agent: *
+Disallow:
+
+# Sitemap location
+Sitemap: https://bootstrap-table.com/sitemap-index.xml
