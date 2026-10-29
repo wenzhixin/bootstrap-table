@@ -30,7 +30,6 @@ package-lock.json
 .DS_Store
 .localized
 Icon
-.vscode
 
 
 # yarn 4
