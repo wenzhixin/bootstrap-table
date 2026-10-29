@@ -83,7 +83,7 @@
     "css:build:base": "sass --no-source-map -I node_modules src:dist",
     "css:build:min": "cleancss -O1 --format breakWith=lf --with-rebase --batch --batch-suffix .min \"dist/**/*.css\" \"!dist/**/*.min.css\"",
     "css:build": "run-s css:build:*",
-    "banner": "headify 'dist/**/*.{css,js}'",
+    "banner": "headify \"dist/**/*.{css,js}\"",
     "clean": "rimraf dist",
     "build": "run-s lint clean *:build banner",
     "pre-commit": "run-s lint docs:check"
