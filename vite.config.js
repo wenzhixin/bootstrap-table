@@ -9,7 +9,11 @@ export default defineConfig({
     lib: {
       entry: "src/vue/index.js",
       name: "BootstrapTable",
-      fileName: "bootstrap-table-vue",
+      fileName: (format) => {
+        return format === "umd"
+          ? "bootstrap-table-vue.umd.js"
+          : "bootstrap-table-vue.js"
+      },
       formats: ["es", "umd"],
     },
     rollupOptions: {

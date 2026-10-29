@@ -79,7 +79,7 @@
     "js:build:base": "rollup -c",
     "js:build:min": "cross-env NODE_ENV=production rollup -c",
     "js:build:banner": "foreach -g \"dist/**/*.min.js\" -x \"headr #{path} -o #{path} --version --homepage --author --license\"",
-    "js:build:vue": "vite build && mv dist/bootstrap-table-vue.umd.cjs dist/bootstrap-table-vue.umd.js",
+    "js:build:vue": "vite build",
     "js:build": "run-s js:build:*",
     "css:build:src": "sass --no-source-map -I node_modules src:src",
     "css:build:base": "sass --no-source-map -I node_modules src:dist",
