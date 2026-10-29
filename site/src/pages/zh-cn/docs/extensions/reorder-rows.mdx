@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Reorder Rows
 description: Bootstrap Table 的行重排扩展，允许通过拖拽方式调整表格行的顺序。
 group: extensions
@@ -7,15 +7,20 @@ toc: true
 ---
 
 ## 依赖项
+
 该扩展依赖 [tablednd](https://github.com/isocra/TableDnD) v0.9 库。
 
 ## 默认拖拽样式
+
 如需使用默认的拖拽样式，可以额外引入 `bootstrap-table-reorder-rows.css` 文件。
 
 ## 用法
 
 ```html
-<link rel="stylesheet" href="extensions/reorder-rows/bootstrap-table-reorder-rows.css">
+<link
+  rel="stylesheet"
+  href="extensions/reorder-rows/bootstrap-table-reorder-rows.css"
+/>
 <script src=".../jquery.tablednd.js"></script>
 <script src="extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
 ```
@@ -157,6 +162,7 @@ toc: true
 ### onReorderRow (reorder-row.bs.table)
 
 行放置完成时触发，参数包括：
-* 新的表格数据
-* 被拖动的行
-* 原位置所在的行
+
+- 新的表格数据
+- 被拖动的行
+- 原位置所在的行

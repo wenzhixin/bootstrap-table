@@ -1,1 +1,1 @@
-require('../../common/welcome')('bulma')
+require("../../common/welcome")("bulma")

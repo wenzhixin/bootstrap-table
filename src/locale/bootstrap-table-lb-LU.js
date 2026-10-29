@@ -3,189 +3,196 @@
  * Author: David Morais Ferreira (https://github.com/DavidMoraisFerreira)
  */
 
-$.fn.bootstrapTable.locales['lb-LU'] = $.fn.bootstrapTable.locales['lb'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["lb-LU"] = $.fn.bootstrapTable.locales["lb"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Zoumaachen'
+  formatAdvancedCloseButton() {
+    return "Zoumaachen"
   },
 
-  formatAdvancedSearch () {
-    return 'Erweidert Sich'
+  formatAdvancedSearch() {
+    return "Erweidert Sich"
   },
 
-  formatAllRows () {
-    return 'All'
+  formatAllRows() {
+    return "All"
   },
 
-  formatAutoRefresh () {
-    return 'Automatescht neilueden'
+  formatAutoRefresh() {
+    return "Automatescht neilueden"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Sich réckgängeg maachen'
+  formatClearSearch() {
+    return "Sich réckgängeg maachen"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Kolonnen'
+  formatColumns() {
+    return "Kolonnen"
   },
 
-  formatColumnsToggleAll () {
-    return 'All ëmschalten'
+  formatColumnsToggleAll() {
+    return "All ëmschalten"
   },
 
-  formatCopyRows () {
-    return 'Zeilen kopéieren'
+  formatCopyRows() {
+    return "Zeilen kopéieren"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Weist ${totalRows} Zeilen`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Daten exportéieren'
+  formatExport() {
+    return "Daten exportéieren"
   },
 
-  formatFilterControlSwitch () {
-    return 'Schaltelementer uweisen/verstoppen'
+  formatFilterControlSwitch() {
+    return "Schaltelementer uweisen/verstoppen"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Schaltelementer verstoppen'
+  formatFilterControlSwitchHide() {
+    return "Schaltelementer verstoppen"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Schaltelementer uweisen'
+  formatFilterControlSwitchShow() {
+    return "Schaltelementer uweisen"
   },
 
-  formatFullscreen () {
-    return 'Vollbild'
+  formatFullscreen() {
+    return "Vollbild"
   },
 
-  formatJumpTo () {
-    return 'Sprangen'
+  formatJumpTo() {
+    return "Sprangen"
   },
 
-  formatLoadingMessage () {
-    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment'
+  formatLoadingMessage() {
+    return "Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Keng passend Anträg fonnt'
+  formatNoMatches() {
+    return "Keng passend Anträg fonnt"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Paginatioun uweisen/verstoppen'
+  formatPaginationSwitch() {
+    return "Paginatioun uweisen/verstoppen"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Paginatioun uweisen'
+  formatPaginationSwitchDown() {
+    return "Paginatioun uweisen"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Paginatioun verstoppen'
+  formatPaginationSwitchUp() {
+    return "Paginatioun verstoppen"
   },
 
-  formatPrint () {
-    return 'Drécken'
+  formatPrint() {
+    return "Drécken"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} Zeilen per Säit`
   },
 
-  formatRefresh () {
-    return 'Nei lueden'
+  formatRefresh() {
+    return "Nei lueden"
   },
 
-  formatSRPaginationNextText () {
-    return 'nächst Säit'
+  formatSRPaginationNextText() {
+    return "nächst Säit"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `op Säit ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'viregt Säit'
+  formatSRPaginationPreText() {
+    return "viregt Säit"
   },
 
-  formatSearch () {
-    return 'Sich'
+  formatSearch() {
+    return "Sich"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? 'en' : ''} (gefiltert vun insgesamt ${totalNotFiltered} Zeil${totalRows > 1 ? 'en' : ''})`
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
+      return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? "en" : ""} (gefiltert vun insgesamt ${totalNotFiltered} Zeil${totalRows > 1 ? "en" : ""})`
     }
 
-    return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? 'en' : ''}`
+    return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? "en" : ""}`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Kaartenusiicht verstoppen'
+  formatToggleOff() {
+    return "Kaartenusiicht verstoppen"
   },
 
-  formatToggleOn () {
-    return 'Kaartenusiicht uweisen'
-  }
+  formatToggleOn() {
+    return "Kaartenusiicht uweisen"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['lb-LU'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["lb-LU"],
+)

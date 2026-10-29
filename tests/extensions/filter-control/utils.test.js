@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
-describe('filter-control utils', () => {
-  describe('setCaretPosition', () => {
+describe("filter-control utils", () => {
+  describe("setCaretPosition", () => {
     let original$
     let setCaretPosition
 
@@ -11,12 +11,12 @@ describe('filter-control utils', () => {
       globalThis.$ = {
         fn: {
           bootstrapTable: {
-            utils: {}
-          }
+            utils: {},
+          },
         },
-        inArray: vi.fn()
+        inArray: vi.fn(),
       }
-      const utils = await import('@/extensions/filter-control/utils.js')
+      const utils = await import("@/extensions/filter-control/utils.js")
 
       setCaretPosition = utils.setCaretPosition
     })
@@ -26,11 +26,11 @@ describe('filter-control utils', () => {
       vi.restoreAllMocks()
     })
 
-    it('sets the caret for text-like filter inputs', () => {
-      const input = document.createElement('input')
+    it("sets the caret for text-like filter inputs", () => {
+      const input = document.createElement("input")
       const setSelectionRange = vi.fn()
 
-      input.type = 'search'
+      input.type = "search"
       input.setSelectionRange = setSelectionRange
 
       setCaretPosition(input, 3)
@@ -38,14 +38,16 @@ describe('filter-control utils', () => {
       expect(setSelectionRange).toHaveBeenCalledWith(3, 3)
     })
 
-    it('skips unsupported input types without logging an error', () => {
-      const input = document.createElement('input')
+    it("skips unsupported input types without logging an error", () => {
+      const input = document.createElement("input")
       const setSelectionRange = vi.fn(() => {
-        throw new Error('unsupported input type')
+        throw new Error("unsupported input type")
       })
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+      const consoleError = vi
+        .spyOn(console, "error")
+        .mockImplementation(() => {})
 
-      input.type = 'date'
+      input.type = "date"
       input.setSelectionRange = setSelectionRange
 
       setCaretPosition(input, -1)
@@ -54,10 +56,12 @@ describe('filter-control utils', () => {
       expect(consoleError).not.toHaveBeenCalled()
     })
 
-    it('skips select filter controls even if a selection API is present', () => {
-      const select = document.createElement('select')
+    it("skips select filter controls even if a selection API is present", () => {
+      const select = document.createElement("select")
       const setSelectionRange = vi.fn()
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+      const consoleError = vi
+        .spyOn(console, "error")
+        .mockImplementation(() => {})
 
       select.setSelectionRange = setSelectionRange
 

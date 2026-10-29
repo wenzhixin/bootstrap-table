@@ -1,11 +1,11 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from "cypress"
 
 export default defineConfig({
   video: false,
   screenshot: false,
   e2e: {
-    setupNodeEvents () {
+    setupNodeEvents() {
       // No custom plugins needed
-    }
-  }
+    },
+  },
 })

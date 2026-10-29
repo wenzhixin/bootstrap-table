@@ -1,0 +1,7 @@
+allowBuilds:
+  "@parcel/watcher": true
+  core-js: true
+  cypress: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - headify@0.1.1

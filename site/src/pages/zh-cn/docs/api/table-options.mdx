@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: 表格选项
 description: Bootstrap Table 的表格选项 API。
 group: api
@@ -11,6 +11,7 @@ toc: true
 **注意：** 下面的选项名称（例如 `ajax`、`buttons`、`cache`）是在通过 JavaScript 初始化 Bootstrap Table 时使用的确切属性名。
 
 例如：
+
 ```js
 $('#table').bootstrapTable({
   ajax: yourFunction,
@@ -99,6 +100,7 @@ $('#table').bootstrapTable({
 
   `event` 选项可以通过三种方式配置。
   使用 `click` 事件：
+
   ```javascript
   {
     'event': () => { }
@@ -106,6 +108,7 @@ $('#table').bootstrapTable({
   ```
 
   使用自定义事件类型的事件：
+
   ```javascript
     {
       'event': {
@@ -115,6 +118,7 @@ $('#table').bootstrapTable({
   ```
 
   使用自定义事件类型的多个事件：
+
   ```javascript
     {
       'event': {
@@ -128,7 +132,8 @@ $('#table').bootstrapTable({
   **提示：** 除了内联函数，您也可以使用函数名。
 
   配置的自定义按钮可能如下所示：
-  ``` javascript
+
+  ```javascript
   {
     btnRemoveEvenRows: {
       'text': 'Remove even Rows',
@@ -339,9 +344,9 @@ $('#table').bootstrapTable({
 
   自定义搜索函数，将替代内置搜索功能，接受三个参数：
 
-  * `data`：表格数据。
-  * `text`：搜索文本。
-  * `filter`：来自 `filterBy` 方法的过滤器对象。
+  - `data`：表格数据。
+  - `text`：搜索文本。
+  - `filter`：来自 `filterBy` 方法的过滤器对象。
 
   示例用法：
 
@@ -367,9 +372,9 @@ $('#table').bootstrapTable({
 
   自定义排序函数，将替代内置排序功能，接受三个参数：
 
-  * `sortName`：排序名称。
-  * `sortOrder`：排序顺序。
-  * `data`：行数据。
+  - `sortName`：排序名称。
+  - `sortOrder`：排序顺序。
+  - `data`：行数据。
 
 - **默认值:** `undefined`
 
@@ -386,22 +391,24 @@ $('#table').bootstrapTable({
   要加载的数据。
 
   如果数据中有 `_<field>_rowspan` 或 `_<field>_colspan` 属性，则将自动合并单元格，例如：
+
   ```js
   $table.bootstrapTable({
     data: [
       {
         id: 1,
-        name: 'Item 1',
+        name: "Item 1",
         _name_rowspan: 2,
-        price: '$1'
+        price: "$1",
       },
       {
         id: 2,
-        price: '$2'
-      }
-    ]
+        price: "$2",
+      },
+    ],
   })
   ```
+
   如果使用此功能，`data` 是必需的，以确保格式正确。
 
 - **默认值:** `[]`
@@ -589,7 +596,6 @@ $('#table').bootstrapTable({
   页脚对象可用于设置/定义页脚 colspan 和页脚值。
   仅在 `data-pagination` 为 `true` 且 `data-side-pagination` 为 `server` 时生效。
 
-
   ```javascript
     {
       "rows": [
@@ -606,7 +612,7 @@ $('#table').bootstrapTable({
         "name": "footer name"
       }
     }
-    ```
+  ```
 
 - **默认值:** `footerField`
 
@@ -622,15 +628,15 @@ $('#table').bootstrapTable({
 
   页脚样式格式化函数，接受一个参数：
 
-  * `column`：列对象。
+  - `column`：列对象。
 
   支持 `classes` 或 `css`。示例用法：
 
   ```javascript
   function footerStyle(column) {
     return {
-      css: { 'font-weight': 'normal' },
-      classes: 'my-class'
+      css: { "font-weight": "normal" },
+      classes: "my-class",
     }
   }
   ```
@@ -649,15 +655,15 @@ $('#table').bootstrapTable({
 
   标题样式格式化函数，接受一个参数：
 
-  * `column`：列对象。
+  - `column`：列对象。
 
   支持 `classes` 或 `css`。示例用法：
 
   ```javascript
   function headerStyle(column) {
     return {
-      css: { 'font-weight': 'normal' },
-      classes: 'my-class'
+      css: { "font-weight": "normal" },
+      classes: "my-class",
     }
   }
   ```
@@ -693,17 +699,10 @@ $('#table').bootstrapTable({
 - **默认值:**
 
   ```html
-  {
-    paginationSwitchDown: 'fa-caret-square-down',
-    paginationSwitchUp: 'fa-caret-square-up',
-    refresh: 'fa-sync',
-    toggleOff: 'fa-toggle-off',
-    toggleOn: 'fa-toggle-on',
-    columns: 'fa-th-list',
-    fullscreen: 'fa-arrows-alt',
-    detailOpen: 'fa-plus',
-    detailClose: 'fa-minus'
-  }
+  { paginationSwitchDown: 'fa-caret-square-down', paginationSwitchUp:
+  'fa-caret-square-up', refresh: 'fa-sync', toggleOff: 'fa-toggle-off',
+  toggleOn: 'fa-toggle-on', columns: 'fa-th-list', fullscreen: 'fa-arrows-alt',
+  detailOpen: 'fa-plus', detailClose: 'fa-minus' }
   ```
 
 - **示例:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
@@ -748,6 +747,7 @@ $('#table').bootstrapTable({
 - **默认值:** `undefined`
 
 - **示例:** [Icons Prefix](https://examples.bootstrap-table.com/#options/icons-prefix.html)
+
 ## idField
 
 - **属性:** `data-id-field`
@@ -772,7 +772,7 @@ $('#table').bootstrapTable({
 
   定义哪些元素在点击时应忽略 `clickToSelect` 功能。函数接受一个参数：
 
-  * `element`：被点击的 DOM 元素。
+  - `element`：被点击的 DOM 元素。
 
   返回 `true` 表示忽略该元素点击（不触发行选择），返回 `false` 表示正常处理点击（触发行选择）。此选项仅在 `clickToSelect` 为 `true` 时生效。
 
@@ -804,9 +804,10 @@ $('#table').bootstrapTable({
 
   自定义加载模板。参数对象包含：
 
-  * loadingMessage：`formatLoadingMessage` 本地化文案。
+  - loadingMessage：`formatLoadingMessage` 本地化文案。
 
 - **默认值:**
+
   ```js
   function (loadingMessage) {
     return '<span class="loading-wrap">' +
@@ -832,10 +833,10 @@ $('#table').bootstrapTable({
 
   系统支持语言环境后备机制，按以下优先级顺序尝试加载：
 
-  * **第一优先级**：尝试加载指定的完整语言环境（如 `'zh-CN'`）
-  * **第二优先级**：尝试将下划线 `_` 转换为连字符 `-` 并将区域代码大写（如 `'zh_CN'` 转换为 `'zh-CN'`）
-  * **第三优先级**：尝试使用短语言代码（如从 `'zh-CN'` 降级为 `'zh'`）
-  * **最后备选**：使用最后加载的语言环境文件（如果没有任何语言环境文件被加载，则使用内置的默认语言环境）
+  - **第一优先级**：尝试加载指定的完整语言环境（如 `'zh-CN'`）
+  - **第二优先级**：尝试将下划线 `_` 转换为连字符 `-` 并将区域代码大写（如 `'zh_CN'` 转换为 `'zh-CN'`）
+  - **第三优先级**：尝试使用短语言代码（如从 `'zh-CN'` 降级为 `'zh'`）
+  - **最后备选**：使用最后加载的语言环境文件（如果没有任何语言环境文件被加载，则使用内置的默认语言环境）
 
   注意：如果将此选项设置为 `undefined` 或空字符串，系统将自动使用最后加载的语言环境（如果没有加载任何语言环境文件，则默认使用 `'en-US'`）。
 
@@ -852,8 +853,8 @@ $('#table').bootstrapTable({
 - **详情:**
 
   设置为 `true` 可在切换页面和搜索时保持以下元数据：
-   * 选中的行
-   * 隐藏的行
+  - 选中的行
+  - 隐藏的行
 
   默认（`false`）时，切换页面或搜索会重置选中的行。
 
@@ -898,9 +899,9 @@ $('#table').bootstrapTable({
 - **详情:**
 
   设置为 `true` 可启用多行选择功能。启用后，用户可通过以下方式选择多行：
-  * **Ctrl+点击**：选择或取消选择单行（保持其他行的选中状态）
-  * **Shift+点击**：选择从当前选中行到点击行之间的所有行（范围选择）
-  * **普通点击**：未按住修饰键时，取消其他行的选择，仅选中当前点击的行
+  - **Ctrl+点击**：选择或取消选择单行（保持其他行的选中状态）
+  - **Shift+点击**：选择从当前选中行到点击行之间的所有行（范围选择）
+  - **普通点击**：未按住修饰键时，取消其他行的选择，仅选中当前点击的行
 
 - **默认值:** `false`
 
@@ -930,7 +931,7 @@ $('#table').bootstrapTable({
 
   设置分页时，通过选择列表初始化页面大小。如果包含 `'all'` 或 `'unlimited'` 选项，所有记录将显示在表格中。
 
-  *提示：如果表格行数少于选项数量，选项将自动隐藏。要禁用此功能，可将 [smartDisplay](https://bootstrap-table.com/zh-cn/docs/api/table-options/#smartdisplay) 设置为 `false`*
+  _提示：如果表格行数少于选项数量，选项将自动隐藏。要禁用此功能，可将 [smartDisplay](https://bootstrap-table.com/zh-cn/docs/api/table-options/#smartdisplay) 设置为 `false`_
 
 - **默认值:** `[10, 25, 50, 100]`
 
@@ -1022,7 +1023,6 @@ $('#table').bootstrapTable({
 
 - **示例:** [Pagination Load More](https://examples.bootstrap-table.com/#options/pagination-load-more.html)
 
-
 ## paginationLoop
 
 - **属性:** `data-pagination-loop`
@@ -1074,10 +1074,10 @@ $('#table').bootstrapTable({
 - **详情:**
 
   这些选项定义分页的哪些部分应该可见。
-  * `pageInfo` 显示当前页将显示哪些数据集（例如 `Showing 1 to 10 of 54 rows`）。
-  * `pageInfoShort` 类似于 `pageInfo`，它只显示表格有多少行（例如 `Showing 54 rows`）。
-  * `pageSize` 显示定义页面上应显示多少行的下拉列表。
-  * `pageList` 显示分页的主要部分（页面列表）。
+  - `pageInfo` 显示当前页将显示哪些数据集（例如 `Showing 1 to 10 of 54 rows`）。
+  - `pageInfoShort` 类似于 `pageInfo`，它只显示表格有多少行（例如 `Showing 54 rows`）。
+  - `pageSize` 显示定义页面上应显示多少行的下拉列表。
+  - `pageList` 显示分页的主要部分（页面列表）。
 
 - **默认值:** `['pageInfo', 'pageSize', 'pageList']`
 
@@ -1185,7 +1185,6 @@ $('#table').bootstrapTable({
   如果启用此选项，您可以使用正则表达式搜索，例如 `[47a]$` 搜索所有以 `4`、`7` 或 `a` 结尾的项目。
   正则表达式可以使用 `/[47a]$/gim` 或不带 `[47a]$` 标志输入。默认标志是 `gim`。
 
-
 - **默认值:** `false`
 
 - **示例:** [Regex Search](https://examples.bootstrap-table.com/#options/regex-search.html)
@@ -1214,8 +1213,8 @@ $('#table').bootstrapTable({
 
   在加载远程数据之前，处理响应数据格式。参数对象包含：
 
-  * `res`：响应数据。
-  * `jqXHR`：jqXHR 对象，它是 XMLHTTPRequest 对象的超集。有关更多信息，请参阅 [jqXHR 类型](http://api.jquery.com/Types/#jqXHR)。
+  - `res`：响应数据。
+  - `jqXHR`：jqXHR 对象，它是 XMLHTTPRequest 对象的超集。有关更多信息，请参阅 [jqXHR 类型](http://api.jquery.com/Types/#jqXHR)。
 
 - **默认值:** `function(res) { return res }`
 
@@ -1231,8 +1230,8 @@ $('#table').bootstrapTable({
 
   行属性格式化函数，接受两个参数：
 
-  * `row`：行记录数据。
-  * `index`：行索引。
+  - `row`：行记录数据。
+  - `index`：行索引。
 
   支持所有自定义属性。
 
@@ -1250,8 +1249,8 @@ $('#table').bootstrapTable({
 
   行样式格式化函数，接受两个参数：
 
-  * `row`：行记录数据。
-  * `index`：行索引。
+  - `row`：行记录数据。
+  - `index`：行索引。
 
   支持 classes 或 css。
 
@@ -1667,8 +1666,8 @@ $('#table').bootstrapTable({
 
   请注意，所需的服务器响应格式根据 `'sidePagination'` 选项设置为 `'client'` 还是 `'server'` 而不同。请参阅以下示例：
 
-  * [无服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
-  * [有服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+  - [无服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
+  - [有服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
   **URL 参数：**
 
@@ -2001,8 +2000,8 @@ $('#table').bootstrapTable({
 
   请注意，所需的服务器响应格式根据是否指定了 `'sidePagination'` 选项而不同。请参阅以下示例：
 
-  * [无服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
-  * [有服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+  - [无服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
+  - [有服务器端分页](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
   **URL 参数：**
 

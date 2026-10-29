@@ -3,189 +3,196 @@
  * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['uk-UA'] = $.fn.bootstrapTable.locales['uk'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["uk-UA"] = $.fn.bootstrapTable.locales["uk"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Закрити'
+  formatAdvancedCloseButton() {
+    return "Закрити"
   },
 
-  formatAdvancedSearch () {
-    return 'Розширений пошук'
+  formatAdvancedSearch() {
+    return "Розширений пошук"
   },
 
-  formatAllRows () {
-    return 'Усі'
+  formatAllRows() {
+    return "Усі"
   },
 
-  formatAutoRefresh () {
-    return 'Автооновлення'
+  formatAutoRefresh() {
+    return "Автооновлення"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Скинути фільтри'
+  formatClearSearch() {
+    return "Скинути фільтри"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Стовпці'
+  formatColumns() {
+    return "Стовпці"
   },
 
-  formatColumnsToggleAll () {
-    return 'Переключити усі'
+  formatColumnsToggleAll() {
+    return "Переключити усі"
   },
 
-  formatCopyRows () {
-    return 'Скопіювати рядки'
+  formatCopyRows() {
+    return "Скопіювати рядки"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Відображено ${totalRows} рядків`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Експортувати дані'
+  formatExport() {
+    return "Експортувати дані"
   },
 
-  formatFilterControlSwitch () {
-    return 'Сховати/Відобразити елементи керування'
+  formatFilterControlSwitch() {
+    return "Сховати/Відобразити елементи керування"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Сховати елементи керування'
+  formatFilterControlSwitchHide() {
+    return "Сховати елементи керування"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Відобразити елементи керування'
+  formatFilterControlSwitchShow() {
+    return "Відобразити елементи керування"
   },
 
-  formatFullscreen () {
-    return 'Повноекранний режим'
+  formatFullscreen() {
+    return "Повноекранний режим"
   },
 
-  formatJumpTo () {
-    return 'Швидкий перехід до'
+  formatJumpTo() {
+    return "Швидкий перехід до"
   },
 
-  formatLoadingMessage () {
-    return 'Завантаження, будь ласка, зачекайте'
+  formatLoadingMessage() {
+    return "Завантаження, будь ласка, зачекайте"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Не знайдено жодного запису'
+  formatNoMatches() {
+    return "Не знайдено жодного запису"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Сховати/Відобразити пагінацію'
+  formatPaginationSwitch() {
+    return "Сховати/Відобразити пагінацію"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Відобразити пагінацію'
+  formatPaginationSwitchDown() {
+    return "Відобразити пагінацію"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Сховати пагінацію'
+  formatPaginationSwitchUp() {
+    return "Сховати пагінацію"
   },
 
-  formatPrint () {
-    return 'Друк'
+  formatPrint() {
+    return "Друк"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} рядків на сторінку`
   },
 
-  formatRefresh () {
-    return 'Оновити'
+  formatRefresh() {
+    return "Оновити"
   },
 
-  formatSRPaginationNextText () {
-    return 'наступна сторінка'
+  formatSRPaginationNextText() {
+    return "наступна сторінка"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `до сторінки ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'попередня сторінка'
+  formatSRPaginationPreText() {
+    return "попередня сторінка"
   },
 
-  formatSearch () {
-    return 'Пошук'
+  formatSearch() {
+    return "Пошук"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Відображено рядки з ${pageFrom} по ${pageTo} з ${totalRows} загалом (відфільтровано з ${totalNotFiltered} рядків)`
     }
 
     return `Відображено рядки з ${pageFrom} по ${pageTo} з ${totalRows} загалом`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Вимкнути формат карток'
+  formatToggleOff() {
+    return "Вимкнути формат карток"
   },
 
-  formatToggleOn () {
-    return 'Відобразити у форматі карток'
-  }
+  formatToggleOn() {
+    return "Відобразити у форматі карток"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['uk-UA'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["uk-UA"],
+)

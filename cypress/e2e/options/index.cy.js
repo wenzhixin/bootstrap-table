@@ -1,1 +1,1 @@
-require('../../common/options')()
+require("../../common/options")()

@@ -3,7 +3,7 @@
  * Provides jQuery-style event handling APIs using native JavaScript
  */
 
-import DOMHelper from './dom.js'
+import DOMHelper from "./dom.js"
 
 class EventHelper {
   /**
@@ -14,19 +14,19 @@ class EventHelper {
    * @param {Object|boolean} [options] - Event options or useCapture flag
    * @returns {Element|null} The element itself or null if no element is found
    */
-  static on (element, event, handler, options = {}) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static on(element, event, handler, options = {}) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return element
 
     // Validate handler
-    if (typeof handler !== 'function') {
-      throw new Error('Event handler must be a function')
+    if (typeof handler !== "function") {
+      throw new Error("Event handler must be a function")
     }
 
     // Parse event type and namespace (support multiple namespace segments)
-    const parts = event.split('.')
+    const parts = event.split(".")
     const eventType = parts[0]
-    const namespace = parts.slice(1).join('.')
+    const namespace = parts.slice(1).join(".")
 
     // Initialize event handlers storage if not exists
     if (!element._eventHandlers) {
@@ -37,7 +37,7 @@ class EventHelper {
     }
 
     // Create wrapped handler to maintain context
-    const wrappedHandler = e => {
+    const wrappedHandler = (e) => {
       handler.call(element, e)
     }
 
@@ -46,7 +46,7 @@ class EventHelper {
       namespace,
       wrappedHandler,
       original: handler,
-      options // Store options for use in removeEventListener
+      options, // Store options for use in removeEventListener
     })
 
     // Add native event listener
@@ -61,34 +61,40 @@ class EventHelper {
    * @param {Function} [handler] - Specific handler to remove (optional)
    * @returns {Element|null} The element itself or null if no element is found
    */
-  static off (element, event, handler) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static off(element, event, handler) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element || !element._eventHandlers) return element
 
     // Parse event type and namespace (support multiple namespace segments)
-    const parts = event.split('.')
+    const parts = event.split(".")
     const eventType = parts[0]
-    const namespace = parts.slice(1).join('.')
+    const namespace = parts.slice(1).join(".")
 
     if (element._eventHandlers[eventType]) {
       // Find handlers to remove
-      const handlersToRemove = element._eventHandlers[eventType].filter(info => {
-        const matches =
-          (!namespace || info.namespace === namespace) &&
-          (!handler || info.original === handler)
+      const handlersToRemove = element._eventHandlers[eventType].filter(
+        (info) => {
+          const matches =
+            (!namespace || info.namespace === namespace) &&
+            (!handler || info.original === handler)
 
-        if (matches && info.wrappedHandler) {
-          // Use the same options that were used in addEventListener
-          element.removeEventListener(eventType, info.wrappedHandler, info.options)
-        }
+          if (matches && info.wrappedHandler) {
+            // Use the same options that were used in addEventListener
+            element.removeEventListener(
+              eventType,
+              info.wrappedHandler,
+              info.options,
+            )
+          }
 
-        return matches
-      })
+          return matches
+        },
+      )
 
       // Remove handlers from array
-      element._eventHandlers[eventType] = element._eventHandlers[eventType].filter(info =>
-        !handlersToRemove.includes(info)
-      )
+      element._eventHandlers[eventType] = element._eventHandlers[
+        eventType
+      ].filter((info) => !handlersToRemove.includes(info))
 
       // Clean up empty event type arrays
       if (element._eventHandlers[eventType].length === 0) {
@@ -112,8 +118,8 @@ class EventHelper {
    * @param {Object} [options] - Event options
    * @returns {Element|null} The element itself or null if no element is found
    */
-  static trigger (element, event, detail, options = {}) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static trigger(element, event, detail, options = {}) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return element
 
     let eventObj
@@ -124,7 +130,7 @@ class EventHelper {
     } else {
       const baseOptions = {
         bubbles: options.bubbles !== false,
-        cancelable: options.cancelable !== false
+        cancelable: options.cancelable !== false,
       }
 
       // If a detail argument is provided, use CustomEvent; otherwise, use a plain Event
@@ -133,7 +139,7 @@ class EventHelper {
       if (hasDetailArgument) {
         eventObj = new CustomEvent(event, {
           ...baseOptions,
-          detail
+          detail,
         })
       } else {
         eventObj = new Event(event, baseOptions)
@@ -153,23 +159,25 @@ class EventHelper {
    * @param {Object|boolean} [options] - Event options or useCapture flag
    * @returns {Element|null} The parent element
    */
-  static delegate (parent, selector, event, handler, options = {}) {
-    if (typeof parent === 'string') parent = DOMHelper.$(parent)
+  static delegate(parent, selector, event, handler, options = {}) {
+    if (typeof parent === "string") parent = DOMHelper.$(parent)
     if (!parent) return parent
 
     // Validate handler
-    if (typeof handler !== 'function') {
-      throw new Error('Event handler must be a function')
+    if (typeof handler !== "function") {
+      throw new Error("Event handler must be a function")
     }
 
     // Parse event type and namespace (support multiple namespace segments)
-    const parts = event.split('.')
+    const parts = event.split(".")
     const eventType = parts[0]
-    const namespace = parts.slice(1).join('.')
-    const eventWithNamespace = namespace ? `${eventType}.${namespace}` : eventType
+    const namespace = parts.slice(1).join(".")
+    const eventWithNamespace = namespace
+      ? `${eventType}.${namespace}`
+      : eventType
 
     // Delegate handler that checks if target matches selector
-    const delegateHandler = e => {
+    const delegateHandler = (e) => {
       const target = e.target.closest(selector)
 
       if (target && parent.contains(target)) {
@@ -187,7 +195,7 @@ class EventHelper {
       eventType,
       namespace,
       handler: delegateHandler,
-      original: handler // Store original handler for undelegate matching
+      original: handler, // Store original handler for undelegate matching
     })
 
     // Add event listener to parent
@@ -202,18 +210,20 @@ class EventHelper {
    * @param {Function} [handler] - Specific handler to remove
    * @returns {Element|null} The parent element
    */
-  static undelegate (parent, selector, event, handler) {
-    if (typeof parent === 'string') parent = DOMHelper.$(parent)
+  static undelegate(parent, selector, event, handler) {
+    if (typeof parent === "string") parent = DOMHelper.$(parent)
     if (!parent || !parent._delegates) return parent
 
     // Parse event type and namespace (support multiple namespace segments)
-    const parts = event.split('.')
+    const parts = event.split(".")
     const eventType = parts[0]
-    const namespace = parts.slice(1).join('.')
-    const eventWithNamespace = namespace ? `${eventType}.${namespace}` : eventType
+    const namespace = parts.slice(1).join(".")
+    const eventWithNamespace = namespace
+      ? `${eventType}.${namespace}`
+      : eventType
 
     // Find and remove matching delegate
-    parent._delegates = parent._delegates.filter(delegate => {
+    parent._delegates = parent._delegates.filter((delegate) => {
       const matches =
         delegate.selector === selector &&
         delegate.eventType === eventType &&
@@ -243,18 +253,20 @@ class EventHelper {
    * @param {Object|boolean} [options] - Event options or useCapture flag
    * @returns {Element|null} The element itself or null if no element is found
    */
-  static one (element, event, handler, options = {}) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static one(element, event, handler, options = {}) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return element
 
     // Parse event type and namespace (support multiple namespace segments)
-    const parts = event.split('.')
+    const parts = event.split(".")
     const eventType = parts[0]
-    const namespace = parts.slice(1).join('.')
-    const eventWithNamespace = namespace ? `${eventType}.${namespace}` : eventType
+    const namespace = parts.slice(1).join(".")
+    const eventWithNamespace = namespace
+      ? `${eventType}.${namespace}`
+      : eventType
 
     // Wrap handler to remove itself after first call
-    const wrapper = e => {
+    const wrapper = (e) => {
       this.off(element, eventWithNamespace, wrapper)
       handler.call(element, e)
     }
@@ -268,35 +280,48 @@ class EventHelper {
    * @param {string} [namespace] - Namespace to match (optional, removes all if not specified)
    * @returns {Element|null} The element itself or null if no element is found
    */
-  static offAll (element, namespace) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static offAll(element, namespace) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return element
 
     // Clean up non-delegated event handlers first
     if (element._eventHandlers) {
       // Iterate through all event types
-      Object.keys(element._eventHandlers).forEach(eventType => {
+      Object.keys(element._eventHandlers).forEach((eventType) => {
         if (namespace) {
           // Remove only handlers matching the namespace
-          element._eventHandlers[eventType] = element._eventHandlers[eventType].filter(info => {
+          element._eventHandlers[eventType] = element._eventHandlers[
+            eventType
+          ].filter((info) => {
             if (info && info.namespace === namespace) {
-              element.removeEventListener(eventType, info.wrappedHandler, info.options)
+              element.removeEventListener(
+                eventType,
+                info.wrappedHandler,
+                info.options,
+              )
               return false
             }
             return true
           })
         } else {
           // Remove all handlers for this event type
-          element._eventHandlers[eventType].forEach(info => {
+          element._eventHandlers[eventType].forEach((info) => {
             if (info) {
-              element.removeEventListener(eventType, info.wrappedHandler, info.options)
+              element.removeEventListener(
+                eventType,
+                info.wrappedHandler,
+                info.options,
+              )
             }
           })
           element._eventHandlers[eventType] = []
         }
 
         // Clean up empty event type arrays
-        if (!element._eventHandlers[eventType] || element._eventHandlers[eventType].length === 0) {
+        if (
+          !element._eventHandlers[eventType] ||
+          element._eventHandlers[eventType].length === 0
+        ) {
           delete element._eventHandlers[eventType]
         }
       })
@@ -311,12 +336,12 @@ class EventHelper {
     if (element._delegates) {
       if (namespace) {
         // Remove only delegates matching the namespace
-        element._delegates = element._delegates.filter(delegate => {
+        element._delegates = element._delegates.filter((delegate) => {
           if (delegate.namespace === namespace) {
             // Remove the underlying event listener
-            const eventWithNamespace = delegate.namespace ?
-              `${delegate.eventType}.${delegate.namespace}` :
-              delegate.eventType
+            const eventWithNamespace = delegate.namespace
+              ? `${delegate.eventType}.${delegate.namespace}`
+              : delegate.eventType
 
             this.off(element, eventWithNamespace, delegate.handler)
             return false
@@ -325,10 +350,10 @@ class EventHelper {
         })
       } else {
         // Remove all delegates
-        element._delegates.forEach(delegate => {
-          const eventWithNamespace = delegate.namespace ?
-            `${delegate.eventType}.${delegate.namespace}` :
-            delegate.eventType
+        element._delegates.forEach((delegate) => {
+          const eventWithNamespace = delegate.namespace
+            ? `${delegate.eventType}.${delegate.namespace}`
+            : delegate.eventType
 
           this.off(element, eventWithNamespace, delegate.handler)
         })
@@ -347,7 +372,7 @@ class EventHelper {
   /**
    * Native DOM helper methods
    */
-  static $ (...args) {
+  static $(...args) {
     return DOMHelper.$(...args)
   }
 
@@ -358,15 +383,17 @@ class EventHelper {
    * @param {number} [layer] - Index of the matching parent to return (0 = closest)
    * @returns {Element|null} The parent element
    */
-  static parents (element, selector, layer = 0) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static parents(element, selector, layer = 0) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return null
 
     let current = element.parentElement
     let matchIndex = 0
 
     while (current) {
-      const isMatch = !selector || typeof current.matches === 'function' && current.matches(selector)
+      const isMatch =
+        !selector ||
+        (typeof current.matches === "function" && current.matches(selector))
 
       if (isMatch) {
         if (matchIndex === layer) {
@@ -387,8 +414,8 @@ class EventHelper {
    * @param {string} key - Data key
    * @returns {string|undefined|null} The data attribute value, undefined if the key is missing, or null if the element is not found
    */
-  static getData (element, key) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static getData(element, key) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return null
 
     return DOMHelper.data(element, key)
@@ -401,8 +428,8 @@ class EventHelper {
    * @param {string} value - Data value
    * @returns {Element|null} The element itself or null if no element is found
    */
-  static setData (element, key, value) {
-    if (typeof element === 'string') element = DOMHelper.$(element)
+  static setData(element, key, value) {
+    if (typeof element === "string") element = DOMHelper.$(element)
     if (!element) return null
 
     DOMHelper.data(element, key, value)

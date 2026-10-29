@@ -8,19 +8,18 @@ const Utils = $.fn.bootstrapTable.utils
 Object.assign($.fn.bootstrapTable.defaults, {
   treeEnable: false,
   treeShowField: null,
-  idField: 'id',
-  parentIdField: 'pid',
-  rootParentId: null
+  idField: "id",
+  parentIdField: "pid",
+  rootParentId: null,
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
-
-  init (...args) {
+  init(...args) {
     this._rowStyle = this.options.rowStyle
     super.init(...args)
   }
 
-  initHeader (...args) {
+  initHeader(...args) {
     super.initHeader(...args)
     const treeShowField = this.options.treeShowField
 
@@ -34,15 +33,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  initBody (...args) {
+  initBody(...args) {
     if (this.treeEnable) {
       this.options.virtualScroll = false
     }
     super.initBody(...args)
   }
 
-  initTr (item, idx, data, parentDom) {
-    const nodes = data.filter(it => item[this.options.idField] === it[this.options.parentIdField])
+  initTr(item, idx, data, parentDom) {
+    const nodes = data.filter(
+      (it) => item[this.options.idField] === it[this.options.parentIdField],
+    )
 
     parentDom.append(super.initRow(item, idx, data, parentDom))
 
@@ -62,20 +63,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.rowStyle = (item, idx) => {
         const res = this._rowStyle(item, idx)
         const id = item[this.options.idField] ? item[this.options.idField] : 0
-        const pid = item[this.options.parentIdField] ? item[this.options.parentIdField] : 0
+        const pid = item[this.options.parentIdField]
+          ? item[this.options.parentIdField]
+          : 0
 
         res.classes = [
-          res.classes || '',
+          res.classes || "",
           `treegrid-${id}`,
-          `treegrid-parent-${pid}`
-        ].join(' ')
+          `treegrid-parent-${pid}`,
+        ].join(" ")
         return res
       }
       this.initTr(node, $.inArray(node, data), data, parentDom)
     }
   }
 
-  initRow (item, idx, data, parentDom) {
+  initRow(item, idx, data, parentDom) {
     if (this.treeEnable) {
       if (
         this.options.rootParentId === item[this.options.parentIdField] ||
@@ -89,10 +92,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           const res = this._rowStyle(item, idx)
           const x = item[this.options.idField] ? item[this.options.idField] : 0
 
-          res.classes = [
-            res.classes || '',
-            `treegrid-${x}`
-          ].join(' ')
+          res.classes = [res.classes || "", `treegrid-${x}`].join(" ")
           return res
         }
         this.initTr(item, idx, data, parentDom)
@@ -103,7 +103,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     return super.initRow(item, idx, data, parentDom)
   }
 
-  destroy (...args) {
+  destroy(...args) {
     super.destroy(...args)
     this.options.rowStyle = this._rowStyle
   }

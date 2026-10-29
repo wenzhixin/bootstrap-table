@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Editable
 description: Bootstrap Table 的行内编辑扩展，支持单元格编辑功能。
 group: extensions
@@ -57,16 +57,32 @@ toc: true
   所有选项都可以通过 `data-editable-*` HTML 属性定义。表级选项会应用到所有列，可在列上覆盖：
 
   ```html
-  <table id="my_table_id"
+  <table
+    id="my_table_id"
     data-url="data/url.json"
     data-id-field="id"
     data-editable-emptytext="Default empty text."
-    data-editable-url="/my/editable/update/path">
+    data-editable-url="/my/editable/update/path"
+  >
     <thead>
       <tr>
-        <th class="col-md-1" data-field="id" data-sortable="true" data-align="center">#</th>
+        <th
+          class="col-md-1"
+          data-field="id"
+          data-sortable="true"
+          data-align="center"
+        >
+          #
+        </th>
         <th class="col-md-4" data-field="name" data-editable="true">Name</th>
-        <th class="col-md-7" data-field="description" data-editable="true" data-editable-emptytext="Custom empty text.">Description</th>
+        <th
+          class="col-md-7"
+          data-field="description"
+          data-editable="true"
+          data-editable-emptytext="Custom empty text."
+        >
+          Description
+        </th>
       </tr>
     </thead>
   </table>
@@ -115,4 +131,4 @@ toc: true
 
 ## 已知问题
 
-* Table Editable 扩展在 `select` 类型下不支持搜索。
+- Table Editable 扩展在 `select` 类型下不支持搜索。

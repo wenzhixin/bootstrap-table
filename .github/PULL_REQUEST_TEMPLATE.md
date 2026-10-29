@@ -1,4 +1,5 @@
 **🤔Type of Request**
+
 - [ ] **Bug fix**
 - [ ] **New feature**
 - [ ] **Improvement**
@@ -11,6 +12,7 @@
 **📝Changelog**
 
 <!-- The type of the change. --->
+
 - [ ] **Core**
 - [ ] **Extensions**
 

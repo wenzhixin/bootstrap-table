@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: 下载
 description: 下载 Bootstrap Table 以获取编译的 CSS 和 JavaScript、源代码，或通过您喜欢的包管理器（如 npm、yarn 等）进行安装。
 group: getting-started
@@ -10,11 +10,15 @@ toc: true
 
 源代码 CSS、JavaScript、本地化文件和扩展，以及我们的文档。
 
-<a href="[[config:masterZip]]" class="btn btn-bd-primary" role="button">下载源代码</a>
+<a href="[[config:masterZip]]" class="btn btn-bd-primary" role="button">
+  下载源代码
+</a>
 
 ## 通过 GitHub 克隆或派生
 
-<a href="[[config:repo]]" class="btn btn-bd-primary" role="button">通过 GitHub</a>
+<a href="[[config:repo]]" class="btn btn-bd-primary" role="button">
+  通过 GitHub
+</a>
 
 ## CDNJS
 
@@ -22,7 +26,10 @@ toc: true
 
 ```html
 <!-- 最新编译和压缩的 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css"
+/>
 
 <!-- 最新编译和压缩的 JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.js"></script>
@@ -46,3 +53,4 @@ npm install bootstrap-table
 
 ```sh
 yarn add bootstrap-table
+```

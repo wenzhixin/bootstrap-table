@@ -3,189 +3,196 @@
  * Author: Jim Nordbø, jim@nordb.no
  */
 
-$.fn.bootstrapTable.locales['nb-NO'] = $.fn.bootstrapTable.locales['nb'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["nb-NO"] = $.fn.bootstrapTable.locales["nb"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Close'
+  formatAdvancedCloseButton() {
+    return "Close"
   },
 
-  formatAdvancedSearch () {
-    return 'Advanced search'
+  formatAdvancedSearch() {
+    return "Advanced search"
   },
 
-  formatAllRows () {
-    return 'All'
+  formatAllRows() {
+    return "All"
   },
 
-  formatAutoRefresh () {
-    return 'Auto Refresh'
+  formatAutoRefresh() {
+    return "Auto Refresh"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Clear Search'
+  formatClearSearch() {
+    return "Clear Search"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Kolonner'
+  formatColumns() {
+    return "Kolonner"
   },
 
-  formatColumnsToggleAll () {
-    return 'Toggle all'
+  formatColumnsToggleAll() {
+    return "Toggle all"
   },
 
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatCopyRows() {
+    return "Copy Rows"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Showing ${totalRows} rows`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Export data'
+  formatExport() {
+    return "Export data"
   },
 
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+  formatFilterControlSwitch() {
+    return "Hide/Show controls"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
+  formatFilterControlSwitchHide() {
+    return "Hide controls"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+  formatFilterControlSwitchShow() {
+    return "Show controls"
   },
 
-  formatFullscreen () {
-    return 'Fullscreen'
+  formatFullscreen() {
+    return "Fullscreen"
   },
 
-  formatJumpTo () {
-    return 'GO'
+  formatJumpTo() {
+    return "GO"
   },
 
-  formatLoadingMessage () {
-    return 'Oppdaterer, vennligst vent'
+  formatLoadingMessage() {
+    return "Oppdaterer, vennligst vent"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Ingen poster funnet'
+  formatNoMatches() {
+    return "Ingen poster funnet"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Hide/Show pagination'
+  formatPaginationSwitch() {
+    return "Hide/Show pagination"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
+  formatPaginationSwitchDown() {
+    return "Show pagination"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
+  formatPaginationSwitchUp() {
+    return "Hide pagination"
   },
 
-  formatPrint () {
-    return 'Print'
+  formatPrint() {
+    return "Print"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} poster pr side`
   },
 
-  formatRefresh () {
-    return 'Oppdater'
+  formatRefresh() {
+    return "Oppdater"
   },
 
-  formatSRPaginationNextText () {
-    return 'next page'
+  formatSRPaginationNextText() {
+    return "next page"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `to page ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'previous page'
+  formatSRPaginationPreText() {
+    return "previous page"
   },
 
-  formatSearch () {
-    return 'Søk'
+  formatSearch() {
+    return "Søk"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Viser ${pageFrom} til ${pageTo} av ${totalRows} rekker (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Viser ${pageFrom} til ${pageTo} av ${totalRows} rekker`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Hide card view'
+  formatToggleOff() {
+    return "Hide card view"
   },
 
-  formatToggleOn () {
-    return 'Show card view'
-  }
+  formatToggleOn() {
+    return "Show card view"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nb-NO'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["nb-NO"],
+)

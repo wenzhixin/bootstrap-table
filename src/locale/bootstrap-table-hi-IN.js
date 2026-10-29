@@ -3,189 +3,196 @@
  * Author: Saurabh Sharma <saurabhsharma2u@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['hi-IN'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["hi-IN"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'बंद करे'
+  formatAdvancedCloseButton() {
+    return "बंद करे"
   },
 
-  formatAdvancedSearch () {
-    return 'एडवांस सर्च'
+  formatAdvancedSearch() {
+    return "एडवांस सर्च"
   },
 
-  formatAllRows () {
-    return 'सब'
+  formatAllRows() {
+    return "सब"
   },
 
-  formatAutoRefresh () {
-    return 'ऑटो रिफ्रेश'
+  formatAutoRefresh() {
+    return "ऑटो रिफ्रेश"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'सर्च क्लिअर करें'
+  formatClearSearch() {
+    return "सर्च क्लिअर करें"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'कॉलम'
+  formatColumns() {
+    return "कॉलम"
   },
 
-  formatColumnsToggleAll () {
-    return 'टॉगल आल'
+  formatColumnsToggleAll() {
+    return "टॉगल आल"
   },
 
-  formatCopyRows () {
-    return 'पंक्तियों की कॉपी करें'
+  formatCopyRows() {
+    return "पंक्तियों की कॉपी करें"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `${totalRows} पंक्तियां`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'एक्सपोर्ट डाटा'
+  formatExport() {
+    return "एक्सपोर्ट डाटा"
   },
 
-  formatFilterControlSwitch () {
-    return 'छुपाओ/दिखाओ कंट्रोल्स'
+  formatFilterControlSwitch() {
+    return "छुपाओ/दिखाओ कंट्रोल्स"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'छुपाओ कंट्रोल्स'
+  formatFilterControlSwitchHide() {
+    return "छुपाओ कंट्रोल्स"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'दिखाओ कंट्रोल्स'
+  formatFilterControlSwitchShow() {
+    return "दिखाओ कंट्रोल्स"
   },
 
-  formatFullscreen () {
-    return 'पूर्ण स्क्रीन'
+  formatFullscreen() {
+    return "पूर्ण स्क्रीन"
   },
 
-  formatJumpTo () {
-    return 'जाओ'
+  formatJumpTo() {
+    return "जाओ"
   },
 
-  formatLoadingMessage () {
-    return 'लोड हो रहा है कृपया प्रतीक्षा करें'
+  formatLoadingMessage() {
+    return "लोड हो रहा है कृपया प्रतीक्षा करें"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'मेल खाते रिकॉर्ड नही मिले'
+  formatNoMatches() {
+    return "मेल खाते रिकॉर्ड नही मिले"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'छुपाओ/दिखाओ पृष्ठ संख्या'
+  formatPaginationSwitch() {
+    return "छुपाओ/दिखाओ पृष्ठ संख्या"
   },
 
-  formatPaginationSwitchDown () {
-    return 'दिखाओ पृष्ठ संख्या'
+  formatPaginationSwitchDown() {
+    return "दिखाओ पृष्ठ संख्या"
   },
 
-  formatPaginationSwitchUp () {
-    return 'छुपाओ पृष्ठ संख्या'
+  formatPaginationSwitchUp() {
+    return "छुपाओ पृष्ठ संख्या"
   },
 
-  formatPrint () {
-    return 'प्रिंट'
+  formatPrint() {
+    return "प्रिंट"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} प्रति पृष्ठ पंक्तियाँ`
   },
 
-  formatRefresh () {
-    return 'रिफ्रेश'
+  formatRefresh() {
+    return "रिफ्रेश"
   },
 
-  formatSRPaginationNextText () {
-    return 'अगला पृष्ठ'
+  formatSRPaginationNextText() {
+    return "अगला पृष्ठ"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `${page} पृष्ठ पर`
   },
 
-  formatSRPaginationPreText () {
-    return 'पिछला पृष्ठ'
+  formatSRPaginationPreText() {
+    return "पिछला पृष्ठ"
   },
 
-  formatSearch () {
-    return 'सर्च'
+  formatSearch() {
+    return "सर्च"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `${pageFrom} - ${pageTo} पक्तिया ${totalRows} में से ( ${totalNotFiltered} पक्तिया)`
     }
 
     return `${pageFrom} - ${pageTo} पक्तिया ${totalRows} में से`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'कार्ड दृश्य छुपाएं'
+  formatToggleOff() {
+    return "कार्ड दृश्य छुपाएं"
   },
 
-  formatToggleOn () {
-    return 'कार्ड दृश्य दिखाएं'
-  }
+  formatToggleOn() {
+    return "कार्ड दृश्य दिखाएं"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['hi-IN'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["hi-IN"],
+)

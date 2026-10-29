@@ -3,14 +3,13 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-$.fn.bootstrapTable.methods.push('changeTitle')
-$.fn.bootstrapTable.methods.push('changeLocale')
+$.fn.bootstrapTable.methods.push("changeTitle")
+$.fn.bootstrapTable.methods.push("changeLocale")
 
 $.BootstrapTable = class extends $.BootstrapTable {
-
-  changeTitle (locale) {
-    this.options.columns.forEach(columnList => {
-      columnList.forEach(column => {
+  changeTitle(locale) {
+    this.options.columns.forEach((columnList) => {
+      columnList.forEach((column) => {
         if (column.field) {
           column.title = locale[column.field]
         }
@@ -21,7 +20,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.initToolbar()
   }
 
-  changeLocale (localeId) {
+  changeLocale(localeId) {
     this.options.locale = localeId
     this.initLocale()
     this.initPagination()

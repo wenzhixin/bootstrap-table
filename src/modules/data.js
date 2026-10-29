@@ -1,23 +1,25 @@
-import Utils from '../utils/index.js'
+import Utils from "../utils/index.js"
 
 export default {
-  initServer (silent, query) {
+  initServer(silent, query) {
     let data = {}
     const index = this.header.fields.indexOf(this.options.sortName)
 
     let params = {
       searchText: this.searchText,
       sortName: this.options.sortName,
-      sortOrder: this.options.sortOrder
+      sortOrder: this.options.sortOrder,
     }
 
     if (this.header.sortNames[index]) {
       params.sortName = this.header.sortNames[index]
     }
 
-    if (this.options.pagination && this.options.sidePagination === 'server') {
-      params.pageSize = this.options.pageSize === this.options.formatAllRows() ?
-        this.options.totalRows : this.options.pageSize
+    if (this.options.pagination && this.options.sidePagination === "server") {
+      params.pageSize =
+        this.options.pageSize === this.options.formatAllRows()
+          ? this.options.totalRows
+          : this.options.pageSize
       params.pageNumber = this.options.pageNumber
     }
 
@@ -25,18 +27,23 @@ export default {
       return
     }
 
-    if (this.options.queryParamsType === 'limit') {
+    if (this.options.queryParamsType === "limit") {
       params = {
         search: params.searchText,
         sort: params.sortName,
-        order: params.sortOrder
+        order: params.sortOrder,
       }
 
-      if (this.options.pagination && this.options.sidePagination === 'server') {
-        params.offset = this.options.pageSize === this.options.formatAllRows() ?
-          0 : this.options.pageSize * (this.options.pageNumber - 1)
+      if (this.options.pagination && this.options.sidePagination === "server") {
+        params.offset =
+          this.options.pageSize === this.options.formatAllRows()
+            ? 0
+            : this.options.pageSize * (this.options.pageNumber - 1)
         params.limit = this.options.pageSize
-        if (params.limit === 0 || this.options.pageSize === this.options.formatAllRows()) {
+        if (
+          params.limit === 0 ||
+          this.options.pageSize === this.options.formatAllRows()
+        ) {
           delete params.limit
         }
       }
@@ -44,9 +51,9 @@ export default {
 
     if (
       this.options.search &&
-      this.options.sidePagination === 'server' &&
+      this.options.sidePagination === "server" &&
       this.options.searchable &&
-      this.columns.filter(column => column.searchable).length
+      this.columns.filter((column) => column.searchable).length
     ) {
       params.searchable = []
 
@@ -54,11 +61,8 @@ export default {
         if (
           !column.checkbox &&
           column.searchable &&
-          (
-            this.options.visibleSearch &&
-            column.visible ||
-            !this.options.visibleSearch
-          )
+          ((this.options.visibleSearch && column.visible) ||
+            !this.options.visibleSearch)
         ) {
           params.searchable.push(column.field)
         }
@@ -71,7 +75,12 @@ export default {
 
     Utils.extend(params, query || {})
 
-    data = Utils.calculateObjectValue(this.options, this.options.queryParams, [params], data)
+    data = Utils.calculateObjectValue(
+      this.options,
+      this.options.queryParams,
+      [params],
+      data,
+    )
 
     // false to stop request
     if (data === false) {
@@ -81,61 +90,72 @@ export default {
     if (!silent) {
       this.showLoading()
     }
-    const request = Utils.extend({}, Utils.calculateObjectValue(null, this.options.ajaxOptions), {
-      type: this.options.method,
-      url: this.options.url,
-      data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
-        JSON.stringify(data) : data,
-      cache: this.options.cache,
-      contentType: this.options.contentType,
-      dataType: this.options.dataType,
-      success: (_res, textStatus, jqXHR) => {
-        const res = Utils.calculateObjectValue(this.options,
-          this.options.responseHandler, [_res, jqXHR], _res)
+    const request = Utils.extend(
+      {},
+      Utils.calculateObjectValue(null, this.options.ajaxOptions),
+      {
+        type: this.options.method,
+        url: this.options.url,
+        data:
+          this.options.contentType === "application/json" &&
+          this.options.method === "post"
+            ? JSON.stringify(data)
+            : data,
+        cache: this.options.cache,
+        contentType: this.options.contentType,
+        dataType: this.options.dataType,
+        success: (_res, textStatus, jqXHR) => {
+          const res = Utils.calculateObjectValue(
+            this.options,
+            this.options.responseHandler,
+            [_res, jqXHR],
+            _res,
+          )
 
-        if (
-          this.options.sidePagination === 'client' &&
-          this.options.paginationLoadMore
-        ) {
-          this._paginationLoaded = this.data.length === res.length
-        }
+          if (
+            this.options.sidePagination === "client" &&
+            this.options.paginationLoadMore
+          ) {
+            this._paginationLoaded = this.data.length === res.length
+          }
 
-        this.load(res)
-        this.trigger('load-success', res, jqXHR && jqXHR.status, jqXHR)
-        if (!silent) {
-          this.hideLoading()
-        }
+          this.load(res)
+          this.trigger("load-success", res, jqXHR && jqXHR.status, jqXHR)
+          if (!silent) {
+            this.hideLoading()
+          }
 
-        if (
-          this.options.sidePagination === 'server' &&
-          this.options.pageNumber > 1 &&
-          res[this.options.totalField] > 0 &&
-          !res[this.options.dataField].length
-        ) {
-          this.updatePagination()
-        }
+          if (
+            this.options.sidePagination === "server" &&
+            this.options.pageNumber > 1 &&
+            res[this.options.totalField] > 0 &&
+            !res[this.options.dataField].length
+          ) {
+            this.updatePagination()
+          }
+        },
+        error: (jqXHR) => {
+          // abort ajax by multiple request
+          if (jqXHR && jqXHR.status === 0 && this._xhrAbort) {
+            this._xhrAbort = false
+            return
+          }
+
+          let data = []
+
+          if (this.options.sidePagination === "server") {
+            data = {}
+            data[this.options.totalField] = 0
+            data[this.options.dataField] = []
+          }
+          this.load(data)
+          this.trigger("load-error", jqXHR && jqXHR.status, jqXHR)
+          if (!silent) {
+            this.hideLoading()
+          }
+        },
       },
-      error: jqXHR => {
-        // abort ajax by multiple request
-        if (jqXHR && jqXHR.status === 0 && this._xhrAbort) {
-          this._xhrAbort = false
-          return
-        }
-
-        let data = []
-
-        if (this.options.sidePagination === 'server') {
-          data = {}
-          data[this.options.totalField] = 0
-          data[this.options.dataField] = []
-        }
-        this.load(data)
-        this.trigger('load-error', jqXHR && jqXHR.status, jqXHR)
-        if (!silent) {
-          this.hideLoading()
-        }
-      }
-    })
+    )
 
     if (this.options.ajax) {
       Utils.calculateObjectValue(this, this.options.ajax, [request], null)
@@ -150,14 +170,16 @@ export default {
     return data
   },
 
-  initData (data, type) {
-    if (type === 'append') {
+  initData(data, type) {
+    if (type === "append") {
       this.options.data = this.options.data.concat(data)
-    } else if (type === 'prepend') {
+    } else if (type === "prepend") {
       this.options.data = [].concat(data).concat(this.options.data)
     } else {
       data = data || Utils.deepCopy(this.options.data)
-      this.options.data = Array.isArray(data) ? data : data[this.options.dataField]
+      this.options.data = Array.isArray(data)
+        ? data
+        : data[this.options.dataField]
     }
 
     this.data = [...this.options.data]
@@ -166,21 +188,21 @@ export default {
       this.unsortedData = [...this.data]
     }
 
-    if (this.options.sidePagination === 'server') {
+    if (this.options.sidePagination === "server") {
       return
     }
     this.initSort()
   },
 
-  initSort () {
+  initSort() {
     let name = this.options.sortName
-    const order = this.options.sortOrder === 'desc' ? -1 : 1
+    const order = this.options.sortOrder === "desc" ? -1 : 1
     const index = this.header.fields.indexOf(this.options.sortName)
 
     if (index !== -1) {
       if (this.options.sortStable) {
         this.data.forEach((row, i) => {
-          if (!row.hasOwnProperty('_position')) {
+          if (!row.hasOwnProperty("_position")) {
             row._position = i
           }
         })
@@ -194,7 +216,7 @@ export default {
         Utils.calculateObjectValue(this.options, this.options.customSort, [
           this.options.sortName,
           this.options.sortOrder,
-          this.data
+          this.data,
         ])
       } else {
         this.data.sort((a, b) => {
@@ -203,7 +225,11 @@ export default {
           }
           const aa = Utils.getItemField(a, name, this.options.escape)
           const bb = Utils.getItemField(b, name, this.options.escape)
-          const value = Utils.calculateObjectValue(this.header, this.header.sorters[index], [aa, bb, a, b])
+          const value = Utils.calculateObjectValue(
+            this.header,
+            this.header.sorters[index],
+            [aa, bb, a, b],
+          )
 
           if (value !== undefined) {
             if (this.options.sortStable && value === 0) {
@@ -212,16 +238,27 @@ export default {
             return order * value
           }
 
-          return Utils.sort(aa, bb, order, this.options, a._position, b._position)
+          return Utils.sort(
+            aa,
+            bb,
+            order,
+            this.options,
+            a._position,
+            b._position,
+          )
         })
       }
 
       if (this.options.sortClass !== undefined) {
         setTimeout(() => {
           this.$el.removeClass(this.options.sortClass)
-          const index = this.$header.find(`[data-field="${this.options.sortName}"]`).index()
+          const index = this.$header
+            .find(`[data-field="${this.options.sortName}"]`)
+            .index()
 
-          this.$el.find(`tr td:nth-child(${index + 1})`).addClass(this.options.sortClass)
+          this.$el
+            .find(`tr td:nth-child(${index + 1})`)
+            .addClass(this.options.sortClass)
         }, 250)
       }
     } else if (this.options.sortReset) {
@@ -229,12 +266,13 @@ export default {
     }
   },
 
-  onSort ({ type, currentTarget }) {
-    const $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent()
-    const $this_ = this.$header.find('th').eq($this.index())
-    const column = this.columns[this.fieldsColumnsIndex[$this.data('field')]]
+  onSort({ type, currentTarget }) {
+    const $this =
+      type === "keypress" ? $(currentTarget) : $(currentTarget).parent()
+    const $this_ = this.$header.find("th").eq($this.index())
+    const column = this.columns[this.fieldsColumnsIndex[$this.data("field")]]
 
-    this.$header.add(this.$header_).find('span.order').remove()
+    this.$header.add(this.$header_).find("span.order").remove()
 
     // Resolve the effective sort-direction cycle for this column:
     //   column orderList  >  global orderList  >  legacy [order, opposite(order)]
@@ -246,20 +284,22 @@ export default {
     let orderList = column.orderList || this.options.orderList
 
     if (!orderList) {
-      const order = column.sortOrder || column.order || 'asc'
+      const order = column.sortOrder || column.order || "asc"
 
-      orderList = [order, order === 'asc' ? 'desc' : 'asc']
+      orderList = [order, order === "asc" ? "desc" : "asc"]
     }
 
-    if (this.options.sortName === $this.data('field')) {
+    if (this.options.sortName === $this.data("field")) {
       // Same column clicked again: advance one step through the cycle. With
       // sortReset, a trailing "unsorted" state (handled inline to avoid an
       // array allocation) clears the sort entirely.
       const len = orderList.length
-      const nextIndex = (orderList.indexOf(this.options.sortOrder) + 1) %
+      const nextIndex =
+        (orderList.indexOf(this.options.sortOrder) + 1) %
         (this.options.sortReset ? len + 1 : len)
 
-      this.options.sortOrder = nextIndex === len ? undefined : orderList[nextIndex]
+      this.options.sortOrder =
+        nextIndex === len ? undefined : orderList[nextIndex]
       if (this.options.sortOrder === undefined) {
         this.options.sortName = undefined
       }
@@ -267,15 +307,18 @@ export default {
       // New column: start at the first direction, or — under rememberOrder —
       // advance one step from the column's last direction (legacy behavior,
       // now respecting a custom orderList too).
-      this.options.sortName = $this.data('field')
+      this.options.sortName = $this.data("field")
       if (this.options.rememberOrder) {
-        this.options.sortOrder = orderList[(orderList.indexOf($this.data('order')) + 1) % orderList.length]
+        this.options.sortOrder =
+          orderList[
+            (orderList.indexOf($this.data("order")) + 1) % orderList.length
+          ]
       } else {
         this.options.sortOrder = orderList[0]
       }
     }
 
-    $this.add($this_).data('order', this.options.sortOrder)
+    $this.add($this_).data("order", this.options.sortOrder)
 
     // Assign the correct sortable arrow
     this.resetCaret()
@@ -283,11 +326,11 @@ export default {
     this._sort()
   },
 
-  _sort () {
-    if (this.options.sidePagination === 'server' && this.options.serverSort) {
+  _sort() {
+    if (this.options.sidePagination === "server" && this.options.serverSort) {
       this.options.pageNumber = 1
 
-      this.trigger('sort', this.options.sortName, this.options.sortOrder)
+      this.trigger("sort", this.options.sortName, this.options.sortOrder)
       this.initServer(this.options.silentSort)
       return
     }
@@ -297,36 +340,37 @@ export default {
       this.initPagination()
     }
 
-    this.trigger('sort', this.options.sortName, this.options.sortOrder)
+    this.trigger("sort", this.options.sortName, this.options.sortOrder)
     this.initSort()
     this.initBody()
   },
 
-  sortReset () {
+  sortReset() {
     this.options.sortName = undefined
     this.options.sortOrder = undefined
     this._sort()
   },
 
-  sortBy (params) {
+  sortBy(params) {
     this.options.sortName = params.field
-    this.options.sortOrder = params.hasOwnProperty('sortOrder') ? params.sortOrder : 'asc'
+    this.options.sortOrder = params.hasOwnProperty("sortOrder")
+      ? params.sortOrder
+      : "asc"
     this._sort()
   },
 
-  getData (params) {
+  getData(params) {
     let data = this.options.data
 
     if (
-      (
-        this.searchText ||
+      (this.searchText ||
         this.options.customSearch ||
         this.options.sortName !== undefined ||
         this.enableCustomSort || // Fix #4616: this.enableCustomSort is for extensions
         !Utils.isEmptyObject(this.filterColumns) ||
-        typeof this.options.filterOptions.filterAlgorithm === 'function' ||
-        !Utils.isEmptyObject(this.filterColumnsPartial)
-      ) && (!params || !params.unfiltered)
+        typeof this.options.filterOptions.filterAlgorithm === "function" ||
+        !Utils.isEmptyObject(this.filterColumnsPartial)) &&
+      (!params || !params.unfiltered)
     ) {
       data = this.data
     }
@@ -334,7 +378,7 @@ export default {
     if (params && !params.includeHiddenRows) {
       const hiddenRows = this.getHiddenRows()
 
-      data = data.filter(row => Utils.findIndex(hiddenRows, row) === -1)
+      data = data.filter((row) => Utils.findIndex(hiddenRows, row) === -1)
     }
 
     if (params && params.useCurrentPage) {
@@ -342,7 +386,7 @@ export default {
     }
 
     if (params && params.formatted) {
-      return data.map(row => {
+      return data.map((row) => {
         const formattedColumns = {}
 
         for (const [key, value] of Object.entries(row)) {
@@ -352,8 +396,12 @@ export default {
             continue
           }
 
-          formattedColumns[key] = Utils.calculateObjectValue(column, this.header.formatters[column.fieldIndex],
-            [value, row, row.index, column.field], value)
+          formattedColumns[key] = Utils.calculateObjectValue(
+            column,
+            this.header.formatters[column.fieldIndex],
+            [value, row, row.index, column.field],
+            value,
+          )
         }
         return formattedColumns
       })
@@ -362,18 +410,20 @@ export default {
     return data
   },
 
-  getFooterData () {
+  getFooterData() {
     return this.footerData ?? []
   },
 
-  load (_data) {
+  load(_data) {
     let data = _data
 
     // #431: support pagination
-    if (this.options.pagination && this.options.sidePagination === 'server') {
+    if (this.options.pagination && this.options.sidePagination === "server") {
       this.options.totalRows = data[this.options.totalField]
       this.options.totalNotFiltered = data[this.options.totalNotFilteredField]
-      this.footerData = data[this.options.footerField] ? [data[this.options.footerField]] : undefined
+      this.footerData = data[this.options.footerField]
+        ? [data[this.options.footerField]]
+        : undefined
     }
 
     const fixedScroll = this.options.fixedScroll || data.fixedScroll
@@ -386,37 +436,42 @@ export default {
     this.initBody(fixedScroll)
   },
 
-  append (data) {
-    this.initData(data, 'append')
+  append(data) {
+    this.initData(data, "append")
     this.initSearch()
     this.initPagination()
     this.initSort()
     this.initBody(true)
   },
 
-  prepend (data) {
-    this.initData(data, 'prepend')
+  prepend(data) {
+    this.initData(data, "prepend")
     this.initSearch()
     this.initPagination()
     this.initSort()
     this.initBody(true)
   },
 
-  remove (params) {
+  remove(params) {
     let removed = 0
 
     for (let i = this.options.data.length - 1; i >= 0; i--) {
       const row = this.options.data[i]
-      const value = Utils.getItemField(row, params.field, this.options.escape, row.escape)
+      const value = Utils.getItemField(
+        row,
+        params.field,
+        this.options.escape,
+        row.escape,
+      )
 
-      if (value === undefined && params.field !== '$index') {
+      if (value === undefined && params.field !== "$index") {
         continue
       }
 
       if (
-        !row.hasOwnProperty(params.field) &&
-        params.field === '$index' &&
-        params.values.includes(i) ||
+        (!row.hasOwnProperty(params.field) &&
+          params.field === "$index" &&
+          params.values.includes(i)) ||
         params.values.includes(value)
       ) {
         removed++
@@ -429,7 +484,7 @@ export default {
       return
     }
 
-    if (this.options.sidePagination === 'server') {
+    if (this.options.sidePagination === "server") {
       this.options.totalRows -= removed
       this.data = [...this.options.data]
     }
@@ -440,7 +495,7 @@ export default {
     this.initBody(true)
   },
 
-  removeAll () {
+  removeAll() {
     if (this.options.data.length > 0) {
       this.data.splice(0, this.data.length)
       this.options.data.splice(0, this.options.data.length)
@@ -450,8 +505,8 @@ export default {
     }
   },
 
-  insertRow (params) {
-    if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+  insertRow(params) {
+    if (!params.hasOwnProperty("index") || !params.hasOwnProperty("row")) {
       return
     }
     const row = this.data[params.index]
@@ -470,17 +525,17 @@ export default {
     this.initBody(true)
   },
 
-  updateRow (params) {
+  updateRow(params) {
     const allParams = Array.isArray(params) ? params : [params]
 
     for (const params of allParams) {
-      if (!params.hasOwnProperty('index') || !params.hasOwnProperty('row')) {
+      if (!params.hasOwnProperty("index") || !params.hasOwnProperty("row")) {
         continue
       }
       const row = this.data[params.index]
       const originalIndex = this.options.data.indexOf(row)
 
-      if (params.hasOwnProperty('replace') && params.replace) {
+      if (params.hasOwnProperty("replace") && params.replace) {
         this.data[params.index] = params.row
         this.options.data[originalIndex] = params.row
       } else {
@@ -495,7 +550,7 @@ export default {
     this.initBody(true)
   },
 
-  getRowByUniqueId (_id) {
+  getRowByUniqueId(_id) {
     const uniqueId = this.options.uniqueId
     const len = this.options.data.length
     let id = _id
@@ -505,15 +560,20 @@ export default {
 
     for (i = len - 1; i >= 0; i--) {
       row = this.options.data[i]
-      const rowUniqueId = Utils.getItemField(row, uniqueId, this.options.escape, row.escape)
+      const rowUniqueId = Utils.getItemField(
+        row,
+        uniqueId,
+        this.options.escape,
+        row.escape,
+      )
 
       if (rowUniqueId === undefined) {
         continue
       }
 
-      if (typeof rowUniqueId === 'string') {
+      if (typeof rowUniqueId === "string") {
         id = _id.toString()
-      } else if (typeof rowUniqueId === 'number') {
+      } else if (typeof rowUniqueId === "number") {
         if (Number(rowUniqueId) === rowUniqueId && rowUniqueId % 1 === 0) {
           id = parseInt(_id, 10)
         } else if (rowUniqueId === Number(rowUniqueId) && rowUniqueId !== 0) {
@@ -530,12 +590,12 @@ export default {
     return dataRow
   },
 
-  updateByUniqueId (params) {
+  updateByUniqueId(params) {
     const allParams = Array.isArray(params) ? params : [params]
     let updatedUid = null
 
     for (const params of allParams) {
-      if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
+      if (!params.hasOwnProperty("id") || !params.hasOwnProperty("row")) {
         continue
       }
 
@@ -545,7 +605,7 @@ export default {
         continue
       }
 
-      if (params.hasOwnProperty('replace') && params.replace) {
+      if (params.hasOwnProperty("replace") && params.replace) {
         this.options.data[rowId] = params.row
       } else {
         Utils.extend(this.options.data[rowId], params.row)
@@ -559,7 +619,7 @@ export default {
     this.initBody(true, updatedUid)
   },
 
-  removeByUniqueId (id) {
+  removeByUniqueId(id) {
     const len = this.options.data.length
     const row = this.getRowByUniqueId(id)
 
@@ -571,7 +631,7 @@ export default {
       return
     }
 
-    if (this.options.sidePagination === 'server') {
+    if (this.options.sidePagination === "server") {
       this.options.totalRows -= 1
       this.data = [...this.options.data]
     }
@@ -581,7 +641,7 @@ export default {
     this.initBody(true)
   },
 
-  _updateCellOnly (field, index) {
+  _updateCellOnly(field, index) {
     if (index === -1) {
       return
     }
@@ -595,7 +655,8 @@ export default {
 
     fieldIndex += Utils.getDetailViewIndexOffset(this.options)
 
-    this.$body.find(`>tr[data-index=${index}]`)
+    this.$body
+      .find(`>tr[data-index=${index}]`)
       .find(`>td:eq(${fieldIndex})`)
       .replaceWith($(rowHtml).find(`>td:eq(${fieldIndex})`))
 
@@ -605,10 +666,12 @@ export default {
     this.updateSelected()
   },
 
-  updateCell (params) {
-    if (!params.hasOwnProperty('index') ||
-      !params.hasOwnProperty('field') ||
-      !params.hasOwnProperty('value')) {
+  updateCell(params) {
+    if (
+      !params.hasOwnProperty("index") ||
+      !params.hasOwnProperty("field") ||
+      !params.hasOwnProperty("value")
+    ) {
       return
     }
     const row = this.data[params.index]
@@ -625,7 +688,7 @@ export default {
     this.initBody(true)
   },
 
-  updateCellByUniqueId (params) {
+  updateCellByUniqueId(params) {
     const allParams = Array.isArray(params) ? params : [params]
 
     allParams.forEach(({ id, field, value }) => {
@@ -642,11 +705,13 @@ export default {
     })
 
     if (params.reinit === false) {
-      this._updateCellOnly(params.field,
-        this.data.indexOf(this.getRowByUniqueId(params.id)))
+      this._updateCellOnly(
+        params.field,
+        this.data.indexOf(this.getRowByUniqueId(params.id)),
+      )
       return
     }
     this.initSort()
     this.initBody(true)
-  }
+  },
 }

@@ -1,1 +1,1 @@
-require('../../common/welcome')('semantic')
+require("../../common/welcome")("semantic")

@@ -3,189 +3,197 @@
  * Author: Vladimir Kanazir (vladimir@kanazir.com)
  */
 
-$.fn.bootstrapTable.locales['sr-Cyrl-RS'] = $.fn.bootstrapTable.locales['sr'] = {
-  formatAddLevel () {
-    return 'Add Level'
-  },
+$.fn.bootstrapTable.locales["sr-Cyrl-RS"] = $.fn.bootstrapTable.locales["sr"] =
+  {
+    formatAddLevel() {
+      return "Add Level"
+    },
 
-  formatAdvancedCloseButton () {
-    return 'Затвори'
-  },
+    formatAdvancedCloseButton() {
+      return "Затвори"
+    },
 
-  formatAdvancedSearch () {
-    return 'Напредна претрага'
-  },
+    formatAdvancedSearch() {
+      return "Напредна претрага"
+    },
 
-  formatAllRows () {
-    return 'Све'
-  },
+    formatAllRows() {
+      return "Све"
+    },
 
-  formatAutoRefresh () {
-    return 'Аутоматско освежавање'
-  },
+    formatAutoRefresh() {
+      return "Аутоматско освежавање"
+    },
 
-  formatCancel () {
-    return 'Cancel'
-  },
+    formatCancel() {
+      return "Cancel"
+    },
 
-  formatClearSearch () {
-    return 'Обриши претрагу'
-  },
+    formatClearSearch() {
+      return "Обриши претрагу"
+    },
 
-  formatColumn () {
-    return 'Column'
-  },
+    formatColumn() {
+      return "Column"
+    },
 
-  formatColumns () {
-    return 'Колоне'
-  },
+    formatColumns() {
+      return "Колоне"
+    },
 
-  formatColumnsToggleAll () {
-    return 'Прикажи/сакриј све'
-  },
+    formatColumnsToggleAll() {
+      return "Прикажи/сакриј све"
+    },
 
-  formatCopyRows () {
-    return 'Copy Rows'
-  },
+    formatCopyRows() {
+      return "Copy Rows"
+    },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
-  },
+    formatDeleteLevel() {
+      return "Delete Level"
+    },
 
-  formatDetailPagination (totalRows) {
-    return `Приказано ${totalRows} редова`
-  },
+    formatDetailPagination(totalRows) {
+      return `Приказано ${totalRows} редова`
+    },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
-  },
+    formatDuplicateAlertDescription() {
+      return "Please remove or change any duplicate column."
+    },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
-  },
+    formatDuplicateAlertTitle() {
+      return "Duplicate(s) detected!"
+    },
 
-  formatExport () {
-    return 'Извези податке'
-  },
+    formatExport() {
+      return "Извези податке"
+    },
 
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
+    formatFilterControlSwitch() {
+      return "Hide/Show controls"
+    },
 
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
+    formatFilterControlSwitchHide() {
+      return "Hide controls"
+    },
 
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
-  },
+    formatFilterControlSwitchShow() {
+      return "Show controls"
+    },
 
-  formatFullscreen () {
-    return 'Цео екран'
-  },
+    formatFullscreen() {
+      return "Цео екран"
+    },
 
-  formatJumpTo () {
-    return 'Иди'
-  },
+    formatJumpTo() {
+      return "Иди"
+    },
 
-  formatLoadingMessage () {
-    return 'Молим сачекај'
-  },
+    formatLoadingMessage() {
+      return "Молим сачекај"
+    },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
-  },
+    formatMultipleSort() {
+      return "Multiple Sort"
+    },
 
-  formatNoMatches () {
-    return 'Није пронађен ни један податак'
-  },
+    formatNoMatches() {
+      return "Није пронађен ни један податак"
+    },
 
-  formatOrder () {
-    return 'Order'
-  },
+    formatOrder() {
+      return "Order"
+    },
 
-  formatPaginationSwitch () {
-    return 'Прикажи/сакриј пагинацију'
-  },
+    formatPaginationSwitch() {
+      return "Прикажи/сакриј пагинацију"
+    },
 
-  formatPaginationSwitchDown () {
-    return 'Прикажи пагинацију'
-  },
+    formatPaginationSwitchDown() {
+      return "Прикажи пагинацију"
+    },
 
-  formatPaginationSwitchUp () {
-    return 'Сакриј пагинацију'
-  },
+    formatPaginationSwitchUp() {
+      return "Сакриј пагинацију"
+    },
 
-  formatPrint () {
-    return 'Print'
-  },
+    formatPrint() {
+      return "Print"
+    },
 
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} редова по страни`
-  },
+    formatRecordsPerPage(pageNumber) {
+      return `${pageNumber} редова по страни`
+    },
 
-  formatRefresh () {
-    return 'Освежи'
-  },
+    formatRefresh() {
+      return "Освежи"
+    },
 
-  formatSRPaginationNextText () {
-    return 'следећа страна'
-  },
+    formatSRPaginationNextText() {
+      return "следећа страна"
+    },
 
-  formatSRPaginationPageText (page) {
-    return `на страну ${page}`
-  },
+    formatSRPaginationPageText(page) {
+      return `на страну ${page}`
+    },
 
-  formatSRPaginationPreText () {
-    return 'претходна страна'
-  },
+    formatSRPaginationPreText() {
+      return "претходна страна"
+    },
 
-  formatSearch () {
-    return 'Пронађи'
-  },
+    formatSearch() {
+      return "Пронађи"
+    },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Приказано ${pageFrom}. - ${pageTo}. од укупног броја редова ${totalRows} (филтрирано од ${totalNotFiltered})`
-    }
+    formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+      if (
+        totalNotFiltered !== undefined &&
+        totalNotFiltered > 0 &&
+        totalNotFiltered > totalRows
+      ) {
+        return `Приказано ${pageFrom}. - ${pageTo}. од укупног броја редова ${totalRows} (филтрирано од ${totalNotFiltered})`
+      }
 
-    return `Приказано ${pageFrom}. - ${pageTo}. од укупног броја редова ${totalRows}`
-  },
+      return `Приказано ${pageFrom}. - ${pageTo}. од укупног броја редова ${totalRows}`
+    },
 
-  formatSort () {
-    return 'Sort'
-  },
+    formatSort() {
+      return "Sort"
+    },
 
-  formatSortBy () {
-    return 'Sort by'
-  },
+    formatSortBy() {
+      return "Sort by"
+    },
 
-  formatSortOrders () {
-    return {
-      asc: 'Ascending',
-      desc: 'Descending'
-    }
-  },
+    formatSortOrders() {
+      return {
+        asc: "Ascending",
+        desc: "Descending",
+      }
+    },
 
-  formatThenBy () {
-    return 'Then by'
-  },
+    formatThenBy() {
+      return "Then by"
+    },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
-  },
+    formatToggleCustomViewOff() {
+      return "Hide custom view"
+    },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
-  },
+    formatToggleCustomViewOn() {
+      return "Show custom view"
+    },
 
-  formatToggleOff () {
-    return 'Сакриј картице'
-  },
+    formatToggleOff() {
+      return "Сакриј картице"
+    },
 
-  formatToggleOn () {
-    return 'Прикажи картице'
+    formatToggleOn() {
+      return "Прикажи картице"
+    },
   }
-}
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['sr-Cyrl-RS'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["sr-Cyrl-RS"],
+)

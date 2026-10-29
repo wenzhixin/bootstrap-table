@@ -4,189 +4,196 @@
  * Update: kerogos <kerog @ wp pl>
  */
 
-$.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["pl-PL"] = $.fn.bootstrapTable.locales["pl"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Zamknij'
+  formatAdvancedCloseButton() {
+    return "Zamknij"
   },
 
-  formatAdvancedSearch () {
-    return 'Wyszukiwanie zaawansowane'
+  formatAdvancedSearch() {
+    return "Wyszukiwanie zaawansowane"
   },
 
-  formatAllRows () {
-    return 'Wszystkie'
+  formatAllRows() {
+    return "Wszystkie"
   },
 
-  formatAutoRefresh () {
-    return 'Auto odświeżanie'
+  formatAutoRefresh() {
+    return "Auto odświeżanie"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Wyczyść wyszukiwanie'
+  formatClearSearch() {
+    return "Wyczyść wyszukiwanie"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Kolumny'
+  formatColumns() {
+    return "Kolumny"
   },
 
-  formatColumnsToggleAll () {
-    return 'Zaznacz wszystko'
+  formatColumnsToggleAll() {
+    return "Zaznacz wszystko"
   },
 
-  formatCopyRows () {
-    return 'Kopiuj wiersze'
+  formatCopyRows() {
+    return "Kopiuj wiersze"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Wyświetla ${totalRows} wierszy`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Eksport danych'
+  formatExport() {
+    return "Eksport danych"
   },
 
-  formatFilterControlSwitch () {
-    return 'Pokaż/Ukryj'
+  formatFilterControlSwitch() {
+    return "Pokaż/Ukryj"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Pokaż'
+  formatFilterControlSwitchHide() {
+    return "Pokaż"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Ukryj'
+  formatFilterControlSwitchShow() {
+    return "Ukryj"
   },
 
-  formatFullscreen () {
-    return 'Fullscreen'
+  formatFullscreen() {
+    return "Fullscreen"
   },
 
-  formatJumpTo () {
-    return 'Przejdź'
+  formatJumpTo() {
+    return "Przejdź"
   },
 
-  formatLoadingMessage () {
-    return 'Ładowanie, proszę czekać'
+  formatLoadingMessage() {
+    return "Ładowanie, proszę czekać"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Niestety, nic nie znaleziono'
+  formatNoMatches() {
+    return "Niestety, nic nie znaleziono"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Pokaż/ukryj stronicowanie'
+  formatPaginationSwitch() {
+    return "Pokaż/ukryj stronicowanie"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Pokaż stronicowanie'
+  formatPaginationSwitchDown() {
+    return "Pokaż stronicowanie"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Ukryj stronicowanie'
+  formatPaginationSwitchUp() {
+    return "Ukryj stronicowanie"
   },
 
-  formatPrint () {
-    return 'Print'
+  formatPrint() {
+    return "Print"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} rekordów na stronę`
   },
 
-  formatRefresh () {
-    return 'Odśwież'
+  formatRefresh() {
+    return "Odśwież"
   },
 
-  formatSRPaginationNextText () {
-    return 'następna strona'
+  formatSRPaginationNextText() {
+    return "następna strona"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `z ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'poprzednia strona'
+  formatSRPaginationPreText() {
+    return "poprzednia strona"
   },
 
-  formatSearch () {
-    return 'Szukaj'
+  formatSearch() {
+    return "Szukaj"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows} (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows}`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Ukryj układ karty'
+  formatToggleOff() {
+    return "Ukryj układ karty"
   },
 
-  formatToggleOn () {
-    return 'Pokaż układ karty'
-  }
+  formatToggleOn() {
+    return "Pokaż układ karty"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["pl-PL"],
+)

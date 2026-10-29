@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Treegrid
 description: Bootstrap Table 的树形网格扩展，允许展示具有父子关系的数据。
 group: extensions
@@ -7,6 +7,7 @@ toc: true
 ---
 
 ## 依赖项
+
 该扩展依赖 [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0 库。
 
 ## 用法
@@ -54,6 +55,7 @@ Treegrid 需要使用扁平化的数据结构，通过 `idField` 和 `parentIdFi
 ```
 
 **关键要点：**
+
 - 每个节点在 `idField` 指定的字段中必须有唯一值（默认为 `id`）
 - `pid` 字段（或自定义的 `parentIdField`）包含父节点的 `idField` 值
 - 根节点使用 `0`、`null` 或 `rootParentId` 指定的值
@@ -62,22 +64,20 @@ Treegrid 需要使用扁平化的数据结构，通过 `idField` 和 `parentIdFi
 ## 快速开始
 
 ```javascript
-$('#table').bootstrapTable({
-  url: 'data.json',
-  idField: 'id',
-  parentIdField: 'pid',
-  treeShowField: 'name',
-  columns: [
-    { field: 'name', title: '名称' }
-  ],
+$("#table").bootstrapTable({
+  url: "data.json",
+  idField: "id",
+  parentIdField: "pid",
+  treeShowField: "name",
+  columns: [{ field: "name", title: "名称" }],
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```
 
@@ -148,23 +148,23 @@ $('#table').bootstrapTable({
 ### 从远程 API 加载
 
 ```javascript
-$('#table').bootstrapTable({
-  url: '/api/tree-data',
-  idField: 'id',
-  parentIdField: 'parentId',
-  treeShowField: 'title',
+$("#table").bootstrapTable({
+  url: "/api/tree-data",
+  idField: "id",
+  parentIdField: "parentId",
+  treeShowField: "title",
   columns: [
-    { field: 'title', title: '标题' },
-    { field: 'description', title: '描述' }
+    { field: "title", title: "标题" },
+    { field: "description", title: "描述" },
   ],
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```
 
@@ -173,10 +173,10 @@ $('#table').bootstrapTable({
 如果 API 返回的根节点使用 `parentId: -1`：
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   rootParentId: -1,
-  parentIdField: 'parentId',
-  treeShowField: 'title',
+  parentIdField: "parentId",
+  treeShowField: "title",
   // ... 其他选项
 })
 ```
@@ -184,33 +184,33 @@ $('#table').bootstrapTable({
 ### 初始状态：全部展开
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   // ... 选项
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
-      initialState: 'expanded',
+      initialState: "expanded",
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```
 
 ### 初始状态：全部折叠
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   // ... 选项
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
-      initialState: 'collapsed',
+      initialState: "collapsed",
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```

@@ -1,6 +1,6 @@
 ---
-import Config from '@/config.js'
-import { getBaseUrl, getLanguageMenu, useTranslations } from '@/i18n/utils'
+import Config from "@/config.js"
+import { getBaseUrl, getLanguageMenu, useTranslations } from "@/i18n/utils"
 
 const layout = Astro.props.layout
 const locale = Astro.currentLocale
@@ -10,124 +10,132 @@ const t = useTranslations(locale)
 
 const mainNav = [
   {
-    title: t('nav.home'),
+    title: t("nav.home"),
     href: `${baseurl}/`,
-    isActive: layout === 'home'
+    isActive: layout === "home",
   },
   {
-    title: t('nav.docs'),
+    title: t("nav.docs"),
     href: `${baseurl}/docs/getting-started/introduction/`,
-    isActive: layout === 'docs'
+    isActive: layout === "docs",
   },
   {
-    title: t('nav.themes'),
+    title: t("nav.themes"),
     href: `${baseurl}/themes`,
-    isActive: layout === 'themes'
+    isActive: layout === "themes",
   },
   {
-    title: t('nav.examples'),
-    href: 'https://examples.bootstrap-table.com',
-    isExternal: true
+    title: t("nav.examples"),
+    href: "https://examples.bootstrap-table.com",
+    isExternal: true,
   },
   {
-    title: t('nav.online_editor'),
-    href: 'https://live.bootstrap-table.com',
-    isExternal: true
+    title: t("nav.online_editor"),
+    href: "https://live.bootstrap-table.com",
+    isExternal: true,
   },
   {
-    title: t('nav.news'),
+    title: t("nav.news"),
     href: `${baseurl}/news`,
-    isActive: layout === 'news'
+    isActive: layout === "news",
   },
   {
-    title: t('nav.blog'),
-    href: 'https://blog.bootstrap-table.com',
-    isExternal: true
-  }
+    title: t("nav.blog"),
+    href: "https://blog.bootstrap-table.com",
+    isExternal: true,
+  },
 ]
 
 const versionMenu = [
   {
-    title: t('nav.version_latest', { version: Config.currentVersion }),
+    title: t("nav.version_latest", { version: Config.currentVersion }),
     href: `${baseurl}/`,
     isActive: true,
-    isExternal: false
+    isExternal: false,
   },
-  ...Config.versions.map(version => ({
+  ...Config.versions.map((version) => ({
     title: `v${version}`,
     href: `http://bootstrap-table.com/versions/${version}/`,
     isActive: false,
-    isExternal: true
-  }))
+    isExternal: true,
+  })),
 ]
 
 const socialLinks = [
   {
-    title: 'GitHub',
+    title: "GitHub",
     href: Config.repo,
-    icon: 'bi-github'
+    icon: "bi-github",
   },
   {
-    title: 'Twitter',
+    title: "Twitter",
     href: `https://twitter.com/${Config.twitter}`,
-    icon: 'bi-twitter'
+    icon: "bi-twitter",
   },
   {
-    title: 'Open Collective',
+    title: "Open Collective",
     href: `https://opencollective.com/${Config.opencollective}`,
-    icon: 'bi-heart-fill'
-  }
+    icon: "bi-heart-fill",
+  },
 ]
 
 const themeConfig = {
   themes: [
     {
-      name: 'light',
-      icon: 'bi-sun-fill',
-      label: t('nav.theme_light')
+      name: "light",
+      icon: "bi-sun-fill",
+      label: t("nav.theme_light"),
     },
     {
-      name: 'dark',
-      icon: 'bi-moon-stars-fill',
-      label: t('nav.theme_dark')
+      name: "dark",
+      icon: "bi-moon-stars-fill",
+      label: t("nav.theme_dark"),
     },
     {
-      name: 'auto',
-      icon: 'bi-circle-half',
-      label: t('nav.theme_auto')
-    }
-  ]
+      name: "auto",
+      icon: "bi-circle-half",
+      label: t("nav.theme_auto"),
+    },
+  ],
 }
 
-const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMenu(pathname, locale)
+const { menu: languageMenu, currentLabel: currentLanguageLabel } =
+  getLanguageMenu(pathname, locale)
 ---
 
 <header class="navbar navbar-expand-lg bd-navbar sticky-top">
-  <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3" aria-label="Main navigation">
-    {
-      layout === 'docs' &&
-        <div class="bd-navbar-toggle">
-          <button
-            class="navbar-toggler p-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#bdSidebar"
-            aria-controls="bdSidebar"
-            aria-label="Toggle docs navigation"
-          >
-            <i class="bi bi-list"></i>
-            <span class="d-none fs-6 pe-1">{t('nav.browse')}</span>
-          </button>
-        </div>
-    }
-    {layout !== 'docs' && <div class="d-lg-none" style="width: 4.25rem;" />}
+  <nav
+    class="container-fluid bd-gutter flex-wrap flex-lg-nowrap px-3"
+    aria-label="Main navigation"
+  >
+    {layout === "docs" && (
+      <div class="bd-navbar-toggle">
+        <button
+          class="navbar-toggler p-2"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#bdSidebar"
+          aria-controls="bdSidebar"
+          aria-label="Toggle docs navigation"
+        >
+          <i class="bi bi-list"></i>
+          <span class="d-none fs-6 pe-1">{t("nav.browse")}</span>
+        </button>
+      </div>
+    )}
+    {layout !== "docs" && <div class="d-lg-none" style="width: 4.25rem;" />}
 
     <a
       class="navbar-brand p-0 me-0 me-lg-2"
       href={`${baseurl}/`}
       aria-label="Bootstrap Table"
     >
-      <img src={`${Config.baseurl}/favicon.png`} width="32" height="32" alt="Bootstrap Table">
+      <img
+        src={`${Config.baseurl}/favicon.png`}
+        width="32"
+        height="32"
+        alt="Bootstrap Table"
+      />
     </a>
 
     <div class="d-flex">
@@ -151,35 +159,38 @@ const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMe
       aria-labelledby="bdNavbarOffcanvasLabel"
     >
       <div class="offcanvas-header px-4 pb-0">
-        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap Table</h5>
+        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">
+          Bootstrap Table
+        </h5>
         <button
           type="button"
           class="btn-close btn-close-white"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
-          data-bs-target="#bdNavbar"></button>
+          data-bs-target="#bdNavbar"
+        ></button>
       </div>
 
       <div class="offcanvas-body p-4 pt-0 p-lg-0">
         <hr class="d-lg-none" />
         <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
-          {mainNav.map(item =>
+          {mainNav.map((item) => (
             <li class="nav-item col-6 col-lg-auto">
               <a
-                class={`nav-link ${item.isActive ? 'active' : ''}`}
+                class={`nav-link ${item.isActive ? "active" : ""}`}
                 href={item.href}
-                {...(item.isExternal && { target: '_blank', rel: 'noopener' })}
+                {...(item.isExternal && { target: "_blank", rel: "noopener" })}
               >
                 {item.title}
               </a>
             </li>
-          )}
+          ))}
         </ul>
 
         <hr class="d-lg-none" />
 
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-          {socialLinks.map(item =>
+          {socialLinks.map((item) => (
             <li class="nav-item col-6 col-lg-auto">
               <a
                 class="nav-link py-2 px-0 px-lg-2"
@@ -192,7 +203,7 @@ const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMe
                 <small class="d-lg-none ms-2">{item.title}</small>
               </a>
             </li>
-          )}
+          ))}
 
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
             <div class="vr d-none d-lg-flex h-100 mx-lg-2"></div>
@@ -210,18 +221,21 @@ const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMe
             >
               v{Config.currentVersion}
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-versions">
-              {versionMenu.map(item =>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="bd-versions"
+            >
+              {versionMenu.map((item) => (
                 <li>
                   <a
-                    class={`dropdown-item ${item.isActive ? 'active' : ''}`}
+                    class={`dropdown-item ${item.isActive ? "active" : ""}`}
                     href={item.href}
-                    {...(item.isExternal && { target: '_blank' })}
+                    {...(item.isExternal && { target: "_blank" })}
                   >
                     {item.title}
                   </a>
                 </li>
-              )}
+              ))}
             </ul>
           </li>
 
@@ -236,18 +250,21 @@ const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMe
             >
               {currentLanguageLabel}
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-language">
-              {languageMenu.map(item =>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="bd-language"
+            >
+              {languageMenu.map((item) => (
                 <li>
                   <a
-                    class={`dropdown-item ${item.isActive ? 'active' : ''}`}
+                    class={`dropdown-item ${item.isActive ? "active" : ""}`}
                     href={item.href}
                     hreflang={item.code}
                   >
                     {item.label}
                   </a>
                 </li>
-              )}
+              ))}
             </ul>
           </li>
 
@@ -256,7 +273,11 @@ const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMe
             <hr class="d-lg-none my-2" />
           </li>
 
-          <li class="nav-item dropdown" id="theme-switcher" data-theme-config={JSON.stringify(themeConfig)}>
+          <li
+            class="nav-item dropdown"
+            id="theme-switcher"
+            data-theme-config={JSON.stringify(themeConfig)}
+          >
             <a
               class="nav-link dropdown-toggle me-md-2"
               href="#"
@@ -267,10 +288,16 @@ const { menu: languageMenu, currentLabel: currentLanguageLabel } = getLanguageMe
             >
               <span id="theme-icon">
                 <i class="bi bi-sun-fill"></i>
-                <span class="d-lg-none ms-2" id="bd-theme-text">{t('nav.toggle_theme')}</span>
+                <span class="d-lg-none ms-2" id="bd-theme-text">
+                  {t("nav.toggle_theme")}
+                </span>
               </span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-bootstrap-theme" id="theme-menu">
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="bd-bootstrap-theme"
+              id="theme-menu"
+            >
               <!-- Theme options will be generated by JavaScript -->
             </ul>
           </li>

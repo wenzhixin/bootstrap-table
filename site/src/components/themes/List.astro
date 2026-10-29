@@ -5,25 +5,16 @@ const { title, themes, category } = Astro.props
 <div class="row theme-section" data-category={category}>
   <div class="col-md-12">
     <div class="landing-title">
-      <h2 class="title">
-        {title}
-      </h2>
+      <h2 class="title">{title}</h2>
     </div>
   </div>
 
-  {themes.map(theme =>
+  {themes.map((theme) => (
     <div class="col-4">
       <div class="card card-small">
         <div class="thumbnail">
-          <img
-            src={theme.img}
-            alt="No Image"
-          />
-          <a
-            href={theme.url}
-            target="_blank"
-            class="thumb-cover"
-          ></a>
+          <img src={theme.img} alt="No Image" />
+          <a href={theme.url} target="_blank" class="thumb-cover"></a>
           <b class="actions">
             <a
               href={theme.url}
@@ -44,27 +35,21 @@ const { title, themes, category } = Astro.props
           </b>
         </div>
         <div class="card-info">
-          <a
-            href={theme.url}
-            target="_blank"
-          >
+          <a href={theme.url} target="_blank">
             <h3>
               {theme.name}
-              {theme.price ?
-                <div class="time pull-right premium-product">
-                  {theme.price}
-                </div> :
-                <div class="time pull-right free">
-                  FREE
-                </div>
-              }
+              {theme.price ? (
+                <div class="time pull-right premium-product">{theme.price}</div>
+              ) : (
+                <div class="time pull-right free">FREE</div>
+              )}
             </h3>
             <p>{theme.desc}</p>
           </a>
         </div>
       </div>
     </div>
-  )}
+  ))}
 </div>
 
 <style scoped>
@@ -99,7 +84,7 @@ const { title, themes, category } = Astro.props
     margin: 0;
     min-height: 250px;
     position: relative;
-    background: transparent
+    background: transparent;
   }
 
   .card-small .thumbnail {
@@ -111,22 +96,22 @@ const { title, themes, category } = Astro.props
     height: 100%;
   }
 
-  .card .thumbnail>img {
+  .card .thumbnail > img {
     border-radius: 8px 8px;
-    box-shadow: 0 25px 20px -21px rgba(0, 0, 0, 0.57)
+    box-shadow: 0 25px 20px -21px rgba(0, 0, 0, 0.57);
   }
 
   .card .time {
     color: #777777;
     font-size: 15px;
     margin-top: 2px;
-    text-transform: uppercase
+    text-transform: uppercase;
   }
 
   .card .time.premium-product {
     color: #444444;
     font-size: 19px;
-    margin: 1px
+    margin: 1px;
   }
 
   .card .actions .btn {
@@ -136,7 +121,7 @@ const { title, themes, category } = Astro.props
     position: relative;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%)
+    -moz-transform: translateY(-50%);
   }
 
   .card .actions .btn-round:not(.btn-radius) {
@@ -145,7 +130,7 @@ const { title, themes, category } = Astro.props
     line-height: 1;
     display: inline-block;
     width: 48px;
-    height: 48px
+    height: 48px;
   }
 
   .btn-neutral.btn-fill {
@@ -174,7 +159,7 @@ const { title, themes, category } = Astro.props
     z-index: 3;
     content: "";
     left: 0;
-    border-radius: 8px
+    border-radius: 8px;
   }
 
   .card .actions {
@@ -186,53 +171,53 @@ const { title, themes, category } = Astro.props
     width: 100%;
     height: 0;
     opacity: 0;
-    transition: all .5s ease;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
   }
 
   .card:hover .thumb-cover,
   .card:hover .actions {
-    opacity: 1
+    opacity: 1;
   }
 
   .card-small .actions {
     height: 55px;
-    font-size: 14px
+    font-size: 14px;
   }
 
   .card:hover .actions {
-    opacity: 1
+    opacity: 1;
   }
 
   .card-info {
     padding: 15px;
-    border-radius: 0 0 12px 12px
+    border-radius: 0 0 12px 12px;
   }
 
   .card-info a:not(.btn) {
-    color: #434343
+    color: #434343;
   }
 
   .card-info a:not(.btn):hover {
-    color: #232323
+    color: #232323;
   }
 
   .card-info h3 {
     margin-top: 10px;
     margin-bottom: 5px;
-    font-size: 18px
+    font-size: 18px;
   }
 
   .card-small .card-info h3 {
-    font-size: 18px
+    font-size: 18px;
   }
 
   .card-info p {
     font-size: 14px;
     margin: 0;
     color: #666666;
-    min-height: 50px
+    min-height: 50px;
   }
 
   .pull-right {
@@ -241,13 +226,13 @@ const { title, themes, category } = Astro.props
 
   @media (max-width: 800px) {
     .card.card-bundle .thumbnail {
-      min-height: 150px
+      min-height: 150px;
     }
   }
 
   @media (max-width: 1100px) {
     .card.card-bundle .details .bundle-details {
-      padding: 10px
+      padding: 10px;
     }
   }
 </style>

@@ -53,32 +53,32 @@ Object.assign($.fn.bootstrapTable.defaults, {
   usePipeline: false,
   pipelineSize: 1000,
   // eslint-disable-next-line no-unused-vars
-  onCachedDataHit (data) {
+  onCachedDataHit(data) {
     return false
   },
   // eslint-disable-next-line no-unused-vars
-  onCachedDataReset (data) {
+  onCachedDataReset(data) {
     return false
-  }
+  },
 })
 
 Object.assign($.fn.bootstrapTable.events, {
-  'cached-data-hit.bs.table': 'onCachedDataHit',
-  'cached-data-reset.bs.table': 'onCachedDataReset'
+  "cached-data-hit.bs.table": "onCachedDataHit",
+  "cached-data-reset.bs.table": "onCachedDataReset",
 })
 
-$.fn.bootstrapTable.methods.push('resetPipelineCache')
+$.fn.bootstrapTable.methods.push("resetPipelineCache")
 
 $.BootstrapTable = class extends $.BootstrapTable {
   // needs to be called before initServer
-  init (...args) {
+  init(...args) {
     if (this.options.usePipeline) {
       this.initPipeline()
     }
     super.init(...args)
   }
 
-  initPipeline () {
+  initPipeline() {
     this.cacheRequestJSON = {}
     this.cacheWindows = []
     this.currWindow = 0
@@ -86,7 +86,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // force a cache reset on search
-  onSearch (...args) {
+  onSearch(...args) {
     if (this.options.usePipeline) {
       this.resetCache = true
     }
@@ -94,7 +94,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // force a cache reset on sort
-  onSort (...args) {
+  onSort(...args) {
     if (this.options.usePipeline) {
       this.resetCache = true
     }
@@ -102,18 +102,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // rebuild cache window on page size change
-  onPageListChange (event) {
+  onPageListChange(event) {
     const target = $(event.currentTarget)
     const newPageSize = parseInt(target.text(), 10)
 
-    this.options.pipelineSize = this.calculatePipelineSize(this.options.pipelineSize, newPageSize)
+    this.options.pipelineSize = this.calculatePipelineSize(
+      this.options.pipelineSize,
+      newPageSize,
+    )
     this.resetCache = true
     super.onPageListChange(event)
   }
 
   // calculate pipeline size by rounding up to
   // the nearest value evenly divisible by the pageSize
-  calculatePipelineSize (pipelineSize, pageSize) {
+  calculatePipelineSize(pipelineSize, pageSize) {
     if (pageSize === 0) {
       return 0
     }
@@ -122,22 +125,32 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   // set cache windows based on the total number of rows returned
   // by server side request and the pipelineSize
-  setCacheWindows () {
+  setCacheWindows() {
     this.cacheWindows = []
 
-    for (let i = 0; i <= this.options.totalRows / this.options.pipelineSize; i++) {
+    for (
+      let i = 0;
+      i <= this.options.totalRows / this.options.pipelineSize;
+      i++
+    ) {
       const lower = i * this.options.pipelineSize
 
-      this.cacheWindows[i] = { lower, upper: lower + this.options.pipelineSize - 1 }
+      this.cacheWindows[i] = {
+        lower,
+        upper: lower + this.options.pipelineSize - 1,
+      }
     }
   }
 
   // set the current cache window index, based on where the current offset falls
-  setCurrWindow (offset) {
+  setCurrWindow(offset) {
     this.currWindow = 0
 
     for (let i = 0; i < this.cacheWindows.length; i++) {
-      if (this.cacheWindows[i].lower <= offset && offset <= this.cacheWindows[i].upper) {
+      if (
+        this.cacheWindows[i].lower <= offset &&
+        offset <= this.cacheWindows[i].upper
+      ) {
         this.currWindow = i
         break
       }
@@ -145,7 +158,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // draw rows from the cache using offset and limit
-  drawFromCache (offset, limit) {
+  drawFromCache(offset, limit) {
     const res = Utils.extend(true, {}, this.cacheRequestJSON)
     const drawStart = offset - this.cacheWindows[this.currWindow].lower
     const drawEnd = drawStart + limit
@@ -160,7 +173,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
    * moving outside of cached data, page size change)
    * initial version of this extension will entirely override base initServer
    */
-  initServer (silent, query) {
+  initServer(silent, query) {
     if (!this.options.usePipeline) {
       return super.initServer(silent, query)
     }
@@ -169,13 +182,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const params = {}
 
     if (
-      this.options.queryParamsType === 'limit' &&
+      this.options.queryParamsType === "limit" &&
       this.options.pagination &&
-      this.options.sidePagination === 'server'
+      this.options.sidePagination === "server"
     ) {
       // same as parent initServer: params.offset
-      params.offset = this.options.pageSize === this.options.formatAllRows() ?
-        0 : this.options.pageSize * (this.options.pageNumber - 1)
+      params.offset =
+        this.options.pageSize === this.options.formatAllRows()
+          ? 0
+          : this.options.pageSize * (this.options.pageNumber - 1)
       params.limit = this.options.pageSize
 
       // if cacheWindows is empty, this is the initial request
@@ -192,7 +207,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
         //  checking if params.offset is outside the current window is sufficient.
         //  need to re-query for preceding or succeeding cache window
         //  also handle case
-        if (this.resetCache || (params.offset < w.lower || params.offset > w.upper)) {
+        if (
+          this.resetCache ||
+          params.offset < w.lower ||
+          params.offset > w.upper
+        ) {
           useAjax = true
           this.setCurrWindow(params.offset)
           // store the relative offset for drawing the page data afterwards
@@ -225,8 +244,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const res = this.drawFromCache(params.offset, params.limit)
 
       this.load(res)
-      this.trigger('load-success', res)
-      this.trigger('cached-data-hit', res)
+      this.trigger("load-success", res)
+      this.trigger("cached-data-hit", res)
       return
     }
 
@@ -234,7 +253,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.pipelineResponseHandler = this.options.responseHandler
 
       this.options.responseHandler = (_res, jqXHR) => {
-        let res = Utils.calculateObjectValue(this.options, this.pipelineResponseHandler, [_res, jqXHR], _res)
+        let res = Utils.calculateObjectValue(
+          this.options,
+          this.pipelineResponseHandler,
+          [_res, jqXHR],
+          _res,
+        )
 
         // store entire request in cache
         this.cacheRequestJSON = Utils.extend(true, {}, res)
@@ -247,7 +271,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.setCacheWindows()
         // just load data for the page
         res = this.drawFromCache(params.drawOffset, params.drawLimit)
-        this.trigger('cached-data-reset', res)
+        this.trigger("cached-data-reset", res)
         return res
       }
     }
@@ -255,7 +279,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     return super.initServer(silent, { ...query, ...params })
   }
 
-  destroy (...args) {
+  destroy(...args) {
     this.options.responseHandler = this.pipelineResponseHandler
     this.pipelineResponseHandler = null
 
@@ -263,7 +287,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // Public method to reset the pipeline cache
-  resetPipelineCache () {
+  resetPipelineCache() {
     this.resetCache = true
   }
 }

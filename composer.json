@@ -1,33 +1,33 @@
 {
-    "name": "wenzhixin/bootstrap-table",
-    "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
-    "keywords": [
-        "bootstrap",
-        "table",
-        "pagination",
-        "checkbox",
-        "radio",
-        "datatables",
-        "css",
-        "css-framework",
-        "semantic",
-        "semantic-ui",
-        "bulma",
-        "material",
-        "material-design",
-        "materialize",
-        "foundation"
-    ],
-    "type": "component",
-    "homepage": "https://github.com/wenzhixin/bootstrap-table",
-    "license": "MIT",
-    "require": {
-        "twitter/bootstrap": ">=2.3.0"
-    },
-    "authors": [
-        {
-            "name": "wenzhixin2010",
-            "email": "wenzhixin2010@gmail.com"
-        }
-    ]
+  "name": "wenzhixin/bootstrap-table",
+  "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
+  "keywords": [
+    "bootstrap",
+    "table",
+    "pagination",
+    "checkbox",
+    "radio",
+    "datatables",
+    "css",
+    "css-framework",
+    "semantic",
+    "semantic-ui",
+    "bulma",
+    "material",
+    "material-design",
+    "materialize",
+    "foundation"
+  ],
+  "type": "component",
+  "homepage": "https://github.com/wenzhixin/bootstrap-table",
+  "license": "MIT",
+  "require": {
+    "twitter/bootstrap": ">=2.3.0"
+  },
+  "authors": [
+    {
+      "name": "wenzhixin2010",
+      "email": "wenzhixin2010@gmail.com"
+    }
+  ]
 }

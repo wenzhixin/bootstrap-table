@@ -3,189 +3,196 @@
  * Author: Mikhail Kalatchev <kalatchev[at]gmail.com>
  */
 
-$.fn.bootstrapTable.locales['bg-BG'] = $.fn.bootstrapTable.locales['bg'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["bg-BG"] = $.fn.bootstrapTable.locales["bg"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Затваряне'
+  formatAdvancedCloseButton() {
+    return "Затваряне"
   },
 
-  formatAdvancedSearch () {
-    return 'Разширено търсене'
+  formatAdvancedSearch() {
+    return "Разширено търсене"
   },
 
-  formatAllRows () {
-    return 'Всички'
+  formatAllRows() {
+    return "Всички"
   },
 
-  formatAutoRefresh () {
-    return 'Автоматично обновяване'
+  formatAutoRefresh() {
+    return "Автоматично обновяване"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Изчистване на търсенето'
+  formatClearSearch() {
+    return "Изчистване на търсенето"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Колони'
+  formatColumns() {
+    return "Колони"
   },
 
-  formatColumnsToggleAll () {
-    return 'Превключване на всички'
+  formatColumnsToggleAll() {
+    return "Превключване на всички"
   },
 
-  formatCopyRows () {
-    return 'Копиране на редове'
+  formatCopyRows() {
+    return "Копиране на редове"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Показани ${totalRows} реда`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Експорт на данни'
+  formatExport() {
+    return "Експорт на данни"
   },
 
-  formatFilterControlSwitch () {
-    return 'Скрива/показва контроли'
+  formatFilterControlSwitch() {
+    return "Скрива/показва контроли"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Скрива контроли'
+  formatFilterControlSwitchHide() {
+    return "Скрива контроли"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Показва контроли'
+  formatFilterControlSwitchShow() {
+    return "Показва контроли"
   },
 
-  formatFullscreen () {
-    return 'Цял екран'
+  formatFullscreen() {
+    return "Цял екран"
   },
 
-  formatJumpTo () {
-    return 'ОТИДИ'
+  formatJumpTo() {
+    return "ОТИДИ"
   },
 
-  formatLoadingMessage () {
-    return 'Зареждане, моля изчакайте'
+  formatLoadingMessage() {
+    return "Зареждане, моля изчакайте"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Не са намерени съвпадащи записи'
+  formatNoMatches() {
+    return "Не са намерени съвпадащи записи"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Скриване/Показване на странициране'
+  formatPaginationSwitch() {
+    return "Скриване/Показване на странициране"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Показване на странициране'
+  formatPaginationSwitchDown() {
+    return "Показване на странициране"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Скриване на странициране'
+  formatPaginationSwitchUp() {
+    return "Скриване на странициране"
   },
 
-  formatPrint () {
-    return 'Печат'
+  formatPrint() {
+    return "Печат"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} реда на страница`
   },
 
-  formatRefresh () {
-    return 'Обновяване'
+  formatRefresh() {
+    return "Обновяване"
   },
 
-  formatSRPaginationNextText () {
-    return 'следваща страница'
+  formatSRPaginationNextText() {
+    return "следваща страница"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `до страница ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'предишна страница'
+  formatSRPaginationPreText() {
+    return "предишна страница"
   },
 
-  formatSearch () {
-    return 'Търсене'
+  formatSearch() {
+    return "Търсене"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Показани редове от ${pageFrom} до ${pageTo} от ${totalRows} (филтрирани от общо ${totalNotFiltered})`
     }
 
     return `Показани редове от ${pageFrom} до ${pageTo} от общо ${totalRows}`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Скриване на изглед карта'
+  formatToggleOff() {
+    return "Скриване на изглед карта"
   },
 
-  formatToggleOn () {
-    return 'Показване на изглед карта'
-  }
+  formatToggleOn() {
+    return "Показване на изглед карта"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['bg-BG'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["bg-BG"],
+)

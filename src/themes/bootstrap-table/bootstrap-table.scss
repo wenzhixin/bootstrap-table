@@ -148,7 +148,7 @@
     margin-top: 2px;
     border: 1px solid custom.$btn-border;
     border-radius: 4px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 3px 12px rgb(0, 0, 0, 0.175);
 
     .dropdown-item {
       color: variables.$color;
@@ -311,7 +311,8 @@
 
       &.active {
         background-color: custom.$primary-background;
-        border: 1px solid color.adjust(custom.$primary-background, $lightness: -5%);
+        border: 1px solid
+          color.adjust(custom.$primary-background, $lightness: -5%);
 
         .page-link {
           color: #fff;
@@ -365,10 +366,7 @@
 .modal {
   position: fixed;
   display: none;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  inset: 0;
 
   &.show {
     display: flex;
@@ -389,12 +387,9 @@
 
   .modal-background {
     position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    inset: 0;
     z-index: 998;
-    background-color: rgba(10, 10, 10, 0.86);
+    background-color: rgb(10, 10, 10, 0.86);
   }
 
   .modal-content {

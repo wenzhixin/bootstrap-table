@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import * as checkbox from '@/utils/checkbox.js'
+import { afterEach, beforeEach, describe, expect, it } from "vitest"
+import * as checkbox from "@/utils/checkbox.js"
 
-describe('getCheckboxHtml', () => {
+describe("getCheckboxHtml", () => {
   let originalWindow
   let original$
 
@@ -14,8 +14,8 @@ describe('getCheckboxHtml', () => {
     // @ts-expect-error - testing purposes
     global.window = {
       bootstrap: {
-        Tooltip: { VERSION: '5.0.0' }
-      }
+        Tooltip: { VERSION: "5.0.0" },
+      },
     }
   })
 
@@ -26,177 +26,177 @@ describe('getCheckboxHtml', () => {
     global.$ = original$
   })
 
-  describe('Bootstrap 5', () => {
+  describe("Bootstrap 5", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
         bootstrap: {
-          Tooltip: { VERSION: '5.0.0' }
-        }
+          Tooltip: { VERSION: "5.0.0" },
+        },
       }
     })
 
-    it('should generate basic checkbox HTML', () => {
+    it("should generate basic checkbox HTML", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test'
+        name: "test",
       })
 
       expect(html).toContain('type="checkbox"')
       expect(html).toContain('name="test"')
-      expect(html).toContain('form-check')
+      expect(html).toContain("form-check")
     })
 
-    it('should include checked attribute', () => {
+    it("should include checked attribute", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        checked: true
+        name: "test",
+        checked: true,
       })
 
       expect(html).toContain('checked="checked"')
     })
 
-    it('should include disabled attribute', () => {
+    it("should include disabled attribute", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        disabled: true
+        name: "test",
+        disabled: true,
       })
 
       expect(html).toContain('disabled="disabled"')
     })
 
-    it('should include value attribute', () => {
+    it("should include value attribute", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        value: 'val1'
+        name: "test",
+        value: "val1",
       })
 
       expect(html).toContain('value="val1"')
     })
 
-    it('should include extra class', () => {
+    it("should include extra class", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        extraClass: 'custom-class'
+        name: "test",
+        extraClass: "custom-class",
       })
 
-      expect(html).toContain('custom-class')
+      expect(html).toContain("custom-class")
     })
 
-    it('should handle centered option', () => {
+    it("should handle centered option", () => {
       const html1 = checkbox.getCheckboxHtml({
-        name: 'test',
-        centered: true
+        name: "test",
+        centered: true,
       })
 
-      expect(html1).toContain('justify-content-center')
+      expect(html1).toContain("justify-content-center")
 
       const html2 = checkbox.getCheckboxHtml({
-        name: 'test',
-        centered: false
+        name: "test",
+        centered: false,
       })
 
-      expect(html2).not.toContain('justify-content-center')
+      expect(html2).not.toContain("justify-content-center")
     })
 
-    it('should handle withLabel option', () => {
+    it("should handle withLabel option", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        label: 'Label Text',
-        withLabel: true
+        name: "test",
+        label: "Label Text",
+        withLabel: true,
       })
 
-      expect(html).toContain('dropdown-item')
-      expect(html).toContain('Label Text')
+      expect(html).toContain("dropdown-item")
+      expect(html).toContain("Label Text")
     })
 
-    it('should preserve HTML in label', () => {
+    it("should preserve HTML in label", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        label: '<span>Title</span>',
-        withLabel: true
+        name: "test",
+        label: "<span>Title</span>",
+        withLabel: true,
       })
 
-      expect(html).toContain('<span>Title</span>')
+      expect(html).toContain("<span>Title</span>")
     })
   })
 
-  describe('Bootstrap 3/4', () => {
+  describe("Bootstrap 3/4", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
-        bootstrap: undefined
+        bootstrap: undefined,
       }
       // @ts-expect-error - testing purposes
       global.$ = {
         fn: {
           dropdown: {
-            Constructor: { VERSION: '4.0.0' }
-          }
-        }
+            Constructor: { VERSION: "4.0.0" },
+          },
+        },
       }
     })
 
-    it('should generate basic checkbox HTML', () => {
+    it("should generate basic checkbox HTML", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test'
+        name: "test",
       })
 
       expect(html).toContain('type="checkbox"')
       expect(html).toContain('name="test"')
-      expect(html).toContain('<label>')
+      expect(html).toContain("<label>")
     })
 
-    it('should include checked attribute', () => {
+    it("should include checked attribute", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        checked: true
+        name: "test",
+        checked: true,
       })
 
       expect(html).toContain('checked="checked"')
     })
 
-    it('should include disabled attribute', () => {
+    it("should include disabled attribute", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        disabled: true
+        name: "test",
+        disabled: true,
       })
 
       expect(html).toContain('disabled="disabled"')
     })
 
-    it('should handle withLabel option', () => {
+    it("should handle withLabel option", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        label: 'Label Text',
-        withLabel: true
+        name: "test",
+        label: "Label Text",
+        withLabel: true,
       })
 
-      expect(html).toContain('<label>')
-      expect(html).toContain('Label Text')
+      expect(html).toContain("<label>")
+      expect(html).toContain("Label Text")
     })
 
-    it('should preserve HTML in label', () => {
+    it("should preserve HTML in label", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        label: '<em>Styled</em> Label',
-        withLabel: true
+        name: "test",
+        label: "<em>Styled</em> Label",
+        withLabel: true,
       })
 
-      expect(html).toContain('<em>Styled</em> Label')
+      expect(html).toContain("<em>Styled</em> Label")
     })
 
-    it('should handle extra class', () => {
+    it("should handle extra class", () => {
       const html = checkbox.getCheckboxHtml({
-        name: 'test',
-        extraClass: 'custom-class'
+        name: "test",
+        extraClass: "custom-class",
       })
 
-      expect(html).toContain('custom-class')
+      expect(html).toContain("custom-class")
     })
   })
 })
 
-describe('wrapCheckbox', () => {
+describe("wrapCheckbox", () => {
   let originalWindow
 
   beforeEach(() => {
@@ -207,63 +207,63 @@ describe('wrapCheckbox', () => {
     global.window = originalWindow
   })
 
-  describe('Bootstrap 5', () => {
+  describe("Bootstrap 5", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
         bootstrap: {
-          Tooltip: { VERSION: '5.0.0' }
-        }
+          Tooltip: { VERSION: "5.0.0" },
+        },
       }
     })
 
-    it('should wrap input in form-check div', () => {
+    it("should wrap input in form-check div", () => {
       const html = checkbox.wrapCheckbox('<input type="checkbox">')
 
       expect(html).toContain('<div class="form-check')
       expect(html).toContain('<input type="checkbox">')
-      expect(html).toContain('</div>')
+      expect(html).toContain("</div>")
     })
 
-    it('should handle centered option', () => {
+    it("should handle centered option", () => {
       const html1 = checkbox.wrapCheckbox('<input type="checkbox">', true)
 
-      expect(html1).toContain('justify-content-center')
+      expect(html1).toContain("justify-content-center")
 
       const html2 = checkbox.wrapCheckbox('<input type="checkbox">', false)
 
-      expect(html2).not.toContain('justify-content-center')
+      expect(html2).not.toContain("justify-content-center")
     })
   })
 
-  describe('Bootstrap 3/4', () => {
+  describe("Bootstrap 3/4", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
-        bootstrap: undefined
+        bootstrap: undefined,
       }
       // @ts-expect-error - testing purposes
       global.$ = {
         fn: {
           dropdown: {
-            Constructor: { VERSION: '4.0.0' }
-          }
-        }
+            Constructor: { VERSION: "4.0.0" },
+          },
+        },
       }
     })
 
-    it('should wrap input in label', () => {
+    it("should wrap input in label", () => {
       const html = checkbox.wrapCheckbox('<input type="checkbox">')
 
-      expect(html).toContain('<label>')
+      expect(html).toContain("<label>")
       expect(html).toContain('<input type="checkbox">')
-      expect(html).toContain('<span></span>')
-      expect(html).toContain('</label>')
+      expect(html).toContain("<span></span>")
+      expect(html).toContain("</label>")
     })
   })
 })
 
-describe('getCheckboxVdomConfig', () => {
+describe("getCheckboxVdomConfig", () => {
   let originalWindow
 
   beforeEach(() => {
@@ -274,91 +274,91 @@ describe('getCheckboxVdomConfig', () => {
     global.window = originalWindow
   })
 
-  describe('Bootstrap 5', () => {
+  describe("Bootstrap 5", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
         bootstrap: {
-          Tooltip: { VERSION: '5.0.0' }
-        }
+          Tooltip: { VERSION: "5.0.0" },
+        },
       }
     })
 
-    it('should return Bootstrap 5 config', () => {
+    it("should return Bootstrap 5 config", () => {
       const config = checkbox.getCheckboxVdomConfig({
-        inputAttrs: { type: 'checkbox', name: 'test' },
-        formCheckClass: 'form-check',
-        formCheckInputClass: 'form-check-input',
-        centered: false
+        inputAttrs: { type: "checkbox", name: "test" },
+        formCheckClass: "form-check",
+        formCheckInputClass: "form-check-input",
+        centered: false,
       })
 
       expect(config.inputAttrs).toEqual({
-        type: 'checkbox',
-        name: 'test',
-        class: 'form-check-input'
+        type: "checkbox",
+        name: "test",
+        class: "form-check-input",
       })
       // centered: false prevents centering classes
-      expect(config.wrapperAttrs.class).toBe('form-check')
-      expect(config.wrapperTag).toBe('div')
+      expect(config.wrapperAttrs.class).toBe("form-check")
+      expect(config.wrapperTag).toBe("div")
       expect(config.hasSpan).toBe(false)
     })
 
-    it('should handle centered option', () => {
+    it("should handle centered option", () => {
       const config = checkbox.getCheckboxVdomConfig({
-        inputAttrs: { type: 'checkbox' },
-        formCheckClass: 'form-check',
-        formCheckInputClass: 'form-check-input',
-        centered: true
+        inputAttrs: { type: "checkbox" },
+        formCheckClass: "form-check",
+        formCheckInputClass: "form-check-input",
+        centered: true,
       })
 
-      expect(config.wrapperAttrs.class).toContain('justify-content-center')
+      expect(config.wrapperAttrs.class).toContain("justify-content-center")
 
       const config2 = checkbox.getCheckboxVdomConfig({
-        inputAttrs: { type: 'checkbox' },
-        formCheckClass: 'form-check',
-        formCheckInputClass: 'form-check-input',
-        centered: false
+        inputAttrs: { type: "checkbox" },
+        formCheckClass: "form-check",
+        formCheckInputClass: "form-check-input",
+        centered: false,
       })
 
-      expect(config2.wrapperAttrs.class).not.toContain('justify-content-center')
+      expect(config2.wrapperAttrs.class).not.toContain("justify-content-center")
     })
   })
 
-  describe('Bootstrap 3/4', () => {
+  describe("Bootstrap 3/4", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
-        bootstrap: undefined
+        bootstrap: undefined,
       }
       // @ts-expect-error - testing purposes
       global.$ = {
         fn: {
           dropdown: {
-            Constructor: { VERSION: '4.0.0' }
-          }
-        }
+            Constructor: { VERSION: "4.0.0" },
+          },
+        },
       }
     })
 
-    it('should return Bootstrap 3/4 config', () => {
+    it("should return Bootstrap 3/4 config", () => {
       const config = checkbox.getCheckboxVdomConfig({
-        inputAttrs: { type: 'checkbox', name: 'test' },
-        formCheckClass: 'form-check',
-        formCheckInputClass: 'form-check-input'
+        inputAttrs: { type: "checkbox", name: "test" },
+        formCheckClass: "form-check",
+        formCheckInputClass: "form-check-input",
       })
 
       expect(config.inputAttrs).toEqual({
-        type: 'checkbox',
-        name: 'test'
+        type: "checkbox",
+        name: "test",
       })
       expect(config.wrapperAttrs).toEqual({})
-      expect(config.wrapperTag).toBe('label')
+      expect(config.wrapperTag).toBe("label")
       expect(config.hasSpan).toBe(true)
     })
   })
 })
 
-describe('getDropdownColumnCheckboxHtml', () => {
+describe("getDropdownColumnCheckboxHtml", () => {
   let originalWindow
 
   beforeEach(() => {
@@ -369,129 +369,129 @@ describe('getDropdownColumnCheckboxHtml', () => {
     global.window = originalWindow
   })
 
-  describe('Bootstrap 5', () => {
+  describe("Bootstrap 5", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
         bootstrap: {
-          Tooltip: { VERSION: '5.0.0' }
-        }
+          Tooltip: { VERSION: "5.0.0" },
+        },
       }
     })
 
-    it('should generate dropdown checkbox with data-field', () => {
+    it("should generate dropdown checkbox with data-field", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: false,
         disabled: false,
-        label: 'Field Label'
+        label: "Field Label",
       })
 
       expect(html).toContain('data-field="fieldName"')
       expect(html).toContain('value="value1"')
-      expect(html).toContain('Field Label')
-      expect(html).toContain('dropdown-item')
+      expect(html).toContain("Field Label")
+      expect(html).toContain("dropdown-item")
     })
 
-    it('should preserve HTML in label', () => {
+    it("should preserve HTML in label", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: false,
         disabled: false,
-        label: '<span>Title</span>'
+        label: "<span>Title</span>",
       })
 
-      expect(html).toContain('<span>Title</span>')
+      expect(html).toContain("<span>Title</span>")
     })
 
-    it('should include checked attribute', () => {
+    it("should include checked attribute", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: true,
         disabled: false,
-        label: 'Label'
+        label: "Label",
       })
 
       expect(html).toContain('checked="checked"')
     })
 
-    it('should include disabled attribute', () => {
+    it("should include disabled attribute", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: false,
         disabled: true,
-        label: 'Label'
+        label: "Label",
       })
 
       expect(html).toContain('disabled="disabled"')
     })
   })
 
-  describe('Bootstrap 3/4', () => {
+  describe("Bootstrap 3/4", () => {
     beforeEach(() => {
       // @ts-expect-error - testing purposes
       global.window = {
-        bootstrap: undefined
+        bootstrap: undefined,
       }
       // @ts-expect-error - testing purposes
       global.$ = {
         fn: {
           dropdown: {
-            Constructor: { VERSION: '4.0.0' }
-          }
-        }
+            Constructor: { VERSION: "4.0.0" },
+          },
+        },
       }
     })
 
-    it('should generate dropdown checkbox with data-field', () => {
+    it("should generate dropdown checkbox with data-field", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: false,
         disabled: false,
-        label: 'Field Label'
+        label: "Field Label",
       })
 
       expect(html).toContain('data-field="fieldName"')
       expect(html).toContain('value="value1"')
-      expect(html).toContain('Field Label')
+      expect(html).toContain("Field Label")
     })
 
-    it('should preserve HTML in label', () => {
+    it("should preserve HTML in label", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: false,
         disabled: false,
-        label: '<span>Title</span>'
+        label: "<span>Title</span>",
       })
 
-      expect(html).toContain('<span>Title</span>')
+      expect(html).toContain("<span>Title</span>")
     })
 
-    it('should include checked attribute', () => {
+    it("should include checked attribute", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: true,
         disabled: false,
-        label: 'Label'
+        label: "Label",
       })
 
       expect(html).toContain('checked="checked"')
     })
 
-    it('should include disabled attribute', () => {
+    it("should include disabled attribute", () => {
       const html = checkbox.getDropdownColumnCheckboxHtml({
-        dataField: 'fieldName',
-        value: 'value1',
+        dataField: "fieldName",
+        value: "value1",
         checked: false,
         disabled: true,
-        label: 'Label'
+        label: "Label",
       })
 
       expect(html).toContain('disabled="disabled"')

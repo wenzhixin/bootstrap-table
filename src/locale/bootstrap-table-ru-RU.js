@@ -3,189 +3,196 @@
  * Author: Dunaevsky Maxim <dunmaksim@yandex.ru>
  */
 
-$.fn.bootstrapTable.locales['ru-RU'] = $.fn.bootstrapTable.locales['ru'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["ru-RU"] = $.fn.bootstrapTable.locales["ru"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Закрыть'
+  formatAdvancedCloseButton() {
+    return "Закрыть"
   },
 
-  formatAdvancedSearch () {
-    return 'Расширенный поиск'
+  formatAdvancedSearch() {
+    return "Расширенный поиск"
   },
 
-  formatAllRows () {
-    return 'Все'
+  formatAllRows() {
+    return "Все"
   },
 
-  formatAutoRefresh () {
-    return 'Автоматическое обновление'
+  formatAutoRefresh() {
+    return "Автоматическое обновление"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Очистить фильтры'
+  formatClearSearch() {
+    return "Очистить фильтры"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Колонки'
+  formatColumns() {
+    return "Колонки"
   },
 
-  formatColumnsToggleAll () {
-    return 'Выбрать все'
+  formatColumnsToggleAll() {
+    return "Выбрать все"
   },
 
-  formatCopyRows () {
-    return 'Скопировать строки'
+  formatCopyRows() {
+    return "Скопировать строки"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Загружено ${totalRows} строк`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Экспортировать данные'
+  formatExport() {
+    return "Экспортировать данные"
   },
 
-  formatFilterControlSwitch () {
-    return 'Скрыть/Показать панель инструментов'
+  formatFilterControlSwitch() {
+    return "Скрыть/Показать панель инструментов"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Скрыть панель инструментов'
+  formatFilterControlSwitchHide() {
+    return "Скрыть панель инструментов"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Показать панель инструментов'
+  formatFilterControlSwitchShow() {
+    return "Показать панель инструментов"
   },
 
-  formatFullscreen () {
-    return 'Полноэкранный режим'
+  formatFullscreen() {
+    return "Полноэкранный режим"
   },
 
-  formatJumpTo () {
-    return 'Стр.'
+  formatJumpTo() {
+    return "Стр."
   },
 
-  formatLoadingMessage () {
-    return 'Пожалуйста, подождите, идёт загрузка'
+  formatLoadingMessage() {
+    return "Пожалуйста, подождите, идёт загрузка"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Ничего не найдено'
+  formatNoMatches() {
+    return "Ничего не найдено"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Скрыть/Показать постраничную навигацию'
+  formatPaginationSwitch() {
+    return "Скрыть/Показать постраничную навигацию"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Показать постраничную навигацию'
+  formatPaginationSwitchDown() {
+    return "Показать постраничную навигацию"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Скрыть постраничную навигацию'
+  formatPaginationSwitchUp() {
+    return "Скрыть постраничную навигацию"
   },
 
-  formatPrint () {
-    return 'Печать'
+  formatPrint() {
+    return "Печать"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} записей на страницу`
   },
 
-  formatRefresh () {
-    return 'Обновить'
+  formatRefresh() {
+    return "Обновить"
   },
 
-  formatSRPaginationNextText () {
-    return 'следующая страница'
+  formatSRPaginationNextText() {
+    return "следующая страница"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `перейти к странице ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'предыдущая страница'
+  formatSRPaginationPreText() {
+    return "предыдущая страница"
   },
 
-  formatSearch () {
-    return 'Поиск'
+  formatSearch() {
+    return "Поиск"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Записи с ${pageFrom} по ${pageTo} из ${totalRows} (отфильтровано, всего на сервере ${totalNotFiltered} записей)`
     }
 
     return `Записи с ${pageFrom} по ${pageTo} из ${totalRows}`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Табличный режим просмотра'
+  formatToggleOff() {
+    return "Табличный режим просмотра"
   },
 
-  formatToggleOn () {
-    return 'Показать записи в виде карточек'
-  }
+  formatToggleOn() {
+    return "Показать записи в виде карточек"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ru-RU'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["ru-RU"],
+)

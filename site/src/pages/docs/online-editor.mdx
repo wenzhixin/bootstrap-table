@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Online Editor
 description: Online Editor Explanation.
 group: online-editor
@@ -10,7 +10,10 @@ This page explains how to use our [Online Editor](https://live.bootstrap-table.c
 
 The Online Editor should be used for each **issue** and **pull request**!
 
-<img src="https://live.bootstrap-table.com/images/bootstrap-table-live.png" alt="Bootstrap Table Live Editor" />
+<img
+  src="https://live.bootstrap-table.com/images/bootstrap-table-live.png"
+  alt="Bootstrap Table Live Editor"
+/>
 
 ## How to log in
 
@@ -26,37 +29,36 @@ The page is structured as follows:
 
 We have 5 buttons:
 
-* **Run**: The Run button shows the current version of your example.
-* **Save**: The Save button saves your example. After you pressed save, the URL will be changed e.g. `https://live.bootstrap-table.com/code/<username>/<ID>`.
-* **Libraries**: This button will open a configuration page. On this page you can configure the environment of the example:
-  * Bootstrap Table source: This option defines which source of the version (CDN or from GitHub as source) should be used. If you choose `From GitHub src` you can set a branch that will be used for the example. For Issues, you normally always use `From Released CDN`.
-  * Release CDN version: Here you can choose the version of the bootstrap-table to create an example for older bootstrap-table versions.
-  * Theme: Here you can choose between our supported themes e.g. to show an issue with a certain theme.
-  * Extensions: If you explain to use an extension, you can select it here easily. This means you don't have to include it yourself on the example!
-* **Load Examples**: This option opens a page, here you can load existing examples (Its a "mirror" of our [examples page](https://examples.bootstrap-table.com/)).
-* **Links**: The last button just holds some links e.g. to our website, GitHub page, etc.
+- **Run**: The Run button shows the current version of your example.
+- **Save**: The Save button saves your example. After you pressed save, the URL will be changed e.g. `https://live.bootstrap-table.com/code/<username>/<ID>`.
+- **Libraries**: This button will open a configuration page. On this page you can configure the environment of the example:
+  - Bootstrap Table source: This option defines which source of the version (CDN or from GitHub as source) should be used. If you choose `From GitHub src` you can set a branch that will be used for the example. For Issues, you normally always use `From Released CDN`.
+  - Release CDN version: Here you can choose the version of the bootstrap-table to create an example for older bootstrap-table versions.
+  - Theme: Here you can choose between our supported themes e.g. to show an issue with a certain theme.
+  - Extensions: If you explain to use an extension, you can select it here easily. This means you don't have to include it yourself on the example!
+- **Load Examples**: This option opens a page, here you can load existing examples (Its a "mirror" of our [examples page](https://examples.bootstrap-table.com/)).
+- **Links**: The last button just holds some links e.g. to our website, GitHub page, etc.
 
 ### Left Side
 
 You can write your examples. Including HTML, CSS and JavaScript (css and javascript needs a `<style></style>` and/or `<script></script>` tag!
 
 The basic template is:
+
 ```html
 <!-- Includes custom css and js files -->
-<link rel="stylesheet" href="https://example.com/custom.css">
+<link rel="stylesheet" href="https://example.com/custom.css" />
 <script src="https://example.com/custom.js"></script>
 
 <!-- Define custom style -->
-<style>
-</style>
+<style></style>
 
 <!-- No need to write <html> and <body> tags -->
-<table id="table">
-</table>
+<table id="table"></table>
 
 <script>
   $(function () {
-    $('#table').bootstrapTable()
+    $("#table").bootstrapTable()
   })
 </script>
 ```
@@ -75,9 +77,11 @@ Each issue should contain an example (created on the [Online Editor](https://liv
 
 1. Open the online editor.
 2. Go to the Libraries page and configure the environment of the example.
-* Version
-* Theme
-* Extensions
+
+- Version
+- Theme
+- Extensions
+
 3. Write down your example (or copy it from your local project).
 4. Check if you can reproduce your issue on the example.
 5. Save the example (press on the Save button) and copy the URL.

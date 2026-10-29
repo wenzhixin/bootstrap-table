@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import HeaderModule from '@/modules/header.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import HeaderModule from "@/modules/header.js"
 
-function createHeaderMockContext (overrides = {}) {
+function createHeaderMockContext(overrides = {}) {
   const timeoutIds = {}
 
   return {
@@ -16,17 +16,17 @@ function createHeaderMockContext (overrides = {}) {
       escape: false,
       escapeTitle: false,
       singleSelect: false,
-      checkboxHeader: true
+      checkboxHeader: true,
     },
     columns: [],
-    _headerTrClasses: [''],
-    _headerTrStyles: [''],
+    _headerTrClasses: [""],
+    _headerTrStyles: [""],
     header: {},
     $el: {
       is: vi.fn(() => false),
-      attr: vi.fn(() => 'test-table'),
+      attr: vi.fn(() => "test-table"),
       find: vi.fn(() => ({ each: vi.fn(), data: vi.fn() })),
-      [0]: document.createElement('table')
+      [0]: document.createElement("table"),
     },
     $header: {
       html: vi.fn(),
@@ -36,8 +36,8 @@ function createHeaderMockContext (overrides = {}) {
       find: vi.fn(() => ({
         each: vi.fn(),
         data: vi.fn(),
-        off: vi.fn(() => ({ on: vi.fn() }))
-      }))
+        off: vi.fn(() => ({ on: vi.fn() })),
+      })),
     },
     $container: { off: vi.fn(() => ({ on: vi.fn() })) },
     $tableHeader: { show: vi.fn(), hide: vi.fn() },
@@ -51,7 +51,7 @@ function createHeaderMockContext (overrides = {}) {
     resetView: vi.fn(),
     resetCaret: vi.fn(),
     _resizeObserver: null,
-    destroy () {
+    destroy() {
       for (const type of Object.keys(this._timeoutId)) {
         clearTimeout(this._timeoutId[type])
       }
@@ -60,12 +60,12 @@ function createHeaderMockContext (overrides = {}) {
         this._resizeObserver = null
       }
     },
-    ...overrides
+    ...overrides,
   }
 }
 
-describe('HeaderModule', () => {
-  describe('ResizeObserver hidden-to-visible detection', () => {
+describe("HeaderModule", () => {
+  describe("ResizeObserver hidden-to-visible detection", () => {
     let ctx
     let originalResizeObserver
     let original$
@@ -91,7 +91,7 @@ describe('HeaderModule', () => {
       vi.restoreAllMocks()
     })
 
-    it('should create ResizeObserver when table is hidden at init', () => {
+    it("should create ResizeObserver when table is hidden at init", () => {
       globalThis.ResizeObserver = vi.fn(function (cb) {
         this.callback = cb
         this.observe = vi.fn()
@@ -105,7 +105,7 @@ describe('HeaderModule', () => {
       expect(ctx._resizeObserver.observe).toHaveBeenCalledWith(ctx.$el[0])
     })
 
-    it('should not create ResizeObserver when table is visible at init', () => {
+    it("should not create ResizeObserver when table is visible at init", () => {
       const MockRO = vi.fn(function (cb) {
         this.callback = cb
         this.observe = vi.fn()
@@ -121,7 +121,7 @@ describe('HeaderModule', () => {
       expect(MockRO).not.toHaveBeenCalled()
     })
 
-    it('should call resetView and disconnect when hidden-to-visible is detected', () => {
+    it("should call resetView and disconnect when hidden-to-visible is detected", () => {
       let observerCallback
 
       globalThis.ResizeObserver = vi.fn(function (cb) {
@@ -137,15 +137,17 @@ describe('HeaderModule', () => {
 
       const observer = ctx._resizeObserver
 
-      observerCallback([{
-        contentRect: { width: 800, height: 600 }
-      }])
+      observerCallback([
+        {
+          contentRect: { width: 800, height: 600 },
+        },
+      ])
 
       expect(observer.disconnect).toHaveBeenCalled()
       expect(ctx.resetView).toHaveBeenCalled()
     })
 
-    it('should disconnect observer after first hidden-to-visible trigger', () => {
+    it("should disconnect observer after first hidden-to-visible trigger", () => {
       let observerCallback
 
       globalThis.ResizeObserver = vi.fn(function (cb) {
@@ -157,15 +159,17 @@ describe('HeaderModule', () => {
 
       ctx.initHeader()
 
-      observerCallback([{
-        contentRect: { width: 800, height: 600 }
-      }])
+      observerCallback([
+        {
+          contentRect: { width: 800, height: 600 },
+        },
+      ])
 
       expect(ctx.resetView).toHaveBeenCalledTimes(1)
       expect(ctx._resizeObserver).toBeNull()
     })
 
-    it('should not trigger resetView while still hidden', () => {
+    it("should not trigger resetView while still hidden", () => {
       let observerCallback
 
       globalThis.ResizeObserver = vi.fn(function (cb) {
@@ -177,15 +181,17 @@ describe('HeaderModule', () => {
 
       ctx.initHeader()
 
-      observerCallback([{
-        contentRect: { width: 0, height: 0 }
-      }])
+      observerCallback([
+        {
+          contentRect: { width: 0, height: 0 },
+        },
+      ])
 
       expect(ctx.resetView).not.toHaveBeenCalled()
       expect(ctx._resizeObserver.disconnect).not.toHaveBeenCalled()
     })
 
-    it('should not trigger resetView when only one dimension is non-zero', () => {
+    it("should not trigger resetView when only one dimension is non-zero", () => {
       let observerCallback
 
       globalThis.ResizeObserver = vi.fn(function (cb) {
@@ -197,15 +203,17 @@ describe('HeaderModule', () => {
 
       ctx.initHeader()
 
-      observerCallback([{
-        contentRect: { width: 800, height: 0 }
-      }])
+      observerCallback([
+        {
+          contentRect: { width: 800, height: 0 },
+        },
+      ])
 
       expect(ctx.resetView).not.toHaveBeenCalled()
       expect(ctx._resizeObserver.disconnect).not.toHaveBeenCalled()
     })
 
-    it('should disconnect existing observer before creating a new one', () => {
+    it("should disconnect existing observer before creating a new one", () => {
       const disconnectSpy = vi.fn()
       const oldObserver = { disconnect: disconnectSpy, observe: vi.fn() }
 
@@ -226,13 +234,13 @@ describe('HeaderModule', () => {
     })
   })
 
-  describe('destroy cleanup', () => {
-    it('should disconnect ResizeObserver on destroy', () => {
+  describe("destroy cleanup", () => {
+    it("should disconnect ResizeObserver on destroy", () => {
       const mockDisconnect = vi.fn()
       const ctx = createHeaderMockContext({
         _resizeObserver: {
-          disconnect: mockDisconnect
-        }
+          disconnect: mockDisconnect,
+        },
       })
 
       ctx.destroy()
@@ -241,9 +249,9 @@ describe('HeaderModule', () => {
       expect(ctx._resizeObserver).toBeNull()
     })
 
-    it('should handle destroy when no ResizeObserver exists', () => {
+    it("should handle destroy when no ResizeObserver exists", () => {
       const ctx = createHeaderMockContext({
-        _resizeObserver: null
+        _resizeObserver: null,
       })
 
       expect(() => ctx.destroy()).not.toThrow()

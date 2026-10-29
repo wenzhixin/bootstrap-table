@@ -7,191 +7,198 @@
  * Update: @misteregis <misteregis@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['pt-BR'] = $.fn.bootstrapTable.locales['br'] = {
-  formatAddLevel () {
-    return 'Adicionar nível'
+$.fn.bootstrapTable.locales["pt-BR"] = $.fn.bootstrapTable.locales["br"] = {
+  formatAddLevel() {
+    return "Adicionar nível"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Fechar'
+  formatAdvancedCloseButton() {
+    return "Fechar"
   },
 
-  formatAdvancedSearch () {
-    return 'Pesquisa Avançada'
+  formatAdvancedSearch() {
+    return "Pesquisa Avançada"
   },
 
-  formatAllRows () {
-    return 'Tudo'
+  formatAllRows() {
+    return "Tudo"
   },
 
-  formatAutoRefresh () {
-    return 'Atualização Automática'
+  formatAutoRefresh() {
+    return "Atualização Automática"
   },
 
-  formatCancel () {
-    return 'Cancelar'
+  formatCancel() {
+    return "Cancelar"
   },
 
-  formatClearSearch () {
-    return 'Limpar Pesquisa'
+  formatClearSearch() {
+    return "Limpar Pesquisa"
   },
 
-  formatColumn () {
-    return 'Coluna'
+  formatColumn() {
+    return "Coluna"
   },
 
-  formatColumns () {
-    return 'Colunas'
+  formatColumns() {
+    return "Colunas"
   },
 
-  formatColumnsToggleAll () {
-    return 'Alternar tudo'
+  formatColumnsToggleAll() {
+    return "Alternar tudo"
   },
 
-  formatCopyRows () {
-    return 'Copiar linhas'
+  formatCopyRows() {
+    return "Copiar linhas"
   },
 
-  formatDeleteLevel () {
-    return 'Remover nível'
+  formatDeleteLevel() {
+    return "Remover nível"
   },
 
-  formatDetailPagination (totalRows) {
-    return `Mostrando ${totalRows} linha${totalRows > 1 ? 's' : ''}`
+  formatDetailPagination(totalRows) {
+    return `Mostrando ${totalRows} linha${totalRows > 1 ? "s" : ""}`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Por favor, remova ou altere as colunas duplicadas'
+  formatDuplicateAlertDescription() {
+    return "Por favor, remova ou altere as colunas duplicadas"
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Encontradas entradas duplicadas!'
+  formatDuplicateAlertTitle() {
+    return "Encontradas entradas duplicadas!"
   },
 
-  formatExport () {
-    return 'Exportar dados'
+  formatExport() {
+    return "Exportar dados"
   },
 
-  formatFilterControlSwitch () {
-    return 'Ocultar/Exibir controles'
+  formatFilterControlSwitch() {
+    return "Ocultar/Exibir controles"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Ocultar controles'
+  formatFilterControlSwitchHide() {
+    return "Ocultar controles"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Exibir controles'
+  formatFilterControlSwitchShow() {
+    return "Exibir controles"
   },
 
-  formatFullscreen () {
-    return 'Tela cheia'
+  formatFullscreen() {
+    return "Tela cheia"
   },
 
-  formatJumpTo () {
-    return 'Ir'
+  formatJumpTo() {
+    return "Ir"
   },
 
-  formatLoadingMessage () {
-    return 'Carregando, aguarde'
+  formatLoadingMessage() {
+    return "Carregando, aguarde"
   },
 
-  formatMultipleSort () {
-    return 'Ordenação múltipla'
+  formatMultipleSort() {
+    return "Ordenação múltipla"
   },
 
-  formatNoMatches () {
-    return 'Nenhum registro encontrado'
+  formatNoMatches() {
+    return "Nenhum registro encontrado"
   },
 
-  formatOrder () {
-    return 'Ordem'
+  formatOrder() {
+    return "Ordem"
   },
 
-  formatPaginationSwitch () {
-    return 'Ocultar/Exibir paginação'
+  formatPaginationSwitch() {
+    return "Ocultar/Exibir paginação"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Mostrar Paginação'
+  formatPaginationSwitchDown() {
+    return "Mostrar Paginação"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Esconder Paginação'
+  formatPaginationSwitchUp() {
+    return "Esconder Paginação"
   },
 
-  formatPrint () {
-    return 'Imprimir'
+  formatPrint() {
+    return "Imprimir"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} registros por página`
   },
 
-  formatRefresh () {
-    return 'Recarregar'
+  formatRefresh() {
+    return "Recarregar"
   },
 
-  formatSRPaginationNextText () {
-    return 'próxima página'
+  formatSRPaginationNextText() {
+    return "próxima página"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `ir para a página ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'página anterior'
+  formatSRPaginationPreText() {
+    return "página anterior"
   },
 
-  formatSearch () {
-    return 'Pesquisar'
+  formatSearch() {
+    return "Pesquisar"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    const plural = totalRows > 1 ? 's' : ''
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    const plural = totalRows > 1 ? "s" : ""
 
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linha${plural} (filtrado de um total de ${totalNotFiltered} linha${plural})`
     }
 
     return `Exibindo ${pageFrom} até ${pageTo} de ${totalRows} linha${plural}`
   },
 
-  formatSort () {
-    return 'Ordenar'
+  formatSort() {
+    return "Ordenar"
   },
 
-  formatSortBy () {
-    return 'Ordenar por'
+  formatSortBy() {
+    return "Ordenar por"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Crescente',
-      desc: 'Decrescente'
+      asc: "Crescente",
+      desc: "Decrescente",
     }
   },
 
-  formatThenBy () {
-    return 'em seguida'
+  formatThenBy() {
+    return "em seguida"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Hide card view'
+  formatToggleOff() {
+    return "Hide card view"
   },
 
-  formatToggleOn () {
-    return 'Mostrar visualização de cartão'
-  }
+  formatToggleOn() {
+    return "Mostrar visualização de cartão"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pt-BR'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["pt-BR"],
+)

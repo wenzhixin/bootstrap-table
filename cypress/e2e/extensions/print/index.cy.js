@@ -1,1 +1,1 @@
-require('../../../extensions/print/options')()
+require("../../../extensions/print/options")()

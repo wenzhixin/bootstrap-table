@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Fixed Columns
 description: Bootstrap Table 的固定列扩展，支持固定表格的左右列。
 group: extensions
@@ -11,7 +11,10 @@ toc: true
 ## 用法
 
 ```html
-<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link
+  rel="stylesheet"
+  href="extensions/fixed-columns/bootstrap-table-fixed-columns.css"
+/>
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 ```
 
@@ -59,13 +62,20 @@ toc: true
 
 ## 注意
 
-* 不支持 `detailView` 选项。
-* 不支持 `cardView` 选项。
-* 不支持 `showFooter` 选项。
-* 与 sticky-header 扩展一起使用时需在其后引入。例如：
+- 不支持 `detailView` 选项。
+- 不支持 `cardView` 选项。
+- 不支持 `showFooter` 选项。
+- 与 sticky-header 扩展一起使用时需在其后引入。例如：
+
 ```html
-<link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
-<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link
+  rel="stylesheet"
+  href="extensions/sticky-header/bootstrap-table-sticky-header.css"
+/>
+<link
+  rel="stylesheet"
+  href="extensions/fixed-columns/bootstrap-table-fixed-columns.css"
+/>
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 ```

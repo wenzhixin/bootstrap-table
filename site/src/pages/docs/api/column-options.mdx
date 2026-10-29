@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Column Options
 description: The column options API of Bootstrap Table.
 group: api
@@ -11,15 +11,16 @@ The column options is defined in `jQuery.fn.bootstrapTable.columnDefaults`.
 **Note:** The option names below (e.g., `align`, `checkbox`, `class`) are exact property names to use when defining columns in the `columns` array.
 
 For example:
+
 ```js
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   columns: [
     {
-      field: 'id',
-      title: 'ID',
-      align: 'center'
-    }
-  ]
+      field: "id",
+      title: "ID",
+      align: "center",
+    },
+  ],
 })
 ```
 
@@ -61,10 +62,10 @@ $('#table').bootstrapTable({
 
   The cell style formatter function, take four parameters:
 
-  * `value`: the field value.
-  * `row`: the row record data.
-  * `index`: the row index.
-  * `field`: the row field.
+  - `value`: the field value.
+  - `row`: the row record data.
+  - `index`: the row index.
+  - `field`: the row field.
 
   Support classes or css.
 
@@ -186,23 +187,23 @@ $('#table').bootstrapTable({
 
   The cell events listener, when you use formatter function, take four parameters:
 
-  * `event`: the event.
-  * `value`: the field value.
-  * `row`: the row record data.
-  * `index`: the row index.
+  - `event`: the event.
+  - `value`: the field value.
+  - `row`: the row record data.
+  - `index`: the row index.
 
   Example code:
 
   ```html
   <th .. data-events="operateEvent">
-  var operateEvents = {
-    'click .like': function (e, value, row, index) {}
-  }
+    var operateEvents = { 'click .like': function (e, value, row, index) {} }
+  </th>
   ```
 
 - **Default:** `undefined`
 
 - **Example:** [Column Events](https://examples.bootstrap-table.com/#column-options/events.html)
+
 ## falign
 
 - **Attribute:** `data-falign`
@@ -243,8 +244,8 @@ $('#table').bootstrapTable({
 
   The function, takes two parameters:
 
-  * `data`: Array of all the data rows.
-  * `value`: If footer data is set, the value of the footer column.
+  - `data`: Array of all the data rows.
+  - `value`: If footer data is set, the value of the footer column.
 
   The expected return data type is `jQuery`, `String` or `HTMLElement`. Other types will be forced to the `String` type.
 
@@ -264,15 +265,15 @@ $('#table').bootstrapTable({
 
   The footer style formatter function, takes one parameter:
 
-  * `column`: the column object.
+  - `column`: the column object.
 
   Support `classes` or `css`. Example usage:
 
   ```javascript
   function footerStyle(column) {
     return {
-      css: { 'font-weight': 'normal' },
-      classes: 'my-class'
+      css: { "font-weight": "normal" },
+      classes: "my-class",
     }
   }
   ```
@@ -293,10 +294,10 @@ $('#table').bootstrapTable({
 
   The cell formatter function, take four parameters:
 
-  * `value`: the field value.
-  * `row`: the row record data.
-  * `index`: the row index.
-  * `field`: the row field.
+  - `value`: the field value.
+  - `row`: the row record data.
+  - `index`: the row index.
+  - `field`: the row field.
 
   The expected return data type is `jQuery`, `String` or `HTMLElement`. Other types will be forced to the `String` type.
 
@@ -458,10 +459,10 @@ $('#table').bootstrapTable({
 
   The custom field sort function that is used to do local sorting, take four parameters:
 
-  * `fieldA`: the first field value.
-  * `fieldB`: the second field value.
-  * `rowA`: the first row.
-  * `rowB`: the second row.
+  - `fieldA`: the first field value.
+  - `fieldB`: the second field value.
+  - `rowA`: the first row.
+  - `rowB`: the second row.
 
   Expected return values: `-1, 0, 1`.
 
@@ -510,7 +511,6 @@ $('#table').bootstrapTable({
 - **Default:** `undefined`
 
 - **Example:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
-
 
 ## title
 
@@ -565,7 +565,6 @@ $('#table').bootstrapTable({
   Set `false` to hide the columns item.
 
 - **Default:** `true`
-
 
 - **Example:** [Column Visible](https://examples.bootstrap-table.com/#column-options/visible.html)
 

@@ -3,189 +3,196 @@
  * Author: Phillip Kruger <phillip.kruger@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['af-ZA'] = $.fn.bootstrapTable.locales['af'] = {
-  formatAddLevel () {
-    return 'Voeg \'n vlak by'
+$.fn.bootstrapTable.locales["af-ZA"] = $.fn.bootstrapTable.locales["af"] = {
+  formatAddLevel() {
+    return "Voeg 'n vlak by"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Maak'
+  formatAdvancedCloseButton() {
+    return "Maak"
   },
 
-  formatAdvancedSearch () {
-    return 'Gevorderde soektog'
+  formatAdvancedSearch() {
+    return "Gevorderde soektog"
   },
 
-  formatAllRows () {
-    return 'Alles'
+  formatAllRows() {
+    return "Alles"
   },
 
-  formatAutoRefresh () {
-    return 'Verfris outomaties'
+  formatAutoRefresh() {
+    return "Verfris outomaties"
   },
 
-  formatCancel () {
-    return 'Kanselleer'
+  formatCancel() {
+    return "Kanselleer"
   },
 
-  formatClearSearch () {
-    return 'Duidelike soektog'
+  formatClearSearch() {
+    return "Duidelike soektog"
   },
 
-  formatColumn () {
-    return 'Kolom'
+  formatColumn() {
+    return "Kolom"
   },
 
-  formatColumns () {
-    return 'Kolomme'
+  formatColumns() {
+    return "Kolomme"
   },
 
-  formatColumnsToggleAll () {
-    return 'Wys alles'
+  formatColumnsToggleAll() {
+    return "Wys alles"
   },
 
-  formatCopyRows () {
-    return 'Kopieer lyne'
+  formatCopyRows() {
+    return "Kopieer lyne"
   },
 
-  formatDeleteLevel () {
-    return 'Vee \'n vlak uit'
+  formatDeleteLevel() {
+    return "Vee 'n vlak uit"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `${totalRows}-reël vertoon`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Verwyder of wysig asseblief duplikaatinskrywings'
+  formatDuplicateAlertDescription() {
+    return "Verwyder of wysig asseblief duplikaatinskrywings"
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplikaatinskrywings is gevind!'
+  formatDuplicateAlertTitle() {
+    return "Duplikaatinskrywings is gevind!"
   },
 
-  formatExport () {
-    return 'Voer data uit'
+  formatExport() {
+    return "Voer data uit"
   },
 
-  formatFilterControlSwitch () {
-    return 'Versteek/Wys kontroles'
+  formatFilterControlSwitch() {
+    return "Versteek/Wys kontroles"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Versteek kontroles'
+  formatFilterControlSwitchHide() {
+    return "Versteek kontroles"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Wys kontroles'
+  formatFilterControlSwitchShow() {
+    return "Wys kontroles"
   },
 
-  formatFullscreen () {
-    return 'Volskerm'
+  formatFullscreen() {
+    return "Volskerm"
   },
 
-  formatJumpTo () {
-    return 'Gaan na'
+  formatJumpTo() {
+    return "Gaan na"
   },
 
-  formatLoadingMessage () {
-    return 'Laai tans'
+  formatLoadingMessage() {
+    return "Laai tans"
   },
 
-  formatMultipleSort () {
-    return 'Multi-sorteer'
+  formatMultipleSort() {
+    return "Multi-sorteer"
   },
 
-  formatNoMatches () {
-    return 'Geen resultate nie'
+  formatNoMatches() {
+    return "Geen resultate nie"
   },
 
-  formatOrder () {
-    return 'Bestelling'
+  formatOrder() {
+    return "Bestelling"
   },
 
-  formatPaginationSwitch () {
-    return 'Versteek/Wys paginasie'
+  formatPaginationSwitch() {
+    return "Versteek/Wys paginasie"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Wys paginasie'
+  formatPaginationSwitchDown() {
+    return "Wys paginasie"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Versteek paginasie'
+  formatPaginationSwitchUp() {
+    return "Versteek paginasie"
   },
 
-  formatPrint () {
-    return 'Druk uit'
+  formatPrint() {
+    return "Druk uit"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} reëls per bladsy`
   },
 
-  formatRefresh () {
-    return 'Verfris'
+  formatRefresh() {
+    return "Verfris"
   },
 
-  formatSRPaginationNextText () {
-    return 'volgende bladsy'
+  formatSRPaginationNextText() {
+    return "volgende bladsy"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `na bladsy ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'vorige bladsy'
+  formatSRPaginationPreText() {
+    return "vorige bladsy"
   },
 
-  formatSearch () {
-    return 'Navorsing'
+  formatSearch() {
+    return "Navorsing"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Wys ${pageFrom} tot ${pageTo} van ${totalRows} lyne (gefiltreer vanaf ${totalNotFiltered} lyne)`
     }
 
     return `Wys ${pageFrom} tot ${pageTo} van ${totalRows} lyne`
   },
 
-  formatSort () {
-    return 'Rangskik'
+  formatSort() {
+    return "Rangskik"
   },
 
-  formatSortBy () {
-    return 'Sorteer volgens'
+  formatSortBy() {
+    return "Sorteer volgens"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Stygende',
-      desc: 'Dalende'
+      asc: "Stygende",
+      desc: "Dalende",
     }
   },
 
-  formatThenBy () {
-    return 'Dan deur'
+  formatThenBy() {
+    return "Dan deur"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Versteek pasgemaakte aansig'
+  formatToggleCustomViewOff() {
+    return "Versteek pasgemaakte aansig"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Wys pasgemaakte aansig'
+  formatToggleCustomViewOn() {
+    return "Wys pasgemaakte aansig"
   },
 
-  formatToggleOff () {
-    return 'Versteek kaartaansig'
+  formatToggleOff() {
+    return "Versteek kaartaansig"
   },
 
-  formatToggleOn () {
-    return 'Wys kaartaansig'
-  }
+  formatToggleOn() {
+    return "Wys kaartaansig"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['af-ZA'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["af-ZA"],
+)

@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Group By v2
 description: Bootstrap Table 的数据分组扩展，允许按指定字段对表格数据进行分组展示。
 group: extensions
@@ -9,7 +9,10 @@ toc: true
 ## 用法
 
 ```html
-<link rel="stylesheet" href="extensions/group-by-v2/bootstrap-table-group-by.css">
+<link
+  rel="stylesheet"
+  href="extensions/group-by-v2/bootstrap-table-group-by.css"
+/>
 <script src="extensions/group-by-v2/bootstrap-table-group-by.js"></script>
 ```
 
@@ -44,8 +47,8 @@ toc: true
 - **详情:**
 
   设置用于分组的字段：
-  * 单字段时使用字符串，例如 `shape`。
-  * 多字段时使用数组，例如 `['shape', 'color']`。
+  - 单字段时使用字符串，例如 `shape`。
+  - 多字段时使用数组，例如 `['shape', 'color']`。
 
 - **默认值:** `''`
 
@@ -59,9 +62,9 @@ toc: true
 
   分组行的格式化函数，入参：
 
-  * `value`：分组值。
-  * `idx`：分组索引。
-  * `data`：该分组内的行数组。
+  - `value`：分组值。
+  - `idx`：分组索引。
+  - `data`：该分组内的行数组。
 
 - **默认值:** `undefined`
 

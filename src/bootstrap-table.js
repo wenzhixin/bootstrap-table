@@ -4,31 +4,31 @@
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
-import InitializationModule from './modules/initialization.js'
-import BodyModule from './modules/body.js'
-import CheckModule from './modules/check.js'
-import Constants from './constants/index.js'
-import DataModule from './modules/data.js'
-import DetailModule from './modules/detail.js'
-import HeaderModule from './modules/header.js'
-import PaginationModule from './modules/pagination.js'
-import SearchModule from './modules/search.js'
-import ToolbarModule from './modules/toolbar.js'
-import Utils from './utils/index.js'
+import InitializationModule from "./modules/initialization.js"
+import BodyModule from "./modules/body.js"
+import CheckModule from "./modules/check.js"
+import Constants from "./constants/index.js"
+import DataModule from "./modules/data.js"
+import DetailModule from "./modules/detail.js"
+import HeaderModule from "./modules/header.js"
+import PaginationModule from "./modules/pagination.js"
+import SearchModule from "./modules/search.js"
+import ToolbarModule from "./modules/toolbar.js"
+import Utils from "./utils/index.js"
 
 class BootstrapTable {
-  constructor (el, options) {
+  constructor(el, options) {
     this.options = options
     this.$el = $(el)
     this.$el_ = this.$el.clone()
     this._timeoutId = {
       header: 0,
       footer: 0,
-      resetView: 0
+      resetView: 0,
     }
   }
 
-  init () {
+  init() {
     this.initConstants()
     this.initLocale()
     this.initContainer()
@@ -43,17 +43,17 @@ class BootstrapTable {
     this.initServer()
   }
 
-  trigger (_name, ...args) {
+  trigger(_name, ...args) {
     const name = `${_name}.bs.table`
 
     this.options[BootstrapTable.EVENTS[name]](...[...args, this])
     this.$el.trigger($.Event(name, { sender: this }), args)
 
     this.options.onAll(name, ...[...args, this])
-    this.$el.trigger($.Event('all.bs.table', { sender: this }), [name, args])
+    this.$el.trigger($.Event("all.bs.table", { sender: this }), [name, args])
   }
 
-  getOptions () {
+  getOptions() {
     // deep copy and remove data
     const options = Utils.extend({}, this.options)
 
@@ -61,24 +61,24 @@ class BootstrapTable {
     return Utils.extend(true, {}, options)
   }
 
-  refreshOptions (options) {
+  refreshOptions(options) {
     // If the objects are equivalent then avoid the call of destroy / init methods
     if (Utils.compareObjects(this.options, options, true)) {
       return
     }
     this.optionsColumnsChanged = !!options.columns
     this.options = Utils.extend(this.options, options)
-    this.trigger('refresh-options', this.options)
+    this.trigger("refresh-options", this.options)
     this.destroy()
     this.init()
   }
 
-  _setDelayTimeout (type, callback, delay) {
+  _setDelayTimeout(type, callback, delay) {
     clearTimeout(this._timeoutId[type])
     this._timeoutId[type] = setTimeout(callback, delay)
   }
 
-  destroy () {
+  destroy() {
     for (const type of Object.keys(this._timeoutId)) {
       clearTimeout(this._timeoutId[type])
     }
@@ -90,22 +90,26 @@ class BootstrapTable {
     $(this.options.toolbar).insertBefore(this.$el)
     this.$container.next().remove()
     this.$container.remove()
-    this.$el.html(this.$el_.html())
-      .css('margin-top', '0')
-      .attr('class', this.$el_.attr('class') || '') // reset the class
+    this.$el
+      .html(this.$el_.html())
+      .css("margin-top", "0")
+      .attr("class", this.$el_.attr("class") || "") // reset the class
 
-    const resizeEvent = Utils.getEventName('resize.bootstrap-table', this.$el.attr('id'))
+    const resizeEvent = Utils.getEventName(
+      "resize.bootstrap-table",
+      this.$el.attr("id"),
+    )
 
     $(window).off(resizeEvent)
   }
 
-  updateFormatText (formatName, text) {
+  updateFormatText(formatName, text) {
     if (!/^format/.test(formatName) || !this.options[formatName]) {
       return
     }
-    if (typeof text === 'string') {
+    if (typeof text === "string") {
       this.options[formatName] = () => text
-    } else if (typeof text === 'function') {
+    } else if (typeof text === "function") {
       this.options[formatName] = text
     }
     this.initToolbar()
@@ -139,9 +143,9 @@ $.fn.bootstrapTable = function (option, ...args) {
   let value
 
   this.each((i, el) => {
-    let data = $(el).data('bootstrap.table')
+    let data = $(el).data("bootstrap.table")
 
-    if (typeof option === 'string') {
+    if (typeof option === "string") {
       if (!Constants.METHODS.includes(option)) {
         throw new Error(`Unknown method: ${option}`)
       }
@@ -152,26 +156,31 @@ $.fn.bootstrapTable = function (option, ...args) {
 
       value = data[option](...args)
 
-      if (option === 'destroy') {
-        $(el).removeData('bootstrap.table')
+      if (option === "destroy") {
+        $(el).removeData("bootstrap.table")
       }
       return
     }
 
     if (data) {
-      console.warn('You cannot initialize the table more than once!')
+      console.warn("You cannot initialize the table more than once!")
       return
     }
 
-    const options = Utils.extend(true, {}, BootstrapTable.DEFAULTS, $(el).data(),
-      typeof option === 'object' && option)
+    const options = Utils.extend(
+      true,
+      {},
+      BootstrapTable.DEFAULTS,
+      $(el).data(),
+      typeof option === "object" && option,
+    )
 
     data = new $.BootstrapTable(el, options)
-    $(el).data('bootstrap.table', data)
+    $(el).data("bootstrap.table", data)
     data.init()
   })
 
-  return typeof value === 'undefined' ? this : value
+  return typeof value === "undefined" ? this : value
 }
 
 $.fn.bootstrapTable.Constructor = BootstrapTable

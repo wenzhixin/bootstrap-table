@@ -3,189 +3,196 @@
  * Author: Azamshul Azizy <azamshul@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['ja-JP'] = $.fn.bootstrapTable.locales['ja'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["ja-JP"] = $.fn.bootstrapTable.locales["ja"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Close'
+  formatAdvancedCloseButton() {
+    return "Close"
   },
 
-  formatAdvancedSearch () {
-    return 'Advanced search'
+  formatAdvancedSearch() {
+    return "Advanced search"
   },
 
-  formatAllRows () {
-    return 'すべて'
+  formatAllRows() {
+    return "すべて"
   },
 
-  formatAutoRefresh () {
-    return 'Auto Refresh'
+  formatAutoRefresh() {
+    return "Auto Refresh"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Clear Search'
+  formatClearSearch() {
+    return "Clear Search"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return '列'
+  formatColumns() {
+    return "列"
   },
 
-  formatColumnsToggleAll () {
-    return 'Toggle all'
+  formatColumnsToggleAll() {
+    return "Toggle all"
   },
 
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatCopyRows() {
+    return "Copy Rows"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Showing ${totalRows} rows`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Export data'
+  formatExport() {
+    return "Export data"
   },
 
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+  formatFilterControlSwitch() {
+    return "Hide/Show controls"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
+  formatFilterControlSwitchHide() {
+    return "Hide controls"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+  formatFilterControlSwitchShow() {
+    return "Show controls"
   },
 
-  formatFullscreen () {
-    return 'Fullscreen'
+  formatFullscreen() {
+    return "Fullscreen"
   },
 
-  formatJumpTo () {
-    return 'GO'
+  formatJumpTo() {
+    return "GO"
   },
 
-  formatLoadingMessage () {
-    return '読み込み中です。少々お待ちください。'
+  formatLoadingMessage() {
+    return "読み込み中です。少々お待ちください。"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return '該当するレコードが見つかりません'
+  formatNoMatches() {
+    return "該当するレコードが見つかりません"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'ページ数を表示・非表示'
+  formatPaginationSwitch() {
+    return "ページ数を表示・非表示"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
+  formatPaginationSwitchDown() {
+    return "Show pagination"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
+  formatPaginationSwitchUp() {
+    return "Hide pagination"
   },
 
-  formatPrint () {
-    return 'Print'
+  formatPrint() {
+    return "Print"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `ページ当たり最大${pageNumber}件`
   },
 
-  formatRefresh () {
-    return '更新'
+  formatRefresh() {
+    return "更新"
   },
 
-  formatSRPaginationNextText () {
-    return 'next page'
+  formatSRPaginationNextText() {
+    return "next page"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `to page ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'previous page'
+  formatSRPaginationPreText() {
+    return "previous page"
   },
 
-  formatSearch () {
-    return '検索'
+  formatSearch() {
+    return "検索"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `全${totalRows}件から、${pageFrom}から${pageTo}件目まで表示しています (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `全${totalRows}件から、${pageFrom}から${pageTo}件目まで表示しています`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Hide card view'
+  formatToggleOff() {
+    return "Hide card view"
   },
 
-  formatToggleOn () {
-    return 'Show card view'
-  }
+  formatToggleOn() {
+    return "Show card view"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ja-JP'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["ja-JP"],
+)

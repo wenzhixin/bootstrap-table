@@ -1,14 +1,14 @@
 {
   "name": "bootstrap-table-docs",
-  "type": "module",
   "version": "1.24.2",
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
+    "algolia": "node scripts/algolia-index.js",
     "astro": "astro",
+    "build": "astro build",
+    "dev": "astro dev",
     "lint": "eslint .",
-    "algolia": "node scripts/algolia-index.js"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.2",

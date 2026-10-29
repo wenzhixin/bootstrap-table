@@ -1,3 +1,3 @@
-import BootstrapTable from './BootstrapTable.vue'
+import BootstrapTable from "./BootstrapTable.vue"
 
 export default BootstrapTable

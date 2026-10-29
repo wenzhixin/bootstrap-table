@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Pipeline
 description: Table Pipeline extension of Bootstrap Table.
 group: extensions
@@ -12,6 +12,7 @@ for a performance balance for a large data set between returning all data at onc
 (client-side paging) and a new server-side request (server-side paging).
 
 There are two new options:
+
 - `usePipeline`: enables this feature
 - `pipelineSize`: the size of each cache window
 
@@ -58,6 +59,7 @@ The current cached data is only invalidated on these events:
 - page change moves into a new cache window
 
 There are two new events:
+
 - `cached-data-hit.bs.table`: issued when cached data is used on a page change
 - `cached-data-reset.bs.table`: issued when the cached data is invalidated and the new server-side request is issued
 
@@ -72,6 +74,7 @@ There are two new events:
 ## Example
 
 [Pipeline](https://examples.bootstrap-table.com/#extensions/pipeline.html)
+
 ## Options
 
 ### pipelineSize
@@ -97,7 +100,6 @@ There are two new events:
   Set true to enable pipelining.
 
 - **Default:** `false`
-
 
 ## Events
 
@@ -131,7 +133,7 @@ There are two new events:
 
 ```javascript
 // Reset the pipeline cache
-$('#mytable').bootstrapTable('resetPipelineCache')
+$("#mytable").bootstrapTable("resetPipelineCache")
 // Refresh the table to trigger a new server request
-$('#mytable').bootstrapTable('refresh')
+$("#mytable").bootstrapTable("refresh")
 ```

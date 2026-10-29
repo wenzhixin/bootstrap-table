@@ -1,1 +1,1 @@
-require('../../../extensions/fixed-columns')()
+require("../../../extensions/fixed-columns")()

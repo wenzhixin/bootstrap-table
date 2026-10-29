@@ -1,106 +1,108 @@
-import { globSync } from 'glob'
-import { babel } from '@rollup/plugin-babel'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import terser from '@rollup/plugin-terser'
-import inject from '@rollup/plugin-inject'
-import copy from 'rollup-plugin-copy'
-import multiEntry from '@rollup/plugin-multi-entry'
+import { globSync } from "glob"
+import { babel } from "@rollup/plugin-babel"
+import { nodeResolve } from "@rollup/plugin-node-resolve"
+import commonjs from "@rollup/plugin-commonjs"
+import terser from "@rollup/plugin-terser"
+import inject from "@rollup/plugin-inject"
+import copy from "rollup-plugin-copy"
+import multiEntry from "@rollup/plugin-multi-entry"
 
 // Custom plugin to replace @ in core-js comments to avoid email detection
-function removeCoreJsAtSymbol () {
+function removeCoreJsAtSymbol() {
   return {
-    name: 'remove-core-js-at-symbol',
-    renderChunk (code) {
+    name: "remove-core-js-at-symbol",
+    renderChunk(code) {
       // Replace any core-js@... occurrence with core-js [at] ...
       // to avoid email detection by security scanners
-      return code.replace(/core-js@([^\s]+)/g, 'core-js [at] $1')
-    }
+      return code.replace(/core-js@([^\s]+)/g, "core-js [at] $1")
+    },
   }
 }
 
-const files = globSync('src/**/*.js', {
+const files = globSync("src/**/*.js", {
   ignore: [
-    'src/constants/**',
-    'src/modules/**',
-    'src/helpers/**',
-    'src/utils/**',
-    'src/virtual-scroll/**',
-    'src/vue/**'
-  ]
+    "src/constants/**",
+    "src/modules/**",
+    "src/helpers/**",
+    "src/utils/**",
+    "src/virtual-scroll/**",
+    "src/vue/**",
+  ],
 })
-const external = ['jquery']
+const external = ["jquery"]
 const globals = {
-  jquery: 'jQuery'
+  jquery: "jQuery",
 }
 const config = []
 const plugins = [
   inject({
-    include: '**/*.js',
-    exclude: 'node_modules/**',
-    $: 'jquery'
+    include: "**/*.js",
+    exclude: "node_modules/**",
+    $: "jquery",
   }),
   nodeResolve(),
   commonjs(),
   babel({
-    babelHelpers: 'bundled',
-    exclude: 'node_modules/**'
+    babelHelpers: "bundled",
+    exclude: "node_modules/**",
   }),
   copy({
     targets: [
-      { src: 'src/themes/bootstrap-table/fonts/*', dest: 'dist/themes/bootstrap-table/fonts' }
-    ]
+      {
+        src: "src/themes/bootstrap-table/fonts/*",
+        dest: "dist/themes/bootstrap-table/fonts",
+      },
+    ],
   }),
-  removeCoreJsAtSymbol()
+  removeCoreJsAtSymbol(),
 ]
 
-if (process.env.NODE_ENV === 'production') {
-  plugins.push(terser({
-    output: {
-      comments () {
-        return false
-      }
-    }
-  }))
+if (process.env.NODE_ENV === "production") {
+  plugins.push(
+    terser({
+      output: {
+        comments() {
+          return false
+        },
+      },
+    }),
+  )
 }
 
 for (const file of files) {
-  let out = `dist/${file.replace('src/', '')}`
+  let out = `dist/${file.replace("src/", "")}`
 
-  if (process.env.NODE_ENV === 'production') {
-    out = out.replace(/.js$/, '.min.js')
+  if (process.env.NODE_ENV === "production") {
+    out = out.replace(/.js$/, ".min.js")
   }
   config.push({
     input: file,
     output: {
-      name: 'BootstrapTable',
+      name: "BootstrapTable",
       file: out,
-      format: 'umd',
-      globals
+      format: "umd",
+      globals,
     },
     external,
-    plugins
+    plugins,
   })
 }
 
-let out = 'dist/bootstrap-table-locale-all.js'
+let out = "dist/bootstrap-table-locale-all.js"
 
-if (process.env.NODE_ENV === 'production') {
-  out = out.replace(/.js$/, '.min.js')
+if (process.env.NODE_ENV === "production") {
+  out = out.replace(/.js$/, ".min.js")
 }
 config.push({
-  input: 'src/locale/**/*.js',
+  input: "src/locale/**/*.js",
   output: {
-    name: 'BootstrapTable',
+    name: "BootstrapTable",
     file: out,
-    format: 'umd',
-    globals
+    format: "umd",
+    globals,
   },
   external,
-  plugins: [
-    multiEntry(),
-    ...plugins
-  ]
+  plugins: [multiEntry(), ...plugins],
 })
 
 export default config

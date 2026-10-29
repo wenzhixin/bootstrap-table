@@ -12,7 +12,6 @@ the developers managing and developing this open source project. In return,
 they should reciprocate that respect in addressing your issue or assessing
 patches and features.
 
-
 ## Using the issue tracker
 
 The [issue tracker](https://github.com/wenzhixin/bootstrap-table/issues) is
@@ -20,27 +19,25 @@ the preferred channel for [bug reports](#bug-reports), [features requests](#feat
 and [submitting pull requests](#pull-requests), but please respect the following
 restrictions:
 
-* Please **do not** use the issue tracker for personal support requests.  Stack
+- Please **do not** use the issue tracker for personal support requests. Stack
   Overflow ([`bootstrap-table`](http://stackoverflow.com/questions/tagged/bootstrap-table) tag is better place to get help).
 
-* Please **do not** derail or troll issues. Keep the discussion on topic and
+- Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others.
 
-* Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions) (open them in their respective repositories), the dependence list:
-    * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
-    * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
-    * Table Reorder-Columns: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
-    * Table Reorder-Rows: [tablednd](https://github.com/isocra/TableDnD)
-    * Table Resizable: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizable-columns)
-    * Table Treegrid: Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
-
+- Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions) (open them in their respective repositories), the dependence list:
+  - Table Editable: [x-editable](https://github.com/vitalets/x-editable)
+  - Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
+  - Table Reorder-Columns: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
+  - Table Reorder-Rows: [tablednd](https://github.com/isocra/TableDnD)
+  - Table Resizable: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizable-columns)
+  - Table Treegrid: Dependence: [jquery-treegrid](https://github.com/maxazan/jquery-treegrid) v0.3.0
 
 ## Issues and labels
 
 Our bug tracker utilizes several labels to help organize and identify issues.
 
 For a complete look at our labels, see the [project labels page](https://github.com/wenzhixin/bootstrap-table/labels).
-
 
 ## Bug reports
 
@@ -56,7 +53,6 @@ Guidelines for bug reports:
 2. **Check if the issue has been fixed** &mdash; try to reproduce it using the latest `master` or development branch in the repository.
 
 3. **Isolate the problem** &mdash; ideally create a live example. Our [Online Editor](https://live.bootstrap-table.com) tool is a very helpful for this.
-
 
 A good bug report shouldn't leave others needing to chase you up for more
 information. Please try to be as detailed as possible in your report. What is
@@ -83,14 +79,12 @@ Example:
 > causing the bug, and potential solutions (and your opinions on their
 > merits).
 
-
 ## Feature requests
 
 Feature requests are welcome. But take a moment to find out whether your idea
-fits with the scope and aims of the project. It's up to *you* to make a strong
+fits with the scope and aims of the project. It's up to _you_ to make a strong
 case to convince the project's developers of the merits of this feature. Please
 provide as much detail and context as possible.
-
 
 ## Pull requests
 
@@ -163,7 +157,6 @@ includes code changes) and under the terms of the
 [Creative Commons Attribution 3.0 Unported License](site/LICENSE)
 (if it includes documentation changes).
 
-
 ## Code guidelines
 
 - Readability
@@ -171,34 +164,28 @@ includes code changes) and under the terms of the
 - 2 spaces (no tabs)
 - "Attractive"
 
-
 ## License
 
 By contributing your code, you agree to license your contribution under the [MIT License](LICENSE).
 By contributing to the documentation, you agree to license your contribution under the [Creative Commons Attribution 3.0 Unported License](site/LICENSE).
-
 
 ## Financial contributions
 
 We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/bootstrap-table).
 Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
 
-
 ## Credits
-
 
 ### Contributors
 
 Thank you to all the people who have already contributed to bootstrap-table!
 <a href="graphs/contributors"><img src="https://opencollective.com/bootstrap-table/contributors.svg?width=890" /></a>
 
-
 ### Backers
 
 Thank you to all our backers! [[Become a backer](https://opencollective.com/bootstrap-table#backer)]
 
 <a href="https://opencollective.com/bootstrap-table#backers" target="_blank"><img src="https://opencollective.com/bootstrap-table/backers.svg?width=890"></a>
-
 
 ### Sponsors
 

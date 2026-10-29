@@ -3,189 +3,196 @@
  * Author: MJ Vakili <mjv.1989@Gmail.com>
  */
 
-$.fn.bootstrapTable.locales['fa-IR'] = $.fn.bootstrapTable.locales['fa'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["fa-IR"] = $.fn.bootstrapTable.locales["fa"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'بستن'
+  formatAdvancedCloseButton() {
+    return "بستن"
   },
 
-  formatAdvancedSearch () {
-    return 'جستجوی پیشرفته'
+  formatAdvancedSearch() {
+    return "جستجوی پیشرفته"
   },
 
-  formatAllRows () {
-    return 'همه'
+  formatAllRows() {
+    return "همه"
   },
 
-  formatAutoRefresh () {
-    return 'رفرش اتوماتیک'
+  formatAutoRefresh() {
+    return "رفرش اتوماتیک"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'پاک کردن جستجو'
+  formatClearSearch() {
+    return "پاک کردن جستجو"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'سطر ها'
+  formatColumns() {
+    return "سطر ها"
   },
 
-  formatColumnsToggleAll () {
-    return 'تغییر وضعیت همه'
+  formatColumnsToggleAll() {
+    return "تغییر وضعیت همه"
   },
 
-  formatCopyRows () {
-    return 'کپی ردیف ها'
+  formatCopyRows() {
+    return "کپی ردیف ها"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `نمایش ${totalRows} سطرها`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'خروجی دیتا'
+  formatExport() {
+    return "خروجی دیتا"
   },
 
-  formatFilterControlSwitch () {
-    return 'پنهان/نمایش دادن کنترل ها'
+  formatFilterControlSwitch() {
+    return "پنهان/نمایش دادن کنترل ها"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'پنهان کردن کنترل ها'
+  formatFilterControlSwitchHide() {
+    return "پنهان کردن کنترل ها"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'نمایش کنترل ها'
+  formatFilterControlSwitchShow() {
+    return "نمایش کنترل ها"
   },
 
-  formatFullscreen () {
-    return 'تمام صفحه'
+  formatFullscreen() {
+    return "تمام صفحه"
   },
 
-  formatJumpTo () {
-    return 'برو'
+  formatJumpTo() {
+    return "برو"
   },
 
-  formatLoadingMessage () {
-    return 'در حال بارگذاری, لطفا صبر کنید'
+  formatLoadingMessage() {
+    return "در حال بارگذاری, لطفا صبر کنید"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'رکوردی یافت نشد.'
+  formatNoMatches() {
+    return "رکوردی یافت نشد."
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'نمایش/مخفی صفحه بندی'
+  formatPaginationSwitch() {
+    return "نمایش/مخفی صفحه بندی"
   },
 
-  formatPaginationSwitchDown () {
-    return 'نمایش صفحه بندی'
+  formatPaginationSwitchDown() {
+    return "نمایش صفحه بندی"
   },
 
-  formatPaginationSwitchUp () {
-    return 'پنهان کردن صفحه بندی'
+  formatPaginationSwitchUp() {
+    return "پنهان کردن صفحه بندی"
   },
 
-  formatPrint () {
-    return 'پرینت'
+  formatPrint() {
+    return "پرینت"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} رکورد در صفحه`
   },
 
-  formatRefresh () {
-    return 'به روز رسانی'
+  formatRefresh() {
+    return "به روز رسانی"
   },
 
-  formatSRPaginationNextText () {
-    return 'صفحه بعدی'
+  formatSRPaginationNextText() {
+    return "صفحه بعدی"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `به صفحه ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'صفحه قبلی'
+  formatSRPaginationPreText() {
+    return "صفحه قبلی"
   },
 
-  formatSearch () {
-    return 'جستجو'
+  formatSearch() {
+    return "جستجو"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `نمایش ${pageFrom} تا ${pageTo} از ${totalRows} ردیف (filtered from ${totalNotFiltered} total rows)`
     }
 
     return `نمایش ${pageFrom} تا ${pageTo} از ${totalRows} ردیف`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Hide card view'
+  formatToggleOff() {
+    return "Hide card view"
   },
 
-  formatToggleOn () {
-    return 'Show card view'
-  }
+  formatToggleOn() {
+    return "Show card view"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fa-IR'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["fa-IR"],
+)

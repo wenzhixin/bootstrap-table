@@ -474,8 +474,7 @@ ChangeLog
 
 - **Update(cookie):** Fixed cookie extension error with multiple-sort.
 - **Update(export):** Fixed the `exportOptions` option cannot support the data attribute.
-- **Update(reorder-rows):**  Fixed reorder-rows cannot work because of missing default functions.
-
+- **Update(reorder-rows):** Fixed reorder-rows cannot work because of missing default functions.
 
 ### 1.20.0
 
@@ -632,7 +631,7 @@ ChangeLog
 - **Update(fixed-columns):** Fixed `toggleView` display bug.
 - **Update(group-by):** Fixed not collapse detail view expanded row bug.
 - **Update(group-by):** Fixed display error using `formatter` column option.
-- **Update(group-by):** Fixed `groupByFormatter` option  bug using in data attribute.
+- **Update(group-by):** Fixed `groupByFormatter` option bug using in data attribute.
 - **Update(multiple-sort):** Fixed cannot work bug using in server `sidePagination`.
 - **Update(page-jump-to):** Fixed page jump input and button bug with `icon-size` option.
 - **Update(print):** Fixed print with `rowspan` or `colspan`.
@@ -1122,7 +1121,6 @@ ChangeLog
 
 - feat(js): add `toggleOn` and `toggleOff` icons instead `toggle` icon
 
-
 ### 1.11.1
 
 - fix(js): fix #2439, `filterBy` cannot filter array keys
@@ -1160,7 +1158,6 @@ ChangeLog
 #### Breaking changes in 1.11.1
 
 - **Filter-Control extension**: deleted the inline-style and now this extension is using a separated css file.
-
 
 ### 1.11.0
 
@@ -1205,7 +1202,6 @@ ChangeLog
 - refactor(filter-control extension): adding all unique values to select control and performance improvements
 - refactor(extension): refactor filter cookies extension to avoid double calls
 - docs(filter-control extension): add documentation for filterData
-
 
 ### 1.10.1
 

@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Options
 description: The table options API of Bootstrap Table.
 group: api
@@ -11,6 +11,7 @@ The table options are defined in `jQuery.fn.bootstrapTable.defaults`.
 **Note:** The option names below (e.g., `ajax`, `buttons`, `cache`) are the exact property names to use when initializing Bootstrap Table via JavaScript.
 
 For example:
+
 ```js
 $('#table').bootstrapTable({
   ajax: yourFunction,
@@ -99,6 +100,7 @@ $('#table').bootstrapTable({
 
   The `event` option can be configured in three ways.
   One event with `click` event:
+
   ```javascript
   {
     'event': () => { }
@@ -106,6 +108,7 @@ $('#table').bootstrapTable({
   ```
 
   One event with a self-defined event type:
+
   ```javascript
     {
       'event': {
@@ -115,6 +118,7 @@ $('#table').bootstrapTable({
   ```
 
   Multiple events with self-defined event types:
+
   ```javascript
     {
       'event': {
@@ -128,7 +132,8 @@ $('#table').bootstrapTable({
   **Hint:** Instead of inline functions, you also can use function names.
 
   A configured custom button could look like this:
-  ``` javascript
+
+  ```javascript
   {
     btnRemoveEvenRows: {
       'text': 'Remove even Rows',
@@ -339,9 +344,9 @@ $('#table').bootstrapTable({
 
   The custom search function is executed instead of the built-in search function, takes three parameters:
 
-  * `data`: the table data.
-  * `text`: the search text.
-  * `filter`: the filter object from `filterBy` method.
+  - `data`: the table data.
+  - `text`: the search text.
+  - `filter`: the filter object from `filterBy` method.
 
   Example usage:
 
@@ -367,9 +372,9 @@ $('#table').bootstrapTable({
 
   The custom sort function is executed instead of the built-in sort function, takes three parameters:
 
-  * `sortName`: the sort name.
-  * `sortOrder`: the sort order.
-  * `data`: the rows data.
+  - `sortName`: the sort name.
+  - `sortOrder`: the sort order.
+  - `data`: the rows data.
 
 - **Default:** `undefined`
 
@@ -386,22 +391,24 @@ $('#table').bootstrapTable({
   The data to be loaded.
 
   If in the data has `_<field>_rowspan` or `_<field>_colspan` property, then will merge cells auto, for example:
+
   ```js
   $table.bootstrapTable({
     data: [
       {
         id: 1,
-        name: 'Item 1',
+        name: "Item 1",
         _name_rowspan: 2,
-        price: '$1'
+        price: "$1",
       },
       {
         id: 2,
-        price: '$2'
-      }
-    ]
+        price: "$2",
+      },
+    ],
   })
   ```
+
   If using this feature, the `data` is required to ensure that the format is correct.
 
 - **Default:** `[]`
@@ -589,7 +596,6 @@ $('#table').bootstrapTable({
   The footer Object can be used to set/define footer colspan and/or the value of the footer.
   Only triggered when `data-pagination` is `true` and `data-side-pagination` is `server`.
 
-
   ```javascript
     {
       "rows": [
@@ -606,7 +612,7 @@ $('#table').bootstrapTable({
         "name": "footer name"
       }
     }
-    ```
+  ```
 
 - **Default:** `footerField`
 
@@ -622,15 +628,15 @@ $('#table').bootstrapTable({
 
   The footer style formatter function, takes one parameter:
 
-  * `column`: the column object.
+  - `column`: the column object.
 
   Support `classes` or `css`. Example usage:
 
   ```javascript
   function footerStyle(column) {
     return {
-      css: { 'font-weight': 'normal' },
-      classes: 'my-class'
+      css: { "font-weight": "normal" },
+      classes: "my-class",
     }
   }
   ```
@@ -649,15 +655,15 @@ $('#table').bootstrapTable({
 
   The header style formatter function, takes one parameter:
 
-  * `column`: the column object.
+  - `column`: the column object.
 
   Support `classes` or `css`. Example usage:
 
   ```javascript
   function headerStyle(column) {
     return {
-      css: { 'font-weight': 'normal' },
-      classes: 'my-class'
+      css: { "font-weight": "normal" },
+      classes: "my-class",
     }
   }
   ```
@@ -693,17 +699,10 @@ $('#table').bootstrapTable({
 - **Default:**
 
   ```html
-  {
-    paginationSwitchDown: 'fa-caret-square-down',
-    paginationSwitchUp: 'fa-caret-square-up',
-    refresh: 'fa-sync',
-    toggleOff: 'fa-toggle-off',
-    toggleOn: 'fa-toggle-on',
-    columns: 'fa-th-list',
-    fullscreen: 'fa-arrows-alt',
-    detailOpen: 'fa-plus',
-    detailClose: 'fa-minus'
-  }
+  { paginationSwitchDown: 'fa-caret-square-down', paginationSwitchUp:
+  'fa-caret-square-up', refresh: 'fa-sync', toggleOff: 'fa-toggle-off',
+  toggleOn: 'fa-toggle-on', columns: 'fa-th-list', fullscreen: 'fa-arrows-alt',
+  detailOpen: 'fa-plus', detailClose: 'fa-minus' }
   ```
 
 - **Example:** [Table Icons](https://examples.bootstrap-table.com/#options/table-icons.html)
@@ -748,6 +747,7 @@ $('#table').bootstrapTable({
 - **Default:** `undefined`
 
 - **Example:** [Icons Prefix](https://examples.bootstrap-table.com/#options/icons-prefix.html)
+
 ## idField
 
 - **Attribute:** `data-id-field`
@@ -772,7 +772,7 @@ $('#table').bootstrapTable({
 
   Set the ignore elements `clickToSelect` on. Takes one parameter:
 
-  * `element`: the element clicked on.
+  - `element`: the element clicked on.
 
   Return true if the click should be ignored, false if the click should cause the row to be selected. This option is only relevant if `clickToSelect` is true.
 
@@ -804,9 +804,10 @@ $('#table').bootstrapTable({
 
   To custom the loading type by yourself. The parameters object contain:
 
-  * loadingMessage: the `formatLoadingMessage` locale.
+  - loadingMessage: the `formatLoadingMessage` locale.
 
 - **Default:**
+
   ```js
   function (loadingMessage) {
     return '<span class="loading-wrap">' +
@@ -833,10 +834,10 @@ $('#table').bootstrapTable({
 
   The system supports a fallback mechanism for locales, attempting to load them in the following priority order:
 
-  * **First priority**: Attempt to load the specified whole locale (e.g., `'zh-CN'`)
-  * **Second priority**: Attempt to convert underscores `_` to hyphens `-` and capitalize the region code (e.g., convert `'zh_CN'` to `'zh-CN'`)
-  * **Third priority**: Attempt to use the short language code (e.g., fall back from `'zh-CN'` to `'zh'`)
-  * **Last resort**: Use the last-loaded locale file (if no locale files are loaded, use the built-in default locale)
+  - **First priority**: Attempt to load the specified whole locale (e.g., `'zh-CN'`)
+  - **Second priority**: Attempt to convert underscores `_` to hyphens `-` and capitalize the region code (e.g., convert `'zh_CN'` to `'zh-CN'`)
+  - **Third priority**: Attempt to use the short language code (e.g., fall back from `'zh-CN'` to `'zh'`)
+  - **Last resort**: Use the last-loaded locale file (if no locale files are loaded, use the built-in default locale)
 
   Note: Setting this option to `undefined` or an empty string will automatically use the last-loaded locale (if no locale files are loaded, `'en-US'` is used by default).
 
@@ -853,8 +854,8 @@ $('#table').bootstrapTable({
 - **Detail:**
 
   Set `true` to maintain the following metadata on the change page and search:
-   * selected rows
-   * hidden rows
+  - selected rows
+  - hidden rows
 
   By default (`false`), changing the page or searching resets the selected rows.
 
@@ -902,9 +903,9 @@ $('#table').bootstrapTable({
 
   When enabled, users can select multiple lines using the following methods:
 
-  * **Ctrl+click**: Select or deselect individual lines (while keeping other lines selected)
-  * **Shift+click**: Select all lines between the currently selected line and the clicked line (range selection)
-  * **Regular click**: If no modifier key is held, selects only the clicked row while deselecting all others
+  - **Ctrl+click**: Select or deselect individual lines (while keeping other lines selected)
+  - **Shift+click**: Select all lines between the currently selected line and the clicked line (range selection)
+  - **Regular click**: If no modifier key is held, selects only the clicked row while deselecting all others
 
 - **Default:** `false`
 
@@ -934,7 +935,7 @@ $('#table').bootstrapTable({
 
   When setting the pagination property, initialize the page size by selecting the list. If you include the `'all'` or `'unlimited'` option, all the records will be shown in your table.
 
-  *Hint: If the table has lesser rows as the option(s), the options will be hidden automatically. To disable that feature, you can set [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) to `false`*
+  _Hint: If the table has lesser rows as the option(s), the options will be hidden automatically. To disable that feature, you can set [smartDisplay](https://bootstrap-table.com/docs/api/table-options/#smartdisplay) to `false`_
 
 - **Default:** `[10, 25, 50, 100]`
 
@@ -1026,7 +1027,6 @@ $('#table').bootstrapTable({
 
 - **Example:** [Pagination Load More](https://examples.bootstrap-table.com/#options/pagination-load-more.html)
 
-
 ## paginationLoop
 
 - **Attribute:** `data-pagination-loop`
@@ -1078,10 +1078,10 @@ $('#table').bootstrapTable({
 - **Detail:**
 
   These options define which parts of the pagination should be visible.
-  * `pageInfo` Shows which dataset will be displayed on the current page (e.g. `Showing 1 to 10 of 54 rows`).
-  * `pageInfoShort` Similar to `pageInfo`, it only displays how many rows the table has (e.g. `Showing 54 rows`).
-  * `pageSize` Shows the dropdown which defines how many rows should be displayed on the page.
-  * `pageList` Shows the main part of the pagination (The list of the pages).
+  - `pageInfo` Shows which dataset will be displayed on the current page (e.g. `Showing 1 to 10 of 54 rows`).
+  - `pageInfoShort` Similar to `pageInfo`, it only displays how many rows the table has (e.g. `Showing 54 rows`).
+  - `pageSize` Shows the dropdown which defines how many rows should be displayed on the page.
+  - `pageList` Shows the main part of the pagination (The list of the pages).
 
 - **Default:** `['pageInfo', 'pageSize', 'pageList']`
 
@@ -1137,7 +1137,7 @@ $('#table').bootstrapTable({
 
 - **Detail:**
 
-  Indicate how to vertical-align the pagination. `'top'`, `'bottom'`, `'both'` (put the pagination on top and bottom)  can be used.
+  Indicate how to vertical-align the pagination. `'top'`, `'bottom'`, `'both'` (put the pagination on top and bottom) can be used.
 
 - **Default:** `'bottom'`
 
@@ -1189,7 +1189,6 @@ $('#table').bootstrapTable({
   If this option is enabled, you can search with regex, e.g. `[47a]$` for all items which end with a `4`, `7` or `a`.
   The regex can be entered with `/[47a]$/gim` or without `[47a]$` flags. The default flags are `gim`.
 
-
 - **Default:** `false`
 
 - **Example:** [Regex Search](https://examples.bootstrap-table.com/#options/regex-search.html)
@@ -1218,8 +1217,8 @@ $('#table').bootstrapTable({
 
   Before loading remote data, handle the response data format. The parameters object contains:
 
-  * `res`: the response data.
-  * `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
+  - `res`: the response data.
+  - `jqXHR`: jqXHR object, which is a super set of the XMLHTTPRequest object. For more information, see the [jqXHR Type](http://api.jquery.com/Types/#jqXHR).
 
 - **Default:** `function(res) { return res }`
 
@@ -1235,8 +1234,8 @@ $('#table').bootstrapTable({
 
   The row attribute formatter function, takes two parameters:
 
-  * `row`: the row record data.
-  * `index`: the row index.
+  - `row`: the row record data.
+  - `index`: the row index.
 
   Support all custom attributes.
 
@@ -1254,8 +1253,8 @@ $('#table').bootstrapTable({
 
   The row style formatter function, takes two parameters:
 
-  * `row`: the row record data.
-  * `index`: the row index.
+  - `row`: the row record data.
+  - `index`: the row index.
 
   Support classes or css.
 
@@ -1673,10 +1672,10 @@ $('#table').bootstrapTable({
   Defines the side pagination of the table, can only be `'client'` or `'server'`.
   Using the `'server'` side requires setting the `'url'` or `'ajax'` option.
 
-  Note that the required server response format is different depending on whether the  `'sidePagination'` option is set to `'client'` or `'server'`. See the following examples:
+  Note that the required server response format is different depending on whether the `'sidePagination'` option is set to `'client'` or `'server'`. See the following examples:
 
-  * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
-  * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+  - [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
+  - [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
   **URL parameters:**
 
@@ -1685,7 +1684,7 @@ $('#table').bootstrapTable({
   - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
   - `limit` with a value indicating the number of rows per page.
 
-  When implementing server-side pagination, you must implement a JSON view in a format like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data). That view must take the URL parameter values indicated above and return records starting at the `offset` index and returns the number of records indicated by `limit`.  For example, if you want records 11-20, your view must obtain the `offset=10` and `limit=10` from the URL string and return records like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10).
+  When implementing server-side pagination, you must implement a JSON view in a format like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data). That view must take the URL parameter values indicated above and return records starting at the `offset` index and returns the number of records indicated by `limit`. For example, if you want records 11-20, your view must obtain the `offset=10` and `limit=10` from the URL string and return records like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10).
 
 - **Default:** `'client'`
 
@@ -2009,8 +2008,8 @@ $('#table').bootstrapTable({
 
   Note that the required server response format is different depending on whether the `'sidePagination'` option is specified. See the following examples:
 
-  * [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
-  * [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
+  - [Without server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data1.json)
+  - [With server-side pagination](https://github.com/wenzhixin/bootstrap-table-examples/blob/master/json/data2.json)
 
   **URL parameters:**
 
@@ -2019,7 +2018,7 @@ $('#table').bootstrapTable({
   - `offset` with a value between 0 and `total` - 1, indicating the first record to include.
   - `limit` with a value indicating the number of rows per page.
 
-  When implementing server-side pagination, you must implement a JSON view in a format like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data). That view must take the URL parameter values indicated above and return records starting at the `offset` index and returns the number of records indicated by `limit`.  For example, if you want records 11-20, your view must obtain the `offset=10` and `limit=10` from the URL string and return records like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10).
+  When implementing server-side pagination, you must implement a JSON view in a format like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data). That view must take the URL parameter values indicated above and return records starting at the `offset` index and returns the number of records indicated by `limit`. For example, if you want records 11-20, your view must obtain the `offset=10` and `limit=10` from the URL string and return records like [this example](https://examples.wenzhixin.net.cn/examples/bootstrap_table/data?offset=10&limit=10).
 
 - **Default:** `undefined`
 

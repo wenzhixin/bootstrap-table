@@ -3,63 +3,68 @@
  * https://github.com/wenzhixin/bootstrap-table/
  */
 
-$.fn.bootstrapTable.theme = 'bootstrap-table'
+$.fn.bootstrapTable.theme = "bootstrap-table"
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  init () {
+  init() {
     super.init()
 
-    this.constants.classes.dropup = 'dropdown-menu-up'
+    this.constants.classes.dropup = "dropdown-menu-up"
 
-    $('.modal').on('click', '[data-close]', e => {
-      $(e.delegateTarget).removeClass('show')
+    $(".modal").on("click", "[data-close]", (e) => {
+      $(e.delegateTarget).removeClass("show")
     })
   }
 
-  initConstants () {
+  initConstants() {
     super.initConstants()
 
     this.constants.html.inputGroup = '<div class="input-group">%s%s</div>'
   }
 
-
-  initToolbar () {
+  initToolbar() {
     super.initToolbar()
     this.handleToolbar()
   }
 
-  handleToolbar () {
-    if (this.$toolbar.find('.dropdown-toggle').length) {
+  handleToolbar() {
+    if (this.$toolbar.find(".dropdown-toggle").length) {
       this._initDropdown()
     }
   }
 
-  initPagination () {
+  initPagination() {
     super.initPagination()
-    if (this.options.pagination && this.paginationParts.includes('pageSize')) {
+    if (this.options.pagination && this.paginationParts.includes("pageSize")) {
       this._initDropdown()
     }
   }
 
-  _initDropdown () {
-    const $dropdownToggles = $('.dropdown-toggle')
+  _initDropdown() {
+    const $dropdownToggles = $(".dropdown-toggle")
 
-    $dropdownToggles.off('click').on('click', e => {
+    $dropdownToggles.off("click").on("click", (e) => {
       let $target = $(e.currentTarget)
 
-      if ($target.parents('.dropdown-toggle').length > 0) {
-        $target = $target.parents('.dropdown-toggle')
+      if ($target.parents(".dropdown-toggle").length > 0) {
+        $target = $target.parents(".dropdown-toggle")
       }
 
-      $target.next('.dropdown-menu').toggleClass('open')
+      $target.next(".dropdown-menu").toggleClass("open")
     })
 
-    $(window).off('click').on('click', e => {
-      const $dropdownToggles = $('.dropdown-toggle')
+    $(window)
+      .off("click")
+      .on("click", (e) => {
+        const $dropdownToggles = $(".dropdown-toggle")
 
-      if ($(e.target).parents('.dropdown-toggle, .dropdown-menu').length === 0 && !$(e.target).hasClass('dropdown-toggle')) {
-        $dropdownToggles.next('.dropdown-menu').removeClass('open')
-      }
-    })
+        if (
+          $(e.target).parents(".dropdown-toggle, .dropdown-menu").length ===
+            0 &&
+          !$(e.target).hasClass("dropdown-toggle")
+        ) {
+          $dropdownToggles.next(".dropdown-menu").removeClass("open")
+        }
+      })
   }
 }
