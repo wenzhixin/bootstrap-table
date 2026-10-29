@@ -311,7 +311,8 @@
 
       &.active {
         background-color: custom.$primary-background;
-        border: 1px solid color.adjust(custom.$primary-background, $lightness: -5%);
+        border: 1px solid
+          color.adjust(custom.$primary-background, $lightness: -5%);
 
         .page-link {
           color: #fff;

@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/SimpleLayout.astro'
+layout: "@/layouts/SimpleLayout.astro"
 title: Bootstrap v3
 description: A getting started of add Bootstrap Table to Bootstrap v3, how to download and use, basic templates, and more.
 group: themes
@@ -15,7 +15,10 @@ Looking to quickly add Bootstrap Table to your <a href="https://getbootstrap.com
 Copy-paste the stylesheet `<link>` into your `<head>` before all other stylesheets to load our CSS.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css"
+/>
 ```
 
 ### JS
@@ -37,11 +40,20 @@ Put it all together and your pages should look like this:
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-table@[[config:currentVersion]]/dist/bootstrap-table.min.css"
+    />
 
     <title>Hello, Bootstrap Table!</title>
   </head>

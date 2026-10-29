@@ -1,7 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import * as dom from '@/utils/dom.js'
+import { afterEach, beforeEach, describe, expect, it } from "vitest"
+import * as dom from "@/utils/dom.js"
 
-describe('getScrollBarWidth', () => {
+describe("getScrollBarWidth", () => {
   let originalBody
 
   beforeEach(() => {
@@ -12,10 +12,10 @@ describe('getScrollBarWidth', () => {
     document.body.innerHTML = originalBody
   })
 
-  it('should return a non-negative number and cache the result', () => {
+  it("should return a non-negative number and cache the result", () => {
     const width = dom.getScrollBarWidth()
 
-    expect(typeof width).toBe('number')
+    expect(typeof width).toBe("number")
     expect(width).toBeGreaterThanOrEqual(0)
 
     const width2 = dom.getScrollBarWidth()
@@ -24,83 +24,83 @@ describe('getScrollBarWidth', () => {
   })
 })
 
-describe('classToString', () => {
-  it('should return string as is', () => {
-    expect(dom.classToString('foo')).toBe('foo')
-    expect(dom.classToString('foo bar')).toBe('foo bar')
-    expect(dom.classToString('')).toBe('')
+describe("classToString", () => {
+  it("should return string as is", () => {
+    expect(dom.classToString("foo")).toBe("foo")
+    expect(dom.classToString("foo bar")).toBe("foo bar")
+    expect(dom.classToString("")).toBe("")
   })
 
-  it('should handle array input', () => {
-    expect(dom.classToString(['foo', 'bar'])).toBe('foo bar')
-    expect(dom.classToString(['foo', 'bar', 'baz'])).toBe('foo bar baz')
+  it("should handle array input", () => {
+    expect(dom.classToString(["foo", "bar"])).toBe("foo bar")
+    expect(dom.classToString(["foo", "bar", "baz"])).toBe("foo bar baz")
   })
 
-  it('should filter empty strings in array', () => {
-    expect(dom.classToString(['foo', '', 'bar'])).toBe('foo bar')
-    expect(dom.classToString(['', '', ''])).toBe('')
+  it("should filter empty strings in array", () => {
+    expect(dom.classToString(["foo", "", "bar"])).toBe("foo bar")
+    expect(dom.classToString(["", "", ""])).toBe("")
   })
 
-  it('should handle nested arrays', () => {
-    expect(dom.classToString(['foo', ['bar', 'baz']])).toBe('foo bar baz')
-    expect(dom.classToString([['foo'], [['bar']]])).toBe('foo bar')
+  it("should handle nested arrays", () => {
+    expect(dom.classToString(["foo", ["bar", "baz"]])).toBe("foo bar baz")
+    expect(dom.classToString([["foo"], [["bar"]]])).toBe("foo bar")
   })
 
-  it('should handle object input', () => {
-    expect(dom.classToString({ foo: true, bar: true })).toBe('foo bar')
-    expect(dom.classToString({ foo: true, bar: false })).toBe('foo')
-    expect(dom.classToString({ foo: false, bar: false })).toBe('')
+  it("should handle object input", () => {
+    expect(dom.classToString({ foo: true, bar: true })).toBe("foo bar")
+    expect(dom.classToString({ foo: true, bar: false })).toBe("foo")
+    expect(dom.classToString({ foo: false, bar: false })).toBe("")
   })
 
-  it('should handle mixed types in array', () => {
-    expect(dom.classToString(['foo', { bar: true }, 'baz'])).toBe('foo bar baz')
-    expect(dom.classToString([{ a: true }, { b: false }, 'c'])).toBe('a c')
+  it("should handle mixed types in array", () => {
+    expect(dom.classToString(["foo", { bar: true }, "baz"])).toBe("foo bar baz")
+    expect(dom.classToString([{ a: true }, { b: false }, "c"])).toBe("a c")
   })
 
-  it('should handle null and undefined', () => {
-    expect(dom.classToString(null)).toBe('')
-    expect(dom.classToString(undefined)).toBe('')
+  it("should handle null and undefined", () => {
+    expect(dom.classToString(null)).toBe("")
+    expect(dom.classToString(undefined)).toBe("")
   })
 })
 
-describe('parseStyle', () => {
-  it('should handle string, object, and array input', () => {
-    const el1 = document.createElement('div')
-    const el2 = document.createElement('div')
-    const el3 = document.createElement('div')
+describe("parseStyle", () => {
+  it("should handle string, object, and array input", () => {
+    const el1 = document.createElement("div")
+    const el2 = document.createElement("div")
+    const el3 = document.createElement("div")
 
-    dom.parseStyle(el1, 'color: red; background: blue')
-    dom.parseStyle(el2, { color: 'red', background: 'blue' })
-    dom.parseStyle(el3, ['color: red', 'background: blue'])
+    dom.parseStyle(el1, "color: red; background: blue")
+    dom.parseStyle(el2, { color: "red", background: "blue" })
+    dom.parseStyle(el3, ["color: red", "background: blue"])
 
-    expect(el1.style.color).toBe('red')
-    expect(el1.style.background).toBe('blue')
-    expect(el2.style.color).toBe('red')
-    expect(el2.style.background).toBe('blue')
-    expect(el3.style.color).toBe('red')
-    expect(el3.style.background).toBe('blue')
+    expect(el1.style.color).toBe("red")
+    expect(el1.style.background).toBe("blue")
+    expect(el2.style.color).toBe("red")
+    expect(el2.style.background).toBe("blue")
+    expect(el3.style.color).toBe("red")
+    expect(el3.style.background).toBe("blue")
   })
 
-  it('should handle !important priority', () => {
-    const el1 = document.createElement('div')
-    const el2 = document.createElement('div')
+  it("should handle !important priority", () => {
+    const el1 = document.createElement("div")
+    const el2 = document.createElement("div")
 
-    dom.parseStyle(el1, { color: 'red !important' })
-    dom.parseStyle(el2, 'color: red !important; background: blue')
+    dom.parseStyle(el1, { color: "red !important" })
+    dom.parseStyle(el2, "color: red !important; background: blue")
 
-    expect(el1.style.getPropertyValue('color')).toBe('red')
-    expect(el1.style.getPropertyPriority('color')).toBe('important')
-    expect(el2.style.getPropertyPriority('color')).toBe('important')
-    expect(el2.style.getPropertyPriority('background')).toBe('')
+    expect(el1.style.getPropertyValue("color")).toBe("red")
+    expect(el1.style.getPropertyPriority("color")).toBe("important")
+    expect(el2.style.getPropertyPriority("color")).toBe("important")
+    expect(el2.style.getPropertyPriority("background")).toBe("")
   })
 
-  it('should return the element and handle empty styles', () => {
-    const el1 = document.createElement('div')
-    const el2 = document.createElement('div')
+  it("should return the element and handle empty styles", () => {
+    const el1 = document.createElement("div")
+    const el2 = document.createElement("div")
 
-    expect(dom.parseStyle(el1, 'color: red')).toBe(el1)
+    expect(dom.parseStyle(el1, "color: red")).toBe(el1)
 
-    dom.parseStyle(el2, '')
+    dom.parseStyle(el2, "")
     dom.parseStyle(el2, {})
     dom.parseStyle(el2, [])
 
@@ -108,180 +108,192 @@ describe('parseStyle', () => {
   })
 })
 
-describe('h', () => {
-  it('should create element with tag name', () => {
-    const el = dom.h('div')
+describe("h", () => {
+  it("should create element with tag name", () => {
+    const el = dom.h("div")
 
-    expect(el.tagName).toBe('DIV')
+    expect(el.tagName).toBe("DIV")
   })
 
-  it('should set attributes', () => {
-    const el = dom.h('div', { id: 'test', class: 'foo' })
+  it("should set attributes", () => {
+    const el = dom.h("div", { id: "test", class: "foo" })
 
-    expect(el.id).toBe('test')
-    expect(el.className).toBe('foo')
+    expect(el.id).toBe("test")
+    expect(el.className).toBe("foo")
   })
 
-  it('should handle class attribute', () => {
-    const el1 = dom.h('div', { class: 'foo bar' })
-    const el2 = dom.h('div', { class: ['foo', 'bar'] })
-    const el3 = dom.h('div', { class: { foo: true, bar: false } })
+  it("should handle class attribute", () => {
+    const el1 = dom.h("div", { class: "foo bar" })
+    const el2 = dom.h("div", { class: ["foo", "bar"] })
+    const el3 = dom.h("div", { class: { foo: true, bar: false } })
 
-    expect(el1.className).toBe('foo bar')
-    expect(el2.className).toBe('foo bar')
-    expect(el3.className).toBe('foo')
+    expect(el1.className).toBe("foo bar")
+    expect(el2.className).toBe("foo bar")
+    expect(el3.className).toBe("foo")
   })
 
-  it('should handle style attribute', () => {
-    const el1 = dom.h('div', { style: 'color: red' })
-    const el2 = dom.h('div', { style: { color: 'blue' } })
+  it("should handle style attribute", () => {
+    const el1 = dom.h("div", { style: "color: red" })
+    const el2 = dom.h("div", { style: { color: "blue" } })
 
-    expect(el1.style.color).toBe('red')
-    expect(el2.style.color).toBe('blue')
+    expect(el1.style.color).toBe("red")
+    expect(el2.style.color).toBe("blue")
   })
 
-  it('should handle text and innerText attributes', () => {
-    const el1 = dom.h('div', { text: 'hello' })
-    const el2 = dom.h('div', { innerText: 'world' })
+  it("should handle text and innerText attributes", () => {
+    const el1 = dom.h("div", { text: "hello" })
+    const el2 = dom.h("div", { innerText: "world" })
 
-    expect(el1.innerText).toBe('hello')
-    expect(el2.innerText).toBe('world')
+    expect(el1.innerText).toBe("hello")
+    expect(el2.innerText).toBe("world")
   })
 
-  it('should handle html and innerHTML attributes', () => {
-    const el1 = dom.h('div', { html: '<span>test</span>' })
-    const el2 = dom.h('div', { innerHTML: '<span>test</span>' })
+  it("should handle html and innerHTML attributes", () => {
+    const el1 = dom.h("div", { html: "<span>test</span>" })
+    const el2 = dom.h("div", { innerHTML: "<span>test</span>" })
 
-    expect(el1.innerHTML).toBe('<span>test</span>')
-    expect(el2.innerHTML).toBe('<span>test</span>')
+    expect(el1.innerHTML).toBe("<span>test</span>")
+    expect(el2.innerHTML).toBe("<span>test</span>")
   })
 
-  it('should handle event handlers with @ prefix', () => {
+  it("should handle event handlers with @ prefix", () => {
     let clicked = false
-    const el = dom.h('button', { '@click': () => {
-      clicked = true
-    } })
+    const el = dom.h("button", {
+      "@click": () => {
+        clicked = true
+      },
+    })
 
     el.click()
 
     expect(clicked).toBe(true)
   })
 
-  it('should handle event handlers with on prefix', () => {
+  it("should handle event handlers with on prefix", () => {
     let clicked = false
-    const el = dom.h('button', { onclick: () => {
-      clicked = true
-    } })
+    const el = dom.h("button", {
+      onclick: () => {
+        clicked = true
+      },
+    })
 
     el.click()
 
     expect(clicked).toBe(true)
   })
 
-  it('should handle property setters with . prefix', () => {
-    const el = dom.h('input', { '.value': 'test', '.type': 'text' })
+  it("should handle property setters with . prefix", () => {
+    const el = dom.h("input", { ".value": "test", ".type": "text" })
 
-    expect(el.value).toBe('test')
-    expect(el.type).toBe('text')
+    expect(el.value).toBe("test")
+    expect(el.type).toBe("text")
   })
 
-  it('should handle children array', () => {
-    const child1 = document.createElement('span')
-    const child2 = document.createElement('span')
-    const el = dom.h('div', {}, [child1, child2])
+  it("should handle children array", () => {
+    const child1 = document.createElement("span")
+    const child2 = document.createElement("span")
+    const el = dom.h("div", {}, [child1, child2])
 
     expect(el.children.length).toBe(2)
     expect(el.children[0]).toBe(child1)
     expect(el.children[1]).toBe(child2)
   })
 
-  it('should handle children attribute', () => {
-    const child1 = document.createElement('span')
-    const child2 = document.createElement('span')
-    const el = dom.h('div', { children: [child1, child2] })
+  it("should handle children attribute", () => {
+    const child1 = document.createElement("span")
+    const child2 = document.createElement("span")
+    const el = dom.h("div", { children: [child1, child2] })
 
     expect(el.children.length).toBe(2)
   })
 
-  it('should add string children as text nodes', () => {
-    const el = dom.h('div', {}, ['hello', 'world'])
+  it("should add string children as text nodes", () => {
+    const el = dom.h("div", {}, ["hello", "world"])
 
     expect(el.childNodes.length).toBe(2)
-    expect(el.childNodes[0].textContent).toBe('hello')
-    expect(el.childNodes[1].textContent).toBe('world')
+    expect(el.childNodes[0].textContent).toBe("hello")
+    expect(el.childNodes[1].textContent).toBe("world")
   })
 
-  it('should set default href for anchor tags', () => {
-    const el = dom.h('a')
+  it("should set default href for anchor tags", () => {
+    const el = dom.h("a")
 
-    expect(el.href).toBe('javascript:')
+    expect(el.href).toBe("javascript:")
   })
 
-  it('should not override href if provided', () => {
-    const el = dom.h('a', { href: 'https://example.com' })
+  it("should not override href if provided", () => {
+    const el = dom.h("a", { href: "https://example.com" })
 
     // Browsers may normalize URLs, so check that the custom href is set
-    expect(el.href).toContain('https://example.com')
+    expect(el.href).toContain("https://example.com")
   })
 
-  it('should ignore undefined attributes', () => {
-    const el = dom.h('div', { id: undefined, class: 'test' })
+  it("should ignore undefined attributes", () => {
+    const el = dom.h("div", { id: undefined, class: "test" })
 
-    expect(el.id).toBe('')
-    expect(el.className).toBe('test')
+    expect(el.id).toBe("")
+    expect(el.className).toBe("test")
   })
 
-  it('should accept existing element', () => {
-    const existing = document.createElement('div')
-    const el = dom.h(existing, { id: 'test' })
+  it("should accept existing element", () => {
+    const existing = document.createElement("div")
+    const el = dom.h(existing, { id: "test" })
 
     expect(el).toBe(existing)
-    expect(el.id).toBe('test')
+    expect(el.id).toBe("test")
   })
 })
 
-describe('isDomNode', () => {
-  it('should return false for strings', () => {
-    expect(dom.isDomNode('<div>test</div>')).toBe(false)
-    expect(dom.isDomNode('plain text')).toBe(false)
-    expect(dom.isDomNode('')).toBe(false)
+describe("isDomNode", () => {
+  it("should return false for strings", () => {
+    expect(dom.isDomNode("<div>test</div>")).toBe(false)
+    expect(dom.isDomNode("plain text")).toBe(false)
+    expect(dom.isDomNode("")).toBe(false)
   })
 
-  it('should return true for DOM Nodes', () => {
-    const div = document.createElement('div')
-    const span = document.createElement('span')
-    const textNode = document.createTextNode('test')
+  it("should return true for DOM Nodes", () => {
+    const div = document.createElement("div")
+    const span = document.createElement("span")
+    const textNode = document.createTextNode("test")
 
     expect(dom.isDomNode(div)).toBe(true)
     expect(dom.isDomNode(span)).toBe(true)
     expect(dom.isDomNode(textNode)).toBe(true)
   })
 
-  it('should return true for jQuery-like objects', () => {
-    const jqueryObj = { jquery: '3.6.0', 0: document.createElement('div'), length: 1 }
-    const jqueryObj2 = { jquery: true, 0: document.createElement('span'), length: 1 }
-    const emptyJqueryObj = { jquery: '3.6.0', length: 0 }
+  it("should return true for jQuery-like objects", () => {
+    const jqueryObj = {
+      jquery: "3.6.0",
+      0: document.createElement("div"),
+      length: 1,
+    }
+    const jqueryObj2 = {
+      jquery: true,
+      0: document.createElement("span"),
+      length: 1,
+    }
+    const emptyJqueryObj = { jquery: "3.6.0", length: 0 }
 
     expect(dom.isDomNode(jqueryObj)).toBe(true)
     expect(dom.isDomNode(jqueryObj2)).toBe(true)
     expect(dom.isDomNode(emptyJqueryObj)).toBe(true)
   })
 
-  it('should return false for other types', () => {
+  it("should return false for other types", () => {
     expect(dom.isDomNode(null)).toBe(false)
     expect(dom.isDomNode(undefined)).toBe(false)
     expect(dom.isDomNode(123)).toBe(false)
     expect(dom.isDomNode(true)).toBe(false)
     expect(dom.isDomNode({})).toBe(false)
     expect(dom.isDomNode([])).toBe(false)
-    expect(dom.isDomNode({ foo: 'bar' })).toBe(false)
+    expect(dom.isDomNode({ foo: "bar" })).toBe(false)
     expect(dom.isDomNode({ jquery: true })).toBe(false) // Not array-like
   })
 
-  it('should return false for NodeList and HTMLCollection', () => {
-    const tempDiv = document.createElement('div')
+  it("should return false for NodeList and HTMLCollection", () => {
+    const tempDiv = document.createElement("div")
 
-    tempDiv.innerHTML = '<div></div><div></div>'
+    tempDiv.innerHTML = "<div></div><div></div>"
     const nodeList = tempDiv.childNodes
     const htmlCollection = tempDiv.children
 
@@ -290,22 +302,27 @@ describe('isDomNode', () => {
   })
 })
 
-describe('htmlToNodes', () => {
-  it('should convert HTML string, text, and multiple elements to nodes', () => {
-    const nodes1 = dom.htmlToNodes('<div>test</div>')
-    const nodes2 = dom.htmlToNodes('plain text')
-    const nodes3 = dom.htmlToNodes('<div>1</div><div>2</div>')
+describe("htmlToNodes", () => {
+  it("should convert HTML string, text, and multiple elements to nodes", () => {
+    const nodes1 = dom.htmlToNodes("<div>test</div>")
+    const nodes2 = dom.htmlToNodes("plain text")
+    const nodes3 = dom.htmlToNodes("<div>1</div><div>2</div>")
 
     expect(nodes1.length).toBe(1)
-    expect(nodes1[0].textContent).toBe('test')
+    expect(nodes1[0].textContent).toBe("test")
     expect(nodes2.length).toBe(1)
-    expect(nodes2[0].textContent).toBe('plain text')
+    expect(nodes2[0].textContent).toBe("plain text")
     expect(nodes3.length).toBe(2)
   })
 
-  it('should handle Node and jQuery-like objects', () => {
-    const el = document.createElement('div')
-    const jqueryObj = { jquery: true, 0: el, 1: document.createElement('span'), length: 2 }
+  it("should handle Node and jQuery-like objects", () => {
+    const el = document.createElement("div")
+    const jqueryObj = {
+      jquery: true,
+      0: el,
+      1: document.createElement("span"),
+      length: 2,
+    }
 
     const nodes1 = dom.htmlToNodes(el)
     const nodes2 = dom.htmlToNodes(jqueryObj)
@@ -317,15 +334,17 @@ describe('htmlToNodes', () => {
     expect(nodes2[0]).toBe(el)
   })
 
-  it('should handle non-string values, empty string, and complex HTML', () => {
+  it("should handle non-string values, empty string, and complex HTML", () => {
     const nodes1 = dom.htmlToNodes(123)
-    const nodes2 = dom.htmlToNodes('')
-    const nodes3 = dom.htmlToNodes('<div class="test"><span>nested</span>text</div>')
+    const nodes2 = dom.htmlToNodes("")
+    const nodes3 = dom.htmlToNodes(
+      '<div class="test"><span>nested</span>text</div>',
+    )
 
     expect(nodes1.length).toBe(1)
-    expect(nodes1[0].textContent).toBe('123')
+    expect(nodes1[0].textContent).toBe("123")
     expect(nodes2.length).toBe(0)
     expect(nodes3.length).toBe(1)
-    expect(nodes3[0].className).toBe('test')
+    expect(nodes3[0].className).toBe("test")
   })
 })

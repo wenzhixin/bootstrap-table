@@ -1,26 +1,26 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite"
+import vue from "@vitejs/plugin-vue"
 
 export default defineConfig({
   define: {
-    'process.env': {}
+    "process.env": {},
   },
   build: {
     lib: {
-      entry: 'src/vue/index.js',
-      name: 'BootstrapTable',
-      fileName: 'bootstrap-table-vue',
-      formats: ['es', 'umd']
+      entry: "src/vue/index.js",
+      name: "BootstrapTable",
+      fileName: "bootstrap-table-vue",
+      formats: ["es", "umd"],
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ["vue"],
       output: {
         globals: {
-          vue: 'Vue'
-        }
-      }
+          vue: "Vue",
+        },
+      },
     },
-    emptyOutDir: false
+    emptyOutDir: false,
   },
-  plugins: [vue()]
+  plugins: [vue()],
 })

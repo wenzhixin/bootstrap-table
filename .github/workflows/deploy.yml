@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Build page with Astro
         run: |
@@ -36,8 +36,8 @@ jobs:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
         with:
-          ref: 'gh-pages'
-          path: './gh-pages'
+          ref: "gh-pages"
+          path: "./gh-pages"
 
       - name: Move versions to target folder
         run: |

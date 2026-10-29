@@ -1,4 +1,4 @@
-import { isNumeric } from './helper.js'
+import { isNumeric } from "./helper.js"
 
 /**
  * Search and sorting utilities.
@@ -21,17 +21,17 @@ import { isNumeric } from './helper.js'
  * @param {undefined|string|string[]} input - The raw `orderList` value.
  * @returns {string[]|undefined} The normalized list, or `undefined`.
  */
-export function normalizeOrderList (input) {
+export function normalizeOrderList(input) {
   if (input === undefined || input === null) {
     return undefined
   }
-  const tokens = Array.isArray(input) ? input : String(input).split(',')
+  const tokens = Array.isArray(input) ? input : String(input).split(",")
   const list = []
 
   for (const token of tokens) {
     const normalized = String(token).trim().toLowerCase()
 
-    if (normalized === 'asc' || normalized === 'desc') {
+    if (normalized === "asc" || normalized === "desc") {
       list.push(normalized)
     }
   }
@@ -46,11 +46,19 @@ export function normalizeOrderList (input) {
  * @param {string} search - The search pattern or regex.
  * @returns {boolean} True if the value matches the search pattern, false otherwise.
  */
-export function regexCompare (value, search) {
+export function regexCompare(value, search) {
   try {
     const regexpParts = search.match(/^\/(.*?)\/([gim]*)$/)
 
-    if (value.toString().search(regexpParts ? new RegExp(regexpParts[1], regexpParts[2]) : new RegExp(search, 'gim')) !== -1) {
+    if (
+      value
+        .toString()
+        .search(
+          regexpParts
+            ? new RegExp(regexpParts[1], regexpParts[2])
+            : new RegExp(search, "gim"),
+        ) !== -1
+    ) {
       return true
     }
   } catch (e) {
@@ -73,12 +81,12 @@ export function regexCompare (value, search) {
  * @param {number} bPosition - The position of the second value.
  * @returns {number} Negative if a < b, positive if a > b, 0 if equal.
  */
-export function sort (a, b, order, options, aPosition, bPosition) {
+export function sort(a, b, order, options, aPosition, bPosition) {
   if (a === undefined || a === null) {
-    a = ''
+    a = ""
   }
   if (b === undefined || b === null) {
-    b = ''
+    b = ""
   }
 
   if (options.sortStable && a === b) {
@@ -101,11 +109,11 @@ export function sort (a, b, order, options, aPosition, bPosition) {
   }
 
   if (options.sortEmptyLast) {
-    if (a === '') {
+    if (a === "") {
       return 1
     }
 
-    if (b === '') {
+    if (b === "") {
       return -1
     }
   }
@@ -115,7 +123,7 @@ export function sort (a, b, order, options, aPosition, bPosition) {
   }
 
   // If value is not a string, convert to string
-  if (typeof a !== 'string') {
+  if (typeof a !== "string") {
     a = a.toString()
   }
 
@@ -134,10 +142,10 @@ export function sort (a, b, order, options, aPosition, bPosition) {
  * @param {string} searchText - The text to search for and highlight.
  * @returns {string|Element} The HTML with matches highlighted, or the processed element.
  */
-export function replaceSearchMark (html, searchText) {
+export function replaceSearchMark(html, searchText) {
   const isDom = html instanceof Element
-  const node = isDom ? html : document.createElement('div')
-  const regExp = new RegExp(searchText, 'gim')
+  const node = isDom ? html : document.createElement("div")
+  const regExp = new RegExp(searchText, "gim")
   const replaceTextWithDom = (text, regExp) => {
     const result = []
     let match
@@ -145,9 +153,11 @@ export function replaceSearchMark (html, searchText) {
 
     while ((match = regExp.exec(text)) !== null) {
       if (lastIndex !== match.index) {
-        result.push(document.createTextNode(text.substring(lastIndex, match.index)))
+        result.push(
+          document.createTextNode(text.substring(lastIndex, match.index)),
+        )
       }
-      const mark = document.createElement('mark')
+      const mark = document.createElement("mark")
 
       mark.innerText = match[0]
       result.push(mark)
@@ -162,7 +172,7 @@ export function replaceSearchMark (html, searchText) {
     }
     return result
   }
-  const replaceMark = node => {
+  const replaceMark = (node) => {
     for (let i = 0; i < node.childNodes.length; i++) {
       const child = node.childNodes[i]
 

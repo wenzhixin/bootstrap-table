@@ -13,7 +13,7 @@
 
 .post-date {
   display: block;
-  margin-top: -.5rem;
+  margin-top: -0.5rem;
   margin-bottom: 1rem;
   color: #767676;
 }
@@ -83,8 +83,8 @@ header.themes .bd-lead {
   color: #e685b5;
 }
 
-code[class*=language-],
-pre[class*=language-] {
+code[class*="language-"],
+pre[class*="language-"] {
   text-shadow: none !important;
 }
 
@@ -103,7 +103,7 @@ pre[class*=language-] {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding: 0 .5em 1em;
+  padding: 0 0.5em 1em;
 }
 
 .support-description {
@@ -118,15 +118,15 @@ pre[class*=language-] {
   position: relative;
   display: inline-block;
   margin: 3px;
-  padding: .25rem;
+  padding: 0.25rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   text-decoration: none;
 }
 
 .support-item:hover {
-  background-color: rgba(108, 117, 125, .25098);
+  background-color: rgba(108, 117, 125, 0.25098);
 }
 
 .support-avatar {

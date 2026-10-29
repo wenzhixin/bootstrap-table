@@ -1,1 +1,1 @@
-require('../../common/options')('materialize')
+require("../../common/options")("materialize")

@@ -1,5 +1,5 @@
-import { escapeApostrophe, escapeHTML } from './string.js'
-import DOMHelper from '../helpers/dom.js'
+import { escapeApostrophe, escapeHTML } from "./string.js"
+import DOMHelper from "../helpers/dom.js"
 
 /**
  * Table column and data processing utilities.
@@ -17,13 +17,13 @@ import DOMHelper from '../helpers/dom.js'
  * @param {string} value - The field name to look for.
  * @returns {string} The title of the field, or empty string if not found.
  */
-export function getFieldTitle (list, value) {
+export function getFieldTitle(list, value) {
   for (const item of list) {
     if (item.field === value) {
       return item.title
     }
   }
-  return ''
+  return ""
 }
 
 /**
@@ -32,7 +32,7 @@ export function getFieldTitle (list, value) {
  *
  * @param {Array.<Array.<Object.<string, *>>>} columns - The column definitions array.
  */
-export function setFieldIndex (columns) {
+export function setFieldIndex(columns) {
   let totalCol = 0
   const flag = []
 
@@ -58,7 +58,7 @@ export function setFieldIndex (columns) {
       if (colspan === 1) {
         r.fieldIndex = index
         // when field is undefined, use index instead
-        if (typeof r.field === 'undefined') {
+        if (typeof r.field === "undefined") {
           r.field = index
         }
       } else {
@@ -81,7 +81,7 @@ export function setFieldIndex (columns) {
  * @param {Array.<Array.<Object.<string, *>>>} columns - The column definitions array.
  * @param {Array.<Object.<string, *>>} fieldColumns - The field columns to update.
  */
-export function updateFieldGroup (columns, fieldColumns) {
+export function updateFieldGroup(columns, fieldColumns) {
   const allColumns = [].concat(...columns)
 
   for (const c of columns) {
@@ -90,7 +90,7 @@ export function updateFieldGroup (columns, fieldColumns) {
         let colspan = 0
 
         for (let i = r.colspanIndex; i < r.colspanIndex + r.colspanGroup; i++) {
-          const underColumns = allColumns.filter(col => col.fieldIndex === i)
+          const underColumns = allColumns.filter((col) => col.fieldIndex === i)
           const column = underColumns[underColumns.length - 1]
 
           if (!column) {
@@ -118,7 +118,9 @@ export function updateFieldGroup (columns, fieldColumns) {
   }
 
   for (const column of fieldColumns) {
-    const sameColumns = allColumns.filter(col => col.fieldIndex === column.fieldIndex)
+    const sameColumns = allColumns.filter(
+      (col) => col.fieldIndex === column.fieldIndex,
+    )
 
     if (sameColumns.length > 1) {
       for (const c of sameColumns) {
@@ -134,9 +136,12 @@ export function updateFieldGroup (columns, fieldColumns) {
  * @param {Object.<string, *>} dataAttr - The data attributes object.
  * @returns {Object.<string, *>} The data attributes with kebab-case keys.
  */
-export function getRealDataAttr (dataAttr) {
+export function getRealDataAttr(dataAttr) {
   for (const [attr, value] of Object.entries(dataAttr)) {
-    const auxAttr = attr.split(/(?=[A-Z])/).join('-').toLowerCase()
+    const auxAttr = attr
+      .split(/(?=[A-Z])/)
+      .join("-")
+      .toLowerCase()
 
     if (auxAttr !== attr) {
       dataAttr[auxAttr] = value
@@ -155,21 +160,21 @@ export function getRealDataAttr (dataAttr) {
  * @param {boolean} [columnEscape=undefined] - Override for the escape parameter.
  * @returns {*} The field value, escaped if requested.
  */
-export function getItemField (item, field, escape, columnEscape = undefined) {
+export function getItemField(item, field, escape, columnEscape = undefined) {
   // use column escape if it is defined
-  if (typeof columnEscape !== 'undefined') {
+  if (typeof columnEscape !== "undefined") {
     escape = columnEscape
   }
 
   if (
-    typeof field !== 'string' ||
+    typeof field !== "string" ||
     item.hasOwnProperty(field) ||
-    !field.includes('.')
+    !field.includes(".")
   ) {
     return escape ? escapeHTML(item[field]) : item[field]
   }
 
-  const props = field.split('.')
+  const props = field.split(".")
   let value = item
 
   for (const p of props) {
@@ -188,7 +193,7 @@ export function getItemField (item, field, escape, columnEscape = undefined) {
  * @param {*} item - The item to find.
  * @returns {number} The index of the item, or -1 if not found.
  */
-export function findIndex (items, item) {
+export function findIndex(items, item) {
   for (const it of items) {
     if (JSON.stringify(it) === JSON.stringify(item)) {
       return items.indexOf(it)
@@ -205,7 +210,7 @@ export function findIndex (items, item) {
  * @param {HTMLCollection|NodeList|Array<Element>} els - The tr elements.
  * @returns {Array.<Object.<string, *>>} The array of row data objects.
  */
-export function trToData (columns, els) {
+export function trToData(columns, els) {
   const data = []
   const m = []
   const elsArray = Array.from(els)
@@ -215,17 +220,17 @@ export function trToData (columns, els) {
     const row = {}
 
     // save tr's id, class and data-* attributes
-    row._id = DOMHelper.attr(el, 'id')
-    row._class = DOMHelper.attr(el, 'class')
+    row._id = DOMHelper.attr(el, "id")
+    row._class = DOMHelper.attr(el, "class")
     row._data = getRealDataAttr({ ...el.dataset })
-    row._style = DOMHelper.attr(el, 'style')
+    row._style = DOMHelper.attr(el, "style")
 
-    const cells = DOMHelper.children(el, 'td,th')
+    const cells = DOMHelper.children(el, "td,th")
 
     for (let x = 0; x < cells.length; x++) {
       const cell = cells[x]
-      const colspan = parseInt(DOMHelper.attr(cell, 'colspan'), 10) || 1
-      const rowspan = parseInt(DOMHelper.attr(cell, 'rowspan'), 10) || 1
+      const colspan = parseInt(DOMHelper.attr(cell, "colspan"), 10) || 1
+      const rowspan = parseInt(DOMHelper.attr(cell, "rowspan"), 10) || 1
       let currentX = x
 
       // skip already occupied cells in current row
@@ -236,7 +241,8 @@ export function trToData (columns, els) {
       // mark matrix elements occupied by current cell with true
       for (let tx = currentX; tx < currentX + colspan; tx++) {
         for (let ty = y; ty < y + rowspan; ty++) {
-          if (!m[ty]) { // fill missing rows
+          if (!m[ty]) {
+            // fill missing rows
             m[ty] = []
           }
           m[ty][tx] = true
@@ -247,13 +253,13 @@ export function trToData (columns, els) {
 
       row[field] = escapeApostrophe(DOMHelper.html(cell).trim())
       // save td's id, class and data-* attributes
-      row[`_${field}_id`] = DOMHelper.attr(cell, 'id')
-      row[`_${field}_class`] = DOMHelper.attr(cell, 'class')
-      row[`_${field}_rowspan`] = DOMHelper.attr(cell, 'rowspan')
-      row[`_${field}_colspan`] = DOMHelper.attr(cell, 'colspan')
-      row[`_${field}_title`] = DOMHelper.attr(cell, 'title')
+      row[`_${field}_id`] = DOMHelper.attr(cell, "id")
+      row[`_${field}_class`] = DOMHelper.attr(cell, "class")
+      row[`_${field}_rowspan`] = DOMHelper.attr(cell, "rowspan")
+      row[`_${field}_colspan`] = DOMHelper.attr(cell, "colspan")
+      row[`_${field}_title`] = DOMHelper.attr(cell, "title")
       row[`_${field}_data`] = getRealDataAttr({ ...cell.dataset })
-      row[`_${field}_style`] = DOMHelper.attr(cell, 'style')
+      row[`_${field}_style`] = DOMHelper.attr(cell, "style")
     }
     data.push(row)
   }
@@ -266,10 +272,13 @@ export function trToData (columns, els) {
  * @param {Array.<Object.<string, *>>} data - The data array to check.
  * @returns {boolean} True if any row has auto-merge cells, false otherwise.
  */
-export function checkAutoMergeCells (data) {
+export function checkAutoMergeCells(data) {
   for (const row of data) {
     for (const key of Object.keys(row)) {
-      if (key.startsWith('_') && (key.endsWith('_rowspan') || key.endsWith('_colspan'))) {
+      if (
+        key.startsWith("_") &&
+        (key.endsWith("_rowspan") || key.endsWith("_colspan"))
+      ) {
         return true
       }
     }
@@ -283,10 +292,14 @@ export function checkAutoMergeCells (data) {
  * @param {Array.<Object.<string, *>>} data - The data array to check.
  * @returns {boolean} True if any row has real rowspan merges, false otherwise.
  */
-export function hasRowspanCells (data) {
+export function hasRowspanCells(data) {
   for (const row of data) {
     for (const key of Object.keys(row)) {
-      if (key.startsWith('_') && key.endsWith('_rowspan') && (+row[key] || 0) > 1) {
+      if (
+        key.startsWith("_") &&
+        key.endsWith("_rowspan") &&
+        (+row[key] || 0) > 1
+      ) {
         return true
       }
     }
@@ -301,15 +314,15 @@ export function hasRowspanCells (data) {
  *
  * @param {Array.<Object.<string, *>>} data - The data array to flatten.
  */
-export function flattenRowspanCells (data) {
+export function flattenRowspanCells(data) {
   for (let i = 0; i < data.length; i++) {
     const row = data[i]
 
     for (const key of Object.keys(row)) {
-      if (!key.startsWith('_') || !key.endsWith('_rowspan')) {
+      if (!key.startsWith("_") || !key.endsWith("_rowspan")) {
         continue
       }
-      const field = key.replace(/^_/, '').replace(/_rowspan$/, '')
+      const field = key.replace(/^_/, "").replace(/_rowspan$/, "")
       const rowspan = +row[key] || 1
 
       if (rowspan <= 1) {
@@ -322,12 +335,15 @@ export function flattenRowspanCells (data) {
       for (let j = 1; j < rowspan && i + j < data.length; j++) {
         const childRow = data[i + j]
 
-        if (field.includes('.') && !useFlatKey) {
-          const props = field.split('.')
+        if (field.includes(".") && !useFlatKey) {
+          const props = field.split(".")
           let target = childRow
 
           for (let k = 0; k < props.length - 1; k++) {
-            if (typeof target[props[k]] !== 'object' || target[props[k]] === null) {
+            if (
+              typeof target[props[k]] !== "object" ||
+              target[props[k]] === null
+            ) {
               target[props[k]] = {}
             }
             target = target[props[k]]

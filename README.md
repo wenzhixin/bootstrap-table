@@ -11,11 +11,10 @@ An extended Bootstrap table with radio, checkbox, sort, pagination, extensions a
 
 To get started, check out:
 
-* [Docs](https://bootstrap-table.com)
-* [Examples](https://github.com/wenzhixin/bootstrap-table-examples)
-* [Questions/Helps](http://stackoverflow.com/questions/tagged/bootstrap-table)
-* [问题/帮助](http://segmentfault.com/t/bootstrap-table)
-
+- [Docs](https://bootstrap-table.com)
+- [Examples](https://github.com/wenzhixin/bootstrap-table-examples)
+- [Questions/Helps](http://stackoverflow.com/questions/tagged/bootstrap-table)
+- [问题/帮助](http://segmentfault.com/t/bootstrap-table)
 
 [**List of donators**](https://github.com/wenzhixin/bootstrap-table/blob/master/DONATORS.md)
 
@@ -25,23 +24,23 @@ To get started, check out:
 
 ## Features
 
-* Created for Twitter Bootstrap (All versions supported)
-* Responsive web design
-* Scrollable Table with fixed headers
-* Fully configurable
-* Via data attributes
-* Show/Hide columns
-* Show/Hide headers
-* Show/Hide footers
-* Get data in JSON format using AJAX
-* Simple column sorting with a click
-* Format column
-* Single or multiple row selection
-* Powerful pagination
-* Card view
-* Detail view
-* Localization
-* Extensions
+- Created for Twitter Bootstrap (All versions supported)
+- Responsive web design
+- Scrollable Table with fixed headers
+- Fully configurable
+- Via data attributes
+- Show/Hide columns
+- Show/Hide headers
+- Show/Hide footers
+- Get data in JSON format using AJAX
+- Simple column sorting with a click
+- Format column
+- Single or multiple row selection
+- Powerful pagination
+- Card view
+- Detail view
+- Localization
+- Extensions
 
 ## How to get it
 
@@ -65,11 +64,9 @@ npm install bootstrap-table
 
 You can source bootstrap-table directly from a CDN like [CDNJS](http://www.cdnjs.com/libraries/bootstrap-table) or [bootcss](http://open.bootcss.com/bootstrap-table/) or [jsdelivr](http://www.jsdelivr.com/#!bootstrap.table).
 
-
 ## Contributing
 
 For feature requests, bug reports or submitting pull requests, please ensure you first read [CONTRIBUTING.md](https://github.com/wenzhixin/bootstrap-table/blob/master/CONTRIBUTING.md).
-
 
 ## Reporting Issues
 
@@ -84,7 +81,6 @@ You can also use our examples template via Load Examples button:
 [Online Editor](https://live.bootstrap-table.com/)
 
 Your feedback is very appreciated!
-
 
 ## Acknowledgements
 
@@ -118,12 +114,14 @@ Be sure to use a current version of yarn/npm.
 To build bootstrap-table locally please run:
 
 ### Yarn
+
 ```
 yarn install
 yarn build
 ```
 
 ### Npm
+
 ```
 npm install
 npm run build

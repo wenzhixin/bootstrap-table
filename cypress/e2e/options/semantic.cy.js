@@ -1,1 +1,1 @@
-require('../../common/options')('semantic')
+require("../../common/options")("semantic")

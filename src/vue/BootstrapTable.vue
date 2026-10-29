@@ -1,63 +1,67 @@
 <template>
-  <table/>
+  <table />
 </template>
 
 <script>
 const $ = window.jQuery
-const deepCopy = arg => {
+const deepCopy = (arg) => {
   if (arg === undefined) {
     return arg
   }
-  return $.fn.bootstrapTable.utils.extend(true, Array.isArray(arg) ? [] : {}, arg)
+  return $.fn.bootstrapTable.utils.extend(
+    true,
+    Array.isArray(arg) ? [] : {},
+    arg,
+  )
 }
 
 export default {
-  name: 'BootstrapTable',
+  name: "BootstrapTable",
   props: {
     columns: {
       type: Array,
-      require: true
+      require: true,
     },
     data: {
       type: [Array, Object],
-      default () {
+      default() {
         return undefined
-      }
+      },
     },
     options: {
       type: Object,
-      default () {
+      default() {
         return {}
-      }
-    }
+      },
+    },
   },
-  data () {
+  data() {
     return {
-      optionsChangedIdx: 0
+      optionsChangedIdx: 0,
     }
   },
-  mounted () {
+  mounted() {
     this.$table = $(this.$el)
 
-    this.$table.on('all.bs.table', (e, name, args) => {
+    this.$table.on("all.bs.table", (e, name, args) => {
       let eventName = $.fn.bootstrapTable.events[name]
-      eventName = eventName.replace(/([A-Z])/g, '-$1').toLowerCase()
-      this.$emit('on-all', ...args)
+      eventName = eventName.replace(/([A-Z])/g, "-$1").toLowerCase()
+      this.$emit("on-all", ...args)
       this.$emit(eventName, ...args)
     })
 
     this._initTable()
   },
-  beforeUnmount () {
-    this.$table.bootstrapTable('destroy')
+  beforeUnmount() {
+    this.$table.bootstrapTable("destroy")
   },
   methods: {
-    _initTable () {
+    _initTable() {
       this._bindMethods()
       const options = {
         ...deepCopy(this.options),
         columns: deepCopy(this.columns),
-        data: deepCopy(this.data)
+        data: deepCopy(this.data),
       }
       if (!this._hasInit) {
         this.$table.bootstrapTable(options)
@@ -66,42 +70,43 @@ export default {
         this.refreshOptions(options)
       }
     },
-    refreshOptions (...args) {
-      return this.$table.bootstrapTable('refreshOptions', ...args)
+    refreshOptions(...args) {
+      return this.$table.bootstrapTable("refreshOptions", ...args)
     },
-    load (...args) {
-      return this.$table.bootstrapTable('load', ...args)
+    load(...args) {
+      return this.$table.bootstrapTable("load", ...args)
     },
-    _bindMethods () {
-      for (const method of ($.fn.bootstrapTable.methods || [])) {
+    _bindMethods() {
+      for (const method of $.fn.bootstrapTable.methods || []) {
         if (!this[method]) {
-          this[method] = (...args) => this.$table.bootstrapTable(method, ...args)
+          this[method] = (...args) =>
+            this.$table.bootstrapTable(method, ...args)
         }
       }
-    }
+    },
   },
   watch: {
     options: {
-      handler () {
+      handler() {
         this.optionsChangedIdx++
       },
-      deep: true
+      deep: true,
     },
     columns: {
-      handler () {
+      handler() {
         this.optionsChangedIdx++
       },
-      deep: true
+      deep: true,
     },
-    optionsChangedIdx () {
+    optionsChangedIdx() {
       this._initTable()
     },
     data: {
-      handler () {
+      handler() {
         this.load(deepCopy(this.data))
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 }
 </script>

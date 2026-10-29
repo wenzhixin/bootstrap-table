@@ -3,50 +3,50 @@
  * @version: v2.0.0
  */
 
-const isInit = that => that.$el.data('resizableColumns') !== undefined
+const isInit = (that) => that.$el.data("resizableColumns") !== undefined
 
-const initResizable = that => {
+const initResizable = (that) => {
   if (
     that.options.resizable &&
     !that.options.cardView &&
     !isInit(that) &&
-    that.$el.is(':visible')
+    that.$el.is(":visible")
   ) {
     that.$el.resizableColumns({
-      store: window.store
+      store: window.store,
     })
   }
 }
 
-const destroy = that => {
+const destroy = (that) => {
   if (isInit(that)) {
-    that.$el.data('resizableColumns').destroy()
+    that.$el.data("resizableColumns").destroy()
   }
 }
 
-const reInitResizable = that => {
+const reInitResizable = (that) => {
   destroy(that)
   initResizable(that)
 }
 
 Object.assign($.fn.bootstrapTable.defaults, {
-  resizable: false
+  resizable: false,
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
-
-  initBody (...args) {
+  initBody(...args) {
     super.initBody(...args)
 
-    this.$el.off('column-switch.bs.table page-change.bs.table')
-      .on('column-switch.bs.table page-change.bs.table', () => {
+    this.$el
+      .off("column-switch.bs.table page-change.bs.table")
+      .on("column-switch.bs.table page-change.bs.table", () => {
         reInitResizable(this)
       })
 
     reInitResizable(this)
   }
 
-  toggleView (...args) {
+  toggleView(...args) {
     super.toggleView(...args)
 
     if (this.options.resizable && this.options.cardView) {
@@ -55,7 +55,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  resetView (...args) {
+  resetView(...args) {
     super.resetView(...args)
 
     if (this.options.resizable) {

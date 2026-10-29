@@ -1,7 +1,7 @@
-import Utils from '../utils/index.js'
+import Utils from "../utils/index.js"
 
 export default {
-  initPagination () {
+  initPagination() {
     const opts = this.options
 
     if (!opts.pagination) {
@@ -22,30 +22,37 @@ export default {
     const data = this.getData({ includeHiddenRows: false })
     let pageList = opts.pageList
 
-    if (typeof pageList === 'string') {
-      pageList = pageList.replace(/\[|\]| /g, '').toLowerCase().split(',')
+    if (typeof pageList === "string") {
+      pageList = pageList
+        .replace(/\[|\]| /g, "")
+        .toLowerCase()
+        .split(",")
     }
 
-    pageList = pageList.map(value => {
-      if (typeof value === 'string') {
+    pageList = pageList.map((value) => {
+      if (typeof value === "string") {
         return value.toLowerCase() === opts.formatAllRows().toLowerCase() ||
-          ['all', 'unlimited'].includes(value.toLowerCase()) ? opts.formatAllRows() : +value
+          ["all", "unlimited"].includes(value.toLowerCase())
+          ? opts.formatAllRows()
+          : +value
       }
       return value
     })
 
     this.paginationParts = opts.paginationParts
-    if (typeof this.paginationParts === 'string') {
+    if (typeof this.paginationParts === "string") {
       this.paginationParts = Utils.parseStringArray(this.paginationParts)
     }
 
-    if (opts.sidePagination !== 'server') {
+    if (opts.sidePagination !== "server") {
       opts.totalRows = data.length
     }
 
     this.totalPages = 0
     if (opts.pageSize <= 0) {
-      console.warn('pageSize must be a positive number, falling back to show all rows.')
+      console.warn(
+        "pageSize must be a positive number, falling back to show all rows.",
+      )
       opts.pageSize = opts.totalRows || 1
       allSelected = true
     }
@@ -69,7 +76,7 @@ export default {
       this.pageTo = opts.totalRows
     }
 
-    if (this.options.pagination && this.options.sidePagination !== 'server') {
+    if (this.options.pagination && this.options.sidePagination !== "server") {
       this.options.totalNotFiltered = this.options.data.length
     }
 
@@ -77,32 +84,46 @@ export default {
       this.options.totalNotFiltered = undefined
     }
 
-    if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort') || this.paginationParts.includes('pageSize')) {
-      html.push(`<div class="${this.constants.classes.pull}-${opts.paginationDetailHAlign} pagination-detail">`)
+    if (
+      this.paginationParts.includes("pageInfo") ||
+      this.paginationParts.includes("pageInfoShort") ||
+      this.paginationParts.includes("pageSize")
+    ) {
+      html.push(
+        `<div class="${this.constants.classes.pull}-${opts.paginationDetailHAlign} pagination-detail">`,
+      )
     }
 
-    if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort')) {
+    if (
+      this.paginationParts.includes("pageInfo") ||
+      this.paginationParts.includes("pageInfoShort")
+    ) {
       let totalRows = this.options.totalRows
 
       if (
-        this.options.sidePagination === 'client' &&
+        this.options.sidePagination === "client" &&
         this.options.paginationLoadMore &&
         !this._paginationLoaded &&
         this.totalPages > 1
       ) {
-        totalRows += ' +'
+        totalRows += " +"
       }
 
-      const paginationInfo = this.paginationParts.includes('pageInfoShort') ?
-        opts.formatDetailPagination(totalRows) :
-        opts.formatShowingRows(this.pageFrom, this.pageTo, totalRows, opts.totalNotFiltered)
+      const paginationInfo = this.paginationParts.includes("pageInfoShort")
+        ? opts.formatDetailPagination(totalRows)
+        : opts.formatShowingRows(
+            this.pageFrom,
+            this.pageTo,
+            totalRows,
+            opts.totalNotFiltered,
+          )
 
       html.push(`<span class="pagination-info">
       ${paginationInfo}
       </span>`)
     }
 
-    if (this.paginationParts.includes('pageSize')) {
+    if (this.paginationParts.includes("pageSize")) {
       html.push('<div class="page-list">')
 
       const pageNumber = [
@@ -113,34 +134,61 @@ export default {
         </span>
         ${this.constants.html.dropdownCaret}
         </button>
-        ${this.constants.html.pageDropdown[0]}`
+        ${this.constants.html.pageDropdown[0]}`,
       ]
 
       pageList.forEach((page, i) => {
-        if (!opts.smartDisplay || i === 0 || pageList[i - 1] < opts.totalRows || page === opts.formatAllRows()) {
+        if (
+          !opts.smartDisplay ||
+          i === 0 ||
+          pageList[i - 1] < opts.totalRows ||
+          page === opts.formatAllRows()
+        ) {
           let active
 
           if (allSelected) {
-            active = page === opts.formatAllRows() ? this.constants.classes.dropdownActive : ''
+            active =
+              page === opts.formatAllRows()
+                ? this.constants.classes.dropdownActive
+                : ""
           } else {
-            active = page === opts.pageSize ? this.constants.classes.dropdownActive : ''
+            active =
+              page === opts.pageSize
+                ? this.constants.classes.dropdownActive
+                : ""
           }
-          pageNumber.push(Utils.sprintf(this.constants.html.pageDropdownItem, active, page))
+          pageNumber.push(
+            Utils.sprintf(this.constants.html.pageDropdownItem, active, page),
+          )
         }
       })
       pageNumber.push(`${this.constants.html.pageDropdown[1]}</div>`)
 
-      html.push(opts.formatRecordsPerPage(pageNumber.join('')))
+      html.push(opts.formatRecordsPerPage(pageNumber.join("")))
     }
 
-    if (this.paginationParts.includes('pageInfo') || this.paginationParts.includes('pageInfoShort') || this.paginationParts.includes('pageSize')) {
-      html.push('</div></div>')
+    if (
+      this.paginationParts.includes("pageInfo") ||
+      this.paginationParts.includes("pageInfoShort") ||
+      this.paginationParts.includes("pageSize")
+    ) {
+      html.push("</div></div>")
     }
 
-    if (this.paginationParts.includes('pageList')) {
-      html.push(`<div class="${this.constants.classes.pull}-${opts.paginationHAlign} pagination">`,
-        Utils.sprintf(this.constants.html.pagination[0], Utils.sprintf(' pagination-%s', opts.iconSize)),
-        Utils.sprintf(this.constants.html.paginationItem, ' page-pre', opts.formatSRPaginationPreText(), opts.paginationPreText))
+    if (this.paginationParts.includes("pageList")) {
+      html.push(
+        `<div class="${this.constants.classes.pull}-${opts.paginationHAlign} pagination">`,
+        Utils.sprintf(
+          this.constants.html.pagination[0],
+          Utils.sprintf(" pagination-%s", opts.iconSize),
+        ),
+        Utils.sprintf(
+          this.constants.html.paginationItem,
+          " page-pre",
+          opts.formatSRPaginationPreText(),
+          opts.paginationPreText,
+        ),
+      )
 
       if (this.totalPages < opts.paginationSuccessivelySize) {
         from = 1
@@ -155,7 +203,10 @@ export default {
       }
 
       if (opts.paginationSuccessivelySize > this.totalPages - from) {
-        from = from - (opts.paginationSuccessivelySize - (this.totalPages - from)) + 1
+        from =
+          from -
+          (opts.paginationSuccessivelySize - (this.totalPages - from)) +
+          1
       }
 
       if (from < 1) {
@@ -167,8 +218,16 @@ export default {
       }
 
       const middleSize = Math.round(opts.paginationPagesBySide / 2)
-      const pageItem = (i, classes = '') => Utils.sprintf(this.constants.html.paginationItem,
-        classes + (i === opts.pageNumber ? ` ${this.constants.classes.paginationActive}` : ''), opts.formatSRPaginationPageText(i), i)
+      const pageItem = (i, classes = "") =>
+        Utils.sprintf(
+          this.constants.html.paginationItem,
+          classes +
+            (i === opts.pageNumber
+              ? ` ${this.constants.classes.paginationActive}`
+              : ""),
+          opts.formatSRPaginationPageText(i),
+          i,
+        )
 
       if (from > 1) {
         let max = opts.paginationPagesBySide
@@ -182,14 +241,21 @@ export default {
           html.push(pageItem(i))
         } else if (from - 1 > max) {
           if (
-            from - opts.paginationPagesBySide * 2 > opts.paginationPagesBySide &&
-              opts.paginationUseIntermediate
+            from - opts.paginationPagesBySide * 2 >
+              opts.paginationPagesBySide &&
+            opts.paginationUseIntermediate
           ) {
             i = Math.round((from - middleSize) / 2 + middleSize)
-            html.push(pageItem(i, ' page-intermediate'))
+            html.push(pageItem(i, " page-intermediate"))
           } else {
-            html.push(Utils.sprintf(this.constants.html.paginationItem,
-              ' page-first-separator disabled', '', '...'))
+            html.push(
+              Utils.sprintf(
+                this.constants.html.paginationItem,
+                " page-first-separator disabled",
+                "",
+                "...",
+              ),
+            )
           }
         }
       }
@@ -208,13 +274,19 @@ export default {
         } else if (min > to + 1) {
           if (
             this.totalPages - to > opts.paginationPagesBySide * 2 &&
-              opts.paginationUseIntermediate
+            opts.paginationUseIntermediate
           ) {
             i = Math.round((this.totalPages - middleSize - to) / 2 + to)
-            html.push(pageItem(i, ' page-intermediate'))
+            html.push(pageItem(i, " page-intermediate"))
           } else {
-            html.push(Utils.sprintf(this.constants.html.paginationItem,
-              ' page-last-separator disabled', '', '...'))
+            html.push(
+              Utils.sprintf(
+                this.constants.html.paginationItem,
+                " page-last-separator disabled",
+                "",
+                "...",
+              ),
+            )
           }
         }
 
@@ -223,57 +295,69 @@ export default {
         }
       }
 
-      html.push(Utils.sprintf(this.constants.html.paginationItem, ' page-next', opts.formatSRPaginationNextText(), opts.paginationNextText))
-      html.push(this.constants.html.pagination[1], '</div>')
+      html.push(
+        Utils.sprintf(
+          this.constants.html.paginationItem,
+          " page-next",
+          opts.formatSRPaginationNextText(),
+          opts.paginationNextText,
+        ),
+      )
+      html.push(this.constants.html.pagination[1], "</div>")
     }
-    this.$pagination.html(html.join(''))
+    this.$pagination.html(html.join(""))
 
-    const dropupClass = ['bottom', 'both'].includes(opts.paginationVAlign) ?
-      ` ${this.constants.classes.dropup}` : ''
+    const dropupClass = ["bottom", "both"].includes(opts.paginationVAlign)
+      ? ` ${this.constants.classes.dropup}`
+      : ""
 
-    this.$pagination.last().find('.page-list > div').addClass(dropupClass)
+    this.$pagination.last().find(".page-list > div").addClass(dropupClass)
 
     if (!opts.onlyInfoPagination) {
-      $pageList = this.$pagination.find('.page-list a')
-      $pre = this.$pagination.find('.page-pre')
-      $next = this.$pagination.find('.page-next')
-      $number = this.$pagination.find('.page-item').not('.page-next, .page-pre, .page-last-separator, .page-first-separator')
+      $pageList = this.$pagination.find(".page-list a")
+      $pre = this.$pagination.find(".page-pre")
+      $next = this.$pagination.find(".page-next")
+      $number = this.$pagination
+        .find(".page-item")
+        .not(
+          ".page-next, .page-pre, .page-last-separator, .page-first-separator",
+        )
 
       if (this.totalPages <= 1) {
-        this.$pagination.find('div.pagination').hide()
+        this.$pagination.find("div.pagination").hide()
       }
 
       if (opts.smartDisplay) {
         if (pageList.length < 2 || opts.totalRows <= pageList[0]) {
-          this.$pagination.find('div.page-list').hide()
+          this.$pagination.find("div.page-list").hide()
         }
       }
 
       // when data is empty, hide the pagination
-      this.$pagination[this.getData().length ? 'show' : 'hide']()
+      this.$pagination[this.getData().length ? "show" : "hide"]()
 
       if (!opts.paginationLoop) {
         if (opts.pageNumber === 1) {
-          $pre.addClass('disabled')
+          $pre.addClass("disabled")
         }
         if (opts.pageNumber === this.totalPages) {
-          $next.addClass('disabled')
+          $next.addClass("disabled")
         }
       }
 
       if (allSelected) {
         opts.pageSize = opts.formatAllRows()
       }
-      $pageList.off('click').on('click', e => this.onPageListChange(e))
-      $pre.off('click').on('click', e => this.onPagePre(e))
-      $next.off('click').on('click', e => this.onPageNext(e))
-      $number.off('click').on('click', e => this.onPageNumber(e))
+      $pageList.off("click").on("click", (e) => this.onPageListChange(e))
+      $pre.off("click").on("click", (e) => this.onPagePre(e))
+      $next.off("click").on("click", (e) => this.onPageNext(e))
+      $number.off("click").on("click", (e) => this.onPageNumber(e))
     }
   },
 
-  updatePagination (event) {
+  updatePagination(event) {
     // Fix #171: IE disabled button can be clicked bug.
-    if (event && $(event.currentTarget).hasClass('disabled')) {
+    if (event && $(event.currentTarget).hasClass("disabled")) {
       return
     }
 
@@ -283,14 +367,14 @@ export default {
 
     this.initPagination()
 
-    this.trigger('page-change', this.options.pageNumber, this.options.pageSize)
+    this.trigger("page-change", this.options.pageNumber, this.options.pageSize)
 
     if (
-      this.options.sidePagination === 'server' ||
-      this.options.sidePagination === 'client' &&
-      this.options.paginationLoadMore &&
-      !this._paginationLoaded &&
-      this.options.pageNumber === this.totalPages
+      this.options.sidePagination === "server" ||
+      (this.options.sidePagination === "client" &&
+        this.options.paginationLoadMore &&
+        !this._paginationLoaded &&
+        this.options.pageNumber === this.totalPages)
     ) {
       this.initServer()
     } else {
@@ -298,22 +382,27 @@ export default {
     }
   },
 
-  onPageListChange (event) {
+  onPageListChange(event) {
     event.preventDefault()
     const $this = $(event.currentTarget)
 
-    $this.parent().addClass(this.constants.classes.dropdownActive)
-      .siblings().removeClass(this.constants.classes.dropdownActive)
-    this.options.pageSize = $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase() ?
-      this.options.formatAllRows() : +$this.text()
-    this.$toolbar.find('.page-size').text(this.options.pageSize)
+    $this
+      .parent()
+      .addClass(this.constants.classes.dropdownActive)
+      .siblings()
+      .removeClass(this.constants.classes.dropdownActive)
+    this.options.pageSize =
+      $this.text().toUpperCase() === this.options.formatAllRows().toUpperCase()
+        ? this.options.formatAllRows()
+        : +$this.text()
+    this.$toolbar.find(".page-size").text(this.options.pageSize)
 
     this.updatePagination(event)
     return false
   },
 
-  onPagePre (event) {
-    if ($(event.target).hasClass('disabled')) {
+  onPagePre(event) {
+    if ($(event.target).hasClass("disabled")) {
       return
     }
     event.preventDefault()
@@ -326,8 +415,8 @@ export default {
     return false
   },
 
-  onPageNext (event) {
-    if ($(event.target).hasClass('disabled')) {
+  onPageNext(event) {
+    if ($(event.target).hasClass("disabled")) {
       return
     }
     event.preventDefault()
@@ -340,7 +429,7 @@ export default {
     return false
   },
 
-  onPageNumber (event) {
+  onPageNumber(event) {
     event.preventDefault()
     if (this.options.pageNumber === +$(event.currentTarget).text()) {
       return
@@ -350,36 +439,47 @@ export default {
     return false
   },
 
-  selectPage (page) {
+  selectPage(page) {
     if (page > 0 && page <= this.options.totalPages) {
       this.options.pageNumber = page
       this.updatePagination()
     }
   },
 
-  prevPage () {
+  prevPage() {
     if (this.options.pageNumber > 1) {
       this.options.pageNumber--
       this.updatePagination()
     }
   },
 
-  nextPage () {
+  nextPage() {
     if (this.options.pageNumber < this.options.totalPages) {
       this.options.pageNumber++
       this.updatePagination()
     }
   },
 
-  togglePagination () {
+  togglePagination() {
     this.options.pagination = !this.options.pagination
 
-    const icon = this.options.showButtonIcons ? this.options.pagination ? this.options.icons.paginationSwitchDown : this.options.icons.paginationSwitchUp : ''
-    const text = this.options.showButtonText ? this.options.pagination ? this.options.formatPaginationSwitchUp() : this.options.formatPaginationSwitchDown() : ''
+    const icon = this.options.showButtonIcons
+      ? this.options.pagination
+        ? this.options.icons.paginationSwitchDown
+        : this.options.icons.paginationSwitchUp
+      : ""
+    const text = this.options.showButtonText
+      ? this.options.pagination
+        ? this.options.formatPaginationSwitchUp()
+        : this.options.formatPaginationSwitchDown()
+      : ""
 
-    this.$toolbar.find('button[name="paginationSwitch"]')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+    this.$toolbar
+      .find('button[name="paginationSwitch"]')
+      .html(
+        `${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`,
+      )
     this.updatePagination()
-    this.trigger('toggle-pagination', this.options.pagination)
-  }
+    this.trigger("toggle-pagination", this.options.pagination)
+  },
 }

@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Treegrid
 description: Table Treegrid extension of Bootstrap Table.
 group: extensions
@@ -53,6 +53,7 @@ The treegrid requires a flat data structure with parent-child relationships defi
 ```
 
 **Key points:**
+
 - Each node must have a unique value in the field specified by `idField` (defaults to `id`)
 - The `pid` field (or your custom `parentIdField`) contains the parent's `idField` value
 - Root nodes use `0`, `null`, or the value specified in `rootParentId`
@@ -61,22 +62,20 @@ The treegrid requires a flat data structure with parent-child relationships defi
 ## Quick Start
 
 ```javascript
-$('#table').bootstrapTable({
-  url: 'data.json',
-  idField: 'id',
-  parentIdField: 'pid',
-  treeShowField: 'name',
-  columns: [
-    { field: 'name', title: 'Item Name' }
-  ],
+$("#table").bootstrapTable({
+  url: "data.json",
+  idField: "id",
+  parentIdField: "pid",
+  treeShowField: "name",
+  columns: [{ field: "name", title: "Item Name" }],
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```
 
@@ -147,23 +146,23 @@ $('#table').bootstrapTable({
 ### Loading from Remote API
 
 ```javascript
-$('#table').bootstrapTable({
-  url: '/api/tree-data',
-  idField: 'id',
-  parentIdField: 'parentId',
-  treeShowField: 'title',
+$("#table").bootstrapTable({
+  url: "/api/tree-data",
+  idField: "id",
+  parentIdField: "parentId",
+  treeShowField: "title",
   columns: [
-    { field: 'title', title: 'Title' },
-    { field: 'description', title: 'Description' }
+    { field: "title", title: "Title" },
+    { field: "description", title: "Description" },
   ],
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```
 
@@ -172,10 +171,10 @@ $('#table').bootstrapTable({
 If your API returns root nodes with `parentId: -1`:
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   rootParentId: -1,
-  parentIdField: 'parentId',
-  treeShowField: 'title',
+  parentIdField: "parentId",
+  treeShowField: "title",
   // ... other options
 })
 ```
@@ -183,33 +182,33 @@ $('#table').bootstrapTable({
 ### Initial State: All Expanded
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   // ... options
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
-      initialState: 'expanded',
+      initialState: "expanded",
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```
 
 ### Initial State: All Collapsed
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   // ... options
   onPostBody: function () {
-    $('#table').treegrid({
+    $("#table").treegrid({
       treeColumn: 0,
-      initialState: 'collapsed',
+      initialState: "collapsed",
       onChange: function () {
-        $('#table').bootstrapTable('resetView')
-      }
+        $("#table").bootstrapTable("resetView")
+      },
     })
-  }
+  },
 })
 ```

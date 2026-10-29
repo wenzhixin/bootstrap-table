@@ -5,189 +5,196 @@
  * Update From: Sait KURT <bilgi@ientegre.com> <https://github.com/xDeSwa>
  */
 
-$.fn.bootstrapTable.locales['tr-TR'] = $.fn.bootstrapTable.locales['tr'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["tr-TR"] = $.fn.bootstrapTable.locales["tr"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Kapat'
+  formatAdvancedCloseButton() {
+    return "Kapat"
   },
 
-  formatAdvancedSearch () {
-    return 'Gelişmiş Arama'
+  formatAdvancedSearch() {
+    return "Gelişmiş Arama"
   },
 
-  formatAllRows () {
-    return 'Tüm Satırlar'
+  formatAllRows() {
+    return "Tüm Satırlar"
   },
 
-  formatAutoRefresh () {
-    return 'Otomatik Yenileme'
+  formatAutoRefresh() {
+    return "Otomatik Yenileme"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Aramayı Temizle'
+  formatClearSearch() {
+    return "Aramayı Temizle"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Sütunlar'
+  formatColumns() {
+    return "Sütunlar"
   },
 
-  formatColumnsToggleAll () {
-    return 'Tümünü Kapat'
+  formatColumnsToggleAll() {
+    return "Tümünü Kapat"
   },
 
-  formatCopyRows () {
-    return 'Satırları Kopyala'
+  formatCopyRows() {
+    return "Satırları Kopyala"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `${totalRows} satır gösteriliyor`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Verileri Dışa Aktar'
+  formatExport() {
+    return "Verileri Dışa Aktar"
   },
 
-  formatFilterControlSwitch () {
-    return 'Kontrolleri Gizle/Göster'
+  formatFilterControlSwitch() {
+    return "Kontrolleri Gizle/Göster"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Kontrolleri Gizle'
+  formatFilterControlSwitchHide() {
+    return "Kontrolleri Gizle"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Kontrolleri Göster'
+  formatFilterControlSwitchShow() {
+    return "Kontrolleri Göster"
   },
 
-  formatFullscreen () {
-    return 'Tam Ekran'
+  formatFullscreen() {
+    return "Tam Ekran"
   },
 
-  formatJumpTo () {
-    return 'Git'
+  formatJumpTo() {
+    return "Git"
   },
 
-  formatLoadingMessage () {
-    return 'Yükleniyor, lütfen bekleyin'
+  formatLoadingMessage() {
+    return "Yükleniyor, lütfen bekleyin"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Eşleşen kayıt bulunamadı.'
+  formatNoMatches() {
+    return "Eşleşen kayıt bulunamadı."
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Sayfalamayı Gizle/Göster'
+  formatPaginationSwitch() {
+    return "Sayfalamayı Gizle/Göster"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Sayfalamayı Göster'
+  formatPaginationSwitchDown() {
+    return "Sayfalamayı Göster"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Sayfalamayı Gizle'
+  formatPaginationSwitchUp() {
+    return "Sayfalamayı Gizle"
   },
 
-  formatPrint () {
-    return 'Yazdır'
+  formatPrint() {
+    return "Yazdır"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `Sayfa başına ${pageNumber} kayıt.`
   },
 
-  formatRefresh () {
-    return 'Yenile'
+  formatRefresh() {
+    return "Yenile"
   },
 
-  formatSRPaginationNextText () {
-    return 'sonraki sayfa'
+  formatSRPaginationNextText() {
+    return "sonraki sayfa"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `sayfa ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'önceki sayfa'
+  formatSRPaginationPreText() {
+    return "önceki sayfa"
   },
 
-  formatSearch () {
-    return 'Ara'
+  formatSearch() {
+    return "Ara"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor (${totalNotFiltered} toplam satır filtrelendi).`
     }
 
     return `${totalRows} kayıttan ${pageFrom}-${pageTo} arası gösteriliyor.`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Kart Görünümünü Gizle'
+  formatToggleOff() {
+    return "Kart Görünümünü Gizle"
   },
 
-  formatToggleOn () {
-    return 'Kart Görünümünü Göster'
-  }
+  formatToggleOn() {
+    return "Kart Görünümünü Göster"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['tr-TR'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["tr-TR"],
+)

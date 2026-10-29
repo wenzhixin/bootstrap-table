@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Filter Control
 description: Bootstrap Table 的过滤控制扩展，为表格列添加筛选功能。
 group: extensions
@@ -11,7 +11,11 @@ toc: true
 ## 用法
 
 ```html
-<link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="extensions/filter-control/bootstrap-table-filter-control.css"
+/>
 <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
 ```
 
@@ -169,9 +173,9 @@ toc: true
 - **详情:**
 
   设置该列的过滤控件类型：
-  * `input`：文本输入框
-  * `select`：下拉选择框
-  * `datepicker`：HTML5 日期选择器
+  - `input`：文本输入框
+  - `select`：下拉选择框
+  - `datepicker`：HTML5 日期选择器
 
 - **默认值:** `undefined`
 
@@ -197,10 +201,10 @@ toc: true
 
   自定义搜索函数，替代内置搜索。入参：
 
-    * `text`：搜索文本。
-    * `value`：待比较的列值。
-    * `field`：列字段名。
-    * `data`：表格数据。
+  - `text`：搜索文本。
+  - `value`：待比较的列值。
+  - `field`：列字段名。
+  - `data`：表格数据。
 
   返回 `false` 表示过滤掉当前行/列；返回 `true` 表示保留；返回 `null` 表示跳过当前值的自定义搜索。
 
@@ -285,33 +289,33 @@ toc: true
 
 ### 图标
 
-* `clear`: `'glyphicon-trash icon-clear'`
-* `filterControlSwitchHide`: `'glyphicon-zoom-out icon-zoom-out'`
-* `filterControlSwitchShow`: `'glyphicon-zoom-in icon-zoom-in'`
+- `clear`: `'glyphicon-trash icon-clear'`
+- `filterControlSwitchHide`: `'glyphicon-zoom-out icon-zoom-out'`
+- `filterControlSwitchShow`: `'glyphicon-zoom-in icon-zoom-in'`
 
 ## 事件
 
 ### onColumnSearch (column-search.bs.table)
 
-* 当列数据触发搜索时触发。
+- 当列数据触发搜索时触发。
 
 ### onCreatedControls (created-controls.bs.table)
 
-* 当过滤控件创建完成时触发。
+- 当过滤控件创建完成时触发。
 
 ## 方法
 
 ### triggerSearch
 
-* 手动触发搜索操作。
+- 手动触发搜索操作。
 
 ### clearFilterControl
 
-* 清空该插件添加的所有控件（类似 `showSearchClearButton` 选项）。
+- 清空该插件添加的所有控件（类似 `showSearchClearButton` 选项）。
 
 ### toggleFilterControl
 
-* 切换过滤控件的显示/隐藏。
+- 切换过滤控件的显示/隐藏。
 
 ## 本地化
 

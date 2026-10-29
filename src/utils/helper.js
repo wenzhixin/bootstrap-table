@@ -1,4 +1,4 @@
-import { sprintf } from './string.js'
+import { sprintf } from "./string.js"
 
 /**
  * General helper utilities.
@@ -18,12 +18,12 @@ import { sprintf } from './string.js'
  * @param {*} defaultValue - The default value to return if calculation fails.
  * @returns {*} The calculated value or default value.
  */
-export function calculateObjectValue (self, name, args, defaultValue) {
+export function calculateObjectValue(self, name, args, defaultValue) {
   let func = name
 
-  if (typeof name === 'string') {
+  if (typeof name === "string") {
     // support obj.func1.func2
-    const names = name.split('.')
+    const names = name.split(".")
 
     if (names.length > 1) {
       func = window
@@ -35,20 +35,15 @@ export function calculateObjectValue (self, name, args, defaultValue) {
     }
   }
 
-  if (func !== null && typeof func === 'object') {
+  if (func !== null && typeof func === "object") {
     return func
   }
 
-  if (typeof func === 'function') {
+  if (typeof func === "function") {
     return func.apply(self, args || [])
   }
 
-  if (
-    !func &&
-    typeof name === 'string' &&
-    args &&
-    sprintf(name, ...args)
-  ) {
+  if (!func && typeof name === "string" && args && sprintf(name, ...args)) {
     return sprintf(name, ...args)
   }
 
@@ -63,10 +58,10 @@ export function calculateObjectValue (self, name, args, defaultValue) {
  * @param {boolean} [immediate=false] - If true, trigger the function on the leading edge.
  * @returns {Function} The debounced function.
  */
-export function debounce (func, wait, immediate) {
+export function debounce(func, wait, immediate) {
   let timeout
 
-  return function executedFunction () {
+  return function executedFunction() {
     const context = this
     const args = arguments
 
@@ -92,7 +87,7 @@ export function debounce (func, wait, immediate) {
  * @param {string} [id=''] - The optional ID to append. If not provided, generates a random ID.
  * @returns {string} The generated event name.
  */
-export function getEventName (eventPrefix, id = '') {
+export function getEventName(eventPrefix, id = "") {
   id = id || `${+new Date()}${~~(Math.random() * 1000000)}`
   return `${eventPrefix}-${id}`
 }
@@ -103,7 +98,7 @@ export function getEventName (eventPrefix, id = '') {
  * @param {Object.<string, *>} options - The table options.
  * @returns {boolean} True if the table has a detail view icon, false otherwise.
  */
-export function hasDetailViewIcon (options) {
+export function hasDetailViewIcon(options) {
   return options.detailView && options.detailViewIcon && !options.cardView
 }
 
@@ -113,8 +108,10 @@ export function hasDetailViewIcon (options) {
  * @param {Object.<string, *>} options - The table options.
  * @returns {number} The index offset (1 if detail view is on the left, 0 otherwise).
  */
-export function getDetailViewIndexOffset (options) {
-  return hasDetailViewIcon(options) && options.detailViewAlign !== 'right' ? 1 : 0
+export function getDetailViewIndexOffset(options) {
+  return hasDetailViewIcon(options) && options.detailViewAlign !== "right"
+    ? 1
+    : 0
 }
 
 /**
@@ -124,15 +121,15 @@ export function getDetailViewIndexOffset (options) {
  * @param {Object.<string, string>} query - The query parameters to add.
  * @returns {string} The URL with query parameters added.
  */
-export function addQueryToUrl (url, query) {
-  const hashArray = url.split('#')
-  const [baseUrl, search] = hashArray[0].split('?')
+export function addQueryToUrl(url, query) {
+  const hashArray = url.split("#")
+  const [baseUrl, search] = hashArray[0].split("?")
   const urlParams = new URLSearchParams(search)
 
   for (const [key, value] of Object.entries(query)) {
     urlParams.set(key, value)
   }
-  return `${baseUrl}?${urlParams.toString()}#${hashArray.slice(1).join('#')}`
+  return `${baseUrl}?${urlParams.toString()}#${hashArray.slice(1).join("#")}`
 }
 
 /**
@@ -141,7 +138,7 @@ export function addQueryToUrl (url, query) {
  * @param {*} n - The value to check.
  * @returns {boolean} True if the value is numeric, false otherwise.
  */
-export function isNumeric (n) {
+export function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
@@ -150,9 +147,11 @@ export function isNumeric (n) {
  *
  * @returns {boolean} True if the browser is IE, false otherwise.
  */
-export function isIEBrowser () {
-  return navigator.userAgent.includes('MSIE ') ||
+export function isIEBrowser() {
+  return (
+    navigator.userAgent.includes("MSIE ") ||
     /Trident.*rv:11\./.test(navigator.userAgent)
+  )
 }
 
 /**
@@ -160,25 +159,23 @@ export function isIEBrowser () {
  * @param {string} str - Input string in formats like "['a', 'b']", "[1, 2]", "a,b", or "[]".
  * @returns {string[]} Parsed array of strings.
  */
-export function parseStringArray (str) {
+export function parseStringArray(str) {
   if (!str) {
     return []
   }
 
   const normalized = String(str).trim()
 
-  if (!normalized || normalized === '[]') {
+  if (!normalized || normalized === "[]") {
     return []
   }
 
-  if (normalized.startsWith('[') && normalized.endsWith(']')) {
+  if (normalized.startsWith("[") && normalized.endsWith("]")) {
     try {
       const parsed = JSON.parse(normalized)
 
       if (Array.isArray(parsed)) {
-        return parsed
-          .map(item => String(item))
-          .filter(item => item !== '')
+        return parsed.map((item) => String(item)).filter((item) => item !== "")
       }
     } catch {
       // Fall back to delimiter-based parsing for non-JSON array strings.
@@ -186,7 +183,7 @@ export function parseStringArray (str) {
   }
 
   return normalized
-    .replace(/\[|\]|['"\s]/g, '')
-    .split(',')
-    .filter(item => item !== '')
+    .replace(/\[|\]|['"\s]/g, "")
+    .split(",")
+    .filter((item) => item !== "")
 }

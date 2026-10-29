@@ -1,1 +1,1 @@
-require('../../../extensions/reorder-columns')()
+require("../../../extensions/reorder-columns")()

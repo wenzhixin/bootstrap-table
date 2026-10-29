@@ -6,31 +6,31 @@
 const Utils = $.fn.bootstrapTable.utils
 
 Object.assign($.fn.bootstrapTable.locales, {
-  formatCopyRows () {
-    return 'Copy Rows'
-  }
+  formatCopyRows() {
+    return "Copy Rows"
+  },
 })
 Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-Utils.assignIcons($.fn.bootstrapTable.icons, 'copy', {
-  glyphicon: 'glyphicon-copy icon-pencil',
-  fa: 'fa-copy',
-  bi: 'bi-clipboard',
-  icon: 'icon-copy',
-  'material-icons': 'content_copy'
+Utils.assignIcons($.fn.bootstrapTable.icons, "copy", {
+  glyphicon: "glyphicon-copy icon-pencil",
+  fa: "fa-copy",
+  bi: "bi-clipboard",
+  icon: "icon-copy",
+  "material-icons": "content_copy",
 })
 
-const copyText = text => {
-  const textField = document.createElement('textarea')
+const copyText = (text) => {
+  const textField = document.createElement("textarea")
 
   $(textField).html(text)
   document.body.appendChild(textField)
   textField.select()
 
   try {
-    document.execCommand('copy')
+    document.execCommand("copy")
   } catch (e) {
-    console.warn('Oops, unable to copy', e)
+    console.warn("Oops, unable to copy", e)
   }
   $(textField).remove()
 }
@@ -38,25 +38,22 @@ const copyText = text => {
 Object.assign($.fn.bootstrapTable.defaults, {
   showCopyRows: false,
   copyWithHidden: false,
-  copyDelimiter: ', ',
-  copyNewline: '\n',
-  copyRowsHandler (text) {
+  copyDelimiter: ", ",
+  copyNewline: "\n",
+  copyRowsHandler(text) {
     return text
-  }
+  },
 })
 
 Object.assign($.fn.bootstrapTable.columnDefaults, {
   ignoreCopy: false,
-  rawCopy: false
+  rawCopy: false,
 })
 
-$.fn.bootstrapTable.methods.push(
-  'copyColumnsToClipboard'
-)
+$.fn.bootstrapTable.methods.push("copyColumnsToClipboard")
 
 $.BootstrapTable = class extends $.BootstrapTable {
-
-  initToolbar (...args) {
+  initToolbar(...args) {
     if (this.options.showCopyRows && this.header.stateField) {
       this.buttons = Object.assign(this.buttons, {
         copyRows: {
@@ -64,10 +61,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           icon: this.options.icons.copy,
           event: this.copyColumnsToClipboard,
           attributes: {
-            'aria-label': this.options.formatCopyRows(),
-            title: this.options.formatCopyRows()
-          }
-        }
+            "aria-label": this.options.formatCopyRows(),
+            title: this.options.formatCopyRows(),
+          },
+        },
       })
     }
 
@@ -79,7 +76,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  copyColumnsToClipboard () {
+  copyColumnsToClipboard() {
     const rows = []
 
     for (const row of this.getSelections()) {
@@ -88,12 +85,19 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.options.columns[0].forEach((column, index) => {
         if (
           column.field !== this.header.stateField &&
-          (!this.options.copyWithHidden || this.options.copyWithHidden && column.visible) &&
+          (!this.options.copyWithHidden ||
+            (this.options.copyWithHidden && column.visible)) &&
           !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
-            const columnValue = column.rawCopy ? row[column.field] :
-              Utils.calculateObjectValue(column, this.header.formatters[index], [row[column.field], row, index], row[column.field])
+            const columnValue = column.rawCopy
+              ? row[column.field]
+              : Utils.calculateObjectValue(
+                  column,
+                  this.header.formatters[index],
+                  [row[column.field], row, index],
+                  row[column.field],
+                )
 
             cols.push(columnValue)
           }
@@ -104,19 +108,28 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     let text = rows.join(this.options.copyNewline)
 
-    text = Utils.calculateObjectValue(this.options, this.options.copyRowsHandler, [text], text)
+    text = Utils.calculateObjectValue(
+      this.options,
+      this.options.copyRowsHandler,
+      [text],
+      text,
+    )
 
     copyText(text)
   }
 
-  updateSelected () {
+  updateSelected() {
     super.updateSelected()
     this.updateCopyButton()
   }
 
-  updateCopyButton () {
-    if (this.options.showCopyRows && this.header.stateField && this.$copyButton) {
-      this.$copyButton.prop('disabled', !this.getSelections().length)
+  updateCopyButton() {
+    if (
+      this.options.showCopyRows &&
+      this.header.stateField &&
+      this.$copyButton
+    ) {
+      this.$copyButton.prop("disabled", !this.getSelections().length)
     }
   }
 }

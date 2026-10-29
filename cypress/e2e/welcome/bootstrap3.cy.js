@@ -1,1 +1,1 @@
-require('../../common/welcome')('bootstrap3')
+require("../../common/welcome")("bootstrap3")

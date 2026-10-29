@@ -4,189 +4,196 @@
  * Editor: David Morais Ferreira (https://github.com/DavidMoraisFerreira/)
  */
 
-$.fn.bootstrapTable.locales['fr-LU'] = {
-  formatAddLevel () {
-    return 'Ajouter un niveau'
+$.fn.bootstrapTable.locales["fr-LU"] = {
+  formatAddLevel() {
+    return "Ajouter un niveau"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Fermer'
+  formatAdvancedCloseButton() {
+    return "Fermer"
   },
 
-  formatAdvancedSearch () {
-    return 'Recherche avancée'
+  formatAdvancedSearch() {
+    return "Recherche avancée"
   },
 
-  formatAllRows () {
-    return 'Tout'
+  formatAllRows() {
+    return "Tout"
   },
 
-  formatAutoRefresh () {
-    return 'Actualiser automatiquement'
+  formatAutoRefresh() {
+    return "Actualiser automatiquement"
   },
 
-  formatCancel () {
-    return 'Annuler'
+  formatCancel() {
+    return "Annuler"
   },
 
-  formatClearSearch () {
-    return 'Effacer la recherche'
+  formatClearSearch() {
+    return "Effacer la recherche"
   },
 
-  formatColumn () {
-    return 'Colonne'
+  formatColumn() {
+    return "Colonne"
   },
 
-  formatColumns () {
-    return 'Colonnes'
+  formatColumns() {
+    return "Colonnes"
   },
 
-  formatColumnsToggleAll () {
-    return 'Tout afficher'
+  formatColumnsToggleAll() {
+    return "Tout afficher"
   },
 
-  formatCopyRows () {
-    return 'Copier les lignes'
+  formatCopyRows() {
+    return "Copier les lignes"
   },
 
-  formatDeleteLevel () {
-    return 'Supprimer un niveau'
+  formatDeleteLevel() {
+    return "Supprimer un niveau"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Affichage de ${totalRows} lignes`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Veuillez supprimer ou modifier les entrées en double'
+  formatDuplicateAlertDescription() {
+    return "Veuillez supprimer ou modifier les entrées en double"
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Des entrées en double ont été trouvées !'
+  formatDuplicateAlertTitle() {
+    return "Des entrées en double ont été trouvées !"
   },
 
-  formatExport () {
-    return 'Exporter'
+  formatExport() {
+    return "Exporter"
   },
 
-  formatFilterControlSwitch () {
-    return 'Masquer/Afficher les contrôles'
+  formatFilterControlSwitch() {
+    return "Masquer/Afficher les contrôles"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Masquer les contrôles'
+  formatFilterControlSwitchHide() {
+    return "Masquer les contrôles"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Afficher les contrôles'
+  formatFilterControlSwitchShow() {
+    return "Afficher les contrôles"
   },
 
-  formatFullscreen () {
-    return 'Plein écran'
+  formatFullscreen() {
+    return "Plein écran"
   },
 
-  formatJumpTo () {
-    return 'Aller à'
+  formatJumpTo() {
+    return "Aller à"
   },
 
-  formatLoadingMessage () {
-    return 'Chargement en cours'
+  formatLoadingMessage() {
+    return "Chargement en cours"
   },
 
-  formatMultipleSort () {
-    return 'Tri multiple'
+  formatMultipleSort() {
+    return "Tri multiple"
   },
 
-  formatNoMatches () {
-    return 'Aucun résultat'
+  formatNoMatches() {
+    return "Aucun résultat"
   },
 
-  formatOrder () {
-    return 'Ordre'
+  formatOrder() {
+    return "Ordre"
   },
 
-  formatPaginationSwitch () {
-    return 'Masquer/Afficher la pagination'
+  formatPaginationSwitch() {
+    return "Masquer/Afficher la pagination"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Afficher la pagination'
+  formatPaginationSwitchDown() {
+    return "Afficher la pagination"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Masquer la pagination'
+  formatPaginationSwitchUp() {
+    return "Masquer la pagination"
   },
 
-  formatPrint () {
-    return 'Imprimer'
+  formatPrint() {
+    return "Imprimer"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} lignes par page`
   },
 
-  formatRefresh () {
-    return 'Actualiser'
+  formatRefresh() {
+    return "Actualiser"
   },
 
-  formatSRPaginationNextText () {
-    return 'page suivante'
+  formatSRPaginationNextText() {
+    return "page suivante"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `vers la page ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'page précédente'
+  formatSRPaginationPreText() {
+    return "page précédente"
   },
 
-  formatSearch () {
-    return 'Rechercher'
+  formatSearch() {
+    return "Rechercher"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes (filtrées à partir de ${totalNotFiltered} lignes)`
     }
 
     return `Affichage de ${pageFrom} à ${pageTo} sur ${totalRows} lignes`
   },
 
-  formatSort () {
-    return 'Trier'
+  formatSort() {
+    return "Trier"
   },
 
-  formatSortBy () {
-    return 'Trier par'
+  formatSortBy() {
+    return "Trier par"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascendant',
-      desc: 'Descendant'
+      asc: "Ascendant",
+      desc: "Descendant",
     }
   },
 
-  formatThenBy () {
-    return 'Puis par'
+  formatThenBy() {
+    return "Puis par"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Cacher la vue personnalisée'
+  formatToggleCustomViewOff() {
+    return "Cacher la vue personnalisée"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Afficher la vue personnalisée'
+  formatToggleCustomViewOn() {
+    return "Afficher la vue personnalisée"
   },
 
-  formatToggleOff () {
-    return 'Cacher la vue en cartes'
+  formatToggleOff() {
+    return "Cacher la vue en cartes"
   },
 
-  formatToggleOn () {
-    return 'Afficher la vue en cartes'
-  }
+  formatToggleOn() {
+    return "Afficher la vue en cartes"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['fr-LU'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["fr-LU"],
+)

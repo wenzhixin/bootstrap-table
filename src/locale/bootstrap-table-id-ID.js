@@ -3,189 +3,196 @@
  * Author: Andre Gardiner<andre@sirdre.com>
  */
 
-$.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
-  formatAddLevel () {
-    return 'Menambahkan level'
+$.fn.bootstrapTable.locales["id-ID"] = $.fn.bootstrapTable.locales["id"] = {
+  formatAddLevel() {
+    return "Menambahkan level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Tutup'
+  formatAdvancedCloseButton() {
+    return "Tutup"
   },
 
-  formatAdvancedSearch () {
-    return 'Pencarian lanjutan'
+  formatAdvancedSearch() {
+    return "Pencarian lanjutan"
   },
 
-  formatAllRows () {
-    return 'Semua'
+  formatAllRows() {
+    return "Semua"
   },
 
-  formatAutoRefresh () {
-    return 'Penyegaran otomatis'
+  formatAutoRefresh() {
+    return "Penyegaran otomatis"
   },
 
-  formatCancel () {
-    return 'Batal'
+  formatCancel() {
+    return "Batal"
   },
 
-  formatClearSearch () {
-    return 'Menghapus pencarian'
+  formatClearSearch() {
+    return "Menghapus pencarian"
   },
 
-  formatColumn () {
-    return 'Kolom'
+  formatColumn() {
+    return "Kolom"
   },
 
-  formatColumns () {
-    return 'Kolom'
+  formatColumns() {
+    return "Kolom"
   },
 
-  formatColumnsToggleAll () {
-    return 'Tampilkan semua'
+  formatColumnsToggleAll() {
+    return "Tampilkan semua"
   },
 
-  formatCopyRows () {
-    return 'Salin baris'
+  formatCopyRows() {
+    return "Salin baris"
   },
 
-  formatDeleteLevel () {
-    return 'Menghapus level'
+  formatDeleteLevel() {
+    return "Menghapus level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Tampilan ${totalRows} baris`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Harap hapus atau ubah entri duplikat'
+  formatDuplicateAlertDescription() {
+    return "Harap hapus atau ubah entri duplikat"
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Entri duplikat telah ditemukan!'
+  formatDuplicateAlertTitle() {
+    return "Entri duplikat telah ditemukan!"
   },
 
-  formatExport () {
-    return 'Mengekspor data'
+  formatExport() {
+    return "Mengekspor data"
   },
 
-  formatFilterControlSwitch () {
-    return 'Menyembunyikan/Menampilkan kontrol'
+  formatFilterControlSwitch() {
+    return "Menyembunyikan/Menampilkan kontrol"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Menyembunyikan kontrol'
+  formatFilterControlSwitchHide() {
+    return "Menyembunyikan kontrol"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Menampilkan kontrol'
+  formatFilterControlSwitchShow() {
+    return "Menampilkan kontrol"
   },
 
-  formatFullscreen () {
-    return 'Layar penuh'
+  formatFullscreen() {
+    return "Layar penuh"
   },
 
-  formatJumpTo () {
-    return 'Pergi ke'
+  formatJumpTo() {
+    return "Pergi ke"
   },
 
-  formatLoadingMessage () {
-    return 'Pemuatan sedang berlangsung'
+  formatLoadingMessage() {
+    return "Pemuatan sedang berlangsung"
   },
 
-  formatMultipleSort () {
-    return 'Penyortiran ganda'
+  formatMultipleSort() {
+    return "Penyortiran ganda"
   },
 
-  formatNoMatches () {
-    return 'Tidak ada hasil'
+  formatNoMatches() {
+    return "Tidak ada hasil"
   },
 
-  formatOrder () {
-    return 'Urutan'
+  formatOrder() {
+    return "Urutan"
   },
 
-  formatPaginationSwitch () {
-    return 'Sembunyikan/Tampilkan penomoran halaman'
+  formatPaginationSwitch() {
+    return "Sembunyikan/Tampilkan penomoran halaman"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Tampilkan penomoran halaman'
+  formatPaginationSwitchDown() {
+    return "Tampilkan penomoran halaman"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Sembunyikan penomoran halaman'
+  formatPaginationSwitchUp() {
+    return "Sembunyikan penomoran halaman"
   },
 
-  formatPrint () {
-    return 'Mencetak'
+  formatPrint() {
+    return "Mencetak"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} baris per halaman`
   },
 
-  formatRefresh () {
-    return 'Segarkan'
+  formatRefresh() {
+    return "Segarkan"
   },
 
-  formatSRPaginationNextText () {
-    return 'halaman berikutnya'
+  formatSRPaginationNextText() {
+    return "halaman berikutnya"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `ke halaman ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'halaman sebelumnya'
+  formatSRPaginationPreText() {
+    return "halaman sebelumnya"
   },
 
-  formatSearch () {
-    return 'Pencarian'
+  formatSearch() {
+    return "Pencarian"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris (difilter dari ${totalNotFiltered} baris)`
     }
 
     return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris`
   },
 
-  formatSort () {
-    return 'Penyortiran'
+  formatSort() {
+    return "Penyortiran"
   },
 
-  formatSortBy () {
-    return 'Urutkan berdasarkan'
+  formatSortBy() {
+    return "Urutkan berdasarkan"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Menaik',
-      desc: 'Menurun'
+      asc: "Menaik",
+      desc: "Menurun",
     }
   },
 
-  formatThenBy () {
-    return 'Kemudian oleh'
+  formatThenBy() {
+    return "Kemudian oleh"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Menyembunyikan tampilan khusus'
+  formatToggleCustomViewOff() {
+    return "Menyembunyikan tampilan khusus"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Menampilkan tampilan khusus'
+  formatToggleCustomViewOn() {
+    return "Menampilkan tampilan khusus"
   },
 
-  formatToggleOff () {
-    return 'Menyembunyikan tampilan peta'
+  formatToggleOff() {
+    return "Menyembunyikan tampilan peta"
   },
 
-  formatToggleOn () {
-    return 'Menampilkan tampilan peta'
-  }
+  formatToggleOn() {
+    return "Menampilkan tampilan peta"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['id-ID'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["id-ID"],
+)

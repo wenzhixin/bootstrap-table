@@ -2,8 +2,7 @@ const BLOCK_ROWS = 50
 const CLUSTER_BLOCKS = 4
 
 class VirtualScroll {
-
-  constructor (options) {
+  constructor(options) {
     this.rows = options.rows
     this.scrollEl = options.scrollEl
     this.contentEl = options.contentEl
@@ -25,15 +24,15 @@ class VirtualScroll {
       }
     }
 
-    this.scrollEl.addEventListener('scroll', onScroll, false)
+    this.scrollEl.addEventListener("scroll", onScroll, false)
     this.destroy = () => {
-      this.contentEl.innerHtml = ''
-      this.scrollEl.removeEventListener('scroll', onScroll, false)
+      this.contentEl.innerHtml = ""
+      this.scrollEl.removeEventListener("scroll", onScroll, false)
     }
   }
 
-  initDOM (rows, fixedScroll) {
-    if (typeof this.clusterHeight === 'undefined') {
+  initDOM(rows, fixedScroll) {
+    if (typeof this.clusterHeight === "undefined") {
       this.cache.scrollTop = this.scrollEl.scrollTop
       this.cache.data = this.contentEl.innerHTML = rows[0] + rows[0] + rows[0]
       this.getRowsHeight(rows)
@@ -42,23 +41,23 @@ class VirtualScroll {
     }
 
     const data = this.initData(rows, this.getNum(fixedScroll))
-    const thisRows = data.rows.join('')
-    const dataChanged = this.checkChanges('data', thisRows)
-    const topOffsetChanged = this.checkChanges('top', data.topOffset)
-    const bottomOffsetChanged = this.checkChanges('bottom', data.bottomOffset)
+    const thisRows = data.rows.join("")
+    const dataChanged = this.checkChanges("data", thisRows)
+    const topOffsetChanged = this.checkChanges("top", data.topOffset)
+    const bottomOffsetChanged = this.checkChanges("bottom", data.bottomOffset)
     const html = []
 
     if (dataChanged && topOffsetChanged) {
       if (data.topOffset) {
-        html.push(this.getExtra('top', data.topOffset))
+        html.push(this.getExtra("top", data.topOffset))
       }
       html.push(thisRows)
       if (data.bottomOffset) {
-        html.push(this.getExtra('bottom', data.bottomOffset))
+        html.push(this.getExtra("bottom", data.bottomOffset))
       }
       this.startIndex = data.start
       this.endIndex = data.end
-      this.contentEl.innerHTML = html.join('')
+      this.contentEl.innerHTML = html.join("")
 
       if (fixedScroll) {
         this.contentEl.scrollTop = this.cache.scrollTop
@@ -68,8 +67,8 @@ class VirtualScroll {
     }
   }
 
-  getRowsHeight () {
-    if (typeof this.itemHeight === 'undefined' || this.itemHeight === 0) {
+  getRowsHeight() {
+    if (typeof this.itemHeight === "undefined" || this.itemHeight === 0) {
       const nodes = this.contentEl.children
       const node = nodes[Math.floor(nodes.length / 2)]
 
@@ -80,18 +79,22 @@ class VirtualScroll {
     this.clusterHeight = this.blockHeight * CLUSTER_BLOCKS
   }
 
-  getNum (fixedScroll) {
-    this.scrollTop = fixedScroll ? this.cache.scrollTop : this.scrollEl.scrollTop
-    return Math.floor(this.scrollTop / (this.clusterHeight - this.blockHeight)) || 0
+  getNum(fixedScroll) {
+    this.scrollTop = fixedScroll
+      ? this.cache.scrollTop
+      : this.scrollEl.scrollTop
+    return (
+      Math.floor(this.scrollTop / (this.clusterHeight - this.blockHeight)) || 0
+    )
   }
 
-  initData (rows, num) {
+  initData(rows, num) {
     if (rows.length < BLOCK_ROWS) {
       return {
         topOffset: 0,
         bottomOffset: 0,
         rowsAbove: 0,
-        rows
+        rows,
       }
     }
     const start = Math.max((this.clusterRows - BLOCK_ROWS) * num, 0)
@@ -113,19 +116,19 @@ class VirtualScroll {
       topOffset,
       bottomOffset,
       rowsAbove,
-      rows: thisRows
+      rows: thisRows,
     }
   }
 
-  checkChanges (type, value) {
+  checkChanges(type, value) {
     const changed = value !== this.cache[type]
 
     this.cache[type] = value
     return changed
   }
 
-  getExtra (className, height) {
-    const tag = document.createElement('tr')
+  getExtra(className, height) {
+    const tag = document.createElement("tr")
 
     tag.className = `virtual-scroll-${className}`
     if (height) {

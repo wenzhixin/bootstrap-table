@@ -10,16 +10,13 @@ const Utils = $.fn.bootstrapTable.utils
 
 Object.assign($.fn.bootstrapTable.defaults, {
   addrbar: false,
-  addrPrefix: '',
-  addrCustomParams: {}
+  addrPrefix: "",
+  addrCustomParams: {},
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  init (...args) {
-    if (
-      this.options.pagination &&
-      this.options.addrbar
-    ) {
+  init(...args) {
+    if (this.options.pagination && this.options.addrbar) {
       this.initAddrbar()
     }
     super.init(...args)
@@ -31,31 +28,33 @@ $.BootstrapTable = class extends $.BootstrapTable {
    * If it is not specified, it will be obtained from the address bar.
    * If it is not obtained, the default value will be used.
    */
-  getDefaultOptionValue (optionName, prefixName) {
+  getDefaultOptionValue(optionName, prefixName) {
     if (this.options[optionName] !== $.BootstrapTable.DEFAULTS[optionName]) {
       return this.options[optionName]
     }
 
-    return this.searchParams.get(`${this.options.addrPrefix || ''}${prefixName}`) ||
+    return (
+      this.searchParams.get(`${this.options.addrPrefix || ""}${prefixName}`) ||
       $.BootstrapTable.DEFAULTS[optionName]
+    )
   }
 
-  initAddrbar () {
+  initAddrbar() {
     // 标志位, 初始加载后关闭
     this.addrbarInit = true
 
     this.searchParams = new URLSearchParams(window.location.search.substring(1))
-    this.options.pageNumber = +this.getDefaultOptionValue('pageNumber', 'page')
-    this.options.pageSize = +this.getDefaultOptionValue('pageSize', 'size')
-    this.options.sortOrder = this.getDefaultOptionValue('sortOrder', 'order')
-    this.options.sortName = this.getDefaultOptionValue('sortName', 'sort')
-    this.options.searchText = this.getDefaultOptionValue('searchText', 'search')
+    this.options.pageNumber = +this.getDefaultOptionValue("pageNumber", "page")
+    this.options.pageSize = +this.getDefaultOptionValue("pageSize", "size")
+    this.options.sortOrder = this.getDefaultOptionValue("sortOrder", "order")
+    this.options.sortName = this.getDefaultOptionValue("sortName", "sort")
+    this.options.searchText = this.getDefaultOptionValue("searchText", "search")
 
-    const prefix = this.options.addrPrefix || ''
+    const prefix = this.options.addrPrefix || ""
     const onLoadSuccess = this.options.onLoadSuccess
     const onPageChange = this.options.onPageChange
 
-    this.options.onLoadSuccess = data => {
+    this.options.onLoadSuccess = (data) => {
       if (this.addrbarInit) {
         this.addrbarInit = false
       } else {
@@ -75,7 +74,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
-  updateHistoryState (prefix) {
+  updateHistoryState(prefix) {
     const params = {}
 
     params[`${prefix}page`] = this.options.pageNumber
@@ -92,7 +91,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
 
-    const customParams = Utils.calculateObjectValue(this.options, this.options.addrCustomParams, [], {})
+    const customParams = Utils.calculateObjectValue(
+      this.options,
+      this.options.addrCustomParams,
+      [],
+      {},
+    )
 
     for (const [key, value] of Object.entries(customParams)) {
       this.searchParams.set(key, value)
@@ -104,11 +108,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       url += location.hash
     }
 
-    window.history.pushState({}, '', url)
+    window.history.pushState({}, "", url)
   }
 
-  resetSearch (text) {
+  resetSearch(text) {
     super.resetSearch(text)
-    this.options.searchText = text || ''
+    this.options.searchText = text || ""
   }
 }

@@ -1,5 +1,5 @@
-import { defaultLocale, locales, ui } from './ui'
-import Config from '@/config.js'
+import { defaultLocale, locales, ui } from "./ui"
+import Config from "@/config.js"
 
 /**
  * Generates a base URL based on the specified locale
@@ -10,8 +10,8 @@ import Config from '@/config.js'
  * getBaseUrl('en') // Returns 'https://example.com'
  * getBaseUrl('zh-cn') // Returns 'https://example.com/zh-cn'
  */
-export function getBaseUrl (locale) {
-  return Config.baseurl + (locale === defaultLocale ? '' : `/${locale}`)
+export function getBaseUrl(locale) {
+  return Config.baseurl + (locale === defaultLocale ? "" : `/${locale}`)
 }
 
 /**
@@ -26,12 +26,12 @@ export function getBaseUrl (locale) {
  * getCurrentSlug('/zh-cn/docs/getting-started/introduction', 'zh-cn')
  * // Returns ['getting-started', 'introduction']
  */
-export function getCurrentSlug (pathname, locale) {
+export function getCurrentSlug(pathname, locale) {
   // 2: skips leading slash and 'docs' prefix (e.g., '/docs/...')
   // 3: skips leading slash, locale, and 'docs' prefix (e.g., '/zh-cn/docs/...')
-  const paths = pathname.split('/').slice(locale === defaultLocale ? 2 : 3)
+  const paths = pathname.split("/").slice(locale === defaultLocale ? 2 : 3)
 
-  return [paths[0] || '', paths[1] || '']
+  return [paths[0] || "", paths[1] || ""]
 }
 
 /**
@@ -45,13 +45,14 @@ export function getCurrentSlug (pathname, locale) {
  * // If translation exists 'sidebar.getting_started': 'Getting Started', returns 'Getting Started'
  * // Otherwise returns 'Getting Started'
  */
-export function getSidebarTitle (t, slug) {
-  const key = `sidebar.${slug.replace(/-/g, '_')}`
-  const formatSlugTitle = slug => slug
-    .split('-')
-    .filter(Boolean)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+export function getSidebarTitle(t, slug) {
+  const key = `sidebar.${slug.replace(/-/g, "_")}`
+  const formatSlugTitle = (slug) =>
+    slug
+      .split("-")
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
 
   return t(key) || formatSlugTitle(slug)
 }
@@ -66,12 +67,12 @@ export function getSidebarTitle (t, slug) {
  * t('nav.version_latest', { version: '1.24.2' })
  * // Returns 'Latest (v1.24.2)'
  */
-export function useTranslations (locale) {
+export function useTranslations(locale) {
   return (key, params) => {
     let translation = ui[locale][key] || ui[defaultLocale][key]
 
-    if (params && typeof translation === 'string') {
-      Object.keys(params).forEach(param => {
+    if (params && typeof translation === "string") {
+      Object.keys(params).forEach((param) => {
         const placeholder = `{${param}}`
 
         translation = translation.replaceAll(placeholder, params[param])
@@ -87,8 +88,8 @@ export function useTranslations (locale) {
  * @param {string} pathname - Current location pathname
  * @returns {string[]} Segments excluding locale code
  */
-function getBaseSegments (pathname) {
-  const segments = pathname.split('/').filter(Boolean)
+function getBaseSegments(pathname) {
+  const segments = pathname.split("/").filter(Boolean)
   const localeKeys = Object.keys(locales)
 
   return localeKeys.includes(segments[0]) ? segments.slice(1) : segments
@@ -99,8 +100,8 @@ function getBaseSegments (pathname) {
  * @param {string} pathname - Current location pathname
  * @returns {boolean} True when pathname ends with '/'
  */
-function hasTrailingSlash (pathname) {
-  return pathname !== '/' && pathname.endsWith('/')
+function hasTrailingSlash(pathname) {
+  return pathname !== "/" && pathname.endsWith("/")
 }
 
 /**
@@ -109,16 +110,16 @@ function hasTrailingSlash (pathname) {
  * @param {string} targetLocale - Locale to link to
  * @returns {string} Localized URL preserving trailing slash
  */
-export function getLocalizedPath (pathname, targetLocale) {
+export function getLocalizedPath(pathname, targetLocale) {
   const baseSegments = getBaseSegments(pathname)
   const trailingSlash = hasTrailingSlash(pathname)
 
   if (!baseSegments.length) {
-    return targetLocale === defaultLocale ? '/' : `/${targetLocale}/`
+    return targetLocale === defaultLocale ? "/" : `/${targetLocale}/`
   }
 
-  const basePath = `/${baseSegments.join('/')}${trailingSlash ? '/' : ''}`
-  const prefix = targetLocale === defaultLocale ? '' : `/${targetLocale}`
+  const basePath = `/${baseSegments.join("/")}${trailingSlash ? "/" : ""}`
+  const prefix = targetLocale === defaultLocale ? "" : `/${targetLocale}`
 
   return `${prefix}${basePath}`
 }
@@ -129,16 +130,16 @@ export function getLocalizedPath (pathname, targetLocale) {
  * @param {string} currentLocale - Active locale code
  * @returns {{ menu: Array<{code: string, label: string, href: string, isActive: boolean}>, currentLabel: string }} Menu items and active label
  */
-export function getLanguageMenu (pathname, currentLocale) {
+export function getLanguageMenu(pathname, currentLocale) {
   const languageMenu = Object.entries(locales).map(([code, label]) => ({
     code,
     label,
     href: getLocalizedPath(pathname, code),
-    isActive: code === currentLocale
+    isActive: code === currentLocale,
   }))
 
   return {
     menu: languageMenu,
-    currentLabel: locales[currentLocale] || locales[defaultLocale]
+    currentLabel: locales[currentLocale] || locales[defaultLocale],
   }
 }

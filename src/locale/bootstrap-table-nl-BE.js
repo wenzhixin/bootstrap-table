@@ -3,189 +3,196 @@
  * Author: Nevets82 <Nevets82@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['nl-BE'] = {
-  formatAddLevel () {
-    return 'Niveau toevoegen'
+$.fn.bootstrapTable.locales["nl-BE"] = {
+  formatAddLevel() {
+    return "Niveau toevoegen"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Sluiten'
+  formatAdvancedCloseButton() {
+    return "Sluiten"
   },
 
-  formatAdvancedSearch () {
-    return 'Geavanceerd zoeken'
+  formatAdvancedSearch() {
+    return "Geavanceerd zoeken"
   },
 
-  formatAllRows () {
-    return 'Alle'
+  formatAllRows() {
+    return "Alle"
   },
 
-  formatAutoRefresh () {
-    return 'Automatisch vernieuwen'
+  formatAutoRefresh() {
+    return "Automatisch vernieuwen"
   },
 
-  formatCancel () {
-    return 'Annuleren'
+  formatCancel() {
+    return "Annuleren"
   },
 
-  formatClearSearch () {
-    return 'Verwijder filters'
+  formatClearSearch() {
+    return "Verwijder filters"
   },
 
-  formatColumn () {
-    return 'Kolom'
+  formatColumn() {
+    return "Kolom"
   },
 
-  formatColumns () {
-    return 'Kolommen'
+  formatColumns() {
+    return "Kolommen"
   },
 
-  formatColumnsToggleAll () {
-    return 'Allen omschakelen'
+  formatColumnsToggleAll() {
+    return "Allen omschakelen"
   },
 
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatCopyRows() {
+    return "Copy Rows"
   },
 
-  formatDeleteLevel () {
-    return 'Niveau verwijderen'
+  formatDeleteLevel() {
+    return "Niveau verwijderen"
   },
 
-  formatDetailPagination (totalRows) {
-    return `Toon ${totalRows} record${totalRows > 1 ? 's' : ''}`
+  formatDetailPagination(totalRows) {
+    return `Toon ${totalRows} record${totalRows > 1 ? "s" : ""}`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Gelieve dubbele kolommen te verwijderen of wijzigen'
+  formatDuplicateAlertDescription() {
+    return "Gelieve dubbele kolommen te verwijderen of wijzigen"
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicaten gevonden!'
+  formatDuplicateAlertTitle() {
+    return "Duplicaten gevonden!"
   },
 
-  formatExport () {
-    return 'Exporteer gegevens'
+  formatExport() {
+    return "Exporteer gegevens"
   },
 
-  formatFilterControlSwitch () {
-    return 'Verberg/Toon controls'
+  formatFilterControlSwitch() {
+    return "Verberg/Toon controls"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Verberg controls'
+  formatFilterControlSwitchHide() {
+    return "Verberg controls"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Toon controls'
+  formatFilterControlSwitchShow() {
+    return "Toon controls"
   },
 
-  formatFullscreen () {
-    return 'Volledig scherm'
+  formatFullscreen() {
+    return "Volledig scherm"
   },
 
-  formatJumpTo () {
-    return 'GA'
+  formatJumpTo() {
+    return "GA"
   },
 
-  formatLoadingMessage () {
-    return 'Laden, even geduld'
+  formatLoadingMessage() {
+    return "Laden, even geduld"
   },
 
-  formatMultipleSort () {
-    return 'Meervoudige sortering'
+  formatMultipleSort() {
+    return "Meervoudige sortering"
   },
 
-  formatNoMatches () {
-    return 'Geen resultaten gevonden'
+  formatNoMatches() {
+    return "Geen resultaten gevonden"
   },
 
-  formatOrder () {
-    return 'Volgorde'
+  formatOrder() {
+    return "Volgorde"
   },
 
-  formatPaginationSwitch () {
-    return 'Verberg/Toon paginering'
+  formatPaginationSwitch() {
+    return "Verberg/Toon paginering"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Toon paginering'
+  formatPaginationSwitchDown() {
+    return "Toon paginering"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Verberg paginering'
+  formatPaginationSwitchUp() {
+    return "Verberg paginering"
   },
 
-  formatPrint () {
-    return 'Print'
+  formatPrint() {
+    return "Print"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} records per pagina`
   },
 
-  formatRefresh () {
-    return 'Vernieuwen'
+  formatRefresh() {
+    return "Vernieuwen"
   },
 
-  formatSRPaginationNextText () {
-    return 'volgende pagina'
+  formatSRPaginationNextText() {
+    return "volgende pagina"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `tot pagina ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'vorige pagina'
+  formatSRPaginationPreText() {
+    return "vorige pagina"
   },
 
-  formatSearch () {
-    return 'Zoeken'
+  formatSearch() {
+    return "Zoeken"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${totalRows > 1 ? 's' : ''} (gefilterd van ${totalNotFiltered} records in totaal)`
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
+      return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${totalRows > 1 ? "s" : ""} (gefilterd van ${totalNotFiltered} records in totaal)`
     }
 
-    return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${totalRows > 1 ? 's' : ''}`
+    return `Toon ${pageFrom} tot ${pageTo} van ${totalRows} record${totalRows > 1 ? "s" : ""}`
   },
 
-  formatSort () {
-    return 'Sorteren'
+  formatSort() {
+    return "Sorteren"
   },
 
-  formatSortBy () {
-    return 'Sorteren op'
+  formatSortBy() {
+    return "Sorteren op"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Oplopend',
-      desc: 'Aflopend'
+      asc: "Oplopend",
+      desc: "Aflopend",
     }
   },
 
-  formatThenBy () {
-    return 'vervolgens'
+  formatThenBy() {
+    return "vervolgens"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Verberg kaartweergave'
+  formatToggleOff() {
+    return "Verberg kaartweergave"
   },
 
-  formatToggleOn () {
-    return 'Toon kaartweergave'
-  }
+  formatToggleOn() {
+    return "Toon kaartweergave"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['nl-BE'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["nl-BE"],
+)

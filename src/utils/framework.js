@@ -1,4 +1,4 @@
-import DOMHelper from '../helpers/dom.js'
+import DOMHelper from "../helpers/dom.js"
 
 /**
  * Framework detection and icon utilities.
@@ -15,17 +15,19 @@ import DOMHelper from '../helpers/dom.js'
  * @param {string} theme - The theme name (bootstrap3, bootstrap4, bootstrap5, bootstrap-table, bulma, foundation, materialize, semantic).
  * @returns {string} The icons prefix.
  */
-export function getIconsPrefix (theme) {
-  return {
-    bootstrap3: 'glyphicon',
-    bootstrap4: 'fa',
-    bootstrap5: 'bi',
-    'bootstrap-table': 'icon',
-    bulma: 'fa',
-    foundation: 'fa',
-    materialize: 'material-icons',
-    semantic: 'fa'
-  }[theme] || 'fa'
+export function getIconsPrefix(theme) {
+  return (
+    {
+      bootstrap3: "glyphicon",
+      bootstrap4: "fa",
+      bootstrap5: "bi",
+      "bootstrap-table": "icon",
+      bulma: "fa",
+      foundation: "fa",
+      materialize: "material-icons",
+      semantic: "fa",
+    }[theme] || "fa"
+  )
 }
 
 /**
@@ -35,7 +37,7 @@ export function getIconsPrefix (theme) {
  * @param {string} prefix - The prefix. For example, 'fa', 'bi', etc.
  * @return {Object} The icons object for the given prefix.
  */
-export function getIcons (icons, prefix) {
+export function getIcons(icons, prefix) {
   return icons[prefix] || {}
 }
 
@@ -46,7 +48,7 @@ export function getIcons (icons, prefix) {
  * @param {string} icon - The icon name. For example, 'search', 'refresh', etc.
  * @param {Object.<string, string>} values - The values object.
  */
-export function assignIcons (icons, icon, values) {
+export function assignIcons(icons, icon, values) {
   for (const key of Object.keys(icons)) {
     icons[key][icon] = values[key]
   }
@@ -57,21 +59,21 @@ export function assignIcons (icons, icon, values) {
  *
  * @returns {number|undefined} The Bootstrap version number (3, 4, or 5), or undefined for non-Bootstrap themes.
  */
-export function getBootstrapVersion () {
+export function getBootstrapVersion() {
   // Check if using a non-Bootstrap theme
-  if (typeof $ !== 'undefined' && $.fn?.bootstrapTable?.theme) {
+  if (typeof $ !== "undefined" && $.fn?.bootstrapTable?.theme) {
     const theme = $.fn.bootstrapTable.theme
 
-    if (!theme.startsWith('bootstrap')) {
+    if (!theme.startsWith("bootstrap")) {
       return
     }
   }
 
   let bootstrapVersion = 5
 
-  if (typeof window !== 'undefined' && window.bootstrap?.Tooltip?.VERSION) {
+  if (typeof window !== "undefined" && window.bootstrap?.Tooltip?.VERSION) {
     bootstrapVersion = parseInt(window.bootstrap.Tooltip.VERSION, 10)
-  } else if (typeof $ !== 'undefined' && $.fn?.dropdown?.Constructor?.VERSION) {
+  } else if (typeof $ !== "undefined" && $.fn?.dropdown?.Constructor?.VERSION) {
     bootstrapVersion = parseInt($.fn.dropdown.Constructor.VERSION, 10)
   }
 
@@ -84,8 +86,8 @@ export function getBootstrapVersion () {
  * @param {Object} that - The Bootstrap Table instance.
  * @returns {HTMLElement|null} The search input element, or null if not found.
  */
-export function getSearchInput (that) {
-  if (typeof that.options.searchSelector === 'string') {
+export function getSearchInput(that) {
+  if (typeof that.options.searchSelector === "string") {
     return DOMHelper.$(that.options.searchSelector)
   }
 
@@ -95,7 +97,7 @@ export function getSearchInput (that) {
     return null
   }
 
-  const result = DOMHelper.find(toolbar, '.search input')
+  const result = DOMHelper.find(toolbar, ".search input")
 
   return result.length > 0 ? result[0] : null
 }

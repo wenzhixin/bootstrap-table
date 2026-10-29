@@ -1,5 +1,5 @@
-import { escapeAttr } from './string.js'
-import { getBootstrapVersion } from './framework.js'
+import { escapeAttr } from "./string.js"
+import { getBootstrapVersion } from "./framework.js"
 
 /**
  * Bootstrap Table Checkbox Utilities
@@ -21,22 +21,23 @@ import { getBootstrapVersion } from './framework.js'
  * @param {boolean} [options.withLabel=false] - whether include label (for dropdown menu)
  * @returns {string} HTML string
  */
-export function getCheckboxHtml (options) {
+export function getCheckboxHtml(options) {
   const {
     name,
-    value = '',
+    value = "",
     checked = false,
     disabled = false,
-    label = '',
-    extraClass = '',
+    label = "",
+    extraClass = "",
     centered = true,
-    withLabel = false
+    withLabel = false,
   } = options
 
-  const checkedAttr = checked ? ' checked="checked"' : ''
-  const disabledAttr = disabled ? ' disabled="disabled"' : ''
-  const valueAttr = value !== undefined && value !== '' ? ` value="${escapeAttr(value)}"` : ''
-  const classAttr = extraClass ? ` ${extraClass}` : ''
+  const checkedAttr = checked ? ' checked="checked"' : ""
+  const disabledAttr = disabled ? ' disabled="disabled"' : ""
+  const valueAttr =
+    value !== undefined && value !== "" ? ` value="${escapeAttr(value)}"` : ""
+  const classAttr = extraClass ? ` ${extraClass}` : ""
   const escapedName = escapeAttr(name)
 
   if (getBootstrapVersion() === 5) {
@@ -46,7 +47,7 @@ export function getCheckboxHtml (options) {
         <span>${label}</span>
       </label>`
     }
-    const centerClass = centered ? ' d-flex justify-content-center' : ''
+    const centerClass = centered ? " d-flex justify-content-center" : ""
 
     return `<div class="form-check${centerClass}">
       <input class="form-check-input${classAttr}" type="checkbox" name="${escapedName}"${valueAttr}${checkedAttr}${disabledAttr} />
@@ -65,9 +66,9 @@ export function getCheckboxHtml (options) {
  * @param {boolean} [centered=true] - whether centered
  * @returns {string} HTML string
  */
-export function wrapCheckbox (inputHtml, centered = true) {
+export function wrapCheckbox(inputHtml, centered = true) {
   if (getBootstrapVersion() === 5) {
-    const centerClass = centered ? ' d-flex justify-content-center' : ''
+    const centerClass = centered ? " d-flex justify-content-center" : ""
 
     return `<div class="form-check${centerClass}">${inputHtml}</div>`
   }
@@ -83,25 +84,30 @@ export function wrapCheckbox (inputHtml, centered = true) {
  * @param {boolean} [options.centered=true] - whether centered
  * @returns {Object} Virtual DOM config object with inputAttrs, wrapperAttrs, wrapperTag and hasSpan
  */
-export function getCheckboxVdomConfig (options) {
-  const { inputAttrs, formCheckClass, formCheckInputClass, centered = true } = options
+export function getCheckboxVdomConfig(options) {
+  const {
+    inputAttrs,
+    formCheckClass,
+    formCheckInputClass,
+    centered = true,
+  } = options
 
   if (getBootstrapVersion() === 5) {
-    const centerClass = centered ? ' d-flex justify-content-center' : ''
+    const centerClass = centered ? " d-flex justify-content-center" : ""
 
     return {
       inputAttrs: { ...inputAttrs, class: formCheckInputClass },
       wrapperAttrs: { class: `${formCheckClass}${centerClass}` },
-      wrapperTag: 'div',
-      hasSpan: false
+      wrapperTag: "div",
+      hasSpan: false,
     }
   }
 
   return {
     inputAttrs,
     wrapperAttrs: {},
-    wrapperTag: 'label',
-    hasSpan: true
+    wrapperTag: "label",
+    hasSpan: true,
   }
 }
 
@@ -116,11 +122,11 @@ export function getCheckboxVdomConfig (options) {
  * @param {string} options.label - display text
  * @returns {string} HTML string
  */
-export function getDropdownColumnCheckboxHtml (options) {
+export function getDropdownColumnCheckboxHtml(options) {
   const { dataField, value, checked, disabled, label } = options
 
-  const checkedAttr = checked ? ' checked="checked"' : ''
-  const disabledAttr = disabled ? ' disabled="disabled"' : ''
+  const checkedAttr = checked ? ' checked="checked"' : ""
+  const disabledAttr = disabled ? ' disabled="disabled"' : ""
 
   if (getBootstrapVersion() === 5) {
     return `<label class="dropdown-item dropdown-item-marker d-flex align-items-center gap-2">

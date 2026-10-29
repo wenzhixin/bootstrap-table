@@ -17,8 +17,8 @@ class DOMHelper {
    * @param {Element} context - Search context, defaults to document
    * @returns {Element|null} First matched element
    */
-  static $ (selector, context = document) {
-    if (typeof selector === 'string') {
+  static $(selector, context = document) {
+    if (typeof selector === "string") {
       return context.querySelector(selector)
     }
     if (selector instanceof Element) {
@@ -33,8 +33,8 @@ class DOMHelper {
    * @param {Element} context - Search context, defaults to document
    * @returns {Element[]} Array of all matched elements. Note: if selector is an Element, returns [Element]
    */
-  static $$ (selector, context = document) {
-    if (typeof selector === 'string') {
+  static $$(selector, context = document) {
+    if (typeof selector === "string") {
       return Array.from(context.querySelectorAll(selector))
     }
     if (selector instanceof NodeList) {
@@ -53,14 +53,14 @@ class DOMHelper {
    * @returns {Element|null} Created DOM element. Returns null if html is empty, not a string,
    *                         or contains only whitespace.
    */
-  static create (html) {
-    if (typeof html !== 'string') return null
+  static create(html) {
+    if (typeof html !== "string") return null
 
     const trimmed = html.trim()
 
     if (!trimmed) return null
 
-    const template = document.createElement('template')
+    const template = document.createElement("template")
 
     template.innerHTML = trimmed
     return template.content.firstChild
@@ -72,12 +72,12 @@ class DOMHelper {
    * @param {string} className - Class name to add (space-separated for multiple classes)
    * @returns {Element|null} The element itself
    */
-  static addClass (element, className) {
-    if (typeof element === 'string') element = this.$(element)
+  static addClass(element, className) {
+    if (typeof element === "string") element = this.$(element)
     if (!element || !element.classList) return element
     if (!className) return element
 
-    const classes = className.split(' ').filter(c => c)
+    const classes = className.split(" ").filter((c) => c)
 
     element.classList.add(...classes)
     return element
@@ -89,12 +89,12 @@ class DOMHelper {
    * @param {string} className - Class name to remove (space-separated for multiple classes)
    * @returns {Element|null} The element itself
    */
-  static removeClass (element, className) {
-    if (typeof element === 'string') element = this.$(element)
+  static removeClass(element, className) {
+    if (typeof element === "string") element = this.$(element)
     if (!element || !element.classList) return element
     if (!className) return element
 
-    const classes = className.split(' ').filter(c => c)
+    const classes = className.split(" ").filter((c) => c)
 
     element.classList.remove(...classes)
     return element
@@ -106,14 +106,14 @@ class DOMHelper {
    * @param {string} className - Class name to toggle (space-separated for multiple classes)
    * @returns {Element|null} The element itself
    */
-  static toggleClass (element, className) {
-    if (typeof element === 'string') element = this.$(element)
+  static toggleClass(element, className) {
+    if (typeof element === "string") element = this.$(element)
     if (!element || !element.classList) return element
     if (!className) return element
 
-    const classes = className.split(' ').filter(c => c)
+    const classes = className.split(" ").filter((c) => c)
 
-    classes.forEach(cls => element.classList.toggle(cls))
+    classes.forEach((cls) => element.classList.toggle(cls))
     return element
   }
 
@@ -123,8 +123,8 @@ class DOMHelper {
    * @param {string} className - Class name to check
    * @returns {boolean} Whether the class exists
    */
-  static hasClass (element, className) {
-    if (typeof element === 'string') element = this.$(element)
+  static hasClass(element, className) {
+    if (typeof element === "string") element = this.$(element)
     if (!element || !element.classList) return false
     if (!className) return false
 
@@ -139,8 +139,8 @@ class DOMHelper {
    * @param {string} [value] - Attribute value (omit to get)
    * @returns {Element|null} Element when setting, or string|null when getting attribute
    */
-  static attr (element, name, value) {
-    if (typeof element === 'string') element = this.$(element)
+  static attr(element, name, value) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return value === undefined ? null : element
 
     if (value === undefined) {
@@ -156,8 +156,8 @@ class DOMHelper {
    * @param {string} name - Attribute name
    * @returns {Element|null} The element itself
    */
-  static removeAttr (element, name) {
-    if (typeof element === 'string') element = this.$(element)
+  static removeAttr(element, name) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return element
 
     element.removeAttribute(name)
@@ -172,8 +172,8 @@ class DOMHelper {
    * @returns {(string|undefined) when getting (value omitted); (Element|null|undefined) when setting (value provided)}
    * Returns the data attribute value (string or undefined) when getting, or the element (or null/undefined if not found) when setting.
    */
-  static data (element, key, value) {
-    if (typeof element === 'string') element = this.$(element)
+  static data(element, key, value) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return value === undefined ? undefined : element
 
     if (value === undefined) {
@@ -189,9 +189,9 @@ class DOMHelper {
    * @param {Element|string} child - Child element or HTML string
    * @returns {Element|null} Parent element
    */
-  static append (parent, child) {
-    if (typeof parent === 'string') parent = this.$(parent)
-    if (typeof child === 'string') child = this.create(child)
+  static append(parent, child) {
+    if (typeof parent === "string") parent = this.$(parent)
+    if (typeof child === "string") child = this.create(child)
 
     if (parent && child) {
       parent.appendChild(child)
@@ -205,9 +205,9 @@ class DOMHelper {
    * @param {Element|string} child - Child element or HTML string
    * @returns {Element|null} Parent element
    */
-  static prepend (parent, child) {
-    if (typeof parent === 'string') parent = this.$(parent)
-    if (typeof child === 'string') child = this.create(child)
+  static prepend(parent, child) {
+    if (typeof parent === "string") parent = this.$(parent)
+    if (typeof child === "string") child = this.create(child)
 
     if (parent && child) {
       parent.insertBefore(child, parent.firstChild)
@@ -221,12 +221,15 @@ class DOMHelper {
    * @param {Element|string} targetElement - Target element
    * @returns {Element|null} Inserted element
    */
-  static insertAfter (newElement, targetElement) {
-    if (typeof targetElement === 'string') targetElement = this.$(targetElement)
-    if (typeof newElement === 'string') newElement = this.create(newElement)
+  static insertAfter(newElement, targetElement) {
+    if (typeof targetElement === "string") targetElement = this.$(targetElement)
+    if (typeof newElement === "string") newElement = this.create(newElement)
 
     if (targetElement && newElement && targetElement.parentNode) {
-      targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling)
+      targetElement.parentNode.insertBefore(
+        newElement,
+        targetElement.nextSibling,
+      )
     }
     return newElement
   }
@@ -237,9 +240,9 @@ class DOMHelper {
    * @param {Element|string} targetElement - Target element
    * @returns {Element|null} Inserted element
    */
-  static insertBefore (newElement, targetElement) {
-    if (typeof targetElement === 'string') targetElement = this.$(targetElement)
-    if (typeof newElement === 'string') newElement = this.create(newElement)
+  static insertBefore(newElement, targetElement) {
+    if (typeof targetElement === "string") targetElement = this.$(targetElement)
+    if (typeof newElement === "string") newElement = this.create(newElement)
 
     if (targetElement && newElement && targetElement.parentNode) {
       targetElement.parentNode.insertBefore(newElement, targetElement)
@@ -253,8 +256,8 @@ class DOMHelper {
    * @param {string} selector - CSS selector
    * @returns {Element[]} Array of matched child elements
    */
-  static find (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static find(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return []
 
     return Array.from(element.querySelectorAll(selector))
@@ -266,8 +269,8 @@ class DOMHelper {
    * @param {string} selector - CSS selector
    * @returns {Element|null} First matched child element
    */
-  static findFirst (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static findFirst(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return null
 
     return element.querySelector(selector)
@@ -280,13 +283,13 @@ class DOMHelper {
    * @param {string} [value] - Style value (when property is string)
    * @returns {Element|string|null} Element when setting, style value when getting
    */
-  static css (element, property, value) {
-    if (typeof element === 'string') element = this.$(element)
+  static css(element, property, value) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) {
       return null
     }
 
-    if (typeof property === 'object') {
+    if (typeof property === "object") {
       // Batch set styles
       Object.assign(element.style, property)
       return element
@@ -306,8 +309,8 @@ class DOMHelper {
    * @param {Element|string} element - DOM element or selector
    * @returns {number} Element width
    */
-  static width (element) {
-    if (typeof element === 'string') element = this.$(element)
+  static width(element) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return 0
 
     return element.offsetWidth
@@ -318,8 +321,8 @@ class DOMHelper {
    * @param {Element|string} element - DOM element or selector
    * @returns {number} Element height
    */
-  static height (element) {
-    if (typeof element === 'string') element = this.$(element)
+  static height(element) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return 0
 
     return element.offsetHeight
@@ -331,8 +334,8 @@ class DOMHelper {
    * @param {boolean} [includeMargin=false] - Whether to include margin
    * @returns {number} Element outer width
    */
-  static outerWidth (element, includeMargin = false) {
-    if (typeof element === 'string') element = this.$(element)
+  static outerWidth(element, includeMargin = false) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return 0
 
     let width = element.offsetWidth
@@ -353,8 +356,8 @@ class DOMHelper {
    * @param {boolean} [includeMargin=false] - Whether to include margin
    * @returns {number} Element outer height
    */
-  static outerHeight (element, includeMargin = false) {
-    if (typeof element === 'string') element = this.$(element)
+  static outerHeight(element, includeMargin = false) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return 0
 
     let height = element.offsetHeight
@@ -375,8 +378,8 @@ class DOMHelper {
    * @param {string} [value] - Value (omit to get)
    * @returns {Element|string|null} Element when setting, current value when getting
    */
-  static val (element, value) {
-    if (typeof element === 'string') element = this.$(element)
+  static val(element, value) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return value === undefined ? null : element
 
     if (value === undefined) {
@@ -393,8 +396,8 @@ class DOMHelper {
    *                             and can execute scripts. Use text() for user-provided content.
    * @returns {Element|string|null} Element when setting, HTML content when getting
    */
-  static html (element, content) {
-    if (typeof element === 'string') element = this.$(element)
+  static html(element, content) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return content === undefined ? null : element
 
     if (content === undefined) {
@@ -410,8 +413,8 @@ class DOMHelper {
    * @param {string} [content] - Text content (omit to get)
    * @returns {Element|string|null} Element when setting, text content when getting
    */
-  static text (element, content) {
-    if (typeof element === 'string') element = this.$(element)
+  static text(element, content) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return content === undefined ? null : element
 
     if (content === undefined) {
@@ -426,8 +429,8 @@ class DOMHelper {
    * @param {Element|string} element - DOM element or selector
    * @returns {Element|null} Removed element
    */
-  static remove (element) {
-    if (typeof element === 'string') element = this.$(element)
+  static remove(element) {
+    if (typeof element === "string") element = this.$(element)
     if (!element || !element.parentNode) return element
 
     element.parentNode.removeChild(element)
@@ -439,11 +442,11 @@ class DOMHelper {
    * @param {Element|string} element - DOM element or selector
    * @returns {Element|null} Emptied element
    */
-  static empty (element) {
-    if (typeof element === 'string') element = this.$(element)
+  static empty(element) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return element
 
-    element.innerHTML = ''
+    element.innerHTML = ""
     return element
   }
 
@@ -453,8 +456,8 @@ class DOMHelper {
    * @param {Function} callback - Callback function with params (index, element)
    * @returns {Element[]} Element collection
    */
-  static each (elements, callback) {
-    if (typeof elements === 'string') {
+  static each(elements, callback) {
+    if (typeof elements === "string") {
       elements = this.$$(elements)
     } else if (elements instanceof NodeList) {
       elements = Array.from(elements)
@@ -474,8 +477,8 @@ class DOMHelper {
    * @param {string} [selector] - Parent element selector (optional)
    * @returns {Element|null} Parent element
    */
-  static parent (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static parent(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return null
 
     let parent = element.parentElement
@@ -494,14 +497,14 @@ class DOMHelper {
    * @param {string} [selector] - Child element selector (optional)
    * @returns {Element[]} Array of child elements
    */
-  static children (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static children(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return []
 
     let children = Array.from(element.children)
 
     if (selector) {
-      children = children.filter(child => child.matches(selector))
+      children = children.filter((child) => child.matches(selector))
     }
     return children
   }
@@ -512,8 +515,8 @@ class DOMHelper {
    * @param {string} [selector] - Sibling element selector (optional)
    * @returns {Element|null} Next sibling element
    */
-  static next (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static next(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return null
 
     let next = element.nextElementSibling
@@ -532,8 +535,8 @@ class DOMHelper {
    * @param {string} [selector] - Sibling element selector (optional)
    * @returns {Element|null} Previous sibling element
    */
-  static prev (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static prev(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return null
 
     let prev = element.previousElementSibling
@@ -551,8 +554,8 @@ class DOMHelper {
    * @param {Element|string} element - DOM element or selector
    * @returns {Object} Position info {top, left, width, height}
    */
-  static offset (element) {
-    if (typeof element === 'string') element = this.$(element)
+  static offset(element) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return { top: 0, left: 0, width: 0, height: 0 }
 
     const rect = element.getBoundingClientRect()
@@ -561,7 +564,7 @@ class DOMHelper {
       top: rect.top + window.scrollY,
       left: rect.left + window.scrollX,
       width: rect.width,
-      height: rect.height
+      height: rect.height,
     }
   }
 
@@ -570,13 +573,13 @@ class DOMHelper {
    * @param {Element|string} element - DOM element or selector
    * @returns {Object} Position info {top, left}
    */
-  static position (element) {
-    if (typeof element === 'string') element = this.$(element)
+  static position(element) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return { top: 0, left: 0 }
 
     return {
       top: element.offsetTop,
-      left: element.offsetLeft
+      left: element.offsetLeft,
     }
   }
 
@@ -586,8 +589,8 @@ class DOMHelper {
    * @param {string} selector - CSS selector
    * @returns {boolean} Whether it matches
    */
-  static is (element, selector) {
-    if (typeof element === 'string') element = this.$(element)
+  static is(element, selector) {
+    if (typeof element === "string") element = this.$(element)
     if (!element) return false
 
     return element.matches(selector)

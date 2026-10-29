@@ -5,189 +5,196 @@
  * Author: Alessio Felicioni <alessio.felicioni@gmail.com>
  */
 
-$.fn.bootstrapTable.locales['it-IT'] = $.fn.bootstrapTable.locales['it'] = {
-  formatAddLevel () {
-    return 'Add Level'
+$.fn.bootstrapTable.locales["it-IT"] = $.fn.bootstrapTable.locales["it"] = {
+  formatAddLevel() {
+    return "Add Level"
   },
 
-  formatAdvancedCloseButton () {
-    return 'Chiudi'
+  formatAdvancedCloseButton() {
+    return "Chiudi"
   },
 
-  formatAdvancedSearch () {
-    return 'Filtri avanzati'
+  formatAdvancedSearch() {
+    return "Filtri avanzati"
   },
 
-  formatAllRows () {
-    return 'Tutto'
+  formatAllRows() {
+    return "Tutto"
   },
 
-  formatAutoRefresh () {
-    return 'Auto Aggiornamento'
+  formatAutoRefresh() {
+    return "Auto Aggiornamento"
   },
 
-  formatCancel () {
-    return 'Cancel'
+  formatCancel() {
+    return "Cancel"
   },
 
-  formatClearSearch () {
-    return 'Pulisci filtri'
+  formatClearSearch() {
+    return "Pulisci filtri"
   },
 
-  formatColumn () {
-    return 'Column'
+  formatColumn() {
+    return "Column"
   },
 
-  formatColumns () {
-    return 'Colonne'
+  formatColumns() {
+    return "Colonne"
   },
 
-  formatColumnsToggleAll () {
-    return 'Mostra tutte'
+  formatColumnsToggleAll() {
+    return "Mostra tutte"
   },
 
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatCopyRows() {
+    return "Copy Rows"
   },
 
-  formatDeleteLevel () {
-    return 'Delete Level'
+  formatDeleteLevel() {
+    return "Delete Level"
   },
 
-  formatDetailPagination (totalRows) {
+  formatDetailPagination(totalRows) {
     return `Mostrando ${totalRows} elementi`
   },
 
-  formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+  formatDuplicateAlertDescription() {
+    return "Please remove or change any duplicate column."
   },
 
-  formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+  formatDuplicateAlertTitle() {
+    return "Duplicate(s) detected!"
   },
 
-  formatExport () {
-    return 'Esporta dati'
+  formatExport() {
+    return "Esporta dati"
   },
 
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+  formatFilterControlSwitch() {
+    return "Hide/Show controls"
   },
 
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
+  formatFilterControlSwitchHide() {
+    return "Hide controls"
   },
 
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+  formatFilterControlSwitchShow() {
+    return "Show controls"
   },
 
-  formatFullscreen () {
-    return 'Schermo intero'
+  formatFullscreen() {
+    return "Schermo intero"
   },
 
-  formatJumpTo () {
-    return 'VAI'
+  formatJumpTo() {
+    return "VAI"
   },
 
-  formatLoadingMessage () {
-    return 'Caricamento in corso'
+  formatLoadingMessage() {
+    return "Caricamento in corso"
   },
 
-  formatMultipleSort () {
-    return 'Multiple Sort'
+  formatMultipleSort() {
+    return "Multiple Sort"
   },
 
-  formatNoMatches () {
-    return 'Nessun elemento trovato'
+  formatNoMatches() {
+    return "Nessun elemento trovato"
   },
 
-  formatOrder () {
-    return 'Order'
+  formatOrder() {
+    return "Order"
   },
 
-  formatPaginationSwitch () {
-    return 'Nascondi/Mostra paginazione'
+  formatPaginationSwitch() {
+    return "Nascondi/Mostra paginazione"
   },
 
-  formatPaginationSwitchDown () {
-    return 'Mostra paginazione'
+  formatPaginationSwitchDown() {
+    return "Mostra paginazione"
   },
 
-  formatPaginationSwitchUp () {
-    return 'Nascondi paginazione'
+  formatPaginationSwitchUp() {
+    return "Nascondi paginazione"
   },
 
-  formatPrint () {
-    return 'Print'
+  formatPrint() {
+    return "Print"
   },
 
-  formatRecordsPerPage (pageNumber) {
+  formatRecordsPerPage(pageNumber) {
     return `${pageNumber} elementi per pagina`
   },
 
-  formatRefresh () {
-    return 'Aggiorna'
+  formatRefresh() {
+    return "Aggiorna"
   },
 
-  formatSRPaginationNextText () {
-    return 'pagina successiva'
+  formatSRPaginationNextText() {
+    return "pagina successiva"
   },
 
-  formatSRPaginationPageText (page) {
+  formatSRPaginationPageText(page) {
     return `alla pagina ${page}`
   },
 
-  formatSRPaginationPreText () {
-    return 'pagina precedente'
+  formatSRPaginationPreText() {
+    return "pagina precedente"
   },
 
-  formatSearch () {
-    return 'Cerca'
+  formatSearch() {
+    return "Cerca"
   },
 
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+  formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (
+      totalNotFiltered !== undefined &&
+      totalNotFiltered > 0 &&
+      totalNotFiltered > totalRows
+    ) {
       return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi (filtrati da ${totalNotFiltered} elementi totali)`
     }
 
     return `Visualizzazione da ${pageFrom} a ${pageTo} di ${totalRows} elementi`
   },
 
-  formatSort () {
-    return 'Sort'
+  formatSort() {
+    return "Sort"
   },
 
-  formatSortBy () {
-    return 'Sort by'
+  formatSortBy() {
+    return "Sort by"
   },
 
-  formatSortOrders () {
+  formatSortOrders() {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: "Ascending",
+      desc: "Descending",
     }
   },
 
-  formatThenBy () {
-    return 'Then by'
+  formatThenBy() {
+    return "Then by"
   },
 
-  formatToggleCustomViewOff () {
-    return 'Hide custom view'
+  formatToggleCustomViewOff() {
+    return "Hide custom view"
   },
 
-  formatToggleCustomViewOn () {
-    return 'Show custom view'
+  formatToggleCustomViewOn() {
+    return "Show custom view"
   },
 
-  formatToggleOff () {
-    return 'Nascondi visuale a scheda'
+  formatToggleOff() {
+    return "Nascondi visuale a scheda"
   },
 
-  formatToggleOn () {
-    return 'Mostra visuale a scheda'
-  }
+  formatToggleOn() {
+    return "Mostra visuale a scheda"
+  },
 }
 
-Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['it-IT'])
+Object.assign(
+  $.fn.bootstrapTable.defaults,
+  $.fn.bootstrapTable.locales["it-IT"],
+)

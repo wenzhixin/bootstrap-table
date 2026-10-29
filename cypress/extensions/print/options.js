@@ -1,63 +1,67 @@
-const stubWindowOpen = win => {
+const stubWindowOpen = (win) => {
   const originalOpen = win.window.open
-  let capturedHtml = ''
+  let capturedHtml = ""
   const linkElements = []
 
   const fakeDoc = {
-    write (html) {
+    write(html) {
       capturedHtml = html
     },
-    close () {},
-    getElementsByTagName () {
+    close() {},
+    getElementsByTagName() {
       return []
     },
-    querySelectorAll (selector) {
+    querySelectorAll(selector) {
       if (selector === 'link[rel="stylesheet"]') {
         return linkElements
       }
       return []
-    }
+    },
   }
 
   win.window.open = () => ({
     document: fakeDoc,
-    focus () {},
-    print () {},
-    close () {},
-    addEventListener () {}
+    focus() {},
+    print() {},
+    close() {},
+    addEventListener() {},
   })
 
   return {
-    getHtml () {
+    getHtml() {
       return capturedHtml
     },
-    getLinkElements () {
+    getLinkElements() {
       return linkElements
     },
-    restore () {
+    restore() {
       win.window.open = originalOpen
-    }
+    },
   }
 }
 
-module.exports = (theme = '') => {
-  const baseUrl = require('../../common/utils')(theme, 'for-tests/extensions/print')
+module.exports = (theme = "") => {
+  const baseUrl = require("../../common/utils")(
+    theme,
+    "for-tests/extensions/print",
+  )
 
-  describe('Print Extension Options', () => {
+  describe("Print Extension Options", () => {
     // Options: showPrint
-    it('Test showPrint shows print button', () => {
+    it("Test showPrint shows print button", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
+        .should("exist")
     })
 
     // Options: showPrint
-    it('Test showPrint option is enabled when data-show-print is true', () => {
+    it("Test showPrint option is enabled when data-show-print is true", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
 
           expect(instance).to.exist
           expect(instance.options.showPrint).to.be.true
@@ -65,12 +69,13 @@ module.exports = (theme = '') => {
     })
 
     // Options: printIgnore column
-    it('Test printIgnore excludes column from print output', () => {
+    it("Test printIgnore excludes column from print output", () => {
       cy.visit(`${baseUrl}print-printIgnore.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -79,19 +84,19 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             // Price column should be excluded from body
-            expect(html).to.include('ID')
-            expect(html).to.include('Name')
-            expect(html).to.not.include('$100')
-            expect(html).to.not.include('$200')
-            expect(html).to.not.include('$300')
+            expect(html).to.include("ID")
+            expect(html).to.include("Name")
+            expect(html).to.not.include("$100")
+            expect(html).to.not.include("$200")
+            expect(html).to.not.include("$300")
 
             // Price column should also be excluded from tfoot
             expect(instance.options.showFooter).to.be.true
             const tfootMatch = html.match(/<tfoot>[\s\S]*?<\/tfoot>/)
 
             expect(tfootMatch).to.not.be.null
-            expect(tfootMatch[0]).to.not.include('$100')
-            expect(tfootMatch[0]).to.not.include('Total')
+            expect(tfootMatch[0]).to.not.include("$100")
+            expect(tfootMatch[0]).to.not.include("Total")
           } finally {
             stub.restore()
           }
@@ -99,12 +104,13 @@ module.exports = (theme = '') => {
     })
 
     // Column options: printFormatter
-    it('Test printFormatter formats column value in print output', () => {
+    it("Test printFormatter formats column value in print output", () => {
       cy.visit(`${baseUrl}print-printFormatter.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -113,9 +119,9 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             // printFormatter should format price as $X.00
-            expect(html).to.include('$100.00')
-            expect(html).to.include('$200.00')
-            expect(html).to.include('$300.00')
+            expect(html).to.include("$100.00")
+            expect(html).to.include("$200.00")
+            expect(html).to.include("$300.00")
           } finally {
             stub.restore()
           }
@@ -123,12 +129,13 @@ module.exports = (theme = '') => {
     })
 
     // Options: printSortColumn and printSortOrder
-    it('Test printSortColumn and printSortOrder sort data in print output', () => {
+    it("Test printSortColumn and printSortOrder sort data in print output", () => {
       cy.visit(`${baseUrl}print-printSort.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -137,9 +144,9 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             // Descending order: Cherry, Banana, Apple
-            const cherryPos = html.indexOf('Cherry')
-            const bananaPos = html.indexOf('Banana')
-            const applePos = html.indexOf('Apple')
+            const cherryPos = html.indexOf("Cherry")
+            const bananaPos = html.indexOf("Banana")
+            const applePos = html.indexOf("Apple")
 
             expect(cherryPos).to.be.at.least(0)
             expect(bananaPos).to.be.at.least(0)
@@ -153,12 +160,13 @@ module.exports = (theme = '') => {
     })
 
     // Column options: printFilter
-    it('Test printFilter filters rows in print output', () => {
+    it("Test printFilter filters rows in print output", () => {
       cy.visit(`${baseUrl}print-printFilter.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -167,9 +175,9 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             // Only active rows should be printed
-            expect(html).to.include('Item 1')
-            expect(html).to.include('Item 3')
-            expect(html).to.not.include('Item 2')
+            expect(html).to.include("Item 1")
+            expect(html).to.include("Item 3")
+            expect(html).to.not.include("Item 2")
           } finally {
             stub.restore()
           }
@@ -177,12 +185,13 @@ module.exports = (theme = '') => {
     })
 
     // Options: showFooter with print
-    it('Test print output contains tfoot tag when showFooter is enabled', () => {
+    it("Test print output contains tfoot tag when showFooter is enabled", () => {
       cy.visit(`${baseUrl}print-showFooter.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -190,8 +199,8 @@ module.exports = (theme = '') => {
             instance.doPrint(data)
             const html = stub.getHtml()
 
-            expect(html).to.include('<tfoot>')
-            expect(html).to.include('</tfoot>')
+            expect(html).to.include("<tfoot>")
+            expect(html).to.include("</tfoot>")
 
             // Verify footer contains all columns with footerFormatter
             const tfootMatch = html.match(/<tfoot>[\s\S]*?<\/tfoot>/)
@@ -203,7 +212,7 @@ module.exports = (theme = '') => {
             expect(tfootCells.length).to.equal(3)
 
             // Verify footerFormatter result (total = 100+200+300=600)
-            expect(tfootMatch[0]).to.include('$600')
+            expect(tfootMatch[0]).to.include("$600")
           } finally {
             stub.restore()
           }
@@ -211,12 +220,13 @@ module.exports = (theme = '') => {
     })
 
     // Options: showFooter with print and rowspan/colspan columns
-    it('Test print footer output with rowspan/colspan columns', () => {
+    it("Test print footer output with rowspan/colspan columns", () => {
       cy.visit(`${baseUrl}print-footer-rowspan-colspan.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -224,8 +234,8 @@ module.exports = (theme = '') => {
             instance.doPrint(data)
             const html = stub.getHtml()
 
-            expect(html).to.include('<tfoot>')
-            expect(html).to.include('</tfoot>')
+            expect(html).to.include("<tfoot>")
+            expect(html).to.include("</tfoot>")
 
             const tfootMatch = html.match(/<tfoot>[\s\S]*?<\/tfoot>/)
 
@@ -236,8 +246,8 @@ module.exports = (theme = '') => {
             expect(tfootCells.length).to.equal(3)
 
             // Verify footerFormatter results
-            expect(tfootMatch[0]).to.include('$600')
-            expect(tfootMatch[0]).to.include('3 items')
+            expect(tfootMatch[0]).to.include("$600")
+            expect(tfootMatch[0]).to.include("3 items")
           } finally {
             stub.restore()
           }
@@ -245,24 +255,26 @@ module.exports = (theme = '') => {
     })
 
     // Options: printAsFilteredAndSortedOnUI
-    it('Test printAsFilteredAndSortedOnUI defaults to true', () => {
+    it("Test printAsFilteredAndSortedOnUI defaults to true", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
 
           expect(instance.options.printAsFilteredAndSortedOnUI).to.be.true
         })
     })
 
     // Print output contains all columns when no printIgnore
-    it('Test print output contains all columns by default', () => {
+    it("Test print output contains all columns by default", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -271,20 +283,20 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             // All three columns should be present
-            expect(html).to.include('ID')
-            expect(html).to.include('Name')
-            expect(html).to.include('Price')
+            expect(html).to.include("ID")
+            expect(html).to.include("Name")
+            expect(html).to.include("Price")
 
             // Header row
-            expect(html).to.include('<thead>')
-            expect(html).to.include('</thead>')
+            expect(html).to.include("<thead>")
+            expect(html).to.include("</thead>")
 
             // Body rows
-            expect(html).to.include('<tbody>')
-            expect(html).to.include('</tbody>')
-            expect(html).to.include('$100')
-            expect(html).to.include('$200')
-            expect(html).to.include('$300')
+            expect(html).to.include("<tbody>")
+            expect(html).to.include("</tbody>")
+            expect(html).to.include("$100")
+            expect(html).to.include("$200")
+            expect(html).to.include("$300")
           } finally {
             stub.restore()
           }
@@ -292,19 +304,20 @@ module.exports = (theme = '') => {
     })
 
     // Print output uses custom printPageBuilder
-    it('Test printPageBuilder option is used for print output', () => {
+    it("Test printPageBuilder option is used for print output", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           let customBuilderCalled = false
           const originalBuilder = instance.options.printPageBuilder
 
-          instance.options.printPageBuilder = table => {
+          instance.options.printPageBuilder = (table) => {
             customBuilderCalled = true
             return `<html><body><div class="custom-print">${table}</div></body></html>`
           }
@@ -314,7 +327,7 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             expect(customBuilderCalled).to.be.true
-            expect(html).to.include('custom-print')
+            expect(html).to.include("custom-print")
           } finally {
             instance.options.printPageBuilder = originalBuilder
             stub.restore()
@@ -323,12 +336,13 @@ module.exports = (theme = '') => {
     })
 
     // Print output structure validation
-    it('Test print output contains valid HTML table structure', () => {
+    it("Test print output contains valid HTML table structure", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
@@ -337,13 +351,13 @@ module.exports = (theme = '') => {
             const html = stub.getHtml()
 
             // Validate HTML structure
-            expect(html).to.include('<html>')
-            expect(html).to.include('<head>')
-            expect(html).to.include('</head>')
-            expect(html).to.include('<body>')
-            expect(html).to.include('</body>')
-            expect(html).to.include('Printed on:')
-            expect(html).to.include('print-color-adjust')
+            expect(html).to.include("<html>")
+            expect(html).to.include("<head>")
+            expect(html).to.include("</head>")
+            expect(html).to.include("<body>")
+            expect(html).to.include("</body>")
+            expect(html).to.include("Printed on:")
+            expect(html).to.include("print-color-adjust")
           } finally {
             stub.restore()
           }
@@ -351,18 +365,19 @@ module.exports = (theme = '') => {
     })
 
     // rowStyle and cellStyle support
-    it('Test rowStyle applies css and classes to print output', () => {
+    it("Test rowStyle applies css and classes to print output", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           instance.options.rowStyle = () => ({
-            css: { 'background-color': 'yellow' },
-            classes: 'row-highlight'
+            css: { "background-color": "yellow" },
+            classes: "row-highlight",
           })
 
           try {
@@ -377,21 +392,23 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test cellStyle applies css and classes to print output', () => {
+    it("Test cellStyle applies css and classes to print output", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           instance.options.columns[0][0].cellStyle = () => ({
-            css: { color: 'red' },
-            classes: 'cell-bold'
+            css: { color: "red" },
+            classes: "cell-bold",
           })
           instance.header.cellStyles = instance.header.cellStyles || []
-          instance.header.cellStyles[0] = instance.options.columns[0][0].cellStyle
+          instance.header.cellStyles[0] =
+            instance.options.columns[0][0].cellStyle
 
           try {
             instance.doPrint(data)
@@ -405,20 +422,22 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test cellStyle with string css format', () => {
+    it("Test cellStyle with string css format", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           instance.options.columns[0][0].cellStyle = () => ({
-            css: 'background-color: blue'
+            css: "background-color: blue",
           })
           instance.header.cellStyles = instance.header.cellStyles || []
-          instance.header.cellStyles[0] = instance.options.columns[0][0].cellStyle
+          instance.header.cellStyles[0] =
+            instance.options.columns[0][0].cellStyle
 
           try {
             instance.doPrint(data)
@@ -431,120 +450,126 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test cellStyle with array css format', () => {
+    it("Test cellStyle with array css format", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           instance.options.columns[0][0].cellStyle = () => ({
-            css: ['color: red', { 'font-weight': 'bold' }]
+            css: ["color: red", { "font-weight": "bold" }],
           })
           instance.header.cellStyles = instance.header.cellStyles || []
-          instance.header.cellStyles[0] = instance.options.columns[0][0].cellStyle
+          instance.header.cellStyles[0] =
+            instance.options.columns[0][0].cellStyle
 
           try {
             instance.doPrint(data)
             const html = stub.getHtml()
 
-            expect(html).to.include('color: red')
-            expect(html).to.include('font-weight: bold')
+            expect(html).to.include("color: red")
+            expect(html).to.include("font-weight: bold")
           } finally {
             stub.restore()
           }
         })
     })
 
-    it('Test rowStyle with string css format', () => {
+    it("Test rowStyle with string css format", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           instance.options.rowStyle = (row, index) => ({
-            css: index === 0 ? 'background-color: blue' : { color: 'white' }
+            css: index === 0 ? "background-color: blue" : { color: "white" },
           })
 
           try {
             instance.doPrint(data)
             const html = stub.getHtml()
 
-            expect(html).to.include('background-color: blue')
-            expect(html).to.include('color: white')
+            expect(html).to.include("background-color: blue")
+            expect(html).to.include("color: white")
           } finally {
             stub.restore()
           }
         })
     })
 
-    it('Test rowStyle with array css format', () => {
+    it("Test rowStyle with array css format", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           instance.options.rowStyle = () => ({
-            css: ['color: red', { 'font-weight': 'bold' }]
+            css: ["color: red", { "font-weight": "bold" }],
           })
 
           try {
             instance.doPrint(data)
             const html = stub.getHtml()
 
-            expect(html).to.include('color: red')
-            expect(html).to.include('font-weight: bold')
+            expect(html).to.include("color: red")
+            expect(html).to.include("font-weight: bold")
           } finally {
             stub.restore()
           }
         })
     })
 
-    it('Test rowStyle handles falsy items in array css', () => {
+    it("Test rowStyle handles falsy items in array css", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           const condition = false
 
           instance.options.rowStyle = () => ({
-            css: [condition && { color: 'red' }, 'font-size: 14px']
+            css: [condition && { color: "red" }, "font-size: 14px"],
           })
 
           try {
             instance.doPrint(data)
             const html = stub.getHtml()
 
-            expect(html).to.include('font-size: 14px')
+            expect(html).to.include("font-size: 14px")
           } finally {
             stub.restore()
           }
         })
     })
 
-    it('Test rowStyle with HTML-sourced _class and _style', () => {
+    it("Test rowStyle with HTML-sourced _class and _style", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
-          data[0]._class = 'row-from-html'
-          data[1]._style = 'background-color: green'
+          data[0]._class = "row-from-html"
+          data[1]._style = "background-color: green"
 
           try {
             instance.doPrint(data)
@@ -558,17 +583,18 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test cellStyle with HTML-sourced _field_class and _field_style', () => {
+    it("Test cellStyle with HTML-sourced _field_class and _field_style", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
-          data[0]._name_class = 'cell-from-html'
-          data[1]._name_style = 'color: blue'
+          data[0]._name_class = "cell-from-html"
+          data[1]._name_style = "color: blue"
 
           try {
             instance.doPrint(data)
@@ -583,16 +609,17 @@ module.exports = (theme = '') => {
     })
 
     // printStyles loading
-    it('Test printStyles injects link tags into print HTML', () => {
+    it("Test printStyles injects link tags into print HTML", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
-          instance.options.printStyles = ['style1.css', 'style2.css']
+          instance.options.printStyles = ["style1.css", "style2.css"]
 
           try {
             instance.doPrint(data)
@@ -609,18 +636,18 @@ module.exports = (theme = '') => {
     const createFakeLink = () => {
       const link = {
         eventListeners: {},
-        addEventListener (event, callback) {
+        addEventListener(event, callback) {
           if (!link.eventListeners[event]) {
             link.eventListeners[event] = []
           }
           link.eventListeners[event].push(callback)
         },
-        triggerLoad () {
-          (link.eventListeners.load || []).forEach(cb => cb())
+        triggerLoad() {
+          ;(link.eventListeners.load || []).forEach((cb) => cb())
         },
-        triggerError () {
-          (link.eventListeners.error || []).forEach(cb => cb())
-        }
+        triggerError() {
+          ;(link.eventListeners.error || []).forEach((cb) => cb())
+        },
       }
 
       return link
@@ -628,31 +655,32 @@ module.exports = (theme = '') => {
 
     const createFakePrintWindow = (links, onPrint) => {
       const doc = {
-        write () {},
-        close () {},
-        querySelectorAll (selector) {
+        write() {},
+        close() {},
+        querySelectorAll(selector) {
           return selector === 'link[rel="stylesheet"]' ? links : []
-        }
+        },
       }
 
       doc.documentElement = doc
       return {
         document: doc,
-        focus () {},
-        print () {
+        focus() {},
+        print() {
           onPrint()
         },
-        close () {},
-        addEventListener () {}
+        close() {},
+        addEventListener() {},
       }
     }
 
-    it('Test printStyles waits for all stylesheets to load before printing', () => {
+    it("Test printStyles waits for all stylesheets to load before printing", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
 
           let printCount = 0
@@ -670,7 +698,7 @@ module.exports = (theme = '') => {
             return createFakePrintWindow(links, () => printCount++)
           }
 
-          instance.options.printStyles = ['a.css', 'b.css', 'c.css']
+          instance.options.printStyles = ["a.css", "b.css", "c.css"]
 
           try {
             instance.doPrint(data)
@@ -689,12 +717,13 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test printStyles handles stylesheet load error', () => {
+    it("Test printStyles handles stylesheet load error", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
 
           let printCount = 0
@@ -712,7 +741,7 @@ module.exports = (theme = '') => {
             return createFakePrintWindow(links, () => printCount++)
           }
 
-          instance.options.printStyles = ['valid.css', 'broken.css']
+          instance.options.printStyles = ["valid.css", "broken.css"]
 
           try {
             instance.doPrint(data)
@@ -729,12 +758,13 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test waits for stylesheet injected by custom printPageBuilder', () => {
+    it("Test waits for stylesheet injected by custom printPageBuilder", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
 
           let printCount = 0
@@ -749,7 +779,7 @@ module.exports = (theme = '') => {
           }
 
           instance.options.printStyles = []
-          instance.options.printPageBuilder = table =>
+          instance.options.printPageBuilder = (table) =>
             `<html><head><link rel="stylesheet" href="custom.css" /></head><body>${table}</body></html>`
 
           try {
@@ -765,18 +795,19 @@ module.exports = (theme = '') => {
         })
     })
 
-    it('Test printPageBuilder receives styles as second argument', () => {
+    it("Test printPageBuilder receives styles as second argument", () => {
       cy.visit(`${baseUrl}print.html`)
         .get('.fixed-table-toolbar [name="print"]')
-        .should('exist')
-        .window().then(win => {
-          const instance = win.$('#table').data('bootstrap.table')
+        .should("exist")
+        .window()
+        .then((win) => {
+          const instance = win.$("#table").data("bootstrap.table")
           const data = instance.getData()
           const stub = stubWindowOpen(win)
 
           let receivedStyles = null
 
-          instance.options.printStyles = ['custom.css']
+          instance.options.printStyles = ["custom.css"]
           instance.options.printPageBuilder = (table, styles) => {
             receivedStyles = styles
             return `<html><body>${table}</body></html>`
@@ -786,9 +817,9 @@ module.exports = (theme = '') => {
             instance.doPrint(data)
 
             expect(receivedStyles).to.include('href="custom.css"')
-            expect(receivedStyles).to.include('<link')
-            expect(receivedStyles).to.not.include('onload=')
-            expect(receivedStyles).to.not.include('onerror=')
+            expect(receivedStyles).to.include("<link")
+            expect(receivedStyles).to.not.include("onload=")
+            expect(receivedStyles).to.not.include("onerror=")
           } finally {
             stub.restore()
           }

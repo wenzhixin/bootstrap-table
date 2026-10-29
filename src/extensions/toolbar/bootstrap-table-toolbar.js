@@ -29,8 +29,8 @@ const theme = {
             </div>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   bootstrap4: {
     classes: {},
@@ -52,12 +52,12 @@ const theme = {
             </div>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   bootstrap5: {
     classes: {
-      formGroup: 'mb-3'
+      formGroup: "mb-3",
     },
     html: {
       modal: `
@@ -75,8 +75,8 @@ const theme = {
             </div>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   bulma: {
     classes: {},
@@ -95,8 +95,8 @@ const theme = {
             </footer>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   foundation: {
     classes: {},
@@ -112,8 +112,8 @@ const theme = {
             <button class="button button-%s toolbar-modal-close"></button>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   materialize: {
     classes: {},
@@ -128,8 +128,8 @@ const theme = {
             <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat btn-%s toolbar-modal-close"></a>
           </div>
         </div>
-      `
-    }
+      `,
+    },
   },
   semantic: {
     classes: {},
@@ -143,50 +143,51 @@ const theme = {
             <div class="ui black deny button button-%s toolbar-modal-close"></div>
           </div>
         </div>
-      `
-    }
-  }
+      `,
+    },
+  },
 }[$.fn.bootstrapTable.theme]
 
 Object.assign($.fn.bootstrapTable.defaults, {
   advancedSearch: false,
-  idForm: 'advancedSearch',
-  actionForm: '',
+  idForm: "advancedSearch",
+  actionForm: "",
   idTable: undefined,
   // eslint-disable-next-line no-unused-vars
-  onColumnAdvancedSearch (field, text) {
+  onColumnAdvancedSearch(field, text) {
     return false
-  }
+  },
 })
 
-Utils.assignIcons($.fn.bootstrapTable.icons, 'advancedSearchIcon', {
-  glyphicon: 'glyphicon-chevron-down',
-  fa: 'fa-chevron-down',
-  bi: 'bi-chevron-down',
-  'material-icons': 'expand_more'
+Utils.assignIcons($.fn.bootstrapTable.icons, "advancedSearchIcon", {
+  glyphicon: "glyphicon-chevron-down",
+  fa: "fa-chevron-down",
+  bi: "bi-chevron-down",
+  "material-icons": "expand_more",
 })
 
 Object.assign($.fn.bootstrapTable.events, {
-  'column-advanced-search.bs.table': 'onColumnAdvancedSearch'
+  "column-advanced-search.bs.table": "onColumnAdvancedSearch",
 })
 
 Object.assign($.fn.bootstrapTable.locales, {
-  formatAdvancedSearch () {
-    return 'Advanced search'
+  formatAdvancedSearch() {
+    return "Advanced search"
   },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  }
+  formatAdvancedCloseButton() {
+    return "Close"
+  },
 })
 
 Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  initToolbar () {
-    this.showToolbar = this.showToolbar ||
-      this.options.search &&
-      this.options.advancedSearch &&
-      this.options.idTable
+  initToolbar() {
+    this.showToolbar =
+      this.showToolbar ||
+      (this.options.search &&
+        this.options.advancedSearch &&
+        this.options.idTable)
 
     if (this.showToolbar) {
       this.buttons = Object.assign(this.buttons, {
@@ -195,10 +196,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
           icon: this.options.icons.advancedSearchIcon,
           event: this.showAdvancedSearch,
           attributes: {
-            'aria-label': this.options.formatAdvancedSearch(),
-            title: this.options.formatAdvancedSearch()
-          }
-        }
+            "aria-label": this.options.formatAdvancedSearch(),
+            title: this.options.formatAdvancedSearch(),
+          },
+        },
       })
 
       if (Utils.isEmptyObject(this.filterColumnsPartial)) {
@@ -209,97 +210,110 @@ $.BootstrapTable = class extends $.BootstrapTable {
     super.initToolbar()
   }
 
-  showAdvancedSearch () {
+  showAdvancedSearch() {
     this.$toolbarModal = $(`#avdSearchModal_${this.options.idTable}`)
 
     if (this.$toolbarModal.length <= 0) {
-      $('body').append(Utils.sprintf(theme.html.modal,
-        this.options.idTable, this.options.buttonsClass))
+      $("body").append(
+        Utils.sprintf(
+          theme.html.modal,
+          this.options.idTable,
+          this.options.buttonsClass,
+        ),
+      )
 
       this.$toolbarModal = $(`#avdSearchModal_${this.options.idTable}`)
-      this.$toolbarModal.find('.toolbar-modal-close')
-        .off('click')
-        .on('click', () => this.hideToolbarModal())
+      this.$toolbarModal
+        .find(".toolbar-modal-close")
+        .off("click")
+        .on("click", () => this.hideToolbarModal())
     }
 
     this.initToolbarModalBody()
     this.showToolbarModal()
   }
 
-  initToolbarModalBody () {
-    this.$toolbarModal.find('.toolbar-modal-title')
+  initToolbarModalBody() {
+    this.$toolbarModal
+      .find(".toolbar-modal-title")
       .html(this.options.formatAdvancedSearch())
-    this.$toolbarModal.find('.toolbar-modal-footer .toolbar-modal-close')
+    this.$toolbarModal
+      .find(".toolbar-modal-footer .toolbar-modal-close")
       .html(this.options.formatAdvancedCloseButton())
 
-    this.$toolbarModal.find('.toolbar-modal-body')
+    this.$toolbarModal
+      .find(".toolbar-modal-body")
       .html(this.createToolbarForm())
-      .off('keyup blur', 'input').on('keyup blur', 'input', e => {
+      .off("keyup blur", "input")
+      .on("keyup blur", "input", (e) => {
         this.onColumnAdvancedSearch(e)
       })
   }
 
-  showToolbarModal () {
+  showToolbarModal() {
     const theme = $.fn.bootstrapTable.theme
 
-    if (['bootstrap3', 'bootstrap4'].includes(theme)) {
+    if (["bootstrap3", "bootstrap4"].includes(theme)) {
       this.$toolbarModal.modal()
-    } else if (theme === 'bootstrap5') {
+    } else if (theme === "bootstrap5") {
       if (!this.toolbarModal) {
-        this.toolbarModal = new window.bootstrap.Modal(this.$toolbarModal[0], {})
+        this.toolbarModal = new window.bootstrap.Modal(
+          this.$toolbarModal[0],
+          {},
+        )
       }
       this.toolbarModal.show()
-    } else if (theme === 'bulma') {
-      this.$toolbarModal.toggleClass('is-active')
-    } else if (theme === 'foundation') {
+    } else if (theme === "bulma") {
+      this.$toolbarModal.toggleClass("is-active")
+    } else if (theme === "foundation") {
       if (!this.toolbarModal) {
         this.toolbarModal = new window.Foundation.Reveal(this.$toolbarModal)
       }
       this.toolbarModal.open()
-    } else if (theme === 'materialize') {
-      this.$toolbarModal.modal().modal('open')
-    } else if (theme === 'semantic') {
-      this.$toolbarModal.modal('show')
+    } else if (theme === "materialize") {
+      this.$toolbarModal.modal().modal("open")
+    } else if (theme === "semantic") {
+      this.$toolbarModal.modal("show")
     }
   }
 
-  hideToolbarModal () {
+  hideToolbarModal() {
     const theme = $.fn.bootstrapTable.theme
 
-    if (['bootstrap3', 'bootstrap4'].includes(theme)) {
-      this.$toolbarModal.modal('hide')
-    } else if (theme === 'bootstrap5') {
+    if (["bootstrap3", "bootstrap4"].includes(theme)) {
+      this.$toolbarModal.modal("hide")
+    } else if (theme === "bootstrap5") {
       this.toolbarModal.hide()
-    } else if (theme === 'bulma') {
-      $('html').toggleClass('is-clipped')
-      this.$toolbarModal.toggleClass('is-active')
-    } else if (theme === 'foundation') {
+    } else if (theme === "bulma") {
+      $("html").toggleClass("is-clipped")
+      this.$toolbarModal.toggleClass("is-active")
+    } else if (theme === "foundation") {
       this.toolbarModal.close()
-    } else if (theme === 'materialize') {
-      this.$toolbarModal.modal('open')
-    } else if (theme === 'semantic') {
-      this.$toolbarModal.modal('close')
+    } else if (theme === "materialize") {
+      this.$toolbarModal.modal("open")
+    } else if (theme === "semantic") {
+      this.$toolbarModal.modal("close")
     }
 
-    if (this.options.sidePagination === 'server') {
+    if (this.options.sidePagination === "server") {
       this.options.pageNumber = 1
       this.updatePagination()
-      this.trigger('column-advanced-search', this.filterColumnsPartial)
+      this.trigger("column-advanced-search", this.filterColumnsPartial)
     }
   }
 
-  createToolbarForm () {
+  createToolbarForm() {
     const html = [
-      `<form class="form-horizontal toolbar-model-form" action="${this.options.actionForm}">`
+      `<form class="form-horizontal toolbar-model-form" action="${this.options.actionForm}">`,
     ]
 
     for (const column of this.columns) {
       if (!column.checkbox && column.visible && column.searchable) {
-        const title = $('<div/>').html(column.title).text().trim()
-        const value = this.filterColumnsPartial[column.field] || ''
+        const title = $("<div/>").html(column.title).text().trim()
+        const value = this.filterColumnsPartial[column.field] || ""
 
         html.push(`
-          <div class="form-group row ${theme.classes.formGroup || ''}">
+          <div class="form-group row ${theme.classes.formGroup || ""}">
             <label class="col-sm-4 control-label">${title}</label>
             <div class="col-sm-6">
               <input type="text" class="form-control ${this.constants.classes.input}"
@@ -310,49 +324,60 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
 
-    html.push('</form>')
+    html.push("</form>")
 
-    return html.join('')
+    return html.join("")
   }
 
-  initSearch () {
+  initSearch() {
     super.initSearch()
 
-    if (!this.options.advancedSearch || this.options.sidePagination === 'server') {
+    if (
+      !this.options.advancedSearch ||
+      this.options.sidePagination === "server"
+    ) {
       return
     }
 
-    const fp = Utils.isEmptyObject(this.filterColumnsPartial) ? null : this.filterColumnsPartial
+    const fp = Utils.isEmptyObject(this.filterColumnsPartial)
+      ? null
+      : this.filterColumnsPartial
 
-    this.data = fp ? this.data.filter((item, i) => {
-      for (const [key, v] of Object.entries(fp)) {
-        const val = v.toLowerCase()
-        let value = item[key]
-        const index = this.header.fields.indexOf(key)
+    this.data = fp
+      ? this.data.filter((item, i) => {
+          for (const [key, v] of Object.entries(fp)) {
+            const val = v.toLowerCase()
+            let value = item[key]
+            const index = this.header.fields.indexOf(key)
 
-        value = Utils.calculateObjectValue(this.header,
-          this.header.formatters[index], [value, item, i], value)
-        if (this.header.formatters[index]) {
-          // search innerText
-          value = $('<div>').html(value).text()
-        }
+            value = Utils.calculateObjectValue(
+              this.header,
+              this.header.formatters[index],
+              [value, item, i],
+              value,
+            )
+            if (this.header.formatters[index]) {
+              // search innerText
+              value = $("<div>").html(value).text()
+            }
 
-        if (
-          !(index !== -1 &&
-          (typeof value === 'string' || typeof value === 'number') &&
-          `${value}`.toLowerCase().includes(val))
-        ) {
-          return false
-        }
-      }
-      return true
-    }) : this.data
+            if (!(
+              index !== -1 &&
+              (typeof value === "string" || typeof value === "number") &&
+              `${value}`.toLowerCase().includes(val)
+            )) {
+              return false
+            }
+          }
+          return true
+        })
+      : this.data
     this.unsortedData = [...this.data]
   }
 
-  onColumnAdvancedSearch (e) {
+  onColumnAdvancedSearch(e) {
     const text = $(e.currentTarget).val().trim()
-    const field = $(e.currentTarget).attr('name')
+    const field = $(e.currentTarget).attr("name")
 
     if (text) {
       this.filterColumnsPartial[field] = text
@@ -360,11 +385,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       delete this.filterColumnsPartial[field]
     }
 
-    if (this.options.sidePagination !== 'server') {
+    if (this.options.sidePagination !== "server") {
       this.options.pageNumber = 1
       this.initSearch()
       this.updatePagination()
-      this.trigger('column-advanced-search', field, text)
+      this.trigger("column-advanced-search", field, text)
     }
   }
 }

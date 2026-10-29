@@ -36,6 +36,6 @@ body:
       description: "Optional: any other context about the problem: browser version, operation system, etc."
   - type: markdown
     attributes:
-        value: |
-          Love bootstrap-table? Please consider supporting our collective:
-          👉  https://opencollective.com/bootstrap-table/donate
+      value: |
+        Love bootstrap-table? Please consider supporting our collective:
+        👉  https://opencollective.com/bootstrap-table/donate

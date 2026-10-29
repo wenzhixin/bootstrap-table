@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: 方法
 description: Bootstrap Table 的方法 API。
 group: api
@@ -50,9 +50,9 @@ toc: true
 
   根据指定字段的值数组选中匹配的行，`params` 包含以下属性：
 
-  * `field`：用于查找和匹配记录的字段名称。
-  * `values`：需要选中的行的字段值数组。
-  * `onlyCurrentPage`（默认值：`false`）：若为 `true`，仅选中当前页可见的数据；启用分页时会忽略其他页的数据。
+  - `field`：用于查找和匹配记录的字段名称。
+  - `values`：需要选中的行的字段值数组。
+  - `onlyCurrentPage`（默认值：`false`）：若为 `true`，仅选中当前页可见的数据；启用分页时会忽略其他页的数据。
 
 - **示例:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
 
@@ -139,13 +139,13 @@ toc: true
 ## filterBy
 
 - **参数:**
-    - `filter` - 过滤条件对象，默认值：`{}`
-    - `options` - 选项对象，默认值：
-        ```javascript
-        {
-            'filterAlgorithm': 'and'
-        }
-        ```
+  - `filter` - 过滤条件对象，默认值：`{}`
+  - `options` - 选项对象，默认值：
+    ```javascript
+    {
+        'filterAlgorithm': 'and'
+    }
+    ```
 
 - **详情:**
 
@@ -168,8 +168,8 @@ toc: true
   - **Custom（自定义算法）**
     - 使用自定义函数实现复杂过滤逻辑
     - 函数接收两个参数：
-        - `row`：当前行的数据对象
-        - `filters`：过滤条件对象
+      - `row`：当前行的数据对象
+      - `filters`：过滤条件对象
     - 返回 `true` 保留该行，返回 `false` 则过滤掉该行
 
 - **示例:** [Filter By](https://examples.bootstrap-table.com/#methods/filter-by.html)
@@ -182,10 +182,10 @@ toc: true
 
   获取表格中已加载的数据。
 
-  * `useCurrentPage`：若为 `true`，只返回当前页数据。
-  * `includeHiddenRows`：若为 `true`，包含隐藏行。
-  * `unfiltered`：若为 `true`，返回所有数据（未过滤）。
-  * `formatted`：按已定义的 [formatter](https://bootstrap-table.com/zh-cn/docs/api/column-options/#formatter) 返回格式化值。
+  - `useCurrentPage`：若为 `true`，只返回当前页数据。
+  - `includeHiddenRows`：若为 `true`，包含隐藏行。
+  - `unfiltered`：若为 `true`，返回所有数据（未过滤）。
+  - `formatted`：按已定义的 [formatter](https://bootstrap-table.com/zh-cn/docs/api/column-options/#formatter) 返回格式化值。
 
 - **示例:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
 
@@ -310,8 +310,8 @@ toc: true
 
   隐藏指定行。`params` 至少包含以下属性之一：
 
-  * `index`：行索引。
-  * `uniqueId`：该行的 uniqueId 值。
+  - `index`：行索引。
+  - `uniqueId`：该行的 uniqueId 值。
 
 - **示例:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
@@ -323,8 +323,8 @@ toc: true
 
   插入新行。`params` 包含以下属性：
 
-  * `index`：插入的行索引。
-  * `row`：行数据。
+  - `index`：插入的行索引。
+  - `row`：行数据。
 
 - **示例:** [Insert Row](https://examples.bootstrap-table.com/#methods/insert-row.html)
 
@@ -346,10 +346,10 @@ toc: true
 
   合并多个单元格。`params` 包含以下属性：
 
-  * `index`：行索引。
-  * `field`：字段名。
-  * `rowspan`：需要合并的行数。
-  * `colspan`：需要合并的列数。
+  - `index`：行索引。
+  - `field`：字段名。
+  - `rowspan`：需要合并的行数。
+  - `colspan`：需要合并的列数。
 
 - **示例:** [Merge Cells](https://examples.bootstrap-table.com/#methods/merge-cells.html)
 
@@ -391,27 +391,28 @@ toc: true
 
   刷新/重新加载远程数据。支持以下参数配置：
 
-  * `silent`（默认值：`false`）：设为 `true` 时静默刷新，不显示加载状态。
-  * `url`：可选，临时覆盖当前请求的 URL。
-  * `pageNumber`：可选，指定要跳转的页码。
-  * `pageSize`：可选，指定每页显示的记录数。
-  * `query`：可选，为本次请求添加额外的查询参数对象。
+  - `silent`（默认值：`false`）：设为 `true` 时静默刷新，不显示加载状态。
+  - `url`：可选，临时覆盖当前请求的 URL。
+  - `pageNumber`：可选，指定要跳转的页码。
+  - `pageSize`：可选，指定每页显示的记录数。
+  - `query`：可选，为本次请求添加额外的查询参数对象。
 
   示例用法：
+
   ```javascript
   // 静默刷新
-  $('#table').bootstrapTable('refresh', {silent: true})
+  $("#table").bootstrapTable("refresh", { silent: true })
 
   // 修改 URL 和分页参数
-  $('#table').bootstrapTable('refresh', {
-    url: '/new/api/endpoint',
+  $("#table").bootstrapTable("refresh", {
+    url: "/new/api/endpoint",
     pageNumber: 2,
-    pageSize: 20
+    pageSize: 20,
   })
 
   // 添加查询参数
-  $('#table').bootstrapTable('refresh', {
-    query: {status: 'active', category: 'electronics'}
+  $("#table").bootstrapTable("refresh", {
+    query: { status: "active", category: "electronics" },
   })
   ```
 
@@ -435,27 +436,28 @@ toc: true
 
   从表格中移除数据。`params` 包含以下属性：
 
-  * `field`：用于匹配要删除行的字段名。可以使用特殊字段 `$index` 按行索引删除。
-  * `values`：要删除行的字段值数组。如果使用 `$index` 特殊字段，可传入行索引数组。
+  - `field`：用于匹配要删除行的字段名。可以使用特殊字段 `$index` 按行索引删除。
+  - `values`：要删除行的字段值数组。如果使用 `$index` 特殊字段，可传入行索引数组。
 
   **使用示例：**
+
   ```javascript
   // 根据 id 字段删除
-  $('#table').bootstrapTable('remove', {
-    field: 'id',
-    values: [1, 2, 3]
+  $("#table").bootstrapTable("remove", {
+    field: "id",
+    values: [1, 2, 3],
   })
 
   // 根据行索引删除（从 0 开始）
-  $('#table').bootstrapTable('remove', {
-    field: '$index',
-    values: [0, 2, 4]
+  $("#table").bootstrapTable("remove", {
+    field: "$index",
+    values: [0, 2, 4],
   })
 
   // 根据其他字段删除
-  $('#table').bootstrapTable('remove', {
-    field: 'name',
-    values: ['John', 'Jane']
+  $("#table").bootstrapTable("remove", {
+    field: "name",
+    values: ["John", "Jane"],
   })
   ```
 
@@ -499,7 +501,7 @@ toc: true
 
   重置 Bootstrap Table 视图（例如重置表格高度）。`params` 包含：
 
-  * `height`：表格高度。
+  - `height`：表格高度。
 
 - **示例:** [Reset View](https://examples.bootstrap-table.com/#methods/reset-view.html)
 
@@ -513,7 +515,7 @@ toc: true
     - 滚动到数值 `value` 对应的位置，单位为 `'px'`，传入 `'bottom'` 表示滚动到底部。
   - object
     - 滚动到指定单位的位置（`px` 或 `rows`，行索引从 0 开始）。
-    默认值：`{unit: 'px', value: 0}`
+      默认值：`{unit: 'px', value: 0}`
 
 - **示例:** [Scroll To](https://examples.bootstrap-table.com/#methods/scroll-to.html)
 
@@ -566,8 +568,8 @@ toc: true
 
   显示指定行。`params` 至少包含以下属性之一：
 
-  * `index`：行索引。
-  * `uniqueId`：该行的 uniqueId 值。
+  - `index`：行索引。
+  - `uniqueId`：该行的 uniqueId 值。
 
 - **示例:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
@@ -579,8 +581,8 @@ toc: true
 
   按指定字段排序。`params` 至少包含以下属性之一：
 
-  * `field`：字段名。
-  * `sortOrder`：排序顺序，只能是 `'asc'` 或 `'desc'`。
+  - `field`：字段名。
+  - `sortOrder`：排序顺序，只能是 `'asc'` 或 `'desc'`。
 
 - **示例:** [Sort By](https://examples.bootstrap-table.com/#methods/sort-by.html)
 
@@ -662,9 +664,9 @@ toc: true
 
   根据指定字段的值数组取消选中匹配的行，`params` 包含以下属性：
 
-  * `field`：用于查找和匹配记录的字段名称。
-  * `values`：需要取消选中的行的字段值数组。
-  * `onlyCurrentPage`（默认值：`false`）：若为 `true`，仅取消选中当前页可见的数据；启用分页时会忽略其他页的数据。
+  - `field`：用于查找和匹配记录的字段名称。
+  - `values`：需要取消选中的行的字段值数组。
+  - `onlyCurrentPage`（默认值：`false`）：若为 `true`，仅取消选中当前页可见的数据；启用分页时会忽略其他页的数据。
 
 - **示例:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
 
@@ -676,9 +678,9 @@ toc: true
 
   更新指定行。`params` 包含以下属性：
 
-  * `id`：行 ID，应为表格中 `uniqueId` 字段的值。
-  * `row`：新的行数据。
-  * `replace`（可选）：设为 `true` 可替换整行，而非扩展。
+  - `id`：行 ID，应为表格中 `uniqueId` 字段的值。
+  - `row`：新的行数据。
+  - `replace`（可选）：设为 `true` 可替换整行，而非扩展。
 
 - **示例:** [Update By Unique Id](https://examples.bootstrap-table.com/#methods/update-by-unique-id.html)
 
@@ -690,9 +692,9 @@ toc: true
 
   更新单个单元格。`params` 包含以下属性：
 
-  * `index`：行索引。
-  * `field`：字段名。
-  * `value`：新的字段值。
+  - `index`：行索引。
+  - `field`：字段名。
+  - `value`：新的字段值。
 
   若要禁用表格重新初始化，可设置 `{reinit: false}`。
 
@@ -706,9 +708,9 @@ toc: true
 
   更新指定单元格。`params` 包含以下属性：
 
-  * `id`：行 ID，应为表格中 `uniqueId` 字段的值。
-  * `field`：需要更新的字段名。
-  * `value`：新值。
+  - `id`：行 ID，应为表格中 `uniqueId` 字段的值。
+  - `field`：需要更新的字段名。
+  - `value`：新值。
 
   若要禁用表格重新初始化，可设置 `{reinit: false}`。
 
@@ -722,8 +724,8 @@ toc: true
 
   更新列的标题。`params` 包含以下属性：
 
-  * `field`：字段名。
-  * `title`：字段标题。
+  - `field`：字段名。
+  - `title`：字段标题。
 
 - **示例:** [Update Column Title](https://examples.bootstrap-table.com/#methods/update-column-title.html)
 
@@ -745,8 +747,8 @@ toc: true
 
   更新指定行。`params` 包含以下属性：
 
-  * `index`：待更新的行索引。
-  * `row`：新的行数据。
-  * `replace`（可选）：设为 `true` 可替换整行，而非扩展。
+  - `index`：待更新的行索引。
+  - `row`：新的行数据。
+  - `replace`（可选）：设为 `true` 可替换整行，而非扩展。
 
 - **示例:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)

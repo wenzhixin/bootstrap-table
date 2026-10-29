@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Methods
 description: The Methods API of Bootstrap Table.
 group: api
@@ -50,9 +50,9 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Check a row by an array of values, the params contain:
 
-  * `field`: name of the field used to find records.
-  * `values`: array of values for rows to check.
-  * `onlyCurrentPage (default false)`: If `true`, only the visible dataset will be checked. If pagination is used, the other pages will be ignored.
+  - `field`: name of the field used to find records.
+  - `values`: array of values for rows to check.
+  - `onlyCurrentPage (default false)`: If `true`, only the visible dataset will be checked. If pagination is used, the other pages will be ignored.
 
 - **Example:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
 
@@ -139,15 +139,13 @@ For example: `$('#table').bootstrapTable('append', data)`
 ## filterBy
 
 - **Parameter:**
-    - `filter - An Object of filter`
+  - `filter - An Object of filter`
     Default: `{}`
-    - `options - An Object of options`
+  - `options - An Object of options`
     Default:
-        ```
-        {
-            'filterAlgorithm': 'and'
-        }
-        ```
+    `    {
+    'filterAlgorithm': 'and'
+}`
 
 - **Detail:**
 
@@ -160,14 +158,14 @@ For example: `$('#table').bootstrapTable('append', data)`
   **Filter Algorithm**
 
   - And
-    - Filter `{age: 10}` to show the data only age is equal to 10.  You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
+    - Filter `{age: 10}` to show the data only age is equal to 10. You can also filter with an array of values, as in: `{age: 10, hairColor: ['blue', 'red', 'green']}` to find data where age is equal to 10 and hairColor is either blue, red, or green.
   - Or
     - Filter `{age: 10, name: "santa"}` to show all Data which has a age of 10 **or** the name is equals to santa.
   - Custom
     - Filter by your Custom algorithm
     - Function parameters:
-        - Row
-        - Filters
+      - Row
+      - Filters
     - Return `true` to keep the row and return `false` to filter the row.
 
 - **Example:** [Filter By](https://examples.bootstrap-table.com/#methods/filter-by.html)
@@ -180,10 +178,10 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Get the loaded data of the table at the moment that this method is called
 
-  * `useCurrentPage`: if set to `true`, the method will return the data only on the current page.
-  * `includeHiddenRows`: if set to `true`, the method will include the hidden rows.
-  * `unfiltered`: if set to `true`, the method will include all data (unfiltered).
-  * `formatted`: get the formatted value from the defined [formatter](https://bootstrap-table.com/docs/api/column-options/#formatter).
+  - `useCurrentPage`: if set to `true`, the method will return the data only on the current page.
+  - `includeHiddenRows`: if set to `true`, the method will include the hidden rows.
+  - `unfiltered`: if set to `true`, the method will include all data (unfiltered).
+  - `formatted`: get the formatted value from the defined [formatter](https://bootstrap-table.com/docs/api/column-options/#formatter).
 
 - **Example:** [Get Data](https://examples.bootstrap-table.com/#methods/get-data.html)
 
@@ -307,8 +305,8 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Hide the specified row. The params must contain at least one of the following properties:
 
-  * `index`: the row index.
-  * `uniqueId`: the value of the uniqueId for that row.
+  - `index`: the row index.
+  - `uniqueId`: the value of the uniqueId for that row.
 
 - **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
@@ -320,8 +318,8 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Insert a new row. The params contain the following properties:
 
-  * `index`: the row index to insert into.
-  * `row`: the row data.
+  - `index`: the row index to insert into.
+  - `row`: the row data.
 
 - **Example:** [Insert Row](https://examples.bootstrap-table.com/#methods/insert-row.html)
 
@@ -343,10 +341,10 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Merge some cells into one cell. The params contain the following properties:
 
-  * `index`: the row index.
-  * `field`: the field name.
-  * `rowspan`: the rowspan count to be merged.
-  * `colspan`: the colspan count to be merged.
+  - `index`: the row index.
+  - `field`: the field name.
+  - `rowspan`: the rowspan count to be merged.
+  - `colspan`: the colspan count to be merged.
 
 - **Example:** [Merge Cells](https://examples.bootstrap-table.com/#methods/merge-cells.html)
 
@@ -388,27 +386,28 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Refresh/reload the remote server data. Supports the following parameter configurations:
 
-  * `silent` (default: `false`): Set to `true` to refresh data silently without showing loading status.
-  * `url`: Optional, temporarily override the current request URL.
-  * `pageNumber`: Optional, specify the page number to navigate to.
-  * `pageSize`: Optional, specify the number of records to display per page.
-  * `query`: Optional, add additional query parameters for this request.
+  - `silent` (default: `false`): Set to `true` to refresh data silently without showing loading status.
+  - `url`: Optional, temporarily override the current request URL.
+  - `pageNumber`: Optional, specify the page number to navigate to.
+  - `pageSize`: Optional, specify the number of records to display per page.
+  - `query`: Optional, add additional query parameters for this request.
 
   Example usage:
+
   ```javascript
   // Silent refresh
-  $('#table').bootstrapTable('refresh', {silent: true})
+  $("#table").bootstrapTable("refresh", { silent: true })
 
   // Modify URL and pagination parameters
-  $('#table').bootstrapTable('refresh', {
-    url: '/new/api/endpoint',
+  $("#table").bootstrapTable("refresh", {
+    url: "/new/api/endpoint",
     pageNumber: 2,
-    pageSize: 20
+    pageSize: 20,
   })
 
   // Add query parameters
-  $('#table').bootstrapTable('refresh', {
-    query: {status: 'active', category: 'electronics'}
+  $("#table").bootstrapTable("refresh", {
+    query: { status: "active", category: "electronics" },
   })
   ```
 
@@ -432,27 +431,28 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Remove data from the table. The params contain the following properties:
 
-  * `field`: The field name used to match rows to be removed. You can use the special field `$index` to remove rows by row index.
-  * `values`: An array of field values for rows to be removed. If using the special field `$index`, you can pass an array of row indexes.
+  - `field`: The field name used to match rows to be removed. You can use the special field `$index` to remove rows by row index.
+  - `values`: An array of field values for rows to be removed. If using the special field `$index`, you can pass an array of row indexes.
 
   **Usage examples:**
+
   ```javascript
   // Remove by id field
-  $('#table').bootstrapTable('remove', {
-    field: 'id',
-    values: [1, 2, 3]
+  $("#table").bootstrapTable("remove", {
+    field: "id",
+    values: [1, 2, 3],
   })
 
   // Remove by row index (starts from 0)
-  $('#table').bootstrapTable('remove', {
-    field: '$index',
-    values: [0, 2, 4]
+  $("#table").bootstrapTable("remove", {
+    field: "$index",
+    values: [0, 2, 4],
   })
 
   // Remove by other field
-  $('#table').bootstrapTable('remove', {
-    field: 'name',
-    values: ['John', 'Jane']
+  $("#table").bootstrapTable("remove", {
+    field: "name",
+    values: ["John", "Jane"],
   })
   ```
 
@@ -496,7 +496,7 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Reset the Bootstrap Table view. For example, reset the table height, the params contain:
 
-  * `height`: the height of the table.
+  - `height`: the height of the table.
 
 - **Example:** [Reset View](https://examples.bootstrap-table.com/#methods/reset-view.html)
 
@@ -509,8 +509,8 @@ For example: `$('#table').bootstrapTable('append', data)`
   - value
     - Scroll to the number `value` position, the unit is `'px'`, set `'bottom'` means scroll to the bottom.
   - object
-    -  Scroll to the unit (`px` or `rows (index starts by 0)`)
-    Default: `{unit: 'px', value: 0}`
+    - Scroll to the unit (`px` or `rows (index starts by 0)`)
+      Default: `{unit: 'px', value: 0}`
 
 - **Example:** [Scroll To](https://examples.bootstrap-table.com/#methods/scroll-to.html)
 
@@ -563,8 +563,8 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Show the specified row. The params must contain at least one of the following properties:
 
-  * `index`: the row index.
-  * `uniqueId`: the value of the uniqueId for that row.
+  - `index`: the row index.
+  - `uniqueId`: the value of the uniqueId for that row.
 
 - **Example:** [Show/Hide Row](https://examples.bootstrap-table.com/#methods/show-hide-row.html)
 
@@ -576,8 +576,8 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Sorts the table by the specified field. The params must contain at least one of the following properties:
 
-  * `field`: the field name.
-  * `sortOrder`: the sort order, can only be 'asc' or 'desc'.
+  - `field`: the field name.
+  - `sortOrder`: the sort order, can only be 'asc' or 'desc'.
 
 - **Example:** [Sort By](https://examples.bootstrap-table.com/#methods/sort-by.html)
 
@@ -659,9 +659,9 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Uncheck a row by an array of values. The params contain:
 
-  * `field`: name of the field used to find records.
-  * `values`: array of values for rows to uncheck.
-  * `onlyCurrentPage (default false)`: If `true`, only the visible dataset will be unchecked. If pagination is used, the other pages will be ignored.
+  - `field`: name of the field used to find records.
+  - `values`: array of values for rows to uncheck.
+  - `onlyCurrentPage (default false)`: If `true`, only the visible dataset will be unchecked. If pagination is used, the other pages will be ignored.
 
 - **Example:** [Check/Uncheck By](https://examples.bootstrap-table.com/#methods/check-uncheck-by.html)
 
@@ -673,9 +673,9 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Update the specified row(s). Each param contains the following properties:
 
-  * `id`: a row id where the id should be the `uniqueId` field assigned to the table.
-  * `row`: the new row data.
-  * `replace` (optional): set to `true` to replace the row instead of extending.
+  - `id`: a row id where the id should be the `uniqueId` field assigned to the table.
+  - `row`: the new row data.
+  - `replace` (optional): set to `true` to replace the row instead of extending.
 
 - **Example:** [Update By Unique Id](https://examples.bootstrap-table.com/#methods/update-by-unique-id.html)
 
@@ -687,9 +687,9 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Update one cell. The params contain the following properties:
 
-  * `index`: the row index.
-  * `field`: the field name.
-  * `value`: the new field value.
+  - `index`: the row index.
+  - `field`: the field name.
+  - `value`: the new field value.
 
   To disable table re-initialization, you can set `{reinit: false}`.
 
@@ -703,9 +703,9 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Update the specified cell(s). Each param contains the following properties:
 
-  * `id`: row id where the id should be the `uniqueId` field assigned to the table.
-  * `field`: field name of the cell to be updated.
-  * `value`: the new value of the cell.
+  - `id`: row id where the id should be the `uniqueId` field assigned to the table.
+  - `field`: field name of the cell to be updated.
+  - `value`: the new value of the cell.
 
   To disable table re-initialization, you can set `{reinit: false}`.
 
@@ -719,8 +719,8 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Update the field title of the column. The params contain the following properties:
 
-  * `field`: the field name.
-  * `title`: the field title.
+  - `field`: the field name.
+  - `title`: the field title.
 
 - **Example:** [Update Column Title](https://examples.bootstrap-table.com/#methods/update-column-title.html)
 
@@ -742,8 +742,8 @@ For example: `$('#table').bootstrapTable('append', data)`
 
   Update the specified row(s). Each param contains the following properties:
 
-  * `index`: the row index to be updated.
-  * `row`: the new row data.
-  * `replace` (optional): set to `true` to replace the row instead of extending.
+  - `index`: the row index to be updated.
+  - `row`: the new row data.
+  - `replace` (optional): set to `true` to replace the row instead of extending.
 
 - **Example:** [Update Row](https://examples.bootstrap-table.com/#methods/update-row.html)

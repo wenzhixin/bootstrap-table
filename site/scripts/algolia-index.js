@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { JSDOM } from 'jsdom'
-import { algoliasearch } from 'algoliasearch'
+import fs from "fs"
+import path from "path"
+import { fileURLToPath } from "url"
+import { JSDOM } from "jsdom"
+import { algoliasearch } from "algoliasearch"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -23,38 +23,33 @@ if (ALGOLIA_APP_ID && ALGOLIA_API_KEY && ALGOLIA_INDEX_NAME) {
 }
 
 // Paths to ignore
-const IGNORE_PATHS = [
-  '/assets/',
-  '/favicon',
-  '/robots.txt',
-  '/404.html'
-]
+const IGNORE_PATHS = ["/assets/", "/favicon", "/robots.txt", "/404.html"]
 
 // Selectors to ignore
 const IGNORE_SELECTORS = [
-  'nav',
-  'footer',
-  'script',
-  'style',
-  '.bd-sidebar',
-  '.bd-toc',
-  '.bd-search',
-  '.navbar',
-  '.alert',
-  '.admonition',
-  '.highlight',
-  'pre',
-  'code',
-  '.btn',
-  '.pagination',
-  '.breadcrumb'
+  "nav",
+  "footer",
+  "script",
+  "style",
+  ".bd-sidebar",
+  ".bd-toc",
+  ".bd-search",
+  ".navbar",
+  ".alert",
+  ".admonition",
+  ".highlight",
+  "pre",
+  "code",
+  ".btn",
+  ".pagination",
+  ".breadcrumb",
 ]
 
 /**
  * Record generator - Based on jekyll-algolia design pattern
  */
 class RecordGenerator {
-  constructor (dom, url) {
+  constructor(dom, url) {
     this.dom = dom
     this.url = url
     this.document = dom.window.document
@@ -63,7 +58,7 @@ class RecordGenerator {
   /**
    * Generate all records
    */
-  generateRecords () {
+  generateRecords() {
     const records = []
 
     // Generate main page record
@@ -84,7 +79,7 @@ class RecordGenerator {
   /**
    * Generate main page record
    */
-  generateMainRecord () {
+  generateMainRecord() {
     const title = this.extractTitle()
     const content = this.extractMainContent()
     const hierarchy = this.extractHierarchy()
@@ -97,12 +92,12 @@ class RecordGenerator {
       objectID: this.url,
       title,
       content: this.truncateContent(content, 2000), // Further reduce content length for Chinese
-      text: '', // Will be set after size check
+      text: "", // Will be set after size check
       hierarchy,
-      type: 'content',
+      type: "content",
       url: this.url,
-      anchor: '',
-      timestamp: Date.now()
+      anchor: "",
+      timestamp: Date.now(),
     }
 
     // Set text field before optimization (DocSearch requires text field)
@@ -117,9 +112,9 @@ class RecordGenerator {
   /**
    * Generate section records
    */
-  generateSectionRecords () {
+  generateSectionRecords() {
     const records = []
-    const headings = this.document.querySelectorAll('h2, h3, h4')
+    const headings = this.document.querySelectorAll("h2, h3, h4")
 
     headings.forEach((heading, index) => {
       const headingText = heading.textContent?.trim()
@@ -127,7 +122,12 @@ class RecordGenerator {
       if (!headingText || headingText.length < 3) return
 
       const level = parseInt(heading.tagName.charAt(1))
-      const content = this.extractSectionContent(heading, level, headings, index)
+      const content = this.extractSectionContent(
+        heading,
+        level,
+        headings,
+        index,
+      )
 
       if (content.length < 50) return
 
@@ -138,12 +138,12 @@ class RecordGenerator {
         objectID: `${this.url}#${anchor}`,
         title: headingText,
         content: this.truncateContent(content, 1500), // Much shorter section content for Chinese
-        text: '', // Will be set after size check
+        text: "", // Will be set after size check
         hierarchy,
         type: `lvl${level}`,
         url: `${this.url}#${anchor}`,
         anchor,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       }
 
       // Set text field before optimization (DocSearch requires text field)
@@ -161,21 +161,21 @@ class RecordGenerator {
   /**
    * Extract page title
    */
-  extractTitle () {
+  extractTitle() {
     // Priority: title tag > h1 > first h2
-    const titleElement = this.document.querySelector('title')
+    const titleElement = this.document.querySelector("title")
 
     if (titleElement) {
       let title = titleElement.textContent?.trim()
 
       if (title) {
         // Remove website identifier
-        title = title.replace(/·[^·]*$/, '').trim()
+        title = title.replace(/·[^·]*$/, "").trim()
         return title
       }
     }
 
-    const h1Element = this.document.querySelector('h1')
+    const h1Element = this.document.querySelector("h1")
 
     if (h1Element) {
       const h1Text = h1Element.textContent?.trim()
@@ -189,14 +189,14 @@ class RecordGenerator {
   /**
    * Extract main content
    */
-  extractMainContent () {
+  extractMainContent() {
     // Find main content container
     const contentSelectors = [
-      '.bd-content',
-      '.content',
-      'main',
-      'article',
-      '.documentation'
+      ".bd-content",
+      ".content",
+      "main",
+      "article",
+      ".documentation",
     ]
 
     let contentElement = null
@@ -217,8 +217,8 @@ class RecordGenerator {
   /**
    * Extract section content
    */
-  extractSectionContent (heading, level) {
-    let content = ''
+  extractSectionContent(heading, level) {
+    let content = ""
     let currentElement = heading.nextElementSibling
 
     while (currentElement) {
@@ -242,22 +242,27 @@ class RecordGenerator {
   /**
    * Extract page hierarchy
    */
-  extractHierarchy () {
+  extractHierarchy() {
     const hierarchy = {
-      lvl0: 'Documentation'
+      lvl0: "Documentation",
     }
 
     const urlPath = new URL(this.url).pathname
 
     // Extract hierarchy from breadcrumbs
-    const breadcrumbElement = this.document.querySelector('.breadcrumb, [aria-label="breadcrumb"]')
+    const breadcrumbElement = this.document.querySelector(
+      '.breadcrumb, [aria-label="breadcrumb"]',
+    )
 
     if (breadcrumbElement) {
-      const breadcrumbItems = breadcrumbElement.querySelectorAll('li, .breadcrumb-item')
+      const breadcrumbItems = breadcrumbElement.querySelectorAll(
+        "li, .breadcrumb-item",
+      )
       let level = 1
 
       breadcrumbItems.forEach((item, index) => {
-        if (index < 3) { // Maximum 3 levels of breadcrumbs
+        if (index < 3) {
+          // Maximum 3 levels of breadcrumbs
           hierarchy[`lvl${level}`] = item.textContent?.trim()
           level++
         }
@@ -265,8 +270,11 @@ class RecordGenerator {
     }
 
     // Infer hierarchy from URL path
-    if (urlPath.startsWith('/docs/')) {
-      const pathParts = urlPath.replace('/docs/', '').split('/').filter(p => p)
+    if (urlPath.startsWith("/docs/")) {
+      const pathParts = urlPath
+        .replace("/docs/", "")
+        .split("/")
+        .filter((p) => p)
 
       if (pathParts.length > 0 && !hierarchy.lvl1) {
         hierarchy.lvl1 = this.formatPathPart(pathParts[0])
@@ -274,12 +282,12 @@ class RecordGenerator {
       if (pathParts.length > 1 && !hierarchy.lvl2) {
         hierarchy.lvl2 = this.formatPathPart(pathParts[1])
       }
-    } else if (urlPath.startsWith('/themes/') && !hierarchy.lvl1) {
-      hierarchy.lvl1 = 'Themes'
-    } else if (urlPath === '/news' && !hierarchy.lvl1) {
-      hierarchy.lvl1 = 'News'
-    } else if (urlPath === '/' && !hierarchy.lvl1) {
-      hierarchy.lvl1 = 'Home'
+    } else if (urlPath.startsWith("/themes/") && !hierarchy.lvl1) {
+      hierarchy.lvl1 = "Themes"
+    } else if (urlPath === "/news" && !hierarchy.lvl1) {
+      hierarchy.lvl1 = "News"
+    } else if (urlPath === "/" && !hierarchy.lvl1) {
+      hierarchy.lvl1 = "Home"
     }
 
     return hierarchy
@@ -288,7 +296,7 @@ class RecordGenerator {
   /**
    * Extract section-specific hierarchy
    */
-  extractSectionHierarchy (heading, level) {
+  extractSectionHierarchy(heading, level) {
     const baseHierarchy = this.extractHierarchy()
 
     if (level === 2) {
@@ -305,55 +313,50 @@ class RecordGenerator {
   /**
    * Clean content, remove unwanted elements
    */
-  cleanContent (element) {
-    if (!element) return ''
+  cleanContent(element) {
+    if (!element) return ""
 
     // Clone element to avoid modifying original DOM
     const clone = element.cloneNode(true)
 
     // Remove ignored elements
-    IGNORE_SELECTORS.forEach(selector => {
+    IGNORE_SELECTORS.forEach((selector) => {
       const elementsToRemove = clone.querySelectorAll(selector)
 
-      elementsToRemove.forEach(el => el.remove())
+      elementsToRemove.forEach((el) => el.remove())
     })
 
-    return this.cleanContentText(clone.textContent || '')
+    return this.cleanContentText(clone.textContent || "")
   }
 
   /**
    * Clean text content
    */
-  cleanContentText (text) {
-    return text
-      .replace(/\s+/g, ' ')
-      .replace(/\n+/g, ' ')
-      .trim()
+  cleanContentText(text) {
+    return text.replace(/\s+/g, " ").replace(/\n+/g, " ").trim()
   }
 
   /**
    * Format path part
    */
-  formatPathPart (part) {
-    return part
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, l => l.toUpperCase())
+  formatPathPart(part) {
+    return part.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
   }
 
   /**
    * Generate anchor
    */
-  generateAnchor (text) {
+  generateAnchor(text) {
     return text
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '')
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
   }
 
   /**
    * Truncate content
    */
-  truncateContent (content, maxLength = 5000) {
+  truncateContent(content, maxLength = 5000) {
     if (content.length <= maxLength) return content
     return `${content.substring(0, maxLength)}...`
   }
@@ -361,15 +364,14 @@ class RecordGenerator {
   /**
    * Optimize record size to ensure it doesn't exceed Algolia limits
    */
-  optimizeRecordSize (record) {
+  optimizeRecordSize(record) {
     const MAX_SIZE = 4000 // Aggressively reduce to ensure UTF-8 encoding stays under 10KB
     const jsonString = JSON.stringify(record)
-    const originalSize = Buffer.byteLength(jsonString, 'utf8')
+    const originalSize = Buffer.byteLength(jsonString, "utf8")
 
     if (originalSize <= MAX_SIZE) {
       return record
     }
-
 
     const optimizedRecord = { ...record }
 
@@ -385,18 +387,18 @@ class RecordGenerator {
 
     // Step 2: Remove optional fields to save space
     let currentJsonString = JSON.stringify(optimizedRecord)
-    let currentSize = Buffer.byteLength(currentJsonString, 'utf8')
+    let currentSize = Buffer.byteLength(currentJsonString, "utf8")
 
     if (currentSize > MAX_SIZE) {
       delete optimizedRecord.timestamp
       currentJsonString = JSON.stringify(optimizedRecord)
-      currentSize = Buffer.byteLength(currentJsonString, 'utf8')
+      currentSize = Buffer.byteLength(currentJsonString, "utf8")
     }
 
     if (currentSize > MAX_SIZE) {
       delete optimizedRecord.anchor
       currentJsonString = JSON.stringify(optimizedRecord)
-      currentSize = Buffer.byteLength(currentJsonString, 'utf8')
+      currentSize = Buffer.byteLength(currentJsonString, "utf8")
     }
 
     // Step 3: Compress hierarchy
@@ -412,7 +414,7 @@ class RecordGenerator {
 
       optimizedRecord.hierarchy = compactHierarchy
       currentJsonString = JSON.stringify(optimizedRecord)
-      currentSize = Buffer.byteLength(currentJsonString, 'utf8')
+      currentSize = Buffer.byteLength(currentJsonString, "utf8")
     }
 
     // Step 4: Final content compression
@@ -424,7 +426,6 @@ class RecordGenerator {
       }
     }
 
-
     return optimizedRecord
   }
 }
@@ -432,11 +433,11 @@ class RecordGenerator {
 /**
  * Scan directory and generate index
  */
-async function generateIndex (distPath) {
+async function generateIndex(distPath) {
   const allRecords = []
   let processedCount = 0
 
-  function scanDirectory (dir, basePath = '') {
+  function scanDirectory(dir, basePath = "") {
     const files = fs.readdirSync(dir)
 
     for (const file of files) {
@@ -445,24 +446,24 @@ async function generateIndex (distPath) {
 
       if (stat.isDirectory()) {
         scanDirectory(filePath, path.join(basePath, file))
-      } else if (file.endsWith('.html')) {
+      } else if (file.endsWith(".html")) {
         const relativePath = path.join(basePath, file)
-        const cleanPath = `/${relativePath.replace(/\\/g, '/').replace('/index.html', '')}`
-        const urlPath = cleanPath || '/'
+        const cleanPath = `/${relativePath.replace(/\\/g, "/").replace("/index.html", "")}`
+        const urlPath = cleanPath || "/"
 
         // Check if this path should be ignored
-        if (IGNORE_PATHS.some(ignorePath => urlPath.includes(ignorePath))) {
+        if (IGNORE_PATHS.some((ignorePath) => urlPath.includes(ignorePath))) {
           continue
         }
 
         try {
-          const html = fs.readFileSync(filePath, 'utf8')
+          const html = fs.readFileSync(filePath, "utf8")
           const url = `https://bootstrap-table.com${urlPath}`
 
           // Parse HTML using JSDOM
           const dom = new JSDOM(html, {
             url,
-            contentType: 'text/html'
+            contentType: "text/html",
           })
 
           const generator = new RecordGenerator(dom, url)
@@ -487,40 +488,42 @@ async function generateIndex (distPath) {
 /**
  * Main function
  */
-async function main () {
-  const distPath = path.join(__dirname, '../dist')
+async function main() {
+  const distPath = path.join(__dirname, "../dist")
 
   if (!fs.existsSync(distPath)) {
     console.error(`Dist directory not found: ${distPath}`)
     process.exit(1)
   }
 
-  console.log('🔍 Generating Algolia index with jekyll-algolia style parser...')
+  console.log("🔍 Generating Algolia index with jekyll-algolia style parser...")
   const records = await generateIndex(distPath)
 
   if (records.length === 0) {
-    console.log('⚠️  No records found to index')
+    console.log("⚠️  No records found to index")
     return
   }
 
   // Skip upload if Algolia client is not initialized
   if (!client) {
     const maxSize = 10000
-    const oversizedCount = records.filter(r => Buffer.byteLength(JSON.stringify(r), 'utf8') > maxSize).length
+    const oversizedCount = records.filter(
+      (r) => Buffer.byteLength(JSON.stringify(r), "utf8") > maxSize,
+    ).length
 
     console.log(`\n📊 Found ${records.length} records to index`)
     if (oversizedCount > 0) {
       console.log(`⚠️  ${oversizedCount} records exceed ${maxSize} bytes limit`)
     }
-    console.log('⚠️  Algolia credentials not provided - skipping upload')
+    console.log("⚠️  Algolia credentials not provided - skipping upload")
     return
   }
 
   try {
     // Clear existing index
-    console.log('🗑️  Clearing existing index...')
+    console.log("🗑️  Clearing existing index...")
     await client.clearObjects({
-      indexName: ALGOLIA_INDEX_NAME
+      indexName: ALGOLIA_INDEX_NAME,
     })
 
     // Upload records in batches
@@ -533,7 +536,7 @@ async function main () {
 
     for (const record of records) {
       const jsonString = JSON.stringify(record)
-      const recordSize = Buffer.byteLength(jsonString, 'utf8') // Use actual byte length for UTF-8
+      const recordSize = Buffer.byteLength(jsonString, "utf8") // Use actual byte length for UTF-8
 
       if (recordSize > MAX_ALGOLIA_SIZE) {
         oversizedRecords.push({ ...record, size: recordSize })
@@ -541,7 +544,6 @@ async function main () {
         validRecords.push(record)
       }
     }
-
 
     if (oversizedRecords.length > 0) {
       console.warn(`⚠️  Skipped ${oversizedRecords.length} oversized records`)
@@ -554,33 +556,39 @@ async function main () {
 
       await client.saveObjects({
         indexName: ALGOLIA_INDEX_NAME,
-        objects: batch
+        objects: batch,
       })
     }
 
-    console.log('🎉 Successfully uploaded all records to Algolia!')
+    console.log("🎉 Successfully uploaded all records to Algolia!")
   } catch (error) {
-    console.error('❌ Error uploading to Algolia:', error.message)
+    console.error("❌ Error uploading to Algolia:", error.message)
 
     // Try to extract record info from error message
     const errorMsg = error.message
     const objectIDMatch = errorMsg.match(/objectID=([^\s]+)/)
 
     if (objectIDMatch) {
-      console.error('\n📍 Problematic record details:')
+      console.error("\n📍 Problematic record details:")
       console.error(`  objectID: ${objectIDMatch[1]}`)
 
       // Find the record in our collection
-      const problematicRecord = records.find(r => r.objectID === objectIDMatch[1])
+      const problematicRecord = records.find(
+        (r) => r.objectID === objectIDMatch[1],
+      )
 
       if (problematicRecord) {
         const jsonString = JSON.stringify(problematicRecord)
 
         console.error(`  string length: ${jsonString.length}`)
-        console.error(`  byte length (UTF-8): ${Buffer.byteLength(jsonString, 'utf8')} bytes`)
+        console.error(
+          `  byte length (UTF-8): ${Buffer.byteLength(jsonString, "utf8")} bytes`,
+        )
         console.error(`  title: ${problematicRecord.title}`)
         console.error(`  type: ${problematicRecord.type}`)
-        console.error(`  content length: ${problematicRecord.content?.length || 0}`)
+        console.error(
+          `  content length: ${problematicRecord.content?.length || 0}`,
+        )
         console.error(`  text length: ${problematicRecord.text?.length || 0}`)
       }
     }

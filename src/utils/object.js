@@ -13,8 +13,8 @@
  * @param {*} obj - The value to check.
  * @returns {boolean} True if the value is a plain object, false otherwise.
  */
-export function isObject (obj) {
-  if (typeof obj !== 'object' || obj === null) {
+export function isObject(obj) {
+  if (typeof obj !== "object" || obj === null) {
     return false
   }
 
@@ -37,14 +37,14 @@ export function isObject (obj) {
  * @param {...Object} objects - The objects to merge into the target.
  * @returns {Object} The extended target object.
  */
-export function extend (...args) {
+export function extend(...args) {
   let target = args[0] || {}
   let i = 1
   let deep = false
   let clone
 
   // Handle a deep copy situation
-  if (typeof target === 'boolean') {
+  if (typeof target === "boolean") {
     deep = target
 
     // Skip the boolean and the target
@@ -53,7 +53,7 @@ export function extend (...args) {
   }
 
   // Handle case when target is a string or something (possible in deep copy)
-  if (typeof target !== 'object' && typeof target !== 'function') {
+  if (typeof target !== "object" && typeof target !== "function") {
     target = {}
   }
 
@@ -61,7 +61,7 @@ export function extend (...args) {
     const options = args[i]
 
     // Ignore undefined/null values
-    if (typeof options === 'undefined' || options === null) {
+    if (typeof options === "undefined" || options === null) {
       continue
     }
 
@@ -72,7 +72,7 @@ export function extend (...args) {
 
       // Prevent Object.prototype pollution
       // Prevent never-ending loop
-      if (name === '__proto__' || target === copy) {
+      if (name === "__proto__" || target === copy) {
         continue
       }
 
@@ -83,7 +83,7 @@ export function extend (...args) {
         const src = target[name]
 
         if (copyIsArray && Array.isArray(src)) {
-          if (src.every(it => !isObject(it) && !Array.isArray(it))) {
+          if (src.every((it) => !isObject(it) && !Array.isArray(it))) {
             target[name] = copy
             continue
           }
@@ -100,7 +100,7 @@ export function extend (...args) {
         // Never move original objects, clone them
         target[name] = extend(deep, clone, copy)
 
-      // Don't bring in undefined values
+        // Don't bring in undefined values
       } else if (copy !== undefined) {
         target[name] = copy
       }
@@ -116,7 +116,7 @@ export function extend (...args) {
  * @param {*} arg - The value to deep copy.
  * @returns {*} A deep copy of the input value.
  */
-export function deepCopy (arg) {
+export function deepCopy(arg) {
   if (arg === undefined) {
     return arg
   }
@@ -131,7 +131,7 @@ export function deepCopy (arg) {
  * @param {boolean} [compareLength=false] - If true, also compare the number of keys.
  * @returns {boolean} True if the objects are equal, false otherwise.
  */
-export function compareObjects (objectA, objectB, compareLength) {
+export function compareObjects(objectA, objectB, compareLength) {
   const aKeys = Object.keys(objectA)
   const bKeys = Object.keys(objectB)
 
@@ -154,6 +154,6 @@ export function compareObjects (objectA, objectB, compareLength) {
  * @param {Object} [obj={}] - The object to check.
  * @returns {boolean} True if the object is empty, false otherwise.
  */
-export function isEmptyObject (obj = {}) {
+export function isEmptyObject(obj = {}) {
   return Object.entries(obj).length === 0 && obj.constructor === Object
 }

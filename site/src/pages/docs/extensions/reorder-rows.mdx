@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Reorder Rows
 description: Table Reorder Rows extension of Bootstrap Table.
 group: extensions
@@ -13,7 +13,10 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 ## Usage
 
 ```html
-<link rel="stylesheet" href="extensions/reorder-rows/bootstrap-table-reorder-rows.css">
+<link
+  rel="stylesheet"
+  href="extensions/reorder-rows/bootstrap-table-reorder-rows.css"
+/>
 <script src=".../jquery.tablednd.js"></script>
 <script src="extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
 ```
@@ -51,6 +54,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
   - the row under the cursor
 
   It returns a boolean: true allows the drop, false doesn’t allow it.
+
 - **Default:** `null`
 
 ### onDragStop
@@ -121,7 +125,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 
 - **Detail:**
 
-  Pass a function that will be called when the row is dropped. The function takes 1 parameter:  the row that was dropped.
+  Pass a function that will be called when the row is dropped. The function takes 1 parameter: the row that was dropped.
 
 - **Default:** `empty function`
 
@@ -156,6 +160,7 @@ if you want you can include the bootstrap-table-reorder-rows.css file to use the
 ### onReorderRow(reorder-row.bs.table)
 
 Fired when the row was dropped, receives two parameters:
-* The new table data
-* The dropped row
-* The row of the old position
+
+- The new table data
+- The dropped row
+- The row of the old position

@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/SimpleLayout.astro'
+layout: "@/layouts/SimpleLayout.astro"
 page: news
 title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
@@ -531,7 +531,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 
 - **Update(cookie):** Fixed cookie extension error with multiple-sort.
 - **Update(export):** Fixed the `exportOptions` option cannot support the data attribute.
-- **Update(reorder-rows):**  Fixed reorder-rows cannot work because of missing default functions.
+- **Update(reorder-rows):** Fixed reorder-rows cannot work because of missing default functions.
 
 ## Bootstrap Table 1.20.0
 
@@ -700,7 +700,7 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update(fixed-columns):** Fixed `toggleView` display bug.
 - **Update(group-by):** Fixed not collapse detail view expanded row bug.
 - **Update(group-by):** Fixed display error using `formatter` column option.
-- **Update(group-by):** Fixed `groupByFormatter` option  bug using in data attribute.
+- **Update(group-by):** Fixed `groupByFormatter` option bug using in data attribute.
 - **Update(multiple-sort):** Fixed cannot work bug using in server `sidePagination`.
 - **Update(page-jump-to):** Fixed page jump input and button bug with `icon-size` option.
 - **Update(print):** Fixed print with `rowspan` or `colspan`.
@@ -1120,7 +1120,6 @@ description: News and announcements for all things Bootstrap Table, including ne
 - **Update(css):** Fixed no-bordered problem of bootstrap v4.
 - **Update(filter-control extension):** Added bootstrap v4 icon support.
 
-
 ## New Website for Bootstrap v4
 
 <span class="post-date">10 Jan 2019</span>
@@ -1159,7 +1158,6 @@ Here are the highlights of what’s new and updated in new website.
 - **Update(filter-control extension):** Fixed multiple choice bug.
 - **Update(filter-control extension):** Fixed select all rows and `keyup` event error.
 - **Update(export extension):** Fixed export in cardView display error.
-
 
 ## Bootstrap Table 1.13.0
 

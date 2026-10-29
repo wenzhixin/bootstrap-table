@@ -1,1 +1,1 @@
-require('../../../extensions/filter-control/options')()
+require("../../../extensions/filter-control/options")()

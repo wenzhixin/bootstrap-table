@@ -233,7 +233,9 @@ html[data-bs-theme="dark"] {
         width: 100%;
         max-width: 100%;
         z-index: 1000;
-        transition: visibility 0s, opacity 0.15s ease-in-out;
+        transition:
+          visibility 0s,
+          opacity 0.15s ease-in-out;
         opacity: 0;
         visibility: hidden;
 
@@ -498,9 +500,17 @@ div.fixed-table-scroll-outer {
 }
 
 @keyframes loading {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

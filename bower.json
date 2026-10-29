@@ -1,36 +1,26 @@
 {
-    "name": "bootstrap-table",
-    "homepage": "https://github.com/wenzhixin/bootstrap-table",
-    "authors": [
-        "zhixin <wenzhixin2010@gmail.com>"
-    ],
-    "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
-    "main": [
-        "dist/bootstrap-table.min.js",
-        "dist/bootstrap-table.min.css"
-    ],
-    "keywords": [
-        "bootstrap",
-        "table",
-        "pagination",
-        "checkbox",
-        "radio",
-        "datatables",
-        "css",
-        "css-framework",
-        "semantic",
-        "semantic-ui",
-        "bulma",
-        "material",
-        "material-design",
-        "materialize",
-        "foundation"
-    ],
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "site"
-    ]
+  "name": "bootstrap-table",
+  "homepage": "https://github.com/wenzhixin/bootstrap-table",
+  "authors": ["zhixin <wenzhixin2010@gmail.com>"],
+  "description": "An extended table to integration with some of the most widely used CSS frameworks. (Supports Bootstrap, Semantic UI, Bulma, Material Design, Foundation)",
+  "main": ["dist/bootstrap-table.min.js", "dist/bootstrap-table.min.css"],
+  "keywords": [
+    "bootstrap",
+    "table",
+    "pagination",
+    "checkbox",
+    "radio",
+    "datatables",
+    "css",
+    "css-framework",
+    "semantic",
+    "semantic-ui",
+    "bulma",
+    "material",
+    "material-design",
+    "materialize",
+    "foundation"
+  ],
+  "license": "MIT",
+  "ignore": ["**/.*", "node_modules", "bower_components", "site"]
 }

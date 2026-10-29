@@ -2,11 +2,11 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-import DOMHelper from '../../helpers/dom.js'
+import DOMHelper from "../../helpers/dom.js"
 
 const Utils = $.fn.bootstrapTable.utils
 
-function printPageBuilderDefault (table, styles) {
+function printPageBuilderDefault(table, styles) {
   return `
     <html>
     <head>
@@ -49,7 +49,7 @@ function printPageBuilderDefault (table, styles) {
     </head>
     <title>Print Table</title>
     <body>
-    <p>Printed on: ${new Date} </p>
+    <p>Printed on: ${new Date()} </p>
     <div class="bs-table-print">${table}</div>
     </body>
     </html>
@@ -57,9 +57,9 @@ function printPageBuilderDefault (table, styles) {
 }
 
 Object.assign($.fn.bootstrapTable.locales, {
-  formatPrint () {
-    return 'Print'
-  }
+  formatPrint() {
+    return "Print"
+  },
 })
 Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
@@ -67,29 +67,29 @@ Object.assign($.fn.bootstrapTable.defaults, {
   showPrint: false,
   printAsFilteredAndSortedOnUI: true,
   printSortColumn: undefined,
-  printSortOrder: 'asc',
+  printSortOrder: "asc",
   printStyles: [],
-  printPageBuilder (table, styles) {
+  printPageBuilder(table, styles) {
     return printPageBuilderDefault(table, styles)
-  }
+  },
 })
 
 Object.assign($.fn.bootstrapTable.columnDefaults, {
   printFilter: undefined,
   printIgnore: false,
-  printFormatter: undefined
+  printFormatter: undefined,
 })
 
-Utils.assignIcons($.fn.bootstrapTable.icons, 'print', {
-  glyphicon: 'glyphicon-print icon-share',
-  fa: 'fa-print',
-  bi: 'bi-printer',
-  icon: 'icon-printer',
-  'material-icons': 'print'
+Utils.assignIcons($.fn.bootstrapTable.icons, "print", {
+  glyphicon: "glyphicon-print icon-share",
+  fa: "fa-print",
+  bi: "bi-printer",
+  icon: "icon-printer",
+  "material-icons": "print",
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  init (...args) {
+  init(...args) {
     super.init(...args)
 
     if (!this.options.showPrint) {
@@ -99,7 +99,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     this.mergedCells = []
   }
 
-  initToolbar (...args) {
+  initToolbar(...args) {
     this.showToolbar = this.showToolbar || this.options.showPrint
 
     if (this.options.showPrint) {
@@ -108,20 +108,24 @@ $.BootstrapTable = class extends $.BootstrapTable {
           text: this.options.formatPrint(),
           icon: this.options.icons.print,
           event: () => {
-            this.doPrint(this.options.printAsFilteredAndSortedOnUI ? this.getData() : this.options.data.slice(0))
+            this.doPrint(
+              this.options.printAsFilteredAndSortedOnUI
+                ? this.getData()
+                : this.options.data.slice(0),
+            )
           },
           attributes: {
-            'aria-label': this.options.formatPrint(),
-            title: this.options.formatPrint()
-          }
-        }
+            "aria-label": this.options.formatPrint(),
+            title: this.options.formatPrint(),
+          },
+        },
       })
     }
 
     super.initToolbar(...args)
   }
 
-  mergeCells (options) {
+  mergeCells(options) {
     super.mergeCells(options)
 
     if (!this.options.showPrint) {
@@ -138,30 +142,47 @@ $.BootstrapTable = class extends $.BootstrapTable {
       row: options.index,
       col,
       rowspan: +options.rowspan || 1,
-      colspan: +options.colspan || 1
+      colspan: +options.colspan || 1,
     })
   }
 
-  doPrint (data) {
-    const canPrint = column => !column.printIgnore && column.visible
+  doPrint(data) {
+    const canPrint = (column) => !column.printIgnore && column.visible
 
     const formatValue = (row, i, column) => {
-      const value_ = Utils.getItemField(row, column.field, this.options.escape, column.escape)
-      const value = Utils.calculateObjectValue(column,
+      const value_ = Utils.getItemField(
+        row,
+        column.field,
+        this.options.escape,
+        column.escape,
+      )
+      const value = Utils.calculateObjectValue(
+        column,
         column.printFormatter || column.formatter,
-        [value_, row, i], value_)
+        [value_, row, i],
+        value_,
+      )
 
-      return typeof value === 'undefined' || value === null ?
-        this.options.undefinedText : DOMHelper.html(DOMHelper.create('<div></div>'), value).innerHTML
+      return typeof value === "undefined" || value === null
+        ? this.options.undefinedText
+        : DOMHelper.html(DOMHelper.create("<div></div>"), value).innerHTML
     }
 
     const getCellStyle = (row, i, column) => {
-      const value_ = Utils.getItemField(row, column.field, this.options.escape, column.escape)
-      const cellStyle = Utils.calculateObjectValue(this.header,
+      const value_ = Utils.getItemField(
+        row,
+        column.field,
+        this.options.escape,
+        column.escape,
+      )
+      const cellStyle = Utils.calculateObjectValue(
+        this.header,
         this.header.cellStyles[column.fieldIndex],
-        [value_, row, i, column.field], {})
+        [value_, row, i, column.field],
+        {},
+      )
 
-      let attrs = ''
+      let attrs = ""
 
       const fieldClass = row[`_${column.field}_class`]
       const fieldStyle = row[`_${column.field}_style`]
@@ -184,27 +205,30 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     const buildTable = (data, columnsArray) => {
-      const dir = this.$el.attr('dir') || 'ltr'
+      const dir = this.$el.attr("dir") || "ltr"
       const html = [`<table dir="${dir}"><thead>`]
 
       for (const columns of columnsArray) {
-        html.push('<tr>')
+        html.push("<tr>")
         for (let h = 0; h < columns.length; h++) {
           if (canPrint(columns[h])) {
-            const title = this.options.escape && this.options.escapeTitle ?
-              Utils.escapeHTML(columns[h].title) : columns[h].title
+            const title =
+              this.options.escape && this.options.escapeTitle
+                ? Utils.escapeHTML(columns[h].title)
+                : columns[h].title
 
             html.push(
               `<th
               ${Utils.sprintf(' rowspan="%s"', columns[h].rowspan)}
               ${Utils.sprintf(' colspan="%s"', columns[h].colspan)}
-              >${title}</th>`)
+              >${title}</th>`,
+            )
           }
         }
-        html.push('</tr>')
+        html.push("</tr>")
       }
 
-      html.push('</thead><tbody>')
+      html.push("</thead><tbody>")
 
       const notRender = []
 
@@ -225,10 +249,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       for (let i = 0; i < data.length; i++) {
-        const rowStyle = Utils.calculateObjectValue(this.options,
-          this.options.rowStyle, [data[i], i], {})
+        const rowStyle = Utils.calculateObjectValue(
+          this.options,
+          this.options.rowStyle,
+          [data[i], i],
+          {},
+        )
 
-        let rowStyleAttr = ''
+        let rowStyleAttr = ""
 
         if (rowStyle.classes) {
           rowStyleAttr += ` class="${Utils.escapeAttr(Utils.classToString(rowStyle.classes))}"`
@@ -275,50 +303,65 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
           if (
             canPrint(columns[j]) &&
-            (
-              !notRender.includes(`${i},${j}`) ||
-              rowspan > 0 && colspan > 0
-            )
+            (!notRender.includes(`${i},${j}`) || (rowspan > 0 && colspan > 0))
           ) {
             if (rowspan > 0 && colspan > 0) {
-              html.push(`<td${getCellStyle(data[i], i, columns[j])} ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`, formatValue(data[i], i, columns[j]), '</td>')
+              html.push(
+                `<td${getCellStyle(data[i], i, columns[j])} ${Utils.sprintf(' rowspan="%s"', rowspan)} ${Utils.sprintf(' colspan="%s"', colspan)}>`,
+                formatValue(data[i], i, columns[j]),
+                "</td>",
+              )
             } else {
-              html.push(`<td${getCellStyle(data[i], i, columns[j])}>`, formatValue(data[i], i, columns[j]), '</td>')
+              html.push(
+                `<td${getCellStyle(data[i], i, columns[j])}>`,
+                formatValue(data[i], i, columns[j]),
+                "</td>",
+              )
             }
           }
         }
 
-        html.push('</tr>')
+        html.push("</tr>")
       }
 
-      html.push('</tbody>')
+      html.push("</tbody>")
       if (this.options.showFooter) {
-        html.push('<tfoot><tr>')
+        html.push("<tfoot><tr>")
 
-        const columns = columnsArray.flat(1).filter(column => !(column.colspanGroup > 0))
+        const columns = columnsArray
+          .flat(1)
+          .filter((column) => !(column.colspanGroup > 0))
 
         columns.sort((c1, c2) => c1.colspanIndex - c2.colspanIndex)
-        const footerData = Utils.trToData(columns, this.$el.find('>tfoot>tr').get())
+        const footerData = Utils.trToData(
+          columns,
+          this.$el.find(">tfoot>tr").get(),
+        )
 
         for (const column of columns) {
           if (canPrint(column)) {
-            const footerValue = Utils.calculateObjectValue(column, column.footerFormatter, [data], footerData[0] && footerData[0][column.field] || '')
+            const footerValue = Utils.calculateObjectValue(
+              column,
+              column.footerFormatter,
+              [data],
+              (footerData[0] && footerData[0][column.field]) || "",
+            )
 
             html.push(`<th>${footerValue}</th>`)
           }
         }
 
-        html.push('</tr></tfoot>')
+        html.push("</tr></tfoot>")
       }
-      html.push('</table>')
-      return html.join('')
+      html.push("</table>")
+      return html.join("")
     }
 
     const sortRows = (data, colName, sortOrder) => {
       if (!colName) {
         return data
       }
-      let reverse = sortOrder !== 'asc'
+      let reverse = sortOrder !== "asc"
 
       reverse = -(+reverse || -1)
       return data.sort((a, b) => reverse * a[colName].localeCompare(b[colName]))
@@ -333,42 +376,68 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return true
     }
 
-    const filterRows = (data, filters) => data.filter(row => filterRow(row, filters))
-    const getColumnFilters = columns => !columns || !columns[0] ? [] : columns[0].filter(col => col.printFilter).map(col => ({
-      colName: col.field,
-      value: col.printFilter
-    }))
+    const filterRows = (data, filters) =>
+      data.filter((row) => filterRow(row, filters))
+    const getColumnFilters = (columns) =>
+      !columns || !columns[0]
+        ? []
+        : columns[0]
+            .filter((col) => col.printFilter)
+            .map((col) => ({
+              colName: col.field,
+              value: col.printFilter,
+            }))
 
     data = filterRows(data, getColumnFilters(this.options.columns))
-    data = sortRows(data, this.options.printSortColumn, this.options.printSortOrder)
+    data = sortRows(
+      data,
+      this.options.printSortColumn,
+      this.options.printSortOrder,
+    )
     const table = buildTable(data, this.options.columns)
-    const newWin = window.open('')
+    const newWin = window.open("")
 
     if (!newWin) {
       return
     }
 
-    const printStyles = typeof this.options.printStyles === 'string' ?
-      this.options.printStyles.replace(/\[|\]| /g, '').toLowerCase().split(',') :
-      this.options.printStyles
+    const printStyles =
+      typeof this.options.printStyles === "string"
+        ? this.options.printStyles
+            .replace(/\[|\]| /g, "")
+            .toLowerCase()
+            .split(",")
+        : this.options.printStyles
     const startPrint = () => {
       newWin.focus()
-      newWin.addEventListener('afterprint', () => {
-        newWin.close()
-      }, { once: true })
+      newWin.addEventListener(
+        "afterprint",
+        () => {
+          newWin.close()
+        },
+        { once: true },
+      )
       newWin.print()
     }
 
-    const styles = printStyles.length ?
-      printStyles.map(s => `<link rel="stylesheet" href="${s}" />`).join('') : ''
+    const styles = printStyles.length
+      ? printStyles.map((s) => `<link rel="stylesheet" href="${s}" />`).join("")
+      : ""
 
-    const calculatedPrintPage = Utils.calculateObjectValue(this, this.options.printPageBuilder,
-      [table, styles], printPageBuilderDefault(table, styles))
+    const calculatedPrintPage = Utils.calculateObjectValue(
+      this,
+      this.options.printPageBuilder,
+      [table, styles],
+      printPageBuilderDefault(table, styles),
+    )
 
     newWin.document.write(calculatedPrintPage)
     newWin.document.close()
 
-    const links = DOMHelper.$$('link[rel="stylesheet"]', newWin.document.documentElement)
+    const links = DOMHelper.$$(
+      'link[rel="stylesheet"]',
+      newWin.document.documentElement,
+    )
 
     if (!links.length) {
       startPrint()
@@ -387,8 +456,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
         if (link.sheet) {
           checkDone()
         } else {
-          link.addEventListener('load', checkDone)
-          link.addEventListener('error', checkDone)
+          link.addEventListener("load", checkDone)
+          link.addEventListener("error", checkDone)
         }
       }
     }

@@ -27,12 +27,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'yarn'
+          cache: "yarn"
 
       - uses: actions/checkout@v4
         with:
-          repository: 'wenzhixin/bootstrap-table-examples'
-          path: './tools/bootstrap-table-examples'
+          repository: "wenzhixin/bootstrap-table-examples"
+          path: "./tools/bootstrap-table-examples"
 
       - name: Lint src and check docs
         env:

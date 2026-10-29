@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: 列选项
 description: Bootstrap Table 的列选项 API。
 group: api
@@ -11,15 +11,16 @@ toc: true
 **注意：** 下面的选项名称（例如 `align`、`checkbox`、`class`）是在 `columns` 数组中定义列时使用的确切属性名。
 
 例如：
+
 ```js
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   columns: [
     {
-      field: 'id',
-      title: 'ID',
-      align: 'center'
-    }
-  ]
+      field: "id",
+      title: "ID",
+      align: "center",
+    },
+  ],
 })
 ```
 
@@ -61,10 +62,10 @@ $('#table').bootstrapTable({
 
   单元格样式格式化函数，接收四个参数：
 
-  * `value`：字段值。
-  * `row`：行数据记录。
-  * `index`：行索引。
-  * `field`：行字段名。
+  - `value`：字段值。
+  - `row`：行数据记录。
+  - `index`：行索引。
+  - `field`：行字段名。
 
   支持返回 `classes` 或 `css`。
 
@@ -186,18 +187,17 @@ $('#table').bootstrapTable({
 
   单元格事件监听器，在使用 formatter 函数时可接收四个参数：
 
-  * `event`：事件对象。
-  * `value`：字段值。
-  * `row`：行数据记录。
-  * `index`：行索引。
+  - `event`：事件对象。
+  - `value`：字段值。
+  - `row`：行数据记录。
+  - `index`：行索引。
 
   示例代码：
 
   ```html
   <th .. data-events="operateEvent">
-  var operateEvents = {
-    'click .like': function (e, value, row, index) {}
-  }
+    var operateEvents = { 'click .like': function (e, value, row, index) {} }
+  </th>
   ```
 
 - **默认值:** `undefined`
@@ -244,8 +244,8 @@ $('#table').bootstrapTable({
 
   函数接收两个参数：
 
-  * `data`：包含所有行数据的数组。
-  * `value`：设置页脚数据时为页脚列的值，否则为 undefined。
+  - `data`：包含所有行数据的数组。
+  - `value`：设置页脚数据时为页脚列的值，否则为 undefined。
 
   函数期望返回 `jQuery`、`String` 或 `HTMLElement` 类型，其他类型将强制转换为 `String`。
 
@@ -265,15 +265,15 @@ $('#table').bootstrapTable({
 
   页脚样式格式化函数，接收一个参数：
 
-  * `column`：列对象。
+  - `column`：列对象。
 
   支持返回 `classes` 或 `css`。示例：
 
   ```javascript
   function footerStyle(column) {
     return {
-      css: { 'font-weight': 'normal' },
-      classes: 'my-class'
+      css: { "font-weight": "normal" },
+      classes: "my-class",
     }
   }
   ```
@@ -294,10 +294,10 @@ $('#table').bootstrapTable({
 
   单元格格式化函数，接收四个参数：
 
-  * `value`：当前字段的值。
-  * `row`：当前行的数据对象。
-  * `index`：当前行的索引。
-  * `field`：当前字段的名称。
+  - `value`：当前字段的值。
+  - `row`：当前行的数据对象。
+  - `index`：当前行的索引。
+  - `field`：当前字段的名称。
 
   函数期望返回 `jQuery`、`String` 或 `HTMLElement` 类型，其他类型将强制转换为 `String`。
 
@@ -459,10 +459,10 @@ $('#table').bootstrapTable({
 
   自定义字段排序函数，用于本地排序，接收四个参数：
 
-  * `fieldA`：第一个字段值。
-  * `fieldB`：第二个字段值。
-  * `rowA`：第一行数据。
-  * `rowB`：第二行数据。
+  - `fieldA`：第一个字段值。
+  - `fieldB`：第二个字段值。
+  - `rowA`：第一行数据。
+  - `rowB`：第二行数据。
 
   预期返回值：`-1`、`0`、`1`。
 
@@ -511,7 +511,6 @@ $('#table').bootstrapTable({
 - **默认值:** `undefined`
 
 - **示例:** [Column Switchable](https://examples.bootstrap-table.com/#column-options/switchable.html)
-
 
 ## title
 
@@ -566,7 +565,6 @@ $('#table').bootstrapTable({
   设为 `false` 可隐藏该列。
 
 - **默认值:** `true`
-
 
 - **示例:** [Column Visible](https://examples.bootstrap-table.com/#column-options/visible.html)
 

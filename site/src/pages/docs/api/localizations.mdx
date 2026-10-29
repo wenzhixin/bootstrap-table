@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Localizations
 description: The Localizations API of Bootstrap Table.
 group: api
@@ -17,7 +17,7 @@ We can import [all locale files](https://github.com/wenzhixin/bootstrap-table/tr
 And then use JavaScript to switch locale:
 
 ```javascript
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US'])
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales["en-US"])
 // $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN'])
 // ...
 ```
@@ -25,22 +25,22 @@ $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US'])
 Or use data attributes to set locale for table:
 
 ```html
-<table data-toggle="table" data-locale="en-US">
-</table>
+<table data-toggle="table" data-locale="en-US"></table>
 ```
 
 Or use JavaScript to set locale for table:
 
 ```javascript
-$('#table').bootstrapTable({
-  locale: 'en-US'
+$("#table").bootstrapTable({
+  locale: "en-US",
 })
 ```
 
 You can use short code for the locale:
+
 ```javascript
-$('#table').bootstrapTable({
-  locale: 'en'
+$("#table").bootstrapTable({
+  locale: "en",
 })
 ```
 
@@ -49,21 +49,22 @@ List of all existing translations with their short codes is on [Github](https://
 You can custom the format localizations, the calling syntax:
 
 ```javascript
-$('#table').bootstrapTable({
+$("#table").bootstrapTable({
   formatName: function () {
-    return 'Format message'
-  }
+    return "Format message"
+  },
 })
 ```
 
 **Note:** The localization names below (e.g., `formatAllRows`, `formatLoadingMessage`) are exact property names to use when customizing Bootstrap Table localizations via JavaScript.
 
 For example:
+
 ```js
-$('#table').bootstrapTable({
-  formatAllRows: function() {
-    return 'All rows'
-  }
+$("#table").bootstrapTable({
+  formatAllRows: function () {
+    return "All rows"
+  },
 })
 ```
 
@@ -72,6 +73,7 @@ $('#table').bootstrapTable({
 - **Parameter:** `undefined`
 
 - **Default:** `'All'`
+
 ## formatClearSearch
 
 - **Parameter:** `undefined`

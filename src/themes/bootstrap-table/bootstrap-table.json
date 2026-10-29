@@ -9,9 +9,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "arrow-down-circle"
-        ],
+        "tags": ["arrow-down-circle"],
         "grid": 0
       },
       "attrs": [],
@@ -34,9 +32,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "arrow-up-circle"
-        ],
+        "tags": ["arrow-up-circle"],
         "grid": 0
       },
       "attrs": [],
@@ -59,9 +55,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "chevron-left"
-        ],
+        "tags": ["chevron-left"],
         "grid": 0
       },
       "attrs": [],
@@ -84,9 +78,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "chevron-right"
-        ],
+        "tags": ["chevron-right"],
         "grid": 0
       },
       "attrs": [],
@@ -109,9 +101,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "clock"
-        ],
+        "tags": ["clock"],
         "grid": 0
       },
       "attrs": [],
@@ -134,9 +124,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "copy"
-        ],
+        "tags": ["copy"],
         "grid": 0
       },
       "attrs": [],
@@ -159,9 +147,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "download"
-        ],
+        "tags": ["download"],
         "grid": 0
       },
       "attrs": [],
@@ -184,9 +170,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "list"
-        ],
+        "tags": ["list"],
         "grid": 0
       },
       "attrs": [],
@@ -209,9 +193,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "maximize"
-        ],
+        "tags": ["maximize"],
         "grid": 0
       },
       "attrs": [],
@@ -234,9 +216,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "minus"
-        ],
+        "tags": ["minus"],
         "grid": 0
       },
       "attrs": [],
@@ -259,9 +239,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "move"
-        ],
+        "tags": ["move"],
         "grid": 0
       },
       "attrs": [],
@@ -284,9 +262,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "plus"
-        ],
+        "tags": ["plus"],
         "grid": 0
       },
       "attrs": [],
@@ -309,9 +285,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "printer"
-        ],
+        "tags": ["printer"],
         "grid": 0
       },
       "attrs": [],
@@ -334,9 +308,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "refresh-cw"
-        ],
+        "tags": ["refresh-cw"],
         "grid": 0
       },
       "attrs": [],
@@ -359,9 +331,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "search"
-        ],
+        "tags": ["search"],
         "grid": 0
       },
       "attrs": [],
@@ -384,9 +354,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "toggle-right"
-        ],
+        "tags": ["toggle-right"],
         "grid": 0
       },
       "attrs": [],
@@ -409,9 +377,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "trash-2"
-        ],
+        "tags": ["trash-2"],
         "grid": 0
       },
       "attrs": [],
@@ -438,10 +404,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "sort-amount-asc",
-          "arrange"
-        ],
+        "tags": ["sort-amount-asc", "arrange"],
         "defaultCode": 59980,
         "grid": 16
       },

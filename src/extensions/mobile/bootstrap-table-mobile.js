@@ -23,11 +23,11 @@ Object.assign($.fn.bootstrapTable.defaults, {
   minHeight: undefined,
   heightThreshold: 100, // just slightly larger than mobile chrome's auto-hiding toolbar
   checkOnInit: true,
-  columnsHidden: []
+  columnsHidden: [],
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
-  init (...args) {
+  init(...args) {
     super.init(...args)
 
     if (!this.options.mobileResponsive || !this.options.minWidth) {
@@ -35,36 +35,46 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.options.minWidth < 100 && this.options.resizable) {
-      console.warn('The minWidth when the resizable extension is active should be greater or equal than 100')
+      console.warn(
+        "The minWidth when the resizable extension is active should be greater or equal than 100",
+      )
       this.options.minWidth = 100
     }
 
     let old = {
       width: $(window).width(),
-      height: $(window).height()
+      height: $(window).height(),
     }
 
-    $(window).on('resize orientationchange', debounce(() => {
-      // reset view if height has only changed by at least the threshold.
-      const width = $(window).width()
-      const height = $(window).height()
-      const $activeElement = $(document.activeElement)
+    $(window).on(
+      "resize orientationchange",
+      debounce(() => {
+        // reset view if height has only changed by at least the threshold.
+        const width = $(window).width()
+        const height = $(window).height()
+        const $activeElement = $(document.activeElement)
 
-      if ($activeElement.length && ['INPUT', 'SELECT', 'TEXTAREA'].includes($activeElement.prop('nodeName'))) {
-        return
-      }
-
-      if (
-        Math.abs(old.height - height) > this.options.heightThreshold ||
-        old.width !== width
-      ) {
-        this.changeView(width, height)
-        old = {
-          width,
-          height
+        if (
+          $activeElement.length &&
+          ["INPUT", "SELECT", "TEXTAREA"].includes(
+            $activeElement.prop("nodeName"),
+          )
+        ) {
+          return
         }
-      }
-    }, 200))
+
+        if (
+          Math.abs(old.height - height) > this.options.heightThreshold ||
+          old.width !== width
+        ) {
+          this.changeView(width, height)
+          old = {
+            width,
+            height,
+          }
+        }
+      }, 200),
+    )
 
     if (this.options.checkOnInit) {
       const width = $(window).width()
@@ -73,48 +83,52 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.changeView(width, height)
       old = {
         width,
-        height
+        height,
       }
     }
   }
 
-  conditionCardView () {
+  conditionCardView() {
     this.changeTableView(false)
     this.showHideColumns(false)
   }
 
-  conditionFullView () {
+  conditionFullView() {
     this.changeTableView(true)
     this.showHideColumns(true)
   }
 
-  changeTableView (cardViewState) {
+  changeTableView(cardViewState) {
     this.options.cardView = cardViewState
     this.toggleView()
   }
 
-  showHideColumns (checked) {
+  showHideColumns(checked) {
     if (this.options.columnsHidden.length === 0) {
       return
     }
 
     const fieldsToToggle = this.columns
-      .filter(column =>
-        this.options.columnsHidden.includes(column.field) &&
-        column.visible !== checked
+      .filter(
+        (column) =>
+          this.options.columnsHidden.includes(column.field) &&
+          column.visible !== checked,
       )
-      .map(column => column.field)
+      .map((column) => column.field)
 
     if (fieldsToToggle.length > 0) {
       this._toggleColumns(fieldsToToggle, checked, true)
     }
   }
 
-  changeView (width, height) {
+  changeView(width, height) {
     if (this.options.minHeight) {
       if (width <= this.options.minWidth && height <= this.options.minHeight) {
         this.conditionCardView()
-      } else if (width > this.options.minWidth && height > this.options.minHeight) {
+      } else if (
+        width > this.options.minWidth &&
+        height > this.options.minHeight
+      ) {
         this.conditionFullView()
       }
     } else if (width <= this.options.minWidth) {

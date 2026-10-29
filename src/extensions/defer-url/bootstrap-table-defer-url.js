@@ -14,12 +14,11 @@
  */
 
 Object.assign($.fn.bootstrapTable.defaults, {
-  deferUrl: undefined
+  deferUrl: undefined,
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
-
-  init (...args) {
+  init(...args) {
     super.init(...args)
 
     if (this.options.deferUrl) {

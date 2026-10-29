@@ -1,5 +1,5 @@
 ---
-layout: '@/layouts/DocsLayout.astro'
+layout: "@/layouts/DocsLayout.astro"
 title: Table Fixed Columns
 description: Table Fixed columns extension of Bootstrap Table.
 group: extensions
@@ -9,7 +9,10 @@ toc: true
 ## Usage
 
 ```html
-<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link
+  rel="stylesheet"
+  href="extensions/fixed-columns/bootstrap-table-fixed-columns.css"
+/>
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 ```
 
@@ -57,13 +60,20 @@ toc: true
 
 ## Note
 
-* Not support `detailView` option.
-* Not support `cardView` option.
-* Not support `showFooter` option.
-* Need to import after sticky-header when using with sticky-header extension. For example:
+- Not support `detailView` option.
+- Not support `cardView` option.
+- Not support `showFooter` option.
+- Need to import after sticky-header when using with sticky-header extension. For example:
+
 ```html
-<link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
-<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<link
+  rel="stylesheet"
+  href="extensions/sticky-header/bootstrap-table-sticky-header.css"
+/>
+<link
+  rel="stylesheet"
+  href="extensions/fixed-columns/bootstrap-table-fixed-columns.css"
+/>
 <script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
 ```
