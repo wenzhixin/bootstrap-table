@@ -3062,9 +3062,9 @@ csstype@^3.2.3:
   integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
 
 cypress@^16.0.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-16.2.0.tgz#a87128a592f110acd7962874c9120e2f0fad35e6"
-  integrity sha512-qWW9RTldmGDmrWHL6UnsFxuOB3bJ3Kh9Ix7nb5mggI/d2IMPbl7ROd6+iy+zLIBp7ujQOQ8a5JQ6eODUJYsXVQ==
+  version "16.2.1"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-16.2.1.tgz#98993dd2e6669e303f4ec3391c380b2c59e3b005"
+  integrity sha512-3Vqf1Krr92hKww/Owob9JrDO7TgBCR2ct+OQrvBOFGSnoGsikL4YF5arqDrJb+SM8Fzi7xXIeVmCeaOqJKPhRA==
   dependencies:
     "@cypress/request" "^4.0.0"
     "@cypress/xvfb" "^1.2.4"
