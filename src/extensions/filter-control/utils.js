@@ -352,6 +352,10 @@ export function initFilterSelectControls (that) {
       if (that.options.sortSelectOptions) {
         sortSelectControl(selectControl, column.filterOrderBy, that.options)
       }
+
+      if (that.options.filterControlHideUnusedSelectOptions) {
+        hideUnusedSelectOptions(selectControl, uniqueValues)
+      }
     }
   })
 }
