@@ -233,6 +233,7 @@ const DEFAULTS = {
   multipleSelectRow: false,
   pageList: [10, 25, 50, 100],
   pageNumber: 1,
+  pageNumberField: 'pageNumber',
   pageSize: 10,
   pagination: false,
   paginationDetailHAlign: 'left', // right, left
