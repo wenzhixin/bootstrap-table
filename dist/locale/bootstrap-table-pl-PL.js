@@ -1976,11 +1976,12 @@
 	 * Bootstrap Table Polish translation
 	 * Author: zergu <michal.zagdan @ gmail com>
 	 * Update: kerogos <kerog @ wp pl>
+	 * 2nd Update: rem22 <darkman1515 @ gmail.com>
 	 */
 
 	$.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
 	  formatAddLevel: function formatAddLevel() {
-	    return 'Add Level';
+	    return 'Dodaj poziom';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
 	    return 'Zamknij';
@@ -1995,13 +1996,13 @@
 	    return 'Auto odświeżanie';
 	  },
 	  formatCancel: function formatCancel() {
-	    return 'Cancel';
+	    return 'Anuluj';
 	  },
 	  formatClearSearch: function formatClearSearch() {
 	    return 'Wyczyść wyszukiwanie';
 	  },
 	  formatColumn: function formatColumn() {
-	    return 'Column';
+	    return 'Kolumna';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Kolumny';
@@ -2013,16 +2014,16 @@
 	    return 'Kopiuj wiersze';
 	  },
 	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Delete Level';
+	    return 'Usuń poziom';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
 	    return "Wy\u015Bwietla ".concat(totalRows, " wierszy");
 	  },
 	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Please remove or change any duplicate column.';
+	    return 'Prosze usunąć lub zmodyfikować zduplikowane kolumny';
 	  },
 	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Duplicate(s) detected!';
+	    return 'Duplikaty wykryte';
 	  },
 	  formatExport: function formatExport() {
 	    return 'Eksport danych';
@@ -2037,7 +2038,7 @@
 	    return 'Ukryj';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Pełny ekran';
 	  },
 	  formatJumpTo: function formatJumpTo() {
 	    return 'Przejdź';
@@ -2046,13 +2047,13 @@
 	    return 'Ładowanie, proszę czekać';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
-	    return 'Multiple Sort';
+	    return 'Sortowanie wielopoziomowe';
 	  },
 	  formatNoMatches: function formatNoMatches() {
 	    return 'Niestety, nic nie znaleziono';
 	  },
 	  formatOrder: function formatOrder() {
-	    return 'Order';
+	    return 'Kolejność';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
 	    return 'Pokaż/ukryj stronicowanie';
@@ -2064,7 +2065,7 @@
 	    return 'Ukryj stronicowanie';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Drukuj';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
 	    return "".concat(pageNumber, " rekord\xF3w na stron\u0119");
@@ -2091,25 +2092,25 @@
 	    return "Wy\u015Bwietlanie rekord\xF3w od ".concat(pageFrom, " do ").concat(pageTo, " z ").concat(totalRows);
 	  },
 	  formatSort: function formatSort() {
-	    return 'Sort';
+	    return 'Sortuj';
 	  },
 	  formatSortBy: function formatSortBy() {
-	    return 'Sort by';
+	    return 'Sortuj po';
 	  },
 	  formatSortOrders: function formatSortOrders() {
 	    return {
-	      asc: 'Ascending',
-	      desc: 'Descending'
+	      asc: 'Rosnąco',
+	      desc: 'Malejąco'
 	    };
 	  },
 	  formatThenBy: function formatThenBy() {
-	    return 'Then by';
+	    return 'Następnie po';
 	  },
 	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
-	    return 'Hide custom view';
+	    return 'Ukryj własny widok';
 	  },
 	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
-	    return 'Show custom view';
+	    return 'Pokaż własny widok';
 	  },
 	  formatToggleOff: function formatToggleOff() {
 	    return 'Ukryj układ karty';
