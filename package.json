@@ -6,6 +6,7 @@
   "style": "dist/bootstrap-table.min.css",
   "sass": "src/bootstrap-table.scss",
   "main": "dist/bootstrap-table.min.js",
+  "module": "dist/bootstrap-table.esm.min.js",
   "files": [
     "dist/",
     "src/",
