@@ -59,7 +59,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatDuplicateAlertDescription () {
-    return 'Prosze usunąć lub zmodyfikować zduplikowane kolumny'
+    return 'Proszę usunąć lub zmodyfikować zduplikowane kolumny'
   },
 
   formatDuplicateAlertTitle () {
