@@ -2,11 +2,12 @@
  * Bootstrap Table Polish translation
  * Author: zergu <michal.zagdan @ gmail com>
  * Update: kerogos <kerog @ wp pl>
+ * Update v2: rem22 <darkman1515 @ gmail com>
  */
 
 $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   formatAddLevel () {
-    return 'Add Level'
+    return 'Dodaj poziom'
   },
 
   formatAdvancedCloseButton () {
@@ -26,7 +27,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatCancel () {
-    return 'Cancel'
+    return 'Anuluj'
   },
 
   formatClearSearch () {
@@ -34,7 +35,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatColumn () {
-    return 'Column'
+    return 'Kolumna'
   },
 
   formatColumns () {
@@ -50,7 +51,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatDeleteLevel () {
-    return 'Delete Level'
+    return 'Usuń poziom'
   },
 
   formatDetailPagination (totalRows) {
@@ -58,11 +59,11 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+    return 'Prosze usunąć lub zmodyfikować zduplikowane kolumny'
   },
 
   formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+    return 'Duplikaty wykryte'
   },
 
   formatExport () {
@@ -82,7 +83,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatFullscreen () {
-    return 'Fullscreen'
+    return 'Pełny ekran'
   },
 
   formatJumpTo () {
@@ -94,7 +95,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatMultipleSort () {
-    return 'Multiple Sort'
+    return 'Sortowanie wielopoziomowe'
   },
 
   formatNoMatches () {
@@ -102,7 +103,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatOrder () {
-    return 'Order'
+    return 'Kolejność'
   },
 
   formatPaginationSwitch () {
@@ -118,7 +119,7 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatPrint () {
-    return 'Print'
+    return 'Drukuj'
   },
 
   formatRecordsPerPage (pageNumber) {
@@ -154,30 +155,30 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
   },
 
   formatSort () {
-    return 'Sort'
+    return 'Sortuj'
   },
 
   formatSortBy () {
-    return 'Sort by'
+    return 'Sortuj po'
   },
 
   formatSortOrders () {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: 'Rosnąco',
+      desc: 'Malejąco'
     }
   },
 
   formatThenBy () {
-    return 'Then by'
+    return 'Następnie po'
   },
 
   formatToggleCustomViewOff () {
-    return 'Hide custom view'
+    return 'Ukryj własny widok'
   },
 
   formatToggleCustomViewOn () {
-    return 'Show custom view'
+    return 'Pokaż własny widok'
   },
 
   formatToggleOff () {
