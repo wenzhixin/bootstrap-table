@@ -6,13 +6,17 @@ group: extensions
 toc: true
 ---
 
-数据导出扩展可以将表格数据导出为多种格式，包括 Excel、PDF、CSV 等。
+数据导出扩展可以将表格数据导出为多种格式，包括 JSON、XML、CSV、TXT、SQL 和 Excel。
 
-## 依赖插件
+本扩展已内置导出实现，不再依赖任何外部插件。
 
-本扩展依赖 [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)。
-
-> **注意**：某些导出格式可能需要额外的配置或依赖库，请参考上述文档进行配置。
+> **注意**
+>
+> 已废弃的 [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin) 已被移除，
+> 因此 `png`、`pdf`、`xlsx`、`doc`、`powerpoint` 这些格式**不再支持**。
+> 导出内容取自表格的数据模型而非渲染后的 DOM，所以 `ignoreColumn`、`csvSeparator`、`csvEnclosure`、
+> `ignoreRow`、`displayTableName` 等旧插件选项不再生效。
+> 如果确实需要上述格式，请使用 SheetJS、jsPDF 等第三方库配合 `getData` 方法自行实现。
 
 ## 用法
 
@@ -48,8 +52,11 @@ toc: true
 
   设置导出数据的范围：
   * `'basic'`：仅导出当前页数据
-  * `'all'`：导出所有数据
-  * `'selected'`：仅导出选中的行
+  * `'all'`：导出所有页的全部数据
+  * `'selected'`：仅导出选中的行，未选中任何行时不导出
+
+  导出的列由 `visible`、`forceExport`、`forceHide` 列选项决定，复选框/单选框状态列始终会被跳过。
+  单元格取值为 formatter 的处理结果并去除其中的 HTML 标签，即与表格中显示的内容一致。
 
 - **默认值:** `basic`
 
@@ -61,7 +68,8 @@ toc: true
 
 - **详情:**
 
-  是否同时导出表格页脚。设置为 `true` 时，表格的页脚行也会包含在导出的文件中。
+  是否同时导出表格页脚。设置为 `true` 时，页脚会作为最后一行追加到导出的文件中，
+  每个导出列的值由该列的 `footerFormatter` 决定。
 
 - **默认值:** `false`
 
@@ -73,7 +81,17 @@ toc: true
 
 - **详情:**
 
-  传递给 `tableExport.jquery.plugin` 的[导出配置选项](https://github.com/hhurz/tableExport.jquery.plugin#options)。
+  内置导出器的配置选项：
+
+  - `fileName`：`String` 或 `Function`，导出文件名（不含扩展名，默认为 `table`）。
+  - `csvDelimiter`：`String`，`csv` 与 `excel` 类型使用的分隔符（默认为 `,`）。
+  - `tableName`：`String`，`sql` 与 `xml` 类型使用的表名（默认为 `table`）。
+
+  调用 `exportTable` 方法时传入的参数会合并到这些选项中，例如：
+
+  ```js
+  $('#table').bootstrapTable('exportTable', { type: 'csv', fileName: 'my-report' })
+  ```
 
   其中 `exportOptions.fileName` 可以是字符串或函数，用于设置导出文件的名称：
 
@@ -93,8 +111,21 @@ toc: true
 
 - **详情:**
 
-  设置可用的导出格式列表。支持的格式包括：
-  `json`、`xml`、`png`、`csv`、`txt`、`sql`、`doc`、`excel`、`xlsx`、`pdf` 等。
+  设置可用的导出格式列表。内置支持的格式包括：
+  `json`、`xml`、`csv`、`txt`、`sql`、`excel`。
+  注意：`png`、`xlsx`、`pdf`、`doc`、`powerpoint` 不再支持。
+
+  * `csv`/`txt`：按分隔符拼接各行，CSV 文件会写入 UTF-8 BOM 并使用 `CRLF` 换行，
+    以保证表格软件不会错误识别编码。
+  * `json`：每行是一个以列 `field` 为键的对象（而非以列标题为键）。
+  * `xml`：根元素来自 `exportOptions.tableName`，每行是一个 `<row>` 节点，
+    子节点名称由列 `field` 生成并会被处理为合法的 XML 名称。
+  * `sql`：生成一条 `INSERT INTO` 语句，若没有可导出的行则不生成文件。
+  * `excel`：**生成的是 CSV 内容，扩展名为 `.xls`**，并不是真正的 Excel 文件，
+    打开时 Excel 会提示"文件格式与扩展名不一致"。
+
+  不支持的格式会被跳过：`exportTable` 返回 `false` 并在控制台输出警告，
+  既不会导出文件，也不会触发 `export-started`/`export-saved` 事件。
 
 - **默认值:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 

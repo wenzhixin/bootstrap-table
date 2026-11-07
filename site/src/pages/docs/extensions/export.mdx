@@ -6,9 +6,16 @@ group: extensions
 toc: true
 ---
 
-Use Plugin: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
+This extension now uses a built-in exporter (no external plugin required).
 
-This is an important link to check out as some file types may require extra steps.
+> **Note**
+>
+> Since the deprecated [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin) has been removed,
+> the following types are **no longer supported**: `png`, `pdf`, `xlsx`, `doc` and `powerpoint`.
+> Export / table values are read from the table data model instead of the rendered DOM, so the plugin specific
+> options such as `ignoreColumn`, `csvSeparator`, `csvEnclosure`, `ignoreRow` and `displayTableName` are ignored.
+> If you need one of the removed formats, please use a dedicated library (for example SheetJS or jsPDF) together with
+> the `getData` method.
 
 ## Usage
 
@@ -44,6 +51,14 @@ This is an important link to check out as some file types may require extra step
 
   Export data type, support: `'basic'`, `'all'`, `'selected'`.
 
+  * `'basic'`: exports the rows of the current page only.
+  * `'all'`: exports all rows of all pages.
+  * `'selected'`: exports the selected rows only, nothing is exported if no row is selected.
+
+  The selected columns are defined by the `forceExport`/`forceHide` and `visible` column options, the checkbox/radio
+  state column is always skipped. Cell values are the formatter results with their HTML tags stripped,
+  mirroring what is displayed in the table.
+
 - **Default:** `basic`
 
 ### exportFooter
@@ -54,7 +69,8 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-  Set `true` to export the table footer.
+  Set `true` to export the table footer. The footer is appended as the last row of the exported file,
+  using the `footerFormatter` of every exported column.
 
 - **Default:** `false`
 
@@ -66,7 +82,17 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-  Export [options](https://github.com/hhurz/tableExport.jquery.plugin#options) of `tableExport.jquery.plugin`
+  Options for the built-in exporter:
+
+  - `fileName`: `String` or `Function`, the filename without extension (default `table`).
+  - `csvDelimiter`: `String`, the delimiter used by the `csv` and `excel` types (default `,`).
+  - `tableName`: `String`, the table name used by the `sql` and `xml` types (default `table`).
+
+  Options passed to the `exportTable` method are merged into these options, for example:
+
+  ```js
+  $('#table').bootstrapTable('exportTable', { type: 'csv', fileName: 'my-report' })
+  ```
 
   `exportOptions.fileName` can be a string or a function, for example:
 
@@ -86,7 +112,20 @@ This is an important link to check out as some file types may require extra step
 
 - **Detail:**
 
-  Export types, support types: `['json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf']`.
+  Built-in export types: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`.
+  Note: `png`, `xlsx`, `pdf`, `doc`, `powerpoint` are not supported by the built-in exporter.
+
+  * `csv`/`txt`: values are joined with the delimiter, CSV files start with a UTF-8 BOM and use `CRLF` line endings
+    so that spreadsheet applications keep the encoding.
+  * `json`: each row is an object keyed by the column `field` (not by the column title).
+  * `xml`: the root element comes from `exportOptions.tableName`, the row elements are `<row>` children,
+    column tags are derived from the column `field` and sanitized to valid XML names.
+  * `sql`: generates a single `INSERT INTO` statement, no file is created when there is no row to export.
+  * `excel`: **generates CSV content with a `.xls` extension**, it is not a real Excel workbook.
+    Excel shows a "format differs from the file extension" warning when opening such a file.
+
+  Unsupported types are skipped: `exportTable` returns `false`, logs a warning and neither exports a file
+  nor triggers the `export-started`/`export-saved` events.
 
 - **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
 
