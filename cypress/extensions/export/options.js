@@ -174,41 +174,76 @@ module.exports = (theme = '') => {
       cy.visit(`${baseUrl}export-method.html`)
         .get('.fixed-table-body')
         .should('exist')
-        .window().then(win => {
-          const $table = win.$('#table')
 
-          // Verify the method exists
-          expect(typeof $table.bootstrapTable).to.equal('function')
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let exportStarted = false
+        let exportSaved = false
+        let downloadName = null
+        let capturedBlob = null
 
-          let tableExportCalled = false
-          const originalTableExport = win.$.fn.tableExport
-
-          try {
-            // eslint-disable-next-line no-unused-vars
-            win.$.fn.tableExport = function (_options) {
-              tableExportCalled = true
-              return this
-            }
-
-            let exportStarted = false
-            let exportSaved = false
-
-            $table.on('export-started.bs.table', () => {
-              exportStarted = true
-            })
-            $table.on('export-saved.bs.table', () => {
-              exportSaved = true
-            })
-
-            $table.bootstrapTable('exportTable', { type: 'csv' })
-
-            expect(exportStarted, 'export-started event should be triggered').to.be.true
-            expect(exportSaved, 'export-saved event should be triggered').to.be.true
-            expect(tableExportCalled, 'tableExport plugin should be called').to.be.true
-          } finally {
-            win.$.fn.tableExport = originalTableExport
-          }
+        const createObjectURL = cy.stub(win.URL, 'createObjectURL').callsFake(blob => {
+          capturedBlob = blob
+          return 'blob:mock'
         })
+
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(function () {
+          downloadName = this.download
+        })
+
+        $table.on('export-started.bs.table', () => {
+          exportStarted = true
+        })
+        $table.on('export-saved.bs.table', () => {
+          exportSaved = true
+        })
+
+        $table.bootstrapTable('exportTable', { type: 'csv' })
+
+        expect(exportStarted, 'export-started event should be triggered').to.be.true
+        expect(exportSaved, 'export-saved event should be triggered').to.be.true
+        expect(createObjectURL, 'a blob should be created').to.have.been.called
+        expect(downloadName, 'the file should be named table.csv').to.equal('table.csv')
+
+        return capturedBlob.text().then(text => {
+          expect(text).to.contain('ID,Name,Price')
+          expect(text).to.contain('1,Item 1,$1')
+          expect(text).to.contain('2,Item 2,$2')
+        })
+      })
+    })
+
+    // Methods: exportTable with an unsupported type
+    it('Test exportTable() method does not export unsupported types', () => {
+      cy.visit(`${baseUrl}export-method.html`)
+        .get('.fixed-table-body')
+        .should('exist')
+
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let exportStarted = false
+        let exportSaved = false
+
+        const createObjectURL = cy.stub(win.URL, 'createObjectURL').returns('blob:mock')
+
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(() => {})
+
+        $table.on('export-started.bs.table', () => {
+          exportStarted = true
+        })
+        $table.on('export-saved.bs.table', () => {
+          exportSaved = true
+        })
+
+        const result = $table.bootstrapTable('exportTable', { type: 'pdf' })
+
+        expect(result).to.equal(false)
+        expect(exportStarted, 'export-started event should not be triggered').to.be.false
+        expect(exportSaved, 'export-saved event should not be triggered').to.be.false
+        expect(createObjectURL).not.to.have.been.called
+      })
     })
 
     // Options: exportOptions.fileName as function
