@@ -1236,4 +1236,220 @@ describe('export extension', () => {
       destroy($table)
     }
   })
+
+  describe('beforeExport', () => {
+    it('cancels the export when returning false', async () => {
+      const $table = await createTable({
+        beforeExport: () => false
+      })
+
+      try {
+        let saved = 0
+
+        $table.on('export-saved.bs.table', () => {
+          saved += 1
+        })
+
+        const result = $table.data('bootstrap.table').exportTable({ type: 'csv' })
+
+        expect(result).toBe(false)
+        expect(saveCount).toBe(0)
+        expect(saved).toBe(0)
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('does not cancel when returning undefined', async () => {
+      const calls = []
+      const $table = await createTable({
+        beforeExport (...args) {
+          calls.push(args)
+        }
+      })
+
+      try {
+        const text = await exportAs($table, 'csv')
+
+        expect(calls).toHaveLength(1)
+        expect(text).toContain('1,Item 1,1.00')
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('does not cancel when returning true', async () => {
+      const $table = await createTable({
+        beforeExport: () => true
+      })
+
+      try {
+        const text = await exportAs($table, 'csv')
+
+        expect(text).toContain('1,Item 1,1.00')
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('still triggers export-started once when cancelled', async () => {
+      const $table = await createTable({
+        beforeExport: () => false
+      })
+
+      try {
+        let started = 0
+
+        $table.on('export-started.bs.table', () => {
+          started += 1
+        })
+
+        $table.data('bootstrap.table').exportTable({ type: 'csv' })
+
+        expect(started).toBe(1)
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('receives the exported rows and type', async () => {
+      const calls = []
+      const $table = await createTable({
+        beforeExport (...args) {
+          calls.push(args)
+        }
+      })
+
+      try {
+        await exportAs($table, 'json')
+
+        expect(calls).toHaveLength(1)
+        const [data, type, instance] = calls[0]
+
+        expect(data).toHaveLength(2)
+        expect(data[0]).toMatchObject({ id: 1, name: 'Item 1' })
+        expect(type).toBe('json')
+        expect(instance).toBe($table.data('bootstrap.table'))
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('cancels for the basic, selected and all data types', async () => {
+      const cases = [
+        { exportDataType: 'basic' },
+        {
+          exportDataType: 'selected',
+          columns: [
+            { checkbox: true, field: 'state' },
+            { field: 'id', title: 'ID' },
+            { field: 'name', title: 'Name' }
+          ]
+        },
+        {
+          exportDataType: 'selected'
+        },
+        { exportDataType: 'all' }
+      ]
+
+      for (const options of cases) {
+        const $table = await createTable({
+          beforeExport: () => false,
+          ...options
+        })
+
+        try {
+          if (options.exportDataType === 'selected') {
+            $table.data('bootstrap.table').check(0)
+          }
+
+          const result = $table.data('bootstrap.table').exportTable({ type: 'csv' })
+
+          expect(result, `exportDataType: ${options.exportDataType}`).toBe(false)
+          expect(saveCount, `exportDataType: ${options.exportDataType}`).toBe(0)
+        } finally {
+          destroy($table)
+        }
+      }
+    })
+
+    it('passes rows without the footer row when exportFooter is enabled', async () => {
+      const lengths = []
+      const $table = await createTable({
+        showFooter: true,
+        exportFooter: true,
+        beforeExport (data) {
+          lengths.push(data.length)
+        },
+        columns: [
+          { field: 'id', title: 'ID' },
+          { field: 'name', title: 'Name' },
+          {
+            field: 'price',
+            title: 'Price',
+            footerFormatter: () => 'total'
+          }
+        ]
+      })
+
+      try {
+        const text = await exportAs($table, 'csv')
+
+        expect(lengths).toEqual([2])
+        expect(text.endsWith(',,total')).toBe(true)
+      } finally {
+        destroy($table)
+      }
+    })
+
+    it('cancels asynchronously for server side all exports and restores pagination', async () => {
+      const $table = await createTable({
+        pagination: true,
+        sidePagination: 'server',
+        pageSize: 2,
+        exportDataType: 'all',
+        queryParamsType: 'limit',
+        beforeExport: () => false,
+        ajax: request => {
+          const data = [
+            { id: 1, name: 'Item 1', price: '1.00' },
+            { id: 2, name: 'Item 2', price: '2.00' },
+            { id: 3, name: 'Item 3', price: '3.00' },
+            { id: 4, name: 'Item 4', price: '4.00' }
+          ]
+          const { offset = 0, limit = data.length } = request.data
+
+          request.success({
+            total: data.length,
+            rows: data.slice(offset, offset + limit)
+          })
+        }
+      })
+
+      try {
+        const instance = $table.data('bootstrap.table')
+        let saved = 0
+
+        $table.on('export-saved.bs.table', () => {
+          saved += 1
+        })
+
+        const virtualScrollBefore = instance.options.virtualScroll
+
+        const result = instance.exportTable({ type: 'csv' })
+
+        // The fetch is already in flight, so the cancellation is asynchronous
+        expect(result).toBe(true)
+
+        await new Promise(resolve => setTimeout(resolve, 10))
+
+        expect(saveCount).toBe(0)
+        expect(saved).toBe(0)
+        expect(instance.options.virtualScroll).toBe(virtualScrollBefore)
+        expect(instance.options.pagination).toBe(true)
+      } finally {
+        destroy($table)
+      }
+    })
+  })
 })

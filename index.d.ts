@@ -172,6 +172,7 @@ export interface BootstrapTableOptions {
   autoRefreshInterval?: number;
   autoRefreshSilent?: boolean;
   autoRefreshStatus?: boolean;
+  beforeExport?: (data: any[], type: string, instance: any) => boolean | void;
   buttons?: {};
   buttonsAlign?: string;
   buttonsAttributeTitle?: string;

@@ -265,7 +265,8 @@ Object.assign($.fn.bootstrapTable.defaults, {
   exportDataType: 'basic', // basic, all, selected
   exportTypes: [...EXPORT_TYPES],
   exportOptions: {},
-  exportFooter: false
+  exportFooter: false,
+  beforeExport: () => true
 })
 
 Object.assign($.fn.bootstrapTable.columnDefaults, {
@@ -501,6 +502,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const name = typeof fileName === 'function' ? fileName() : fileName || 'table'
 
     const save = data => {
+      if (o.beforeExport(data, type, this) === false) {
+        return false
+      }
+
       const built = buildFile(type, this.collectExportData(data), exportOptions)
 
       if (!built) {
@@ -508,6 +513,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       saveAs(built.content, built.mime, `${name}.${built.ext}`)
+      return true
     }
 
     // Trigger export-started after early-return checks and before any export operation
@@ -522,11 +528,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
         this.$el.one('post-body.bs.table', () => {
           setTimeout(() => {
             const data = this.filterHiddenRows(this.getData())
+            const saved = save(data) !== false
 
-            save(data)
+            // Restore the pagination state even if the export was cancelled
             o.virtualScroll = virtualScroll
             this.togglePagination()
-            this.trigger('export-saved', data)
+
+            if (saved) {
+              this.trigger('export-saved', data)
+            }
           }, 0)
         })
         this.togglePagination()
@@ -534,18 +544,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       const data = this.filterHiddenRows(this.getData())
+      const saved = save(data) !== false
 
-      save(data)
-      this.trigger('export-saved', data)
-      return true
+      if (saved) {
+        this.trigger('export-saved', data)
+      }
+      return saved
     }
 
     if (o.exportDataType === 'selected') {
       const data = this.filterHiddenRows(selectedData)
+      const saved = save(data) !== false
 
-      save(data)
-      this.trigger('export-saved', data)
-      return true
+      if (saved) {
+        this.trigger('export-saved', data)
+      }
+      return saved
     }
 
     // Basic type exports the current page only, as the rendered rows did before:
@@ -553,10 +567,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const data = this.filterHiddenRows(
       this.getData({ useCurrentPage: true, includeHiddenRows: true })
     )
+    const saved = save(data) !== false
 
-    save(data)
-    this.trigger('export-saved', data)
-    return true
+    if (saved) {
+      this.trigger('export-saved', data)
+    }
+    return saved
   }
 
   updateSelected () {

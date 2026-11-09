@@ -24,6 +24,7 @@ options.autoRefreshFunction = options.autoRefreshFunction
 options.autoRefreshInterval = options.autoRefreshInterval
 options.autoRefreshSilent = options.autoRefreshSilent
 options.autoRefreshStatus = options.autoRefreshStatus
+options.beforeExport = options.beforeExport
 options.buttons = options.buttons
 options.buttonsAlign = options.buttonsAlign
 options.buttonsAttributeTitle = options.buttonsAttributeTitle

@@ -30,6 +30,33 @@ toc: true
 
 ## 选项
 
+### beforeExport
+
+- **类型:** `Function`
+
+- **详情:**
+
+  在导出数据收集完成之后、文件生成并下载之前调用。
+  返回 `false` 可以取消本次导出：不会下载文件，也不会触发 `export-saved` 事件
+  （`export-started` 事件仍会在此之前触发）。
+
+  * `data`：即将导出的行数据（取决于 `exportDataType`，不含页脚行）
+  * `type`：导出类型，如 `'csv'`
+  * `instance`：Bootstrap Table 实例
+
+  ```js
+  beforeExport (data, type, instance) {
+    if (data.length > 10000) {
+      return false // 取消导出
+    }
+  }
+  ```
+
+  注意：当 `exportDataType: 'all'` 且使用服务端分页时，数据会先从服务器拉取完成才会调用
+  `beforeExport`，此时 `exportTable()` 仍然返回 `true`（取消是异步生效的）。
+
+- **默认值:** `() => true`
+
 ### showExport
 
 - **属性:** `data-show-export`

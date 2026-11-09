@@ -246,6 +246,37 @@ module.exports = (theme = '') => {
       })
     })
 
+    // Options: beforeExport
+    it('Test beforeExport returning false cancels the export', () => {
+      cy.visit(`${baseUrl}export-beforeExport.html`)
+        .get('.fixed-table-toolbar .export')
+        .should('exist')
+
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let exportSaved = false
+
+        const createObjectURL = cy.stub(win.URL, 'createObjectURL').returns('blob:mock')
+
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(() => {})
+
+        $table.on('export-saved.bs.table', () => {
+          exportSaved = true
+        })
+
+        $table.bootstrapTable('exportTable', { type: 'csv' })
+
+        expect(win._beforeExport, 'beforeExport should have been called').to.not.be.undefined
+        expect(win._beforeExport.type).to.equal('csv')
+        expect(win._beforeExport.data).to.have.lengthOf(2)
+        expect(win._exportStarted, 'export-started should still be triggered').to.equal(true)
+        expect(win._exportSaved, 'export-saved should not be triggered').to.be.undefined
+        expect(exportSaved).to.be.false
+        expect(createObjectURL, 'no file should be created').not.to.have.been.called
+      })
+    })
+
     // Options: exportOptions.fileName as function
     it('Test exportOptions.fileName as function', () => {
       cy.visit(`${baseUrl}export-fileName-function.html`)

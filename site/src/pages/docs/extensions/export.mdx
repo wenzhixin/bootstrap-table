@@ -29,6 +29,34 @@ This extension now uses a built-in exporter (no external plugin required).
 
 ## Options
 
+### beforeExport
+
+- **type:** `Function`
+
+- **Detail:**
+
+  Called after the export data is collected and before the file is generated and downloaded.
+  Return `false` to cancel the export: no file is downloaded and the `export-saved` event
+  is not triggered (the `export-started` event is still triggered before it).
+
+  * `data`: the rows about to be exported (depends on `exportDataType`, footer rows not included)
+  * `type`: the export type, e.g. `'csv'`
+  * `instance`: the Bootstrap Table instance
+
+  ```js
+  beforeExport (data, type, instance) {
+    if (data.length > 10000) {
+      return false // cancel the export
+    }
+  }
+  ```
+
+  Note: with `exportDataType: 'all'` and server side pagination, the data is fetched from
+  the server before `beforeExport` is called, and `exportTable()` still returns `true`
+  in this case (the cancellation happens asynchronously).
+
+- **Default:** `() => true`
+
 ### showExport
 
 - **Attribute:** `data-show-export`
