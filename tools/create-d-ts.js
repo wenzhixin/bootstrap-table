@@ -56,13 +56,15 @@ walk('src/extensions')
 extensionFiles.sort()
 
 // Skip strings, comments and template literals while tracking bracket depth.
+// The scanner owns the quote state: comment detection only applies outside
+// quotes, and an escape sequence consumes the escaped character as well.
 const createScanner = () => {
   let depth = 0
   let quote = null
 
-  return ch => {
+  return (ch, next) => {
     if (quote) {
-      if (ch === '\\') return 'skip'
+      if (ch === '\\') return 'escape'
       if (ch === quote) quote = null
       return 'skip'
     }
@@ -70,6 +72,8 @@ const createScanner = () => {
       quote = ch
       return 'skip'
     }
+    if (ch === '/' && next === '/') return 'lineComment'
+    if (ch === '/' && next === '*') return 'blockComment'
     if (ch === '{' || ch === '[' || ch === '(') {
       depth++
       return 'open'
@@ -82,26 +86,35 @@ const createScanner = () => {
   }
 }
 
+const skipLineComment = (content, i) => {
+  while (i < content.length && content[i] !== '\n') i++
+  return i
+}
+const skipBlockComment = (content, i) => {
+  i += 2
+  while (i < content.length && !(content[i] === '*' && content[i + 1] === '/')) i++
+  return i + 1
+}
+
 const extractObjectBody = (content, braceStart) => {
   const scan = createScanner()
 
   for (let i = braceStart; i < content.length; i++) {
-    const ch = content[i]
-    const next = content[i + 1]
+    const action = scan(content[i], content[i + 1])
 
-    if (ch === '/' && next === '/') {
-      while (i < content.length && content[i] !== '\n') i++
+    if (action === 'lineComment') {
+      i = skipLineComment(content, i)
       continue
     }
-    if (ch === '/' && next === '*') {
-      i += 2
-      while (i < content.length && !(content[i] === '*' && content[i + 1] === '/')) i++
+    if (action === 'blockComment') {
+      i = skipBlockComment(content, i)
+      continue
+    }
+    if (action === 'escape') {
       i++
       continue
     }
-    const result = scan(ch)
-
-    if (result === 'close') return { body: content.slice(braceStart + 1, i), end: i }
+    if (action === 'close') return { body: content.slice(braceStart + 1, i), end: i }
   }
   return null
 }
@@ -112,20 +125,21 @@ const splitTopLevel = body => {
   let start = 0
 
   for (let i = 0; i < body.length; i++) {
-    const ch = body[i]
-    const next = body[i + 1]
+    const action = scan(body[i], body[i + 1])
 
-    if (ch === '/' && next === '/') {
-      while (i < body.length && body[i] !== '\n') i++
+    if (action === 'lineComment') {
+      i = skipLineComment(body, i)
       continue
     }
-    if (ch === '/' && next === '*') {
-      i += 2
-      while (i < body.length && !(body[i] === '*' && body[i + 1] === '/')) i++
+    if (action === 'blockComment') {
+      i = skipBlockComment(body, i)
+      continue
+    }
+    if (action === 'escape') {
       i++
       continue
     }
-    if (scan(ch) === 'comma') {
+    if (action === 'comma') {
       segments.push(body.slice(start, i))
       start = i + 1
     }
@@ -363,7 +377,7 @@ const AJAX_PARAMS = `export interface BootstrapAjaxParams {
   dataType: string;
   type: string;
   contentType: string;
-  error: (jqXHR: JQueryXHR) => any;
+  error: (jqXHR: JQuery.jqXHR) => any;
   success: (results: any, textStatus?: string, jqXHR?: JQuery.jqXHR) => any;
 }`
 

@@ -147,7 +147,7 @@ export interface BootstrapAjaxParams {
   dataType: string;
   type: string;
   contentType: string;
-  error: (jqXHR: JQueryXHR) => any;
+  error: (jqXHR: JQuery.jqXHR) => any;
   success: (results: any, textStatus?: string, jqXHR?: JQuery.jqXHR) => any;
 }
 

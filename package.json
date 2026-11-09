@@ -90,7 +90,7 @@
     "css:build": "run-s css:build:*",
     "clean": "rimraf dist",
     "build": "run-s lint clean *:build",
-    "pre-commit": "run-s lint docs:check"
+    "pre-commit": "run-s lint docs:check types:check"
   },
   "peerDependencies": {
     "jquery": "3 || 4"
