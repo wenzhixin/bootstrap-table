@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2019",
+    "lib": ["es2019", "dom"],
+    "types": ["jquery"],
+    "baseUrl": ".",
+    "paths": {
+      "bootstrap-table": ["./index.d.ts"]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "tests/types/bootstrap-table.test.ts",
+    "tests/types/generated-options.test.ts"
+  ]
+}
