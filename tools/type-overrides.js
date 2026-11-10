@@ -43,6 +43,7 @@ export const OPTION_TYPES = {
   ajax: '(params: BootstrapAjaxParams) => any',
   ajaxOptions: '{}',
   autoRefreshFunction: 'ReturnType<typeof setInterval>',
+  beforeExport: '(data: any[], type: string, instance: any) => boolean | void',
   buttons: '{}',
   buttonsAlign: 'string',
   buttonsClass: 'string',
