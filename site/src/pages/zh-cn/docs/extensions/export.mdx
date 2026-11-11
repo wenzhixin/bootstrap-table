@@ -130,6 +130,18 @@ toc: true
   }
   ```
 
+  当使用自定义数据源（例如自行实现的服务端分页）时，可以通过 `exportTable` 方法的 `data`
+  参数传入全量行数据。配合 `beforeExport` 可以取消基于当前页数据的导出，改为导出拉取到的全量数据：
+
+  ```js
+  beforeExport (data, type, instance) {
+    if (usingCustomPagination) {
+      fetchAllRows().then(rows => instance.exportTable({ type, data: rows }))
+      return false // 取消本次（基于当前页数据的）导出
+    }
+  }
+  ```
+
 ### exportTypes
 
 - **属性:** `data-export-types`
@@ -204,11 +216,13 @@ toc: true
 
 - **jQuery 事件:** `export-started.bs.table`
 
-- **参数:** `undefined`
+- **参数:** `type`
 
 - **详情:**
 
   数据收集并导出之前触发。
+
+  * `type`：导出类型，如 `'csv'`
 
 ## 方法
 
@@ -219,6 +233,15 @@ toc: true
 - **详情:**
 
   使用自定义选项导出表格。
+
+  * `options.data`：`Array`，行对象数组，传入后使用该数据导出而忽略 `exportDataType`
+    （包括服务端分页下 `'all'` 的翻页逻辑）。这些行仍会经过 formatter 以及
+    `forceExport`/`forceHide`/`exportFooter` 选项的处理。传入空数组时导出仅含表头的文件
+    （`sql` 类型在没有行时不生成文件，见上文说明）。
+
+  ```js
+  $('#table').bootstrapTable('exportTable', { type: 'csv', data: rows })
+  ```
 
 ## 本地化
 

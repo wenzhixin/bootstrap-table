@@ -246,6 +246,133 @@ module.exports = (theme = '') => {
       })
     })
 
+    // Methods: exportTable with custom data
+    it('Test exportTable() method exports custom data', () => {
+      cy.visit(`${baseUrl}export-method.html`)
+        .get('.fixed-table-body')
+        .should('exist')
+
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let downloadName = null
+        let capturedBlob = null
+
+        cy.stub(win.URL, 'createObjectURL').callsFake(blob => {
+          capturedBlob = blob
+          return 'blob:mock'
+        })
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(function () {
+          downloadName = this.download
+        })
+
+        $table.bootstrapTable('exportTable', {
+          type: 'csv',
+          data: [
+            { id: 10, name: 'Row 10', price: '$10' },
+            { id: 20, name: 'Row 20', price: '$20' },
+            { id: 30, name: 'Row 30', price: '$30' }
+          ]
+        })
+
+        expect(downloadName, 'the file should be named table.csv').to.equal('table.csv')
+
+        return capturedBlob.text().then(text => {
+          expect(text).to.contain('10,Row 10,$10')
+          expect(text).to.contain('20,Row 20,$20')
+          expect(text).to.contain('30,Row 30,$30')
+          expect(text).to.not.contain('Item 1')
+          expect(text).to.not.contain('Item 2')
+        })
+      })
+    })
+
+    // Methods: exportTable with empty custom data
+    it('Test exportTable() method exports header only for empty custom data', () => {
+      cy.visit(`${baseUrl}export-method.html`)
+        .get('.fixed-table-body')
+        .should('exist')
+
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let capturedBlob = null
+
+        cy.stub(win.URL, 'createObjectURL').callsFake(blob => {
+          capturedBlob = blob
+          return 'blob:mock'
+        })
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(() => {})
+
+        $table.bootstrapTable('exportTable', { type: 'csv', data: [] })
+
+        return capturedBlob.text().then(text => {
+          expect(text).to.contain('ID,Name,Price')
+          expect(text).to.not.contain('Item')
+        })
+      })
+    })
+
+    // Methods: exportTable with custom data overrides the selected guard
+    it('Test exportTable() with data exports even if selected has no rows', () => {
+      cy.visit(`${baseUrl}export-dataType-selected.html`)
+        .get('.fixed-table-body')
+        .should('exist')
+
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let exportSaved = false
+        let capturedBlob = null
+
+        cy.stub(win.URL, 'createObjectURL').callsFake(blob => {
+          capturedBlob = blob
+          return 'blob:mock'
+        })
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(() => {})
+
+        $table.on('export-saved.bs.table', () => {
+          exportSaved = true
+        })
+
+        const result = $table.bootstrapTable('exportTable', {
+          type: 'csv',
+          data: [{ id: 99, name: 'Row 99', price: '$99' }]
+        })
+
+        expect(result).to.not.equal(false)
+        expect(exportSaved, 'export-saved event should be triggered').to.be.true
+
+        return capturedBlob.text().then(text => {
+          expect(text).to.contain('99,Row 99,$99')
+        })
+      })
+    })
+
+    // Events: export-started receives the type parameter
+    it('Test export-started event receives the export type', () => {
+      cy.visit(`${baseUrl}export-method.html`)
+        .get('.fixed-table-body')
+        .should('exist')
+
+      cy.window().then(win => {
+        const $table = win.$('#table')
+        let receivedType = null
+
+        cy.stub(win.URL, 'createObjectURL').returns('blob:mock')
+        cy.stub(win.URL, 'revokeObjectURL').callsFake(() => {})
+        cy.stub(win.HTMLAnchorElement.prototype, 'click').callsFake(() => {})
+
+        $table.on('export-started.bs.table', (e, type) => {
+          receivedType = type
+        })
+
+        $table.bootstrapTable('exportTable', { type: 'csv' })
+
+        expect(receivedType, 'export-started should receive the type').to.equal('csv')
+      })
+    })
+
     // Options: beforeExport
     it('Test beforeExport returning false cancels the export', () => {
       cy.visit(`${baseUrl}export-beforeExport.html`)

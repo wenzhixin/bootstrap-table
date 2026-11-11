@@ -132,6 +132,19 @@ This extension now uses a built-in exporter (no external plugin required).
   }
   ```
 
+  When you use a custom data source (for example your own server side pagination), pass the full
+  row array to the `exportTable` method via the `data` option. Combine it with `beforeExport`
+  to cancel the export of the current page and export the fetched rows instead:
+
+  ```js
+  beforeExport (data, type, instance) {
+    if (usingCustomPagination) {
+      fetchAllRows().then(rows => instance.exportTable({ type, data: rows }))
+      return false // cancel this (current page based) export
+    }
+  }
+  ```
+
 ### exportTypes
 
 - **Attribute:** `data-export-types`
@@ -205,11 +218,13 @@ This extension now uses a built-in exporter (no external plugin required).
 
 - **jQuery Event:** `export-started.bs.table`
 
-- **Parameter:** `undefined`
+- **Parameter:** `type`
 
 - **Detail:**
 
   Fired before the data will be collected and exported.
+
+  * `type`: The export type, e.g. `'csv'`
 
 ## Methods
 
@@ -220,6 +235,16 @@ This extension now uses a built-in exporter (no external plugin required).
 - **Detail:**
 
   Export table with custom options.
+
+  * `options.data`: `Array`, an array of row objects to export instead of the table data.
+    When passed, `exportDataType` is ignored (including the server side `'all'` pagination
+    toggle). The rows still go through the formatters and the `forceExport`/`forceHide`/
+    `exportFooter` options. An empty array exports a file with the header row only
+    (the `sql` type creates no file when there is no row, as documented above).
+
+  ```js
+  $('#table').bootstrapTable('exportTable', { type: 'csv', data: rows })
+  ```
 
 ## Localizations
 

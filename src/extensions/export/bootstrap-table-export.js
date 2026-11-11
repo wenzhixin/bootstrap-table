@@ -296,7 +296,8 @@ Object.assign($.fn.bootstrapTable.defaults, {
   onExportSaved (exportedRows) {
     return false
   },
-  onExportStarted () {
+  // eslint-disable-next-line no-unused-vars
+  onExportStarted (type) {
     return false
   }
 })
@@ -480,8 +481,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const o = this.options
     let selectedData = null
 
-    // Early return for selected data type when no rows are selected
-    if (o.exportDataType === 'selected') {
+    // Early return for selected data type when no rows are selected,
+    // unless custom data is provided
+    if (o.exportDataType === 'selected' && !Array.isArray(options?.data)) {
       selectedData = this.getSelections()
 
       if (!selectedData.length) {
@@ -517,7 +519,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     // Trigger export-started after early-return checks and before any export operation
-    this.trigger('export-started')
+    this.trigger('export-started', type)
+
+    // Custom data takes precedence over exportDataType
+    if (Array.isArray(options.data)) {
+      const data = this.filterHiddenRows(options.data)
+      const saved = save(data) !== false
+
+      if (saved) {
+        this.trigger('export-saved', data)
+      }
+      return saved
+    }
 
     if (o.exportDataType === 'all') {
       if (o.pagination && o.sidePagination === 'server') {

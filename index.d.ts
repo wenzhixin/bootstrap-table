@@ -299,7 +299,7 @@ export interface BootstrapTableOptions {
   onEditableShown?: Function;
   onExpandRow?: (index: number, row: any, $detail: JQuery<HTMLElement>) => boolean | void;
   onExportSaved?: (exportedRows: any[]) => boolean | void;
-  onExportStarted?: () => boolean | void;
+  onExportStarted?: (type: string) => boolean | void;
   onLoadError?: (status: string, jqXHR: JQuery.jqXHR) => boolean | void;
   onLoadSuccess?: (data: any, status: string, jqXHR: JQuery.jqXHR) => boolean | void;
   onMultipleSort?: Function;
