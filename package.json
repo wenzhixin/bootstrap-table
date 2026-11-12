@@ -59,7 +59,7 @@
     "shelljs": "^0.10.0",
     "stylelint": "^17.14.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "typescript": "^5.9.0",
+    "typescript": "^7.0.2",
     "vite": "^8.1.4",
     "vitest": "^5.0.0",
     "vue": "^3.5.39"
