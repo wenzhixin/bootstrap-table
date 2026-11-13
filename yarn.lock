@@ -2073,15 +2073,10 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint%2ftsconfig-utils/-/tsconfig-utils-8.72.2.tgz#319c96d5d7cb0274fdfae0f7f081918c7f3791f5"
   integrity sha512-+h3iCgZXuTNtoLXcnnjP12ZUHLMqoUcIHPfQrFEXTUqvb9dF8QK9b5nv5VtSo5fLkdHuks8ehbTzZj3rImAm9w==
 
-"@typescript-eslint/types@8.72.2", "@typescript-eslint/types@^8.72.2":
+"@typescript-eslint/types@8.72.2", "@typescript-eslint/types@^8.56.0", "@typescript-eslint/types@^8.72.2":
   version "8.72.2"
   resolved "https://registry.yarnpkg.com/@typescript-eslint%2ftypes/-/types-8.72.2.tgz#202b5f8aabe040fbfb5c4a8783b03aa6fe1fc113"
   integrity sha512-Xfn37OLZx03+PCU7qWx9DTv2FCRh1E6fk2+wONeNY15HXIwtcwuveaSwVpGAUptkNmPQegRxW5JyRel9T7wrog==
-
-"@typescript-eslint/types@^8.56.0":
-  version "8.57.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.57.0.tgz#4fa5385ffd1cd161fa5b9dce93e0493d491b8dc6"
-  integrity sha512-dTLI8PEXhjUC7B9Kre+u0XznO696BhXcTlOn0/6kf1fHaQW8+VjJAVHJ3eTI14ZapTxdkOmc80HblPQLaEeJdg==
 
 "@typescript-eslint/typescript-estree@8.72.2":
   version "8.72.2"
@@ -3489,9 +3484,9 @@ eslint-import-context@^0.1.9:
     stable-hash-x "^0.2.0"
 
 eslint-plugin-import-x@^4.17.1:
-  version "4.18.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.18.0.tgz#9c966132776ae858bba796b4b9da6dd68c9d64d9"
-  integrity sha512-UfxHFmV+f9vwybrNn6LQ1rPzfeDMPGi/dRbqQnCFO/jBzYrujSOyX7jxqBSYr/HwXs/V4XJdEGPvC3Re46nzKg==
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import-x/-/eslint-plugin-import-x-4.18.1.tgz#f380dbf2d33244f39cb29ad947cdc5afdc96b88c"
+  integrity sha512-D1h++38NS2Z40zf8jbd2OHqDrnIFRKpdp8sL0jP4xSDGZj6MNwEQua8F+r3tOWjcHrsWuhHOJ7wASWioJ31tfg==
   dependencies:
     "@typescript-eslint/types" "^8.56.0"
     cjs-module-lexer "^2.2.1"
