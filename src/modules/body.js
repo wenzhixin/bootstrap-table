@@ -507,6 +507,13 @@ export default {
         this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
         this.$tableBorder.css('height', `${tableBorderHeight}px`)
       }
+
+      if (!this.options.cardView && this.options.showFooter) {
+        // the vertical scrollbar is only rendered after the container height
+        // is applied and the layout is settled, so fit the footer again
+        // asynchronously with the real scrollbar width (same as resetHeader)
+        this._setDelayTimeout('footer', () => this.fitFooter(), 0)
+      }
     }
 
     if (this.options.cardView) {

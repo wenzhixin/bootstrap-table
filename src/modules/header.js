@@ -255,9 +255,7 @@ export default {
     }
 
     const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = this.hasScrollBar &&
-    fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
-      Utils.getScrollBarWidth() : 0
+    const scrollWidth = fixedBody.offsetWidth - fixedBody.clientWidth
 
     this.$el.css('margin-top', -this.$header.outerHeight())
 
@@ -448,9 +446,7 @@ export default {
     }
 
     const fixedBody = this.$tableBody.get(0)
-    const scrollWidth = this.hasScrollBar &&
-      fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.outerHeight() ?
-      Utils.getScrollBarWidth() : 0
+    const scrollWidth = fixedBody.offsetWidth - fixedBody.clientWidth
 
     this.$tableFooter
       .css('margin-right', scrollWidth)
