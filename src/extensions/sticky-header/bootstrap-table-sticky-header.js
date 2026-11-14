@@ -140,15 +140,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$stickyContainer.show().addClass('fix-sticky fixed-table-container')
       // stick it in position
       const coords = this.$tableBody[0].getBoundingClientRect()
-      let width = '100%'
+      // the table body box includes the vertical scroll bar while the table
+      // in it does not: exclude the scroll bar width so that the sticky
+      // header columns align with the table body columns (#6006, #7090)
+      const scrollBarWidth = this.$tableBody[0].offsetWidth - this.$tableBody[0].clientWidth
+      let width = `${coords.width - scrollBarWidth}px`
       let stickyHeaderOffsetLeft = this.options.stickyHeaderOffsetLeft
       let stickyHeaderOffsetRight = this.options.stickyHeaderOffsetRight
 
       if (!stickyHeaderOffsetLeft) {
         stickyHeaderOffsetLeft = coords.left
-      }
-      if (!stickyHeaderOffsetRight) {
-        width = `${coords.width}px`
       }
       if (this.$el.closest('.bootstrap-table').hasClass('fullscreen')) {
         stickyHeaderOffsetLeft = 0
