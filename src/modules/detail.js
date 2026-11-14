@@ -75,7 +75,7 @@ export default {
     this.collapseRow(this.data.indexOf(row))
   },
 
-  updateDetailView (index) {
+  updateDetailView (index, _columnDetailFormatter) {
     const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"][data-has-detail-view]', index))
 
     if (!$tr.next().is('tr.detail-view')) {
@@ -87,7 +87,8 @@ export default {
 
     $element.empty()
 
-    const content = Utils.calculateObjectValue(this.options, this.options.detailFormatter, [index, row, $element], '')
+    const detailFormatter = _columnDetailFormatter || this.options.detailFormatter
+    const content = Utils.calculateObjectValue(this.options, detailFormatter, [index, row, $element], '')
 
     if ($element.length === 1) {
       $element.append(content)

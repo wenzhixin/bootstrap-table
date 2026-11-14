@@ -176,6 +176,7 @@ options.onTogglePagination = options.onTogglePagination
 options.onUncheck = options.onUncheck
 options.onUncheckAll = options.onUncheckAll
 options.onUncheckSome = options.onUncheckSome
+options.onUpdateDetailView = options.onUpdateDetailView
 options.onVirtualScroll = options.onVirtualScroll
 options.orderList = options.orderList
 options.pageList = options.pageList

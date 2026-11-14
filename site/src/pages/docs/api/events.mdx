@@ -412,6 +412,20 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `rows`: array of records corresponding to previously checked rows.
 
+## onUpdateDetailView
+
+- **jQuery Event:** `update-detail-view.bs.table`
+
+- **Parameter:** `index, row, $element`
+
+- **Detail:**
+
+  It fires when the detail view of an expanded row is re-rendered by `updateDetailView` or `updateDetailViewByUniqueId`. The parameters contain:
+
+  * `index`: the index of the row.
+  * `row`: the record corresponding to the row.
+  * `$element`: the detail view `td` element.
+
 ## onVirtualScroll
 
 - **jQuery Event:** `virtual-scroll.bs.table`

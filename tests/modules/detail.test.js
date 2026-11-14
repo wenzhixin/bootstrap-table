@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import Constants from '@/constants/index.js'
 import DetailModule from '@/modules/detail.js'
 
 function createDetailMockContext (overrides = {}) {
@@ -30,13 +31,16 @@ function createDetailMockContext (overrides = {}) {
 
   return {
     options: {
-      detailFormatter: vi.fn(() => 'updated content')
+      detailFormatter: vi.fn(() => 'updated content'),
+      onUpdateDetailView: vi.fn(() => false)
     },
     data: [{ id: 1, name: 'test' }],
     $body: {
       find: vi.fn(() => $tr)
     },
-    trigger: vi.fn(),
+    trigger: vi.fn(function (name, ...args) {
+      return this.options[Constants.EVENTS[`${name}.bs.table`]](...args)
+    }),
     getRowByUniqueId: vi.fn(function () {
       return this.data[0]
     }),
@@ -53,6 +57,16 @@ describe('updateDetailView', () => {
 
     expect(ctx.options.detailFormatter).toHaveBeenCalledWith(0, ctx.data[0], expect.anything())
     expect(ctx.trigger).toHaveBeenCalledWith('update-detail-view', 0, ctx.data[0], expect.anything())
+  })
+
+  it('prefers the column detail formatter over the table-level one', () => {
+    const columnDetailFormatter = vi.fn(() => 'column content')
+    const ctx = createDetailMockContext()
+
+    DetailModule.updateDetailView.call(ctx, 0, columnDetailFormatter)
+
+    expect(columnDetailFormatter).toHaveBeenCalledWith(0, ctx.data[0], expect.anything())
+    expect(ctx.options.detailFormatter).not.toHaveBeenCalled()
   })
 
   it('does nothing when the row is not expanded', () => {

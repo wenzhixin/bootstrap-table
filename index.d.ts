@@ -50,6 +50,7 @@ export interface BootstrapTableEvents {
   'uncheck-all.bs.table': string;
   'uncheck-some.bs.table': string;
   'uncheck.bs.table': string;
+  'update-detail-view.bs.table': string;
   'virtual-scroll.bs.table': string;
 }
 
@@ -324,6 +325,7 @@ export interface BootstrapTableOptions {
   onUncheck?: (row: any, $element: JQuery<HTMLElement>) => boolean | void;
   onUncheckAll?: (rowsAfter: any[], rowsBefore: any[]) => boolean | void;
   onUncheckSome?: (rows: any[]) => boolean | void;
+  onUpdateDetailView?: (index: number, row: any, $element: JQuery<HTMLElement>) => boolean | void;
   onVirtualScroll?: Function;
   orderList?: string | string[];
   pageList?: number[];
