@@ -338,6 +338,7 @@ const DEFAULTS = {
   onUncheck: row => false,
   onUncheckAll: rows => false,
   onUncheckSome: rows => false,
+  onUpdateDetailView: (index, row, $element) => false,
   onVirtualScroll: (startIndex, endIndex) => false
 }
 
@@ -477,8 +478,10 @@ const METHODS = [
   'scrollTo', 'getScrollPosition',
   'selectPage', 'prevPage', 'nextPage',
   'toggleDetailView',
+  'updateDetailView',
   'expandRow', 'collapseRow', 'expandRowByUniqueId', 'collapseRowByUniqueId',
   'expandAllRows', 'collapseAllRows',
+  'updateDetailViewByUniqueId',
   'updateColumnTitle', 'updateFormatText'
 ]
 
@@ -513,6 +516,7 @@ const EVENTS = {
   'uncheck-all.bs.table': 'onUncheckAll',
   'uncheck-some.bs.table': 'onUncheckSome',
   'uncheck.bs.table': 'onUncheck',
+  'update-detail-view.bs.table': 'onUpdateDetailView',
   'virtual-scroll.bs.table': 'onVirtualScroll'
 }
 

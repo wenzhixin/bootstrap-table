@@ -117,6 +117,7 @@ export const OPTION_TYPES = {
   onUncheck: '(row: any, $element: JQuery<HTMLElement>) => boolean | void',
   onUncheckAll: '(rowsAfter: any[], rowsBefore: any[]) => boolean | void',
   onUncheckSome: '(rows: any[]) => boolean | void',
+  onUpdateDetailView: '(index: number, row: any, $element: JQuery<HTMLElement>) => boolean | void',
   orderList: 'string | string[]',
   pageList: 'number[]',
   pageNumber: 'number',

@@ -75,6 +75,38 @@ export default {
     this.collapseRow(this.data.indexOf(row))
   },
 
+  updateDetailView (index, _columnDetailFormatter) {
+    const $tr = this.$body.find(Utils.sprintf('> tr[data-index="%s"][data-has-detail-view]', index))
+
+    if (!$tr.next().is('tr.detail-view')) {
+      return
+    }
+
+    const row = this.data[index]
+    const $element = $tr.next().find('td')
+
+    $element.empty()
+
+    const detailFormatter = _columnDetailFormatter || this.options.detailFormatter
+    const content = Utils.calculateObjectValue(this.options, detailFormatter, [index, row, $element], '')
+
+    if ($element.length === 1) {
+      $element.append(content)
+    }
+
+    this.trigger('update-detail-view', index, row, $element)
+  },
+
+  updateDetailViewByUniqueId (uniqueId) {
+    const row = this.getRowByUniqueId(uniqueId)
+
+    if (!row) {
+      return
+    }
+
+    this.updateDetailView(this.data.indexOf(row))
+  },
+
   expandAllRows () {
     const trs = this.$body.find('> tr[data-index][data-has-detail-view]')
 
