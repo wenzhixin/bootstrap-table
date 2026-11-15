@@ -326,7 +326,7 @@ $('#table').bootstrapTable({
 
 - **Detail:**
 
-  The default sort order, can only be `'asc'` or `'desc'`.
+  The default sort order of this column, can only be `'asc'` or `'desc'`. It sets the direction used when the column header is clicked for the first time; it does not sort the table on page load. To sort the table on load, use the table-level [`sortName`](https://bootstrap-table.com/docs/api/table-options/#sortname) and [`sortOrder`](https://bootstrap-table.com/docs/api/table-options/#sortorder) options instead. Setting `data-sort-order` (that is, `sortOrder`) on a column is not an official column option; it is only kept as a legacy alias for this option and, when present, takes precedence over it.
 
 - **Default:** `'asc'`
 
