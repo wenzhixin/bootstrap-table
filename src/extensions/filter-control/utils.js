@@ -334,7 +334,6 @@ export function initFilterSelectControls (that) {
         if (column.searchFormatter) {
           fieldValue = formattedValue
         }
-        uniqueValues[formattedValue] = fieldValue
 
         if (typeof formattedValue === 'object' && formattedValue !== null) {
           formattedValue.forEach(value => {
@@ -342,6 +341,8 @@ export function initFilterSelectControls (that) {
           })
           continue
         }
+
+        uniqueValues[formattedValue] = fieldValue
       }
 
       // eslint-disable-next-line guard-for-in

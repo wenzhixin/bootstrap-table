@@ -523,3 +523,55 @@ describe('filter-control issue #8246', () => {
     })
   })
 })
+
+describe('filter-control filterDataCollector returning an array', () => {
+  it('adds one option per array entry and not the joined original value', async () => {
+    const { $ } = await loadFilterControlPrototype()
+
+    // happy-dom has no Option constructor
+    const hadOption = typeof globalThis.Option === 'function'
+
+    if (!hadOption) {
+      globalThis.Option = function (text, value, _default, selected) {
+        const option = document.createElement('option')
+
+        option.textContent = text
+        option.value = value
+        option.selected = !!selected
+        return option
+      }
+    }
+    globalThis.splitCollector = value => value.split(',')
+    document.body.innerHTML = '<table id="fdc-test"></table>'
+    const $table = $('#fdc-test')
+
+    $table.bootstrapTable({
+      filterControl: true,
+      searchTimeOut: 0,
+      columns: [{
+        field: 'a',
+        title: 'A',
+        filterControl: 'select',
+        filterDataCollector: 'splitCollector'
+      }],
+      data: [{ a: 'Line 1,Line 2,Line 3' }, { a: 'Line 2,Line 4' }]
+    })
+
+    await new Promise(resolve => setTimeout(resolve, 100))
+
+    const options = $table.closest('.bootstrap-table')
+      .find('thead select option')
+      .map((_, o) => o.value)
+      .get()
+      .filter(v => v !== '')
+
+    expect(options.sort()).toEqual(['Line 1', 'Line 2', 'Line 3', 'Line 4'])
+
+    $table.bootstrapTable('destroy')
+    delete globalThis.splitCollector
+    if (!hadOption) {
+      delete globalThis.Option
+    }
+    document.body.innerHTML = ''
+  })
+})
