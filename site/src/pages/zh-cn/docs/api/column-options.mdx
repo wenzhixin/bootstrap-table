@@ -327,7 +327,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  默认排序顺序，只能是 `'asc'` 或 `'desc'`。
+  该列的默认排序顺序，只能是 `'asc'` 或 `'desc'`。它决定第一次点击该列表头时的排序方向，不会在页面加载时就排序。如需页面加载即排序，请改用表级 [`sortName`](https://bootstrap-table.com/zh-cn/docs/api/table-options/#sortname) 和 [`sortOrder`](https://bootstrap-table.com/zh-cn/docs/api/table-options/#sortorder) 选项。在列上设置 `data-sort-order`（即 `sortOrder`）并不是官方的列选项，它只是为兼容而保留的本选项的旧别名，且存在时优先于本选项生效。
 
 - **默认值:** `'asc'`
 
