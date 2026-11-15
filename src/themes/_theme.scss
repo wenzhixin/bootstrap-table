@@ -200,6 +200,15 @@ html[data-bs-theme="dark"] {
       .fixed-table-border {
         border-left: 1px solid var(--bt-table-border-color);
         border-right: 1px solid var(--bt-table-border-color);
+
+        // body.js sets the width to the table outerWidth. border-box keeps
+        // the 1px borders inside that width on content-box pages, and the
+        // max-width clamp absorbs any outerWidth() rounding. Note that when
+        // the table is wider than the body and scrolls horizontally, the
+        // clamp also stops the div at the visible body width, so its right
+        // border no longer tracks the table's right edge - intentional.
+        box-sizing: border-box;
+        max-width: 100%;
       }
 
       .table {
