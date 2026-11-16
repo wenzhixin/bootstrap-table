@@ -545,33 +545,37 @@ describe('filter-control filterDataCollector returning an array', () => {
     document.body.innerHTML = '<table id="fdc-test"></table>'
     const $table = $('#fdc-test')
 
-    $table.bootstrapTable({
-      filterControl: true,
-      searchTimeOut: 0,
-      columns: [{
-        field: 'a',
-        title: 'A',
-        filterControl: 'select',
-        filterDataCollector: 'splitCollector'
-      }],
-      data: [{ a: 'Line 1,Line 2,Line 3' }, { a: 'Line 2,Line 4' }]
-    })
+    try {
+      $table.bootstrapTable({
+        filterControl: true,
+        searchTimeOut: 0,
+        columns: [{
+          field: 'a',
+          title: 'A',
+          filterControl: 'select',
+          filterDataCollector: 'splitCollector'
+        }],
+        data: [{ a: 'Line 1,Line 2,Line 3' }, { a: 'Line 2,Line 4' }]
+      })
 
-    await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise(resolve => setTimeout(resolve, 100))
 
-    const options = $table.closest('.bootstrap-table')
-      .find('thead select option')
-      .map((_, o) => o.value)
-      .get()
-      .filter(v => v !== '')
+      const options = $table.closest('.bootstrap-table')
+        .find('thead select option')
+        .map((_, o) => o.value)
+        .get()
+        .filter(v => v !== '')
 
-    expect(options.sort()).toEqual(['Line 1', 'Line 2', 'Line 3', 'Line 4'])
-
-    $table.bootstrapTable('destroy')
-    delete globalThis.splitCollector
-    if (!hadOption) {
-      delete globalThis.Option
+      expect(options.sort()).toEqual(['Line 1', 'Line 2', 'Line 3', 'Line 4'])
+    } finally {
+      if ($table.data('bootstrap.table')) {
+        $table.bootstrapTable('destroy')
+      }
+      delete globalThis.splitCollector
+      if (!hadOption) {
+        delete globalThis.Option
+      }
+      document.body.innerHTML = ''
     }
-    document.body.innerHTML = ''
   })
 })
