@@ -59,7 +59,7 @@ toc: true
 
 * Not support `detailView` option.
 * Not support `cardView` option.
-* Not support `showFooter` option.
+* Support `showFooter` option: when `showFooter` is `true`, the fixed left and right columns render a footer cloned from the main table footer, keeping the column alignment and staying horizontally pinned (the left footer at its leftmost position, the right footer at its rightmost) like the fixed header, instead of following the main footer's horizontal scroll. Set to `false` (the default) to skip the footer.
 * Need to import after sticky-header when using with sticky-header extension. For example:
 ```html
 <link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
