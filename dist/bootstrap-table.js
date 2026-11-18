@@ -727,10 +727,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.49.0',
+  	  version: '3.51.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -743,9 +743,11 @@
   	if (hasRequiredShared) return shared;
   	hasRequiredShared = 1;
   	var store = requireSharedStore();
+  	// eslint-disable-next-line es/no-object-create -- safe
+  	var create = Object.create || Object;
 
   	shared = function (key, value) {
-  	  return store[key] || (store[key] = value || {});
+  	  return store[key] || (store[key] = value || create(null));
   	};
   	return shared;
   }
@@ -3836,7 +3838,7 @@
   function requireIterators () {
   	if (hasRequiredIterators) return iterators;
   	hasRequiredIterators = 1;
-  	iterators = {};
+  	iterators = Object.create ? Object.create(null) : {};
   	return iterators;
   }
 
@@ -3859,48 +3861,48 @@
   	return isArrayIteratorMethod;
   }
 
-  var getIteratorMethod;
-  var hasRequiredGetIteratorMethod;
+  var getIteratorMethodInternal;
+  var hasRequiredGetIteratorMethodInternal;
 
-  function requireGetIteratorMethod () {
-  	if (hasRequiredGetIteratorMethod) return getIteratorMethod;
-  	hasRequiredGetIteratorMethod = 1;
-  	var classof = requireClassof();
-  	var getMethod = requireGetMethod();
+  function requireGetIteratorMethodInternal () {
+  	if (hasRequiredGetIteratorMethodInternal) return getIteratorMethodInternal;
+  	hasRequiredGetIteratorMethodInternal = 1;
+  	var classof = requireClassofRaw();
   	var isNullOrUndefined = requireIsNullOrUndefined();
-  	var Iterators = requireIterators();
+  	var getMethod = requireGetMethod();
   	var wellKnownSymbol = requireWellKnownSymbol();
 
   	var ITERATOR = wellKnownSymbol('iterator');
+  	var ArrayPrototype = Array.prototype;
 
-  	getIteratorMethod = function (it) {
+  	getIteratorMethodInternal = function (it) {
   	  if (!isNullOrUndefined(it)) return getMethod(it, ITERATOR)
   	    || getMethod(it, '@@iterator')
-  	    || Iterators[classof(it)];
+  	    || (classof(it) === 'Arguments' ? ArrayPrototype[ITERATOR] : undefined);
   	};
-  	return getIteratorMethod;
+  	return getIteratorMethodInternal;
   }
 
-  var getIterator;
-  var hasRequiredGetIterator;
+  var getIteratorInternal;
+  var hasRequiredGetIteratorInternal;
 
-  function requireGetIterator () {
-  	if (hasRequiredGetIterator) return getIterator;
-  	hasRequiredGetIterator = 1;
+  function requireGetIteratorInternal () {
+  	if (hasRequiredGetIteratorInternal) return getIteratorInternal;
+  	hasRequiredGetIteratorInternal = 1;
   	var call = requireFunctionCall();
-  	var aCallable = requireACallable();
+  	var isCallable = requireIsCallable();
   	var anObject = requireAnObject();
   	var tryToString = requireTryToString();
-  	var getIteratorMethod = requireGetIteratorMethod();
+  	var getIteratorMethod = requireGetIteratorMethodInternal();
 
   	var $TypeError = TypeError;
 
-  	getIterator = function (argument, usingIterator) {
+  	getIteratorInternal = function (argument, usingIterator) {
   	  var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
-  	  if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
+  	  if (isCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
   	  throw new $TypeError(tryToString(argument) + ' is not iterable');
   	};
-  	return getIterator;
+  	return getIteratorInternal;
   }
 
   var arrayFrom;
@@ -3918,9 +3920,10 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var createProperty = requireCreateProperty();
   	var setArrayLength = requireArraySetLength();
-  	var getIterator = requireGetIterator();
-  	var getIteratorMethod = requireGetIteratorMethod();
+  	var getIterator = requireGetIteratorInternal();
+  	var getIteratorMethod = requireGetIteratorMethodInternal();
   	var iteratorClose = requireIteratorClose();
+  	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
 
   	var $Array = Array;
 
@@ -3942,6 +3945,11 @@
   	    iterator = getIterator(O, iteratorMethod);
   	    next = iterator.next;
   	    for (;!(step = call(next, iterator)).done; index++) {
+  	      try {
+  	        doesNotExceedSafeInteger(index);
+  	      } catch (error) {
+  	        iteratorClose(iterator, 'throw', error);
+  	      }
   	      value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true) : step.value;
   	      try {
   	        createProperty(result, index, value);
@@ -5332,6 +5340,32 @@
     isObject: isObject
   });
 
+  var es_array_map = {};
+
+  var hasRequiredEs_array_map;
+
+  function requireEs_array_map () {
+  	if (hasRequiredEs_array_map) return es_array_map;
+  	hasRequiredEs_array_map = 1;
+  	var $ = require_export();
+  	var $map = requireArrayIteration().map;
+  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
+
+  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
+
+  	// `Array.prototype.map` method
+  	// https://tc39.es/ecma262/#sec-array.prototype.map
+  	// with adding support of @@species
+  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+  	  map: function map(callbackfn /* , thisArg */) {
+  	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  	  }
+  	});
+  	return es_array_map;
+  }
+
+  requireEs_array_map();
+
   var es_regexp_constructor = {};
 
   var inheritIfRequired;
@@ -6176,6 +6210,39 @@
     return trimmed.replace(/;?\s*$/, '; ');
   }
 
+  /**
+   * Serializes a style specification into a CSS string.
+   * Handles string, array, and object formats.
+   *
+   * @param {string|Array|Object.<string, string>} style - The style specification.
+   * @returns {string} The CSS style string.
+   * @example
+   * serializeStyle('color: red')                          // 'color: red'
+   * serializeStyle({ color: 'red', 'font-size': '12px' }) // 'color: red; font-size: 12px'
+   * serializeStyle(['color: red', { 'font-weight': 'bold' }]) // 'color: red; font-weight: bold'
+   */
+  function serializeStyle(style) {
+    if (typeof style === 'string') {
+      return style;
+    }
+    if (Array.isArray(style)) {
+      return style.filter(function (item) {
+        return item !== null && item !== undefined;
+      }).map(function (item) {
+        return serializeStyle(item);
+      }).filter(Boolean).join('; ');
+    }
+    if (_typeof(style) === 'object' && style !== null) {
+      return Object.entries(style).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          k = _ref2[0],
+          v = _ref2[1];
+        return "".concat(k, ": ").concat(v);
+      }).join('; ');
+    }
+    return '';
+  }
+
   var string = /*#__PURE__*/Object.freeze({
     __proto__: null,
     escapeApostrophe: escapeApostrophe,
@@ -6184,6 +6251,7 @@
     normalizeAccent: normalizeAccent,
     normalizeStyle: normalizeStyle,
     removeHTML: removeHTML,
+    serializeStyle: serializeStyle,
     sprintf: sprintf,
     unescapeHTML: unescapeHTML
   });
@@ -6221,32 +6289,6 @@
   }
 
   requireEs_array_indexOf();
-
-  var es_array_map = {};
-
-  var hasRequiredEs_array_map;
-
-  function requireEs_array_map () {
-  	if (hasRequiredEs_array_map) return es_array_map;
-  	hasRequiredEs_array_map = 1;
-  	var $ = require_export();
-  	var $map = requireArrayIteration().map;
-  	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
-
-  	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
-
-  	// `Array.prototype.map` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.map
-  	// with adding support of @@species
-  	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
-  	  map: function map(callbackfn /* , thisArg */) {
-  	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  	  }
-  	});
-  	return es_array_map;
-  }
-
-  requireEs_array_map();
 
   /**
    * DOM manipulation utility functions.
@@ -7007,7 +7049,9 @@
   	    function match(regexp) {
   	      var O = requireObjectCoercible(this);
   	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
-  	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
+  	      if (matcher) return call(matcher, regexp, O);
+  	      var S = toString(O);
+  	      return new RegExp(regexp)[MATCH](S);
   	    },
   	    // `RegExp.prototype[@@match]` method
   	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
@@ -7083,7 +7127,9 @@
   	    function search(regexp) {
   	      var O = requireObjectCoercible(this);
   	      var searcher = isObject(regexp) ? getMethod(regexp, SEARCH) : undefined;
-  	      return searcher ? call(searcher, regexp, O) : new RegExp(regexp)[SEARCH](toString(O));
+  	      if (searcher) return call(searcher, regexp, O);
+  	      var S = toString(O);
+  	      return new RegExp(regexp)[SEARCH](S);
   	    },
   	    // `RegExp.prototype[@@search]` method
   	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@search
@@ -7302,47 +7348,6 @@
 
   var web_urlSearchParams = {};
 
-  var es_string_fromCodePoint = {};
-
-  var hasRequiredEs_string_fromCodePoint;
-
-  function requireEs_string_fromCodePoint () {
-  	if (hasRequiredEs_string_fromCodePoint) return es_string_fromCodePoint;
-  	hasRequiredEs_string_fromCodePoint = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var toAbsoluteIndex = requireToAbsoluteIndex();
-
-  	var $RangeError = RangeError;
-  	var fromCharCode = String.fromCharCode;
-  	// eslint-disable-next-line es/no-string-fromcodepoint -- required for testing
-  	var $fromCodePoint = String.fromCodePoint;
-  	var join = uncurryThis([].join);
-
-  	// length should be 1, old FF problem
-  	var INCORRECT_LENGTH = !!$fromCodePoint && $fromCodePoint.length !== 1;
-
-  	// `String.fromCodePoint` method
-  	// https://tc39.es/ecma262/#sec-string.fromcodepoint
-  	$({ target: 'String', stat: true, arity: 1, forced: INCORRECT_LENGTH }, {
-  	  // eslint-disable-next-line no-unused-vars -- required for `.length`
-  	  fromCodePoint: function fromCodePoint(x) {
-  	    var elements = [];
-  	    var length = arguments.length;
-  	    var i = 0;
-  	    var code;
-  	    while (length > i) {
-  	      code = +arguments[i];
-  	      if (toAbsoluteIndex(code, 0x10FFFF) !== code) throw new $RangeError(code + ' is not a valid code point');
-  	      elements[i++] = code < 0x10000
-  	        ? fromCharCode(code)
-  	        : fromCharCode(((code -= 0x10000) >> 10) + 0xD800, code % 0x400 + 0xDC00);
-  	    } return join(elements, '');
-  	  }
-  	});
-  	return es_string_fromCodePoint;
-  }
-
   var safeGetBuiltIn;
   var hasRequiredSafeGetBuiltIn;
 
@@ -7412,6 +7417,226 @@
   	    || new URL('https://x', undefined).host !== 'x';
   	});
   	return urlConstructorDetection;
+  }
+
+  var es_string_fromCodePoint = {};
+
+  var hasRequiredEs_string_fromCodePoint;
+
+  function requireEs_string_fromCodePoint () {
+  	if (hasRequiredEs_string_fromCodePoint) return es_string_fromCodePoint;
+  	hasRequiredEs_string_fromCodePoint = 1;
+  	var $ = require_export();
+  	var uncurryThis = requireFunctionUncurryThis();
+  	var toAbsoluteIndex = requireToAbsoluteIndex();
+
+  	var $RangeError = RangeError;
+  	var fromCharCode = String.fromCharCode;
+  	// eslint-disable-next-line es/no-string-fromcodepoint -- required for testing
+  	var $fromCodePoint = String.fromCodePoint;
+  	var join = uncurryThis([].join);
+
+  	// length should be 1, old FF problem
+  	var INCORRECT_LENGTH = !!$fromCodePoint && $fromCodePoint.length !== 1;
+
+  	// `String.fromCodePoint` method
+  	// https://tc39.es/ecma262/#sec-string.fromcodepoint
+  	$({ target: 'String', stat: true, arity: 1, forced: INCORRECT_LENGTH }, {
+  	  // eslint-disable-next-line no-unused-vars -- required for `.length`
+  	  fromCodePoint: function fromCodePoint(x) {
+  	    var elements = [];
+  	    var length = arguments.length;
+  	    var i = 0;
+  	    var code;
+  	    while (length > i) {
+  	      code = +arguments[i];
+  	      if (toAbsoluteIndex(code, 0x10FFFF) !== code) throw new $RangeError(code + ' is not a valid code point');
+  	      elements[i++] = code < 0x10000
+  	        ? fromCharCode(code)
+  	        : fromCharCode(((code -= 0x10000) >> 10) + 0xD800, code % 0x400 + 0xDC00);
+  	    } return join(elements, '');
+  	  }
+  	});
+  	return es_string_fromCodePoint;
+  }
+
+  var urlPercentCoding;
+  var hasRequiredUrlPercentCoding;
+
+  function requireUrlPercentCoding () {
+  	if (hasRequiredUrlPercentCoding) return urlPercentCoding;
+  	hasRequiredUrlPercentCoding = 1;
+  	// TODO: in core-js [at] 4, move /modules/ dependencies to public entries for better optimization by tools like `preset-env`
+  	requireEs_string_fromCodePoint();
+  	var getBuiltIn = requireGetBuiltIn();
+  	var uncurryThis = requireFunctionUncurryThis();
+
+  	var fromCharCode = String.fromCharCode;
+  	var fromCodePoint = getBuiltIn('String', 'fromCodePoint');
+  	var $encodeURIComponent = encodeURIComponent;
+  	var $parseInt = parseInt;
+  	var charAt = uncurryThis(''.charAt);
+  	var push = uncurryThis([].push);
+  	var replace = uncurryThis(''.replace);
+  	var stringSlice = uncurryThis(''.slice);
+  	var exec = uncurryThis(/./.exec);
+
+  	var FALLBACK_REPLACER = '\uFFFD';
+  	var VALID_HEX = /^[0-9a-f]+$/i;
+  	// a surrogate pair is matched first, so a one-unit match is always a lone surrogate
+  	var SURROGATE = /[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDFFF]/g;
+
+  	var parseHexOctet = function (string, start) {
+  	  var substr = stringSlice(string, start, start + 2);
+  	  if (!exec(VALID_HEX, substr)) return NaN;
+
+  	  return $parseInt(substr, 16);
+  	};
+
+  	var getLeadingOnes = function (octet) {
+  	  var count = 0;
+  	  for (var mask = 0x80; mask > 0 && (octet & mask) !== 0; mask >>= 1) {
+  	    count++;
+  	  }
+  	  return count;
+  	};
+
+  	var utf8Decode = function (octets) {
+  	  var codePoint = null;
+  	  var length = octets.length;
+
+  	  switch (length) {
+  	    case 1:
+  	      codePoint = octets[0];
+  	      break;
+  	    case 2:
+  	      codePoint = (octets[0] & 0x1F) << 6 | (octets[1] & 0x3F);
+  	      break;
+  	    case 3:
+  	      codePoint = (octets[0] & 0x0F) << 12 | (octets[1] & 0x3F) << 6 | (octets[2] & 0x3F);
+  	      break;
+  	    case 4:
+  	      codePoint = (octets[0] & 0x07) << 18 | (octets[1] & 0x3F) << 12 | (octets[2] & 0x3F) << 6 | (octets[3] & 0x3F);
+  	      break;
+  	  }
+
+  	  // reject surrogates, overlong encodings, and out-of-range codepoints
+  	  if (codePoint === null
+  	    || codePoint > 0x10FFFF
+  	    || (codePoint >= 0xD800 && codePoint <= 0xDFFF)
+  	    || codePoint < (length > 3 ? 0x10000 : length > 2 ? 0x800 : length > 1 ? 0x80 : 0)
+  	  ) return null;
+
+  	  return codePoint;
+  	};
+
+  	var replaceLoneSurrogate = function (chunk) {
+  	  return chunk.length === 2 ? chunk : FALLBACK_REPLACER;
+  	};
+
+  	// https://url.spec.whatwg.org/#percent-decode
+  	/* eslint-disable max-depth -- ok */
+  	var decode = function (input) {
+  	  var length = input.length;
+  	  var result = '';
+  	  var i = 0;
+
+  	  while (i < length) {
+  	    var decodedChar = charAt(input, i);
+
+  	    if (decodedChar === '%') {
+  	      if (charAt(input, i + 1) === '%' || i + 3 > length) {
+  	        result += '%';
+  	        i++;
+  	        continue;
+  	      }
+
+  	      var octet = parseHexOctet(input, i + 1);
+
+  	      // eslint-disable-next-line no-self-compare -- NaN check
+  	      if (octet !== octet) {
+  	        result += decodedChar;
+  	        i++;
+  	        continue;
+  	      }
+
+  	      i += 2;
+  	      var byteSequenceLength = getLeadingOnes(octet);
+
+  	      if (byteSequenceLength === 0) {
+  	        decodedChar = fromCharCode(octet);
+  	      } else {
+  	        if (byteSequenceLength === 1 || byteSequenceLength > 4) {
+  	          result += FALLBACK_REPLACER;
+  	          i++;
+  	          continue;
+  	        }
+
+  	        var octets = [octet];
+  	        var sequenceIndex = 1;
+
+  	        while (sequenceIndex < byteSequenceLength) {
+  	          i++;
+  	          if (i + 3 > length || charAt(input, i) !== '%') break;
+
+  	          var nextByte = parseHexOctet(input, i + 1);
+
+  	          // eslint-disable-next-line no-self-compare -- NaN check
+  	          if (nextByte !== nextByte || nextByte > 191 || nextByte < 128) break;
+
+  	          // https://encoding.spec.whatwg.org/#utf-8-decoder - position-specific byte ranges
+  	          if (sequenceIndex === 1) {
+  	            if (octet === 0xE0 && nextByte < 0xA0) break;
+  	            if (octet === 0xED && nextByte > 0x9F) break;
+  	            if (octet === 0xF0 && nextByte < 0x90) break;
+  	            if (octet === 0xF4 && nextByte > 0x8F) break;
+  	          }
+
+  	          push(octets, nextByte);
+  	          i += 2;
+  	          sequenceIndex++;
+  	        }
+
+  	        if (octets.length !== byteSequenceLength) {
+  	          result += FALLBACK_REPLACER;
+  	          continue;
+  	        }
+
+  	        var codePoint = utf8Decode(octets);
+  	        if (codePoint === null) {
+  	          for (var replacement = 0; replacement < byteSequenceLength; replacement++) result += FALLBACK_REPLACER;
+  	          i++;
+  	          continue;
+  	        } else {
+  	          decodedChar = fromCodePoint(codePoint);
+  	        }
+  	      }
+  	    }
+
+  	    result += decodedChar;
+  	    i++;
+  	  }
+
+  	  return result;
+  	};
+  	/* eslint-enable max-depth -- ok */
+
+  	// https://url.spec.whatwg.org/#string-percent-encode-after-encoding
+  	// a lone surrogate is the only input `encodeURIComponent` throws on, and the UTF-8
+  	// encoder replaces it - so the throw selects the slow path instead of a per-call scan
+  	var encode = function (input) {
+  	  try {
+  	    return $encodeURIComponent(input);
+  	  } catch (error) {
+  	    return $encodeURIComponent(replace(input, SURROGATE, replaceLoneSurrogate));
+  	  }
+  	};
+
+  	urlPercentCoding = {
+  	  decode: decode,
+  	  encode: encode
+  	};
+  	return urlPercentCoding;
   }
 
   var defineBuiltIns;
@@ -7519,15 +7744,14 @@
   	hasRequiredWeb_urlSearchParams_constructor = 1;
   	// TODO: in core-js [at] 4, move /modules/ dependencies to public entries for better optimization by tools like `preset-env`
   	requireEs_array_iterator();
-  	requireEs_string_fromCodePoint();
   	var $ = require_export();
   	var globalThis = requireGlobalThis();
   	var safeGetBuiltIn = requireSafeGetBuiltIn();
-  	var getBuiltIn = requireGetBuiltIn();
   	var call = requireFunctionCall();
   	var uncurryThis = requireFunctionUncurryThis();
   	var DESCRIPTORS = requireDescriptors();
   	var USE_NATIVE_URL = requireUrlConstructorDetection();
+  	var percentCoding = requireUrlPercentCoding();
   	var defineBuiltIn = requireDefineBuiltIn();
   	var defineBuiltInAccessor = requireDefineBuiltInAccessor();
   	var defineBuiltIns = requireDefineBuiltIns();
@@ -7544,8 +7768,8 @@
   	var $toString = requireToString();
   	var create = requireObjectCreate();
   	var createPropertyDescriptor = requireCreatePropertyDescriptor();
-  	var getIterator = requireGetIterator();
-  	var getIteratorMethod = requireGetIteratorMethod();
+  	var getIterator = requireGetIteratorInternal();
+  	var getIteratorMethod = requireGetIteratorMethodInternal();
   	var createIterResultObject = requireCreateIterResultObject();
   	var validateArgumentsLength = requireValidateArgumentsLength();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -7557,6 +7781,8 @@
   	var setInternalState = InternalStateModule.set;
   	var getInternalParamsState = InternalStateModule.getterFor(URL_SEARCH_PARAMS);
   	var getInternalIteratorState = InternalStateModule.getterFor(URL_SEARCH_PARAMS_ITERATOR);
+  	var percentDecode = percentCoding.decode;
+  	var percentEncode = percentCoding.encode;
 
   	var nativeFetch = safeGetBuiltIn('fetch');
   	var NativeRequest = safeGetBuiltIn('Request');
@@ -7564,10 +7790,6 @@
   	var RequestPrototype = NativeRequest && NativeRequest.prototype;
   	var HeadersPrototype = Headers && Headers.prototype;
   	var TypeError = globalThis.TypeError;
-  	var encodeURIComponent = globalThis.encodeURIComponent;
-  	var fromCharCode = String.fromCharCode;
-  	var fromCodePoint = getBuiltIn('String', 'fromCodePoint');
-  	var $parseInt = parseInt;
   	var charAt = uncurryThis(''.charAt);
   	var join = uncurryThis([].join);
   	var push = uncurryThis([].push);
@@ -7576,142 +7798,13 @@
   	var splice = uncurryThis([].splice);
   	var split = uncurryThis(''.split);
   	var stringSlice = uncurryThis(''.slice);
-  	var exec = uncurryThis(/./.exec);
 
   	var plus = /\+/g;
-  	var FALLBACK_REPLACER = '\uFFFD';
-  	var VALID_HEX = /^[0-9a-f]+$/i;
 
-  	var parseHexOctet = function (string, start) {
-  	  var substr = stringSlice(string, start, start + 2);
-  	  if (!exec(VALID_HEX, substr)) return NaN;
-
-  	  return $parseInt(substr, 16);
+  	// https://url.spec.whatwg.org/#urlencoded-parsing - `+` decodes to a space
+  	var decodeQueryComponent = function (input) {
+  	  return percentDecode(replace(input, plus, ' '));
   	};
-
-  	var getLeadingOnes = function (octet) {
-  	  var count = 0;
-  	  for (var mask = 0x80; mask > 0 && (octet & mask) !== 0; mask >>= 1) {
-  	    count++;
-  	  }
-  	  return count;
-  	};
-
-  	var utf8Decode = function (octets) {
-  	  var codePoint = null;
-  	  var length = octets.length;
-
-  	  switch (length) {
-  	    case 1:
-  	      codePoint = octets[0];
-  	      break;
-  	    case 2:
-  	      codePoint = (octets[0] & 0x1F) << 6 | (octets[1] & 0x3F);
-  	      break;
-  	    case 3:
-  	      codePoint = (octets[0] & 0x0F) << 12 | (octets[1] & 0x3F) << 6 | (octets[2] & 0x3F);
-  	      break;
-  	    case 4:
-  	      codePoint = (octets[0] & 0x07) << 18 | (octets[1] & 0x3F) << 12 | (octets[2] & 0x3F) << 6 | (octets[3] & 0x3F);
-  	      break;
-  	  }
-
-  	  // reject surrogates, overlong encodings, and out-of-range codepoints
-  	  if (codePoint === null
-  	    || codePoint > 0x10FFFF
-  	    || (codePoint >= 0xD800 && codePoint <= 0xDFFF)
-  	    || codePoint < (length > 3 ? 0x10000 : length > 2 ? 0x800 : length > 1 ? 0x80 : 0)
-  	  ) return null;
-
-  	  return codePoint;
-  	};
-
-  	/* eslint-disable max-statements, max-depth -- ok */
-  	var decode = function (input) {
-  	  input = replace(input, plus, ' ');
-  	  var length = input.length;
-  	  var result = '';
-  	  var i = 0;
-
-  	  while (i < length) {
-  	    var decodedChar = charAt(input, i);
-
-  	    if (decodedChar === '%') {
-  	      if (charAt(input, i + 1) === '%' || i + 3 > length) {
-  	        result += '%';
-  	        i++;
-  	        continue;
-  	      }
-
-  	      var octet = parseHexOctet(input, i + 1);
-
-  	      // eslint-disable-next-line no-self-compare -- NaN check
-  	      if (octet !== octet) {
-  	        result += decodedChar;
-  	        i++;
-  	        continue;
-  	      }
-
-  	      i += 2;
-  	      var byteSequenceLength = getLeadingOnes(octet);
-
-  	      if (byteSequenceLength === 0) {
-  	        decodedChar = fromCharCode(octet);
-  	      } else {
-  	        if (byteSequenceLength === 1 || byteSequenceLength > 4) {
-  	          result += FALLBACK_REPLACER;
-  	          i++;
-  	          continue;
-  	        }
-
-  	        var octets = [octet];
-  	        var sequenceIndex = 1;
-
-  	        while (sequenceIndex < byteSequenceLength) {
-  	          i++;
-  	          if (i + 3 > length || charAt(input, i) !== '%') break;
-
-  	          var nextByte = parseHexOctet(input, i + 1);
-
-  	          // eslint-disable-next-line no-self-compare -- NaN check
-  	          if (nextByte !== nextByte || nextByte > 191 || nextByte < 128) break;
-
-  	          // https://encoding.spec.whatwg.org/#utf-8-decoder - position-specific byte ranges
-  	          if (sequenceIndex === 1) {
-  	            if (octet === 0xE0 && nextByte < 0xA0) break;
-  	            if (octet === 0xED && nextByte > 0x9F) break;
-  	            if (octet === 0xF0 && nextByte < 0x90) break;
-  	            if (octet === 0xF4 && nextByte > 0x8F) break;
-  	          }
-
-  	          push(octets, nextByte);
-  	          i += 2;
-  	          sequenceIndex++;
-  	        }
-
-  	        if (octets.length !== byteSequenceLength) {
-  	          result += FALLBACK_REPLACER;
-  	          continue;
-  	        }
-
-  	        var codePoint = utf8Decode(octets);
-  	        if (codePoint === null) {
-  	          for (var replacement = 0; replacement < byteSequenceLength; replacement++) result += FALLBACK_REPLACER;
-  	          i++;
-  	          continue;
-  	        } else {
-  	          decodedChar = fromCodePoint(codePoint);
-  	        }
-  	      }
-  	    }
-
-  	    result += decodedChar;
-  	    i++;
-  	  }
-
-  	  return result;
-  	};
-  	/* eslint-enable max-statements, max-depth -- ok */
 
   	var find = /[!'()~]|%20/g;
 
@@ -7729,7 +7822,7 @@
   	};
 
   	var serialize = function (it) {
-  	  return replace(encodeURIComponent(it), find, replacer);
+  	  return replace(percentEncode(it), find, replacer);
   	};
 
   	var URLSearchParamsIterator = createIteratorConstructor(function Iterator(params, kind) {
@@ -7803,8 +7896,8 @@
   	        if (attribute.length) {
   	          entry = split(attribute, '=');
   	          push(entries, {
-  	            key: decode(shift(entry)),
-  	            value: decode(join(entry, '='))
+  	            key: decodeQueryComponent(shift(entry)),
+  	            value: decodeQueryComponent(join(entry, '='))
   	          });
   	        }
   	      }
@@ -8209,6 +8302,38 @@
     return navigator.userAgent.includes('MSIE ') || /Trident.*rv:11\./.test(navigator.userAgent);
   }
 
+  /**
+   * Parse a string into an array of strings.
+   * @param {string} str - Input string in formats like "['a', 'b']", "[1, 2]", "a,b", or "[]".
+   * @returns {string[]} Parsed array of strings.
+   */
+  function parseStringArray(str) {
+    if (!str) {
+      return [];
+    }
+    var normalized = String(str).trim();
+    if (!normalized || normalized === '[]') {
+      return [];
+    }
+    if (normalized.startsWith('[') && normalized.endsWith(']')) {
+      try {
+        var parsed = JSON.parse(normalized);
+        if (Array.isArray(parsed)) {
+          return parsed.map(function (item) {
+            return String(item);
+          }).filter(function (item) {
+            return item !== '';
+          });
+        }
+      } catch (_unused) {
+        // Fall back to delimiter-based parsing for non-JSON array strings.
+      }
+    }
+    return normalized.replace(/\[|\]|['"\s]/g, '').split(',').filter(function (item) {
+      return item !== '';
+    });
+  }
+
   var helper = /*#__PURE__*/Object.freeze({
     __proto__: null,
     addQueryToUrl: addQueryToUrl,
@@ -8218,7 +8343,8 @@
     getEventName: getEventName,
     hasDetailViewIcon: hasDetailViewIcon,
     isIEBrowser: isIEBrowser,
-    isNumeric: isNumeric
+    isNumeric: isNumeric,
+    parseStringArray: parseStringArray
   });
 
   /**
@@ -8229,6 +8355,42 @@
    *
    * @module utils/search-sort
    */
+
+  /**
+   * Normalizes an `orderList` value into a clean array of `'asc'` / `'desc'` tokens.
+   *
+   * Accepts either an array (e.g. `['desc', 'asc']`) or a comma-separated string
+   * (e.g. `'desc, asc'`). Tokens are trimmed and lowercased; anything that is not
+   * `'asc'` or `'desc'` is silently dropped. Returns the normalized array, or
+   * `undefined` when the input is `undefined`/empty or contains no valid token —
+   * in which case callers fall back to the legacy column `order` cycle.
+   *
+   * @param {undefined|string|string[]} input - The raw `orderList` value.
+   * @returns {string[]|undefined} The normalized list, or `undefined`.
+   */
+  function normalizeOrderList(input) {
+    if (input === undefined || input === null) {
+      return undefined;
+    }
+    var tokens = Array.isArray(input) ? input : String(input).split(',');
+    var list = [];
+    var _iterator = _createForOfIteratorHelper(tokens),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var token = _step.value;
+        var normalized = String(token).trim().toLowerCase();
+        if (normalized === 'asc' || normalized === 'desc') {
+          list.push(normalized);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    return list.length ? list : undefined;
+  }
 
   /**
    * Compares a value against a search pattern using regex.
@@ -8351,17 +8513,17 @@
         if (child.nodeType === document.TEXT_NODE) {
           var elements = replaceTextWithDom(child.data, regExp);
           if (elements) {
-            var _iterator = _createForOfIteratorHelper(elements),
-              _step;
+            var _iterator2 = _createForOfIteratorHelper(elements),
+              _step2;
             try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                var el = _step.value;
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var el = _step2.value;
                 node.insertBefore(el, child);
               }
             } catch (err) {
-              _iterator.e(err);
+              _iterator2.e(err);
             } finally {
-              _iterator.f();
+              _iterator2.f();
             }
             node.removeChild(child);
             i += elements.length - 1;
@@ -8381,6 +8543,7 @@
 
   var searchSort = /*#__PURE__*/Object.freeze({
     __proto__: null,
+    normalizeOrderList: normalizeOrderList,
     regexCompare: regexCompare,
     replaceSearchMark: replaceSearchMark,
     sort: sort
@@ -8427,16 +8590,15 @@
     var valueAttr = value !== undefined && value !== '' ? " value=\"".concat(escapeAttr(value), "\"") : '';
     var classAttr = extraClass ? " ".concat(extraClass) : '';
     var escapedName = escapeAttr(name);
-    var escapedLabel = escapeHTML(label);
     if (getBootstrapVersion() === 5) {
       if (withLabel) {
-        return "<label class=\"dropdown-item dropdown-item-marker d-flex align-items-center gap-2\">\n        <input class=\"form-check-input m-0".concat(classAttr, "\" type=\"checkbox\" name=\"").concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr, " />\n        <span>").concat(escapedLabel, "</span>\n      </label>");
+        return "<label class=\"dropdown-item dropdown-item-marker d-flex align-items-center gap-2\">\n        <input class=\"form-check-input m-0".concat(classAttr, "\" type=\"checkbox\" name=\"").concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr, " />\n        <span>").concat(label, "</span>\n      </label>");
       }
       var centerClass = centered ? ' d-flex justify-content-center' : '';
       return "<div class=\"form-check".concat(centerClass, "\">\n      <input class=\"form-check-input").concat(classAttr, "\" type=\"checkbox\" name=\"").concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr, " />\n    </div>");
     }
     if (withLabel) {
-      return "<label><input type=\"checkbox\" name=\"".concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr).concat(classAttr, "> <span>").concat(escapedLabel, "</span></label>");
+      return "<label><input type=\"checkbox\" name=\"".concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr).concat(classAttr, "> <span>").concat(label, "</span></label>");
     }
     return "<label><input type=\"checkbox\" name=\"".concat(escapedName, "\"").concat(valueAttr).concat(checkedAttr).concat(disabledAttr).concat(classAttr, " /><span></span></label>");
   }
@@ -8511,11 +8673,10 @@
       label = options.label;
     var checkedAttr = checked ? ' checked="checked"' : '';
     var disabledAttr = disabled ? ' disabled="disabled"' : '';
-    var escapedLabel = escapeHTML(label);
     if (getBootstrapVersion() === 5) {
-      return "<label class=\"dropdown-item dropdown-item-marker d-flex align-items-center gap-2\">\n      <input class=\"form-check-input m-0\" type=\"checkbox\" data-field=\"".concat(escapeAttr(dataField), "\" value=\"").concat(escapeAttr(value), "\"").concat(checkedAttr).concat(disabledAttr, " />\n      <span>").concat(escapedLabel, "</span>\n    </label>");
+      return "<label class=\"dropdown-item dropdown-item-marker d-flex align-items-center gap-2\">\n      <input class=\"form-check-input m-0\" type=\"checkbox\" data-field=\"".concat(escapeAttr(dataField), "\" value=\"").concat(escapeAttr(value), "\"").concat(checkedAttr).concat(disabledAttr, " />\n      <span>").concat(label, "</span>\n    </label>");
     }
-    return "<input type=\"checkbox\" data-field=\"".concat(escapeAttr(dataField), "\" value=\"").concat(escapeAttr(value), "\"").concat(checkedAttr).concat(disabledAttr, "> <span>").concat(escapedLabel, "</span>");
+    return "<input type=\"checkbox\" data-field=\"".concat(escapeAttr(dataField), "\" value=\"").concat(escapeAttr(value), "\"").concat(checkedAttr).concat(disabledAttr, "> <span>").concat(label, "</span>");
   }
 
   var checkbox = /*#__PURE__*/Object.freeze({
@@ -8528,7 +8689,7 @@
 
   var Utils = _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, framework), object), string), dom), tableData), searchSort), helper), checkbox);
 
-  var VERSION = '1.27.3';
+  var VERSION = '1.28.0';
   var bootstrapVersion = Utils.getBootstrapVersion();
   var CONSTANTS = {
     3: {
@@ -8804,6 +8965,8 @@
     rowStyle: function rowStyle(row, index) {
       return {};
     },
+    rtl: false,
+    // false, true, 'ltr', 'rtl', 'auto'
     search: false,
     searchable: false,
     searchAccentNeutralise: false,
@@ -8837,6 +9000,8 @@
     sortable: true,
     sortClass: undefined,
     sortEmptyLast: false,
+    orderList: undefined,
+    // ['asc','desc'] | ['desc','asc'] | 'asc,desc'; undefined => legacy column `order` fallback
     sortName: undefined,
     sortOrder: undefined,
     sortReset: false,
@@ -9048,6 +9213,8 @@
     // left, right, center
     order: 'asc',
     // asc, desc
+    orderList: undefined,
+    // overrides the table-level orderList for this column
     radio: false,
     rowspan: undefined,
     // number
@@ -9139,6 +9306,9 @@
       opts.iconsPrefix = opts.iconsPrefix || $.fn.bootstrapTable.defaults.iconsPrefix || iconsPrefix;
       opts.icons = Object.assign(Utils.getIcons(Constants.ICONS, opts.iconsPrefix), $.fn.bootstrapTable.defaults.icons, opts.icons);
 
+      // normalize orderList once at init so the click hot path deals only with arrays
+      opts.orderList = Utils.normalizeOrderList(opts.orderList);
+
       // init buttons class
       var buttonsPrefix = opts.buttonsPrefix ? "".concat(opts.buttonsPrefix, "-") : '';
       this.constants.buttonsClass = [opts.buttonsPrefix, buttonsPrefix + opts.buttonsClass, Utils.sprintf("".concat(buttonsPrefix, "%s"), opts.iconSize)].join(' ').trim();
@@ -9177,11 +9347,32 @@
         }
       }
     },
+    // Resolve the `rtl` option into a normalized internal value: 'ltr' or 'rtl'.
+    // Called during initContainer (after initConstants), before rendering the root container.
+    getRtlDirection: function getRtlDirection() {
+      var rtl = this.options.rtl;
+      if (rtl === 'auto') {
+        // Probe priority: the table element ($el) first, then <html>, else ltr.
+        var dir = (this.$el.attr('dir') || $('html').attr('dir') || '').toLowerCase();
+        return dir === 'rtl' ? 'rtl' : 'ltr';
+      }
+      if (rtl === true || rtl === 'rtl') {
+        return 'rtl';
+      }
+      return 'ltr';
+    },
     initContainer: function initContainer() {
       var topPagination = ['top', 'both'].includes(this.options.paginationVAlign) ? '<div class="fixed-table-pagination clearfix"></div>' : '';
       var bottomPagination = ['bottom', 'both'].includes(this.options.paginationVAlign) ? '<div class="fixed-table-pagination"></div>' : '';
       var loadingTemplate = Utils.calculateObjectValue(this.options, this.options.loadingTemplate, [this.options.formatLoadingMessage()]);
-      this.$container = $("\n      <div class=\"bootstrap-table ".concat(this.constants.theme, "\">\n      <div class=\"fixed-table-toolbar\"></div>\n      ").concat(topPagination, "\n      <div class=\"fixed-table-container\">\n      <div class=\"fixed-table-header\"><table></table></div>\n      <div class=\"fixed-table-body\">\n      <div class=\"fixed-table-loading\">\n      ").concat(loadingTemplate, "\n      </div>\n      </div>\n      <div class=\"fixed-table-footer\"></div>\n      </div>\n      ").concat(bottomPagination, "\n      </div>\n    "));
+
+      // Normalize the table direction once; only the root container carries it
+      // (inherited by the table/toolbar/pagination). The original <table> dir is
+      // left untouched so existing extensions (print, filter-control) keep working.
+      var isRtl = this.getRtlDirection() === 'rtl';
+      var rtlClass = isRtl ? ' bootstrap-table-rtl' : '';
+      var rtlDir = isRtl ? ' dir="rtl"' : '';
+      this.$container = $("\n      <div class=\"bootstrap-table ".concat(this.constants.theme).concat(rtlClass, "\"").concat(rtlDir, ">\n      <div class=\"fixed-table-toolbar\"></div>\n      ").concat(topPagination, "\n      <div class=\"fixed-table-container\">\n      <div class=\"fixed-table-header\"><table></table></div>\n      <div class=\"fixed-table-body\">\n      <div class=\"fixed-table-loading\">\n      ").concat(loadingTemplate, "\n      </div>\n      </div>\n      <div class=\"fixed-table-footer\"></div>\n      </div>\n      ").concat(bottomPagination, "\n      </div>\n    "));
       this.$container.insertAfter(this.$el);
       this.$tableContainer = this.$container.find('.fixed-table-container');
       this.$tableHeader = this.$container.find('.fixed-table-header');
@@ -9272,6 +9463,7 @@
           var column = Utils.extend({}, Constants.COLUMN_DEFAULTS, _column, {
             passed: _column
           });
+          column.orderList = Utils.normalizeOrderList(column.orderList);
           if (typeof column.fieldIndex !== 'undefined') {
             _this.columns[column.fieldIndex] = column;
             _this.fieldsColumnsIndex[column.field] = column.fieldIndex;
@@ -9802,10 +9994,11 @@
               class: cardViewClass
             });
           }
+          var fieldTitle = Utils.getFieldTitle(_this2.columns, field);
           var cardTitle = _this2.options.showHeader ? Utils.h('span', {
             class: ['card-view-title', cellStyle.classes],
             style: attrs.style,
-            html: Utils.getFieldTitle(_this2.columns, field)
+            html: _this2.options.escape && _this2.options.escapeTitle ? Utils.escapeHTML(fieldTitle) : fieldTitle
           }) : '';
           return Utils.h('div', {
             class: cardViewClass
@@ -9877,12 +10070,10 @@
           }
         }
       }
-      this.$el.removeAttr('role');
 
       // show no records
       if (!hasTr) {
         this.$body.html("<tr class=\"no-records-found\">".concat(Utils.sprintf('<td colspan="%s">%s</td>', this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options), this.options.formatNoMatches()), "</tr>"));
-        this.$el.attr('role', 'presentation');
       } else if (!this.options.virtualScroll) {
         this.$body.html(trFragments);
       } else {
@@ -9918,11 +10109,20 @@
       this.trigger('post-body', data);
     },
     resetView: function resetView(params) {
+      var _this4 = this;
       var padding = 0;
       if (params && params.height) {
         this.options.height = params.height;
       }
       this.$tableContainer.toggleClass('has-card-view', this.options.cardView);
+      if (this.options.height && this.$el.is(':hidden')) {
+        if (!this._resizeObserver) {
+          this._setDelayTimeout('resetView', function () {
+            return _this4.resetView();
+          }, 100);
+        }
+        return;
+      }
       if (this.options.height) {
         var fixedBody = this.$tableBody.get(0);
         this.hasScrollBar = fixedBody.scrollWidth > fixedBody.clientWidth;
@@ -10011,8 +10211,24 @@
       }
       var scrollTo = options.value;
       if (options.unit === 'rows') {
+        var rowCount = options.value;
+        var $rows = this.$body.find('> tr');
         scrollTo = 0;
-        this.$body.find("> tr:lt(".concat(options.value, ")")).each(function (i, el) {
+        if (this.options.virtualScroll && this.virtualScroll) {
+          // Rows outside the rendered block are replaced by spacer rows,
+          // so count them with the item height instead of the spacer height
+          var _this$virtualScroll = this.virtualScroll,
+            itemHeight = _this$virtualScroll.itemHeight,
+            _this$virtualScroll$s = _this$virtualScroll.startIndex,
+            startIndex = _this$virtualScroll$s === void 0 ? 0 : _this$virtualScroll$s;
+          var rowsAbove = Math.min(rowCount, startIndex);
+          $rows = $rows.not('.virtual-scroll-top, .virtual-scroll-bottom');
+          rowCount -= rowsAbove;
+          var rowsBelow = Math.max(rowCount - $rows.length, 0);
+          rowCount -= rowsBelow;
+          scrollTo += (rowsAbove + rowsBelow) * itemHeight;
+        }
+        $rows.slice(0, rowCount).each(function (i, el) {
           scrollTo += $(el).outerHeight(true);
         });
       }
@@ -10142,7 +10358,7 @@
       this._toggleAllColumns(false);
     },
     _toggleAllColumns: function _toggleAllColumns(visible) {
-      var _this4 = this;
+      var _this5 = this;
       var _iterator4 = _createForOfIteratorHelper(this.columns.slice().reverse()),
         _step4;
       try {
@@ -10172,7 +10388,7 @@
           $items.prop('checked', visible);
         } else {
           $items.get().reverse().forEach(function (item) {
-            if ($items.filter(':checked').length > _this4.options.minimumCountColumns) {
+            if ($items.filter(':checked').length > _this5.options.minimumCountColumns) {
               $(item).prop('checked', visible);
             }
           });
@@ -10203,9 +10419,9 @@
       $td.attr('rowspan', rowspan).attr('colspan', colspan).show();
     },
     getVisibleColumns: function getVisibleColumns() {
-      var _this5 = this;
+      var _this6 = this;
       return this.columns.filter(function (column) {
-        return column.visible && !_this5.isSelectionColumn(column);
+        return column.visible && !_this6.isSelectionColumn(column);
       });
     },
     getHiddenColumns: function getHiddenColumns() {
@@ -10866,26 +11082,40 @@
         currentTarget = _ref.currentTarget;
       var $this = type === 'keypress' ? $(currentTarget) : $(currentTarget).parent();
       var $this_ = this.$header.find('th').eq($this.index());
+      var column = this.columns[this.fieldsColumnsIndex[$this.data('field')]];
       this.$header.add(this.$header_).find('span.order').remove();
+
+      // Resolve the effective sort-direction cycle for this column:
+      //   column orderList  >  global orderList  >  legacy [order, opposite(order)]
+      // orderList values are normalized to arrays at init time; an unset/invalid
+      // value stays undefined so the legacy column `order` fallback takes over.
+      // The only deliberate change vs. the old cycle: order 'desc' with sortReset
+      // previously got stuck (asc <-> undefined) and now cycles
+      // desc -> asc -> undefined -> desc.
+      var orderList = column.orderList || this.options.orderList;
+      if (!orderList) {
+        var order = column.sortOrder || column.order || 'asc';
+        orderList = [order, order === 'asc' ? 'desc' : 'asc'];
+      }
       if (this.options.sortName === $this.data('field')) {
-        var currentSortOrder = this.options.sortOrder;
-        var initialSortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder || this.columns[this.fieldsColumnsIndex[$this.data('field')]].order;
-        if (currentSortOrder === undefined) {
-          this.options.sortOrder = 'asc';
-        } else if (currentSortOrder === 'asc') {
-          this.options.sortOrder = this.options.sortReset ? initialSortOrder === 'asc' ? 'desc' : undefined : 'desc';
-        } else if (this.options.sortOrder === 'desc') {
-          this.options.sortOrder = this.options.sortReset ? initialSortOrder === 'desc' ? 'asc' : undefined : 'asc';
-        }
+        // Same column clicked again: advance one step through the cycle. With
+        // sortReset, a trailing "unsorted" state (handled inline to avoid an
+        // array allocation) clears the sort entirely.
+        var len = orderList.length;
+        var nextIndex = (orderList.indexOf(this.options.sortOrder) + 1) % (this.options.sortReset ? len + 1 : len);
+        this.options.sortOrder = nextIndex === len ? undefined : orderList[nextIndex];
         if (this.options.sortOrder === undefined) {
           this.options.sortName = undefined;
         }
       } else {
+        // New column: start at the first direction, or — under rememberOrder —
+        // advance one step from the column's last direction (legacy behavior,
+        // now respecting a custom orderList too).
         this.options.sortName = $this.data('field');
         if (this.options.rememberOrder) {
-          this.options.sortOrder = $this.data('order') === 'asc' ? 'desc' : 'asc';
+          this.options.sortOrder = orderList[(orderList.indexOf($this.data('order')) + 1) % orderList.length];
         } else {
-          this.options.sortOrder = this.columns[this.fieldsColumnsIndex[$this.data('field')]].sortOrder || this.columns[this.fieldsColumnsIndex[$this.data('field')]].order;
+          this.options.sortOrder = orderList[0];
         }
       }
       $this.add($this_).data('order', this.options.sortOrder);
@@ -11430,14 +11660,45 @@
         _this[checked ? 'checkAll' : 'uncheckAll']();
         _this.updateSelected();
       });
+      if (this.options.height && typeof ResizeObserver !== 'undefined') {
+        if (this.$el.is(':hidden')) {
+          if (this._resizeObserver) {
+            this._resizeObserver.disconnect();
+            this._resizeObserver = null;
+          }
+          var observer = new ResizeObserver(function (entries) {
+            var _iterator = _createForOfIteratorHelper(entries),
+              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var entry = _step.value;
+                if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
+                  observer.disconnect();
+                  if (_this._resizeObserver === observer) {
+                    _this._resizeObserver = null;
+                  }
+                  _this.resetView();
+                  return;
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+          });
+          this._resizeObserver = observer;
+          observer.observe(this.$el[0]);
+        }
+      }
     },
     getVisibleFields: function getVisibleFields() {
       var visibleFields = [];
-      var _iterator = _createForOfIteratorHelper(this.header.fields),
-        _step;
+      var _iterator2 = _createForOfIteratorHelper(this.header.fields),
+        _step2;
       try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var field = _step.value;
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var field = _step2.value;
           var column = this.columns[this.fieldsColumnsIndex[field]];
           if (!column || !column.visible || this.options.cardView && !column.cardVisible) {
             continue;
@@ -11445,9 +11706,9 @@
           visibleFields.push(field);
         }
       } catch (err) {
-        _iterator.e(err);
+        _iterator2.e(err);
       } finally {
-        _iterator.f();
+        _iterator2.f();
       }
       return visibleFields;
     },
@@ -11560,11 +11821,11 @@
       if (detailTemplate && this.options.detailViewAlign !== 'right') {
         html.push(detailTemplate);
       }
-      var _iterator2 = _createForOfIteratorHelper(this.columns),
-        _step2;
+      var _iterator3 = _createForOfIteratorHelper(this.columns),
+        _step3;
       try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var column = _step2.value;
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var column = _step3.value;
           var hasData = this.footerData && this.footerData.length > 0;
           if (!column.visible || hasData && !(column.field in this.footerData[0])) {
             continue;
@@ -11591,9 +11852,9 @@
           })]));
         }
       } catch (err) {
-        _iterator2.e(err);
+        _iterator3.e(err);
       } finally {
-        _iterator2.f();
+        _iterator3.f();
       }
       if (detailTemplate && this.options.detailViewAlign === 'right') {
         html.push(detailTemplate);
@@ -11658,14 +11919,15 @@
       });
     },
     updateColumnTitle: function updateColumnTitle(params) {
+      var _this6 = this;
       if (!params.hasOwnProperty('field') || !params.hasOwnProperty('title')) {
         return;
       }
-      this.columns[this.fieldsColumnsIndex[params.field]].title = this.options.escape && this.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title;
+      this.columns[this.fieldsColumnsIndex[params.field]].title = params.title;
       if (this.columns[this.fieldsColumnsIndex[params.field]].visible) {
         this.$header.find('th[data-field]').each(function (i, el) {
           if ($(el).data('field') === params.field) {
-            $($(el).find('.th-inner')[0]).html(params.title);
+            $($(el).find('.th-inner')[0]).html(_this6.options.escape && _this6.options.escapeTitle ? Utils.escapeHTML(params.title) : params.title);
             return false;
           }
         });
@@ -11707,7 +11969,7 @@
       });
       this.paginationParts = opts.paginationParts;
       if (typeof this.paginationParts === 'string') {
-        this.paginationParts = this.paginationParts.replace(/\[|\]| |'/g, '').split(',');
+        this.paginationParts = Utils.parseStringArray(this.paginationParts);
       }
       if (opts.sidePagination !== 'server') {
         opts.totalRows = data.length;
@@ -12218,7 +12480,7 @@
       // showColumns, showToggle, showRefresh
       html = ["<div class=\"".concat(['columns', "columns-".concat(opts.buttonsAlign), this.constants.classes.buttonsGroup, "".concat(this.constants.classes.pull, "-").concat(opts.buttonsAlign)].join(' '), "\">")];
       if (typeof opts.buttonsOrder === 'string') {
-        opts.buttonsOrder = opts.buttonsOrder.replace(/\[|\]| |'/g, '').split(',');
+        opts.buttonsOrder = Utils.parseStringArray(opts.buttonsOrder);
       }
       this.buttons = Object.assign(this.buttons, {
         paginationSwitch: {
@@ -12305,7 +12567,7 @@
                   value: i,
                   checked: !!checked,
                   disabled: !!disabled,
-                  label: column.switchableLabel || column.title
+                  label: column.switchableLabel || (opts.escape && opts.escapeTitle ? Utils.escapeHTML(column.title) : column.title)
                 });
 
                 // Bootstrap 3/4 needs to be wrapped with toolbarDropdownItem
@@ -12444,13 +12706,17 @@
             var currentTarget = _ref3.currentTarget;
             var $this = $(currentTarget);
             var searchValue = $this.val().toLowerCase();
-            $listItems.show();
+            $listItems.each(function (_, el) {
+              el.style.removeProperty('display');
+            });
             $checkboxes.each(function (i, el) {
               var $checkbox = $(el);
               var $listItem = $checkbox.parents('.dropdown-item-marker');
               var text = $listItem.text().toLowerCase();
               if (!text.includes(searchValue)) {
-                $listItem.hide();
+                $listItem.each(function (_, item) {
+                  item.style.setProperty('display', 'none', 'important');
+                });
               }
             });
           });
@@ -12551,7 +12817,8 @@
       this.$el_ = this.$el.clone();
       this._timeoutId = {
         header: 0,
-        footer: 0
+        footer: 0,
+        resetView: 0
       };
     }
     return _createClass(BootstrapTable, [{
@@ -12620,6 +12887,10 @@
         for (var _i = 0, _Object$keys = Object.keys(this._timeoutId); _i < _Object$keys.length; _i++) {
           var type = _Object$keys[_i];
           clearTimeout(this._timeoutId[type]);
+        }
+        if (this._resizeObserver) {
+          this._resizeObserver.disconnect();
+          this._resizeObserver = null;
         }
         this.$el.insertBefore(this.$container);
         $(this.options.toolbar).insertBefore(this.$el);

@@ -678,10 +678,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.49.0',
+  	  version: '3.51.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -694,9 +694,11 @@
   	if (hasRequiredShared) return shared;
   	hasRequiredShared = 1;
   	var store = requireSharedStore();
+  	// eslint-disable-next-line es/no-object-create -- safe
+  	var create = Object.create || Object;
 
   	shared = function (key, value) {
-  	  return store[key] || (store[key] = value || {});
+  	  return store[key] || (store[key] = value || create(null));
   	};
   	return shared;
   }
@@ -3768,7 +3770,7 @@
   function requireIterators () {
   	if (hasRequiredIterators) return iterators;
   	hasRequiredIterators = 1;
-  	iterators = {};
+  	iterators = Object.create ? Object.create(null) : {};
   	return iterators;
   }
 
@@ -3791,48 +3793,48 @@
   	return isArrayIteratorMethod;
   }
 
-  var getIteratorMethod;
-  var hasRequiredGetIteratorMethod;
+  var getIteratorMethodInternal;
+  var hasRequiredGetIteratorMethodInternal;
 
-  function requireGetIteratorMethod () {
-  	if (hasRequiredGetIteratorMethod) return getIteratorMethod;
-  	hasRequiredGetIteratorMethod = 1;
-  	var classof = requireClassof();
-  	var getMethod = requireGetMethod();
+  function requireGetIteratorMethodInternal () {
+  	if (hasRequiredGetIteratorMethodInternal) return getIteratorMethodInternal;
+  	hasRequiredGetIteratorMethodInternal = 1;
+  	var classof = requireClassofRaw();
   	var isNullOrUndefined = requireIsNullOrUndefined();
-  	var Iterators = requireIterators();
+  	var getMethod = requireGetMethod();
   	var wellKnownSymbol = requireWellKnownSymbol();
 
   	var ITERATOR = wellKnownSymbol('iterator');
+  	var ArrayPrototype = Array.prototype;
 
-  	getIteratorMethod = function (it) {
+  	getIteratorMethodInternal = function (it) {
   	  if (!isNullOrUndefined(it)) return getMethod(it, ITERATOR)
   	    || getMethod(it, '@@iterator')
-  	    || Iterators[classof(it)];
+  	    || (classof(it) === 'Arguments' ? ArrayPrototype[ITERATOR] : undefined);
   	};
-  	return getIteratorMethod;
+  	return getIteratorMethodInternal;
   }
 
-  var getIterator;
-  var hasRequiredGetIterator;
+  var getIteratorInternal;
+  var hasRequiredGetIteratorInternal;
 
-  function requireGetIterator () {
-  	if (hasRequiredGetIterator) return getIterator;
-  	hasRequiredGetIterator = 1;
+  function requireGetIteratorInternal () {
+  	if (hasRequiredGetIteratorInternal) return getIteratorInternal;
+  	hasRequiredGetIteratorInternal = 1;
   	var call = requireFunctionCall();
-  	var aCallable = requireACallable();
+  	var isCallable = requireIsCallable();
   	var anObject = requireAnObject();
   	var tryToString = requireTryToString();
-  	var getIteratorMethod = requireGetIteratorMethod();
+  	var getIteratorMethod = requireGetIteratorMethodInternal();
 
   	var $TypeError = TypeError;
 
-  	getIterator = function (argument, usingIterator) {
+  	getIteratorInternal = function (argument, usingIterator) {
   	  var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
-  	  if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
+  	  if (isCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
   	  throw new $TypeError(tryToString(argument) + ' is not iterable');
   	};
-  	return getIterator;
+  	return getIteratorInternal;
   }
 
   var iteratorClose;
@@ -3880,8 +3882,8 @@
   	var isArrayIteratorMethod = requireIsArrayIteratorMethod();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var isPrototypeOf = requireObjectIsPrototypeOf();
-  	var getIterator = requireGetIterator();
-  	var getIteratorMethod = requireGetIteratorMethod();
+  	var getIterator = requireGetIteratorInternal();
+  	var getIteratorMethod = requireGetIteratorMethodInternal();
   	var iteratorClose = requireIteratorClose();
 
   	var $TypeError = TypeError;
@@ -5472,7 +5474,9 @@
   	    function match(regexp) {
   	      var O = requireObjectCoercible(this);
   	      var matcher = isObject(regexp) ? getMethod(regexp, MATCH) : undefined;
-  	      return matcher ? call(matcher, regexp, O) : new RegExp(regexp)[MATCH](toString(O));
+  	      if (matcher) return call(matcher, regexp, O);
+  	      var S = toString(O);
+  	      return new RegExp(regexp)[MATCH](S);
   	    },
   	    // `RegExp.prototype[@@match]` method
   	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@match
@@ -5763,6 +5767,7 @@
   /* eslint-disable no-use-before-define */
   var Utils$1 = $.fn.bootstrapTable.utils;
   var searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])';
+  var selectionInputTypes = ['password', 'search', 'tel', 'text', 'url'];
   function getInputClass(that) {
     var isSelect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     var formControlClass = isSelect ? that.constants.classes.select : that.constants.classes.input;
@@ -5885,13 +5890,23 @@
           var range = elem.createTextRange();
           range.move('character', caretPos);
           range.select();
-        } else if (elem.setSelectionRange) {
+        } else if (elem.setSelectionRange && canSetCaretPosition(elem)) {
           elem.setSelectionRange(caretPos, caretPos);
         }
       }
     } catch (ex) {
       console.error(ex);
     }
+  }
+  function canSetCaretPosition(elem) {
+    var tagName = elem.tagName && elem.tagName.toLowerCase();
+    if (tagName === 'textarea') {
+      return true;
+    }
+    if (tagName !== 'input') {
+      return false;
+    }
+    return selectionInputTypes.includes(elem.type);
   }
   function setValues(that) {
     var field = null;
@@ -6104,9 +6119,11 @@
     });
     if (addedFilterControl) {
       header.off('keyup', 'input').on('keyup', 'input', function (_ref4, obj) {
+        var _obj$keyCode;
         var currentTarget = _ref4.currentTarget,
           keyCode = _ref4.keyCode;
-        keyCode = obj ? obj.keyCode : keyCode;
+        keyCode = (_obj$keyCode = obj === null || obj === void 0 ? void 0 : obj.keyCode) !== null && _obj$keyCode !== void 0 ? _obj$keyCode : keyCode;
+        var isInitial = (obj === null || obj === void 0 ? void 0 : obj.isInitial) === true;
         if (that.options.searchOnEnterKey && keyCode !== 13) {
           return;
         }
@@ -6121,22 +6138,25 @@
         currentTarget.timeoutId = setTimeout(function () {
           that.onColumnSearch({
             currentTarget: currentTarget,
-            keyCode: keyCode
+            keyCode: keyCode,
+            isInitial: isInitial
           });
         }, that.options.searchTimeOut);
       });
-      header.off('change', 'select').on('change', 'select', function (_ref5) {
+      header.off('change', 'select').on('change', 'select', function (_ref5, obj) {
         var currentTarget = _ref5.currentTarget,
           keyCode = _ref5.keyCode;
         var $selectControl = $(currentTarget);
         var value = $selectControl.val();
+        var isInitial = (obj === null || obj === void 0 ? void 0 : obj.isInitial) === true;
         var normalizedValue = value === null ? $selectControl.prop('multiple') ? [] : null : value;
         $selectControl.val(normalizedValue);
         clearTimeout(currentTarget.timeoutId || 0);
         currentTarget.timeoutId = setTimeout(function () {
           that.onColumnSearch({
             currentTarget: currentTarget,
-            keyCode: keyCode
+            keyCode: keyCode,
+            isInitial: isInitial
           });
         }, that.options.searchTimeOut);
       });
@@ -6210,7 +6230,7 @@
         });
       }
       if (that.options.sidePagination !== 'server') {
-        that.triggerSearch();
+        that.triggerSearch(true);
       }
       if (!that.options.filterControlVisible) {
         header.find('.filter-control, .no-filter-control').hide();
@@ -6639,6 +6659,10 @@
         cacheValues(this);
         if (filterColumnsDefaults) {
           this.filterColumnsPartial = filterColumnsDefaults;
+          // Apply the restored filters to the data before re-rendering, so the
+          // restore does not depend on the deferred initial search running
+          // after the 250ms restore timer (broken when searchTimeOut < 250).
+          this.initSearch();
           this.updatePagination();
 
           // eslint-disable-next-line guard-for-in
@@ -6723,7 +6747,8 @@
         // which ones are going to be present.
         if (controls.length > 0) {
           this.filterColumnsPartial = {};
-          controls.eq(0).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', {
+          var $control = controls.eq(0);
+          $control.trigger($control.is('select') ? 'change' : 'keyup', {
             keyCode: 13
           });
           /* controls.each(function () {
@@ -6756,19 +6781,20 @@
       value: function onColumnSearch(_ref) {
         var _this4 = this;
         var currentTarget = _ref.currentTarget,
-          keyCode = _ref.keyCode;
+          keyCode = _ref.keyCode,
+          isInitial = _ref.isInitial;
         if (isKeyAllowed(keyCode)) {
           return;
         }
         cacheValues(this);
-        var isInitialRender = !this._initialized;
+        var isInitialRender = !this._initialized || isInitial === true;
 
         // Cookie extension support
         if (!this.options.cookie) {
           if (!isInitialRender) {
             this.options.pageNumber = 1;
           }
-        } else {
+        } else if (!isInitialRender) {
           // Force call the initServer method in Cookie extension
           this._filterControlValuesLoaded = true;
         }
@@ -6783,7 +6809,13 @@
           var elementValue = $element.val();
           var text = elementValue ? elementValue.trim() : '';
           var $field = $element.closest('[data-field]').data('field');
-          _this4.trigger('column-search', $field, text);
+
+          // Skip empty values on the initial render: the cookie extension
+          // persists every column-search event, and an empty one here (before
+          // its 250ms restore timer) would clobber the saved filter cookie.
+          if (!isInitialRender || text) {
+            _this4.trigger('column-search', $field, text);
+          }
           if (text) {
             _this4.filterColumnsPartial[$field] = text;
           } else {
@@ -6821,14 +6853,18 @@
     }, {
       key: "triggerSearch",
       value: function triggerSearch() {
+        var isInitial = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
         var searchControls = getSearchControls(this);
         searchControls.each(function () {
           var $element = $(this);
-          if ($element.is('select')) {
-            $element.trigger('change');
-          } else {
-            $element.trigger('keyup');
+          var eventName = $element.is('select') ? 'change' : 'keyup';
+          var eventData = {
+            keyCode: 13
+          };
+          if (isInitial) {
+            eventData.isInitial = true;
           }
+          $element.trigger(eventName, eventData);
         });
       }
     }, {
@@ -6838,6 +6874,9 @@
           this._initialized = false;
         }
         _superPropGet(_class, "_toggleColumns", this)([fields, checked, needUpdate]);
+        // initHeader only runs when a column really changed visibility, so restore
+        // the flag here to stop it latching to false (#8216).
+        this._initialized = true;
         syncHeaders(this);
       }
     }]);

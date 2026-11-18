@@ -165,6 +165,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return super.initServer(silent, query)
     }
 
+    // Pagination is disabled (e.g. exporting all rows with the export
+    // extension): bypass the cache windows and let the server return the
+    // complete data set, otherwise the response handler would slice the
+    // result down to a single page window (#5980).
+    if (!this.options.pagination) {
+      return super.initServer(silent, query)
+    }
+
     let useAjax = true
     const params = {}
 
@@ -230,11 +238,23 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
+    // keep the draw parameters on the instance: the response handler wrapper
+    // below is installed only once, so a closure over `params` would reuse
+    // the very first request's values for every later ajax response
+    this.pipelineDrawOffset = params.drawOffset
+    this.pipelineDrawLimit = params.drawLimit
+
     if (!this.pipelineResponseHandler) {
       this.pipelineResponseHandler = this.options.responseHandler
 
       this.options.responseHandler = (_res, jqXHR) => {
         let res = Utils.calculateObjectValue(this.options, this.pipelineResponseHandler, [_res, jqXHR], _res)
+
+        // pagination is disabled (e.g. exporting all rows): pass the
+        // complete response through without caching or slicing (#5980)
+        if (!this.options.pagination) {
+          return res
+        }
 
         // store entire request in cache
         this.cacheRequestJSON = Utils.extend(true, {}, res)
@@ -246,7 +266,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
         // will come out the same
         this.setCacheWindows()
         // just load data for the page
-        res = this.drawFromCache(params.drawOffset, params.drawLimit)
+        res = this.drawFromCache(this.pipelineDrawOffset, this.pipelineDrawLimit)
         this.trigger('cached-data-reset', res)
         return res
       }

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import BodyModule from '@/modules/body.js'
+import HeaderModule from '@/modules/header.js'
 
 function createBodyMockContext (overrides = {}) {
   const timeoutIds = {}
@@ -131,6 +132,159 @@ describe('BodyModule', () => {
       )
 
       expect(resetViewCalls).toHaveLength(0)
+    })
+  })
+
+  describe('scrollTo with rows unit', () => {
+    let ctx
+    let original$
+
+    // A stand-in for the jQuery collection of body rows
+    function createRows (rows) {
+      return {
+        length: rows.length,
+        not: selector => createRows(rows.filter(row => !selector.split(', ').includes(`.${row.className}`))),
+        slice: (start, end) => createRows(rows.slice(start, end)),
+        each: callback => rows.forEach((row, i) => callback(i, row))
+      }
+    }
+
+    function setBodyRows (rows) {
+      ctx.$body = {
+        find: vi.fn(selector => {
+          const lt = selector.match(/:lt\((\d+)\)/)
+
+          return createRows(lt ? rows.slice(0, Number(lt[1])) : rows)
+        })
+      }
+    }
+
+    function renderedRows (count, height = 20) {
+      return Array.from({ length: count }, () => ({ className: '', height }))
+    }
+
+    beforeEach(() => {
+      original$ = global.$
+      // @ts-expect-error - testing purposes
+      global.$ = el => ({ outerHeight: () => el.height })
+      ctx = createBodyMockContext()
+      Object.assign(ctx, BodyModule)
+    })
+
+    afterEach(() => {
+      // @ts-expect-error - testing purposes
+      global.$ = original$
+      vi.restoreAllMocks()
+    })
+
+    it('should sum the heights of the rows above the target row', () => {
+      setBodyRows([...renderedRows(2, 20), ...renderedRows(3, 30)])
+
+      ctx.scrollTo({ unit: 'rows', value: 4 })
+
+      expect(ctx.$tableBody.scrollTop).toHaveBeenCalledWith(100)
+    })
+
+    it('should not count the bottom spacer of the virtual scroll', () => {
+      ctx.options.virtualScroll = true
+      ctx.virtualScroll = { itemHeight: 20, startIndex: 0 }
+      setBodyRows([...renderedRows(200), { className: 'virtual-scroll-bottom', height: 9800 * 20 }])
+
+      ctx.scrollTo({ unit: 'rows', value: 150 })
+      expect(ctx.$tableBody.scrollTop).toHaveBeenLastCalledWith(150 * 20)
+
+      ctx.scrollTo({ unit: 'rows', value: 225 })
+      expect(ctx.$tableBody.scrollTop).toHaveBeenLastCalledWith(225 * 20)
+    })
+
+    it('should count the rows replaced by the top spacer of the virtual scroll', () => {
+      ctx.options.virtualScroll = true
+      ctx.virtualScroll = { itemHeight: 20, startIndex: 1050 }
+      setBodyRows([
+        { className: 'virtual-scroll-top', height: 1050 * 20 },
+        ...renderedRows(200),
+        { className: 'virtual-scroll-bottom', height: 8750 * 20 }
+      ])
+
+      ctx.scrollTo({ unit: 'rows', value: 100 })
+      expect(ctx.$tableBody.scrollTop).toHaveBeenLastCalledWith(100 * 20)
+
+      ctx.scrollTo({ unit: 'rows', value: 1100 })
+      expect(ctx.$tableBody.scrollTop).toHaveBeenLastCalledWith(1100 * 20)
+
+      ctx.scrollTo({ unit: 'rows', value: 5000 })
+      expect(ctx.$tableBody.scrollTop).toHaveBeenLastCalledWith(5000 * 20)
+    })
+
+    it('should use the rendered rows when the virtual scroll has no spacers', () => {
+      ctx.options.virtualScroll = true
+      ctx.virtualScroll = { itemHeight: 20, startIndex: undefined }
+      setBodyRows([...renderedRows(10, 20), ...renderedRows(10, 40)])
+
+      ctx.scrollTo({ unit: 'rows', value: 15 })
+
+      expect(ctx.$tableBody.scrollTop).toHaveBeenCalledWith(10 * 20 + 5 * 40)
+    })
+  })
+
+  describe('card view title escaping (#8484)', () => {
+    function createRowContext ({ escape = true, escapeTitle = true } = {}) {
+      const ctx = createBodyMockContext({
+        options: {
+          cardView: true,
+          showHeader: true,
+          escape,
+          escapeTitle,
+          undefinedText: '-'
+        },
+        hiddenRows: [],
+        searchText: '',
+        columns: [{ field: 'id', title: 'ID', visible: true, cardVisible: true, switchable: true }],
+        header: {
+          fields: ['id'],
+          classes: [],
+          styles: [],
+          cellStyles: [],
+          formatters: []
+        },
+        fieldsColumnsIndex: { id: 0 },
+        $header: { find: vi.fn(() => ({ each: vi.fn() })) },
+        resetView: vi.fn()
+      })
+
+      Object.assign(ctx, BodyModule, HeaderModule)
+      return ctx
+    }
+
+    function renderCardViewRow (ctx) {
+      const tr = ctx.initRow({ id: 1 }, 0, [{ id: 1 }], document.createDocumentFragment())
+
+      return tr.querySelector('.card-view-title')
+    }
+
+    it('should escape an updated title at the card view rendering boundary', () => {
+      const ctx = createRowContext()
+
+      ctx.updateColumnTitle({ field: 'id', title: 'A <b>&</b> B' })
+
+      // the stored title stays raw
+      expect(ctx.columns[0].title).toBe('A <b>&</b> B')
+
+      const titleEl = renderCardViewRow(ctx)
+
+      // the card view title is escaped exactly once, no HTML is rendered
+      expect(titleEl.innerHTML).toBe('A &lt;b&gt;&amp;&lt;/b&gt; B')
+      expect(titleEl.querySelector('b')).toBeNull()
+    })
+
+    it('should keep the card view title as HTML when escapeTitle is disabled', () => {
+      const ctx = createRowContext({ escape: true, escapeTitle: false })
+
+      ctx.updateColumnTitle({ field: 'id', title: '<b>ID</b>' })
+
+      const titleEl = renderCardViewRow(ctx)
+
+      expect(titleEl.querySelector('b')).not.toBeNull()
     })
   })
 })

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "es2019",
+    "lib": ["es2019", "dom"],
+    "types": ["jquery"],
+    "paths": {
+      "bootstrap-table": ["./index.d.ts"]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "tests/types/bootstrap-table.test.ts",
+    "tests/types/generated-options.test.ts"
+  ]
+}

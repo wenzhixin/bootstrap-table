@@ -82,7 +82,9 @@ $('#table').bootstrapTable({
 
   设为 `true` 时显示复选框。复选框列具有固定宽度。
 
-  如果提供了值，会自动勾选该复选框。也可通过 formatter 控制复选框状态（返回 `true` 勾选，返回 `false` 取消勾选）。
+  在行数据中将复选框列的字段值设为 `true`（或 `{ checked: true }` 对象）即可初始勾选该复选框，例如字段为 `state` 的列对应 `{ state: true }`。其他任意真值（`1`、`'yes'` 等）同样会勾选，推荐使用 `true` 或 `{ checked: true }`。
+
+  也可通过 formatter 控制复选框状态（返回 `true` 勾选，返回 `false` 取消勾选），但 formatter 的结果只作用于已渲染的行：对分页时其他页的行以及被搜索隐藏的行，其勾选状态不受影响，且显式返回 `false` 会覆盖用户手动勾选的显示状态。如需在切换页面或搜索后保留选中的行，请使用 [maintainMetaData](https://bootstrap-table.com/zh-cn/docs/api/table-options/#maintainmetadata) 选项。设置初始勾选状态时，推荐直接在行数据中设置字段值。
 
 - **默认值:** `false`
 
@@ -325,7 +327,7 @@ $('#table').bootstrapTable({
 
 - **详情:**
 
-  默认排序顺序，只能是 `'asc'` 或 `'desc'`。
+  该列的默认排序顺序，只能是 `'asc'` 或 `'desc'`。它决定第一次点击该列表头时的排序方向，不会在页面加载时就排序。如需页面加载即排序，请改用表级 [`sortName`](https://bootstrap-table.com/zh-cn/docs/api/table-options/#sortname) 和 [`sortOrder`](https://bootstrap-table.com/zh-cn/docs/api/table-options/#sortorder) 选项。在列上设置 `data-sort-order`（即 `sortOrder`）并不是官方的列选项，它只是为兼容而保留的本选项的旧别名，且存在时优先于本选项生效。
 
 - **默认值:** `'asc'`
 
@@ -355,7 +357,9 @@ $('#table').bootstrapTable({
 
   设为 `true` 时显示单选框。单选框列具有固定宽度。
 
-  如果提供了值，会自动选中该单选框。也可通过 formatter 控制单选框状态（返回 `true` 选中，返回 `false` 取消选中）。
+  在行数据中将单选框列的字段值设为 `true`（或 `{ checked: true }` 对象）即可初始选中该单选框，例如字段为 `state` 的列对应 `{ state: true }`。其他任意真值（`1`、`'yes'` 等）同样会选中，推荐使用 `true` 或 `{ checked: true }`。
+
+  也可通过 formatter 控制单选框状态（返回 `true` 选中，返回 `false` 取消选中），但 formatter 的结果只作用于已渲染的行：对分页时其他页的行以及被搜索隐藏的行，其选中状态不受影响，且显式返回 `false` 会覆盖用户手动选中的显示状态。设置初始选中状态时，推荐直接在行数据中设置字段值。
 
 - **默认值:** `false`
 

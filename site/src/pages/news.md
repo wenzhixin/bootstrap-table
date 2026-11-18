@@ -5,6 +5,40 @@ title: News
 description: News and announcements for all things Bootstrap Table, including new releases.
 ---
 
+## Bootstrap Table 1.28.0
+
+<span class="post-date">28 Oct 2026</span>
+
+#### Core
+
+- **New:** Added `orderList` option to customize the column sort direction cycle.
+- **New:** Added RTL support via the `rtl` option.
+- **New:** Added Norwegian Nynorsk (nn-NO) locale.
+- **New:** Added Azerbaijani Latin (az-Latn-AZ) locale.
+- **Update:** Fixed the columns dropdown displaying raw HTML markup when using `escapeTitle`.
+- **Update:** Fixed `scrollTo` not working with rows in virtual scroll.
+- **Update:** Fixed table rendering when initially hidden with a fixed height.
+- **Update:** Fixed `showColumnsSearch` not filtering columns in Bootstrap 5.
+- **Update:** Used `removeHTML` instead of `escapeHTML` for label and title display.
+- **Update:** Translated missing ro-RO strings and added diacritics.
+- **Update:** Extracted `parseStringArray` utility function to eliminate code duplication.
+- **Update:** Moved `events.js` to the helpers directory to align with `dom.js`.
+- **Update:** Reverted the presentation role added for tables with no matching rows.
+
+#### Extensions
+
+- **New(print):** Added `rowStyle` and `cellStyle` support.
+- **Update(print):** Fixed print window closing before the print dialog completes.
+- **Update(print):** Fixed print footer not displayed by using `tfoot` tag instead of `footer`.
+- **Update(print):** Fixed print footer error with rowspan/colspan columns.
+- **Update(print):** Replaced direct DOM operations with `DOMHelper`.
+- **Update(filter-control):** Fixed `pageNumber` resetting when the cookie extension is enabled.
+- **Update(filter-control):** Fixed `clearFilterControl` for input controls and added `searchOnEnterKey` tests.
+- **Update(filter-control):** Fixed caret restoration after filtering.
+- **Update(filter-control):** Passed Enter keyCode when `triggerSearch` fires keyup.
+- **Update(filter-control):** Kept `_initialized` true after a no-op column toggle.
+- **Update(group-by-v2):** Fixed `isCollapsed` to handle function returning array for `groupByCollapsedGroups`.
+
 ## Bootstrap Table 1.27.3
 
 <span class="post-date">24 Apr 2026</span>

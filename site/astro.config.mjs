@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config'
 import { defaultLocale, locales } from './src/i18n/ui.js'
+import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import remarkInjectConfig from './src/plugins/remark-config.js'
@@ -18,10 +19,13 @@ export default defineConfig({
       }
     }
   },
-  integrations: [
-    mdx({
+  markdown: {
+    processor: unified({
       remarkPlugins: [remarkInjectConfig]
-    }),
+    })
+  },
+  integrations: [
+    mdx(),
     sitemap()
   ],
   redirects: {

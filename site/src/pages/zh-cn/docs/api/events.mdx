@@ -413,6 +413,20 @@ $('#table').on('event-name.bs.table', function (e, arg1, arg2, ...) {
 
   * `rows`：之前已选中行对应的记录数组。
 
+## onUpdateDetailView
+
+- **jQuery 事件:** `update-detail-view.bs.table`
+
+- **参数:** `index, row, $element`
+
+- **详情:**
+
+  当通过 `updateDetailView` 或 `updateDetailViewByUniqueId` 重新渲染已展开行的详情视图时触发。参数包含：
+
+  * `index`：行的索引。
+  * `row`：该行对应的记录。
+  * `$element`：详情视图的 `td` 元素。
+
 ## onVirtualScroll
 
 - **jQuery 事件:** `virtual-scroll.bs.table`

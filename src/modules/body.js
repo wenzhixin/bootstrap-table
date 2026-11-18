@@ -300,11 +300,13 @@ export default {
           return Utils.h('div', { class: cardViewClass })
         }
 
+        const fieldTitle = Utils.getFieldTitle(this.columns, field)
         const cardTitle = this.options.showHeader ?
           Utils.h('span', {
             class: ['card-view-title', cellStyle.classes],
             style: attrs.style,
-            html: Utils.getFieldTitle(this.columns, field)
+            html: this.options.escape && this.options.escapeTitle ?
+              Utils.escapeHTML(fieldTitle) : fieldTitle
           }) : ''
 
         return Utils.h('div', { class: cardViewClass }, [
@@ -395,14 +397,11 @@ export default {
       }
     }
 
-    this.$el.removeAttr('role')
-
     // show no records
     if (!hasTr) {
       this.$body.html(`<tr class="no-records-found">${Utils.sprintf('<td colspan="%s">%s</td>',
         this.getVisibleFields().length + Utils.getDetailViewIndexOffset(this.options),
         this.options.formatNoMatches())}</tr>`)
-      this.$el.attr('role', 'presentation')
     } else if (!this.options.virtualScroll) {
       this.$body.html(trFragments)
     } else {
@@ -508,6 +507,13 @@ export default {
         this.$tableBorder.css('width', `${$bodyTable.outerWidth()}px`)
         this.$tableBorder.css('height', `${tableBorderHeight}px`)
       }
+
+      if (!this.options.cardView && this.options.showFooter) {
+        // the vertical scrollbar is only rendered after the container height
+        // is applied and the layout is settled, so fit the footer again
+        // asynchronously with the real scrollbar width (same as resetHeader)
+        this._setDelayTimeout('footer', () => this.fitFooter(), 0)
+      }
     }
 
     if (this.options.cardView) {
@@ -565,8 +571,26 @@ export default {
     let scrollTo = options.value
 
     if (options.unit === 'rows') {
+      let rowCount = options.value
+      let $rows = this.$body.find('> tr')
+
       scrollTo = 0
-      this.$body.find(`> tr:lt(${options.value})`).each((i, el) => {
+
+      if (this.options.virtualScroll && this.virtualScroll) {
+        // Rows outside the rendered block are replaced by spacer rows,
+        // so count them with the item height instead of the spacer height
+        const { itemHeight, startIndex = 0 } = this.virtualScroll
+        const rowsAbove = Math.min(rowCount, startIndex)
+
+        $rows = $rows.not('.virtual-scroll-top, .virtual-scroll-bottom')
+        rowCount -= rowsAbove
+        const rowsBelow = Math.max(rowCount - $rows.length, 0)
+
+        rowCount -= rowsBelow
+        scrollTo += (rowsAbove + rowsBelow) * itemHeight
+      }
+
+      $rows.slice(0, rowCount).each((i, el) => {
         scrollTo += $(el).outerHeight(true)
       })
     }

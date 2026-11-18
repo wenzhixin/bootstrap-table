@@ -738,10 +738,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.49.0',
+  	  version: '3.51.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -754,9 +754,11 @@
   	if (hasRequiredShared) return shared;
   	hasRequiredShared = 1;
   	var store = requireSharedStore();
+  	// eslint-disable-next-line es/no-object-create -- safe
+  	var create = Object.create || Object;
 
   	shared = function (key, value) {
-  	  return store[key] || (store[key] = value || {});
+  	  return store[key] || (store[key] = value || create(null));
   	};
   	return shared;
   }
@@ -3681,7 +3683,9 @@
   	    function search(regexp) {
   	      var O = requireObjectCoercible(this);
   	      var searcher = isObject(regexp) ? getMethod(regexp, SEARCH) : undefined;
-  	      return searcher ? call(searcher, regexp, O) : new RegExp(regexp)[SEARCH](toString(O));
+  	      if (searcher) return call(searcher, regexp, O);
+  	      var S = toString(O);
+  	      return new RegExp(regexp)[SEARCH](S);
   	    },
   	    // `RegExp.prototype[@@search]` method
   	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@search
@@ -4053,7 +4057,7 @@
           // FilterControl logic
           this._filterControls = [];
           this._filterControlValuesLoaded = false;
-          this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ? this.options.cookiesEnabled.replace('[', '').replace(']', '').replace(/'/g, '').replace(/ /g, '').split(',') : this.options.cookiesEnabled;
+          this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ? Utils.parseStringArray(this.options.cookiesEnabled) : this.options.cookiesEnabled;
           if (this.options.filterControl) {
             this.$el.on('column-search.bs.table', function (e, field, text) {
               var isNewField = true;

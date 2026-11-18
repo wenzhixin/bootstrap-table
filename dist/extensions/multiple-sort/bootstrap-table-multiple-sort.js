@@ -565,10 +565,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.49.0',
+  	  version: '3.51.0',
   	  mode: IS_PURE ? 'pure' : 'global',
   	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -581,9 +581,11 @@
   	if (hasRequiredShared) return shared;
   	hasRequiredShared = 1;
   	var store = requireSharedStore();
+  	// eslint-disable-next-line es/no-object-create -- safe
+  	var create = Object.create || Object;
 
   	shared = function (key, value) {
-  	  return store[key] || (store[key] = value || {});
+  	  return store[key] || (store[key] = value || create(null));
   	};
   	return shared;
   }
@@ -3377,6 +3379,7 @@
     this.trigger('multiple-sort');
   };
   BootstrapTable.prototype.addLevel = function (index, sortPriority) {
+    var _this2 = this;
     var text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
     this.$sortModal.find('tbody').append($('<tr>').append($('<td>').text(text)).append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-name')))).append($('<td>').append($(Utils.sprintf(theme.html.multipleSortSelect, this.constants.classes.paginationDropdown, 'multi-sort-order')))));
     var $multiSortName = this.$sortModal.find('.multi-sort-name').last();
@@ -3385,7 +3388,8 @@
       if (column.sortable === false || column.visible === false) {
         return true;
       }
-      $multiSortName.append("<option value=\"".concat(column.field, "\">").concat(column.title, "</option>"));
+      var title = _this2.options.escape && _this2.options.escapeTitle ? Utils.escapeHTML(column.title) : column.title;
+      $multiSortName.append("<option value=\"".concat(column.field, "\">").concat(title, "</option>"));
     });
     $.each(this.options.formatSortOrders(), function (value, order) {
       $multiSortOrder.append("<option value=\"".concat(value, "\">").concat(order, "</option>"));
@@ -3423,14 +3427,14 @@
     }
   };
   BootstrapTable.prototype.multiSort = function (sortPriority) {
-    var _this2 = this;
+    var _this3 = this;
     this.options.sortPriority = sortPriority;
     this.options.sortName = undefined;
     if (this.options.sidePagination === 'server') {
       var queryParams = this.options.queryParams;
       this.options.queryParams = function (params) {
-        params.multiSort = _this2.options.sortPriority;
-        return $.fn.bootstrapTable.utils.calculateObjectValue(_this2.options, queryParams, [params]);
+        params.multiSort = _this3.options.sortPriority;
+        return $.fn.bootstrapTable.utils.calculateObjectValue(_this3.options, queryParams, [params]);
       };
       isSingleSort = false;
       this.initServer(this.options.silentSort);
