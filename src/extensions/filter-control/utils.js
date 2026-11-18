@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
+const multipleSelectInputs = '.ms-drop input'
 const selectionInputTypes = ['password', 'search', 'tel', 'text', 'url']
 
 export function getInputClass (that, isSelect = false) {
@@ -30,7 +31,7 @@ export function isKeyAllowed (keyCode) {
 }
 
 export function getSearchControls (that) {
-  return getControlContainer(that).find(searchControls)
+  return getControlContainer(that).find(searchControls).not(multipleSelectInputs)
 }
 
 export function hideUnusedSelectOptions (selectControl, uniqueValues) {
@@ -243,6 +244,8 @@ export function setValues (that) {
       callbacks.forEach(callback => callback())
     }
   }
+
+  syncMultipleSelectControls(that)
 }
 
 export function collectBootstrapTableFilterCookies () {
@@ -451,7 +454,9 @@ export function createControls (that, header) {
         filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
+        if (!selectControl.prop('multiple')) {
+          addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
+        }
         filterDataType(that, filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
       } else {
         throw new SyntaxError(
@@ -477,7 +482,7 @@ export function createControls (that, header) {
 
       const $currentTarget = $(currentTarget)
 
-      if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
+      if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio') || $currentTarget.is(multipleSelectInputs)) {
         return
       }
 
@@ -508,7 +513,7 @@ export function createControls (that, header) {
       const $input = $(currentTarget)
       const oldValue = $input.val()
 
-      if (oldValue === '') {
+      if (oldValue === '' || $input.is(multipleSelectInputs)) {
         return
       }
 
@@ -578,54 +583,48 @@ export function createControls (that, header) {
     header.find('.filter-control, .no-filter-control').hide()
   }
 
-  // Initialize multiple select controls if needed
-  initMultipleSelectControls(that, header)
-  
   that.trigger('created-controls')
 }
 
-export function initMultipleSelectControls (that, header) {
-  $.each(that.columns, (_, column) => {
-    if (column.filterControlMultipleSelect && column.filterControl === 'select') {
-      const selectControl = header.find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
-      
-      if (selectControl.length > 0 && typeof $.fn.multipleSelect === 'function') {
-        // Set flag that we're using multiple select
-        that._usingMultipleSelect = true
-        
-        // Initialize multiple-select plugin with options
-        const multipleSelectOptions = Object.assign({
-          placeholder: column.filterControlPlaceholder || 'Choose...',
-          selectAll: true,
-          selectAllText: 'Select All',
-          allSelected: 'All selected',
-          countSelected: '# of % selected',
-          noMatchesFound: 'No matches found'
-        }, column.filterControlMultipleSelectOptions || {})
-        
-        selectControl.multipleSelect(multipleSelectOptions)
-        
-        // Handle multiple select change events
-        selectControl.on('change', function () {
-          const $this = $(this)
-          const selectedValues = $this.val() || []
-          
-          // Store the values for later use
-          that._valuesFilterControl = that._valuesFilterControl || []
-          const existingIndex = that._valuesFilterControl.findIndex(item => item.field === column.field)
-          
-          if (existingIndex >= 0) {
-            that._valuesFilterControl[existingIndex].value = selectedValues
-          } else {
-            that._valuesFilterControl.push({
-              field: column.field,
-              value: selectedValues,
-              position: 0,
-              hasFocus: false
-            })
-          }
-        })
-      }
+export function syncMultipleSelectControls (that) {
+  if (typeof $.fn.multipleSelect !== 'function') {
+    return
+  }
+
+  const hasFixedHeader = that.options.height && !that.options.filterControlContainer
+  // fitHeader() clones $header with its data, so the plugin is only built on the visible fixed header copy.
+  const $container = hasFixedHeader ? that.$tableHeader : getControlContainer(that)
+
+  $container.find('select[multiple]').each((_, element) => {
+    const $select = $(element)
+    const column = that.columns[that.fieldsColumnsIndex[$select.closest('[data-field]').data('field')]]
+
+    if (!column || !column.filterControlMultipleSelect) {
+      return
+    }
+
+    const optionValues = Array.from(element.options, option => option.value).join('\n')
+
+    if (!$select.data('multipleSelect')) {
+      $select.multipleSelect({
+        placeholder: column.filterControlPlaceholder,
+        container: hasFixedHeader ? 'body' : null,
+        ...column.filterControlMultipleSelectOptions
+      })
+    } else if ($select.data('filterControlOptionValues') === optionValues) {
+      $select.multipleSelect('setSelects', $select.val() || [], 'value', true)
+    } else {
+      $select.multipleSelect('refresh')
+    }
+
+    $select.data('filterControlOptionValues', optionValues)
+  })
+}
+
+export function closeMultipleSelectControls (that) {
+  that.$tableHeader.find('select[multiple]').each((_, element) => {
+    if ($(element).data('multipleSelect')) {
+      $(element).multipleSelect('close')
     }
   })
 }

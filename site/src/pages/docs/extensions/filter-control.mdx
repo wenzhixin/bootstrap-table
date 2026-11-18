@@ -225,7 +225,9 @@ toc: true
 
 - **Detail:**
 
-  Set to `true` to enable multiple selection in select filter controls. When enabled, users can select multiple filter options simultaneously. This option only works with `filterControl: 'select'` and requires the [multiple-select.js](https://github.com/wenzhixin/multiple-select) plugin to be loaded for enhanced styling and functionality.
+  Set to `true` to let users select several values in a `filterControl: 'select'` control. Rows matching any of the selected values are shown.
+
+  The control is a native `<select multiple>`. When the [multiple-select](https://github.com/wenzhixin/multiple-select) plugin is loaded, it is used to render the control.
 
 - **Default:** `false`
 
@@ -237,13 +239,9 @@ toc: true
 
 - **Detail:**
 
-  Configuration options passed to the multiple-select.js plugin when `filterControlMultipleSelect` is enabled. Common options include:
-  - `placeholder`: Text to show when no options are selected
-  - `selectAll`: Whether to show a "Select All" option
-  - `selectAllText`: Text for the "Select All" option
-  - `countSelected`: Format string for showing selected count
-  
-  Example: `data-filter-control-multiple-select-options='{"placeholder": "Choose categories...", "selectAll": true}'`
+  Options passed to the [multiple-select](https://github.com/wenzhixin/multiple-select) plugin when `filterControlMultipleSelect` is enabled and the plugin is loaded. `placeholder` defaults to `filterControlPlaceholder`, and `container` defaults to `'body'` when the table has a `height`.
+
+  Example: `data-filter-control-multiple-select-options='{"filter": true, "selectAll": false}'`
 
 - **Default:** `{}`
 
@@ -317,7 +315,7 @@ toc: true
 
 ### onColumnSearch(column-search.bs.table)
 
-* Fired when we are searching into the column data
+* Fired when we are searching into the column data. For a `filterControlMultipleSelect` column, `text` is an array of the selected values.
 
 ### onCreatedControls(created-controls.bs.table)
 
