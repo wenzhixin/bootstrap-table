@@ -76,7 +76,7 @@
 
 		functionBindNative = !fails(function () {
 		  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-		  var test = (function () { /* empty */ }).bind();
+		  var test = function () { /* empty */ }.bind();
 		  // eslint-disable-next-line no-prototype-builtins -- safe
 		  return typeof test != 'function' || test.hasOwnProperty('prototype');
 		});
@@ -555,10 +555,10 @@
 		var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 		(store.versions || (store.versions = [])).push({
-		  version: '3.44.0',
+		  version: '3.51.0',
 		  mode: IS_PURE ? 'pure' : 'global',
-		  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-		  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+		  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+		  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
 		  source: 'https://github.com/zloirock/core-js'
 		});
 		return sharedStore.exports;
@@ -571,9 +571,11 @@
 		if (hasRequiredShared) return shared;
 		hasRequiredShared = 1;
 		var store = requireSharedStore();
+		// eslint-disable-next-line es/no-object-create -- safe
+		var create = Object.create || Object;
 
 		shared = function (key, value) {
-		  return store[key] || (store[key] = value || {});
+		  return store[key] || (store[key] = value || create(null));
 		};
 		return shared;
 	}
@@ -911,7 +913,7 @@
 
 		var EXISTS = hasOwn(FunctionPrototype, 'name');
 		// additional protection from minified / mangled / dropped function names
-		var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+		var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
 		var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
 		functionName = {
@@ -934,7 +936,7 @@
 
 		var functionToString = uncurryThis(Function.toString);
 
-		// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+		// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
 		if (!isCallable(store.inspectSource)) {
 		  store.inspectSource = function (it) {
 		    return functionToString(it);
@@ -1549,7 +1551,7 @@
 		var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
 
 		doesNotExceedSafeInteger = function (it) {
-		  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
+		  if (it > MAX_SAFE_INTEGER) throw new $TypeError('Maximum allowed index exceeded');
 		  return it;
 		};
 		return doesNotExceedSafeInteger;
@@ -1572,6 +1574,41 @@
 		return createProperty;
 	}
 
+	var arraySetLength;
+	var hasRequiredArraySetLength;
+
+	function requireArraySetLength () {
+		if (hasRequiredArraySetLength) return arraySetLength;
+		hasRequiredArraySetLength = 1;
+		var DESCRIPTORS = requireDescriptors();
+		var isArray = requireIsArray();
+
+		var $TypeError = TypeError;
+		// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+		var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+		// Safari < 13 does not throw an error in this case
+		var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+		  // makes no sense without proper strict mode support
+		  if (this !== undefined) return true;
+		  try {
+		    // eslint-disable-next-line es/no-object-defineproperty -- safe
+		    Object.defineProperty([], 'length', { writable: false }).length = 1;
+		  } catch (error) {
+		    return error instanceof TypeError;
+		  }
+		}();
+
+		arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+		  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+		    throw new $TypeError('Cannot set read only .length');
+		  } return O.length = length;
+		} : function (O, length) {
+		  return O.length = length;
+		};
+		return arraySetLength;
+	}
+
 	var toStringTagSupport;
 	var hasRequiredToStringTagSupport;
 
@@ -1582,7 +1619,7 @@
 
 		var TO_STRING_TAG = wellKnownSymbol('toStringTag');
 		var test = {};
-
+		// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
 		test[TO_STRING_TAG] = 'z';
 
 		toStringTagSupport = String(test) === '[object z]';
@@ -1775,6 +1812,7 @@
 		var lengthOfArrayLike = requireLengthOfArrayLike();
 		var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
 		var createProperty = requireCreateProperty();
+		var setArrayLength = requireArraySetLength();
 		var arraySpeciesCreate = requireArraySpeciesCreate();
 		var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
 		var wellKnownSymbol = requireWellKnownSymbol();
@@ -1820,7 +1858,7 @@
 		        createProperty(A, n++, E);
 		      }
 		    }
-		    A.length = n;
+		    setArrayLength(A, n);
 		    return A;
 		  }
 		});
@@ -1941,142 +1979,162 @@
 
 	$.fn.bootstrapTable.locales['ro-RO'] = $.fn.bootstrapTable.locales['ro'] = {
 	  formatAddLevel: function formatAddLevel() {
-	    return 'Add Level';
+	    return 'Adaugă nivel';
 	  },
 	  formatAdvancedCloseButton: function formatAdvancedCloseButton() {
-	    return 'Close';
+	    return 'Închide';
 	  },
 	  formatAdvancedSearch: function formatAdvancedSearch() {
-	    return 'Advanced search';
+	    return 'Căutare avansată';
 	  },
 	  formatAllRows: function formatAllRows() {
 	    return 'Toate';
 	  },
 	  formatAutoRefresh: function formatAutoRefresh() {
-	    return 'Auto Refresh';
+	    return 'Reîncărcare automată';
 	  },
 	  formatCancel: function formatCancel() {
-	    return 'Cancel';
+	    return 'Anulează';
 	  },
 	  formatClearSearch: function formatClearSearch() {
-	    return 'Clear Search';
+	    return 'Șterge căutarea';
 	  },
 	  formatColumn: function formatColumn() {
-	    return 'Column';
+	    return 'Coloană';
 	  },
 	  formatColumns: function formatColumns() {
 	    return 'Coloane';
 	  },
 	  formatColumnsToggleAll: function formatColumnsToggleAll() {
-	    return 'Toggle all';
+	    return 'Selectează toate';
 	  },
 	  formatCopyRows: function formatCopyRows() {
-	    return 'Copy Rows';
+	    return 'Copiază rândurile';
 	  },
 	  formatDeleteLevel: function formatDeleteLevel() {
-	    return 'Delete Level';
+	    return 'Șterge nivel';
 	  },
 	  formatDetailPagination: function formatDetailPagination(totalRows) {
-	    return "Showing ".concat(totalRows, " rows");
+	    // Romanian plural: 1 rând, 2 rânduri, 20 de rânduri
+	    var n = parseInt(totalRows, 10);
+	    var rows = 'de rânduri';
+	    if (n === 1) {
+	      rows = 'rând';
+	    } else if (n === 0 || n % 100 >= 1 && n % 100 <= 19) {
+	      rows = 'rânduri';
+	    }
+	    return "Se afi\u0219eaz\u0103 ".concat(totalRows, " ").concat(rows);
 	  },
 	  formatDuplicateAlertDescription: function formatDuplicateAlertDescription() {
-	    return 'Please remove or change any duplicate column.';
+	    return 'Vă rugăm să eliminați sau să modificați coloanele duplicate.';
 	  },
 	  formatDuplicateAlertTitle: function formatDuplicateAlertTitle() {
-	    return 'Duplicate(s) detected!';
+	    return 'Au fost detectate duplicate!';
 	  },
 	  formatExport: function formatExport() {
-	    return 'Export data';
+	    return 'Exportă datele';
 	  },
 	  formatFilterControlSwitch: function formatFilterControlSwitch() {
-	    return 'Hide/Show controls';
+	    return 'Ascunde/afișează filtrele';
 	  },
 	  formatFilterControlSwitchHide: function formatFilterControlSwitchHide() {
-	    return 'Hide controls';
+	    return 'Ascunde filtrele';
 	  },
 	  formatFilterControlSwitchShow: function formatFilterControlSwitchShow() {
-	    return 'Show controls';
+	    return 'Afișează filtrele';
 	  },
 	  formatFullscreen: function formatFullscreen() {
-	    return 'Fullscreen';
+	    return 'Ecran complet';
 	  },
 	  formatJumpTo: function formatJumpTo() {
-	    return 'GO';
+	    return 'Mergi';
 	  },
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Se incarca, va rugam asteptati';
+	    return 'Se încarcă, vă rugăm să așteptați';
 	  },
 	  formatMultipleSort: function formatMultipleSort() {
-	    return 'Multiple Sort';
+	    return 'Sortare multiplă';
 	  },
 	  formatNoMatches: function formatNoMatches() {
-	    return 'Nu au fost gasite inregistrari';
+	    return 'Nu au fost găsite înregistrări';
 	  },
 	  formatOrder: function formatOrder() {
-	    return 'Order';
+	    return 'Ordine';
 	  },
 	  formatPaginationSwitch: function formatPaginationSwitch() {
-	    return 'Ascunde/Arata paginatia';
+	    return 'Ascunde/afișează paginarea';
 	  },
 	  formatPaginationSwitchDown: function formatPaginationSwitchDown() {
-	    return 'Show pagination';
+	    return 'Afișează paginarea';
 	  },
 	  formatPaginationSwitchUp: function formatPaginationSwitchUp() {
-	    return 'Hide pagination';
+	    return 'Ascunde paginarea';
 	  },
 	  formatPrint: function formatPrint() {
-	    return 'Print';
+	    return 'Imprimă';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
-	    return "".concat(pageNumber, " inregistrari pe pagina");
+	    return "R\xE2nduri pe pagin\u0103: ".concat(pageNumber);
 	  },
 	  formatRefresh: function formatRefresh() {
-	    return 'Reincarca';
+	    return 'Reîncarcă';
 	  },
 	  formatSRPaginationNextText: function formatSRPaginationNextText() {
-	    return 'next page';
+	    return 'pagina următoare';
 	  },
 	  formatSRPaginationPageText: function formatSRPaginationPageText(page) {
-	    return "to page ".concat(page);
+	    return "la pagina ".concat(page);
 	  },
 	  formatSRPaginationPreText: function formatSRPaginationPreText() {
-	    return 'previous page';
+	    return 'pagina anterioară';
 	  },
 	  formatSearch: function formatSearch() {
-	    return 'Cauta';
+	    return 'Caută';
 	  },
 	  formatShowingRows: function formatShowingRows(pageFrom, pageTo, totalRows, totalNotFiltered) {
+	    // Romanian plural: 1 rând, 2 rânduri, 20 de rânduri
+	    var rows = function rows(count) {
+	      var n = parseInt(count, 10);
+	      if (n === 1) {
+	        return "".concat(count, " r\xE2nd");
+	      }
+	      if (n === 0 || n % 100 >= 1 && n % 100 <= 19) {
+	        return "".concat(count, " r\xE2nduri");
+	      }
+	      return "".concat(count, " de r\xE2nduri");
+	    };
 	    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-	      return "Arata de la ".concat(pageFrom, " pana la ").concat(pageTo, " din ").concat(totalRows, " randuri (filtered from ").concat(totalNotFiltered, " total rows)");
+	      var filtered = parseInt(totalRows, 10) === 1 ? 'filtrat' : 'filtrate';
+	      return "Se afi\u0219eaz\u0103 de la ".concat(pageFrom, " la ").concat(pageTo, " din ").concat(rows(totalRows), " (").concat(filtered, " dintr-un total de ").concat(rows(totalNotFiltered), ")");
 	    }
-	    return "Arata de la ".concat(pageFrom, " pana la ").concat(pageTo, " din ").concat(totalRows, " randuri");
+	    return "Se afi\u0219eaz\u0103 de la ".concat(pageFrom, " la ").concat(pageTo, " din ").concat(rows(totalRows));
 	  },
 	  formatSort: function formatSort() {
-	    return 'Sort';
+	    return 'Sortează';
 	  },
 	  formatSortBy: function formatSortBy() {
-	    return 'Sort by';
+	    return 'Sortează după';
 	  },
 	  formatSortOrders: function formatSortOrders() {
 	    return {
-	      asc: 'Ascending',
-	      desc: 'Descending'
+	      asc: 'Crescător',
+	      desc: 'Descrescător'
 	    };
 	  },
 	  formatThenBy: function formatThenBy() {
-	    return 'Then by';
+	    return 'Apoi după';
 	  },
 	  formatToggleCustomViewOff: function formatToggleCustomViewOff() {
-	    return 'Hide custom view';
+	    return 'Ascunde vizualizarea personalizată';
 	  },
 	  formatToggleCustomViewOn: function formatToggleCustomViewOn() {
-	    return 'Show custom view';
+	    return 'Afișează vizualizarea personalizată';
 	  },
 	  formatToggleOff: function formatToggleOff() {
-	    return 'Hide card view';
+	    return 'Ascunde vizualizarea pe carduri';
 	  },
 	  formatToggleOn: function formatToggleOn() {
-	    return 'Show card view';
+	    return 'Afișează vizualizarea pe carduri';
 	  }
 	};
 	Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ro-RO']);

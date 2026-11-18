@@ -1,5 +1,6 @@
 addrbar
 akottr
+apos
 bootcss
 borderless
 bowser
@@ -9,6 +10,7 @@ clearfix
 colspan
 csses
 datepicker
+undelegate
 dblclick
 djhvscf
 dragaccept
@@ -51,6 +53,7 @@ unported
 unstackable
 utecht
 valign
+vdom
 vuejs
 wenzhixin
 xmlhttp

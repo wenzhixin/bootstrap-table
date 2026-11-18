@@ -6,7 +6,7 @@
 
 $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   formatAddLevel () {
-    return 'Add Level'
+    return 'Přidat úroveň'
   },
 
   formatAdvancedCloseButton () {
@@ -26,7 +26,7 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatCancel () {
-    return 'Cancel'
+    return 'Zrušit'
   },
 
   formatClearSearch () {
@@ -34,7 +34,7 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatColumn () {
-    return 'Column'
+    return 'Sloupec'
   },
 
   formatColumns () {
@@ -50,19 +50,19 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatDeleteLevel () {
-    return 'Delete Level'
+    return 'Odebrat úroveň'
   },
 
   formatDetailPagination (totalRows) {
-    return `Zobrazuji ${totalRows} řádek`
+    return `Počet zobrazených řádků: ${totalRows}`
   },
 
   formatDuplicateAlertDescription () {
-    return 'Please remove or change any duplicate column.'
+    return 'Odeberte nebo změňte sloupce, které se opakují.'
   },
 
   formatDuplicateAlertTitle () {
-    return 'Duplicate(s) detected!'
+    return 'Nalezeny duplicity!'
   },
 
   formatExport () {
@@ -82,11 +82,11 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatFullscreen () {
-    return 'Zapnout/Vypnout fullscreen'
+    return 'Zapnout/Vypnout celou obrazovku'
   },
 
   formatJumpTo () {
-    return 'GO'
+    return 'Přejít'
   },
 
   formatLoadingMessage () {
@@ -94,7 +94,7 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatMultipleSort () {
-    return 'Multiple Sort'
+    return 'Řazení podle více sloupců'
   },
 
   formatNoMatches () {
@@ -102,7 +102,7 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatOrder () {
-    return 'Order'
+    return 'Pořadí'
   },
 
   formatPaginationSwitch () {
@@ -122,7 +122,7 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} položek na stránku`
+    return `Řádků na stránce: ${pageNumber}`
   },
 
   formatRefresh () {
@@ -130,15 +130,15 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
   },
 
   formatSRPaginationNextText () {
-    return 'další strana'
+    return 'další stránka'
   },
 
   formatSRPaginationPageText (page) {
-    return `na stranu ${page}`
+    return `na stránku ${page}`
   },
 
   formatSRPaginationPreText () {
-    return 'předchozí strana'
+    return 'předchozí stránka'
   },
 
   formatSearch () {
@@ -147,37 +147,37 @@ $.fn.bootstrapTable.locales['cs-CZ'] = $.fn.bootstrapTable.locales['cs'] = {
 
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows} (filtered from ${totalNotFiltered} total rows)`
+      return `Zobrazeny řádky ${pageFrom}–${pageTo} z ${totalRows} (vyfiltrováno z ${totalNotFiltered})`
     }
 
-    return `Zobrazena ${pageFrom}. - ${pageTo} . položka z celkových ${totalRows}`
+    return `Zobrazeny řádky ${pageFrom}–${pageTo} z ${totalRows}`
   },
 
   formatSort () {
-    return 'Sort'
+    return 'Seřadit'
   },
 
   formatSortBy () {
-    return 'Sort by'
+    return 'Seřadit podle'
   },
 
   formatSortOrders () {
     return {
-      asc: 'Ascending',
-      desc: 'Descending'
+      asc: 'Vzestupně',
+      desc: 'Sestupně'
     }
   },
 
   formatThenBy () {
-    return 'Then by'
+    return 'Potom podle'
   },
 
   formatToggleCustomViewOff () {
-    return 'Hide custom view'
+    return 'Skrýt vlastní pohled'
   },
 
   formatToggleCustomViewOn () {
-    return 'Show custom view'
+    return 'Zobrazit vlastní pohled'
   },
 
   formatToggleOff () {

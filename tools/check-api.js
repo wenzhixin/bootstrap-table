@@ -1,18 +1,57 @@
 import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import chalk from 'chalk'
 import Constants from '../src/constants/index.js'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 let errorSum = 0
-const exampleFilesFolder = './bootstrap-table-examples/'
+
+const docsApiFolder = path.join(__dirname, '..', 'site', 'src', 'pages')
+
+// Supported locales: the docs folder and the localized labels of each
+// attribute. The label keys must match the `attributes` defined per doc type.
+const LOCALES = [
+  {
+    name: 'en',
+    folder: path.join(docsApiFolder, 'docs', 'api'),
+    labels: {
+      Attribute: 'Attribute',
+      Type: 'Type',
+      Detail: 'Detail',
+      Default: 'Default',
+      Example: 'Example',
+      Parameter: 'Parameter',
+      'jQuery Event': 'jQuery Event'
+    }
+  },
+  {
+    name: 'zh-cn',
+    folder: path.join(docsApiFolder, 'zh-cn', 'docs', 'api'),
+    labels: {
+      Attribute: '属性',
+      Type: '类型',
+      Detail: '详情',
+      Default: '默认值',
+      Example: '示例',
+      Parameter: '参数',
+      'jQuery Event': 'jQuery 事件'
+    }
+  }
+]
+
+const exampleFilesFolder = path.join(__dirname, 'bootstrap-table-examples')
 const exampleFilesFound = fs.existsSync(exampleFilesFolder)
 let exampleFiles = []
 
 if (exampleFilesFound) {
   exampleFiles = [
-    ...fs.readdirSync(exampleFilesFolder + 'welcomes'),
-    ...fs.readdirSync(exampleFilesFolder + 'options'),
-    ...fs.readdirSync(exampleFilesFolder + 'column-options'),
-    ...fs.readdirSync(exampleFilesFolder + 'methods')
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'welcomes')),
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'options')),
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'column-options')),
+    ...fs.readdirSync(path.join(exampleFilesFolder, 'methods'))
   ]
 } else {
   console.log((chalk.yellow(chalk.bold('Warning: ') + 'Cant check if example files are correct formatted and have a valid url.')))
@@ -20,7 +59,8 @@ if (exampleFilesFound) {
 }
 
 class API {
-  constructor () {
+  constructor (locale) {
+    this.locale = locale
     this.init()
     this.sortOptions()
     this.check()
@@ -31,21 +71,22 @@ class API {
   }
 
   check () {
-    const file = `../site/docs/api/${this.file}`
+    const file = path.join(this.locale.folder, this.file)
+    const { labels } = this.locale
     const md = {}
     const content = fs.readFileSync(file).toString()
     const lines = content.split('## ')
     const outLines = lines.slice(0, 1)
     const errors = []
     const exampleRegex = /\[.*\]\(.*\/(.*\.html)\)/m
-    const attributeRegex = /\*\*Attribute:\*\*\s`(.*)data-(.*)`/m
+    const attributeRegex = new RegExp('\\*\\*' + labels.Attribute + ':\\*\\*\\s`(.*)data-(.*)`', 'm')
 
     for (const item of lines.slice(1)) {
       md[item.split('\n')[0]] = item
     }
 
     console.log('-------------------------')
-    console.log(`Checking file: ${file}`)
+    console.log(`Checking file (${this.locale.name}): ${file}`)
     console.log('-------------------------')
 
     const noDefaults = Object.keys(md).filter(it => !this.options.includes(it))
@@ -69,7 +110,8 @@ class API {
               continue
             }
 
-            const tmpDetails = details[i + 1].trim()
+            const tmpDetails = (details[i + 1] || '').trim()
+            const label = labels[name]
             if (name === 'Example' && exampleFilesFound) {
               const matches = exampleRegex.exec(tmpDetails)
               if (!matches) {
@@ -89,8 +131,8 @@ class API {
               }
             }
 
-            if (!tmpDetails || tmpDetails.indexOf(`**${name}:**`) === -1) {
-              errors.push(chalk.red(`[${key}] missing '${name}'`))
+            if (!tmpDetails || tmpDetails.indexOf(`**${label}:**`) === -1) {
+              errors.push(chalk.red(`[${key}] missing '${label}'`))
             }
           }
         } else {
@@ -114,7 +156,7 @@ class API {
 
 class TableOptions extends API {
   init () {
-    this.file = 'table-options.md'
+    this.file = 'table-options.mdx'
     this.options = Object.keys(Constants.DEFAULTS).filter(it => {
       return !/^(on|format)[A-Z]/.test(it)
     })
@@ -130,7 +172,7 @@ class TableOptions extends API {
 
 class ColumnOptions extends API {
   init () {
-    this.file = 'column-options.md'
+    this.file = 'column-options.mdx'
     this.options = Object.keys(Constants.COLUMN_DEFAULTS)
     this.attributes = ['Attribute', 'Type', 'Detail', 'Default', 'Example']
   }
@@ -138,7 +180,7 @@ class ColumnOptions extends API {
 
 class Methods extends API {
   init () {
-    this.file = 'methods.md'
+    this.file = 'methods.mdx'
     this.options = Constants.METHODS
     this.attributes = ['Parameter', 'Detail', 'Example']
   }
@@ -146,7 +188,7 @@ class Methods extends API {
 
 class Events extends API {
   init () {
-    this.file = 'events.md'
+    this.file = 'events.mdx'
     this.options = Object.values(Constants.EVENTS)
     this.attributes = ['jQuery Event', 'Parameter', 'Detail']
   }
@@ -154,17 +196,19 @@ class Events extends API {
 
 class Localizations extends API {
   init () {
-    this.file = 'localizations.md'
+    this.file = 'localizations.mdx'
     this.options = Object.keys(Constants.LOCALES.en)
     this.attributes = ['Parameter', 'Default']
   }
 }
 
-new TableOptions()
-new ColumnOptions()
-new Methods()
-new Events()
-new Localizations()
+for (const locale of LOCALES) {
+  new TableOptions(locale)
+  new ColumnOptions(locale)
+  new Methods(locale)
+  new Events(locale)
+  new Localizations(locale)
+}
 
 if (errorSum === 0) {
   console.log('Good job! Anything up to date!')

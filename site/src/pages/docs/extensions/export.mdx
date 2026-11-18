@@ -1,0 +1,230 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Export
+description: Table Export extension of Bootstrap Table.
+group: extensions
+toc: true
+---
+
+This extension now uses a built-in exporter (no external plugin required).
+
+> **Note**
+>
+> Since the deprecated [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin) has been removed,
+> the following types are **no longer supported**: `png`, `pdf`, `xlsx`, `doc` and `powerpoint`.
+> Export / table values are read from the table data model instead of the rendered DOM, so the plugin specific
+> options such as `ignoreColumn`, `csvSeparator`, `csvEnclosure`, `ignoreRow` and `displayTableName` are ignored.
+> If you need one of the removed formats, please use a dedicated library (for example SheetJS or jsPDF) together with
+> the `getData` method.
+
+## Usage
+
+```html
+<script src="extensions/export/bootstrap-table-export.js"></script>
+```
+
+## Example
+
+[Export](https://examples.bootstrap-table.com/#extensions/export.html)
+
+## Options
+
+### beforeExport
+
+- **type:** `Function`
+
+- **Detail:**
+
+  Called after the export data is collected and before the file is generated and downloaded.
+  Return `false` to cancel the export: no file is downloaded and the `export-saved` event
+  is not triggered (the `export-started` event is still triggered before it).
+
+  * `data`: the rows about to be exported (depends on `exportDataType`, footer rows not included)
+  * `type`: the export type, e.g. `'csv'`
+  * `instance`: the Bootstrap Table instance
+
+  ```js
+  beforeExport (data, type, instance) {
+    if (data.length > 10000) {
+      return false // cancel the export
+    }
+  }
+  ```
+
+  Note: with `exportDataType: 'all'` and server side pagination, the data is fetched from
+  the server before `beforeExport` is called, and `exportTable()` still returns `true`
+  in this case (the cancellation happens asynchronously).
+
+- **Default:** `() => true`
+
+### showExport
+
+- **Attribute:** `data-show-export`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to show the export button.
+
+- **Default:** `false`
+
+### exportDataType
+
+- **Attribute:** `data-export-data-type`
+
+- **type:** `String`
+
+- **Detail:**
+
+  Export data type, support: `'basic'`, `'all'`, `'selected'`.
+
+  * `'basic'`: exports the rows of the current page only.
+  * `'all'`: exports all rows of all pages.
+  * `'selected'`: exports the selected rows only, nothing is exported if no row is selected.
+
+  The selected columns are defined by the `forceExport`/`forceHide` and `visible` column options, the checkbox/radio
+  state column is always skipped. Cell values are the formatter results with their HTML tags stripped,
+  mirroring what is displayed in the table.
+
+- **Default:** `basic`
+
+### exportFooter
+
+- **Attribute:** `data-export-footer`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to export the table footer. The footer is appended as the last row of the exported file,
+  using the `footerFormatter` of every exported column.
+
+- **Default:** `false`
+
+### exportOptions
+
+- **Attribute:** `data-export-options`
+
+- **type:** `Object`
+
+- **Detail:**
+
+  Options for the built-in exporter:
+
+  - `fileName`: `String` or `Function`, the filename without extension (default `table`).
+  - `csvDelimiter`: `String`, the delimiter used by the `csv` and `excel` types (default `,`).
+  - `tableName`: `String`, the table name used by the `sql` and `xml` types (default `table`).
+
+  Options passed to the `exportTable` method are merged into these options, for example:
+
+  ```js
+  $('#table').bootstrapTable('exportTable', { type: 'csv', fileName: 'my-report' })
+  ```
+
+  `exportOptions.fileName` can be a string or a function, for example:
+
+  ```js
+  exportOptions: {
+    fileName: function () {
+      return 'exportName'
+    }
+  }
+  ```
+
+### exportTypes
+
+- **Attribute:** `data-export-types`
+
+- **type:** `Array`
+
+- **Detail:**
+
+  Built-in export types: `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`.
+  Note: `png`, `xlsx`, `pdf`, `doc`, `powerpoint` are not supported by the built-in exporter.
+
+  * `csv`/`txt`: values are joined with the delimiter, CSV files start with a UTF-8 BOM and use `CRLF` line endings
+    so that spreadsheet applications keep the encoding.
+  * `json`: each row is an object keyed by the column `field` (not by the column title).
+  * `xml`: the root element comes from `exportOptions.tableName`, the row elements are `<row>` children,
+    column tags are derived from the column `field` and sanitized to valid XML names.
+  * `sql`: generates a single `INSERT INTO` statement, no file is created when there is no row to export.
+  * `excel`: **generates CSV content with a `.xls` extension**, it is not a real Excel workbook.
+    Excel shows a "format differs from the file extension" warning when opening such a file.
+
+  Unsupported types are skipped: `exportTable` returns `false`, logs a warning and neither exports a file
+  nor triggers the `export-started`/`export-saved` events.
+
+- **Default:** `['json', 'xml', 'csv', 'txt', 'sql', 'excel']`
+
+### Icons
+
+- export: `'glyphicon-export icon-share'`
+
+## Column options
+
+### forceExport
+
+- **Attribute:** `data-force-export`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to force export a column e.g. hidden columns.
+
+- **Default:** `false`
+
+### forceHide
+
+- **Attribute:** `data-force-hide`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to force hide a column e.g. for icon columns.
+
+- **Default:** `false`
+
+## Events
+
+### onExportSaved
+
+- **jQuery Event:** `export-saved.bs.table`
+
+- **Parameter:** `exportedRows`
+
+- **Detail:**
+
+  Fired when the data is exported, the parameter contain:
+
+  * `exportedRows`: The exported rows (depends on exportDataType)
+
+### onExportStarted
+
+- **jQuery Event:** `export-started.bs.table`
+
+- **Parameter:** `undefined`
+
+- **Detail:**
+
+  Fired before the data will be collected and exported.
+
+## Methods
+
+### exportTable
+
+- **parameters:** `options`
+
+- **Detail:**
+
+  Export table with custom options.
+
+## Localizations
+
+### formatExport
+
+- **Parameter:** `undefined`
+
+- **Default:** `function () { return "Export data" }`

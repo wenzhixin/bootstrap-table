@@ -3,9 +3,22 @@
   position: absolute;
   top: 0;
   height: 100%;
-  background-color: #fff;
+
+  // The white background lives on the children instead of the container so
+  // that the strip between the fixed body and the fixed footer stays
+  // transparent: it reveals the main body horizontal scroll bar instead of
+  // painting over it.
+  background-color: transparent;
   box-sizing: border-box;
+  pointer-events: none;
   z-index: 1;
+
+  > .fixed-table-header,
+  > .fixed-table-body,
+  > .fixed-table-footer {
+    background-color: #fff;
+    pointer-events: auto;
+  }
 }
 
 .fixed-columns {
@@ -21,5 +34,28 @@
 
   .fixed-table-body {
     overflow-x: hidden !important;
+  }
+}
+
+.fixed-columns,
+.fixed-columns-right {
+  > .fixed-table-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    // Stretch between `left` and `right` instead of `width: 100%` so that the
+    // scroll bar gutter (`margin-right`, set by the extension JS) shrinks the
+    // right footer: its columns then line up with the right fixed header and
+    // body instead of being shifted by the gutter width.
+    right: 0;
+    box-sizing: border-box;
+  }
+}
+
+.fixed-columns,
+.fixed-columns-right,
+.fixed-table-container > .fixed-table-body {
+  .table-hover .hover-row {
+    background-color: var(--bt-table-hover-bg, var(--bs-table-hover-bg, rgba(0, 0, 0, 0.075)));
   }
 }

@@ -1,0 +1,95 @@
+---
+import Config from '@/config.js'
+import { useTranslations } from '@/i18n/utils'
+
+const t = useTranslations(Astro.currentLocale)
+const infoItems = [
+  {
+    key: 'footer.description',
+    params: {
+      fork: '<a href="http://getbootstrap.com/">Bootstrap</a>'
+    }
+  },
+  {
+    key: 'footer.maintainer',
+    params: {
+      user: `<a href="https://github.com/${Config.github}">@${Config.github}</a>`
+    }
+  },
+  {
+    key: 'footer.license',
+    params: {
+      version: Config.currentVersion,
+      license: `<a href="${Config.repo}/blob/master/LICENSE" target="_blank">MIT</a>`,
+      by: '<a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>'
+    }
+  }
+]
+const links = [
+  {
+    href: Config.repo,
+    text: 'GitHub',
+    target: '_blank'
+  },
+  {
+    href: `https://twitter.com/${Config.twitter}`,
+    text: 'Twitter',
+    target: '_blank'
+  },
+  {
+    href: Config.website,
+    text: t('footer.my_website'),
+    target: '_blank'
+  },
+  {
+    href: Config.repos,
+    text: t('footer.my_repos'),
+    target: '_blank'
+  },
+  {
+    href: Config.questions,
+    text: t('footer.questions'),
+    target: '_blank'
+  },
+  {
+    href: `mailto:${Config.email}`,
+    text: t('footer.email')
+  }
+]
+---
+
+<footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
+  <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+    <div class="row">
+      <div class="col-lg-6">
+        <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none">
+          <img src={`${Config.baseurl}/favicon.png`} width="36" height="36">
+          <span class="fs-5 ms-2">{Config.title}</span>
+        </a>
+
+        <ul class="list-unstyled small">
+          {infoItems.map(item =>
+            <li class="mb-2" set:html={t(item.key, item.params)}></li>
+          )}
+        </ul>
+      </div>
+
+      <div class="col-lg-6">
+        <h3>{t('footer.links')}</h3>
+        <ul class="list-unstyled">
+          {links.map(item =>
+            <li class="mb-2">
+              <a
+                href={item.href}
+                {...(item.target && { target: item.target })}
+                {...(item.target === '_blank' && { rel: 'noopener noreferrer' })}
+              >
+                {item.text}
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

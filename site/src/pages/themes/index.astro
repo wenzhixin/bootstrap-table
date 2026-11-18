@@ -1,0 +1,190 @@
+---
+import SimpleLayout from '@/layouts/SimpleLayout.astro'
+import Categories from '@/components/themes/Categories.astro'
+import List from '@/components/themes/List.astro'
+
+const frontmatter = {
+  title: 'Bootstrap Table Themes',
+  description: 'Discover beautiful themes and templates that work seamlessly with Bootstrap Table',
+  page: 'themes'
+}
+
+const categories = {
+  all: 'All Themes',
+  css: 'CSS Frameworks',
+  vue: 'Vuejs',
+  others: 'Others'
+}
+
+const themes = {
+  css: [
+    {
+      name: 'Bootstrap v5',
+      desc: 'The most popular HTML, CSS, and JavaScript framework.',
+      img: '/assets/images/bootstrap5.jpg',
+      url: '/docs/getting-started/introduction/',
+      demo: 'https://examples.bootstrap-table.com',
+      price: ''
+    },
+    {
+      name: 'Bootstrap v4',
+      desc: 'The most popular HTML, CSS, and JavaScript framework.',
+      img: '/assets/images/bootstrap4.jpg',
+      url: '/themes/bootstrap4/',
+      demo: 'https://examples.bootstrap-table.com/index.html?bootstrap4',
+      price: ''
+    },
+    {
+      name: 'Bootstrap v3',
+      desc: 'The most popular HTML, CSS, and JavaScript framework.',
+      img: '/assets/images/bootstrap3.jpg',
+      url: '/themes/bootstrap3/',
+      demo: 'https://examples.bootstrap-table.com/index.html?bootstrap3',
+      price: ''
+    },
+    {
+      name: 'Bootstrap Table',
+      desc: 'Our custom theme of Bootstrap Table.',
+      img: '/assets/images/bootstrap-table.jpg',
+      url: '/themes/bootstrap-table/',
+      demo: 'https://examples.bootstrap-table.com/index.html?bootstrap-table',
+      price: ''
+    },
+    {
+      name: 'Semantic UI',
+      desc: 'UI component framework based around useful principles from natural language.',
+      img: '/assets/images/semantic.jpg',
+      url: '/themes/semantic/',
+      demo: 'https://examples.bootstrap-table.com/index.html?semantic',
+      price: ''
+    },
+    {
+      name: 'Bulma',
+      desc: 'Modern CSS framework based on Flexbox.',
+      img: '/assets/images/bulma.jpg',
+      url: '/themes/bulma/',
+      demo: 'https://examples.bootstrap-table.com/index.html?bulma',
+      price: ''
+    },
+    {
+      name: 'Materialize',
+      desc: 'A modern responsive front-end framework based on Material Design.',
+      img: '/assets/images/materialize.jpg',
+      url: '/themes/materialize/',
+      demo: 'https://examples.bootstrap-table.com/index.html?materialize',
+      price: ''
+    },
+    {
+      name: 'Foundation',
+      desc: 'The most advanced responsive front-end framework in the world.',
+      img: '/assets/images/foundation.jpg',
+      url: '/themes/foundation/',
+      demo: 'https://examples.bootstrap-table.com/index.html?foundation',
+      price: ''
+    }
+  ],
+  vue: [
+    {
+      name: 'Element Table',
+      desc: 'An extended table to integration with bootstrap-table and element-ui.',
+      img: '/assets/images/element-table.jpg',
+      url: 'https://element.bootstrap-table.com/',
+      demo: 'https://element.bootstrap-table.com/',
+      price: ''
+    }
+  ],
+  others: [
+    {
+      name: 'Fresh Bootstrap Table',
+      desc: 'Fresh Bootstrap Table Template.',
+      img: '/assets/images/fresh-table.jpg',
+      url: 'https://secure.2checkout.com/affiliate.php?ACCOUNT=CREATIV&AFFILIATE=117417&PATH=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Ffresh-bootstrap-table%3FAFFILIATE%3D117417',
+      demo: 'https://wenzhixin.github.io/fresh-bootstrap-table/compact-table.html',
+      price: ''
+    }
+  ]
+}
+---
+
+<SimpleLayout frontmatter={frontmatter}>
+  <Categories categories={categories} current="all" />
+
+  {Object.entries(themes).map(([key, value]) =>
+    <List key={key} title={categories[key]} themes={value} category={key} />
+  )}
+</SimpleLayout>
+
+<style>
+  .landing-title {
+    text-align: center;
+    margin: 60px 0 40px 0;
+  }
+
+  .landing-title .title {
+    font-size: 48px;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+    color: #333;
+  }
+
+  .landing-title .description {
+    font-size: 18px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .row {
+    margin: 0 -15px;
+  }
+
+  .col-md-12 {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .col-xs-12 {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .col-sm-6 {
+    width: 50%;
+    padding: 0 15px;
+  }
+
+  .col-md-4 {
+    width: 33.333333%;
+    padding: 0 15px;
+  }
+
+  .col-lg-4 {
+    width: 33.333333%;
+    padding: 0 15px;
+  }
+
+  @media (max-width: 768px) {
+    .col-sm-6,
+    .col-md-4,
+    .col-lg-4 {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .landing-title .title {
+      font-size: 36px;
+    }
+
+    .landing-title .description {
+      font-size: 16px;
+    }
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 构建工具
+description: 学习如何使用 Bootstrap Table 包含的 npm 脚本来构建文档、编译源代码等。
+group: getting-started
+toc: true
+---
+
+## 工具设置
+
+Bootstrap Table 使用 [NPM 脚本](https://docs.npmjs.com/misc/scripts) 作为其构建系统。我们的 [package.json]([[config:repo]]/blob/[[config:currentVersion]]/package.json) 包含了使用框架的便捷方法，包括代码检查、编译代码等。
+
+要使用我们的构建系统并在本地运行文档，您需要 Bootstrap Table 源代码的副本和 Node.js。按照以下步骤，您就可以开始使用了：
+
+1. [下载并安装 Node.js](https://nodejs.org/en/download/)，我们使用它来管理依赖项。
+2. 导航到根目录 `/bootstrap-table` 并运行 `npm install` 来安装 [package.json]([[config:repo]]/blob/[[config:currentVersion]]/package.json) 中列出的本地依赖项。
+3. **（仅文档站点）** 如果您想设置文档站点，请导航到 `/site` 目录并运行 `npm install` 来安装 Astro 和文档站点的其他依赖项。
+
+完成后，您将能够从命令行运行各种命令。
+
+## 使用 NPM 脚本
+
+我们的 [package.json]([[config:repo]]/blob/[[config:currentVersion]]/package.json) 包含以下命令和任务：
+
+| 任务 | 描述 |
+| --- | --- |
+| `npm run build` | `npm run build` 创建包含编译文件的 `/dist` 目录。 |
+| `npm run lint` | 检查 `/src` 目录中的 CSS 和 JavaScript。 |
+| `npm run test` | 运行项目中的测试用例。 |
+
+运行 `npm run` 查看所有 npm 脚本。
+
+## 本地文档
+
+在本地运行我们的文档需要使用 Astro，这是一个现代静态站点生成器，为我们提供：基于组件的架构、基于 Markdown 的文件、模板等。以下是开始使用的方法：
+
+1. 按照上面的 [工具设置](#tooling-setup) 安装 Astro 和其他依赖项。
+2. 导航到 `/site` 目录并在命令行中运行 `npm run dev`。
+3. 在浏览器中打开 `http://localhost:4321` 查看本地文档站点。
+
+通过阅读 Astro 的 [文档](https://docs.astro.build/) 了解更多关于使用 Astro 的信息。
+
+## 故障排除
+
+如果您在安装依赖项时遇到问题，请卸载所有以前的依赖项版本（全局和本地）。然后，重新运行 `npm install`。

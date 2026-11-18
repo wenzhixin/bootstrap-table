@@ -12,9 +12,6 @@ src/**/*.css
 src/**/*.css.map
 .sass-cache
 
-# old docs
-docs_
-
 # check the locale file on README
 release.*
 

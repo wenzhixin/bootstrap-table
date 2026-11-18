@@ -1,0 +1,70 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Sticky Header
+description: Bootstrap Table 的吸顶表头扩展，在滚动时将表格表头固定在视口顶部。
+group: extensions
+toc: true
+---
+
+该扩展为表格提供了吸顶表头功能，当页面滚动时，表格表头会固定在视口顶部，方便用户在查看大量数据时始终能看到列标题。
+
+## 用法
+
+```html
+<link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
+<script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
+```
+
+## 示例
+
+[Sticky Header](https://examples.bootstrap-table.com/#extensions/sticky-header.html)
+
+## 选项
+
+### stickyHeader
+
+- **属性:** `data-sticky-header`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用吸顶表头功能。设置为 `true` 时，表格表头会在页面滚动时固定在视口顶部。
+
+- **默认值:** `false`
+
+### stickyHeaderOffsetLeft
+
+- **属性:** `data-sticky-header-offset-left`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置吸顶容器的左侧偏移量（单位：像素）。例如，当页面 body 左侧内边距为 `60px` 时，可将该值设为 `60`，使吸顶表头与页面内容对齐。
+
+- **默认值:** `0`
+
+### stickyHeaderOffsetRight
+
+- **属性:** `data-sticky-header-offset-right`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置吸顶容器的右侧偏移量（单位：像素）。例如，当页面 body 右侧内边距为 `60px` 时，可将该值设为 `60`，使吸顶表头与页面内容对齐。
+
+- **默认值:** `0`
+
+### stickyHeaderOffsetY
+
+- **属性:** `data-sticky-header-offset-y`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置吸顶表头距离窗口顶部的偏移量（单位：像素）。例如，当页面存在高度为 `60px` 的固定导航栏时，可将该值设为 `60`，避免吸顶表头被导航栏遮挡。
+
+- **默认值:** `0`

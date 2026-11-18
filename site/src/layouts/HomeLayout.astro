@@ -1,0 +1,20 @@
+---
+import Header from '@/components/Header.astro'
+import Navbar from '@/components/Navbar.astro'
+import Footer from '@/components/Footer.astro'
+import Scripts from '@/components/Scripts.astro'
+
+const layout = 'home'
+const locale = Astro.currentLocale
+---
+
+<!doctype html>
+<html lang={locale}>
+  <Header frontmatter={{}} />
+  <body>
+    <Navbar layout={layout} />
+    <slot />
+    <Footer />
+    <Scripts layout={layout} />
+  </body>
+</html>

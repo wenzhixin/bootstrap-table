@@ -28,7 +28,7 @@ restrictions:
 
 * Please **do not** open issues or pull requests regarding the code in [`bootstrap-table-examples`](https://github.com/wenzhixin/bootstrap-table-examples) and [`extensions plugin dependence`](https://github.com/wenzhixin/bootstrap-table/tree/develop/src/extensions) (open them in their respective repositories), the dependence list:
     * Table Editable: [x-editable](https://github.com/vitalets/x-editable)
-    * Table Export: [tableExport.jquery.plugin](https://github.com/hhurz/tableExport.jquery.plugin)
+    * Table Export: built-in exporter (no external plugin)
     * Table Reorder-Columns: [jquery-ui](https://code.jquery.com/ui/) and [dragTable](https://github.com/akottr/dragtable/)
     * Table Reorder-Rows: [tablednd](https://github.com/isocra/TableDnD)
     * Table Resizable: [jquery-resizable-columns](https://github.com/dobtco/jquery-resizable-columns)

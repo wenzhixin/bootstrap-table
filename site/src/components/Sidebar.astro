@@ -1,0 +1,120 @@
+---
+import {
+  getBaseUrl,
+  getCurrentSlug,
+  getSidebarTitle,
+  useTranslations
+} from '@/i18n/utils'
+
+const baseurl = getBaseUrl(Astro.currentLocale)
+const t = useTranslations(Astro.currentLocale)
+
+// Build navigation structure from file system
+const nav = [
+  {
+    slug: 'getting-started',
+    pages: [
+      { slug: 'introduction' },
+      { slug: 'download' },
+      { slug: 'contents' },
+      { slug: 'usage' },
+      { slug: 'browsers-devices' },
+      { slug: 'build-tools' }
+    ]
+  },
+  {
+    slug: 'api',
+    pages: [
+      { slug: 'table-options' },
+      { slug: 'column-options' },
+      { slug: 'events' },
+      { slug: 'methods' },
+      { slug: 'localizations' }
+    ]
+  },
+  {
+    slug: 'extensions',
+    pages: [
+      { slug: 'addrbar' },
+      { slug: 'auto-refresh' },
+      { slug: 'cookie' },
+      { slug: 'copy-rows' },
+      { slug: 'custom-view' },
+      { slug: 'defer-url' },
+      { slug: 'editable' },
+      { slug: 'export' },
+      { slug: 'filter-control' },
+      { slug: 'fixed-columns' },
+      { slug: 'group-by-v2' },
+      { slug: 'i18n-enhance' },
+      { slug: 'key-events' },
+      { slug: 'mobile' },
+      { slug: 'multiple-sort' },
+      { slug: 'page-jump-to' },
+      { slug: 'pipeline' },
+      { slug: 'print' },
+      { slug: 'reorder-columns' },
+      { slug: 'reorder-rows' },
+      { slug: 'resizable' },
+      { slug: 'sticky-header' },
+      { slug: 'toolbar' },
+      { slug: 'treegrid' }
+    ]
+  },
+  {
+    slug: 'vuejs',
+    pages: [
+      { slug: 'introduction' },
+      { slug: 'browser' },
+      { slug: 'webpack' },
+      { slug: 'component' }
+    ]
+  },
+  {
+    slug: 'faq',
+    pages: [
+      { slug: 'faq' }
+    ]
+  },
+  {
+    slug: 'about',
+    pages: [
+      { slug: 'overview' },
+      { slug: 'license' }
+    ]
+  }
+]
+
+const [currentGroup, currentPage] = getCurrentSlug(Astro.url.pathname, Astro.currentLocale)
+---
+
+<ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2 flex-grow-1 overflow-y-auto" id="bd-docs-nav">
+  {nav.map(group => {
+    const isGroupActive = currentGroup === group.slug
+
+    return (
+      <li class={`bd-links-group py-2${isGroupActive ? ' active' : ''}`}>
+        <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
+          {getSidebarTitle(t, group.slug)}
+        </strong>
+
+        <ul class="list-unstyled fw-normal pb-2 small">
+          {group.pages.map(doc => {
+            const isActive = isGroupActive && currentPage === doc.slug
+
+            return (
+              <li>
+                <a
+                  class={`bd-links-link d-inline-block rounded${isActive ? ' active bd-sidenav-active' : ''}`}
+                  href={`${baseurl}/docs/${group.slug}/${doc.slug}/`}
+                >
+                  {getSidebarTitle(t, doc.slug)}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </li>
+    )
+  })}
+</ul>

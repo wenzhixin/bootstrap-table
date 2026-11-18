@@ -1,0 +1,198 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Multiple Sort
+description: Bootstrap Table 的多重排序扩展，支持同时按多个字段排序。
+group: extensions
+toc: true
+---
+
+多重排序扩展允许用户同时按多个列对表格数据进行排序，提供更灵活的数据排序方式。
+
+## 用法
+
+```html
+<script src="extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
+```
+
+## 示例
+
+[Multiple Sort](https://examples.bootstrap-table.com/#extensions/multiple-sort.html)
+
+## 选项
+
+### showMultiSort
+
+- **属性:** `data-show-multi-sort`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用多重排序功能。设置为 `true` 时，用户可以同时设置多个排序条件。
+
+- **默认值:** `false`
+
+### showMultiSortButton
+
+- **属性:** `data-show-multi-sort-button`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否显示多重排序按钮。设置为 `false` 时，隐藏多重排序控制按钮。
+
+- **默认值:** `true`
+
+### multiSortStrictSort
+
+- **属性:** `data-multi-sort-strict-sort`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设为 `true` 启用严格排序（即字符串将通过 `toLowerCase` 比较）。
+
+- **默认值:** `false`
+
+### sortPriority
+
+- **属性:** `data-sort-priority`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  设置一个或多个排序优先级，例如：
+  ```json
+  [
+    {
+      "sortName": "forks_count",
+      "sortOrder": "desc"
+    },
+    {
+      "sortName": "stargazers_count",
+      "sortOrder":"desc"
+    }
+  ]
+  ```
+
+- **默认值:** `null`
+
+### 图标
+* `sort`: `'glyphicon-sort'`
+* `plus`: `'glyphicon-plus'`
+* `minus`: `'glyphicon-minus'`
+
+## 方法
+
+### multipleSort
+
+- **参数:** 无
+
+- **详情:**
+
+  强制执行多列排序（适用于手动修改数据后）。
+
+### multiSort
+
+- **参数:** `sortPriority`
+
+- **详情:**
+
+  设置一个或多个排序优先级，例如：
+  ```json
+  [
+    {
+      "sortName": "forks_count",
+      "sortOrder": "desc"
+    },
+    {
+      "sortName": "stargazers_count",
+      "sortOrder": "asc"
+    }
+  ]
+  ```
+
+## 本地化
+
+### formatAddLevel
+
+- **详情:** 添加层级按钮文本
+
+- **默认值:** `function () { return "Add Level" }`
+
+### formatCancel
+
+- **详情:** 取消按钮文本
+
+- **默认值:** `function () { return "Cancel" }`
+
+### formatColumn
+
+- **详情:** 列标题文本
+
+- **默认值:** `function () { return "Column" }`
+
+### formatDeleteLevel
+
+- **详情:** 删除层级按钮文本
+
+- **默认值:** `function () { return "Delete Level" }`
+
+### formatDuplicateAlertTitle
+
+- **详情:** 重复警告标题
+
+- **默认值:** `function () { return "Duplicate(s) detected!" }`
+
+### formatDuplicateAlertDescription
+
+- **详情:** 重复警告正文
+
+- **默认值:** `function () { return "Please remove or change any duplicate column." }`
+
+### formatMultipleSort
+
+- **详情:** 高级搜索弹窗标题
+
+- **默认值:** `function () { return "Multiple Sort" }`
+
+### formatOrder
+
+- **详情:** 排序顺序文本
+
+- **默认值:** `function () { return "Order" }`
+
+### formatSort
+
+- **详情:** 排序按钮文本
+
+- **默认值:** `function () { return "Sort" }`
+
+### formatSortBy
+
+- **详情:** “排序依据”文本
+
+- **默认值:** `function () { return "Sort by" }`
+
+### formatSortOrders
+
+- **详情:** 排序顺序的文本
+
+- **默认值:**
+  - `asc`: `function () { return "Ascending" }`
+  - `desc`: `function () { return "Descending" }`
+
+### formatThenBy
+
+- **详情:** “然后按”文本
+
+- **默认值:** `function () { return "Then by" }`
+
+## 事件
+
+### onMultipleSort (multiple-sort.bs.table)
+
+* 当按一个或多个排序优先级排序时触发。

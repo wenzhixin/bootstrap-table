@@ -259,7 +259,7 @@
 
   	functionBindNative = !fails(function () {
   	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-  	  var test = (function () { /* empty */ }).bind();
+  	  var test = function () { /* empty */ }.bind();
   	  // eslint-disable-next-line no-prototype-builtins -- safe
   	  return typeof test != 'function' || test.hasOwnProperty('prototype');
   	});
@@ -738,10 +738,10 @@
   	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
   	(store.versions || (store.versions = [])).push({
-  	  version: '3.44.0',
+  	  version: '3.51.0',
   	  mode: IS_PURE ? 'pure' : 'global',
-  	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-  	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+  	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+  	  license: 'https://github.com/zloirock/core-js/blob/v3.51.0/LICENSE',
   	  source: 'https://github.com/zloirock/core-js'
   	});
   	return sharedStore.exports;
@@ -754,9 +754,11 @@
   	if (hasRequiredShared) return shared;
   	hasRequiredShared = 1;
   	var store = requireSharedStore();
+  	// eslint-disable-next-line es/no-object-create -- safe
+  	var create = Object.create || Object;
 
   	shared = function (key, value) {
-  	  return store[key] || (store[key] = value || {});
+  	  return store[key] || (store[key] = value || create(null));
   	};
   	return shared;
   }
@@ -1094,7 +1096,7 @@
 
   	var EXISTS = hasOwn(FunctionPrototype, 'name');
   	// additional protection from minified / mangled / dropped function names
-  	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+  	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
   	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
   	functionName = {
@@ -1117,7 +1119,7 @@
 
   	var functionToString = uncurryThis(Function.toString);
 
-  	// this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
+  	// this helper broken in `core-js [at] 3.4.1-3.4.4`, so we can't use `shared` helper
   	if (!isCallable(store.inspectSource)) {
   	  store.inspectSource = function (it) {
   	    return functionToString(it);
@@ -1732,7 +1734,7 @@
   	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
 
   	doesNotExceedSafeInteger = function (it) {
-  	  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
+  	  if (it > MAX_SAFE_INTEGER) throw new $TypeError('Maximum allowed index exceeded');
   	  return it;
   	};
   	return doesNotExceedSafeInteger;
@@ -1755,6 +1757,41 @@
   	return createProperty;
   }
 
+  var arraySetLength;
+  var hasRequiredArraySetLength;
+
+  function requireArraySetLength () {
+  	if (hasRequiredArraySetLength) return arraySetLength;
+  	hasRequiredArraySetLength = 1;
+  	var DESCRIPTORS = requireDescriptors();
+  	var isArray = requireIsArray();
+
+  	var $TypeError = TypeError;
+  	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+  	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  	// Safari < 13 does not throw an error in this case
+  	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+  	  // makes no sense without proper strict mode support
+  	  if (this !== undefined) return true;
+  	  try {
+  	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+  	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+  	  } catch (error) {
+  	    return error instanceof TypeError;
+  	  }
+  	}();
+
+  	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+  	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  	    throw new $TypeError('Cannot set read only .length');
+  	  } return O.length = length;
+  	} : function (O, length) {
+  	  return O.length = length;
+  	};
+  	return arraySetLength;
+  }
+
   var toStringTagSupport;
   var hasRequiredToStringTagSupport;
 
@@ -1765,7 +1802,7 @@
 
   	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
   	var test = {};
-
+  	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	test[TO_STRING_TAG] = 'z';
 
   	toStringTagSupport = String(test) === '[object z]';
@@ -1958,6 +1995,7 @@
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var doesNotExceedSafeInteger = requireDoesNotExceedSafeInteger();
   	var createProperty = requireCreateProperty();
+  	var setArrayLength = requireArraySetLength();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
   	var arrayMethodHasSpeciesSupport = requireArrayMethodHasSpeciesSupport();
   	var wellKnownSymbol = requireWellKnownSymbol();
@@ -2003,7 +2041,7 @@
   	        createProperty(A, n++, E);
   	      }
   	    }
-  	    A.length = n;
+  	    setArrayLength(A, n);
   	    return A;
   	  }
   	});
@@ -2061,13 +2099,11 @@
   	if (hasRequiredArrayIteration) return arrayIteration;
   	hasRequiredArrayIteration = 1;
   	var bind = requireFunctionBindContext();
-  	var uncurryThis = requireFunctionUncurryThis();
   	var IndexedObject = requireIndexedObject();
   	var toObject = requireToObject();
   	var lengthOfArrayLike = requireLengthOfArrayLike();
   	var arraySpeciesCreate = requireArraySpeciesCreate();
-
-  	var push = uncurryThis([].push);
+  	var createProperty = requireCreateProperty();
 
   	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
   	var createMethod = function (TYPE) {
@@ -2078,28 +2114,28 @@
   	  var IS_FIND_INDEX = TYPE === 6;
   	  var IS_FILTER_REJECT = TYPE === 7;
   	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-  	  return function ($this, callbackfn, that, specificCreate) {
+  	  return function ($this, callbackfn, that) {
   	    var O = toObject($this);
   	    var self = IndexedObject(O);
   	    var length = lengthOfArrayLike(self);
   	    var boundFunction = bind(callbackfn, that);
   	    var index = 0;
-  	    var create = specificCreate || arraySpeciesCreate;
-  	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+  	    var resIndex = 0;
+  	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
   	    var value, result;
   	    for (;length > index; index++) if (NO_HOLES || index in self) {
   	      value = self[index];
   	      result = boundFunction(value, index, O);
   	      if (TYPE) {
-  	        if (IS_MAP) target[index] = result; // map
+  	        if (IS_MAP) createProperty(target, index, result);    // map
   	        else if (result) switch (TYPE) {
-  	          case 3: return true;              // some
-  	          case 5: return value;             // find
-  	          case 6: return index;             // findIndex
-  	          case 2: push(target, value);      // filter
+  	          case 3: return true;                                // some
+  	          case 5: return value;                               // find
+  	          case 6: return index;                               // findIndex
+  	          case 2: createProperty(target, resIndex++, value);  // filter
   	        } else switch (TYPE) {
-  	          case 4: return false;             // every
-  	          case 7: push(target, value);      // filterReject
+  	          case 4: return false;                               // every
+  	          case 7: createProperty(target, resIndex++, value);  // filterReject
   	        }
   	      }
   	    }
@@ -2393,9 +2429,15 @@
   	  return !Array(1).includes();
   	});
 
+  	// Safari 26.4- bug
+  	var BROKEN_ON_SPARSE_WITH_FROM_INDEX = fails(function () {
+  	  // eslint-disable-next-line no-sparse-arrays, es/no-array-prototype-includes -- detection
+  	  return [, 1].includes(undefined, 1);
+  	});
+
   	// `Array.prototype.includes` method
   	// https://tc39.es/ecma262/#sec-array.prototype.includes
-  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
+  	$({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE || BROKEN_ON_SPARSE_WITH_FROM_INDEX }, {
   	  includes: function includes(el /* , fromIndex = 0 */) {
   	    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
   	  }
@@ -2407,54 +2449,6 @@
   }
 
   requireEs_array_includes();
-
-  var es_array_join = {};
-
-  var arrayMethodIsStrict;
-  var hasRequiredArrayMethodIsStrict;
-
-  function requireArrayMethodIsStrict () {
-  	if (hasRequiredArrayMethodIsStrict) return arrayMethodIsStrict;
-  	hasRequiredArrayMethodIsStrict = 1;
-  	var fails = requireFails();
-
-  	arrayMethodIsStrict = function (METHOD_NAME, argument) {
-  	  var method = [][METHOD_NAME];
-  	  return !!method && fails(function () {
-  	    // eslint-disable-next-line no-useless-call -- required for testing
-  	    method.call(null, argument || function () { return 1; }, 1);
-  	  });
-  	};
-  	return arrayMethodIsStrict;
-  }
-
-  var hasRequiredEs_array_join;
-
-  function requireEs_array_join () {
-  	if (hasRequiredEs_array_join) return es_array_join;
-  	hasRequiredEs_array_join = 1;
-  	var $ = require_export();
-  	var uncurryThis = requireFunctionUncurryThis();
-  	var IndexedObject = requireIndexedObject();
-  	var toIndexedObject = requireToIndexedObject();
-  	var arrayMethodIsStrict = requireArrayMethodIsStrict();
-
-  	var nativeJoin = uncurryThis([].join);
-
-  	var ES3_STRINGS = IndexedObject !== Object;
-  	var FORCED = ES3_STRINGS || !arrayMethodIsStrict('join', ',');
-
-  	// `Array.prototype.join` method
-  	// https://tc39.es/ecma262/#sec-array.prototype.join
-  	$({ target: 'Array', proto: true, forced: FORCED }, {
-  	  join: function join(separator) {
-  	    return nativeJoin(toIndexedObject(this), separator === undefined ? ',' : separator);
-  	  }
-  	});
-  	return es_array_join;
-  }
-
-  requireEs_array_join();
 
   var es_array_map = {};
 
@@ -2481,38 +2475,6 @@
   }
 
   requireEs_array_map();
-
-  var es_date_toJson = {};
-
-  var hasRequiredEs_date_toJson;
-
-  function requireEs_date_toJson () {
-  	if (hasRequiredEs_date_toJson) return es_date_toJson;
-  	hasRequiredEs_date_toJson = 1;
-  	var $ = require_export();
-  	var fails = requireFails();
-  	var toObject = requireToObject();
-  	var toPrimitive = requireToPrimitive();
-
-  	var FORCED = fails(function () {
-  	  return new Date(NaN).toJSON() !== null
-  	    || Date.prototype.toJSON.call({ toISOString: function () { return 1; } }) !== 1;
-  	});
-
-  	// `Date.prototype.toJSON` method
-  	// https://tc39.es/ecma262/#sec-date.prototype.tojson
-  	$({ target: 'Date', proto: true, arity: 1, forced: FORCED }, {
-  	  // eslint-disable-next-line no-unused-vars -- required for `.length`
-  	  toJSON: function toJSON(key) {
-  	    var O = toObject(this);
-  	    var pv = toPrimitive(O, 'number');
-  	    return typeof pv == 'number' && !isFinite(pv) ? null : O.toISOString();
-  	  }
-  	});
-  	return es_date_toJson;
-  }
-
-  requireEs_date_toJson();
 
   var es_object_assign = {};
 
@@ -2956,18 +2918,29 @@
 
   	var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG;
 
+  	var setGroups = function (re, groups) {
+  	  var object = re.groups = create(null);
+  	  for (var i = 0; i < groups.length; i++) {
+  	    var group = groups[i];
+  	    object[group[0]] = re[group[1]];
+  	  }
+  	};
+
   	if (PATCH) {
   	  patchedExec = function exec(string) {
   	    var re = this;
   	    var state = getInternalState(re);
   	    var str = toString(string);
   	    var raw = state.raw;
-  	    var result, reCopy, lastIndex, match, i, object, group;
+  	    var result, reCopy, lastIndex;
 
   	    if (raw) {
   	      raw.lastIndex = re.lastIndex;
   	      result = call(patchedExec, raw, str);
   	      re.lastIndex = raw.lastIndex;
+
+  	      if (result && state.groups) setGroups(result, state.groups);
+
   	      return result;
   	    }
 
@@ -2986,8 +2959,10 @@
 
   	      strCopy = stringSlice(str, re.lastIndex);
   	      // Support anchored sticky behavior.
-  	      if (re.lastIndex > 0 && (!re.multiline || re.multiline && charAt(str, re.lastIndex - 1) !== '\n')) {
-  	        source = '(?: ' + source + ')';
+  	      var prevChar = re.lastIndex > 0 && charAt(str, re.lastIndex - 1);
+  	      if (re.lastIndex > 0 &&
+  	        (!re.multiline || re.multiline && prevChar !== '\n' && prevChar !== '\r' && prevChar !== '\u2028' && prevChar !== '\u2029')) {
+  	        source = '(?: (?:' + source + '))';
   	        strCopy = ' ' + strCopy;
   	        charsAdded++;
   	      }
@@ -3001,11 +2976,11 @@
   	    }
   	    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
 
-  	    match = call(nativeExec, sticky ? reCopy : re, strCopy);
+  	    var match = call(nativeExec, sticky ? reCopy : re, strCopy);
 
   	    if (sticky) {
   	      if (match) {
-  	        match.input = stringSlice(match.input, charsAdded);
+  	        match.input = str;
   	        match[0] = stringSlice(match[0], charsAdded);
   	        match.index = re.lastIndex;
   	        re.lastIndex += match[0].length;
@@ -3017,19 +2992,13 @@
   	      // Fix browsers whose `exec` methods don't consistently return `undefined`
   	      // for NPCG, like IE8. NOTE: This doesn't work for /(.?)?/
   	      call(nativeReplace, match[0], reCopy, function () {
-  	        for (i = 1; i < arguments.length - 2; i++) {
+  	        for (var i = 1; i < arguments.length - 2; i++) {
   	          if (arguments[i] === undefined) match[i] = undefined;
   	        }
   	      });
   	    }
 
-  	    if (match && groups) {
-  	      match.groups = object = create(null);
-  	      for (i = 0; i < groups.length; i++) {
-  	        group = groups[i];
-  	        object[group[0]] = match[group[1]];
-  	      }
-  	    }
+  	    if (match && groups) setGroups(match, groups);
 
   	    return match;
   	  };
@@ -3295,7 +3264,7 @@
   function requireFixRegexpWellKnownSymbolLogic () {
   	if (hasRequiredFixRegexpWellKnownSymbolLogic) return fixRegexpWellKnownSymbolLogic;
   	hasRequiredFixRegexpWellKnownSymbolLogic = 1;
-  	// TODO: Remove from `core-js@4` since it's moved to entry points
+  	// TODO: Remove from `core-js [at] 4` since it's moved to entry points
   	requireEs_regexp_exec();
   	var call = requireFunctionCall();
   	var defineBuiltIn = requireDefineBuiltIn();
@@ -3313,6 +3282,7 @@
   	  var DELEGATES_TO_SYMBOL = !fails(function () {
   	    // String methods call symbol-named RegExp methods
   	    var O = {};
+  	    // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	    O[SYMBOL] = function () { return 7; };
   	    return ''[KEY](O) !== 7;
   	  });
@@ -3326,12 +3296,13 @@
   	      // We can't use real regex here since it causes deoptimization
   	      // and serious performance degradation in V8
   	      // https://github.com/zloirock/core-js/issues/306
-  	      re = {};
   	      // RegExp[@@split] doesn't call the regex's exec method, but first creates
   	      // a new one. We need to return the patched regex when creating the new one.
-  	      re.constructor = {};
-  	      re.constructor[SPECIES] = function () { return re; };
-  	      re.flags = '';
+  	      var constructor = {};
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
+  	      constructor[SPECIES] = function () { return re; };
+  	      re = { constructor: constructor, flags: '' };
+  	      // eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
   	      re[SYMBOL] = /./[SYMBOL];
   	    }
 
@@ -3429,7 +3400,7 @@
   	// `AdvanceStringIndex` abstract operation
   	// https://tc39.es/ecma262/#sec-advancestringindex
   	advanceStringIndex = function (S, index, unicode) {
-  	  return index + (unicode ? charAt(S, index).length : 1);
+  	  return index + (unicode ? charAt(S, index).length || 1 : 1);
   	};
   	return advanceStringIndex;
   }
@@ -3599,23 +3570,24 @@
   	      var rx = anObject(this);
   	      var S = toString(string);
 
+  	      var functionalReplace = isCallable(replaceValue);
+  	      if (!functionalReplace) replaceValue = toString(replaceValue);
+  	      var flags = toString(getRegExpFlags(rx));
+
   	      if (
   	        typeof replaceValue == 'string' &&
-  	        stringIndexOf(replaceValue, UNSAFE_SUBSTITUTE) === -1 &&
-  	        stringIndexOf(replaceValue, '$<') === -1
+  	        !~stringIndexOf(replaceValue, UNSAFE_SUBSTITUTE) &&
+  	        !~stringIndexOf(replaceValue, '$<') &&
+  	        !~stringIndexOf(flags, 'y')
   	      ) {
   	        var res = maybeCallNative(nativeReplace, rx, S, replaceValue);
   	        if (res.done) return res.value;
   	      }
 
-  	      var functionalReplace = isCallable(replaceValue);
-  	      if (!functionalReplace) replaceValue = toString(replaceValue);
-
-  	      var flags = toString(getRegExpFlags(rx));
-  	      var global = stringIndexOf(flags, 'g') !== -1;
+  	      var global = !!~stringIndexOf(flags, 'g');
   	      var fullUnicode;
   	      if (global) {
-  	        fullUnicode = stringIndexOf(flags, 'u') !== -1;
+  	        fullUnicode = !!~stringIndexOf(flags, 'u') || !!~stringIndexOf(flags, 'v');
   	        rx.lastIndex = 0;
   	      }
 
@@ -3711,7 +3683,9 @@
   	    function search(regexp) {
   	      var O = requireObjectCoercible(this);
   	      var searcher = isObject(regexp) ? getMethod(regexp, SEARCH) : undefined;
-  	      return searcher ? call(searcher, regexp, O) : new RegExp(regexp)[SEARCH](toString(O));
+  	      if (searcher) return call(searcher, regexp, O);
+  	      var S = toString(O);
+  	      return new RegExp(regexp)[SEARCH](S);
   	    },
   	    // `RegExp.prototype[@@search]` method
   	    // https://tc39.es/ecma262/#sec-regexp.prototype-@@search
@@ -3795,6 +3769,24 @@
 
   	domTokenListPrototype = DOMTokenListPrototype === Object.prototype ? undefined : DOMTokenListPrototype;
   	return domTokenListPrototype;
+  }
+
+  var arrayMethodIsStrict;
+  var hasRequiredArrayMethodIsStrict;
+
+  function requireArrayMethodIsStrict () {
+  	if (hasRequiredArrayMethodIsStrict) return arrayMethodIsStrict;
+  	hasRequiredArrayMethodIsStrict = 1;
+  	var fails = requireFails();
+
+  	arrayMethodIsStrict = function (METHOD_NAME, argument) {
+  	  var method = [][METHOD_NAME];
+  	  return !!method && fails(function () {
+  	    // eslint-disable-next-line no-useless-call -- required for testing
+  	    method.call(null, argument || function () { return 1; }, 1);
+  	  });
+  	};
+  	return arrayMethodIsStrict;
   }
 
   var arrayForEach;
@@ -4051,19 +4043,21 @@
           if (typeof filterByCookieValue === 'boolean' && !filterByCookieValue) {
             throw new Error('The cookie value of filterBy must be a json!');
           }
-          var filterByCookie = {};
+          var filterByCookie;
           try {
             filterByCookie = JSON.parse(filterByCookieValue);
           } catch (e) {
             console.error(e);
-            throw new Error('Could not parse the json of the filterBy cookie!');
+            throw new Error('Could not parse the json of the filterBy cookie!', {
+              cause: e
+            });
           }
           this.filterColumns = filterByCookie ? filterByCookie : {};
 
           // FilterControl logic
           this._filterControls = [];
           this._filterControlValuesLoaded = false;
-          this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ? this.options.cookiesEnabled.replace('[', '').replace(']', '').replace(/'/g, '').replace(/ /g, '').split(',') : this.options.cookiesEnabled;
+          this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ? Utils.parseStringArray(this.options.cookiesEnabled) : this.options.cookiesEnabled;
           if (this.options.filterControl) {
             this.$el.on('column-search.bs.table', function (e, field, text) {
               var isNewField = true;
@@ -4199,12 +4193,12 @@
         UtilsCookie.setCookie(this, UtilsCookie.cookieIds.pageNumber, this.options.pageNumber);
       }
     }, {
-      key: "_toggleColumn",
-      value: function _toggleColumn() {
+      key: "_toggleColumns",
+      value: function _toggleColumns() {
         for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
           args[_key9] = arguments[_key9];
         }
-        _superPropGet(_class, "_toggleColumn", this)(args);
+        _superPropGet(_class, "_toggleColumns", this)(args);
         if (!this.options.cookie) {
           return;
         }
@@ -4314,14 +4308,16 @@
         var customViewCookie = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.customView);
         var hiddenColumnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.hiddenColumns);
         var columnsCookieValue = UtilsCookie.getCookie(this, UtilsCookie.cookieIds.columns);
-        var hiddenColumnsCookie = {};
-        var columnsCookie = {};
+        var hiddenColumnsCookie;
+        var columnsCookie;
         try {
           hiddenColumnsCookie = JSON.parse(hiddenColumnsCookieValue);
           columnsCookie = JSON.parse(columnsCookieValue);
         } catch (e) {
           console.error(e);
-          throw new Error('Could not parse the json of the columns cookie!');
+          throw new Error('Could not parse the json of the columns cookie!', {
+            cause: e
+          });
         }
         try {
           sortPriorityCookie = JSON.parse(sortPriorityCookie);

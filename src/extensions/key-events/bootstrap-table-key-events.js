@@ -21,12 +21,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initKeyEvents () {
     $(document).off('keydown').on('keydown', e => {
-      const $search = Utils.getSearchInput(this)
+      const search = Utils.getSearchInput(this)
       const $refresh = this.$toolbar.find('button[name="refresh"]')
       const $toggle = this.$toolbar.find('button[name="toggle"]')
       const $paginationSwitch = this.$toolbar.find('button[name="paginationSwitch"]')
 
-      if (document.activeElement === $search.get(0) || !$.contains(document.activeElement, this.$toolbar.get(0))) {
+      if (document.activeElement === search || !$.contains(document.activeElement, this.$toolbar.get(0))) {
         return true
       }
 
@@ -35,7 +35,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           if (!this.options.search) {
             return
           }
-          $search.focus()
+          $(search).focus()
           return false
         case 82: // r
           if (!this.options.showRefresh) {
