@@ -1,0 +1,253 @@
+---
+const { title, themes, category } = Astro.props
+---
+
+<div class="row theme-section" data-category={category}>
+  <div class="col-md-12">
+    <div class="landing-title">
+      <h2 class="title">
+        {title}
+      </h2>
+    </div>
+  </div>
+
+  {themes.map(theme =>
+    <div class="col-4">
+      <div class="card card-small">
+        <div class="thumbnail">
+          <img
+            src={theme.img}
+            alt="No Image"
+          />
+          <a
+            href={theme.url}
+            target="_blank"
+            class="thumb-cover"
+          ></a>
+          <b class="actions">
+            <a
+              href={theme.url}
+              target="_blank"
+              class="btn btn-neutral btn-round btn-fill"
+              title="More Details"
+            >
+              <i class="fa fa-align-left"></i>
+            </a>
+            <a
+              href={theme.demo}
+              class="btn btn-neutral btn-fill btn-round"
+              target="_blank"
+              title="Live Preview"
+            >
+              <i class="fa fa-laptop"></i>
+            </a>
+          </b>
+        </div>
+        <div class="card-info">
+          <a
+            href={theme.url}
+            target="_blank"
+          >
+            <h3>
+              {theme.name}
+              {theme.price ?
+                <div class="time pull-right premium-product">
+                  {theme.price}
+                </div> :
+                <div class="time pull-right free">
+                  FREE
+                </div>
+              }
+            </h3>
+            <p>{theme.desc}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+<style scoped>
+  a {
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 300;
+    margin: 7px 0;
+    font-weight: normal;
+    color: #777;
+    margin-bottom: 20px;
+  }
+
+  .free {
+    color: #777;
+    font-size: 15px;
+  }
+
+  .card {
+    border-radius: 8px;
+    position: relative;
+    margin-bottom: 60px;
+    border: 0;
+  }
+
+  .card .thumbnail {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+    min-height: 250px;
+    position: relative;
+    background: transparent
+  }
+
+  .card-small .thumbnail {
+    min-height: 200px;
+  }
+
+  .card .thumbnail img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card .thumbnail>img {
+    border-radius: 8px 8px;
+    box-shadow: 0 25px 20px -21px rgba(0, 0, 0, 0.57)
+  }
+
+  .card .time {
+    color: #777777;
+    font-size: 15px;
+    margin-top: 2px;
+    text-transform: uppercase
+  }
+
+  .card .time.premium-product {
+    color: #444444;
+    font-size: 19px;
+    margin: 1px
+  }
+
+  .card .actions .btn {
+    margin-left: 5px;
+    margin-right: 5px;
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%)
+  }
+
+  .card .actions .btn-round:not(.btn-radius) {
+    font-size: 18px;
+    padding: 14px 14px;
+    line-height: 1;
+    display: inline-block;
+    width: 48px;
+    height: 48px
+  }
+
+  .btn-neutral.btn-fill {
+    color: #666666 !important;
+    background-color: white;
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+
+  .btn-round {
+    border-width: 1px;
+    border-radius: 30px !important;
+    opacity: 0.79;
+    padding: 9px 18px;
+  }
+
+  .card .thumb-cover {
+    padding: 15px 20px;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    opacity: 0;
+    display: block;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 3;
+    content: "";
+    left: 0;
+    border-radius: 8px
+  }
+
+  .card .actions {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease
+  }
+
+  .card:hover .thumb-cover,
+  .card:hover .actions {
+    opacity: 1
+  }
+
+  .card-small .actions {
+    height: 55px;
+    font-size: 14px
+  }
+
+  .card:hover .actions {
+    opacity: 1
+  }
+
+  .card-info {
+    padding: 15px;
+    border-radius: 0 0 12px 12px
+  }
+
+  .card-info a:not(.btn) {
+    color: #434343
+  }
+
+  .card-info a:not(.btn):hover {
+    color: #232323
+  }
+
+  .card-info h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 18px
+  }
+
+  .card-small .card-info h3 {
+    font-size: 18px
+  }
+
+  .card-info p {
+    font-size: 14px;
+    margin: 0;
+    color: #666666;
+    min-height: 50px
+  }
+
+  .pull-right {
+    float: right;
+  }
+
+  @media (max-width: 800px) {
+    .card.card-bundle .thumbnail {
+      min-height: 150px
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .card.card-bundle .details .bundle-details {
+      padding: 10px
+    }
+  }
+</style>

@@ -3,7 +3,9 @@
  * @update: zhixin wen <wenzhixin2010@gmail.com>
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Object.assign($.fn.bootstrapTable.defaults, {
   treeEnable: false,
   treeShowField: null,
   idField: 'id',
@@ -49,7 +51,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     for (let i = 0; i <= len; i++) {
       const node = nodes[i]
-      const defaultItem = $.extend(true, {}, item)
+      const defaultItem = Utils.extend(true, {}, item)
 
       node._level = defaultItem._level + 1
       node._parent = defaultItem
@@ -75,11 +77,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initRow (item, idx, data, parentDom) {
     if (this.treeEnable) {
-      const parentId = parseInt(item[this.options.parentIdField], 10)
-
       if (
-        this.options.rootParentId === parentId ||
-        !parentId
+        this.options.rootParentId === item[this.options.parentIdField] ||
+        !item[this.options.parentIdField]
       ) {
         if (item._level === undefined) {
           item._level = 0

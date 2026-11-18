@@ -1,0 +1,69 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Fixed Columns
+description: Table Fixed columns extension of Bootstrap Table.
+group: extensions
+toc: true
+---
+
+## Usage
+
+```html
+<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+```
+
+## Example
+
+[Fixed Columns](https://examples.bootstrap-table.com/#extensions/fixed-columns.html)
+
+## Options
+
+### fixedColumns
+
+- **attribute:** `data-fixed-columns`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set `true` to enable fixed columns.
+
+- **Default:** `false`
+
+### fixedNumber
+
+- **attribute:** `data-fixed-number`
+
+- **type:** Number
+
+- **Detail:**
+
+  The number of the left fixed columns.
+
+- **Default:** `0`
+
+### fixedRightNumber
+
+- **attribute:** `data-fixed-right-number`
+
+- **type:** `Number`
+
+- **Detail:**
+
+  The number of the right fixed columns.
+
+- **Default:** `0`
+
+## Note
+
+* Not support `detailView` option.
+* Not support `cardView` option.
+* Support `showFooter` option: when `showFooter` is `true`, the fixed left and right columns render a footer cloned from the main table footer, keeping the column alignment and staying horizontally pinned (the left footer at its leftmost position, the right footer at its rightmost) like the fixed header, instead of following the main footer's horizontal scroll. Set to `false` (the default) to skip the footer.
+* Need to import after sticky-header when using with sticky-header extension. For example:
+```html
+<link rel="stylesheet" href="extensions/sticky-header/bootstrap-table-sticky-header.css">
+<link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
+<script src="extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
+<script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
+```

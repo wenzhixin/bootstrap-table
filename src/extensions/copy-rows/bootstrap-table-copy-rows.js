@@ -5,20 +5,19 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatCopyRows () {
     return 'Copy Rows'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
-  copy: {
-    bootstrap3: 'glyphicon-copy icon-pencil',
-    bootstrap5: 'bi-clipboard',
-    materialize: 'content_copy',
-    'bootstrap-table': 'icon-copy'
-  }[$.fn.bootstrapTable.theme] || 'fa-copy'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'copy', {
+  glyphicon: 'glyphicon-copy icon-pencil',
+  fa: 'fa-copy',
+  bi: 'bi-clipboard',
+  icon: 'icon-copy',
+  'material-icons': 'content_copy'
 })
 
 const copyText = text => {
@@ -31,19 +30,22 @@ const copyText = text => {
   try {
     document.execCommand('copy')
   } catch (e) {
-    console.warn('Oops, unable to copy')
+    console.warn('Oops, unable to copy', e)
   }
   $(textField).remove()
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showCopyRows: false,
   copyWithHidden: false,
   copyDelimiter: ', ',
-  copyNewline: '\n'
+  copyNewline: '\n',
+  copyRowsHandler (text) {
+    return text
+  }
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   ignoreCopy: false,
   rawCopy: false
 })
@@ -80,26 +82,31 @@ $.BootstrapTable = class extends $.BootstrapTable {
   copyColumnsToClipboard () {
     const rows = []
 
-    $.each(this.getSelections(), (index, row) => {
+    for (const row of this.getSelections()) {
       const cols = []
 
-      $.each(this.options.columns[0], (indy, column) => {
+      this.options.columns[0].forEach((column, index) => {
         if (
           column.field !== this.header.stateField &&
           (!this.options.copyWithHidden || this.options.copyWithHidden && column.visible) &&
           !column.ignoreCopy
         ) {
           if (row[column.field] !== null) {
-            const columnValue = column.rawCopy ? row[column.field] : Utils.calculateObjectValue(column, this.header.formatters[indy], [row[column.field], row, index], row[column.field])
+            const columnValue = column.rawCopy ? row[column.field] :
+              Utils.calculateObjectValue(column, this.header.formatters[index], [row[column.field], row, index], row[column.field])
 
             cols.push(columnValue)
           }
         }
       })
       rows.push(cols.join(this.options.copyDelimiter))
-    })
+    }
 
-    copyText(rows.join(this.options.copyNewline))
+    let text = rows.join(this.options.copyNewline)
+
+    text = Utils.calculateObjectValue(this.options, this.options.copyRowsHandler, [text], text)
+
+    copyText(text)
   }
 
   updateSelected () {

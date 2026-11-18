@@ -1,0 +1,79 @@
+---
+import Header from '@/components/Header.astro'
+import Navbar from '@/components/Navbar.astro'
+import Sidebar from '@/components/Sidebar.astro'
+import Ads from '@/components/Ads.astro'
+import TOC from '@/components/TOC.astro'
+import Scripts from '@/components/Scripts.astro'
+import Config from '@/config.js'
+import path from 'path'
+import { defaultLocale } from '@/i18n/ui'
+import { useTranslations } from '@/i18n/utils'
+
+const layout = 'docs'
+const { file, frontmatter } = Astro.props
+const filename = path.basename(file)
+const locale = Astro.currentLocale
+const t = useTranslations(Astro.currentLocale)
+const bodyProps = {}
+
+const group = ['faq', 'online-editor'].includes(frontmatter.group) ? '' : `${frontmatter.group}/`
+const localePrefix = locale === defaultLocale ? '' : `${locale}/`
+const githubDocUrl = `${Config.repo}/blob/develop/site/src/pages/${localePrefix}docs/${group}${filename}`
+
+if (frontmatter.toc) {
+  bodyProps['data-bs-spy'] = 'scroll'
+  bodyProps['data-bs-target'] = '#TableOfContents'
+}
+---
+
+<!doctype html>
+<html lang={locale}>
+  <Header frontmatter={frontmatter} />
+  <body {...bodyProps}>
+    <Navbar layout={layout} />
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap h-100">
+        <aside class="bd-sidebar col-12 col-md-3 col-xl-2 ps-3">
+          <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+            <div class="offcanvas-header border-bottom">
+              <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">{t('nav.browse')} {t('nav.docs')}</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+                data-bs-target="#bdSidebar"></button>
+            </div>
+
+            <div class="offcanvas-body d-flex flex-column">
+              <Sidebar />
+            </div>
+          </div>
+        </aside>
+
+        <main class={`col-12 col-md-9 col-xl-8 py-md-3 ps-md-5 mt-3 bd-content overflow-y-auto ${frontmatter.group || ''}`} role="main">
+          <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
+            <a class="btn btn-sm btn-outline-secondary mb-2 mb-md-0"
+              href={githubDocUrl}
+              title={t('nav.view_on_github')} target="_blank" rel="noopener">
+              {t('nav.view_on_github')}
+            </a>
+            <h1 class="bd-title" id="content">
+              {frontmatter.title}
+            </h1>
+          </div>
+          <p class="bd-lead">{frontmatter.description}</p>
+          <Ads />
+
+          {frontmatter.toc && <TOC />}
+
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <Scripts layout={layout} />
+  </body>
+</html>

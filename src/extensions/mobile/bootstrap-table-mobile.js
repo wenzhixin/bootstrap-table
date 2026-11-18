@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
@@ -18,7 +17,7 @@ const debounce = (func, wait) => {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   mobileResponsive: false,
   minWidth: 562,
   minHeight: undefined,
@@ -95,22 +94,27 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   showHideColumns (checked) {
-    if (this.options.columnsHidden.length > 0) {
-      this.columns.forEach(column => {
-        if (this.options.columnsHidden.includes(column.field)) {
-          if (column.visible !== checked) {
-            this._toggleColumn(this.fieldsColumnsIndex[column.field], checked, true)
-          }
-        }
-      })
+    if (this.options.columnsHidden.length === 0) {
+      return
+    }
+
+    const fieldsToToggle = this.columns
+      .filter(column =>
+        this.options.columnsHidden.includes(column.field) &&
+        column.visible !== checked
+      )
+      .map(column => column.field)
+
+    if (fieldsToToggle.length > 0) {
+      this._toggleColumns(fieldsToToggle, checked, true)
     }
   }
 
   changeView (width, height) {
     if (this.options.minHeight) {
-      if ((width <= this.options.minWidth) && (height <= this.options.minHeight)) {
+      if (width <= this.options.minWidth && height <= this.options.minHeight) {
         this.conditionCardView()
-      } else if ((width > this.options.minWidth) && (height > this.options.minHeight)) {
+      } else if (width > this.options.minWidth && height > this.options.minHeight) {
         this.conditionFullView()
       }
     } else if (width <= this.options.minWidth) {

@@ -1,0 +1,48 @@
+---
+import Config from '@/config.js'
+import { useTranslations } from '@/i18n/utils'
+import { ui } from '@/i18n/ui'
+
+const t = useTranslations(Astro.currentLocale)
+const translations = ui[Astro.currentLocale]
+---
+
+<div class="container border-bottom supports-container">
+  <div class="pt-5">
+    <h3>{t('supports.title')}</h3>
+
+    <div>
+      {t('supports.description')}
+    </div>
+  </div>
+
+  <div id="supports">
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">{t('supports.loading')}</p>
+    </div>
+  </div>
+</div>
+
+<script
+  data-baseurl={Config.baseurl}
+  data-version={Config.currentVersion}
+  data-translations={JSON.stringify(translations)}
+>
+  const { dataset } = document.currentScript
+  const script = document.createElement('script')
+  const baseurl = dataset.baseurl || ''
+  const version = dataset.version || ''
+
+  script.src = `${baseurl}/assets/js/supports.js?v=${version}`
+  script.onload = () => {
+    const supportsTranslations = dataset.translations ? JSON.parse(dataset.translations) : {}
+
+    if (window.Supports && window.Supports.initSupports) {
+      window.Supports.initSupports(supportsTranslations)
+    }
+  }
+  document.head.appendChild(script)
+</script>

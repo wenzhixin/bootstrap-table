@@ -2,103 +2,192 @@
  * Bootstrap Table Catalan translation
  * Authors: Marc Pina<iwalkalone69@gmail.com>
  *          Claudi Martinez<claudix.kernel@gmail.com>
+ *          Joan Puigcerver<joapuiib@gmail.com>
  */
 
 $.fn.bootstrapTable.locales['ca-ES'] = $.fn.bootstrapTable.locales['ca'] = {
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatAddLevel () {
+    return 'Add Level'
   },
-  formatPrint () {
-    return 'Print'
-  },
-  formatLoadingMessage () {
-    return 'Espereu, si us plau'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} resultats per pàgina`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Mostrant de ${pageFrom} fins ${pageTo} - total ${totalRows} resultats (filtered from ${totalNotFiltered} total rows)`
-    }
 
-    return `Mostrant de ${pageFrom} fins ${pageTo} - total ${totalRows} resultats`
+  formatAdvancedCloseButton () {
+    return 'Tanca'
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
+
+  formatAdvancedSearch () {
+    return 'Cerca avançada'
   },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'next page'
-  },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
-  },
-  formatClearSearch () {
-    return 'Clear Search'
-  },
-  formatSearch () {
-    return 'Cerca'
-  },
-  formatNoMatches () {
-    return 'No s\'han trobat resultats'
-  },
-  formatPaginationSwitch () {
-    return 'Amaga/Mostra paginació'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Refresca'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
-  formatToggleOff () {
-    return 'Hide card view'
-  },
-  formatColumns () {
-    return 'Columnes'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
+
   formatAllRows () {
     return 'Tots'
   },
+
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Auto Refresca'
   },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Neteja cerca'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Columnes'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Alterna totes'
+  },
+
+  formatCopyRows () {
+    return 'Copia resultats'
+  },
+
+  formatDeleteLevel () {
+    return 'Delete Level'
+  },
+
+  formatDetailPagination (totalRows) {
+    return `Mostrant ${totalRows} resultats`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
   formatExport () {
-    return 'Export data'
+    return 'Exporta dades'
   },
+
+  formatFilterControlSwitch () {
+    return 'Mostra/Amaga controls'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Mostra controls'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Amaga controls'
+  },
+
+  formatFullscreen () {
+    return 'Pantalla completa'
+  },
+
   formatJumpTo () {
     return 'GO'
   },
-  formatAdvancedSearch () {
-    return 'Advanced search'
+
+  formatLoadingMessage () {
+    return 'Espereu, si us plau'
   },
-  formatAdvancedCloseButton () {
-    return 'Close'
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
   },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+
+  formatNoMatches () {
+    return 'No s\'han trobat resultats'
   },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
+
+  formatOrder () {
+    return 'Order'
   },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatPaginationSwitch () {
+    return 'Amaga/Mostra paginació'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Mostra paginació'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Amaga paginació'
+  },
+
+  formatPrint () {
+    return 'Imprimeix'
+  },
+
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} resultats per pàgina`
+  },
+
+  formatRefresh () {
+    return 'Refresca'
+  },
+
+  formatSRPaginationNextText () {
+    return 'Pàgina següent'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `A la pàgina ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'Pàgina anterior'
+  },
+
+  formatSearch () {
+    return 'Cerca'
+  },
+
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Mostrant resultats ${pageFrom} fins ${pageTo} - ${totalRows} resultats (filtrats d'un total de ${totalNotFiltered} resultats)`
+    }
+
+    return `Mostrant resultats ${pageFrom} fins ${pageTo} - ${totalRows} resultats en total`
+  },
+
+  formatSort () {
+    return 'Sort'
+  },
+
+  formatSortBy () {
+    return 'Sort by'
+  },
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
+  },
+
+  formatThenBy () {
+    return 'Then by'
+  },
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
+  },
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+
+  formatToggleOff () {
+    return 'Amaga vista de tarjeta'
+  },
+
+  formatToggleOn () {
+    return 'Mostra vista de tarjeta'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ca-ES'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ca-ES'])

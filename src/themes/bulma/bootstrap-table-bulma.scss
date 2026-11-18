@@ -4,8 +4,9 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
- @import './variables.scss';
- @import '../theme.scss';
+@use "custom";
+@use "../variables";
+@use "../theme";
 
 .box {
   background-color: #fff;
@@ -53,7 +54,7 @@
 
       .dropdown-content {
         box-shadow: none;
-        border: 1px solid $border-color;
+        border: 1px solid variables.$border-color;
       }
 
       label.dropdown-item {
@@ -67,7 +68,7 @@
       vertical-align: middle;
     }
 
-    .is-up .fa-angle-down:before {
+    .is-up .fa-angle-down::before {
       content: "\f106";
     }
 
@@ -76,7 +77,7 @@
       border-color: #dbdbdb;
       box-shadow: none;
       color: #7a7a7a;
-      opacity: .5;
+      opacity: 0.5;
       cursor: not-allowed;
     }
   }

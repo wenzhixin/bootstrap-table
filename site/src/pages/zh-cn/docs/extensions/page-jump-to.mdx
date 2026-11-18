@@ -1,0 +1,52 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Page Jump To
+description: Bootstrap Table 的页码跳转扩展，允许直接跳转到指定页码。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<link rel="stylesheet" href="extensions/page-jump-to/bootstrap-table-jump-to.css">
+<script src="extensions/page-jump-to/bootstrap-table-jump-to.js"></script>
+```
+
+## 示例
+
+[Page Jump To](https://examples.bootstrap-table.com/#extensions/page-jump-to.html)
+
+## 选项
+
+### showJumpTo
+
+- **属性:** `data-show-jump-to`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用“跳转到页”功能，可通过 `data-show-jump-to` HTML 属性配置。设置为 `true` 时，将显示页码跳转输入框。
+
+- **默认值:** `false`
+
+### showJumpToByPages
+
+- **属性:** `data-show-jump-to-by-pages`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置显示“跳转到页”功能的最小总页数。仅当表格总页数大于或等于该设定值时，才会显示页码跳转功能。
+
+- **默认值:** `0`
+
+## 本地化
+
+### formatJumpTo
+
+- **参数:** `undefined`
+
+- **默认值:** `function () { return "GO" }`

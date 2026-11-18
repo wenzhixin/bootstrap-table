@@ -8,7 +8,7 @@ const deepCopy = arg => {
   if (arg === undefined) {
     return arg
   }
-  return $.extend(true, Array.isArray(arg) ? [] : {}, arg)
+  return $.fn.bootstrapTable.utils.extend(true, Array.isArray(arg) ? [] : {}, arg)
 }
 
 export default {
@@ -31,6 +31,11 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      optionsChangedIdx: 0
+    }
+  },
   mounted () {
     this.$table = $(this.$el)
 
@@ -43,8 +48,12 @@ export default {
 
     this._initTable()
   },
+  beforeUnmount () {
+    this.$table.bootstrapTable('destroy')
+  },
   methods: {
     _initTable () {
+      this._bindMethods()
       const options = {
         ...deepCopy(this.options),
         columns: deepCopy(this.columns),
@@ -57,28 +66,35 @@ export default {
         this.refreshOptions(options)
       }
     },
-    ...(() => {
-      const res = {}
-      for (const method of $.fn.bootstrapTable.methods) {
-        res[method] = function (...args) {
-          return this.$table.bootstrapTable(method, ...args)
+    refreshOptions (...args) {
+      return this.$table.bootstrapTable('refreshOptions', ...args)
+    },
+    load (...args) {
+      return this.$table.bootstrapTable('load', ...args)
+    },
+    _bindMethods () {
+      for (const method of ($.fn.bootstrapTable.methods || [])) {
+        if (!this[method]) {
+          this[method] = (...args) => this.$table.bootstrapTable(method, ...args)
         }
       }
-      return res
-    })()
+    }
   },
   watch: {
     options: {
       handler () {
-        this._initTable()
+        this.optionsChangedIdx++
       },
       deep: true
     },
     columns: {
       handler () {
-        this._initTable()
+        this.optionsChangedIdx++
       },
       deep: true
+    },
+    optionsChangedIdx () {
+      this._initTable()
     },
     data: {
       handler () {

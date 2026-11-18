@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @version: v2.0.0
  */
 
@@ -30,7 +29,7 @@ const reInitResizable = that => {
   initResizable(that)
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   resizable: false
 })
 

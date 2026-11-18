@@ -1,11 +1,12 @@
 /* eslint-disable no-use-before-define */
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
+const selectionInputTypes = ['password', 'search', 'tel', 'text', 'url']
 
 export function getInputClass (that, isSelect = false) {
   const formControlClass = isSelect ? that.constants.classes.select : that.constants.classes.input
 
-  return that.options.iconSize ? Utils.sprintf('%s-%s', formControlClass, that.options.iconSize) : formControlClass
+  return that.options.iconSize ? Utils.sprintf('%s %s-%s', formControlClass, formControlClass, that.options.iconSize) : formControlClass
 }
 
 export function getOptionsFromSelectControl (selectControl) {
@@ -18,7 +19,7 @@ export function getControlContainer (that) {
   }
 
   if (that.options.height && that._initialized) {
-    return $('.fixed-table-header table thead')
+    return that.$tableContainer.find('.fixed-table-header table thead')
   }
 
   return that.$header
@@ -48,16 +49,12 @@ export function hideUnusedSelectOptions (selectControl, uniqueValues) {
 
 export function existOptionInSelectControl (selectControl, value) {
   const options = getOptionsFromSelectControl(selectControl)
-  const _value = Utils.unescapeHTML(value)
-  const len = options.length
-  let i = 0
 
-  while (i < len) {
-    if (options[i].value === _value) {
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].value === Utils.unescapeHTML(value)) {
       // The value is not valid to add
       return true
     }
-    i++
   }
 
   // If we get here, the value is valid to add
@@ -65,15 +62,16 @@ export function existOptionInSelectControl (selectControl, value) {
 }
 
 export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
-  const value = (_value === undefined || _value === null) ? '' : Utils.removeHTML(_value.toString().trim())
+  let value = _value === undefined || _value === null ? '' : _value.toString().trim()
 
-  text = Utils.removeHTML(text)
+  value = Utils.removeHTML(Utils.unescapeHTML(value))
+  text = Utils.removeHTML(Utils.unescapeHTML(text))
 
   if (existOptionInSelectControl(selectControl, value)) {
     return
   }
 
-  const isSelected = shouldCompareText ? (value === selected || text === selected) : value === selected
+  const isSelected = shouldCompareText ? value === selected || text === selected : value === selected
 
   const option = new Option(text, value, false, isSelected)
 
@@ -96,9 +94,7 @@ export function sortSelectControl (selectControl, orderBy, options) {
     tmpAry[i][2] = $selectControl.options[i].selected
   }
 
-  tmpAry.sort((a, b) => {
-    return Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1, options)
-  })
+  tmpAry.sort((a, b) => Utils.sort(a[0], b[0], orderBy === 'desc' ? -1 : 1, options))
   while ($selectControl.options.length > 0) {
     $selectControl.options[0] = null
   }
@@ -116,11 +112,10 @@ export function fixHeaderCSS ({ $tableHeader }) {
 
 export function getElementClass ($element) {
   return $element.attr('class')
-    .replace('form-control', '')
-    .replace('form-select', '')
-    .replace('focus-temp', '')
-    .replace('search-input', '')
-    .trim()
+    .split(' ')
+    .filter(function (className) {
+      return className.startsWith('bootstrap-table-filter-control-')
+    })
 }
 
 export function getCursorPosition (el) {
@@ -149,10 +144,10 @@ export function cacheValues (that) {
 
   searchControls.each(function () {
     let $field = $(this)
-    const fieldClass = getElementClass($field)
+    const fieldClass = escapeID(getElementClass($field))
 
     if (that.options.height && !that.options.filterControlContainer) {
-      $field = that.$el.find(`.fixed-table-header .${fieldClass}`)
+      $field = that.$tableContainer.find(`.fixed-table-header .${fieldClass}`)
     } else if (that.options.filterControlContainer) {
       $field = $(`${that.options.filterControlContainer} .${fieldClass}`)
     } else {
@@ -176,14 +171,27 @@ export function setCaretPosition (elem, caretPos) {
 
         range.move('character', caretPos)
         range.select()
-      } else {
+      } else if (elem.setSelectionRange && canSetCaretPosition(elem)) {
         elem.setSelectionRange(caretPos, caretPos)
       }
     }
+  } catch (ex) {
+    console.error(ex)
   }
-  catch (ex) {
-    // ignored
+}
+
+function canSetCaretPosition (elem) {
+  const tagName = elem.tagName && elem.tagName.toLowerCase()
+
+  if (tagName === 'textarea') {
+    return true
   }
+
+  if (tagName !== 'input') {
+    return false
+  }
+
+  return selectionInputTypes.includes(elem.type)
 }
 
 export function setValues (that) {
@@ -239,7 +247,8 @@ export function setValues (that) {
 
 export function collectBootstrapTableFilterCookies () {
   const cookies = []
-  const foundCookies = document.cookie.match(/bs\.table\.(filterControl|searchText)/g)
+  const cookieRegex = /bs\.table\.(filterControl|searchText)/g
+  const foundCookies = document.cookie.match(cookieRegex)
   const foundLocalStorage = localStorage
 
   if (foundCookies) {
@@ -255,19 +264,22 @@ export function collectBootstrapTableFilterCookies () {
       }
     })
   }
-  if (foundLocalStorage) {
-    for (let i = 0; i < foundLocalStorage.length; i++) {
-      let cookie = foundLocalStorage.key(i)
 
-      if (/./.test(cookie)) {
-        cookie = cookie.split('.').pop()
-      }
-
-      if (!cookies.includes(cookie)) {
-        cookies.push(cookie)
-      }
-    }
+  if (!foundLocalStorage) {
+    return cookies
   }
+
+  Object.keys(localStorage).forEach(function (cookie) {
+    if (!cookieRegex.test(cookie)) {
+      return
+    }
+
+    cookie = cookie.split('.').pop()
+    if (!cookies.includes(cookie)) {
+      cookies.push(cookie)
+    }
+  })
+
   return cookies
 }
 
@@ -296,52 +308,51 @@ export function initFilterSelectControls (that) {
     const column = that.columns[that.fieldsColumnsIndex[field]]
     const selectControl = getControlContainer(that).find(`select.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-    if (!isColumnSearchableViaSelect(column) || !isFilterDataNotGiven(column) || !hasSelectControlElement(selectControl)) {
-      return
-    }
-
-    if (!selectControl[0].multiple && selectControl[0].options.length === 0) {
-      // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
-      addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
-    }
-
-    const uniqueValues = {}
-
-    for (let i = 0; i < data.length; i++) {
-      // Added a new value
-      let fieldValue = Utils.getItemField(data[i], field, false)
-      const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
-      let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
-
-      if (!fieldValue) {
-        fieldValue = formattedValue
-        column._forceFormatter = true
+    if (isColumnSearchableViaSelect(column) && isFilterDataNotGiven(column) && hasSelectControlElement(selectControl)) {
+      if (!selectControl[0].multiple && selectControl.get(selectControl.length - 1).options.length === 0) {
+        // Added the default option, must use a non-breaking space(&nbsp;) to pass the W3C validator
+        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
       }
 
-      if (column.filterDataCollector) {
-        formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
+      const uniqueValues = {}
+
+      for (let i = 0; i < data.length; i++) {
+        // Added a new value
+        let fieldValue = Utils.getItemField(data[i], field, false)
+        const formatter = that.options.editable && column.editable ? column._formatter : that.header.formatters[j]
+        let formattedValue = Utils.calculateObjectValue(that.header, formatter, [fieldValue, data[i], i], fieldValue)
+
+        if (fieldValue === undefined || fieldValue === null) {
+          fieldValue = formattedValue
+          column._forceFormatter = true
+        }
+
+        if (column.filterDataCollector) {
+          formattedValue = Utils.calculateObjectValue(that.header, column.filterDataCollector, [fieldValue, data[i], formattedValue], formattedValue)
+        }
+
+        if (column.searchFormatter) {
+          fieldValue = formattedValue
+        }
+
+        if (typeof formattedValue === 'object' && formattedValue !== null) {
+          formattedValue.forEach(value => {
+            addOptionToSelectControl(selectControl, value, value, column.filterDefault)
+          })
+          continue
+        }
+
+        uniqueValues[formattedValue] = fieldValue
       }
 
-      if (column.searchFormatter) {
-        fieldValue = formattedValue
+      // eslint-disable-next-line guard-for-in
+      for (const key in uniqueValues) {
+        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
       }
-      uniqueValues[formattedValue] = fieldValue
 
-      if (typeof formattedValue === 'object' && formattedValue !== null) {
-        formattedValue.forEach(value => {
-          addOptionToSelectControl(selectControl, value, value, column.filterDefault)
-        })
+      if (that.options.sortSelectOptions) {
+        sortSelectControl(selectControl, column.filterOrderBy, that.options)
       }
-    }
-
-    for (const key of Object.keys(uniqueValues)) {
-      addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
-    }
-
-    that.trigger('options-added', selectControl)
-
-    if (that.options.sortSelectOptions) {
-      sortSelectControl(selectControl, 'asc', that.options)
     }
   })
 }
@@ -364,7 +375,10 @@ export function createControls (that, header) {
   $.each(that.columns, (_, column) => {
     html = []
 
-    if (!column.visible) {
+    if (
+      !column.visible &&
+      !(that.options.filterControlContainer && $(`.bootstrap-table-filter-control-${escapeID(column.field)}`).length >= 1)
+    ) {
       return
     }
 
@@ -372,7 +386,7 @@ export function createControls (that, header) {
       html.push('<div class="no-filter-control"></div>')
     } else if (that.options.filterControlContainer) {
       // Use a filter control container instead of th
-      const $filterControls = $(`.bootstrap-table-filter-control-${column.field}`)
+      const $filterControls = $(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
       $.each($filterControls, (_, filterControl) => {
         const $filterControl = $(filterControl)
@@ -409,11 +423,13 @@ export function createControls (that, header) {
 
     // Filtering by default when it is set.
     if (column.filterControl && '' !== column.filterDefault && 'undefined' !== typeof column.filterDefault) {
-      if ($.isEmptyObject(that.filterColumnsPartial)) {
+      if (Utils.isEmptyObject(that.filterColumnsPartial)) {
         that.filterColumnsPartial = {}
       }
 
-      that.filterColumnsPartial[column.field] = column.filterDefault
+      if (!(column.field in that.filterColumnsPartial)) {
+        that.filterColumnsPartial[column.field] = column.filterDefault
+      }
     }
 
     $.each(header.find('th'), (_, th) => {
@@ -448,7 +464,8 @@ export function createControls (that, header) {
 
   if (addedFilterControl) {
     header.off('keyup', 'input').on('keyup', 'input', ({ currentTarget, keyCode }, obj) => {
-      keyCode = obj ? obj.keyCode : keyCode
+      keyCode = obj?.keyCode ?? keyCode
+      const isInitial = obj?.isInitial === true
 
       if (that.options.searchOnEnterKey && keyCode !== 13) {
         return
@@ -464,32 +481,27 @@ export function createControls (that, header) {
         return
       }
 
-      Utils.debounce(() => {
-        that.onColumnSearch({ currentTarget, keyCode })
-      }, that.options.searchTimeOut)()
+      clearTimeout(currentTarget.timeoutId || 0)
+      currentTarget.timeoutId = setTimeout(() => {
+        that.onColumnSearch({ currentTarget, keyCode, isInitial })
+      }, that.options.searchTimeOut)
     })
 
-    header.off('change', 'select', '.fc-multipleselect').on('change', 'select', '.fc-multipleselect', ({ currentTarget, keyCode }) => {
+    header.off('change', 'select').on('change', 'select', ({ currentTarget, keyCode }, obj) => {
       const $selectControl = $(currentTarget)
       const value = $selectControl.val()
+      const isInitial = obj?.isInitial === true
 
-      if (Array.isArray(value)) {
-        for (let i = 0; i < value.length; i++) {
-          if (value[i] && value[i].length > 0 && value[i].trim()) {
-            $selectControl.find(`option[value="${ value[i] }"]`).attr('selected', true)
-          }
-        }
-      }
-      else if (value && value.length > 0 && value.trim()) {
-        $selectControl.find('option[selected]').removeAttr('selected')
-        $selectControl.find(`option[value="${ value }"]`).attr('selected', true)
-      } else {
-        $selectControl.find('option[selected]').removeAttr('selected')
-      }
+      const normalizedValue = value === null ?
+        $selectControl.prop('multiple') ? [] : null :
+        value
 
-      Utils.debounce(() => {
-        that.onColumnSearch({ currentTarget, keyCode })
-      }, that.options.searchTimeOut)()
+      $selectControl.val(normalizedValue)
+
+      clearTimeout(currentTarget.timeoutId || 0)
+      currentTarget.timeoutId = setTimeout(() => {
+        that.onColumnSearch({ currentTarget, keyCode, isInitial })
+      }, that.options.searchTimeOut)
     })
 
     header.off('mouseup', 'input:not([type=radio])').on('mouseup', 'input:not([type=radio])', ({ currentTarget, keyCode }) => {
@@ -500,28 +512,30 @@ export function createControls (that, header) {
         return
       }
 
-      Utils.debounce(() => {
+      setTimeout(() => {
         const newValue = $input.val()
 
         if (newValue === '') {
-          Utils.debounce(() => {
+          clearTimeout(currentTarget.timeoutId || 0)
+          currentTarget.timeoutId = setTimeout(() => {
             that.onColumnSearch({ currentTarget, keyCode })
           }, that.options.searchTimeOut)
         }
-      }, 1)()
+      }, 1)
     })
 
     header.off('change', 'input[type=radio]').on('change', 'input[type=radio]', ({ currentTarget, keyCode }) => {
-      Utils.debounce(() => {
+      clearTimeout(currentTarget.timeoutId || 0)
+      currentTarget.timeoutId = setTimeout(() => {
         that.onColumnSearch({ currentTarget, keyCode })
-      }, that.options.searchTimeOut)()
+      }, that.options.searchTimeOut)
     })
 
     // See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
     if (header.find('.date-filter-control').length > 0) {
       $.each(that.columns, (i, { filterDefault, filterControl, field, filterDatepickerOptions }) => {
         if (filterControl !== undefined && filterControl.toLowerCase() === 'datepicker') {
-          const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${field}`)
+          const $datepicker = header.find(`.date-filter-control.bootstrap-table-filter-control-${escapeID(field)}`)
 
           if (filterDefault) {
             $datepicker.value(filterDefault)
@@ -544,16 +558,17 @@ export function createControls (that, header) {
           }
 
           $datepicker.on('change', ({ currentTarget }) => {
-            Utils.debounce(() => {
+            clearTimeout(currentTarget.timeoutId || 0)
+            currentTarget.timeoutId = setTimeout(() => {
               that.onColumnSearch({ currentTarget })
-            }, that.options.searchTimeOut)()
+            }, that.options.searchTimeOut)
           })
         }
       })
     }
 
     if (that.options.sidePagination !== 'server') {
-      that.triggerSearch()
+      that.triggerSearch(true)
     }
 
     if (!that.options.filterControlVisible) {
@@ -585,7 +600,7 @@ export function syncHeaders (that) {
   if (!that.options.height) {
     return
   }
-  const fixedHeader = $('.fixed-table-header table thead')
+  const fixedHeader = that.$tableContainer.find('.fixed-table-header table thead')
 
   if (fixedHeader.length === 0) {
     return
@@ -595,7 +610,7 @@ export function syncHeaders (that) {
     if (element.classList[0] !== 'bs-checkbox') {
       const $element = $(element)
       const $field = $element.data('field')
-      const $fixedField = $(`th[data-field='${$field}']`).not($element)
+      const $fixedField = that.$tableContainer.find(`th[data-field='${$field}']`).not($element)
 
       const input = $element.find('input')
       const fixedInput = $fixedField.find('input')
@@ -637,7 +652,7 @@ const filterDataMethods = {
 
     // eslint-disable-next-line guard-for-in
     for (const key in variableValues) {
-      addOptionToSelectControl(selectControl, key, variableValues[key], selected)
+      addOptionToSelectControl(selectControl, variableValues[key], variableValues[key], selected)
     }
 
     if (that.options.sortSelectOptions) {

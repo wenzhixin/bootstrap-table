@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
@@ -8,11 +7,11 @@ const rowAttr = (row, index) => ({
   id: `customId_${index}`
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   reorderableRows: false,
   onDragStyle: null,
   onDropStyle: null,
-  onDragClass: 'reorder_rows_onDragClass',
+  onDragClass: 'reorder-rows-on-drag-class',
   dragHandle: '>tbody>tr>td:not(.bs-checkbox)',
   useRowAttrFunc: false,
   // eslint-disable-next-line no-unused-vars
@@ -33,7 +32,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'reorder-row.bs.table': 'onReorderRow'
 })
 
@@ -98,6 +97,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   onDrop (table) {
     this.$draggingTd.css('cursor', '')
+    const pageNum = this.options.pageNumber
+    const pageSize = this.options.pageSize
     const newData = []
 
     for (let i = 0; i < table.tBodies[0].rows.length; i++) {
@@ -110,12 +111,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const draggingRow = this.data[this.draggingIndex]
     const droppedIndex = newData.indexOf(this.data[this.draggingIndex])
     const droppedRow = this.data[droppedIndex]
-    const index = this.options.data.indexOf(this.data[droppedIndex])
+    const index = (pageNum - 1) * pageSize + this.options.data.indexOf(this.data[droppedIndex])
 
     this.options.data.splice(this.options.data.indexOf(draggingRow), 1)
     this.options.data.splice(index, 0, draggingRow)
 
     this.initSearch()
+
+    if (this.options.sidePagination === 'server') {
+      this.data = [...this.options.data]
+    }
 
     // Call the user defined function
     this.options.onReorderRowsDrop(droppedRow)

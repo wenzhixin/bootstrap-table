@@ -13,7 +13,7 @@
  * @update zhixin wen <wenzhixin2010@gmail.com>
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   deferUrl: undefined
 })
 

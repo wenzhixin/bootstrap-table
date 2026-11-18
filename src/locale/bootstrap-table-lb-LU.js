@@ -4,100 +4,188 @@
  */
 
 $.fn.bootstrapTable.locales['lb-LU'] = $.fn.bootstrapTable.locales['lb'] = {
-  formatCopyRows () {
-    return 'Zeilen kopéieren'
+  formatAddLevel () {
+    return 'Add Level'
   },
-  formatPrint () {
-    return 'Drécken'
-  },
-  formatLoadingMessage () {
-    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} Zeilen per Säit`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${(totalRows > 1) ? 'en' : ''} (gefiltert vun insgesamt ${totalNotFiltered} Zeil${(totalRows > 1) ? 'en' : ''})`
-    }
 
-    return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${(totalRows > 1) ? 'en' : ''}`
-  },
-  formatSRPaginationPreText () {
-    return 'viregt Säit'
-  },
-  formatSRPaginationPageText (page) {
-    return `op Säit ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'nächst Säit'
-  },
-  formatDetailPagination (totalRows) {
-    return `Weist ${totalRows} Zeilen`
-  },
-  formatClearSearch () {
-    return 'Sich réckgängeg maachen'
-  },
-  formatSearch () {
-    return 'Sich'
-  },
-  formatNoMatches () {
-    return 'Keng passend Anträg fonnt'
-  },
-  formatPaginationSwitch () {
-    return 'Paginatioun uweisen/verstoppen'
-  },
-  formatPaginationSwitchDown () {
-    return 'Paginatioun uweisen'
-  },
-  formatPaginationSwitchUp () {
-    return 'Paginatioun verstoppen'
-  },
-  formatRefresh () {
-    return 'Nei lueden'
-  },
-  formatToggleOn () {
-    return 'Kaartenusiicht uweisen'
-  },
-  formatToggleOff () {
-    return 'Kaartenusiicht verstoppen'
-  },
-  formatColumns () {
-    return 'Kolonnen'
-  },
-  formatColumnsToggleAll () {
-    return 'All ëmschalten'
-  },
-  formatFullscreen () {
-    return 'Vollbild'
-  },
-  formatAllRows () {
-    return 'All'
-  },
-  formatAutoRefresh () {
-    return 'Automatescht neilueden'
-  },
-  formatExport () {
-    return 'Daten exportéieren'
-  },
-  formatJumpTo () {
-    return 'Sprangen'
-  },
-  formatAdvancedSearch () {
-    return 'Erweidert Sich'
-  },
   formatAdvancedCloseButton () {
     return 'Zoumaachen'
   },
+
+  formatAdvancedSearch () {
+    return 'Erweidert Sich'
+  },
+
+  formatAllRows () {
+    return 'All'
+  },
+
+  formatAutoRefresh () {
+    return 'Automatescht neilueden'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Sich réckgängeg maachen'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Kolonnen'
+  },
+
+  formatColumnsToggleAll () {
+    return 'All ëmschalten'
+  },
+
+  formatCopyRows () {
+    return 'Zeilen kopéieren'
+  },
+
+  formatDeleteLevel () {
+    return 'Delete Level'
+  },
+
+  formatDetailPagination (totalRows) {
+    return `Weist ${totalRows} Zeilen`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Daten exportéieren'
+  },
+
   formatFilterControlSwitch () {
     return 'Schaltelementer uweisen/verstoppen'
   },
+
   formatFilterControlSwitchHide () {
     return 'Schaltelementer verstoppen'
   },
+
   formatFilterControlSwitchShow () {
     return 'Schaltelementer uweisen'
+  },
+
+  formatFullscreen () {
+    return 'Vollbild'
+  },
+
+  formatJumpTo () {
+    return 'Sprangen'
+  },
+
+  formatLoadingMessage () {
+    return 'Gëtt gelueden, gedellëgt Iech wannechgelift ee Moment'
+  },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Keng passend Anträg fonnt'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Paginatioun uweisen/verstoppen'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Paginatioun uweisen'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Paginatioun verstoppen'
+  },
+
+  formatPrint () {
+    return 'Drécken'
+  },
+
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} Zeilen per Säit`
+  },
+
+  formatRefresh () {
+    return 'Nei lueden'
+  },
+
+  formatSRPaginationNextText () {
+    return 'nächst Säit'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `op Säit ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'viregt Säit'
+  },
+
+  formatSearch () {
+    return 'Sich'
+  },
+
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? 'en' : ''} (gefiltert vun insgesamt ${totalNotFiltered} Zeil${totalRows > 1 ? 'en' : ''})`
+    }
+
+    return `Weist Zeil ${pageFrom} bis ${pageTo} vun ${totalRows} Zeil${totalRows > 1 ? 'en' : ''}`
+  },
+
+  formatSort () {
+    return 'Sort'
+  },
+
+  formatSortBy () {
+    return 'Sort by'
+  },
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
+  },
+
+  formatThenBy () {
+    return 'Then by'
+  },
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
+  },
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+
+  formatToggleOff () {
+    return 'Kaartenusiicht verstoppen'
+  },
+
+  formatToggleOn () {
+    return 'Kaartenusiicht uweisen'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['lb-LU'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['lb-LU'])

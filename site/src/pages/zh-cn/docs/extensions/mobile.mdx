@@ -1,0 +1,81 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Mobile
+description: Bootstrap Table 的移动端响应式扩展，实现表格在移动端的自适应显示。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<script src="extensions/mobile/bootstrap-table-mobile.js"></script>
+```
+
+## 示例
+
+[Mobile](https://examples.bootstrap-table.com/#extensions/mobile.html)
+
+## 选项
+
+### checkOnInit
+
+- **属性:** `data-check-on-init`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否在初始化时检查窗口尺寸。设置为 `true` 时，会在初始化时检查窗口尺寸并决定使用何种视图模式。
+
+- **默认值:** `true`
+
+### columnsHidden
+
+- **属性:** `data-columns-hidden`
+
+- **类型:** `String`
+
+- **详情:**
+
+  指定在卡片视图模式下需要隐藏的列字段数组。
+  - 在 `data-*` 属性中使用：`data-columns-hidden="['name', 'description']"`
+  - 在 JavaScript 配置中使用：`columnsHidden: ['name', 'description']`
+
+- **默认值:** `undefined`
+
+### minHeight
+
+- **属性:** `data-min-height`
+
+- **类型:** `Integer`
+
+- **详情:**
+
+  设置表格切换视图模式时的最小高度阈值。
+
+- **默认值:** `undefined`
+
+### minWidth
+
+- **属性:** `data-min-width`
+
+- **类型:** `Integer`
+
+- **详情:**
+
+  设置表格切换视图模式时的最小宽度阈值。
+
+- **默认值:** `562`
+
+### mobileResponsive
+
+- **属性:** `data-mobile-responsive`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  控制是否启用移动端响应式功能。设置为 `true` 时，表格会根据当前窗口的宽度和高度自动在卡片视图与表格视图之间切换。
+
+- **默认值:** `false`

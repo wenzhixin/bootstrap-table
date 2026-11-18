@@ -1,0 +1,16 @@
+@use "sass:color";
+@use "../variables";
+
+variables.$border-color: #dbdbdb;
+variables.$hover-bg: hsl(0, 0%, 98%);
+variables.$background: #fff;
+variables.$color: #363636;
+variables.$dark-border-color: #32383e;
+
+// custom
+$background-hover: color.adjust(variables.$background, $lightness: -4%);
+$primary-background: #3679e4;
+$primary-background-hover: color.adjust($primary-background, $lightness: -10%);
+$btn-padding: 9px 12px;
+$btn-border: #ccc;
+$btn-border-radius: 4px;

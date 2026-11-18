@@ -5,44 +5,56 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   customView: false,
+  showCustomView: false,
   customViewDefaultView: false
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
-  customView: {
-    bootstrap3: 'glyphicon glyphicon-eye-open',
-    bootstrap5: 'bi-eye',
-    bootstrap4: 'fa fa-eye',
-    semantic: 'fa fa-eye',
-    foundation: 'fa fa-eye',
-    bulma: 'fa fa-eye',
-    materialize: 'remove_red_eye'
-  }[$.fn.bootstrapTable.theme] || 'fa-eye'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'customViewOn', {
+  glyphicon: 'glyphicon-list',
+  fa: 'fa-list',
+  bi: 'bi-list',
+  icon: 'list',
+  'material-icons': 'list'
 })
 
-$.extend($.fn.bootstrapTable.defaults, {
+Utils.assignIcons($.fn.bootstrapTable.icons, 'customViewOff', {
+  glyphicon: 'glyphicon-thumbnails',
+  fa: 'fa-th',
+  bi: 'bi-grid',
+  icon: 'grid_on',
+  'material-icons': 'grid_on'
+})
+
+Object.assign($.fn.bootstrapTable.defaults, {
   onCustomViewPostBody () {
     return false
   },
   onCustomViewPreBody () {
     return false
+  },
+  onToggleCustomView () {
+    return false
   }
 })
 
-$.extend($.fn.bootstrapTable.locales, {
-  formatToggleCustomView () {
-    return 'Toggle custom view'
+Object.assign($.fn.bootstrapTable.locales, {
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('toggleCustomView')
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'custom-view-post-body.bs.table': 'onCustomViewPostBody',
-  'custom-view-pre-body.bs.table': 'onCustomViewPreBody'
+  'custom-view-pre-body.bs.table': 'onCustomViewPreBody',
+  'toggle-custom-view.bs.table': 'onToggleCustomView'
 })
 
 $.BootstrapTable = class extends $.BootstrapTable {
@@ -54,15 +66,15 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initToolbar (...args) {
-    if (this.options.customView) {
+    if (this.options.customView && this.options.showCustomView) {
       this.buttons = Object.assign(this.buttons, {
         customView: {
-          text: this.options.formatToggleCustomView(),
-          icon: this.options.icons.customView,
+          text: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+          icon: this.options.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff,
           event: this.toggleCustomView,
           attributes: {
-            'aria-label': this.options.formatToggleCustomView(),
-            title: this.options.formatToggleCustomView()
+            'aria-label': this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn(),
+            title: this.options.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn()
           }
         }
       })
@@ -103,6 +115,16 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   toggleCustomView () {
     this.customViewDefaultView = !this.customViewDefaultView
+
+    const icon = this.options.showButtonIcons ? this.customViewDefaultView ? this.options.icons.customViewOn : this.options.icons.customViewOff : ''
+    const text = this.options.showButtonText ? this.customViewDefaultView ? this.options.formatToggleCustomViewOff() : this.options.formatToggleCustomViewOn() : ''
+
+    this.$toolbar.find('button[name="customView"]')
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
+      .attr('aria-label', text)
+      .attr('title', text)
+
     this.initBody()
+    this.trigger('toggle-custom-view', this.customViewDefaultView)
   }
 }

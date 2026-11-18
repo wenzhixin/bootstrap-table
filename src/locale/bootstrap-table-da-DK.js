@@ -4,100 +4,188 @@
  */
 
 $.fn.bootstrapTable.locales['da-DK'] = $.fn.bootstrapTable.locales['da'] = {
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatAddLevel () {
+    return 'Add Level'
   },
-  formatPrint () {
-    return 'Print'
-  },
-  formatLoadingMessage () {
-    return 'Indlæser, vent venligst'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} poster pr side`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''} (filtered from ${totalNotFiltered} total rows)`
-    }
 
-    return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
-  },
-  formatSRPaginationPreText () {
-    return 'previous page'
-  },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'next page'
-  },
-  formatDetailPagination (totalRows) {
-    return `Viser ${totalRows} række${(totalRows > 1) ? 'r' : ''}`
-  },
-  formatClearSearch () {
-    return 'Ryd filtre'
-  },
-  formatSearch () {
-    return 'Søg'
-  },
-  formatNoMatches () {
-    return 'Ingen poster fundet'
-  },
-  formatPaginationSwitch () {
-    return 'Skjul/vis nummerering'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Opdater'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
-  formatToggleOff () {
-    return 'Hide card view'
-  },
-  formatColumns () {
-    return 'Kolonner'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Alle'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
-  },
-  formatExport () {
-    return 'Eksporter'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
   formatAdvancedCloseButton () {
     return 'Close'
   },
+
+  formatAdvancedSearch () {
+    return 'Advanced search'
+  },
+
+  formatAllRows () {
+    return 'Alle'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto Refresh'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'Ryd filtre'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'Kolonner'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Toggle all'
+  },
+
+  formatCopyRows () {
+    return 'Copy Rows'
+  },
+
+  formatDeleteLevel () {
+    return 'Delete Level'
+  },
+
+  formatDetailPagination (totalRows) {
+    return `Viser ${totalRows} række${totalRows > 1 ? 'r' : ''}`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'Eksporter'
+  },
+
   formatFilterControlSwitch () {
     return 'Hide/Show controls'
   },
+
   formatFilterControlSwitchHide () {
     return 'Hide controls'
   },
+
   formatFilterControlSwitchShow () {
     return 'Show controls'
+  },
+
+  formatFullscreen () {
+    return 'Fullscreen'
+  },
+
+  formatJumpTo () {
+    return 'GO'
+  },
+
+  formatLoadingMessage () {
+    return 'Indlæser, vent venligst'
+  },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'Ingen poster fundet'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Skjul/vis nummerering'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Show pagination'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Hide pagination'
+  },
+
+  formatPrint () {
+    return 'Print'
+  },
+
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} poster pr side`
+  },
+
+  formatRefresh () {
+    return 'Opdater'
+  },
+
+  formatSRPaginationNextText () {
+    return 'next page'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `to page ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+
+  formatSearch () {
+    return 'Søg'
+  },
+
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${totalRows > 1 ? 'r' : ''} (filtered from ${totalNotFiltered} total rows)`
+    }
+
+    return `Viser ${pageFrom} til ${pageTo} af ${totalRows} række${totalRows > 1 ? 'r' : ''}`
+  },
+
+  formatSort () {
+    return 'Sort'
+  },
+
+  formatSortBy () {
+    return 'Sort by'
+  },
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
+  },
+
+  formatThenBy () {
+    return 'Then by'
+  },
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
+  },
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+
+  formatToggleOff () {
+    return 'Hide card view'
+  },
+
+  formatToggleOn () {
+    return 'Show card view'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['da-DK'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['da-DK'])

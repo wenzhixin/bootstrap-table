@@ -4,7 +4,9 @@
  * theme: https://github.com/jgthms/bulma/
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Utils.extend($.fn.bootstrapTable.defaults, {
   classes: 'table is-bordered is-hoverable',
   buttonsPrefix: '',
   buttonsClass: 'button'

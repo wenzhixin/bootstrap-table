@@ -1,103 +1,191 @@
 /**
- * Bootstrap Table English translation
- * Author: Zhixin Wen<wenzhixin2010@gmail.com>
+ * Bootstrap Table Arabic translation
+ * Author: Othman Ali Modaes<othman2004_ye@yahoo.com>
  */
 
 $.fn.bootstrapTable.locales['ar-SA'] = $.fn.bootstrapTable.locales['ar'] = {
+  formatAddLevel () {
+    return 'Add Level'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'إغلاق'
+  },
+
+  formatAdvancedSearch () {
+    return 'بحث متقدم'
+  },
+
+  formatAllRows () {
+    return 'الكل'
+  },
+
+  formatAutoRefresh () {
+    return 'تحديث تلقائي'
+  },
+
+  formatCancel () {
+    return 'Cancel'
+  },
+
+  formatClearSearch () {
+    return 'مسح مربع البحث'
+  },
+
+  formatColumn () {
+    return 'Column'
+  },
+
+  formatColumns () {
+    return 'أعمدة'
+  },
+
+  formatColumnsToggleAll () {
+    return 'تبديل الكل'
+  },
+
   formatCopyRows () {
-    return 'Copy Rows'
+    return 'نسخ الصفوف'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
+
+  formatDetailPagination (totalRows) {
+    return `عرض ${totalRows} أعمدة`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
+  formatExport () {
+    return 'تصدير البيانات'
+  },
+
+  formatFilterControlSwitch () {
+    return 'عرض/إخفاء عناصر التصفية'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'إخفاء عناصر التصفية'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'عرض عناصر التصفية'
+  },
+
+  formatFullscreen () {
+    return 'الشاشة كاملة'
+  },
+
+  formatJumpTo () {
+    return 'قفز'
+  },
+
   formatLoadingMessage () {
-    return 'جاري التحميل, يرجى الإنتظار'
+    return 'جارٍ التحميل، يرجى الانتظار...'
   },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'لا توجد نتائج مطابقة للبحث'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'إخفاء/إظهار ترقيم الصفحات'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'إظهار ترقيم الصفحات'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'إخفاء ترقيم الصفحات'
+  },
+
+  formatPrint () {
+    return 'طباعة'
+  },
+
   formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} سجل لكل صفحة`
+    return `${pageNumber} صف لكل صفحة`
   },
+
+  formatRefresh () {
+    return 'تحديث'
+  },
+
+  formatSRPaginationNextText () {
+    return 'الصفحة التالية'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `إلى الصفحة ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'previous page'
+  },
+
+  formatSearch () {
+    return 'بحث'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} total rows)`
+      return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل ${totalNotFiltered} إجمالي الصفوف)`
     }
 
     return `الظاهر ${pageFrom} إلى ${pageTo} من ${totalRows} سجل`
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
+
+  formatSort () {
+    return 'Sort'
   },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
+
+  formatSortBy () {
+    return 'Sort by'
   },
-  formatSRPaginationNextText () {
-    return 'next page'
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+
+  formatThenBy () {
+    return 'Then by'
   },
-  formatClearSearch () {
-    return 'Clear Search'
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
   },
-  formatSearch () {
-    return 'بحث'
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
   },
-  formatNoMatches () {
-    return 'لا توجد نتائج مطابقة للبحث'
-  },
-  formatPaginationSwitch () { /* eslint-disable no-useless-escape */
-    return 'إخفاء\إظهار ترقيم الصفحات'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'تحديث'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
+
   formatToggleOff () {
-    return 'Hide card view'
+    return 'إلغاء البطاقات'
   },
-  formatColumns () {
-    return 'أعمدة'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'All'
-  },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
-  },
-  formatExport () {
-    return 'Export data'
-  },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
-  formatFilterControlSwitch () {
-    return 'Hide/Show controls'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Hide controls'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Show controls'
+
+  formatToggleOn () {
+    return 'إظهار كبطاقات'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ar-SA'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['ar-SA'])

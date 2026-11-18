@@ -4,100 +4,188 @@
  */
 
 $.fn.bootstrapTable.locales['id-ID'] = $.fn.bootstrapTable.locales['id'] = {
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatAddLevel () {
+    return 'Menambahkan level'
   },
-  formatPrint () {
-    return 'Print'
-  },
-  formatLoadingMessage () {
-    return 'Memuat, mohon tunggu'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} baris per halaman`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris (filtered from ${totalNotFiltered} total rows)`
-    }
 
-    return `Menampilkan ${pageFrom} sampai ${pageTo} dari ${totalRows} baris`
+  formatAdvancedCloseButton () {
+    return 'Tutup'
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
+
+  formatAdvancedSearch () {
+    return 'Pencarian lanjutan'
   },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
-  },
-  formatSRPaginationNextText () {
-    return 'next page'
-  },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
-  },
-  formatClearSearch () {
-    return 'Bersihkan filter'
-  },
-  formatSearch () {
-    return 'Pencarian'
-  },
-  formatNoMatches () {
-    return 'Tidak ditemukan data yang cocok'
-  },
-  formatPaginationSwitch () {
-    return 'Sembunyikan/Tampilkan halaman'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Muat ulang'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
-  formatToggleOff () {
-    return 'Hide card view'
-  },
-  formatColumns () {
-    return 'kolom'
-  },
-  formatColumnsToggleAll () {
-    return 'Toggle all'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
+
   formatAllRows () {
     return 'Semua'
   },
+
   formatAutoRefresh () {
-    return 'Auto Refresh'
+    return 'Penyegaran otomatis'
   },
+
+  formatCancel () {
+    return 'Batal'
+  },
+
+  formatClearSearch () {
+    return 'Menghapus pencarian'
+  },
+
+  formatColumn () {
+    return 'Kolom'
+  },
+
+  formatColumns () {
+    return 'Kolom'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Tampilkan semua'
+  },
+
+  formatCopyRows () {
+    return 'Salin baris'
+  },
+
+  formatDeleteLevel () {
+    return 'Menghapus level'
+  },
+
+  formatDetailPagination (totalRows) {
+    return `Tampilan ${totalRows} baris`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Harap hapus atau ubah entri duplikat'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Entri duplikat telah ditemukan!'
+  },
+
   formatExport () {
-    return 'Ekspor data'
+    return 'Mengekspor data'
   },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
+
   formatFilterControlSwitch () {
-    return 'Hide/Show controls'
+    return 'Menyembunyikan/Menampilkan kontrol'
   },
+
   formatFilterControlSwitchHide () {
-    return 'Hide controls'
+    return 'Menyembunyikan kontrol'
   },
+
   formatFilterControlSwitchShow () {
-    return 'Show controls'
+    return 'Menampilkan kontrol'
+  },
+
+  formatFullscreen () {
+    return 'Layar penuh'
+  },
+
+  formatJumpTo () {
+    return 'Pergi ke'
+  },
+
+  formatLoadingMessage () {
+    return 'Pemuatan sedang berlangsung'
+  },
+
+  formatMultipleSort () {
+    return 'Penyortiran ganda'
+  },
+
+  formatNoMatches () {
+    return 'Tidak ada hasil'
+  },
+
+  formatOrder () {
+    return 'Urutan'
+  },
+
+  formatPaginationSwitch () {
+    return 'Sembunyikan/Tampilkan penomoran halaman'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Tampilkan penomoran halaman'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Sembunyikan penomoran halaman'
+  },
+
+  formatPrint () {
+    return 'Mencetak'
+  },
+
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} baris per halaman`
+  },
+
+  formatRefresh () {
+    return 'Segarkan'
+  },
+
+  formatSRPaginationNextText () {
+    return 'halaman berikutnya'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `ke halaman ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'halaman sebelumnya'
+  },
+
+  formatSearch () {
+    return 'Pencarian'
+  },
+
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris (difilter dari ${totalNotFiltered} baris)`
+    }
+
+    return `Menampilkan dari ${pageFrom} hingga ${pageTo} pada ${totalRows} baris`
+  },
+
+  formatSort () {
+    return 'Penyortiran'
+  },
+
+  formatSortBy () {
+    return 'Urutkan berdasarkan'
+  },
+
+  formatSortOrders () {
+    return {
+      asc: 'Menaik',
+      desc: 'Menurun'
+    }
+  },
+
+  formatThenBy () {
+    return 'Kemudian oleh'
+  },
+
+  formatToggleCustomViewOff () {
+    return 'Menyembunyikan tampilan khusus'
+  },
+
+  formatToggleCustomViewOn () {
+    return 'Menampilkan tampilan khusus'
+  },
+
+  formatToggleOff () {
+    return 'Menyembunyikan tampilan peta'
+  },
+
+  formatToggleOn () {
+    return 'Menampilkan tampilan peta'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['id-ID'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['id-ID'])

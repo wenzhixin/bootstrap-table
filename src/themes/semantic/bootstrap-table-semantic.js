@@ -4,7 +4,9 @@
  * theme: https://github.com/Semantic-Org/Semantic-UI
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Utils.extend($.fn.bootstrapTable.defaults, {
   classes: 'ui selectable celled table unstackable',
   buttonsPrefix: '',
   buttonsClass: 'ui button'

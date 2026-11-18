@@ -2,8 +2,6 @@
  * @author zhixin wen <wenzhixin2010@gmail.com>
  */
 
-const Utils = $.fn.bootstrapTable.utils
-
 // Reasonable defaults
 const PIXEL_STEP = 10
 const LINE_HEIGHT = 40
@@ -12,14 +10,22 @@ const PAGE_HEIGHT = 800
 function normalizeWheel (event) {
   let sX = 0 // spinX
   let sY = 0 // spinY
-  let pX = 0 // pixelX
-  let pY = 0 // pixelY
+  let pX // pixelX
+  let pY // pixelY
 
   // Legacy
-  if ('detail' in event) { sY = event.detail }
-  if ('wheelDelta' in event) { sY = -event.wheelDelta / 120 }
-  if ('wheelDeltaY' in event) { sY = -event.wheelDeltaY / 120 }
-  if ('wheelDeltaX' in event) { sX = -event.wheelDeltaX / 120 }
+  if ('detail' in event) {
+    sY = event.detail
+  }
+  if ('wheelDelta' in event) {
+    sY = -event.wheelDelta / 120
+  }
+  if ('wheelDeltaY' in event) {
+    sY = -event.wheelDeltaY / 120
+  }
+  if ('wheelDeltaX' in event) {
+    sX = -event.wheelDeltaX / 120
+  }
 
   // side scrolling on FF with DOMMouseScroll
   if ('axis' in event && event.axis === event.HORIZONTAL_AXIS) {
@@ -30,8 +36,12 @@ function normalizeWheel (event) {
   pX = sX * PIXEL_STEP
   pY = sY * PIXEL_STEP
 
-  if ('deltaY' in event) { pY = event.deltaY }
-  if ('deltaX' in event) { pX = event.deltaX }
+  if ('deltaY' in event) {
+    pY = event.deltaY
+  }
+  if ('deltaX' in event) {
+    pX = event.deltaX
+  }
 
   if ((pX || pY) && event.deltaMode) {
     if (event.deltaMode === 1) { // delta in LINE units
@@ -44,8 +54,12 @@ function normalizeWheel (event) {
   }
 
   // Fall-back if spin cannot be determined
-  if (pX && !sX) { sX = (pX < 1) ? -1 : 1 }
-  if (pY && !sY) { sY = (pY < 1) ? -1 : 1 }
+  if (pX && !sX) {
+    sX = pX < 1 ? -1 : 1
+  }
+  if (pY && !sY) {
+    sY = pY < 1 ? -1 : 1
+  }
 
   return {
     spinX: sX,
@@ -55,7 +69,7 @@ function normalizeWheel (event) {
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   fixedColumns: false,
   fixedNumber: 0,
   fixedRightNumber: 0
@@ -106,6 +120,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.initFixedColumnsBody()
+    this.initFixedColumnsFooter()
     this.initFixedColumnsEvents()
   }
 
@@ -118,6 +133,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (args[0] === 'post-header') {
       this.initFixedColumnsHeader()
+    } else if (args[0] === 'post-footer') {
+      this.initFixedColumnsFooter()
     } else if (args[0] === 'scroll-body') {
       if (this.needFixedColumns && this.options.fixedNumber) {
         this.$fixedBody.scrollTop(this.$tableBody.scrollTop())
@@ -126,6 +143,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       if (this.needFixedColumns && this.options.fixedRightNumber) {
         this.$fixedBodyRight.scrollTop(this.$tableBody.scrollTop())
       }
+
+      this.syncFixedColumnsFooterScroll()
     }
   }
 
@@ -181,9 +200,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedColumns.find('.fixed-table-loading').hide()
     }
 
-    if (this.needFixedColumns && this.options.fixedRightNumber) {
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
       this.$fixedColumnsRight.find('.fixed-table-loading').hide()
     }
+  }
+
+  fitFooter (...args) {
+    super.fitFooter(...args)
+
+    if (!this.fixedColumnsSupported()) {
+      return
+    }
+
+    // `fitFooter` also runs asynchronously with the real scroll bar width
+    // once the container height is applied (#7585): re-clone the fixed
+    // footers so they always end up with the finally fitted geometry.
+    this.initFixedColumnsFooter()
   }
 
   initFixedColumnsHeader () {
@@ -210,7 +242,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedColumns.html('').css('width', '')
     }
 
-    if (this.needFixedColumns && this.options.fixedRightNumber) {
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
       this.$fixedHeaderRight = initFixedHeader(this.$fixedColumnsRight, true)
       this.$fixedHeaderRight.scrollLeft(this.$fixedHeaderRight.find('table').width())
     } else if (this.$fixedColumnsRight) {
@@ -218,10 +250,13 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     this.initFixedColumnsBody()
+    this.initFixedColumnsFooter()
     this.initFixedColumnsEvents()
   }
 
   initFixedColumnsBody () {
+    const footerHeight = this.getFixedColumnsFooterHeight()
+
     const initFixedBody = ($fixedColumns, $fixedHeader) => {
       $fixedColumns.find('.fixed-table-body').remove()
       $fixedColumns.append(this.$tableBody.clone(true))
@@ -230,16 +265,32 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const $fixedBody = $fixedColumns.find('.fixed-table-body')
 
       const tableBody = this.$tableBody.get(0)
-      const scrollHeight = tableBody.scrollWidth > tableBody.clientWidth ?
-        Utils.getScrollBarWidth() : 0
-      const height = this.$tableContainer.outerHeight(true) - scrollHeight - 1
+      // Measure the real scroll bar instead of `Utils.getScrollBarWidth()`:
+      // the helper can disagree with the actual scroll bar (overlay scroll
+      // bars, styled scroll bars, zoom/iframes), and the footer gutter below
+      // is measured from the same element — both clones must agree (#8582).
+      // `.fixed-table-body` has no border, so this is 0 when there is no
+      // horizontal scroll bar.
+      const scrollBarHeight = tableBody.offsetHeight - tableBody.clientHeight
+
+      // The fixed-columns container spans the full table-container height so
+      // that the absolutely positioned footer (`bottom: 0`) lines up with the
+      // main footer. The body stops above the pinned footer (or the bottom
+      // border) and above the horizontal scroll bar of the main body, which
+      // has to stay visible and usable under the fixed columns.
+      const height = this.$tableContainer.outerHeight(true)
+      // The container bottom border only exists for `.fixed-height:not(.has-footer)`,
+      // so mirror the class instead of the measured footer height (which can be
+      // 0 even when `has-footer` is present, e.g. no visible columns).
+      const reserved = footerHeight + scrollBarHeight +
+        (this.$tableContainer.hasClass('has-footer') ? 0 : 1)
 
       $fixedColumns.css({
         height
       })
 
       $fixedBody.css({
-        height: height - $fixedHeader.height()
+        height: height - $fixedHeader.height() - reserved
       })
 
       return $fixedBody
@@ -249,10 +300,85 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedBody = initFixedBody(this.$fixedColumns, this.$fixedHeader)
     }
 
-    if (this.needFixedColumns && this.options.fixedRightNumber) {
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
       this.$fixedBodyRight = initFixedBody(this.$fixedColumnsRight, this.$fixedHeaderRight)
       this.$fixedBodyRight.scrollLeft(this.$fixedBodyRight.find('table').width())
       this.$fixedBodyRight.css('overflow-y', this.options.height ? 'auto' : 'hidden')
+    }
+  }
+
+  getFixedColumnsFooterHeight () {
+    // Without a fixed height the footer is rendered as a <tfoot> inside the
+    // table body, which is already covered by the cloned fixed body — so there
+    // is no separate footer area to reserve.
+    if (!this.options.height || !this.options.showFooter || this.options.cardView ||
+      !this.$tableFooter || !this.$tableFooter.length) {
+      return 0
+    }
+    return this.$tableFooter.outerHeight(true)
+  }
+
+  initFixedColumnsFooter () {
+    // Only tables with a fixed height keep the footer in a separate
+    // `.fixed-table-footer` container that needs to be cloned for the fixed
+    // columns. Without a fixed height the <tfoot> lives inside the cloned body.
+    const showFooter = this.options.height &&
+      this.options.showFooter && !this.options.cardView
+
+    const initFixedFooter = ($fixedColumns, isRight) => {
+      $fixedColumns.find('.fixed-table-footer').remove()
+      if (!showFooter) {
+        return null
+      }
+      $fixedColumns.append(this.$tableFooter.clone(true))
+      const $fixedFooter = $fixedColumns.find('.fixed-table-footer')
+
+      // `fitFooter` sets the scroll bar gutter (`margin-right`) and the table
+      // width, but also runs asynchronously once the real scroll bar width is
+      // known (#7585) — after the clone was made. Apply the same geometry
+      // explicitly so the clones never keep a stale gutter or width.
+      const scrollBarWidth = this.$tableBody[0].offsetWidth - this.$tableBody[0].clientWidth
+
+      $fixedFooter
+        .css('margin-right', isRight ? scrollBarWidth : '')
+        .find('table').css('width', this.$el.outerWidth())
+
+      if (isRight) {
+        // keep the right footer scrolled to its rightmost position, mirroring
+        // the right header/body behavior
+        $fixedFooter.scrollLeft($fixedFooter.find('table').width())
+      }
+      return $fixedFooter
+    }
+
+    if (this.needFixedColumns && this.options.fixedNumber) {
+      this.$fixedFooter = initFixedFooter(this.$fixedColumns)
+    } else if (this.$fixedColumns) {
+      this.$fixedColumns.find('.fixed-table-footer').remove()
+      this.$fixedFooter = null
+    }
+
+    if (this.needFixedColumns && this.options.fixedRightNumber && this.$fixedColumnsRight) {
+      this.$fixedFooterRight = initFixedFooter(this.$fixedColumnsRight, true)
+    } else if (this.$fixedColumnsRight) {
+      this.$fixedColumnsRight.find('.fixed-table-footer').remove()
+      this.$fixedFooterRight = null
+    }
+  }
+
+  syncFixedColumnsFooterScroll () {
+    if (!this.options.showFooter || this.options.cardView) {
+      return
+    }
+
+    // The fixed columns are horizontally pinned and must not follow the main
+    // footer's horizontal scroll: the left footer stays at its leftmost
+    // position, while the right footer stays pinned to its rightmost position.
+    if (this.$fixedFooter) {
+      this.$fixedFooter.scrollLeft(0)
+    }
+    if (this.$fixedFooterRight) {
+      this.$fixedFooterRight.scrollLeft(this.$fixedFooterRight.find('table').width())
     }
   }
 
@@ -278,7 +404,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
   initFixedColumnsEvents () {
     const toggleHover = (e, toggle) => {
       const tr = `tr[data-index="${$(e.currentTarget).data('index')}"]`
-      let $trs = this.$tableBody.find(tr)
+      const isFromFixed = $(e.currentTarget).closest('.fixed-columns, .fixed-columns-right').length > 0
+      let $trs = $()
+
+      if (isFromFixed) {
+        $trs = $trs.add(this.$tableBody.find(tr))
+      }
 
       if (this.$fixedBody) {
         $trs = $trs.add(this.$fixedBody.find(tr))
@@ -287,14 +418,18 @@ $.BootstrapTable = class extends $.BootstrapTable {
         $trs = $trs.add(this.$fixedBodyRight.find(tr))
       }
 
-      $trs.css('background-color', toggle ? $(e.currentTarget).css('background-color') : '')
+      $trs.toggleClass('hover-row', toggle)
     }
 
-    this.$tableBody.find('tr').hover(e => {
-      toggleHover(e, true)
-    }, e => {
-      toggleHover(e, false)
-    })
+    const bindHover = $el => {
+      $el.find('tr').hover(e => {
+        toggleHover(e, true)
+      }, e => {
+        toggleHover(e, false)
+      })
+    }
+
+    bindHover(this.$tableBody)
 
     const isFirefox = typeof navigator !== 'undefined' &&
       navigator.userAgent.toLowerCase().indexOf('firefox') > -1
@@ -320,12 +455,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     }
 
-    if (this.needFixedColumns && this.options.fixedNumber) {
-      this.$fixedBody.find('tr').hover(e => {
-        toggleHover(e, true)
-      }, e => {
-        toggleHover(e, false)
-      })
+    if (this.needFixedColumns && this.options.fixedNumber && this.$fixedBody) {
+      bindHover(this.$fixedBody)
 
       this.$fixedBody[0].addEventListener(mousewheel, e => {
         updateScroll(e, this.$fixedBody[0])
@@ -333,11 +464,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.needFixedColumns && this.options.fixedRightNumber) {
-      this.$fixedBodyRight.find('tr').hover(e => {
-        toggleHover(e, true)
-      }, e => {
-        toggleHover(e, false)
-      })
+      bindHover(this.$fixedBodyRight)
 
       this.$fixedBodyRight.off('scroll').on('scroll', () => {
         const top = this.$fixedBodyRight.scrollTop()

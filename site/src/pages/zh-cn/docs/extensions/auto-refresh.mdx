@@ -1,0 +1,93 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: Table Auto Refresh
+description: Bootstrap Table 的自动刷新扩展，支持定时刷新表格数据。
+group: extensions
+toc: true
+---
+
+## 用法
+
+```html
+<script src="extensions/auto-refresh/bootstrap-table-auto-refresh.js"></script>
+```
+
+## 示例
+
+[Auto Refresh](https://examples.bootstrap-table.com/#extensions/auto-refresh.html)
+
+## 选项
+
+### autoRefresh
+
+- **属性:** `data-auto-refresh`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用自动刷新功能。设置为 `true` 时，表格将按照设定的时间间隔自动刷新数据。
+
+- **默认值:** `false`
+
+### autoRefreshInterval
+
+- **属性:** `data-auto-refresh-interval`
+
+- **类型:** `Number`
+
+- **详情:**
+
+  设置自动刷新的时间间隔，单位为秒。例如设置为 60 表示每 60 秒刷新一次。
+
+- **默认值:** `60`
+
+### autoRefreshSilent
+
+- **属性:** `data-auto-refresh-silent`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否启用静默刷新模式。设置为 `true` 时，自动刷新过程中不会显示加载动画或提示信息。
+
+- **默认值:** `true`
+
+### autoRefreshStatus
+
+- **属性:** `data-auto-refresh-status`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  表格初始化时是否默认启用自动刷新功能。设置为 `true` 时，表格加载完成后自动开始刷新；用户可以通过界面按钮随时开启或关闭自动刷新。
+
+- **默认值:** `true`
+
+### showAutoRefresh
+
+- **属性:** `data-show-auto-refresh`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  是否显示自动刷新控制按钮。设置为 `false` 时，将隐藏自动刷新按钮，用户无法手动控制刷新状态。适用于需要强制保持自动刷新的场景。
+
+- **默认值:** `true`
+
+### 图标配置
+
+- `autoRefresh`: `'fa-clock'`（自动刷新按钮图标）
+
+## 本地化配置
+
+### formatAutoRefresh
+
+- **参数:** 无
+
+- **默认值:** `function () { return "Auto Refresh" }`
+
+用于自定义自动刷新按钮的显示文本。

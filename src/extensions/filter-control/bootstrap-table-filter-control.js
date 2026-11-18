@@ -1,17 +1,17 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
- * @version: v3.0.0
+ * @version: v3.0.1
  */
 
 import * as UtilsFilterControl from './utils.js'
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   filterControl: false,
   filterControlVisible: true,
   filterControlMultipleSearch: false,
   filterControlMultipleSearchDelimiter: ',',
+  filterControlSearchClear: true,
   // eslint-disable-next-line no-unused-vars
   onColumnSearch (field, text) {
     return false
@@ -63,7 +63,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   _usingMultipleSelect: false
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   filterControl: undefined, // input, select, datepicker
   filterControlMultipleSelect: false,
   filterControlMultipleSelectOptions: {},
@@ -78,26 +78,26 @@ $.extend($.fn.bootstrapTable.columnDefaults, {
   filterCustomSearch: undefined
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'column-search.bs.table': 'onColumnSearch',
-  'created-controls.bs.table': 'onCreatedControls',
-  'options-added.bs.table': 'onOptionsAdded'
+  'created-controls.bs.table': 'onCreatedControls'
 })
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
-  filterControlSwitchHide: {
-    bootstrap3: 'glyphicon-zoom-out icon-zoom-out',
-    bootstrap5: 'bi-zoom-out',
-    materialize: 'zoom_out'
-  }[$.fn.bootstrapTable.theme] || 'fa-search-minus',
-  filterControlSwitchShow: {
-    bootstrap3: 'glyphicon-zoom-in icon-zoom-in',
-    bootstrap5: 'bi-zoom-in',
-    materialize: 'zoom_in'
-  }[$.fn.bootstrapTable.theme] || 'fa-search-plus'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'filterControlSwitchHide', {
+  glyphicon: 'glyphicon-zoom-out icon-zoom-out',
+  fa: 'fa-search-minus',
+  bi: 'bi-zoom-out',
+  'material-icons': 'zoom_out'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Utils.assignIcons($.fn.bootstrapTable.icons, 'filterControlSwitchShow', {
+  glyphicon: 'glyphicon-zoom-in icon-zoom-in',
+  fa: 'fa-search-plus',
+  bi: 'bi-zoom-in',
+  'material-icons': 'zoom_in'
+})
+
+Object.assign($.fn.bootstrapTable.locales, {
   formatFilterControlSwitch () {
     return 'Hide/Show controls'
   },
@@ -106,15 +106,12 @@ $.extend($.fn.bootstrapTable.locales, {
   },
   formatFilterControlSwitchShow () {
     return 'Show controls'
-  }
-})
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
-
-$.extend($.fn.bootstrapTable.defaults, {
+  },
   formatClearSearch () {
     return 'Clear filters'
   }
 })
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.fn.bootstrapTable.methods.push('triggerSearch')
 $.fn.bootstrapTable.methods.push('clearFilterControl')
@@ -172,10 +169,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
     if (!this.options.filterControl) {
       return
     }
-    Utils.debounce(() => {
+    setTimeout(() => {
       UtilsFilterControl.initFilterSelectControls(this)
       UtilsFilterControl.setValues(this)
-    }, 3)()
+    }, 3)
   }
 
   load (data) {
@@ -201,7 +198,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
   initSearch () {
     const that = this
-    const filterPartial = $.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
+    const filterPartial = Utils.isEmptyObject(that.filterColumnsPartial) ? null : that.filterColumnsPartial
 
     super.initSearch()
 
@@ -219,7 +216,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
-          const rawFilterValue = (filterPartial[key] || '')
+          const rawFilterValue = filterPartial[key] || ''
           let filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
           let tmpItemIsExpected
@@ -250,7 +247,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               if (thisColumn) {
                 if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
                   value = $.fn.bootstrapTable.utils.calculateObjectValue(
-                    that.header,
+                    thisColumn,
                     that.header.formatters[$.inArray(key, that.header.fields)],
                     [value, item, i],
                     value
@@ -297,21 +294,29 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   isValueExpected (searchValue, value, column, key) {
-    let tmpItemIsExpected = false
+    let tmpItemIsExpected
+
+    if (column.filterControl === 'select') {
+      value = Utils.removeHTML(value.toString().toLowerCase())
+    }
+
+    if (this.options.searchAccentNeutralise) {
+      value = Utils.normalizeAccent(value)
+    }
 
     if (
       column.filterStrictSearch ||
-      (column.filterControl === 'select' && column.passed.filterStrictSearch !== false)
+      column.filterControl === 'select' && column.passed.filterStrictSearch !== false
     ) {
       tmpItemIsExpected = value.toString().toLowerCase() === searchValue.toString().toLowerCase()
     } else if (column.filterStartsWithSearch) {
-      tmpItemIsExpected = (`${value}`).toLowerCase().indexOf(searchValue) === 0
+      tmpItemIsExpected = `${value}`.toLowerCase().indexOf(searchValue) === 0
     } else if (column.filterControl === 'datepicker') {
       tmpItemIsExpected = new Date(value).getTime() === new Date(searchValue).getTime()
     } else if (this.options.regexSearch) {
       tmpItemIsExpected = Utils.regexCompare(value, searchValue)
     } else {
-      tmpItemIsExpected = (`${value}`).toLowerCase().includes(searchValue)
+      tmpItemIsExpected = `${value}`.toLowerCase().includes(searchValue)
     }
 
     const largerSmallerEqualsRegex = /(?:(<=|=>|=<|>=|>|<)(?:\s+)?(\d+)?|(\d+)?(\s+)?(<=|=>|=<|>=|>|<))/gm
@@ -350,7 +355,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (column.filterCustomSearch) {
-      const customSearchResult = Utils.calculateObjectValue(this, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
+      const customSearchResult = Utils.calculateObjectValue(column, column.filterCustomSearch, [searchValue, value, key, this.options.data], true)
 
       if (customSearchResult !== null) {
         tmpItemIsExpected = customSearchResult
@@ -365,6 +370,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     if (filterColumnsDefaults) {
       this.filterColumnsPartial = filterColumnsDefaults
+      // Apply the restored filters to the data before re-rendering, so the
+      // restore does not depend on the deferred initial search running
+      // after the 250ms restore timer (broken when searchTimeOut < 250).
+      this.initSearch()
       this.updatePagination()
 
       // eslint-disable-next-line guard-for-in
@@ -396,7 +405,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   resetSearch (text) {
-    if (this.options.filterControl && this.options.showSearchClearButton) {
+    if (this.options.filterControl && this.options.filterControlSearchClear && this.options.showSearchClearButton) {
       this.clearFilterControl()
     }
     super.resetSearch(text)
@@ -429,7 +438,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
     UtilsFilterControl.setValues(that)
 
     // clear cookies once the filters are clean
-    Utils.debounce(() => {
+    setTimeout(() => {
       if (cookies && cookies.length > 0) {
         $.each(cookies, (i, item) => {
           if (that.deleteCookie !== undefined) {
@@ -437,7 +446,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           }
         })
       }
-    }, that.options.searchTimeOut)()
+    }, that.options.searchTimeOut)
 
     // If there is not any value in the controls exit this method
     if (!hasValues) {
@@ -449,7 +458,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     // which ones are going to be present.
     if (controls.length > 0) {
       this.filterColumnsPartial = {}
-      controls.eq(0).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
+      const $control = controls.eq(0)
+
+      $control.trigger($control.is('select') ? 'change' : 'keyup', { keyCode: 13 })
       /* controls.each(function () {
         $(this).trigger(this.tagName === 'INPUT' ? 'keyup' : 'change', { keyCode: 13 })
       })*/
@@ -473,21 +484,25 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   // EVENTS
-  onColumnSearch ({ currentTarget, keyCode }) {
+  onColumnSearch ({ currentTarget, keyCode, isInitial }) {
     if (UtilsFilterControl.isKeyAllowed(keyCode)) {
       return
     }
     UtilsFilterControl.cacheValues(this)
 
+    const isInitialRender = !this._initialized || isInitial === true
+
     // Cookie extension support
     if (!this.options.cookie) {
-      this.options.pageNumber = 1
-    } else {
+      if (!isInitialRender) {
+        this.options.pageNumber = 1
+      }
+    } else if (!isInitialRender) {
       // Force call the initServer method in Cookie extension
       this._filterControlValuesLoaded = true
     }
 
-    if ($.isEmptyObject(this.filterColumnsPartial)) {
+    if (Utils.isEmptyObject(this.filterColumnsPartial)) {
       this.filterColumnsPartial = {}
     }
 
@@ -500,7 +515,12 @@ $.BootstrapTable = class extends $.BootstrapTable {
       const text = elementValue ? elementValue.trim() : ''
       const $field = $element.closest('[data-field]').data('field')
 
-      this.trigger('column-search', $field, text)
+      // Skip empty values on the initial render: the cookie extension
+      // persists every column-search event, and an empty one here (before
+      // its 250ms restore timer) would clobber the saved filter cookie.
+      if (!isInitialRender || text) {
+        this.trigger('column-search', $field, text)
+      }
 
       if (text) {
         this.filterColumnsPartial[$field] = text
@@ -509,7 +529,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
     })
 
-    this.onSearch({ currentTarget }, false)
+    this.onSearch({ currentTarget, firedByInitSearchText: isInitialRender }, false)
   }
 
   toggleFilterControl () {
@@ -526,7 +546,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     // Controls in fixed header
     if (this.options.height) {
-      const $fixedControls = $('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
+      const $fixedControls = this.$tableContainer.find('.fixed-table-header table thead').find('.filter-control, .no-filter-control')
 
       $fixedControls.toggle(this.options.filterControlVisible)
       UtilsFilterControl.fixHeaderCSS(this)
@@ -536,26 +556,33 @@ $.BootstrapTable = class extends $.BootstrapTable {
     const text = this.options.showButtonText ? this.options.filterControlVisible ? this.options.formatFilterControlSwitchHide() : this.options.formatFilterControlSwitchShow() : ''
 
     this.$toolbar.find('>.columns').find('.filter-control-switch')
-      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon) } ${ text}`)
+      .html(`${Utils.sprintf(this.constants.html.icon, this.options.iconsPrefix, icon)} ${text}`)
   }
 
-  triggerSearch () {
+  triggerSearch (isInitial = false) {
     const searchControls = UtilsFilterControl.getSearchControls(this)
 
     searchControls.each(function () {
       const $element = $(this)
+      const eventName = $element.is('select') ? 'change' : 'keyup'
+      const eventData = { keyCode: 13 }
 
-      if ($element.is('select')) {
-        $element.trigger('change')
-      } else {
-        $element.trigger('keyup')
+      if (isInitial) {
+        eventData.isInitial = true
       }
+
+      $element.trigger(eventName, eventData)
     })
   }
 
-  _toggleColumn (index, checked, needUpdate) {
-    this._initialized = false
-    super._toggleColumn(index, checked, needUpdate)
+  _toggleColumns (fields, checked, needUpdate) {
+    if (fields.length) {
+      this._initialized = false
+    }
+    super._toggleColumns(fields, checked, needUpdate)
+    // initHeader only runs when a column really changed visibility, so restore
+    // the flag here to stop it latching to false (#8216).
+    this._initialized = true
     UtilsFilterControl.syncHeaders(this)
   }
 }

@@ -6,7 +6,7 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   editable: true,
   onEditableInit () {
     return false
@@ -22,11 +22,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.columnDefaults, {
+Object.assign($.fn.bootstrapTable.columnDefaults, {
   alwaysUseFormatter: false
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'editable-init.bs.table': 'onEditableInit',
   'editable-save.bs.table': 'onEditableSave',
   'editable-shown.bs.table': 'onEditableShown',
@@ -48,7 +48,6 @@ $.BootstrapTable = class extends $.BootstrapTable {
       }
 
       const editableOptions = {}
-      const editableDataMarkup = []
       const editableDataPrefix = 'editable-'
       const processDataOptions = (key, value) => {
         // Replace camel case with dashes.
@@ -59,12 +58,14 @@ $.BootstrapTable = class extends $.BootstrapTable {
         }
       }
 
+      const formatterIsSet = column.formatter ? true : false
+
       $.each(this.options, processDataOptions)
 
       column.formatter = column.formatter || (value => value)
       column._formatter = column._formatter ? column._formatter : column.formatter
       column.formatter = (value, row, index, field) => {
-        let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index], value)
+        let result = Utils.calculateObjectValue(column, column._formatter, [value, row, index, field], value)
 
         result = typeof result === 'undefined' || result === null ? this.options.undefinedText : result
         if (this.options.uniqueId !== undefined && !column.alwaysUseFormatter) {
@@ -77,26 +78,26 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
         $.each(column, processDataOptions)
 
-        $.each(editableOptions, (key, value) => {
-          editableDataMarkup.push(` ${key}="${value}"`)
-        })
-
-        let noEditFormatter = false
         const editableOpts = Utils.calculateObjectValue(column,
           column.editable, [index, row], {})
+        const noEditFormatter = editableOpts.hasOwnProperty('noEditFormatter') &&
+                                editableOpts.noEditFormatter(value, row, index, field)
 
-        if (editableOpts.hasOwnProperty('noEditFormatter')) {
-          noEditFormatter = editableOpts.noEditFormatter(value, row, index, field)
+        if (noEditFormatter) {
+          return noEditFormatter
         }
 
-        if (noEditFormatter === false) {
-          return `<a href="javascript:void(0)"
-            data-name="${column.field}"
-            data-pk="${row[this.options.idField]}"
-            data-value="${result}"
-            ${editableDataMarkup.join('')}></a>`
-        }
-        return noEditFormatter
+        let editableDataMarkup = ''
+
+        $.each(editableOptions, (key, value) => {
+          editableDataMarkup += ` ${key}="${value}"`
+        })
+
+        return `<a href="javascript:void(0)"
+          data-name="${column.field}"
+          data-pk="${row[this.options.idField]}"
+          data-value="${value || ''}"
+          ${editableDataMarkup}>${formatterIsSet ? result : ''}</a>` // expand all data-editable-XXX
       }
     })
   }

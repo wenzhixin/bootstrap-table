@@ -9,8 +9,8 @@ $.fn.bootstrapTable.methods.push('changeLocale')
 $.BootstrapTable = class extends $.BootstrapTable {
 
   changeTitle (locale) {
-    $.each(this.options.columns, (idx, columnList) => {
-      $.each(columnList, (idx, column) => {
+    this.options.columns.forEach(columnList => {
+      columnList.forEach(column => {
         if (column.field) {
           column.title = locale[column.field]
         }

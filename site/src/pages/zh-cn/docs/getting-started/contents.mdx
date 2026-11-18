@@ -1,0 +1,42 @@
+---
+layout: '@/layouts/DocsLayout.astro'
+title: 内容结构
+description: Bootstrap Table 源代码下载包括预编译的 CSS、JavaScript、本地化文件和扩展，并提供编译和压缩版本，以及文档。
+group: getting-started
+toc: true
+---
+
+## 预编译的 Bootstrap Table
+
+更具体地说，它包含以下内容：
+
+```plaintext
+bootstrap-table/
+└── dist/
+    ├── extensions/
+    ├── locale/
+    ├── themes/
+    ├── bootstrap-table-locale-all.js
+    ├── bootstrap-table-locale-all.min.js
+    ├── bootstrap-table.css
+    ├── bootstrap-table.min.css
+    ├── bootstrap-table.js
+    └── bootstrap-table.min.js
+```
+
+`dist/` 文件夹包含所有从 `src/` 编译和压缩的文件。为了方便使用，我们还将所有本地化文件编译到一个文件 `bootstrap-table-locale-all.js` 中。
+
+## 源代码
+
+```plaintext
+bootstrap-table/
+├── site/
+└── src/
+    ├── extensions/
+    ├── locale/
+    ├── themes/
+    ├── bootstrap-table.css
+    └── bootstrap-table.js
+```
+
+`src/`、`locale/` 和 `extensions/` 是我们 CSS 和 JS 的源代码。`site/` 文件夹包含我们文档的源代码。其他文件如 `package.json`、`LICENSE` 和 `README.md` 提供包信息、许可证和开发指南。

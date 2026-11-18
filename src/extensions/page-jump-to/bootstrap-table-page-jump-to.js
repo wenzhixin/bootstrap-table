@@ -5,17 +5,17 @@
 
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showJumpTo: false,
   showJumpToByPages: 0
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatJumpTo () {
     return 'GO'
   }
 })
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 $.BootstrapTable = class extends $.BootstrapTable {
   initPagination (...args) {
@@ -32,37 +32,39 @@ $.BootstrapTable = class extends $.BootstrapTable {
             value="${this.options.pageNumber}"
             min="1"
             max="${this.totalPages}">`,
-          `<button class="${this.constants.buttonsClass}"  type="button">
+          `<button class="${this.constants.buttonsClass}" type="button">
           ${this.options.formatJumpTo()}
           </button>`)
         ).addClass('page-jump-to').appendTo($pageGroup)
 
-        const $input = $jumpTo.find('input')
+        for (const el of $jumpTo) {
+          const $input = $(el).find('input')
 
-        $jumpTo.find('button').click(() => {
-          this.selectPage(+$input.val())
-        })
-
-        $input.keyup(e => {
-          if ($input.val() === '') {
-            return
-          }
-          if (e.keyCode === 13) {
+          $(el).find('button').click(() => {
             this.selectPage(+$input.val())
-            return
-          }
-          if (+$input.val() < +$input.attr('min')) {
-            $input.val($input.attr('min'))
-          } else if (+$input.val() > +$input.attr('max')) {
-            $input.val($input.attr('max'))
-          }
-        })
+          })
 
-        $input.blur(() => {
-          if ($input.val() === '') {
-            $input.val(this.options.pageNumber)
-          }
-        })
+          $input.keyup(e => {
+            if ($input.val() === '') {
+              return
+            }
+            if (e.keyCode === 13) {
+              this.selectPage(+$input.val())
+              return
+            }
+            if (+$input.val() < +$input.attr('min')) {
+              $input.val($input.attr('min'))
+            } else if (+$input.val() > +$input.attr('max')) {
+              $input.val($input.attr('max'))
+            }
+          })
+
+          $input.blur(() => {
+            if ($input.val() === '') {
+              $input.val(this.options.pageNumber)
+            }
+          })
+        }
       }
     }
   }

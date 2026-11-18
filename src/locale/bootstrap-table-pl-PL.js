@@ -2,21 +2,150 @@
  * Bootstrap Table Polish translation
  * Author: zergu <michal.zagdan @ gmail com>
  * Update: kerogos <kerog @ wp pl>
+ * Update v2: rem22 <darkman1515 @ gmail com>
  */
 
 $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
+  formatAddLevel () {
+    return 'Dodaj poziom'
+  },
+
+  formatAdvancedCloseButton () {
+    return 'Zamknij'
+  },
+
+  formatAdvancedSearch () {
+    return 'Wyszukiwanie zaawansowane'
+  },
+
+  formatAllRows () {
+    return 'Wszystkie'
+  },
+
+  formatAutoRefresh () {
+    return 'Auto odświeżanie'
+  },
+
+  formatCancel () {
+    return 'Anuluj'
+  },
+
+  formatClearSearch () {
+    return 'Wyczyść wyszukiwanie'
+  },
+
+  formatColumn () {
+    return 'Kolumna'
+  },
+
+  formatColumns () {
+    return 'Kolumny'
+  },
+
+  formatColumnsToggleAll () {
+    return 'Zaznacz wszystko'
+  },
+
   formatCopyRows () {
     return 'Kopiuj wiersze'
   },
-  formatPrint () {
-    return 'Print'
+
+  formatDeleteLevel () {
+    return 'Usuń poziom'
   },
+
+  formatDetailPagination (totalRows) {
+    return `Wyświetla ${totalRows} wierszy`
+  },
+
+  formatDuplicateAlertDescription () {
+    return 'Proszę usunąć lub zmodyfikować zduplikowane kolumny'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplikaty wykryte'
+  },
+
+  formatExport () {
+    return 'Eksport danych'
+  },
+
+  formatFilterControlSwitch () {
+    return 'Pokaż/Ukryj'
+  },
+
+  formatFilterControlSwitchHide () {
+    return 'Pokaż'
+  },
+
+  formatFilterControlSwitchShow () {
+    return 'Ukryj'
+  },
+
+  formatFullscreen () {
+    return 'Pełny ekran'
+  },
+
+  formatJumpTo () {
+    return 'Przejdź'
+  },
+
   formatLoadingMessage () {
     return 'Ładowanie, proszę czekać'
   },
+
+  formatMultipleSort () {
+    return 'Sortowanie wielopoziomowe'
+  },
+
+  formatNoMatches () {
+    return 'Niestety, nic nie znaleziono'
+  },
+
+  formatOrder () {
+    return 'Kolejność'
+  },
+
+  formatPaginationSwitch () {
+    return 'Pokaż/ukryj stronicowanie'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Pokaż stronicowanie'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Ukryj stronicowanie'
+  },
+
+  formatPrint () {
+    return 'Drukuj'
+  },
+
   formatRecordsPerPage (pageNumber) {
     return `${pageNumber} rekordów na stronę`
   },
+
+  formatRefresh () {
+    return 'Odśwież'
+  },
+
+  formatSRPaginationNextText () {
+    return 'następna strona'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `z ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'poprzednia strona'
+  },
+
+  formatSearch () {
+    return 'Szukaj'
+  },
+
   formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
     if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
       return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows} (filtered from ${totalNotFiltered} total rows)`
@@ -24,81 +153,41 @@ $.fn.bootstrapTable.locales['pl-PL'] = $.fn.bootstrapTable.locales['pl'] = {
 
     return `Wyświetlanie rekordów od ${pageFrom} do ${pageTo} z ${totalRows}`
   },
-  formatSRPaginationPreText () {
-    return 'poprzednia strona'
+
+  formatSort () {
+    return 'Sortuj'
   },
-  formatSRPaginationPageText (page) {
-    return `z ${page}`
+
+  formatSortBy () {
+    return 'Sortuj po'
   },
-  formatSRPaginationNextText () {
-    return 'następna strona'
+
+  formatSortOrders () {
+    return {
+      asc: 'Rosnąco',
+      desc: 'Malejąco'
+    }
   },
-  formatDetailPagination (totalRows) {
-    return `Wyświetla ${totalRows} wierszy`
+
+  formatThenBy () {
+    return 'Następnie po'
   },
-  formatClearSearch () {
-    return 'Wyczyść wyszukiwanie'
+
+  formatToggleCustomViewOff () {
+    return 'Ukryj własny widok'
   },
-  formatSearch () {
-    return 'Szukaj'
+
+  formatToggleCustomViewOn () {
+    return 'Pokaż własny widok'
   },
-  formatNoMatches () {
-    return 'Niestety, nic nie znaleziono'
-  },
-  formatPaginationSwitch () {
-    return 'Pokaż/ukryj stronicowanie'
-  },
-  formatPaginationSwitchDown () {
-    return 'Pokaż stronicowanie'
-  },
-  formatPaginationSwitchUp () {
-    return 'Ukryj stronicowanie'
-  },
-  formatRefresh () {
-    return 'Odśwież'
-  },
-  formatToggleOn () {
-    return 'Pokaż układ karty'
-  },
+
   formatToggleOff () {
     return 'Ukryj układ karty'
   },
-  formatColumns () {
-    return 'Kolumny'
-  },
-  formatColumnsToggleAll () {
-    return 'Zaznacz wszystko'
-  },
-  formatFullscreen () {
-    return 'Fullscreen'
-  },
-  formatAllRows () {
-    return 'Wszystkie'
-  },
-  formatAutoRefresh () {
-    return 'Auto odświeżanie'
-  },
-  formatExport () {
-    return 'Eksport danych'
-  },
-  formatJumpTo () {
-    return 'Przejdź'
-  },
-  formatAdvancedSearch () {
-    return 'Wyszukiwanie zaawansowane'
-  },
-  formatAdvancedCloseButton () {
-    return 'Zamknij'
-  },
-  formatFilterControlSwitch () {
-    return 'Pokaż/Ukryj'
-  },
-  formatFilterControlSwitchHide () {
-    return 'Pokaż'
-  },
-  formatFilterControlSwitchShow () {
-    return 'Ukryj'
+
+  formatToggleOn () {
+    return 'Pokaż układ karty'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['pl-PL'])

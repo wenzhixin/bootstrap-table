@@ -37,6 +37,8 @@ class VirtualScroll {
       this.cache.scrollTop = this.scrollEl.scrollTop
       this.cache.data = this.contentEl.innerHTML = rows[0] + rows[0] + rows[0]
       this.getRowsHeight(rows)
+    } else if (this.blockHeight === 0) {
+      this.getRowsHeight(rows)
     }
 
     const data = this.initData(rows, this.getNum(fixedScroll))
@@ -67,7 +69,7 @@ class VirtualScroll {
   }
 
   getRowsHeight () {
-    if (typeof this.itemHeight === 'undefined') {
+    if (typeof this.itemHeight === 'undefined' || this.itemHeight === 0) {
       const nodes = this.contentEl.children
       const node = nodes[Math.floor(nodes.length / 2)]
 

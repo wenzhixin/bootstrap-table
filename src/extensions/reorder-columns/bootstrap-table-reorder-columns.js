@@ -1,6 +1,5 @@
 /**
  * @author: Dennis Hernández
- * @webSite: http://djhvscf.github.io/Blog
  * @update: https://github.com/wenzhixin
  * @version: v1.2.0
  */
@@ -22,45 +21,7 @@ $.akottr.dragtable.prototype._restoreState = function (persistObj) {
   }
 }
 
-// From MDN site, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-const filterFn = () => {
-  if (!Array.prototype.filter) {
-    Array.prototype.filter = function (fun/* , thisArg*/) {
-      if (this === undefined || this === null) {
-        throw new TypeError()
-      }
-
-      const t = Object(this)
-      const len = t.length >>> 0
-
-      if (typeof fun !== 'function') {
-        throw new TypeError()
-      }
-
-      const res = []
-      const thisArg = arguments.length >= 2 ? arguments[1] : undefined
-
-      for (let i = 0; i < len; i++) {
-        if (i in t) {
-          const val = t[i]
-
-          // NOTE: Technically this should Object.defineProperty at
-          //       the next index, as push can be affected by
-          //       properties on Object.prototype and Array.prototype.
-          //       But this method's new, and collisions should be
-          //       rare, so use the more-compatible alternative.
-          if (fun.call(thisArg, val, i, t)) {
-            res.push(val)
-          }
-        }
-      }
-
-      return res
-    }
-  }
-}
-
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   reorderableColumns: false,
   maxMovingRows: 10,
   // eslint-disable-next-line no-unused-vars
@@ -70,7 +31,7 @@ $.extend($.fn.bootstrapTable.defaults, {
   dragaccept: null
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'reorder-column.bs.table': 'onReorderColumn'
 })
 
@@ -84,17 +45,73 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    if (this.columnsSortOrder) {
+      this.syncColumnsStateFromDOM()
+      super.initHeader(...args)
+    }
+
+    this.makeColumnsReorderable()
   }
 
-  _toggleColumn (...args) {
-    super._toggleColumn(...args)
+  syncColumnsStateFromDOM () {
+    const ths = []
+    const formatters = []
+    const columns = []
+    const optionsColumns = []
+
+    const $headerRow = this.$header.find('tr').last()
+    const $headerCells = ($headerRow.length ? $headerRow : this.$header).find('th[data-field]:not(.detail)')
+
+    $headerCells.each((i, el) => {
+      ths.push($(el).data('field'))
+      formatters.push($(el).data('formatter'))
+    })
+
+    if (ths.length < this.columns.length) {
+      const columnsHidden = this.columns.filter(column => !column.visible)
+
+      for (let i = 0; i < columnsHidden.length; i++) {
+        ths.push(columnsHidden[i].field)
+        formatters.push(columnsHidden[i].formatter)
+      }
+    }
+
+    for (let i = 0; i < ths.length; i++) {
+      const columnIndex = this.fieldsColumnsIndex[ths[i]]
+
+      if (!Number.isInteger(columnIndex) || !this.columns[columnIndex]) {
+        continue
+      }
+
+      this.fieldsColumnsIndex[ths[i]] = i
+      this.columns[columnIndex].fieldIndex = i
+      columns.push(this.columns[columnIndex])
+    }
+
+    this.columns = columns
+
+    for (const column of this.columns) {
+      const field = column.field
+      const matchedColumn = this.options.columns[0].find(item => item.field === field)
+
+      if (matchedColumn) {
+        optionsColumns.push(matchedColumn)
+      }
+    }
+
+    this.options.columns[0] = optionsColumns
+    this.header.fields = ths
+    this.header.formatters = formatters
+  }
+
+  _toggleColumns (...args) {
+    super._toggleColumns(...args)
 
     if (!this.options.reorderableColumns) {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
   toggleView (...args) {
@@ -108,7 +125,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
   resetView (...args) {
@@ -118,14 +135,21 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    this.makeRowsReorderable()
+    this.makeColumnsReorderable()
   }
 
-  makeRowsReorderable (order = null) {
+  // requires cookie extension enabled to persist state
+  _persistColumnsSortOrder () {
+    if (this.options.cookie && typeof this.persistReorderColumnsState === 'function') {
+      this.persistReorderColumnsState(this)
+    }
+  }
+
+  makeColumnsReorderable (order = null) {
     try {
       $(this.$el).dragtable('destroy')
-    } catch (e) {
-      // do nothing
+    } catch {
+      // ignore
     }
     $(this.$el).dragtable({
       maxMovingRows: this.options.maxMovingRows,
@@ -137,77 +161,51 @@ $.BootstrapTable = class extends $.BootstrapTable {
         const sortOrder = {}
 
         table.el.find('th').each((i, el) => {
-          sortOrder[$(el).data('field')] = i
+          if (el.dataset.field !== undefined) {
+            sortOrder[el.dataset.field] = i
+          }
         })
 
         this.columnsSortOrder = sortOrder
-        if (this.options.cookie) {
-          this.persistReorderColumnsState(this)
-        }
+        this._persistColumnsSortOrder()
 
-        const ths = []
-        const formatters = []
-        const columns = []
-        let columnsHidden = []
-        let columnIndex = -1
-        const optionsColumns = []
-
-        this.$header.find('th:not(.detail)').each((i, el) => {
-          ths.push($(el).data('field'))
-          formatters.push($(el).data('formatter'))
-        })
-
-        // Exist columns not shown
-        if (ths.length < this.columns.length) {
-          columnsHidden = this.columns.filter(column => !column.visible)
-          for (let i = 0; i < columnsHidden.length; i++) {
-            ths.push(columnsHidden[i].field)
-            formatters.push(columnsHidden[i].formatter)
-          }
-        }
-
-        for (let i = 0; i < ths.length; i++) {
-          columnIndex = this.fieldsColumnsIndex[ths[i]]
-          if (columnIndex !== -1) {
-            this.fieldsColumnsIndex[ths[i]] = i
-            this.columns[columnIndex].fieldIndex = i
-            columns.push(this.columns[columnIndex])
-          }
-        }
-
-        this.columns = columns
-
-        filterFn() // Support <IE9
-        $.each(this.columns, (i, column) => {
-          let found = false
-          const field = column.field
-
-          this.options.columns[0].filter(item => {
-            if (!found && item['field'] === field) {
-              optionsColumns.push(item)
-              found = true
-              return false
-            }
-            return true
-          })
-        })
-
-        this.options.columns[0] = optionsColumns
-
-        this.header.fields = ths
-        this.header.formatters = formatters
+        this.syncColumnsStateFromDOM()
         this.initHeader()
         this.initToolbar()
         this.initSearchText()
         this.initBody()
         this.resetView()
-        this.trigger('reorder-column', ths)
+        this.trigger('reorder-column', this.header.fields)
       }
     })
   }
 
   orderColumns (order) {
+    if (!order || typeof order !== 'object') {
+      return
+    }
+
+    const $headerRow = this.$header.find('tr').last()
+    const $target = $headerRow.length ? $headerRow : this.$header
+
+    const sortedEntries = Object.entries(order).sort((a, b) => a[1] - b[1])
+
+    for (const [field] of sortedEntries) {
+      const $th = $target.find(`th[data-field="${field}"]`)
+
+      if ($th.length) {
+        $target.append($th)
+      }
+    }
+
     this.columnsSortOrder = order
-    this.makeRowsReorderable()
+    this._persistColumnsSortOrder()
+    this.syncColumnsStateFromDOM()
+    this.initHeader()
+    this.initToolbar()
+    this.initSearchText()
+    this.initBody()
+    this.resetView()
+    this.trigger('reorder-column', this.header.fields)
   }
 }

@@ -1,103 +1,192 @@
 /**
  * Bootstrap Table Spanish (Costa Rica) translation
- * Author: Dennis Hernández (http://djhvscf.github.io/Blog/)
+ * Author: Dennis Hernández
+ * Review: Jei (@jeijei4) (20/Oct/2022)
  */
 
 $.fn.bootstrapTable.locales['es-CR'] = {
-  formatCopyRows () {
-    return 'Copy Rows'
+  formatAddLevel () {
+    return 'Add Level'
   },
-  formatPrint () {
-    return 'Print'
-  },
-  formatLoadingMessage () {
-    return 'Cargando, por favor espere'
-  },
-  formatRecordsPerPage (pageNumber) {
-    return `${pageNumber} registros por página`
-  },
-  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-      return `Mostrando de ${pageFrom} a ${pageTo} registros de ${totalRows} registros en total (filtered from ${totalNotFiltered} total rows)`
-    }
 
-    return `Mostrando de ${pageFrom} a ${pageTo} registros de ${totalRows} registros en total`
+  formatAdvancedCloseButton () {
+    return 'Cerrar'
   },
-  formatSRPaginationPreText () {
-    return 'previous page'
+
+  formatAdvancedSearch () {
+    return 'Búsqueda avanzada'
   },
-  formatSRPaginationPageText (page) {
-    return `to page ${page}`
+
+  formatAllRows () {
+    return 'Todas las filas'
   },
-  formatSRPaginationNextText () {
-    return 'next page'
+
+  formatAutoRefresh () {
+    return 'Actualización automática'
   },
-  formatDetailPagination (totalRows) {
-    return `Showing ${totalRows} rows`
+
+  formatCancel () {
+    return 'Cancel'
   },
+
   formatClearSearch () {
     return 'Limpiar búsqueda'
   },
-  formatSearch () {
-    return 'Buscar'
+
+  formatColumn () {
+    return 'Column'
   },
-  formatNoMatches () {
-    return 'No se encontraron registros'
-  },
-  formatPaginationSwitch () {
-    return 'Hide/Show pagination'
-  },
-  formatPaginationSwitchDown () {
-    return 'Show pagination'
-  },
-  formatPaginationSwitchUp () {
-    return 'Hide pagination'
-  },
-  formatRefresh () {
-    return 'Refrescar'
-  },
-  formatToggleOn () {
-    return 'Show card view'
-  },
-  formatToggleOff () {
-    return 'Hide card view'
-  },
+
   formatColumns () {
     return 'Columnas'
   },
+
   formatColumnsToggleAll () {
-    return 'Toggle all'
+    return 'Alternar todo'
   },
-  formatFullscreen () {
-    return 'Fullscreen'
+
+  formatCopyRows () {
+    return 'Copiar filas'
   },
-  formatAllRows () {
-    return 'Todo'
+
+  formatDeleteLevel () {
+    return 'Delete Level'
   },
-  formatAutoRefresh () {
-    return 'Auto Refresh'
+
+  formatDetailPagination (totalRows) {
+    return `Mostrando ${totalRows} filas`
   },
+
+  formatDuplicateAlertDescription () {
+    return 'Please remove or change any duplicate column.'
+  },
+
+  formatDuplicateAlertTitle () {
+    return 'Duplicate(s) detected!'
+  },
+
   formatExport () {
-    return 'Export data'
+    return 'Exportar'
   },
-  formatJumpTo () {
-    return 'GO'
-  },
-  formatAdvancedSearch () {
-    return 'Advanced search'
-  },
-  formatAdvancedCloseButton () {
-    return 'Close'
-  },
+
   formatFilterControlSwitch () {
-    return 'Ocultar/Mostrar controles'
+    return 'Mostrar/ocultar controles'
   },
+
   formatFilterControlSwitchHide () {
     return 'Ocultar controles'
   },
+
   formatFilterControlSwitchShow () {
     return 'Mostrar controles'
+  },
+
+  formatFullscreen () {
+    return 'Pantalla completa'
+  },
+
+  formatJumpTo () {
+    return 'Ver'
+  },
+
+  formatLoadingMessage () {
+    return 'Cargando, por favor espere'
+  },
+
+  formatMultipleSort () {
+    return 'Multiple Sort'
+  },
+
+  formatNoMatches () {
+    return 'No se encontraron resultados'
+  },
+
+  formatOrder () {
+    return 'Order'
+  },
+
+  formatPaginationSwitch () {
+    return 'Mostrar/ocultar paginación'
+  },
+
+  formatPaginationSwitchDown () {
+    return 'Mostrar paginación'
+  },
+
+  formatPaginationSwitchUp () {
+    return 'Ocultar paginación'
+  },
+
+  formatPrint () {
+    return 'Imprimir'
+  },
+
+  formatRecordsPerPage (pageNumber) {
+    return `${pageNumber} filas por página`
+  },
+
+  formatRefresh () {
+    return 'Actualizar'
+  },
+
+  formatSRPaginationNextText () {
+    return 'página siguiente'
+  },
+
+  formatSRPaginationPageText (page) {
+    return `ir a la página ${page}`
+  },
+
+  formatSRPaginationPreText () {
+    return 'página anterior'
+  },
+
+  formatSearch () {
+    return 'Buscar'
+  },
+
+  formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
+    if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
+      return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtrado de un total de ${totalNotFiltered} filas)`
+    }
+
+    return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
+  },
+
+  formatSort () {
+    return 'Sort'
+  },
+
+  formatSortBy () {
+    return 'Sort by'
+  },
+
+  formatSortOrders () {
+    return {
+      asc: 'Ascending',
+      desc: 'Descending'
+    }
+  },
+
+  formatThenBy () {
+    return 'Then by'
+  },
+
+  formatToggleCustomViewOff () {
+    return 'Hide custom view'
+  },
+
+  formatToggleCustomViewOn () {
+    return 'Show custom view'
+  },
+
+  formatToggleOff () {
+    return 'Ocultar vista en tarjetas'
+  },
+
+  formatToggleOn () {
+    return 'Mostrar vista en tarjetas'
   }
 }
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CR'])
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-CR'])

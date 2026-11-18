@@ -1,88 +1,76 @@
 /**
  * @author Nadim Basalamah <dimbslmh@gmail.com>
  * @version: v1.1.0
- * https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort/bootstrap-table-multiple-sort.js
- * Modification: ErwannNevou <https://github.com/ErwannNevou>
+ * @update: ErwannNevou <https://github.com/ErwannNevou>
  */
 
 let isSingleSort = false
 const Utils = $.fn.bootstrapTable.utils
 
-$.extend($.fn.bootstrapTable.defaults.icons, {
-  plus: {
-    bootstrap3: 'glyphicon-plus',
-    bootstrap4: 'fa-plus',
-    bootstrap5: 'bi-plus',
-    semantic: 'fa-plus',
-    materialize: 'plus',
-    foundation: 'fa-plus',
-    bulma: 'fa-plus',
-    'bootstrap-table': 'icon-plus'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock',
-  minus: {
-    bootstrap3: 'glyphicon-minus',
-    bootstrap4: 'fa-minus',
-    bootstrap5: 'bi-dash',
-    semantic: 'fa-minus',
-    materialize: 'minus',
-    foundation: 'fa-minus',
-    bulma: 'fa-minus',
-    'bootstrap-table': 'icon-minus'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock',
-  sort: {
-    bootstrap3: 'glyphicon-sort',
-    bootstrap4: 'fa-sort',
-    bootstrap5: 'bi-arrow-down-up',
-    semantic: 'fa-sort',
-    materialize: 'sort',
-    foundation: 'fa-sort',
-    bulma: 'fa-sort',
-    'bootstrap-table': 'icon-sort-amount-asc'
-  }[$.fn.bootstrapTable.theme] || 'fa-clock'
+Utils.assignIcons($.fn.bootstrapTable.icons, 'plus', {
+  glyphicon: 'glyphicon-plus',
+  fa: 'fa-plus',
+  bi: 'bi-plus',
+  icon: 'icon-plus',
+  'material-icons': 'plus'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'minus', {
+  glyphicon: 'glyphicon-minus',
+  fa: 'fa-minus',
+  bi: 'bi-dash',
+  icon: 'icon-minus',
+  'material-icons': 'minus'
+})
+
+Utils.assignIcons($.fn.bootstrapTable.icons, 'sort', {
+  glyphicon: 'glyphicon-sort',
+  fa: 'fa-sort',
+  bi: 'bi-arrow-down-up',
+  icon: 'icon-sort-amount-asc',
+  'material-icons': 'sort'
 })
 
 const theme = {
   bootstrap3: {
     html: {
       multipleSortModal: `
-        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal fade modal-multiple-sort" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+          <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                     <h4 class="modal-title" id="%sLabel">%s</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="bootstrap-table">
-                        <div class="fixed-table-toolbar">
-                            <div class="bars">
-                                <div id="toolbar">
-                                     <button id="add" type="button" class="btn btn-default">%s %s</button>
-                                     <button id="delete" type="button" class="btn btn-default" disabled>%s %s</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fixed-table-container">
-                            <table id="multi-sort" class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="%sLabel">%s</h4>
+              </div>
+              <div class="modal-body">
+                <div class="bootstrap-table">
+                  <div class="fixed-table-toolbar">
+                    <div class="bars">
+                      <button type="button" class="toolbar-btn-add btn btn-default">%s %s</button>
+                      <button type="button" class="toolbar-btn-delete btn btn-default" disabled>%s %s</button>
                     </div>
+                  </div>
+                  <div class="fixed-table-container">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th><div class="th-inner">%s</div></th>
+                          <th><div class="th-inner">%s</div></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                     <button type="button" class="btn btn-default" data-dismiss="modal">%s</button>
-                     <button type="button" class="btn btn-primary multi-sort-order-button">%s</button>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">%s</button>
+                <button type="button" class="btn btn-primary multi-sort-order-button">%s</button>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
       `,
       multipleSortButton: '<button class="multi-sort %s" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s form-control">'
@@ -91,7 +79,7 @@ const theme = {
   bootstrap4: {
     html: {
       multipleSortModal: `
-        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal fade modal-multiple-sort" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -102,27 +90,25 @@ const theme = {
               </div>
               <div class="modal-body">
                 <div class="bootstrap-table">
-                        <div class="fixed-table-toolbar">
-                            <div class="bars">
-                                <div id="toolbar" class="pb-3">
-                                     <button id="add" type="button" class="btn btn-secondary">%s %s</button>
-                                     <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fixed-table-container">
-                            <table id="multi-sort" class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                  <div class="fixed-table-toolbar">
+                    <div class="bars pb-3">
+                      <button type="button" class="toolbar-btn-add btn btn-secondary">%s %s</button>
+                      <button type="button" class="toolbar-btn-delete btn btn-secondary" disabled>%s %s</button>
                     </div>
+                  </div>
+                  <div class="fixed-table-container">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th><div class="th-inner">%s</div></th>
+                          <th><div class="th-inner">%s</div></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+              </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">%s</button>
@@ -139,7 +125,7 @@ const theme = {
   bootstrap5: {
     html: {
       multipleSortModal: `
-        <div class="modal fade" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal fade modal-multiple-sort" id="%s" tabindex="-1" role="dialog" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -148,27 +134,25 @@ const theme = {
               </div>
               <div class="modal-body">
                 <div class="bootstrap-table">
-                        <div class="fixed-table-toolbar">
-                            <div class="bars">
-                                <div id="toolbar" class="pb-3">
-                                     <button id="add" type="button" class="btn btn-secondary">%s %s</button>
-                                     <button id="delete" type="button" class="btn btn-secondary" disabled>%s %s</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fixed-table-container">
-                            <table id="multi-sort" class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                         <th><div class="th-inner">%s</div></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                  <div class="fixed-table-toolbar">
+                    <div class="bars pb-3">
+                      <button type="button" class="toolbar-btn-add btn btn-secondary">%s %s</button>
+                      <button type="button" class="toolbar-btn-delete btn btn-secondary" disabled>%s %s</button>
                     </div>
+                  </div>
+                  <div class="fixed-table-container">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th><div class="th-inner">%s</div></th>
+                          <th><div class="th-inner">%s</div></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">%s</button>
@@ -185,40 +169,38 @@ const theme = {
   semantic: {
     html: {
       multipleSortModal: `
-        <div class="ui modal tiny" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
-        <i class="close icon"></i>
-        <div class="header" id="%sLabel">
-          %s
-        </div>
-        <div class="image content">
-          <div class="bootstrap-table">
-            <div class="fixed-table-toolbar">
-                <div class="bars">
-                  <div id="toolbar" class="pb-3">
-                    <button id="add" type="button" class="ui button">%s %s</button>
-                    <button id="delete" type="button" class="ui button" disabled>%s %s</button>
-                  </div>
+        <div class="ui modal tiny modal-multiple-sort" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+          <i class="close icon"></i>
+          <div class="header" id="%sLabel">
+            %s
+          </div>
+          <div class="image content">
+            <div class="bootstrap-table">
+              <div class="fixed-table-toolbar">
+                <div class="bars pb-3">
+                  <button type="button" class="toolbar-btn-add ui button">%s %s</button>
+                  <button type="button" class="toolbar-btn-delete ui button" disabled>%s %s</button>
                 </div>
-            </div>
-            <div class="fixed-table-container">
-                <table id="multi-sort" class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th><div class="th-inner">%s</div></th>
-                            <th><div class="th-inner">%s</div></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
+              </div>
+              <div class="fixed-table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th><div class="th-inner">%s</div></th>
+                      <th><div class="th-inner">%s</div></th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
                 </table>
+              </div>
             </div>
           </div>
+          <div class="actions">
+            <div class="ui button deny">%s</div>
+            <div class="ui button approve multi-sort-order-button">%s</div>
+          </div>
         </div>
-        <div class="actions">
-          <div class="ui button deny">%s</div>
-          <div class="ui button approve multi-sort-order-button">%s</div>
-        </div>
-      </div>
       `,
       multipleSortButton: '<button class="multi-sort %s" type="button" data-toggle="modal" data-target="#%s" title="%s">%s</button>',
       multipleSortSelect: '<select class="%s %s">'
@@ -227,35 +209,33 @@ const theme = {
   materialize: {
     html: {
       multipleSortModal: `
-        <div id="%s" class="modal" aria-labelledby="%sLabel" aria-hidden="true">
+        <div id="%s" class="modal modal-multiple-sort" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-content" id="%sLabel">
             <h4>%s</h4>
             <div class="bootstrap-table">
-            <div class="fixed-table-toolbar">
-                <div class="bars">
-                  <div id="toolbar" class="pb-3">
-                    <button id="add" type="button" class="waves-effect waves-light btn">%s %s</button>
-                    <button id="delete" type="button" class="waves-effect waves-light btn" disabled>%s %s</button>
-                  </div>
+              <div class="fixed-table-toolbar">
+                <div class="bars pb-3">
+                  <button type="button" class="toolbar-btn-add waves-effect waves-light btn">%s %s</button>
+                  <button type="button" class="toolbar-btn-delete waves-effect waves-light btn" disabled>%s %s</button>
                 </div>
-            </div>
-            <div class="fixed-table-container">
-                <table id="multi-sort" class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th><div class="th-inner">%s</div></th>
-                            <th><div class="th-inner">%s</div></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
+              </div>
+              <div class="fixed-table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th><div class="th-inner">%s</div></th>
+                      <th><div class="th-inner">%s</div></th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
                 </table>
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <a href="javascript:void(0)" class="modal-close waves-effect waves-light btn">%s</a>
-            <a href="javascript:void(0)" class="modal-close waves-effect waves-light btn multi-sort-order-button">%s</a>
-          </div>
+            <div class="modal-footer">
+              <a href="javascript:void(0)" class="modal-close waves-effect waves-light btn">%s</a>
+              <a href="javascript:void(0)" class="modal-close waves-effect waves-light btn multi-sort-order-button">%s</a>
+            </div>
           </div>
         </div>
       `,
@@ -266,39 +246,37 @@ const theme = {
   foundation: {
     html: {
       multipleSortModal: `
-        <div class="reveal" id="%s" data-reveal aria-labelledby="%sLabel" aria-hidden="true">
-            <div id="%sLabel">
-              <h1>%s</h1>
-              <div class="bootstrap-table">
-                <div class="fixed-table-toolbar">
-                    <div class="bars">
-                      <div id="toolbar" class="padding-bottom-2">
-                        <button id="add" type="button" class="waves-effect waves-light button">%s %s</button>
-                        <button id="delete" type="button" class="waves-effect waves-light button" disabled>%s %s</button>
-                      </div>
-                    </div>
-                </div>
-                <div class="fixed-table-container">
-                    <table id="multi-sort" class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th><div class="th-inner">%s</div></th>
-                                <th><div class="th-inner">%s</div></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+        <div class="reveal modal-multiple-sort" id="%s" data-reveal aria-labelledby="%sLabel" aria-hidden="true">
+          <div id="%sLabel">
+            <h1>%s</h1>
+            <div class="bootstrap-table">
+              <div class="fixed-table-toolbar">
+                  <div class="bars padding-bottom-2">
+                    <button type="button" class="toolbar-btn-add waves-effect waves-light button">%s %s</button>
+                    <button type="button" class="toolbar-btn-delete waves-effect waves-light button" disabled>%s %s</button>
+                  </div>
               </div>
-
-              <button class="waves-effect waves-light button" data-close aria-label="Close modal" type="button">
-                <span aria-hidden="true">%s</span>
-              </button>
-              <button class="waves-effect waves-light button multi-sort-order-button" data-close aria-label="Order" type="button">
-                  <span aria-hidden="true">%s</span>
-              </button>
+              <div class="fixed-table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th><div class="th-inner">%s</div></th>
+                      <th><div class="th-inner">%s</div></th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
             </div>
+
+            <button class="waves-effect waves-light button" data-close aria-label="Close modal" type="button">
+              <span aria-hidden="true">%s</span>
+            </button>
+            <button class="waves-effect waves-light button multi-sort-order-button" data-close aria-label="Order" type="button">
+              <span aria-hidden="true">%s</span>
+            </button>
+          </div>
         </div>
       `,
       multipleSortButton: '<button class="multi-sort %s" data-open="%s" title="%s">%s</button>',
@@ -308,35 +286,33 @@ const theme = {
   bulma: {
     html: {
       multipleSortModal: `
-        <div class="modal" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal modal-multiple-sort" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-background"></div>
           <div class="modal-content" id="%sLabel">
             <div class="box">
-            <h2>%s</h2>
+              <h2>%s</h2>
               <div class="bootstrap-table">
-                  <div class="fixed-table-toolbar">
-                      <div class="bars">
-                        <div id="toolbar" class="padding-bottom-2">
-                          <button id="add" type="button" class="waves-effect waves-light button">%s %s</button>
-                          <button id="delete" type="button" class="waves-effect waves-light button" disabled>%s %s</button>
-                        </div>
-                      </div>
+                <div class="fixed-table-toolbar">
+                  <div class="bars padding-bottom-2">
+                    <button type="button" class="toolbar-btn-add waves-effect waves-light button">%s %s</button>
+                    <button type="button" class="toolbar-btn-delete waves-effect waves-light button" disabled>%s %s</button>
                   </div>
-                  <div class="fixed-table-container">
-                      <table id="multi-sort" class="table">
-                          <thead>
-                              <tr>
-                                  <th></th>
-                                  <th><div class="th-inner">%s</div></th>
-                                  <th><div class="th-inner">%s</div></th>
-                              </tr>
-                          </thead>
-                          <tbody></tbody>
-                      </table>
-                    </div>
                 </div>
-                <button type="button" class="waves-effect waves-light button" data-close>%s</button>
-                <button type="button" class="waves-effect waves-light button multi-sort-order-button" data-close>%s</button>
+                <div class="fixed-table-container">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th><div class="th-inner">%s</div></th>
+                        <th><div class="th-inner">%s</div></th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+              <button type="button" class="waves-effect waves-light button" data-close>%s</button>
+              <button type="button" class="waves-effect waves-light button multi-sort-order-button" data-close>%s</button>
             </div>
           </div>
         </div>
@@ -348,37 +324,35 @@ const theme = {
   'bootstrap-table': {
     html: {
       multipleSortModal: `
-        <div class="modal" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
+        <div class="modal modal-multiple-sort" id="%s" aria-labelledby="%sLabel" aria-hidden="true">
           <div class="modal-background"></div>
           <div class="modal-content" id="%sLabel">
             <div class="box">
-            <h2>%s</h2>
+              <h2>%s</h2>
               <div class="bootstrap-table">
-                  <div class="fixed-table-toolbar">
-                      <div class="bars">
-                        <div id="toolbar" class="padding-bottom-2">
-                          <button id="add" type="button" class="btn">%s %s</button>
-                          <button id="delete" type="button" class="btn" disabled>%s %s</button>
-                        </div>
-                      </div>
+                <div class="fixed-table-toolbar">
+                  <div class="bars padding-bottom-2">
+                    <button type="button" class="toolbar-btn-add btn">%s %s</button>
+                    <button type="button" class="toolbar-btn-delete btn" disabled>%s %s</button>
                   </div>
-                  <div class="fixed-table-container">
-                      <table id="multi-sort" class="table">
-                          <thead>
-                              <tr>
-                                  <th></th>
-                                  <th><div class="th-inner">%s</div></th>
-                                  <th><div class="th-inner">%s</div></th>
-                              </tr>
-                          </thead>
-                          <tbody></tbody>
-                      </table>
-                    </div>
                 </div>
-                <div class="mt-30">
-                    <button type="button" class="btn" data-close>%s</button>
-                    <button type="button" class="btn multi-sort-order-button" data-close>%s</button>
+                <div class="fixed-table-container">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th><div class="th-inner">%s</div></th>
+                        <th><div class="th-inner">%s</div></th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
                 </div>
+              </div>
+              <div class="mt-30">
+                <button type="button" class="btn" data-close>%s</button>
+                <button type="button" class="btn multi-sort-order-button" data-close>%s</button>
+              </div>
             </div>
           </div>
         </div>
@@ -414,23 +388,21 @@ const showSortModal = that => {
     that.$sortModal = $(_id)
     const $rows = that.$sortModal.find('tbody > tr')
 
-    that.$sortModal.off('click', '#add').on('click', '#add', () => {
+    that.$sortModal.off('click', '.toolbar-btn-add').on('click', '.toolbar-btn-add', () => {
       const total = that.$sortModal.find('.multi-sort-name:first option').length
-      let current = that.$sortModal.find('tbody tr').length
+      const current = that.$sortModal.find('tbody tr').length
 
       if (current < total) {
-        current++
         that.addLevel()
         that.setButtonStates()
       }
     })
 
-    that.$sortModal.off('click', '#delete').on('click', '#delete', () => {
+    that.$sortModal.off('click', '.toolbar-btn-delete').on('click', '.toolbar-btn-delete', () => {
       const total = that.$sortModal.find('.multi-sort-name:first option').length
-      let current = that.$sortModal.find('tbody tr').length
+      const current = that.$sortModal.find('tbody tr').length
 
       if (current > 1 && current <= total) {
-        current--
         that.$sortModal.find('tbody tr:last').remove()
         that.setButtonStates()
       }
@@ -507,7 +479,7 @@ const showSortModal = that => {
 $.fn.bootstrapTable.methods.push('multipleSort')
 $.fn.bootstrapTable.methods.push('multiSort')
 
-$.extend($.fn.bootstrapTable.defaults, {
+Object.assign($.fn.bootstrapTable.defaults, {
   showMultiSort: false,
   showMultiSortButton: true,
   multiSortStrictSort: false,
@@ -517,11 +489,11 @@ $.extend($.fn.bootstrapTable.defaults, {
   }
 })
 
-$.extend($.fn.bootstrapTable.Constructor.EVENTS, {
+Object.assign($.fn.bootstrapTable.events, {
   'multiple-sort.bs.table': 'onMultipleSort'
 })
 
-$.extend($.fn.bootstrapTable.locales, {
+Object.assign($.fn.bootstrapTable.locales, {
   formatMultipleSort () {
     return 'Multiple Sort'
   },
@@ -563,7 +535,7 @@ $.extend($.fn.bootstrapTable.locales, {
   }
 })
 
-$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
+Object.assign($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales)
 
 const BootstrapTable = $.fn.bootstrapTable.Constructor
 const _initToolbar = BootstrapTable.prototype.initToolbar
@@ -572,7 +544,7 @@ const _destroy = BootstrapTable.prototype.destroy
 BootstrapTable.prototype.initToolbar = function (...args) {
   this.showToolbar = this.showToolbar || this.options.showMultiSort
   const that = this
-  const sortModalSelector = `sortModal_${this.$el.attr('id')}`
+  const sortModalSelector = Utils.getEventName('sort-modal', this.$el.attr('id'))
   const sortModalId = `#${sortModalSelector}`
   const $multiSortBtn = this.$toolbar.find('div.multi-sort')
   const o = this.options
@@ -716,8 +688,8 @@ BootstrapTable.prototype.onMultipleSort = function () {
       const order = that.options.sortPriority[i].sortOrder === 'desc' ? -1 : 1
       let aa = Utils.getItemField(a, fieldName)
       let bb = Utils.getItemField(b, fieldName)
-      const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb])
-      const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa])
+      const value1 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [aa, bb, a, b])
+      const value2 = $.fn.bootstrapTable.utils.calculateObjectValue(that.header, sorterName, [bb, aa, b, a])
 
       if (value1 !== undefined && value2 !== undefined) {
         arr1.push(order * value1)
@@ -773,7 +745,10 @@ BootstrapTable.prototype.addLevel = function (index, sortPriority) {
     if (column.sortable === false || column.visible === false) {
       return true
     }
-    $multiSortName.append(`<option value="${column.field}">${column.title}</option>`)
+    const title = this.options.escape && this.options.escapeTitle ?
+      Utils.escapeHTML(column.title) : column.title
+
+    $multiSortName.append(`<option value="${column.field}">${title}</option>`)
   })
 
   $.each(this.options.formatSortOrders(), (value, order) => {
@@ -804,16 +779,16 @@ BootstrapTable.prototype.setButtonStates = function () {
   const current = this.$sortModal.find('tbody tr').length
 
   if (current === total) {
-    this.$sortModal.find('#add').attr('disabled', 'disabled')
+    this.$sortModal.find('.toolbar-btn-add').attr('disabled', 'disabled')
   }
   if (current > 1) {
-    this.$sortModal.find('#delete').removeAttr('disabled')
+    this.$sortModal.find('.toolbar-btn-delete').removeAttr('disabled')
   }
   if (current < total) {
-    this.$sortModal.find('#add').removeAttr('disabled')
+    this.$sortModal.find('.toolbar-btn-add').removeAttr('disabled')
   }
   if (current === 1) {
-    this.$sortModal.find('#delete').attr('disabled', 'disabled')
+    this.$sortModal.find('.toolbar-btn-delete').attr('disabled', 'disabled')
   }
 }
 
@@ -830,7 +805,6 @@ BootstrapTable.prototype.multiSort = function (sortPriority) {
     }
     isSingleSort = false
     this.initServer(this.options.silentSort)
-    return
   }
 
   this.onMultipleSort()

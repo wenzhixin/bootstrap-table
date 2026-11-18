@@ -4,7 +4,9 @@
  * theme: https://materializecss.com/
  */
 
-$.extend($.fn.bootstrapTable.defaults, {
+const Utils = $.fn.bootstrapTable.utils
+
+Utils.extend($.fn.bootstrapTable.defaults, {
   classes: 'table highlight',
   buttonsPrefix: '',
   buttonsClass: 'waves-effect waves-light btn'

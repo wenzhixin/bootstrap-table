@@ -1,6 +1,454 @@
 ChangeLog
 ---------
 
+### 1.28.0
+
+#### Core
+
+- **New:** Added `orderList` option to customize the column sort direction cycle.
+- **New:** Added RTL support via the `rtl` option.
+- **New:** Added Norwegian Nynorsk (nn-NO) locale.
+- **New:** Added Azerbaijani Latin (az-Latn-AZ) locale.
+- **Update:** Fixed the columns dropdown displaying raw HTML markup when using `escapeTitle`.
+- **Update:** Fixed `scrollTo` not working with rows in virtual scroll.
+- **Update:** Fixed table rendering when initially hidden with a fixed height.
+- **Update:** Fixed `showColumnsSearch` not filtering columns in Bootstrap 5.
+- **Update:** Used `removeHTML` instead of `escapeHTML` for label and title display.
+- **Update:** Translated missing ro-RO strings and added diacritics.
+- **Update:** Extracted `parseStringArray` utility function to eliminate code duplication.
+- **Update:** Moved `events.js` to the helpers directory to align with `dom.js`.
+- **Update:** Reverted the presentation role added for tables with no matching rows.
+
+#### Extensions
+
+- **New(print):** Added `rowStyle` and `cellStyle` support.
+- **Update(print):** Fixed print window closing before the print dialog completes.
+- **Update(print):** Fixed print footer not displayed by using `tfoot` tag instead of `footer`.
+- **Update(print):** Fixed print footer error with rowspan/colspan columns.
+- **Update(print):** Replaced direct DOM operations with `DOMHelper`.
+- **Update(filter-control):** Fixed `pageNumber` resetting when the cookie extension is enabled.
+- **Update(filter-control):** Fixed `clearFilterControl` for input controls and added `searchOnEnterKey` tests.
+- **Update(filter-control):** Fixed caret restoration after filtering.
+- **Update(filter-control):** Passed Enter keyCode when `triggerSearch` fires keyup.
+- **Update(filter-control):** Kept `_initialized` true after a no-op column toggle.
+- **Update(group-by-v2):** Fixed `isCollapsed` to handle function returning array for `groupByCollapsedGroups`.
+
+### 1.27.3
+
+#### Core
+
+- **Update:** Refactored `showColumn`/`hideColumn` to batch column toggles with single re-render.
+- **Update:** Fixed table layout breaking when sorting rows with rowspan.
+- **Update:** Fixed fixedColumns hover conflict with CSS transitions.
+- **Update:** Fixed support for async loading of bootstrapTable methods in Vue component.
+
+#### Extensions
+
+- **Update(reorder-columns):** Fixed not restoring column order from cookies on init.
+- **Update(group-by-v2):** Documented that this extension does not support pagination.
+
+### 1.27.2
+
+#### Core
+
+- **New:** Added `EventHelper` class with delegation and trigger methods.
+- **New:** Extracted `renderButton` from `initToolbar` for better modularity.
+- **Update:** Fixed guard against `pageSize <= 0` causing division by zero in `initPagination`.
+- **Update:** Fixed loading animation styles.
+
+#### Extensions
+
+- **Update(export):** Fixed issues found in export extension and added Cypress tests.
+- **Update(filter-control):** Fixed filter-control select option loss issue.
+- **Update(sticky-header):** Fixed undefined crash when using sticky-header.
+
+### 1.27.1
+
+#### Core
+
+- **Update:** Fixed toolbar DOM node button handling for custom buttons returning DOM nodes.
+- **Update:** Fixed WebInspect email detection false positive in core-js comments.
+- **Update:** Fixed SyntaxError when processing `data-*` attributes on inline HTML elements.
+- **Update:** Added comprehensive options cypress tests.
+
+#### Extensions
+
+- **New(pipeline):** Added `resetPipelineCache` method to allow programmatic cache reset.
+- **Update(auto-refresh):** Fixed button active state and selector.
+- **Update(filter-control):** Fixed issue with filter control being cleared.
+- **Update(treegrid):** Improved documentation with data structure guide and usage examples.
+
+### 1.27.0
+
+#### Core
+
+- **New:** Split utils/index.js into modular structure.
+- **New:** Added DOMHelper utility for jQuery removal.
+- **New:** Added Bootstrap 5 checkbox compatibility utilities.
+- **New:** Added utility tests with comprehensive coverage.
+- **Update:** Allowed peer dependency of jQuery v4.x.
+- **Update:** Removed jQuery dependency from utils module.
+- **Update:** Fixed search filter with depth key.
+- **Update:** Fixed style attributes not being preserved on `thead>tr>th` elements.
+
+#### Extensions
+
+- **Update(group-by):** Fixed group expand/collapse state being reset when using searching.
+- **Update(multiple-sort):** Add modal-multiple-sort class to multiple sort modal.
+
+### 1.26.0
+
+#### Core
+
+- **New:** Added Chinese locale support to the site.
+- **New:** Added comprehensive tests for utility functions.
+- **Update:** Updated `normalizeAccent` function to handle diacritics properly.
+- **Update:** Set `aria-sort` attribute on sortable headers.
+- **Update:** Refactored `BootstrapTable` into separate modules.
+- **Update:** Clarified exact property names for column options and usage.
+- **Update:** Fixed character encoding for locale files.
+
+#### Extensions
+
+- **Update(filter-control):** Fixed bug where `showSearchClearButton` does not clear `searchText` from options.
+- **Update(filter-control):** Fixed page number resetting to 1 during initial table rendering when filter controls are initializing.
+
+### 1.25.0
+
+#### Core
+
+- **Update:** Added `aria-sort` attribute on sortable headers.
+- **Update:** Fixed loading style display error in Bootstrap dark mode.
+- **Update:** Fixed performance issues in the `resetRows` method when handling large datasets.
+- **Update:** Fixed bug where the table `height` option caused duplicate headers when a caption was present.
+- **Update:** Fixed bug where CSS `!important` is ignored.
+- **Update:** Migrated site from Jekyll to Astro Framework.
+
+#### Extensions
+
+- **Update(group-by-v2):** Fixed a bug where rows were not grouped correctly when another column was sorted.
+- **Update(group-by-v2):** Modernized the extension with ES6+ features.
+
+### 1.24.2
+
+#### Core
+
+- **Update:** Added `scope` attribute support for table headers.
+- **Update:** Fixed bug where `updateCellByUniqueId` throws an error during search.
+- **Update:** Fixed "&" not escaped correctly in `unescapeHTML`.
+- **Update:** Updated `locales` and `check-locale` tool.
+
+#### Extensions
+
+- **Update(export):** Fixed bug where data was removed when `exportDataType` was set to `selected`.
+- **Update(filter-control):** Fixed bug where filters all data out when table cells contain HTML.
+- **Update(reorder-columns):** Fixed the catch error when the table calls `dragtable.destroy`.
+
+### 1.24.1
+
+#### Core
+
+- **New:** Added `lt-LT` locale.
+- **Update:** Fixed `filterBy` not working bug after using `filterAlgorithm` option.
+- **Update:** Fixed cookie extension throws js error bug.
+- **Update:** Fixed icons prefix bugs in extensions.
+- **Update:** Fixed bug where totalRows is not integer in formatter.
+- **Update:** Fixed bug of table is not destroyed after vue component is unmounted.
+- **Update:** Fixed high severity vulnerability issue using `npm-run-all2` instead.
+
+### 1.24.0
+
+#### Core
+
+- **New:** Added `card-view-field` class to `card-view`.
+- **Update:** Fixed `id` not working bug in `rowAttributes`.
+- **Update:** Fixed `data` field attr not working bug.
+- **Update:** Fixed column is `undefined` bug in `updateFieldGroup` when using `refreshOptions`.
+- **Update:** Fixed `post-header` trigger bug after table destroy.
+- **Update:** Fixed `strictSearch` not working bug.
+- **Update:** Fixed `insertRow` bug after on the last row of the table.
+- **Update:** Fixed display error of total rows using load more pagination.
+- **Update:** Updated Sass and refined the SCSS file.
+- **Update:** Update Eslint and fix some lint errors.
+
+#### Extensions
+
+- **Update(cookie):** Fixed cookie columns display error after adding a column.
+- **Update(filter-control):** Fixed select not working bug after an Ajax loaded.
+
+### 1.23.5
+
+#### Core
+
+- **New:** Added `getFooterData` method.
+- **Update:** Fixed `refresh` invalid url bug when `url` is relative path.
+- **Update:** Fixed `getData` bug with `formatted` param.
+- **Update:** Fixed column class option not work bug in td.
+
+### 1.23.4
+
+#### Core
+
+- **New:** Added support for column options `formatter` and `footerFormatter` methods returning type `jQuery`, `HTMLElement`.
+- **New:** Added `sortReset` method to reset the current sort state.
+- **New:** Added a presentation role if no matching rows are found.
+- **Update:** Fixed `refresh` method doesn't reuse parameters provided as query bug.
+- **Update:** Fixed compatibility issues when `colspan` is set as a string.
+
+#### Extensions
+
+- **Update(fixed-columns):** Fixed undefined error in some cases.
+- **Update(reorder-columns):** Fixed incorrect column values order with detail view.
+
+### 1.23.2
+
+#### Core
+
+- **New:** Added `buttonsAttributeTitle` option to customize title attribute.
+- **Update:** Updated sort icons using SVG instead of PNG.
+- **Update:** Fixed search highlight not working when it contains multiple HTML elements.
+- **Update:** Fixed the `esbuild` bundle error.
+- **Update:** Fixed insertRow, updateRow, and updateCell methods bugs.
+- **Update:** Fixed `undefined` error when searching using the dotted field.
+
+### 1.23.1
+
+#### Core
+
+- **Update:** Improved vue component init twice without `setTimeout`.
+- **Update:** Updated `af-ZA`, `fr-BE`, `fr-CH`, `fr-FR`, `fr-LU`, and `id-ID` locales.
+
+#### Extensions
+
+- **Update(editable):** Fixed editable display bug of select type.
+- **Update(sticky-header):** Fixed issue if sticky-header extension is loaded but not enabled.
+
+### 1.23.0
+
+#### Core
+
+- **New:** Add support for vue3 instead of vue2.
+- **Update:** Fixed `getData` with `formatted` data bug when a column is missing.
+- **Update:** Fixed `toggleColumn` exception when the field does not exist.
+- **Update:** Fixed vue component init twice when options and columns both changed.
+
+#### Extensions
+
+- **New(addrbar):** Added `addrCustomParams` option for custom parameters.
+- **New(filter-control):** Added `filterControlSearchClear` option to stop clearing the filters when using `showSearchButton` option.
+- **Update(filter-control):** Fixed error with clear filters button when not enabled cookie extension.
+- **Update(filter-control):** Fixed bug with enabled cookie extension using `localStorage`.
+- **Update(multiple-sort):** Fixed not trigger event bug when using server-side pagination.
+
+### 1.22.6
+
+#### Extensions
+
+- **Update(cookie):** Fixed cookie does not work bug with pagination ALL list.
+- **Update(editable):** Fixed the `formatter` function does not include the `field` parameter bug.
+- **Update(toolbar):** Fixed toolbar display bug when using an HTML title.
+- **Update(toolbar):** Fixed toolbar does not update bug when column visible updated.
+- **Update(toolbar):** Fixed toolbar does not update bug when the locale is changed.
+
+### 1.22.5
+
+#### Core
+
+- **New:** Added `sl-SI` locales.
+- **New:** Added support for HTML to the `updateColumnTitle` method.
+- **Update:** Fixed the `getRowByUniqueId` bug when `uniqueId` is of mixed data formats.
+- **Update:** Fixed not triggering `sort` event bug using server-side pagination.
+- **Update:** Fixed custom `iconPrefix` and `icons` bugs.
+- **Update:** Fixed virtual scroll cannot work bug in modal.
+
+#### Extensions
+
+- **Update(multiple-sort):** Fixed the duplicated ID bug in the multiple-sort extension.
+
+### 1.22.4
+
+#### Core
+
+- **New:** Added `paginationLoadMore` option.
+- **Update:** Fixed change visibility of multiple headers with the same index.
+- **Update:** Fixed footer height bug when setting `table-sm`.
+- **Update:** Fixed the `locale` not changed bug using the `refreshOptions` method.
+- **Update:** Fixed custom iconPrefix and icons bugs.
+- **Update:** Updated `vi-VN`, `zh-CN` and `zh-TW` locales.
+
+#### Extensions
+
+- **New(copy-rows):** Added `copyRowsHandler` option to handle the copy rows data.
+- **New(print):** Added `printStyles` option.
+- **Update(export):** Updated the trigger timing for export-started.
+- **Update(multiple-sort):** Fixed the missing parameters error of the `sorter` function.
+- **Update(pipeline):** Fixed loading message not display bug.
+
+### 1.22.3
+
+#### Core
+
+- **New:** Added `fixedScroll` option.
+- **New:** Added support for setting icons automatically by `iconsPrefix`.
+- **Update:** Fixed search bug when the field has `.` character.
+- **Update:** Updated `tr-TR`, `es-ES`, `pt-BR` and `pt-PT` locales.
+
+#### Extensions
+
+- **New(addrbar):** Fixed addrbar bug when using `sortReset` option.
+- **Update(jump-to):** Fixed page jump-to bug when using both pagination displays.
+- **Update(print):** Fixed print bug when field is not set.
+
+### 1.22.2
+
+#### Core
+
+- **New:** Added `footerStyle` column option.
+- **Update:** Fixed empty style in header and footer bug.
+- **Update:** Fixed the trigger order of `sort` event.
+- **Update:** Updated `ar-SA` locale.
+
+#### Extensions
+
+- **New(cookie):** Added cookie support for custom view extension.
+- **Update(cookie):** Fixed cookie bug when using `cardView` option.
+- **Update(cookie):** Fixed cookie bug with column switchable.
+- **Update(editable):** Fixed `export-saved` event error when `exportDataType` is `all`.
+- **Update(filter-control):** Fixed `searchAccentNeutralise` option not work.
+- **Update(filter-control):** Fixed `filterOrderBy` not work bug for select.
+- **Update(group-by):** Fixed group-by bug when using `singleSelect` option.
+- **Update(reorder-rows):** Fixed reorder bug when using pagination.
+
+#### Documentation
+
+- **Update:** Improved the parameter of `updateCellByUniqueId` method.
+- **Update:** Improved the print docs.
+
+### 1.22.1
+
+#### Core
+
+- **Update:** Fixed maximum call stack size exceeded error.
+- **Update:** Updated `ca-ES` locale.
+
+### 1.22.0
+
+#### Core
+
+- **New:** Added `sortBy` method.
+- **New:** Added `switchableLabel` column option.
+- **New:** Added support for `class` attributes in toolbar buttons.
+- **Update:** Removed title from columns button.
+
+#### Extensions
+
+- **Update(addrbar):** Fixed clear search bug when clicking clearSearch button.
+- **Update(filter-control):** Fixed pagination server side not working bug.
+
+### 1.21.4
+
+#### Core
+
+- **New:** Added searchable table option to enable sending searchable (columns) parameters.
+- **Update:** Fixed Maximum call stack size exceeded error.
+- **Update:** Fixed getData bug with hidden rows.
+- **Update:** Added support for `select` form to the `searchSelector` option.
+
+#### Extensions
+
+- **Update(filter-control):** Fixed inputs losing their content when using nested attributes.
+- **Update(reorder-rows):** Fixed reorder row bug when side-pagination is server.
+
+### 1.21.3
+
+#### Core
+
+- **New:** Added `escapeTitle` table option.
+- **New:** Added Aria Label to the search input for screen readers.
+- **New:** Persist data attributes for the header(`th`).
+- **Update:** Fixed wrong condition for searching with server-side pagination.
+- **Update:** Fixed overwriting the `filterOptions` after rebuild.
+- **Update:** Fixed apostrophe issue when table via `html`.
+- **Update:** Updated extend util instead of `$.extend`.
+- **Update:** Updated Constructor.EVENTS to events.
+- **Update:** Updated packages to the latest version.
+
+#### Extensions
+
+- **Update(cookie):** Fixed issue with hidden and radio/checkbox columns.
+- **Update(export):** Fixed `exportTypes` option not working bug.
+- **Update(filter-control):** Fixed selector scope issues with multiple tables.
+- **Update(filter-control):** Fixed filtering values issue of select with `html` value.
+- **Update(reorder-columns):** Fixed same internal function name with `reorder-rows`.
+- **Update(treegrid):** Fixed `treegrid` not working when id is text.
+
+### 1.21.2
+
+#### Core
+
+- **New:** Added `sortResetPage` option to reset the page number when sorting.
+- **Update:** Fixed overwrite default option bug.
+- **Update:** Updated es-ES, es-CR locale.
+- **Update:** Improved scss style and lint.
+- **Update:** Used scss vars for sorting background image URLs.
+
+#### Extensions
+
+- **New(custom-view):** Added `onToggleCustomView` event.
+- **Update(cookie):** Fixed cookie name compare bug on using `cookiesEnabled` option.
+- **Update(custom-view):** Fixed `showCustomView` option cannot work.
+- **Update(filter-control):** Fixed bug while using a select filter and set `searchFormatter` to false.
+- **Update(filter-control):** Fixed missing class when specifying `iconSize`.
+- **Update(reorder-rows):** Updated default value to `reorder-rows-on-drag-class` of `onDragClass` option.
+
+### 1.21.1
+
+#### Core
+
+- **Update:** Improved `updateCell` to update one HTML cell only.
+- **Update:** Updated `fr-FR` locale.
+- **Update:** Added missing locales for aria-label.
+
+#### Extensions
+
+- **Update(export):** Added missing locales for aria-label.
+
+### 1.21.0
+
+#### Core
+
+- **New:** Added `sortEmptyLast` option to allow sorting empty data.
+- **Update:** Fixed bug on nested search with null child.
+- **Update:** Fixed detail view with filter click error.
+- **Update:** Fixed header does not center correctly for the sortable column.
+- **Update:** Fixed `regexpCompare` bug when filtering columns.
+- **Update:** Fixed `showToggle` title display error.
+- **Update:** Fixed `remove` and `removeByUniqueId` using object param bug.
+- **Update:** Fixed `searchHighlight` bug while using `searchAccentNeutralise`.
+- **Update:** Fixed missing sort for `customSearch` option.
+- **Update:** Removed duplicated escaping of the column value.
+- **Update:** Updated `uk-UA` locale.
+
+#### Extensions
+
+- **New(cookie):** : Added `hiddenColumns` cookie to prevent issues with new added columns.
+- **New(editable):** Added `field` param to `noEditFormatter` option.
+- **New(export):** Added `onExportStarted` event.
+- **New(filter-control):** Added accent normalization check.
+- **New(filter-control):** Added `filterControlMultipleSearch` and `filterControlMultipleSearchDelimiter` options.
+- **Update(custom-by):** Fixed the custom view attributes.
+- **Update(group-by):** Fixed not handle complex objects bug.
+- **Update(filter-control):** Fixed select values not clear bug after search.
+- **Update(filter-control):** Fixed the select sorting error.
+- **Update(filter-control):** Fixed wrong selector for caching values with multiple tables.
+- **Update(filter-control):** Fixed the `filterDefault` option bug as filter if multiple filters exists.
+- **Update(filter-control):** Fixed filter control special char.
+- **Update(filter-control):** Updated default value to false of `filterStrictSearch`.
+- **Update(filter-control):** Supported not visible columns when using `filterControlContainer` option.
+- **Update(multiple-sort):** Fixed `showMultiSortButton` option bug.
+- **Update(print):** Fixed not handle complex objects bug.
+- **Update(print):** Removed switched-off columns from printed table.
+
 ### 1.20.2
 
 #### Core
@@ -826,7 +1274,7 @@ ChangeLog
 - [bug] Fix #936 Sort carets should not be inline-styled by JS.
 - [bug] Fix table header width bug when setting table to no bordered.
 - [bug] Fix #938, fix #940: Multiple Sort and Hide/Show column.
-- [bug] Fix #970: `click`and `dblclick` bug on no-rows table.
+- [bug] Fix #970: `click` and `dblclick` bug on no-rows table.
 - [bug] Fix #967: unselected column while column sorted display error.
 - [enh] Support title feature in cells.
 - [enh] Improved cookie, mobile extension.
