@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from 'vitest'
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 
 let $
 let UtilsFilterControl
@@ -42,6 +42,7 @@ const buildTable = id => {
 
   $table.bootstrapTable({
     filterControl: true,
+    searchTimeOut: 0,
     columns: [
       { field: 'id', title: 'ID', filterControl: 'input' },
       { field: 'status', title: 'Status', filterControl: 'select', filterData: 'var:statusList' }
@@ -140,6 +141,124 @@ describe('filter-control filterData against a non-select control (issue #8238)',
 
       $table.bootstrapTable('destroy')
       document.body.innerHTML = ''
+    })
+  })
+
+  describe('fixed-height table', () => {
+    afterEach(() => {
+      vi.restoreAllMocks()
+      document.body.innerHTML = ''
+    })
+
+    const stubFilterDataRequests = () => {
+      const pendingRequests = []
+
+      vi.spyOn($, 'ajax').mockImplementation(request => pendingRequests.push(request))
+
+      return () => pendingRequests.splice(0).forEach(request => request.success({ A: 'Active', I: 'Inactive' }))
+    }
+
+    const buildFixedHeightTable = (filterData, options = {}) => {
+      document.body.innerHTML = '<table id="fd-fixed"></table>'
+
+      const $table = $('#fd-fixed')
+
+      // happy-dom has no layout, so jQuery treats the table as :hidden and fitHeader never clones the header.
+      Object.defineProperty($table[0], 'offsetWidth', { value: 500, configurable: true })
+
+      $table.bootstrapTable({
+        height: 300,
+        filterControl: true,
+        sidePagination: 'server',
+        columns: [
+          { field: 'id', title: 'ID', filterControl: 'input' },
+          { field: 'status', title: 'Status', filterControl: 'select', filterData }
+        ],
+        ...options
+      })
+
+      const instance = $table.data('bootstrap.table')
+      const visibleOptionValues = () => instance.$tableHeader
+        .find('select.bootstrap-table-filter-control-status option')
+        .map((i, option) => option.value)
+        .get()
+
+      return { $table, instance, visibleOptionValues }
+    }
+
+    it('shows url filterData options that arrive after the header was cloned', async () => {
+      const respond = stubFilterDataRequests()
+      const { $table, visibleOptionValues } = buildFixedHeightTable('url:/status.json')
+
+      await wait(50)
+      respond()
+      await wait(50)
+      expect(visibleOptionValues()).toEqual(['', 'A', 'I'])
+
+      $table.bootstrapTable('load', { total: 0, rows: [] })
+      await wait(50)
+      respond()
+      await wait(50)
+      expect(visibleOptionValues()).toEqual(['', 'A', 'I'])
+    })
+
+    it('restores the selected url filterData value after load()', async () => {
+      const respond = stubFilterDataRequests()
+      const { $table, instance } = buildFixedHeightTable('url:/status.json', { searchTimeOut: 0 })
+      const visibleStatusSelect = () => instance.$tableHeader.find('select.bootstrap-table-filter-control-status')
+
+      await wait(50)
+      respond()
+      await wait(50)
+      visibleStatusSelect().val('A').trigger('change')
+      await wait(50)
+
+      $table.bootstrapTable('load', { total: 0, rows: [] })
+      await wait(50)
+      respond()
+      await wait(50)
+      expect(visibleStatusSelect().val()).toBe('A')
+    })
+
+    it('rebuilds the visible select from changed var filterData on load()', async () => {
+      window.fixedStatusList = { A: 'Active' }
+
+      const { $table, visibleOptionValues } = buildFixedHeightTable('var:fixedStatusList')
+
+      await wait(50)
+      expect(visibleOptionValues()).toEqual(['', 'A'])
+
+      window.fixedStatusList = { B: 'Blocked' }
+      $table.bootstrapTable('load', { total: 0, rows: [] })
+      await wait(50)
+      expect(visibleOptionValues()).toEqual(['', 'B'])
+    })
+
+    it('keeps text typed into other filters when url filterData arrives', async () => {
+      const respond = stubFilterDataRequests()
+      const { instance } = buildFixedHeightTable('url:/status.json', { searchOnEnterKey: true })
+      const visibleIdInput = () => instance.$tableHeader.find('input.bootstrap-table-filter-control-id')
+
+      await wait(50)
+      visibleIdInput().val('123')
+      respond()
+      await wait(50)
+      expect(visibleIdInput().val()).toBe('123')
+    })
+
+    it('schedules no header work when url filterData arrives after destroy', async () => {
+      const respond = stubFilterDataRequests()
+      const { $table, instance } = buildFixedHeightTable('url:/status.json')
+
+      await wait(50)
+      $table.bootstrapTable('destroy')
+      $table.remove()
+
+      const fitHeader = vi.spyOn(instance, 'fitHeader').mockImplementation(() => {})
+
+      respond()
+      await wait(150)
+      expect(fitHeader).not.toHaveBeenCalled()
     })
   })
 })

@@ -700,14 +700,22 @@ const filterDataMethods = {
       url: filterDataSource,
       dataType: 'json',
       success (data) {
-        // eslint-disable-next-line guard-for-in
-        for (const key in data) {
-          addOptionToSelectControl(selectControl, key, data[key], selected)
-        }
+        // A fixed header shows a clone of $header that may have been taken before this response arrived.
+        const fieldClass = escapeID(getElementClass(selectControl))
+        const $selectControls = selectControl.add(getControlContainer(that).find(`select.${fieldClass}`))
 
-        if (that.options.sortSelectOptions) {
-          sortSelectControl(selectControl, filterOrderBy, that.options)
-        }
+        $selectControls.each((_, element) => {
+          const $selectControl = $(element)
+
+          // eslint-disable-next-line guard-for-in
+          for (const key in data) {
+            addOptionToSelectControl($selectControl, key, data[key], selected)
+          }
+
+          if (that.options.sortSelectOptions) {
+            sortSelectControl($selectControl, filterOrderBy, that.options)
+          }
+        })
 
         setValues(that)
       }
