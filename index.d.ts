@@ -304,6 +304,7 @@ export interface BootstrapTableOptions {
   onLoadError?: (status: string, jqXHR: JQuery.jqXHR) => boolean | void;
   onLoadSuccess?: (data: any, status: string, jqXHR: JQuery.jqXHR) => boolean | void;
   onMultipleSort?: Function;
+  onOptionsAdded?: Function;
   onPageChange?: (number: number, size: number) => boolean | void;
   onPostBody?: () => boolean | void;
   onPostFooter?: () => boolean | void;

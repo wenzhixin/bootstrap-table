@@ -19,6 +19,10 @@ Object.assign($.fn.bootstrapTable.defaults, {
   onCreatedControls () {
     return false
   },
+  // eslint-disable-next-line no-unused-vars
+  onOptionsAdded (field, selectControl) {
+    return false
+  },
   alignmentSelectControlOptions: undefined,
   filterTemplate: {
     input (that, column, placeholder, value) {
@@ -80,7 +84,8 @@ Object.assign($.fn.bootstrapTable.columnDefaults, {
 
 Object.assign($.fn.bootstrapTable.events, {
   'column-search.bs.table': 'onColumnSearch',
-  'created-controls.bs.table': 'onCreatedControls'
+  'created-controls.bs.table': 'onCreatedControls',
+  'options-added.bs.table': 'onOptionsAdded'
 })
 
 Utils.assignIcons($.fn.bootstrapTable.icons, 'filterControlSwitchHide', {

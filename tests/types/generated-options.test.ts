@@ -155,6 +155,7 @@ options.onExportStarted = options.onExportStarted
 options.onLoadError = options.onLoadError
 options.onLoadSuccess = options.onLoadSuccess
 options.onMultipleSort = options.onMultipleSort
+options.onOptionsAdded = options.onOptionsAdded
 options.onPageChange = options.onPageChange
 options.onPostBody = options.onPostBody
 options.onPostFooter = options.onPostFooter

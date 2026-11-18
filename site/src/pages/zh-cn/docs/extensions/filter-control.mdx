@@ -297,7 +297,11 @@ toc: true
 
 ### onCreatedControls (created-controls.bs.table)
 
-* 当过滤控件创建完成时触发。
+* 当过滤控件创建完成时触发。此时根据列数据生成的下拉控件还没有选项，请使用 `onOptionsAdded`。
+
+### onOptionsAdded (options-added.bs.table)
+
+* 当根据列数据生成的下拉控件（未设置 `filterData` 的列）添加选项后触发。参数为 `field` 和 `selectControl`（jQuery 下拉元素）。设置了 `height` 时，每次重建固定表头都会再次触发，因为 `selectControl` 是新的元素。
 
 ## 方法
 
