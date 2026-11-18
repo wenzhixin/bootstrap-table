@@ -219,14 +219,11 @@ export function setValues (that) {
                 element.focus()
               }
 
-              if (Array.isArray(cacheElementInfo.value)) {
-                const $element = $(element)
-
-                $.each(cacheElementInfo.value, function (i, e) {
-                  $element.find(Utils.sprintf('option[value=\'%s\']', e)).prop('selected', true)
-                })
-              } else {
+              if (!Array.isArray(cacheElementInfo.value)) {
                 element.value = cacheElementInfo.value
+              } else if (cacheElementInfo.value.length > 0) {
+                // Like '' for other controls, [] means no filter: restoring it would wipe a selection made before the search re-caches.
+                $(element).val(cacheElementInfo.value)
               }
               setCaretPosition(element, cacheElementInfo.position)
             }
@@ -622,7 +619,7 @@ export function syncMultipleSelectControls (that) {
 }
 
 export function closeMultipleSelectControls (that) {
-  that.$tableHeader.find('select[multiple]').each((_, element) => {
+  that.$header.add(that.$tableHeader).add(getControlContainer(that)).find('select[multiple]').each((_, element) => {
     if ($(element).data('multipleSelect')) {
       $(element).multipleSelect('close')
     }

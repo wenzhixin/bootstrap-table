@@ -186,6 +186,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
+    UtilsFilterControl.closeMultipleSelectControls(this)
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
     UtilsFilterControl.setValues(this)
   }
@@ -238,6 +239,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const rawFilterValue = filterPartial[key] || ''
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
+          let isValueFormatted = false
           let tmpItemIsExpected
 
           let filterValues = [].concat(rawFilterValue).map(searchValue => {
@@ -263,7 +265,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               tmpItemIsExpected = true
             } else {
               // Fix #142: search use formatted data
-              if (thisColumn) {
+              if (thisColumn && !isValueFormatted) {
                 if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
                   value = $.fn.bootstrapTable.utils.calculateObjectValue(
                     thisColumn,
@@ -272,6 +274,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
                     value
                   )
                 }
+                isValueFormatted = true
               }
 
               if ($.inArray(key, that.header.fields) !== -1) {
