@@ -4498,9 +4498,9 @@ isstream@~0.1.2:
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
 jquery@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-4.0.0.tgz#95c33ac29005ff72ec444c5ba1cf457e61404fbb"
-  integrity sha512-TXCHVR3Lb6TZdtw1l3RTLf8RBWVGexdxL6AC8/e0xZKEpBflBsjh9/8LXw+dkNFuOyW9B7iB3O1sP7hS0Kiacg==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-4.1.0.tgz#b15839cd1ea0e555ee3dce856dd9568e1b81f504"
+  integrity sha512-tnN2N83S+xD3yhmdBP4nnJ1XOO0Fl586rG23FA5h/JAe8XN3W9a1zGwDMltBptn+UpcqEKicnO61+jQ0EiF2fw==
 
 js-tokens@^4.0.0:
   version "4.0.0"
