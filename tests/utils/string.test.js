@@ -460,6 +460,30 @@ describe('normalizeAccent', () => {
   })
 })
 
+describe('findAccentNeutralMatch', () => {
+  it('should return the matching part of the original string', () => {
+    expect(string.findAccentNeutralMatch('Müller', 'muller')).toBe('Müller')
+    expect(string.findAccentNeutralMatch('Großer Weg', 'weg')).toBe('Weg')
+    expect(string.findAccentNeutralMatch('Großer Weg', 'grosser')).toBe('Großer')
+    expect(string.findAccentNeutralMatch('  padded name', 'name')).toBe('name')
+    expect(string.findAccentNeutralMatch('Price 1.5 kg', '1.5')).toBe('1.5')
+  })
+
+  it('should take the whole character when the match ends inside it', () => {
+    expect(string.findAccentNeutralMatch('Ærø', 'a')).toBe('Æ')
+    expect(string.findAccentNeutralMatch('Straße', 'stras')).toBe('Straß')
+  })
+
+  it('should keep combining marks of decomposed input', () => {
+    expect(string.findAccentNeutralMatch('Mu\u0308ller', 'mu')).toBe('Mu\u0308')
+  })
+
+  it('should return undefined when there is no match', () => {
+    expect(string.findAccentNeutralMatch('Müller', 'meier')).toBeUndefined()
+    expect(string.findAccentNeutralMatch('Müller', '  ')).toBeUndefined()
+  })
+})
+
 describe('normalizeStyle', () => {
   it('should return undefined for falsy values', () => {
     expect(string.normalizeStyle(undefined)).toBe(undefined)

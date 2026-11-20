@@ -233,11 +233,10 @@ export default {
         let searchText = this.searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
         if (this.options.searchAccentNeutralise && typeof value === 'string') {
-          const indexRegex = new RegExp(`${Utils.normalizeAccent(searchText)}`, 'gmi')
-          const match = indexRegex.exec(Utils.normalizeAccent(value))
+          const match = Utils.findAccentNeutralMatch(value, this.searchText)
 
           if (match) {
-            searchText = value.substring(match.index, match.index + searchText.length)
+            searchText = match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
           }
         }
 
