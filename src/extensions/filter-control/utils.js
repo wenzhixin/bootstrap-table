@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 const Utils = $.fn.bootstrapTable.utils
 const searchControls = 'select, input:not([type="checkbox"]):not([type="radio"])'
+const multipleSelectInputs = '.ms-drop input'
 const selectionInputTypes = ['password', 'search', 'tel', 'text', 'url']
 
 export function getInputClass (that, isSelect = false) {
@@ -30,7 +31,7 @@ export function isKeyAllowed (keyCode) {
 }
 
 export function getSearchControls (that) {
-  return getControlContainer(that).find(searchControls)
+  return getControlContainer(that).find(searchControls).not(multipleSelectInputs)
 }
 
 export function hideUnusedSelectOptions (selectControl, uniqueValues) {
@@ -218,14 +219,11 @@ export function setValues (that) {
                 element.focus()
               }
 
-              if (Array.isArray(cacheElementInfo.value)) {
-                const $element = $(element)
-
-                $.each(cacheElementInfo.value, function (i, e) {
-                  $element.find(Utils.sprintf('option[value=\'%s\']', e)).prop('selected', true)
-                })
-              } else {
+              if (!Array.isArray(cacheElementInfo.value)) {
                 element.value = cacheElementInfo.value
+              } else if (cacheElementInfo.value.length > 0) {
+                // Like '' for other controls, [] means no filter: restoring it would wipe a selection made before the search re-caches.
+                $(element).val(cacheElementInfo.value)
               }
               setCaretPosition(element, cacheElementInfo.position)
             }
@@ -243,6 +241,8 @@ export function setValues (that) {
       callbacks.forEach(callback => callback())
     }
   }
+
+  syncMultipleSelectControls(that)
 }
 
 export function collectBootstrapTableFilterCookies () {
@@ -451,7 +451,9 @@ export function createControls (that, header) {
         filterDataSource = column.filterData.substring(column.filterData.indexOf(':') + 1, column.filterData.length)
         selectControl = header.find(`.bootstrap-table-filter-control-${escapeID(column.field)}`)
 
-        addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
+        if (!selectControl.prop('multiple')) {
+          addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder, column.filterDefault, true)
+        }
         filterDataType(that, filterDataSource, selectControl, that.options.filterOrderBy, column.filterDefault)
       } else {
         throw new SyntaxError(
@@ -477,7 +479,7 @@ export function createControls (that, header) {
 
       const $currentTarget = $(currentTarget)
 
-      if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio')) {
+      if ($currentTarget.is(':checkbox') || $currentTarget.is(':radio') || $currentTarget.is(multipleSelectInputs)) {
         return
       }
 
@@ -508,7 +510,7 @@ export function createControls (that, header) {
       const $input = $(currentTarget)
       const oldValue = $input.val()
 
-      if (oldValue === '') {
+      if (oldValue === '' || $input.is(multipleSelectInputs)) {
         return
       }
 
@@ -579,6 +581,49 @@ export function createControls (that, header) {
   }
 
   that.trigger('created-controls')
+}
+
+export function syncMultipleSelectControls (that) {
+  if (typeof $.fn.multipleSelect !== 'function') {
+    return
+  }
+
+  const hasFixedHeader = that.options.height && !that.options.filterControlContainer
+  // fitHeader() clones $header with its data, so the plugin is only built on the visible fixed header copy.
+  const $container = hasFixedHeader ? that.$tableHeader : getControlContainer(that)
+
+  $container.find('select[multiple]').each((_, element) => {
+    const $select = $(element)
+    const column = that.columns[that.fieldsColumnsIndex[$select.closest('[data-field]').data('field')]]
+
+    if (!column || !column.filterControlMultipleSelect) {
+      return
+    }
+
+    const optionValues = Array.from(element.options, option => option.value).join('\n')
+
+    if (!$select.data('multipleSelect')) {
+      $select.multipleSelect({
+        placeholder: column.filterControlPlaceholder,
+        container: hasFixedHeader ? 'body' : null,
+        ...column.filterControlMultipleSelectOptions
+      })
+    } else if ($select.data('filterControlOptionValues') === optionValues) {
+      $select.multipleSelect('setSelects', $select.val() || [], 'value', true)
+    } else {
+      $select.multipleSelect('refresh')
+    }
+
+    $select.data('filterControlOptionValues', optionValues)
+  })
+}
+
+export function closeMultipleSelectControls (that) {
+  that.$header.add(that.$tableHeader).add(getControlContainer(that)).find('select[multiple]').each((_, element) => {
+    if ($(element).data('multipleSelect')) {
+      $(element).multipleSelect('close')
+    }
+  })
 }
 
 export function getDirectionOfSelectOptions (_alignment) {

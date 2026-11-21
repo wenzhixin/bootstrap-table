@@ -217,6 +217,34 @@ toc: true
 
 - **Default:** `undefined`
 
+### filterControlMultipleSelect
+
+- **Attribute:** `data-filter-control-multiple-select`
+
+- **type:** `Boolean`
+
+- **Detail:**
+
+  Set to `true` to let users select several values in a `filterControl: 'select'` control. Rows matching any of the selected values are shown.
+
+  The control is a native `<select multiple>`. When the [multiple-select](https://github.com/wenzhixin/multiple-select) plugin is loaded, it is used to render the control.
+
+- **Default:** `false`
+
+### filterControlMultipleSelectOptions
+
+- **Attribute:** `data-filter-control-multiple-select-options`
+
+- **type:** `Object`
+
+- **Detail:**
+
+  Options passed to the [multiple-select](https://github.com/wenzhixin/multiple-select) plugin when `filterControlMultipleSelect` is enabled and the plugin is loaded. `placeholder` defaults to `filterControlPlaceholder`, and `container` defaults to `'body'` when the table has a `height`.
+
+  Example: `data-filter-control-multiple-select-options='{"filter": true, "selectAll": false}'`
+
+- **Default:** `{}`
+
 ### filterDatepickerOptions
 
 - **Attribute:** `data-filter-datepicker-options`
@@ -287,7 +315,7 @@ toc: true
 
 ### onColumnSearch(column-search.bs.table)
 
-* Fired when we are searching into the column data
+* Fired when we are searching into the column data. For a `filterControlMultipleSelect` column, `text` is an array of the selected values.
 
 ### onCreatedControls(created-controls.bs.table)
 
