@@ -326,9 +326,25 @@ export default {
     }
     const handleInputEvent = $searchInput => {
       const eventTriggers = $searchInput.is('select') ? 'change' : 'keyup drop blur mouseup'
+      const search = currentTarget => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+          this.onSearch({ currentTarget })
+        }, opts.searchTimeOut)
+      }
 
       $searchInput.off(eventTriggers).on(eventTriggers, event => {
+        const { currentTarget } = event
+
         if (opts.searchOnEnterKey && event.keyCode !== 13) {
+          if (event.type === 'mouseup' && currentTarget.value !== '') {
+            // The native clear (x) button of a search input empties the value only after mouseup.
+            setTimeout(() => {
+              if (currentTarget.value === '') {
+                search(currentTarget)
+              }
+            }, 1)
+          }
           return
         }
 
@@ -336,10 +352,7 @@ export default {
           return
         }
 
-        clearTimeout(timeoutId) // doesn't matter if it's 0
-        timeoutId = setTimeout(() => {
-          this.onSearch({ currentTarget: event.currentTarget })
-        }, opts.searchTimeOut)
+        search(currentTarget)
       })
     }
 
