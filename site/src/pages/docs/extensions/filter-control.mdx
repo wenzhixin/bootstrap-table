@@ -291,7 +291,11 @@ toc: true
 
 ### onCreatedControls(created-controls.bs.table)
 
-* Fired when we are searching into the column data
+* Fired after the filter controls are created. Select controls filled from the column data have no options yet; use `onOptionsAdded` for those.
+
+### onOptionsAdded(options-added.bs.table)
+
+* Fired after options are added to a select control filled from the column data (columns without `filterData`). The parameters are `field` and `selectControl` (the jQuery select element). With `height`, it fires again each time the fixed header is rebuilt, because `selectControl` is a new element.
 
 ## Methods
 
