@@ -182,7 +182,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
+    UtilsFilterControl.createControls(this, this.options.filterControlContainer ? UtilsFilterControl.getControlContainer(this) : this.$header)
     UtilsFilterControl.setValues(this)
   }
 
@@ -192,7 +192,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
-    UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
+    UtilsFilterControl.createControls(this, this.options.filterControlContainer ? UtilsFilterControl.getControlContainer(this) : this.$header)
     this._initialized = true
   }
 
