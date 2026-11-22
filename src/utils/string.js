@@ -82,6 +82,8 @@ const ACCENT_MAP = {
   Ω: 'O', Ώ: 'O', ω: 'o', ώ: 'o'
 }
 
+const ACCENT_PATTERN = new RegExp(`[${Object.keys(ACCENT_MAP).join('')}]`, 'g')
+
 /**
  * Simple string formatter that replaces %s placeholders with provided arguments.
  * Only supports %s placeholder. Returns empty string if any argument is undefined.
@@ -190,6 +192,14 @@ export function removeHTML (text) {
     .trim()
 }
 
+function foldAccent (value) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(ACCENT_PATTERN, char => ACCENT_MAP[char])
+    .toLowerCase()
+}
+
 /**
  * Normalizes accented characters in a string to their non-accented equivalents.
  * Converts to lowercase and removes diacritical marks.
@@ -201,14 +211,55 @@ export function normalizeAccent (value) {
   if (typeof value !== 'string') {
     return value
   }
-  const pattern = new RegExp(`[${Object.keys(ACCENT_MAP).join('')}]`, 'g')
 
-  return value
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(pattern, char => ACCENT_MAP[char])
-    .toLowerCase()
-    .trim()
+  return foldAccent(value).trim()
+}
+
+/**
+ * Finds `searchText` in `value` the way `normalizeAccent` compares them
+ * and returns the matching part of the original `value`.
+ *
+ * @param {string} value - The original string.
+ * @param {string} searchText - The text to look for.
+ * @returns {string|undefined} The matching substring of `value`, or undefined.
+ * @example
+ * findAccentNeutralMatch('A naïve test', 'naive') // returns 'naïve'
+ */
+export function findAccentNeutralMatch (value, searchText) {
+  const search = normalizeAccent(searchText)
+
+  if (!search) {
+    return undefined
+  }
+  // starts[i] is the index in `value` of the character that folded[i] comes from
+  const starts = []
+  let folded = ''
+  let index = 0
+
+  for (const char of value) {
+    const part = foldAccent(char)
+
+    for (let i = 0; i < part.length; i++) {
+      starts.push(index)
+    }
+    folded += part
+    index += char.length
+  }
+  starts.push(value.length)
+
+  const start = folded.indexOf(search)
+
+  if (start === -1) {
+    return undefined
+  }
+  let end = start + search.length
+
+  // a match that ends inside a folded character (`ae` from `æ`) takes all of it
+  while (starts[end] === starts[end - 1]) {
+    end++
+  }
+
+  return value.substring(starts[start], starts[end])
 }
 
 /**

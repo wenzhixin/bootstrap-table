@@ -287,4 +287,64 @@ describe('BodyModule', () => {
       expect(titleEl.querySelector('b')).not.toBeNull()
     })
   })
+  describe('search highlight with searchAccentNeutralise', () => {
+    function renderCell (value, searchText, searchAccentNeutralise = true) {
+      const ctx = createBodyMockContext({
+        options: {
+          cardView: false,
+          showHeader: true,
+          escape: true,
+          undefinedText: '-',
+          searchHighlight: true,
+          searchAccentNeutralise
+        },
+        hiddenRows: [],
+        searchText,
+        columns: [{ field: 'name', title: 'Name', visible: true, searchable: true }],
+        header: {
+          fields: ['name'],
+          classes: [],
+          styles: [],
+          cellStyles: [],
+          formatters: []
+        },
+        fieldsColumnsIndex: { name: 0 },
+        $header: { find: vi.fn(() => ({ each: vi.fn() })) },
+        resetView: vi.fn()
+      })
+
+      Object.assign(ctx, BodyModule, HeaderModule)
+      const tr = ctx.initRow({ name: value }, 0, [{ name: value }], document.createDocumentFragment())
+
+      return tr.querySelector('td').innerHTML
+    }
+
+    it('should highlight accented text', () => {
+      expect(renderCell('Müller', 'muller')).toBe('<mark>Müller</mark>')
+    })
+
+    it('should highlight the matched text after characters that fold to two letters', () => {
+      expect(renderCell('Großer Weg', 'weg')).toBe('Großer <mark>Weg</mark>')
+      expect(renderCell('Straße 12', '12')).toBe('Straße <mark>12</mark>')
+      expect(renderCell('Ærø Havn', 'havn')).toBe('Ærø <mark>Havn</mark>')
+      expect(renderCell('Ærø Havn', 'ae')).toBe('<mark>Æ</mark>rø Havn')
+    })
+
+    it('should highlight the matched text after leading whitespace', () => {
+      expect(renderCell('  padded name', 'name')).toBe('  padded <mark>name</mark>')
+    })
+
+    it('should not highlight more than the matched text', () => {
+      expect(renderCell('Price 1.5 kg', '1.5')).toBe('Price <mark>1.5</mark> kg')
+    })
+
+    it('should escape the matched text before highlighting it', () => {
+      expect(renderCell('Phone (2)', '(')).toBe('Phone <mark>(</mark>2)')
+    })
+
+    it('should highlight the same text without searchAccentNeutralise', () => {
+      expect(renderCell('Großer Weg', 'weg', false)).toBe('Großer <mark>Weg</mark>')
+      expect(renderCell('Phone (2)', '(', false)).toBe('Phone <mark>(</mark>2)')
+    })
+  })
 })
