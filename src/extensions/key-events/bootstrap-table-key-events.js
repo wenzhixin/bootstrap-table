@@ -20,7 +20,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
   }
 
   initKeyEvents () {
-    $(document).off('keydown').on('keydown', e => {
+    // use a namespaced event so that only this table's handler is replaced,
+    // not the keydown handlers of other tables or of the page
+    this._keyEventsName = this._keyEventsName || Utils.getEventName('keydown.bs.table.keyEvents')
+
+    $(document).off(this._keyEventsName).on(this._keyEventsName, e => {
       const search = Utils.getSearchInput(this)
       const $refresh = this.$toolbar.find('button[name="refresh"]')
       const $toggle = this.$toolbar.find('button[name="toggle"]')
