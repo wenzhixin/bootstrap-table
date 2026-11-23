@@ -46,7 +46,10 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     this.searchParams = new URLSearchParams(window.location.search.substring(1))
     this.options.pageNumber = +this.getDefaultOptionValue('pageNumber', 'page')
-    this.options.pageSize = +this.getDefaultOptionValue('pageSize', 'size')
+    const pageSize = this.getDefaultOptionValue('pageSize', 'size')
+
+    // "All" is saved as the formatAllRows() text, keep it as text instead of turning it into NaN
+    this.options.pageSize = Number.isNaN(+pageSize) ? pageSize : +pageSize
     this.options.sortOrder = this.getDefaultOptionValue('sortOrder', 'order')
     this.options.sortName = this.getDefaultOptionValue('sortName', 'sort')
     this.options.searchText = this.getDefaultOptionValue('searchText', 'search')
