@@ -61,13 +61,17 @@ export function existOptionInSelectControl (selectControl, value) {
   return false
 }
 
-export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText) {
+export function addOptionToSelectControl (selectControl, _value, text, selected, shouldCompareText, existingValues) {
   let value = _value === undefined || _value === null ? '' : _value.toString().trim()
 
   value = Utils.removeHTML(Utils.unescapeHTML(value))
   text = Utils.removeHTML(Utils.unescapeHTML(text))
 
-  if (existOptionInSelectControl(selectControl, value)) {
+  const exists = existingValues ?
+    existingValues.has(Utils.unescapeHTML(value)) :
+    existOptionInSelectControl(selectControl, value)
+
+  if (exists) {
     return
   }
 
@@ -76,6 +80,7 @@ export function addOptionToSelectControl (selectControl, _value, text, selected,
   const option = new Option(text, value, false, isSelected)
 
   selectControl.get(0).add(option)
+  existingValues?.add(option.value)
 }
 
 export function sortSelectControl (selectControl, orderBy, options) {
@@ -315,6 +320,7 @@ export function initFilterSelectControls (that) {
       }
 
       const uniqueValues = {}
+      const existingValues = new Set(Array.from(getOptionsFromSelectControl(selectControl), option => option.value))
 
       for (let i = 0; i < data.length; i++) {
         // Added a new value
@@ -337,7 +343,7 @@ export function initFilterSelectControls (that) {
 
         if (typeof formattedValue === 'object' && formattedValue !== null) {
           formattedValue.forEach(value => {
-            addOptionToSelectControl(selectControl, value, value, column.filterDefault)
+            addOptionToSelectControl(selectControl, value, value, column.filterDefault, false, existingValues)
           })
           continue
         }
@@ -347,7 +353,7 @@ export function initFilterSelectControls (that) {
 
       // eslint-disable-next-line guard-for-in
       for (const key in uniqueValues) {
-        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault, false, existingValues)
       }
 
       if (that.options.sortSelectOptions) {
