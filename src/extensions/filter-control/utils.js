@@ -314,7 +314,7 @@ export function initFilterSelectControls (that) {
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
       }
 
-      const uniqueValues = {}
+      const options = new Map()
 
       for (let i = 0; i < data.length; i++) {
         // Added a new value
@@ -335,19 +335,25 @@ export function initFilterSelectControls (that) {
           fieldValue = formattedValue
         }
 
-        if (typeof formattedValue === 'object' && formattedValue !== null) {
-          formattedValue.forEach(value => {
-            addOptionToSelectControl(selectControl, value, value, column.filterDefault)
-          })
+        if (Utils.isDomNode(formattedValue)) {
+          const label = $(formattedValue).text()
+
+          if (fieldValue === formattedValue) {
+            fieldValue = label
+          }
+          formattedValue = label || fieldValue
+        } else if (typeof formattedValue?.forEach === 'function') {
+          formattedValue.forEach(value => options.set(value, value))
           continue
         }
 
-        uniqueValues[formattedValue] = fieldValue
+        if (!options.has(fieldValue)) {
+          options.set(fieldValue, formattedValue)
+        }
       }
 
-      // eslint-disable-next-line guard-for-in
-      for (const key in uniqueValues) {
-        addOptionToSelectControl(selectControl, uniqueValues[key], key, column.filterDefault)
+      for (const [value, label] of options) {
+        addOptionToSelectControl(selectControl, value, label, column.filterDefault)
       }
 
       if (that.options.sortSelectOptions) {
