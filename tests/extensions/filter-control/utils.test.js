@@ -67,4 +67,53 @@ describe('filter-control utils', () => {
       expect(consoleError).not.toHaveBeenCalled()
     })
   })
+
+  describe('collectBootstrapTableFilterCookies', () => {
+    let original$
+    let collectBootstrapTableFilterCookies
+
+    beforeEach(async () => {
+      vi.resetModules()
+      original$ = globalThis.$
+      globalThis.$ = {
+        fn: {
+          bootstrapTable: {
+            utils: {}
+          }
+        },
+        inArray: (value, array) => array.indexOf(value),
+        each: (array, callback) => array.forEach((value, i) => callback(i, value))
+      }
+      const utils = await import('@/extensions/filter-control/utils.js')
+
+      collectBootstrapTableFilterCookies = utils.collectBootstrapTableFilterCookies
+      localStorage.clear()
+    })
+
+    afterEach(() => {
+      globalThis.$ = original$
+      localStorage.clear()
+    })
+
+    it('finds both names when the filterControl key comes first', () => {
+      localStorage.setItem('table.bs.table.filterControl', '[]')
+      localStorage.setItem('table.bs.table.searchText', 'abc')
+
+      expect(collectBootstrapTableFilterCookies().sort()).toEqual(['filterControl', 'searchText'])
+    })
+
+    it('finds both names when the searchText key comes first', () => {
+      localStorage.setItem('table.bs.table.searchText', 'abc')
+      localStorage.setItem('table.bs.table.filterControl', '[]')
+
+      expect(collectBootstrapTableFilterCookies().sort()).toEqual(['filterControl', 'searchText'])
+    })
+
+    it('ignores keys that are not bootstrap table cookies', () => {
+      localStorage.setItem('other', '1')
+      localStorage.setItem('table.bs.table.searchText', 'abc')
+
+      expect(collectBootstrapTableFilterCookies()).toEqual(['searchText'])
+    })
+  })
 })
