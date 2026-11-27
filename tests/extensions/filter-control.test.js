@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 async function loadFilterControlPrototype () {
   if (!globalThis.$) {
@@ -524,23 +524,65 @@ describe('filter-control issue #8246', () => {
   })
 })
 
-describe('filter-control filterDataCollector returning an array', () => {
-  it('adds one option per array entry and not the joined original value', async () => {
-    const { $ } = await loadFilterControlPrototype()
-
+describe('filter-control select options', () => {
+  beforeEach(() => {
     // happy-dom has no Option constructor
-    const hadOption = typeof globalThis.Option === 'function'
-
-    if (!hadOption) {
-      globalThis.Option = function (text, value, _default, selected) {
+    if (typeof globalThis.Option !== 'function') {
+      vi.stubGlobal('Option', function (text, value, _default, selected) {
         const option = document.createElement('option')
 
         option.textContent = text
         option.value = value
         option.selected = !!selected
         return option
-      }
+      })
     }
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it.each([false, true])('filters a jQuery-formatted cell with searchFormatter=%s', async searchFormatter => {
+    const { $ } = await loadFilterControlPrototype()
+    const $table = $('<table>').appendTo(document.body)
+    const data = [{ code: 'A' }, { code: 'B' }, { code: 'C' }, { code: 'D' }]
+    const labels = { B: 'Beta', C: 'Beta', D: '' }
+
+    try {
+      $table.bootstrapTable({
+        filterControl: true,
+        searchTimeOut: 0,
+        columns: [{
+          field: 'code',
+          filterControl: 'select',
+          searchFormatter,
+          formatter: value => value === 'A' ? 'Alpha' : $('<span>').text(labels[value])
+        }],
+        data
+      })
+
+      const $select = $table.find('thead select')
+      const expectedOptions = searchFormatter ?
+        [['Alpha', 'Alpha'], ['Beta', 'Beta']] :
+        [['A', 'Alpha'], ['B', 'Beta'], ['C', 'Beta'], ['D', 'D']]
+
+      await vi.waitFor(() => {
+        expect(Array.from($select[0].options, option => [option.value, option.text]).slice(1)).toEqual(expectedOptions)
+      })
+      $select.val(searchFormatter ? 'Beta' : 'B').trigger('change')
+      await vi.waitFor(() => {
+        expect($table.bootstrapTable('getData')).toEqual(searchFormatter ? [data[1], data[2]] : [data[1]])
+      })
+    } finally {
+      $table.bootstrapTable('destroy')
+      $table.remove()
+    }
+  })
+
+  it('adds one option per array entry and not the joined original value', async () => {
+    const { $ } = await loadFilterControlPrototype()
+
     globalThis.splitCollector = value => value.split(',')
     document.body.innerHTML = '<table id="fdc-test"></table>'
     const $table = $('#fdc-test')
@@ -572,9 +614,6 @@ describe('filter-control filterDataCollector returning an array', () => {
         $table.bootstrapTable('destroy')
       }
       delete globalThis.splitCollector
-      if (!hadOption) {
-        delete globalThis.Option
-      }
       document.body.innerHTML = ''
     }
   })

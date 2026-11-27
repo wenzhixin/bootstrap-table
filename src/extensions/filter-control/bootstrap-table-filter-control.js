@@ -260,6 +260,8 @@ $.BootstrapTable = class extends $.BootstrapTable {
                   tmpItemIsExpected = false
                 } else if (typeof value === 'object' && thisColumn.filterCustomSearch) {
                   itemIsExpected.push(that.isValueExpected(rawFilterValue, value, thisColumn, key))
+                } else if (Utils.isDomNode(value)) {
+                  tmpItemIsExpected = that.isValueExpected(filterValue, $(value).text(), thisColumn, key)
                 } else if (typeof value === 'object' && Array.isArray(value)) {
                   value.forEach(objectValue => {
                     if (tmpItemIsExpected) {
