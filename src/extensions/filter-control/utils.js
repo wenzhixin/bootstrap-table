@@ -314,6 +314,7 @@ export function initFilterSelectControls (that) {
         addOptionToSelectControl(selectControl, '', column.filterControlPlaceholder || ' ', column.filterDefault)
       }
 
+      const optionsCount = selectControl.get(0).options.length
       const uniqueValues = {}
 
       for (let i = 0; i < data.length; i++) {
@@ -352,6 +353,10 @@ export function initFilterSelectControls (that) {
 
       if (that.options.sortSelectOptions) {
         sortSelectControl(selectControl, column.filterOrderBy, that.options)
+      }
+
+      if (selectControl.get(0).options.length > optionsCount) {
+        that.trigger('options-added', field, selectControl)
       }
     }
   })
