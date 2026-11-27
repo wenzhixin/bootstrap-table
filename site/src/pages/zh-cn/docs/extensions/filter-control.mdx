@@ -223,6 +223,34 @@ toc: true
 
 - **默认值:** `undefined`
 
+### filterControlMultipleSelect
+
+- **属性:** `data-filter-control-multiple-select`
+
+- **类型:** `Boolean`
+
+- **详情:**
+
+  设置为 `true` 时，`filterControl: 'select'` 的过滤控件允许选择多个值，显示匹配任一选中值的行。
+
+  控件为原生 `<select multiple>`。如果加载了 [multiple-select](https://github.com/wenzhixin/multiple-select) 插件，则使用该插件渲染控件。
+
+- **默认值:** `false`
+
+### filterControlMultipleSelectOptions
+
+- **属性:** `data-filter-control-multiple-select-options`
+
+- **类型:** `Object`
+
+- **详情:**
+
+  启用 `filterControlMultipleSelect` 并加载了 [multiple-select](https://github.com/wenzhixin/multiple-select) 插件时传递给插件的选项。`placeholder` 默认使用 `filterControlPlaceholder`；表格设置了 `height` 时，`container` 默认为 `'body'`。
+
+  例如：`data-filter-control-multiple-select-options='{"filter": true, "selectAll": false}'`
+
+- **默认值:** `{}`
+
 ### filterDatepickerOptions
 
 - **属性:** `data-filter-datepicker-options`
@@ -293,7 +321,7 @@ toc: true
 
 ### onColumnSearch (column-search.bs.table)
 
-* 当列数据触发搜索时触发。
+* 当列数据触发搜索时触发。对于 `filterControlMultipleSelect` 列，`text` 为选中值组成的数组。
 
 ### onCreatedControls (created-controls.bs.table)
 

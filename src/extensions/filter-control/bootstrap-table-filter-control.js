@@ -32,12 +32,16 @@ Object.assign($.fn.bootstrapTable.defaults, {
     },
 
     select (that, column) {
+      const isMultiple = column.filterControlMultipleSelect
+      const multipleAttr = isMultiple ? 'multiple' : ''
+      const multipleClass = isMultiple ? 'multiple-select' : ''
+
       return Utils.sprintf(
         '<select class="%s bootstrap-table-filter-control-%s %s" %s style="width: 100%;" dir="%s"></select>',
         UtilsFilterControl.getInputClass(that, true),
         column.field,
-        '',
-        '',
+        multipleClass,
+        multipleAttr,
         UtilsFilterControl.getDirectionOfSelectOptions(
           that.options.alignmentSelectControlOptions
         )
@@ -182,6 +186,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
       return
     }
 
+    UtilsFilterControl.closeMultipleSelectControls(this)
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
     UtilsFilterControl.setValues(this)
   }
@@ -194,6 +199,22 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
     UtilsFilterControl.createControls(this, UtilsFilterControl.getControlContainer(this))
     this._initialized = true
+  }
+
+  fitHeader () {
+    if (this.options.filterControl) {
+      UtilsFilterControl.closeMultipleSelectControls(this)
+    }
+
+    super.fitHeader()
+  }
+
+  destroy () {
+    if (this.options.filterControl) {
+      UtilsFilterControl.closeMultipleSelectControls(this)
+    }
+
+    super.destroy()
   }
 
   initSearch () {
@@ -217,20 +238,20 @@ $.BootstrapTable = class extends $.BootstrapTable {
         keys.forEach(key => {
           const thisColumn = that.columns[that.fieldsColumnsIndex[key]]
           const rawFilterValue = filterPartial[key] || ''
-          let filterValue = rawFilterValue.toLowerCase()
           let value = Utils.unescapeHTML(Utils.getItemField(item, key, false))
+          let isValueFormatted = false
           let tmpItemIsExpected
 
-          if (this.options.searchAccentNeutralise) {
-            filterValue = Utils.normalizeAccent(filterValue)
-          }
+          let filterValues = [].concat(rawFilterValue).map(searchValue => {
+            const lowerCaseValue = searchValue.toLowerCase()
 
-          let filterValues = [filterValue]
+            return this.options.searchAccentNeutralise ? Utils.normalizeAccent(lowerCaseValue) : lowerCaseValue
+          })
 
           if (
-            this.options.filterControlMultipleSearch
+            this.options.filterControlMultipleSearch && !Array.isArray(rawFilterValue)
           ) {
-            filterValues = filterValue.split(this.options.filterControlMultipleSearchDelimiter)
+            filterValues = filterValues[0].split(this.options.filterControlMultipleSearchDelimiter)
           }
 
           filterValues.forEach(filterValue => {
@@ -244,7 +265,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
               tmpItemIsExpected = true
             } else {
               // Fix #142: search use formatted data
-              if (thisColumn) {
+              if (thisColumn && !isValueFormatted) {
                 if (thisColumn.searchFormatter || thisColumn._forceFormatter) {
                   value = $.fn.bootstrapTable.utils.calculateObjectValue(
                     thisColumn,
@@ -253,6 +274,7 @@ $.BootstrapTable = class extends $.BootstrapTable {
                     value
                   )
                 }
+                isValueFormatted = true
               }
 
               if ($.inArray(key, that.header.fields) !== -1) {
@@ -512,17 +534,17 @@ $.BootstrapTable = class extends $.BootstrapTable {
     controls.forEach(element => {
       const $element = $(element)
       const elementValue = $element.val()
-      const text = elementValue ? elementValue.trim() : ''
+      const text = Array.isArray(elementValue) ? elementValue : elementValue ? elementValue.trim() : ''
       const $field = $element.closest('[data-field]').data('field')
 
       // Skip empty values on the initial render: the cookie extension
       // persists every column-search event, and an empty one here (before
       // its 250ms restore timer) would clobber the saved filter cookie.
-      if (!isInitialRender || text) {
+      if (!isInitialRender || text.length) {
         this.trigger('column-search', $field, text)
       }
 
-      if (text) {
+      if (text.length) {
         this.filterColumnsPartial[$field] = text
       } else {
         delete this.filterColumnsPartial[$field]

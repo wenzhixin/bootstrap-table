@@ -108,6 +108,25 @@ const UtilsCookie = {
             const value = element.value.toString()
             const text = cookie.text
 
+            if (Array.isArray(text)) {
+              if (element.tagName === 'SELECT' && element.multiple) {
+                text.filter(item => !Array.from(element.options).some(option => option.value === item)).forEach(item => {
+                  const option = document.createElement('option')
+
+                  option.value = item
+                  option.text = item
+                  element.add(option)
+                })
+                Array.from(element.options).forEach(option => {
+                  option.selected = text.includes(option.value)
+                })
+                if (text.length) {
+                  cachedFilters[cookie.field] = text
+                }
+              }
+              return
+            }
+
             if (
               text === '' ||
               element.type === 'radio' &&
