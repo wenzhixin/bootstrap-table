@@ -247,8 +247,9 @@ export function setValues (that) {
 
 export function collectBootstrapTableFilterCookies () {
   const cookies = []
-  const cookieRegex = /bs\.table\.(filterControl|searchText)/g
-  const foundCookies = document.cookie.match(cookieRegex)
+  // Not global: a global regex keeps lastIndex between test() calls and skips later keys
+  const cookieRegex = /bs\.table\.(filterControl|searchText)/
+  const foundCookies = document.cookie.match(new RegExp(cookieRegex, 'g'))
   const foundLocalStorage = localStorage
 
   if (foundCookies) {
