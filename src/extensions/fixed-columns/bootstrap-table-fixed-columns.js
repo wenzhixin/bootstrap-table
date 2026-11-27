@@ -2,6 +2,8 @@
  * @author zhixin wen <wenzhixin2010@gmail.com>
  */
 
+const Utils = $.fn.bootstrapTable.utils
+
 // Reasonable defaults
 const PIXEL_STEP = 10
 const LINE_HEIGHT = 40
@@ -75,6 +77,15 @@ Object.assign($.fn.bootstrapTable.defaults, {
   fixedRightNumber: 0
 })
 
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])'
+].join(',')
+
 $.BootstrapTable = class extends $.BootstrapTable {
 
   fixedColumnsSupported () {
@@ -91,7 +102,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
 
     if (this.options.fixedNumber) {
-      this.$tableContainer.append('<div class="fixed-columns"></div>')
+      // Keep the left pane before the scrollable body in DOM order so that
+      // pressing Tab on a pinned cell continues into the main table (#6849).
+      this.$tableContainer.prepend('<div class="fixed-columns"></div>')
       this.$fixedColumns = this.$tableContainer.find('.fixed-columns')
     }
 
@@ -307,6 +320,80 @@ $.BootstrapTable = class extends $.BootstrapTable {
     }
   }
 
+  // visible cell indexes (in the rendered row) covered by each fixed pane
+  getFixedColumnsCellRange (isRight) {
+    const range = []
+    const detailOffset = Utils.getDetailViewIndexOffset(this.options)
+    const count = isRight ? this.options.fixedRightNumber : this.options.fixedNumber
+
+    for (let i = 0; i < count; i++) {
+      if (isRight) {
+        range.push(detailOffset + this.getVisibleFields().length - 1 - i)
+      } else {
+        range.push(detailOffset + i)
+      }
+    }
+    return range
+  }
+
+  // Keep a single tab stop per cell: pinned columns are tabbable in the fixed
+  // panes, the remaining columns in the main table (#6849). The header, body
+  // and (since #8424) the footer are all cloned into the panes, so every
+  // duplicated cell — including the footer clones — needs the same treatment.
+  updateFixedColumnsTabIndex () {
+    const enabled = !!this.needFixedColumns
+    const leftRange = enabled ? this.getFixedColumnsCellRange() : []
+    const rightRange = enabled ? this.getFixedColumnsCellRange(true) : []
+    // A data attribute stores the original tabindex of the elements disabled
+    // by us, so the repeated cloning keeps the tab stops stable instead of
+    // accumulating -1 attributes, and a pre-existing explicit tabindex
+    // survives a disable/enable cycle.
+    const setTabbable = (cell, tabbable) => {
+      const $cell = $(cell)
+
+      if (tabbable) {
+        $cell.find('[data-bt-tabindex]').each((i, el) => {
+          const $el = $(el)
+          const original = $el.attr('data-bt-tabindex')
+
+          if (original === '') {
+            $el.removeAttr('tabindex')
+          } else {
+            $el.attr('tabindex', original)
+          }
+          $el.removeAttr('data-bt-tabindex')
+        })
+      } else {
+        $cell.find(FOCUSABLE_SELECTOR).not('[data-bt-tabindex]')
+          .not('[tabindex="-1"]')
+          .each((i, el) => {
+            $(el).attr({
+              'data-bt-tabindex': $(el).attr('tabindex') ?? '',
+              tabindex: -1
+            })
+          })
+      }
+    }
+
+    // The pane containers must be tested first: since #8424 they also contain
+    // cloned `.fixed-table-footer` elements, which would otherwise match the
+    // footer branch below and be made fully tabbable.
+    this.$tableContainer.find('td, th').each((i, cell) => {
+      const index = cell.cellIndex
+      const $cell = $(cell)
+
+      if ($cell.closest('.fixed-columns-right').length) {
+        setTabbable(cell, rightRange.includes(index))
+      } else if ($cell.closest('.fixed-columns').length) {
+        setTabbable(cell, leftRange.includes(index))
+      } else {
+        // main table (header, body and footer): the columns shown in a pane
+        // are not tabbable here, the remaining ones are
+        setTabbable(cell, !leftRange.includes(index) && !rightRange.includes(index))
+      }
+    })
+  }
+
   getFixedColumnsFooterHeight () {
     // Without a fixed height the footer is rendered as a <tfoot> inside the
     // table body, which is already covered by the cloned fixed body — so there
@@ -364,6 +451,11 @@ $.BootstrapTable = class extends $.BootstrapTable {
       this.$fixedColumnsRight.find('.fixed-table-footer').remove()
       this.$fixedFooterRight = null
     }
+
+    // Run after the footer clones exist: every clone lifecycle (header, body,
+    // footer, including the `post-footer` and `fitFooter` re-clones) ends up
+    // here, so the tab stops are re-applied to the freshest DOM.
+    this.updateFixedColumnsTabIndex()
   }
 
   syncFixedColumnsFooterScroll () {
